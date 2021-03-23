@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
@@ -8,7 +9,7 @@ class DefaultButton extends StatelessWidget {
     @required this.text,
     @required this.action,
     this.color = Palette.green,
-    this.elevation = Styles.dropShadow,
+    this.elevation = Styles.normalElevation,
   })  : assert(text != null),
         super(key: key);
 
@@ -32,9 +33,12 @@ class DefaultButton extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: Styles.greenButtonText,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          shape: Styles.buttonRadius,
+          shape: Styles.smallRadius,
           textColor: Palette.cream,
           color: color,
           onPressed: action,

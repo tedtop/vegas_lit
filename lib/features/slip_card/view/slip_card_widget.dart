@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,7 +111,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            AutoSizeText(
+            Text(
               '${betButtonState.game.teams.home.mascot.toUpperCase()} TO WIN',
               maxLines: 1,
               style: GoogleFonts.nunito(
@@ -121,7 +120,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            AutoSizeText(
+            Text(
               whichBetSystem(betType: betButtonState.betType),
               maxLines: 1,
               style: GoogleFonts.nunito(
@@ -130,7 +129,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            AutoSizeText(
+            Text(
               betButtonState.text,
               maxLines: 1,
               style: GoogleFonts.nunito(
@@ -290,12 +289,14 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
               // ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 160),
-                child: Text('@',
-                    style: GoogleFonts.nunito(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Palette.cream,
-                    )),
+                child: Text(
+                  '@',
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Palette.cream,
+                  ),
+                ),
               ),
               Flexible(
                 child: Column(

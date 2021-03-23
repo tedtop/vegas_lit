@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
 
 class Styles {
-  static const double dropShadow = 4.0;
+  static const double normalElevation = 4.0;
 
-  static final ShapeBorder buttonRadius = RoundedRectangleBorder(
+  static final ShapeBorder smallRadius = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(6.0),
   );
 
-  static final TextStyle greenButtonText = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-  );
-
-  static final TextStyle redButtonText = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.normal,
-  );
-
-  static final ShapeBorder cardRadius = RoundedRectangleBorder(
+  static final ShapeBorder largeRadius = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(12.0),
   );
 }

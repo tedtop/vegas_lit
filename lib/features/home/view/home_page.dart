@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,21 +88,21 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AutoSizeText(
+                    Text(
                       'Balance',
                       style: GoogleFonts.nunito(
                         color: Palette.cream,
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         fontWeight: FontWeight.w700,
                       ),
                       maxLines: 1,
                     ),
-                    AutoSizeText(
+                    Text(
                       '\$100',
                       style: GoogleFonts.nunito(
                         color: Palette.cream,
                         fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                     ),

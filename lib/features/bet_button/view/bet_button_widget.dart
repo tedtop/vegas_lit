@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
@@ -76,11 +75,11 @@ class BetButtonUnclicked extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             color: Palette.darkGrey,
-            child: AutoSizeText(
+            child: Text(
               betButtonState.text,
               maxLines: 1,
               style: GoogleFonts.nunito(
-                fontSize: 18,
+                fontSize: 14,
                 color: Palette.cream,
               ),
             ),
@@ -118,11 +117,11 @@ class BetButtonClicked extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             color: Palette.green,
-            child: AutoSizeText(
+            child: Text(
               betButtonState.text,
               maxLines: 1,
               style: GoogleFonts.nunito(
-                fontSize: 18,
+                fontSize: 14,
                 color: Palette.cream,
                 fontWeight: FontWeight.bold,
               ),
