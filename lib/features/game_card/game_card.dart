@@ -194,8 +194,8 @@ class GameCard extends StatelessWidget {
   Widget _betButtonSeparator({
     String text,
   }) {
-    return SizedBox(
-      width: 60,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.5),
       child: AutoSizeText(
         text,
         maxLines: 1,

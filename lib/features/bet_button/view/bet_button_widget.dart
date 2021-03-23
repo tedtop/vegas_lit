@@ -63,35 +63,38 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-    return Expanded(
-      child: Container(
-        width: 160,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: RaisedButton(
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          color: Palette.darkGrey,
-          child: AutoSizeText(
-            betButtonState.text,
-            maxLines: 1,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              color: Palette.cream,
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Container(
+          width: 160,
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: RaisedButton(
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
             ),
+            color: Palette.darkGrey,
+            child: AutoSizeText(
+              betButtonState.text,
+              maxLines: 1,
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                color: Palette.cream,
+              ),
+            ),
+            onPressed: () {
+              context.read<BetButtonCubit>().clickBetButton();
+              context.read<BetSlipCubit>().addBetSlip(
+                    game: BetSlipCard.route(
+                      key: Key('${betButtonState.uniqueId}'),
+                      betButtonCubit: context.read<BetButtonCubit>(),
+                      betType: betButtonState.betType,
+                    ),
+                  );
+            },
           ),
-          onPressed: () {
-            context.read<BetButtonCubit>().clickBetButton();
-            context.read<BetSlipCubit>().addBetSlip(
-                  game: BetSlipCard.route(
-                    key: Key('${betButtonState.uniqueId}'),
-                    betButtonCubit: context.read<BetButtonCubit>(),
-                    betType: betButtonState.betType,
-                  ),
-                );
-          },
         ),
       ),
     );
@@ -102,32 +105,35 @@ class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-    return Expanded(
-      child: Container(
-        width: 160,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: RaisedButton(
-          elevation: 4,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          color: Palette.green,
-          child: AutoSizeText(
-            betButtonState.text,
-            maxLines: 1,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              color: Palette.cream,
-              fontWeight: FontWeight.bold,
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Container(
+          width: 160,
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: RaisedButton(
+            elevation: 4,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
             ),
+            color: Palette.green,
+            child: AutoSizeText(
+              betButtonState.text,
+              maxLines: 1,
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                color: Palette.cream,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onPressed: () {
+              context.read<BetButtonCubit>().unclickBetButton();
+              context.read<BetSlipCubit>().removeBetSlip(
+                    uniqueId: betButtonState.uniqueId,
+                  );
+            },
           ),
-          onPressed: () {
-            context.read<BetButtonCubit>().unclickBetButton();
-            context.read<BetSlipCubit>().removeBetSlip(
-                  uniqueId: betButtonState.uniqueId,
-                );
-          },
         ),
       ),
     );
