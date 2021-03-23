@@ -46,7 +46,11 @@ class GameCard extends StatelessWidget {
                         state.game.teams.away.mascot.toUpperCase(),
                         // maxLines: 1,
                         textAlign: TextAlign.center,
-                        style: Styles.defaultSizeBoldCream,
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.cream,
+                        ),
                       ),
                     ),
                   ),
@@ -55,7 +59,11 @@ class GameCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: Text(
                         '@',
-                        style: Styles.defaultSizeBoldCream,
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.cream,
+                        ),
                       ),
                     ),
                   ),
@@ -81,11 +89,13 @@ class GameCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                        state.game.schedule.date.toLocal(),
-                      ),
-                      style: Styles.smallSizeColorCream,
-                    ),
+                        DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                          state.game.schedule.date.toLocal(),
+                        ),
+                        style: GoogleFonts.nunito(
+                          color: Palette.cream,
+                          fontSize: 14,
+                        )),
                     // RichText(
                     //   text: TextSpan(
                     //     children: [
@@ -196,12 +206,14 @@ class GameCard extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
-      child: AutoSizeText(
-        text,
-        maxLines: 1,
-        textAlign: TextAlign.center,
-        style: Styles.defaultSizeColorCreamBold,
-      ),
+      child: AutoSizeText(text,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.nunito(
+            color: Palette.cream,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          )),
     );
   }
 }

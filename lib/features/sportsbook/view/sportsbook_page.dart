@@ -73,7 +73,18 @@ class SportsBookView extends StatelessWidget {
           Text(
             'SPORTSBOOK',
             textAlign: TextAlign.center,
-            style: Styles.largeGreenBold,
+            style: GoogleFonts.nunito(
+              fontSize: 36,
+              color: Palette.green,
+              fontWeight: FontWeight.bold,
+              shadows: <Shadow>[
+                Shadow(
+                  offset: const Offset(0, 4.0),
+                  blurRadius: 4.0,
+                  color: const Color(0xFF000000).withOpacity(0.25),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -133,10 +144,12 @@ class SportsBookView extends StatelessWidget {
                               value: value,
                               child: value == gameName
                                   ? Center(
-                                      child: Text(
-                                        '$value ($length Games)',
-                                        style: Styles.defaultBoldCream,
-                                      ),
+                                      child: Text('$value ($length Games)',
+                                          style: GoogleFonts.nunito(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.cream,
+                                          )),
                                     )
                                   : Center(
                                       child: Text(

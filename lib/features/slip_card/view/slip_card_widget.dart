@@ -150,12 +150,14 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
               Flexible(
                 child: Column(
                   children: [
-                    Text(
-                      betButtonState.game.teams.away.mascot.toUpperCase(),
-                      // maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: Styles.defaultSizeBoldCream,
-                    ),
+                    Text(betButtonState.game.teams.away.mascot.toUpperCase(),
+                        // maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.cream,
+                        )),
                     SizedBox(
                       height: 8,
                     ),
@@ -240,10 +242,11 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                           height: 40,
                           width: 174,
                           child: Center(
-                            child: Text(
-                              'BET AMOUNT',
-                              style: Styles.defaultCream,
-                            ),
+                            child: Text('BET AMOUNT',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 18,
+                                  color: Palette.cream,
+                                )),
                           ),
                         )
                       ],
@@ -287,10 +290,12 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
               // ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 160),
-                child: Text(
-                  '@',
-                  style: Styles.defaultSizeBoldCream,
-                ),
+                child: Text('@',
+                    style: GoogleFonts.nunito(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Palette.cream,
+                    )),
               ),
               Flexible(
                 child: Column(
@@ -355,10 +360,11 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                           height: 40,
                           width: 174,
                           child: Center(
-                            child: Text(
-                              'TO WIN',
-                              style: Styles.defaultCream,
-                            ),
+                            child: Text('TO WIN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 18,
+                                  color: Palette.cream,
+                                )),
                           ),
                         )
                       ],

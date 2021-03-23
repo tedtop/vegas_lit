@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -90,12 +91,20 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     AutoSizeText(
                       'Balance',
-                      style: Styles.creamMediumLessBold,
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                       maxLines: 1,
                     ),
                     AutoSizeText(
                       '\$100',
-                      style: Styles.creamMediumLessBold,
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                       maxLines: 1,
                     ),
                   ],

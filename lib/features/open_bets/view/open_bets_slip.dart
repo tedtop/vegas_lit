@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
@@ -44,13 +45,19 @@ class OpenBetsSlip extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'TITANS TO WIN',
-                        style: Styles.creamLargeBold,
-                      ),
+                      Text('TITANS TO WIN',
+                          style: GoogleFonts.nunito(
+                            fontSize: 24,
+                            color: Palette.cream,
+                            fontWeight: FontWeight.w700,
+                          )),
                       RichText(
                         text: TextSpan(
-                          style: Styles.defaultCreamLessBold,
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Palette.cream,
+                          ),
                           children: [
                             const TextSpan(
                               text: 'BEARS',
@@ -58,30 +65,34 @@ class OpenBetsSlip extends StatelessWidget {
                             const TextSpan(text: '  @  '),
                             TextSpan(
                               text: 'TITANS',
-                              style: Styles.nunitoGreen,
+                              style: GoogleFonts.nunito(color: Palette.green),
                             ),
                           ],
                         ),
                       ),
-                      Text(
-                        'MONEYLINE +100',
-                        style: Styles.defaultCreamLessBold,
-                      ),
+                      Text('MONEYLINE +100',
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Palette.cream,
+                          )),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 3.0,
                         ),
-                        child: Text(
-                          'You bet \$100 to win \100!',
-                          style: Styles.defaultGreen,
-                        ),
+                        child: Text('You bet \$100 to win \100!',
+                            style: GoogleFonts.nunito(
+                              color: Palette.green,
+                              fontSize: 18,
+                            )),
                       ),
                       Row(
                         children: [
-                          Text(
-                            'Sunday, November 08, 2020',
-                            style: Styles.smallCream,
-                          ),
+                          Text('Sunday, November 08, 2020',
+                              style: GoogleFonts.nunito(
+                                color: Palette.cream,
+                                fontSize: 10,
+                              )),
                           // const SizedBox(
                           //   width: 2,
                           // ),

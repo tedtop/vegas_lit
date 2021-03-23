@@ -23,7 +23,7 @@ class DefaultButton extends StatelessWidget {
     return SizedBox(
       width: 174,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 8),
+        padding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
         child: RaisedButton(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: elevation,
