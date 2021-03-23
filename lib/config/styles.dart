@@ -145,30 +145,4 @@ class Styles {
     fontSize: 18,
     color: Palette.cream,
   );
-
-  static final smallCream2 = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 13,
-  );
-
-  static final smallRed2 = GoogleFonts.nunito(
-    color: Palette.red,
-    fontSize: 11,
-  );
-
-  static final defaultDarkGreyBold = GoogleFonts.nunito(
-    color: Palette.darkGrey,
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-  );
-
-  static final defaultGreenBold = GoogleFonts.nunito(
-    color: Palette.green,
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-  );
-
-  static final defaultSize = GoogleFonts.nunito(
-    fontSize: 18,
-  );
 }

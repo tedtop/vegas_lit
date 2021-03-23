@@ -105,7 +105,9 @@ class SportsBookView extends StatelessWidget {
                         underline: Container(
                           height: 0,
                         ),
-                        style: Styles.defaultSize,
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                        ),
                         onChanged: (String newValue) {
                           if (newValue != gameName) {
                             context.read<SportsbookBloc>().add(
