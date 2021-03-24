@@ -138,10 +138,12 @@ class BetButtonClicked extends StatelessWidget {
 class BetButtonDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.all(3.0),
-      child: SizedBox(
+      child: Container(
         width: 160,
+        height: 35,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Center(
           child: Icon(Icons.thumb_up),
         ),
