@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class OpenBets extends Equatable {
-  OpenBets({
+class OpenBetsData extends Equatable {
+  OpenBetsData({
     this.amount,
     this.away,
     this.home,
@@ -20,9 +20,9 @@ class OpenBets extends Equatable {
   final int win;
   final int mlAmount;
 
-  factory OpenBets.fromFirestore(DocumentSnapshot documentSnapshot) {
+  factory OpenBetsData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
-    return OpenBets(
+    return OpenBetsData(
       id: documentSnapshot.id,
       amount: data['amount'] as int,
       away: data['away'] as String,
@@ -41,8 +41,8 @@ class OpenBets extends Equatable {
       home,
       id,
       type,
-      mlAmount,
       win,
+      mlAmount,
     ];
   }
 }

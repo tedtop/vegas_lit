@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/feature/home/home.dart';
 import 'package:vegas_lit/feature/slip/bet_slip.dart';
 import 'package:vegas_lit/feature/sportsbook/subfeature/game_card/game_card.dart';
-
+import 'package:api_client/api_client.dart';
 import '../bloc/sportsbook_bloc.dart';
 import 'sportsbook_intertitial.dart';
 

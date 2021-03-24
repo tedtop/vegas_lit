@@ -1,6 +1,6 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/data/repositories/auth_repository.dart';
 
 import '../sign_up.dart';
 

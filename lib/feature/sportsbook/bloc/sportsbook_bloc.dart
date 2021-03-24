@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/game.dart';
-import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
+import 'package:api_client/api_client.dart';
 
 part 'sportsbook_event.dart';
 part 'sportsbook_state.dart';

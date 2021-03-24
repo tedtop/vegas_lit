@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/open_bets.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
+import 'package:vegas_lit/feature/open_bets/open_bets.dart';
 
 part 'open_bets_state.dart';
 

@@ -4,8 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/user.dart';
-import 'package:vegas_lit/data/repositories/auth_repository.dart';
+import 'package:api_client/api_client.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
 part 'authentication_event.dart';
@@ -15,7 +14,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     @required AuthenticationRepository authenticationRepository,
-  }) : assert(authenticationRepository != null),
+  })  : assert(authenticationRepository != null),
         _authenticationRepository = authenticationRepository,
         super(
           const AuthenticationState.splashscreen(),

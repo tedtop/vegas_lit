@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:api_client/api_client.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/player.dart';
 
 class Leaderboard extends StatefulWidget {
   @override

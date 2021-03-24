@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:vegas_lit/data/repositories/auth_repository.dart';
+import 'package:api_client/api_client.dart';
 import '../../../authentication.dart';
 
 part 'login_state.dart';

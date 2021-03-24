@@ -1,9 +1,9 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/sportsfeed_repository.dart';
 import 'package:vegas_lit/feature/history/bet_history.dart';
 import 'package:vegas_lit/feature/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/feature/open_bets/open_bets.dart';

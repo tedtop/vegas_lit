@@ -1,11 +1,8 @@
 import 'dart:io';
 
+import 'package:api_client/api_client.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vegas_lit/data/base_provider.dart';
-import 'package:vegas_lit/data/models/user.dart';
-import 'package:vegas_lit/data/providers/authentication.dart';
-import 'package:vegas_lit/data/providers/database.dart';
-import 'package:vegas_lit/data/providers/storage.dart';
 
 class AuthenticationRepository {
   BaseAuthenticationProvider authenticationProvider = AuthenticationProvider();

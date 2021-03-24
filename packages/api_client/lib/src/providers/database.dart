@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vegas_lit/data/models/open_bets.dart';
-import 'package:vegas_lit/data/models/user.dart';
 
 import '../base_provider.dart';
+import '../models/open_bets.dart';
+import '../models/user.dart';
 
 class DatabaseProvider extends BaseDatabaseProvider {
   DatabaseProvider({FirebaseFirestore firebaseFirestore})
@@ -80,11 +80,11 @@ class DatabaseProvider extends BaseDatabaseProvider {
   }
 
   @override
-  Stream<List<OpenBets>> fetchOpenBetsById(String currentUserId) {
+  Stream<List<OpenBetsData>> fetchOpenBetsById(String currentUserId) {
     final openBetsData = _firestoreData.collection('open_bets').snapshots().map(
           (event) => event.docs
               .map(
-                (e) => OpenBets.fromFirestore(e),
+                (e) => OpenBetsData.fromFirestore(e),
               )
               .toList(),
         );

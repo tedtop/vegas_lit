@@ -1,9 +1,9 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/feature/slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/feature/slip/subfeature/slip_card/slip_card.dart';
 
@@ -77,7 +77,7 @@ class BetButtonUnclicked extends StatelessWidget {
           ),
           color: Palette.darkGrey,
           child: Text(
-            betButtonState.text,
+            betButtonState.text ?? '100',
             maxLines: 1,
             style: GoogleFonts.nunito(
               fontSize: 14,
@@ -117,7 +117,7 @@ class BetButtonClicked extends StatelessWidget {
           ),
           color: Palette.green,
           child: Text(
-            betButtonState.text,
+            betButtonState.text ?? '100',
             maxLines: 1,
             style: GoogleFonts.nunito(
               fontSize: 14,
@@ -140,7 +140,7 @@ class BetButtonClicked extends StatelessWidget {
 class BetButtonDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Icon(Icons.thumb_up),
     );
   }

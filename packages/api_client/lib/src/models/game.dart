@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class Game {
+import 'package:equatable/equatable.dart';
+
+class Game extends Equatable {
   Game({
     this.schedule,
     this.summary,
@@ -14,16 +16,16 @@ class Game {
     this.odds,
   });
 
-  Schedule schedule;
-  String summary;
-  Details details;
-  Status status;
-  Teams teams;
-  DateTime lastUpdated;
-  int gameId;
-  Venue venue;
-  Scoreboard scoreboard;
-  List<Odd> odds;
+  final Schedule schedule;
+  final String summary;
+  final Details details;
+  final Status status;
+  final Teams teams;
+  final DateTime lastUpdated;
+  final int gameId;
+  final Venue venue;
+  final Scoreboard scoreboard;
+  final List<Odd> odds;
 
   Game copyWith({
     Schedule schedule,
@@ -92,9 +94,23 @@ class Game {
             ? null
             : List<dynamic>.from(odds.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object> get props => [
+        schedule,
+        summary,
+        details,
+        status,
+        teams,
+        lastUpdated,
+        gameId,
+        venue,
+        scoreboard,
+        odds
+      ];
 }
 
-class Details {
+class Details extends Equatable {
   Details({
     this.league,
     this.seasonType,
@@ -103,11 +119,11 @@ class Details {
     this.divisionGame,
   });
 
-  League league;
-  SeasonType seasonType;
-  int season;
-  bool conferenceGame;
-  bool divisionGame;
+  final League league;
+  final SeasonType seasonType;
+  final int season;
+  final bool conferenceGame;
+  final bool divisionGame;
 
   Details copyWith({
     League league,
@@ -147,6 +163,15 @@ class Details {
         "conferenceGame": conferenceGame,
         "divisionGame": divisionGame,
       };
+
+  @override
+  List<Object> get props => [
+        league,
+        seasonType,
+        season,
+        conferenceGame,
+        divisionGame,
+      ];
 }
 
 enum League { mlb, ncaab, nhl }
@@ -159,7 +184,7 @@ enum SeasonType { preseason, regular }
 final seasonTypeValues = EnumValues(
     {"preseason": SeasonType.preseason, "regular": SeasonType.regular});
 
-class Odd {
+class Odd extends Equatable {
   Odd({
     this.spread,
     this.moneyline,
@@ -168,11 +193,11 @@ class Odd {
     this.lastUpdated,
   });
 
-  Spread spread;
-  Moneyline moneyline;
-  Total total;
-  DateTime openDate;
-  DateTime lastUpdated;
+  final Spread spread;
+  final Moneyline moneyline;
+  final Total total;
+  final DateTime openDate;
+  final DateTime lastUpdated;
 
   Odd copyWith({
     Spread spread,
@@ -214,16 +239,25 @@ class Odd {
         "lastUpdated":
             lastUpdated == null ? null : lastUpdated.toIso8601String(),
       };
+
+  @override
+  List<Object> get props => [
+        spread,
+        moneyline,
+        total,
+        openDate,
+        lastUpdated,
+      ];
 }
 
-class Moneyline {
+class Moneyline extends Equatable {
   Moneyline({
     this.open,
     this.current,
   });
 
-  MoneylineCurrent open;
-  MoneylineCurrent current;
+  final MoneylineCurrent open;
+  final MoneylineCurrent current;
 
   Moneyline copyWith({
     MoneylineCurrent open,
@@ -252,16 +286,19 @@ class Moneyline {
         "open": open == null ? null : open.toJson(),
         "current": current == null ? null : current.toJson(),
       };
+
+  @override
+  List<Object> get props => [open, current];
 }
 
-class MoneylineCurrent {
+class MoneylineCurrent extends Equatable {
   MoneylineCurrent({
     this.awayOdds,
     this.homeOdds,
   });
 
-  int awayOdds;
-  int homeOdds;
+  final int awayOdds;
+  final int homeOdds;
 
   MoneylineCurrent copyWith({
     int awayOdds,
@@ -287,16 +324,19 @@ class MoneylineCurrent {
         "awayOdds": awayOdds,
         "homeOdds": homeOdds,
       };
+
+  @override
+  List<Object> get props => [awayOdds, homeOdds];
 }
 
-class Spread {
+class Spread extends Equatable {
   Spread({
     this.open,
     this.current,
   });
 
-  SpreadCurrent open;
-  SpreadCurrent current;
+  final SpreadCurrent open;
+  final SpreadCurrent current;
 
   Spread copyWith({
     SpreadCurrent open,
@@ -323,9 +363,12 @@ class Spread {
         "open": open == null ? null : open.toJson(),
         "current": current == null ? null : current.toJson(),
       };
+
+  @override
+  List<Object> get props => [open, current];
 }
 
-class SpreadCurrent {
+class SpreadCurrent extends Equatable {
   SpreadCurrent({
     this.away,
     this.home,
@@ -333,10 +376,10 @@ class SpreadCurrent {
     this.homeOdds,
   });
 
-  double away;
-  double home;
-  int awayOdds;
-  int homeOdds;
+  final double away;
+  final double home;
+  final int awayOdds;
+  final int homeOdds;
 
   SpreadCurrent copyWith({
     double away,
@@ -369,16 +412,19 @@ class SpreadCurrent {
         "awayOdds": awayOdds,
         "homeOdds": homeOdds,
       };
+
+  @override
+  List<Object> get props => [away, home, awayOdds, homeOdds];
 }
 
-class Total {
+class Total extends Equatable {
   Total({
     this.open,
     this.current,
   });
 
-  TotalCurrent open;
-  TotalCurrent current;
+  final TotalCurrent open;
+  final TotalCurrent current;
 
   Total copyWith({
     TotalCurrent open,
@@ -404,18 +450,21 @@ class Total {
         "open": open == null ? null : open.toJson(),
         "current": current == null ? null : current.toJson(),
       };
+
+  @override
+  List<Object> get props => [open, current];
 }
 
-class TotalCurrent {
+class TotalCurrent extends Equatable {
   TotalCurrent({
     this.total,
     this.overOdds,
     this.underOdds,
   });
 
-  double total;
-  int overOdds;
-  int underOdds;
+  final double total;
+  final int overOdds;
+  final int underOdds;
 
   TotalCurrent copyWith({
     double total,
@@ -444,16 +493,19 @@ class TotalCurrent {
         "overOdds": overOdds,
         "underOdds": underOdds,
       };
+
+  @override
+  List<Object> get props => [total, overOdds, underOdds];
 }
 
-class Schedule {
+class Schedule extends Equatable {
   Schedule({
     this.date,
     this.tbaTime,
   });
 
-  DateTime date;
-  bool tbaTime;
+  final DateTime date;
+  final bool tbaTime;
 
   Schedule copyWith({
     DateTime date,
@@ -478,18 +530,21 @@ class Schedule {
         "date": date == null ? null : date.toIso8601String(),
         "tbaTime": tbaTime,
       };
+
+  @override
+  List<Object> get props => [date, tbaTime];
 }
 
-class Scoreboard {
+class Scoreboard extends Equatable {
   Scoreboard({
     this.score,
     this.currentPeriod,
     this.periodTimeRemaining,
   });
 
-  Score score;
-  int currentPeriod;
-  String periodTimeRemaining;
+  final Score score;
+  final int currentPeriod;
+  final String periodTimeRemaining;
 
   Scoreboard copyWith({
     Score score,
@@ -518,9 +573,12 @@ class Scoreboard {
         "currentPeriod": currentPeriod,
         "periodTimeRemaining": periodTimeRemaining,
       };
+
+  @override
+  List<Object> get props => [score, currentPeriod, periodTimeRemaining];
 }
 
-class Score {
+class Score extends Equatable {
   Score({
     this.away,
     this.home,
@@ -528,10 +586,10 @@ class Score {
     this.homePeriods,
   });
 
-  int away;
-  int home;
-  List<int> awayPeriods;
-  List<int> homePeriods;
+  final int away;
+  final int home;
+  final List<int> awayPeriods;
+  final List<int> homePeriods;
 
   Score copyWith({
     int away,
@@ -571,6 +629,9 @@ class Score {
             ? null
             : List<dynamic>.from(homePeriods.map((x) => x)),
       };
+
+  @override
+  List<Object> get props => [away, home, awayPeriods, homePeriods];
 }
 
 enum Status { FINAL, IN_PROGRESS, SCHEDULED, CANCELED }
@@ -582,14 +643,14 @@ final statusValues = EnumValues({
   "scheduled": Status.SCHEDULED
 });
 
-class Teams {
+class Teams extends Equatable {
   Teams({
     this.away,
     this.home,
   });
 
-  Away away;
-  Away home;
+  final Away away;
+  final Away home;
 
   Teams copyWith({
     Away away,
@@ -613,9 +674,12 @@ class Teams {
         "away": away == null ? null : away.toJson(),
         "home": home == null ? null : home.toJson(),
       };
+
+  @override
+  List<Object> get props => [away, home];
 }
 
-class Away {
+class Away extends Equatable {
   Away({
     this.team,
     this.location,
@@ -625,12 +689,12 @@ class Away {
     this.division,
   });
 
-  String team;
-  String location;
-  String mascot;
-  String abbreviation;
-  String conference;
-  Division division;
+  final String team;
+  final String location;
+  final String mascot;
+  final String abbreviation;
+  final String conference;
+  final Division division;
 
   Away copyWith({
     String team,
@@ -672,6 +736,18 @@ class Away {
         "conference": conference,
         "division": division == null ? null : divisionValues.reverse[division],
       };
+
+  @override
+  List<Object> get props {
+    return [
+      team,
+      location,
+      mascot,
+      abbreviation,
+      conference,
+      division,
+    ];
+  }
 }
 
 enum Division { EAST, CENTRAL, WEST, METROPOLITAN, ATLANTIC }
@@ -684,7 +760,7 @@ final divisionValues = EnumValues({
   "West": Division.WEST
 });
 
-class Venue {
+class Venue extends Equatable {
   Venue({
     this.name,
     this.city,
@@ -692,10 +768,10 @@ class Venue {
     this.neutralSite,
   });
 
-  String name;
-  String city;
-  String state;
-  bool neutralSite;
+  final String name;
+  final String city;
+  final String state;
+  final bool neutralSite;
 
   Venue copyWith({
     String name,
@@ -727,6 +803,9 @@ class Venue {
         "state": state,
         "neutralSite": neutralSite,
       };
+
+  @override
+  List<Object> get props => [name, city, state, neutralSite];
 }
 
 class EnumValues<T> {

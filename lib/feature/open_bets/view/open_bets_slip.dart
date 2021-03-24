@@ -19,7 +19,7 @@ class OpenBetsSlip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
         width: 390,
-        height: 150,
+        height: 152,
         decoration: BoxDecoration(
           border: Border.all(
             color: Palette.cream,
@@ -74,7 +74,7 @@ class OpenBetsSlip extends StatelessWidget {
                           )),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 3.0,
+                          vertical: 2.0,
                         ),
                         child: Text('You bet \$100 to win \100!',
                             style: GoogleFonts.nunito(
@@ -84,11 +84,10 @@ class OpenBetsSlip extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text('Sunday, November 08, 2020',
-                              style: GoogleFonts.nunito(
-                                color: Palette.cream,
-                                fontSize: 10,
-                              )),
+                          Text(
+                            'Sunday, November 08, 2020',
+                            style: Styles.matchupTime,
+                          ),
                           // const SizedBox(
                           //   width: 2,
                           // ),

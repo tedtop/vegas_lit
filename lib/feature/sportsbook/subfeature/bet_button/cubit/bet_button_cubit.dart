@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:api_client/api_client.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vegas_lit/config/enum.dart';
-import 'package:vegas_lit/data/models/game.dart';
 
 part 'bet_button_state.dart';
 

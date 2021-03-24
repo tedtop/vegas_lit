@@ -13,7 +13,6 @@ class UserData extends Equatable {
     @required this.username,
     @required this.bio,
   })  : assert(uid != null),
-        // assert(name != null),
         assert(email != null),
         assert(uploadPhoto != null),
         assert(username != null);
