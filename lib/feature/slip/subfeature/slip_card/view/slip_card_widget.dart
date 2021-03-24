@@ -200,7 +200,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                             .mainOdds) /
                                                     100 *
                                                     double.parse(text))
-                                                .toDouble();
+                                                .toDouble()
+                                                .abs();
                                           }
                                         },
                                       );
@@ -291,7 +292,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                   context.read<OpenBetsCubit>().updateOpenBets(
                                         openBetsData: OpenBetsData(
                                           amount: int.parse(
-                                              _betAmountController.text),
+                                                  _betAmountController.text)
+                                              .abs(),
                                           away: betButtonState
                                               .game.teams.away.mascot
                                               .toUpperCase(),
