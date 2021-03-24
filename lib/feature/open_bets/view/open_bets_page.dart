@@ -108,9 +108,7 @@ class OpenBets extends StatelessWidget {
                   // ),
                 );
               } else {
-                return const CircularProgressIndicator(
-                  backgroundColor: Palette.green,
-                );
+                return const CircularProgressIndicator();
               }
             },
           ),

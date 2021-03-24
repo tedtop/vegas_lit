@@ -62,9 +62,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
             return BetSlipCardView();
             break;
           default:
-            return const CircularProgressIndicator(
-              backgroundColor: Palette.green,
-            );
+            return const CircularProgressIndicator();
             break;
         }
       },
@@ -84,7 +82,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _betAmountController = TextEditingController(text: '10');
   final _focusNode = FocusNode();
 
-  int toWinAmount = 100;
+  double toWinAmount = 100;
 
   @override
   void initState() {
@@ -185,11 +183,25 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                     onChanged: (text) {
                                       setState(
                                         () {
-                                          toWinAmount = (100 /
-                                                  int.parse(
-                                                      betButtonState.mainOdds) *
-                                                  int.parse(text))
-                                              .toInt();
+                                          if (double.parse(
+                                                  betButtonState.mainOdds)
+                                              .isNegative) {
+                                            final toWin = (100 /
+                                                    double.parse(betButtonState
+                                                        .mainOdds) *
+                                                    double.parse(text))
+                                                .toDouble();
+                                            print(toWin);
+                                            toWinAmount = toWin.abs() +
+                                                double.parse(text);
+                                            print(toWinAmount);
+                                          } else {
+                                            toWinAmount = (double.parse(
+                                                        betButtonState
+                                                            .mainOdds) +
+                                                    double.parse(text))
+                                                .toDouble();
+                                          }
                                         },
                                       );
                                     },
@@ -333,7 +345,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                   child: SizedBox(),
                                 ),
                                 Center(
-                                  child: Text('\$${toWinAmount.toString()}',
+                                  child: Text(
+                                      '\$${toWinAmount.toStringAsFixed(2)}',
                                       style: GoogleFonts.nunito(
                                         color: Palette.green,
                                         fontSize: 18,

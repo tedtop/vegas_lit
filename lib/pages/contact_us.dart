@@ -9,8 +9,10 @@ class ContactUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('CONTACT US'),
+    return const Scaffold(
+      body: Center(
+        child: Text('CONTACT US'),
+      ),
     );
   }
 }

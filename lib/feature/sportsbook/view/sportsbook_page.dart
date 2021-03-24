@@ -31,9 +31,8 @@ class Sportsbook extends StatelessWidget {
           );
         } else {
           return const Center(
-              child: CircularProgressIndicator(
-            backgroundColor: Palette.green,
-          ));
+            child: CircularProgressIndicator(),
+          );
         }
       },
     );
@@ -195,9 +194,7 @@ class SportsBookView extends StatelessWidget {
                                 );
                                 break;
                               default:
-                                return const CircularProgressIndicator(
-                                  backgroundColor: Palette.green,
-                                );
+                                return const CircularProgressIndicator();
                                 break;
                             }
                           },

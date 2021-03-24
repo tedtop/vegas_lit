@@ -5,6 +5,7 @@ class Themes {
   static final ThemeData dark = ThemeData(
     brightness: Brightness.dark,
     canvasColor: Palette.darkGrey,
+    accentColor: Palette.green,
     primaryColor: Palette.darkGrey,
     primaryColorLight: Palette.lightGrey,
     primaryColorDark: Palette.darkGrey,

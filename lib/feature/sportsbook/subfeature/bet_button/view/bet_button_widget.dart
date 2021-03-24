@@ -50,9 +50,7 @@ class BetButton extends StatelessWidget {
             return BetButtonDone();
             break;
           default:
-            return const CircularProgressIndicator(
-              backgroundColor: Palette.green,
-            );
+            return const CircularProgressIndicator();
             break;
         }
       },

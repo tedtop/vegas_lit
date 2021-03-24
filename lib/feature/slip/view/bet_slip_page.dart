@@ -20,9 +20,7 @@ class BetSlip extends StatelessWidget {
                 return state.games.isEmpty ? EmptyBetSlip() : BetSlipList();
                 break;
               default:
-                return const CircularProgressIndicator(
-                  backgroundColor: Palette.green,
-                );
+                return const CircularProgressIndicator();
                 break;
             }
           },

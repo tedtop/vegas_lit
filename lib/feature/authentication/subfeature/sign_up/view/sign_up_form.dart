@@ -564,9 +564,7 @@ class _SignUpButton extends StatelessWidget {
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
           return state.status.isSubmissionInProgress
-              ? const CircularProgressIndicator(
-                  backgroundColor: Palette.green,
-                )
+              ? const CircularProgressIndicator()
               : DefaultButton(
                   text: 'SIGN UP',
                   action: () {
