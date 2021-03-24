@@ -292,8 +292,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                   context.read<OpenBetsCubit>().updateOpenBets(
                                         openBetsData: OpenBetsData(
                                           amount: int.parse(
-                                                  _betAmountController.text)
-                                              .abs(),
+                                              _betAmountController.text),
                                           away: betButtonState
                                               .game.teams.away.mascot
                                               .toUpperCase(),
@@ -305,7 +304,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                               betType: betButtonState.betType),
                                           mlAmount: int.parse(
                                               betButtonState.mainOdds),
-                                          win: toWinAmount,
+                                          win: double.parse(
+                                              toWinAmount.toStringAsFixed(2)),
                                         ),
                                       );
                                   ScaffoldMessenger.of(context)
