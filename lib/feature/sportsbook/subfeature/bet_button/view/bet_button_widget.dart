@@ -64,38 +64,36 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-    return Flexible(
-      child: Padding(
-        padding: const EdgeInsets.all(3.0),
-        child: Container(
-          width: 160,
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: RaisedButton(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            color: Palette.darkGrey,
-            child: Text(
-              betButtonState.text,
-              maxLines: 1,
-              style: GoogleFonts.nunito(
-                fontSize: 14,
-                color: Palette.cream,
-              ),
-            ),
-            onPressed: () {
-              context.read<BetButtonCubit>().clickBetButton();
-              context.read<BetSlipCubit>().addBetSlip(
-                    game: BetSlipCard.route(
-                      key: Key('${betButtonState.uniqueId}'),
-                      betButtonCubit: context.read<BetButtonCubit>(),
-                      betType: betButtonState.betType,
-                    ),
-                  );
-            },
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Container(
+        width: 160,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: RaisedButton(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
           ),
+          color: Palette.darkGrey,
+          child: Text(
+            betButtonState.text,
+            maxLines: 1,
+            style: GoogleFonts.nunito(
+              fontSize: 14,
+              color: Palette.cream,
+            ),
+          ),
+          onPressed: () {
+            context.read<BetButtonCubit>().clickBetButton();
+            context.read<BetSlipCubit>().addBetSlip(
+                  game: BetSlipCard.route(
+                    key: Key('${betButtonState.uniqueId}'),
+                    betButtonCubit: context.read<BetButtonCubit>(),
+                    betType: betButtonState.betType,
+                  ),
+                );
+          },
         ),
       ),
     );
@@ -106,35 +104,33 @@ class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-    return Flexible(
-      child: Padding(
-        padding: const EdgeInsets.all(3.0),
-        child: Container(
-          width: 160,
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: RaisedButton(
-            elevation: 4,
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            color: Palette.green,
-            child: Text(
-              betButtonState.text,
-              maxLines: 1,
-              style: GoogleFonts.nunito(
-                fontSize: 14,
-                color: Palette.cream,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onPressed: () {
-              context.read<BetButtonCubit>().unclickBetButton();
-              context.read<BetSlipCubit>().removeBetSlip(
-                    uniqueId: betButtonState.uniqueId,
-                  );
-            },
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Container(
+        width: 160,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: RaisedButton(
+          elevation: 4,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
           ),
+          color: Palette.green,
+          child: Text(
+            betButtonState.text,
+            maxLines: 1,
+            style: GoogleFonts.nunito(
+              fontSize: 14,
+              color: Palette.cream,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: () {
+            context.read<BetButtonCubit>().unclickBetButton();
+            context.read<BetSlipCubit>().removeBetSlip(
+                  uniqueId: betButtonState.uniqueId,
+                );
+          },
         ),
       ),
     );
@@ -144,10 +140,8 @@ class BetButtonClicked extends StatelessWidget {
 class BetButtonDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
-      child: Center(
-        child: Icon(Icons.thumb_up),
-      ),
+    return Center(
+      child: Icon(Icons.thumb_up),
     );
   }
 }

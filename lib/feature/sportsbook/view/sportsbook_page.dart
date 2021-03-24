@@ -210,30 +210,32 @@ class SportsBookView extends StatelessWidget {
               ],
             ),
           ),
-          Builder(
-            builder: (context) {
-              if (games.isEmpty) {
-                return Center(
-                  child: Text(
-                    'No Games Found!',
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
+          Flexible(
+            child: Builder(
+              builder: (context) {
+                if (games.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No Games Found!',
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                return ListView.builder(
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: games.length,
-                  itemBuilder: (context, index) {
-                    return GameCard.route(
-                      game: games[index],
-                    );
-                  },
-                );
-              }
-            },
+                  );
+                } else {
+                  return ListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: games.length,
+                    itemBuilder: (context, index) {
+                      return GameCard.route(
+                        game: games[index],
+                      );
+                    },
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),
