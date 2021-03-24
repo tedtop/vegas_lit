@@ -1,19 +1,24 @@
 part of 'open_bets_cubit.dart';
 
-abstract class OpenBetsState extends Equatable {
-  const OpenBetsState();
+enum OpenBetsStatus { initial, opened, updated }
+
+class OpenBetsState extends Equatable {
+  const OpenBetsState._({
+    this.status = OpenBetsStatus.initial,
+    this.openBetsDataList,
+  });
+
+  const OpenBetsState.initial() : this._();
+
+  const OpenBetsState.opened({@required List<OpenBetsData> openBetsDataList})
+      : this._(
+          status: OpenBetsStatus.opened,
+          openBetsDataList: openBetsDataList,
+        );
+
+  final OpenBetsStatus status;
+  final List<OpenBetsData> openBetsDataList;
 
   @override
-  List<Object> get props => [];
-}
-
-class OpenBetsInitial extends OpenBetsState {}
-
-class OpenBetsOpened extends OpenBetsState {
-  OpenBetsOpened({this.openBets});
-
-  final List<OpenBets> openBets;
-
-  @override
-  List<Object> get props => [openBets];
+  List<Object> get props => [status, openBetsDataList];
 }

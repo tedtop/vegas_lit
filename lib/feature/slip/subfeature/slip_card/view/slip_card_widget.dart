@@ -1,9 +1,11 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/feature/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/feature/sportsbook/subfeature/bet_button/cubit/bet_button_cubit.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/widgets/default_button.dart';
@@ -79,7 +81,7 @@ class BetSlipCardView extends StatefulWidget {
 class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _formKey = GlobalKey<FormState>();
 
-  final _betAmountController = TextEditingController(text: '10');
+  final _betAmountController = TextEditingController(text: '0');
   final _focusNode = FocusNode();
 
   double toWinAmount = 100;
@@ -186,19 +188,17 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                           if (double.parse(
                                                   betButtonState.mainOdds)
                                               .isNegative) {
-                                            final toWin = (100 /
+                                            toWinAmount = (100 /
                                                     double.parse(betButtonState
                                                         .mainOdds) *
                                                     double.parse(text))
-                                                .toDouble();
-                                            print(toWin);
-                                            toWinAmount = toWin.abs() +
-                                                double.parse(text);
-                                            print(toWinAmount);
+                                                .toDouble()
+                                                .abs();
                                           } else {
                                             toWinAmount = (double.parse(
                                                         betButtonState
-                                                            .mainOdds) +
+                                                            .mainOdds) /
+                                                    100 *
                                                     double.parse(text))
                                                 .toDouble();
                                           }
@@ -227,6 +227,10 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                       }
                                       if (int.parse(value) >= 101) {
                                         return '100\$ Limit Reached';
+                                      }
+
+                                      if (int.parse(value).isNegative) {
+                                        return 'Put Positive Amount';
                                       }
                                       return null;
                                     },
@@ -282,13 +286,37 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                               text: 'PLACE BET',
                               action: () {
                                 if (_formKey.currentState.validate()) {
+                                  context.read<OpenBetsCubit>().updateOpenBets(
+                                        openBetsData: OpenBetsData(
+                                          amount: int.parse(
+                                              _betAmountController.text),
+                                          away: betButtonState
+                                              .game.teams.away.mascot
+                                              .toUpperCase(),
+                                          home: betButtonState
+                                              .game.teams.home.mascot
+                                              .toUpperCase(),
+                                          id: betButtonState.uniqueId,
+                                          type: whichBetSystem(
+                                              betType: betButtonState.betType),
+                                          mlAmount: int.parse(
+                                              betButtonState.mainOdds),
+                                          win: toWinAmount.toInt(),
+                                        ),
+                                      );
+                                  ScaffoldMessenger.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text('Your bet has been placed!'),
+                                      ),
+                                    );
                                   context
                                       .read<BetButtonCubit>()
                                       .confirmBetButton();
-                                  context
-                                      .read<BetSlipCardCubit>()
-                                      .betSlipCardConfirm(
-                                        betAmount: _betAmountController.text,
+                                  context.read<BetSlipCubit>().removeBetSlip(
+                                        uniqueId: betButtonState.uniqueId,
                                       );
                                 }
                               },

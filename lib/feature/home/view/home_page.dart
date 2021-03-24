@@ -35,6 +35,14 @@ class HomePage extends StatefulWidget {
                 betSlipGames: [],
               ),
           ),
+          BlocProvider<OpenBetsCubit>(
+            create: (context) => OpenBetsCubit(
+              betsRepository: context.read<BetsRepository>(),
+            )..openBetsOpen(
+                // currentUserId: currentUserId,
+                openBetsDataList: [],
+              ),
+          ),
           BlocProvider<HomeCubit>(
             create: (_) => HomeCubit(),
           ),

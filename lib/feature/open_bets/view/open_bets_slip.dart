@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
@@ -6,12 +7,11 @@ import 'package:vegas_lit/config/styles.dart';
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
     Key key,
-    // @required this.openBets,
-  }) :
-        //  assert(openBets != null),
+    @required this.openBets,
+  })  : assert(openBets != null),
         super(key: key);
 
-  // final OpenBets openBets;
+  final OpenBetsData openBets;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class OpenBetsSlip extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('TITANS TO WIN',
+                      Text('${openBets.home} TO WIN',
                           style: GoogleFonts.nunito(
                             fontSize: 24,
                             color: Palette.cream,
@@ -55,18 +55,18 @@ class OpenBetsSlip extends StatelessWidget {
                         text: TextSpan(
                           style: Styles.normalText,
                           children: [
-                            const TextSpan(
-                              text: 'BEARS',
+                            TextSpan(
+                              text: '${openBets.away}',
                             ),
                             const TextSpan(text: '  @  '),
                             TextSpan(
-                              text: 'TITANS',
+                              text: '${openBets.home}',
                               style: GoogleFonts.nunito(color: Palette.green),
                             ),
                           ],
                         ),
                       ),
-                      Text('MONEYLINE +100',
+                      Text('${openBets.type} ${openBets.mlAmount}',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
@@ -76,7 +76,8 @@ class OpenBetsSlip extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                           vertical: 2.0,
                         ),
-                        child: Text('You bet \$100 to win \100!',
+                        child: Text(
+                            'You bet \$${openBets.amount} to win \$${openBets.win}!',
                             style: GoogleFonts.nunito(
                               color: Palette.green,
                               fontSize: 18,

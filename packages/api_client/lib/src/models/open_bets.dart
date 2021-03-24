@@ -33,6 +33,18 @@ class OpenBetsData extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'amount': amount,
+      'away': away,
+      'home': home,
+      'id': id,
+      'type': type,
+      'win': win,
+      'mlAmount': mlAmount,
+    };
+  }
+
   @override
   List<Object> get props {
     return [
@@ -41,8 +53,8 @@ class OpenBetsData extends Equatable {
       home,
       id,
       type,
-      win,
       mlAmount,
+      win,
     ];
   }
 }

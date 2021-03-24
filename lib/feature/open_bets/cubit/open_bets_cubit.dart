@@ -4,7 +4,6 @@ import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/feature/open_bets/open_bets.dart';
 
 part 'open_bets_state.dart';
 
@@ -13,16 +12,16 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
-          OpenBetsInitial(),
+          const OpenBetsState.initial(),
         );
 
   final BetsRepository _betsRepository;
   StreamSubscription _openBetsSubscription;
 
-  Future<void> openBetsOpen({String currentUserId}) async {
+  Future<void> openBetsOpen({List<OpenBetsData> openBetsDataList}) async {
     emit(
-      OpenBetsOpened(
-        openBets: [],
+      OpenBetsState.opened(
+        openBetsDataList: openBetsDataList,
       ),
     );
     // final openBetsData = _betsRepository.fetchOpenBetsByUserId(currentUserId);
@@ -34,6 +33,16 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
     //     );
     //   },
     // );
+  }
+
+  void updateOpenBets({OpenBetsData openBetsData}) {
+    final newList = state.openBetsDataList..add(openBetsData);
+
+    emit(
+      OpenBetsState.opened(
+        openBetsDataList: List.of(newList),
+      ),
+    );
   }
 
   @override

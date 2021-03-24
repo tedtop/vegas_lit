@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/feature/open_bets/open_bets.dart';
 import '../cubit/open_bets_cubit.dart';
 import 'open_bets_slip.dart';
 
@@ -12,14 +13,7 @@ class OpenBets extends StatelessWidget {
   static Builder route({String currentUserId}) {
     return Builder(
       builder: (context) {
-        return BlocProvider(
-          create: (context) => OpenBetsCubit(
-            betsRepository: context.read<BetsRepository>(),
-          )..openBetsOpen(
-              currentUserId: currentUserId,
-            ),
-          child: OpenBets(),
-        );
+        return OpenBets();
       },
     );
   }
@@ -79,36 +73,36 @@ class OpenBets extends StatelessWidget {
           ),
           BlocBuilder<OpenBetsCubit, OpenBetsState>(
             builder: (context, state) {
-              if (state is OpenBetsOpened) {
-                // if (state.openBets.isEmpty) {
-                //   return Center(
-                //     child: Text(
-                //       'No open bet slips found!',
-                //       style: Styles.defaultCreamLessBold,
-                //     ),
-                //   );
-                // }
-                return Expanded(
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    children: List.generate(
-                      5,
-                      (index) => const OpenBetsSlip(),
+              switch (state.status) {
+                case OpenBetsStatus.opened:
+                  if (state.openBetsDataList.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No open bet slips found!',
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          color: Palette.cream,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      key: Key('${state.openBetsDataList.length}'),
+                      itemCount: state.openBetsDataList.length,
+                      itemBuilder: (context, index) {
+                        return OpenBetsSlip(
+                          openBets: state.openBetsDataList[index],
+                        );
+                      },
                     ),
-                  ),
-                  // child: ListView.builder(
-                  //   key: Key('${state.openBets.length}'),
-                  //   itemCount: state.openBets.length,
-                  //   itemBuilder: (context, index) {
-                  //     return const OpenBetsSlip(
-                  //         // openBets: state.openBets[index],
-                  //         );
-                  //   },
-                  // ),
-                );
-              } else {
-                return const CircularProgressIndicator();
+                  );
+                  break;
+                default:
+                  return const CircularProgressIndicator();
               }
             },
           ),
