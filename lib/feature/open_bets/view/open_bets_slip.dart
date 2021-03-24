@@ -53,11 +53,7 @@ class OpenBetsSlip extends StatelessWidget {
                           )),
                       RichText(
                         text: TextSpan(
-                          style: GoogleFonts.nunito(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Palette.cream,
-                          ),
+                          style: Styles.normalText,
                           children: [
                             const TextSpan(
                               text: 'BEARS',

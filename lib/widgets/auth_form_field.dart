@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/login/login.dart';
-import 'package:vegas_lit/features/sign_up/sign_up.dart';
+import 'package:vegas_lit/feature/authentication/subfeature/login/login.dart';
+import 'package:vegas_lit/feature/authentication/subfeature/sign_up/sign_up.dart';
 
 class SignUpInput extends StatelessWidget {
   const SignUpInput({
