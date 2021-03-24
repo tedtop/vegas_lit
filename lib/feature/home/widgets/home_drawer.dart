@@ -20,10 +20,13 @@ class HomeDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Image.asset(
-              Images.topLogo,
-              fit: BoxFit.contain,
-              height: 80,
+            child: Hero(
+              tag: 'drawerHeader',
+              child: Image.asset(
+                Images.topLogo,
+                fit: BoxFit.contain,
+                height: 80,
+              ),
             ),
             decoration: const BoxDecoration(
               color: Palette.lightGrey,

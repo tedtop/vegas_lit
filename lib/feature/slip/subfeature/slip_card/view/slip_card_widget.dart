@@ -84,7 +84,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _betAmountController = TextEditingController(text: '0');
   final _focusNode = FocusNode();
 
-  double toWinAmount = 100;
+  double toWinAmount = 0;
 
   @override
   void initState() {
@@ -228,7 +228,9 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                       if (int.parse(value) >= 101) {
                                         return '100\$ Limit Reached';
                                       }
-
+                                      if (int.parse(value) == 0) {
+                                        return 'Write Some Amount';
+                                      }
                                       if (int.parse(value).isNegative) {
                                         return 'Put Positive Amount';
                                       }
@@ -301,7 +303,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                               betType: betButtonState.betType),
                                           mlAmount: int.parse(
                                               betButtonState.mainOdds),
-                                          win: toWinAmount.toInt(),
+                                          win: toWinAmount,
                                         ),
                                       );
                                   ScaffoldMessenger.of(context)

@@ -76,16 +76,17 @@ class OpenBets extends StatelessWidget {
               switch (state.status) {
                 case OpenBetsStatus.opened:
                   if (state.openBetsDataList.isEmpty) {
-                    return Center(
-                      child: Text(
-                        'No open bet slips found!',
-                        style: GoogleFonts.nunito(
-                          fontSize: 18,
-                          color: Palette.cream,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    );
+                    return Container();
+                    // return Center(
+                    //   child: Text(
+                    //     'No open bet slips found!',
+                    //     style: GoogleFonts.nunito(
+                    //       fontSize: 18,
+                    //       color: Palette.cream,
+                    //       fontWeight: FontWeight.w300,
+                    //     ),
+                    //   ),
+                    // );
                   }
                   return Expanded(
                     child: ListView.builder(
