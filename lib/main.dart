@@ -16,7 +16,7 @@ Future<void> main() async {
   EquatableConfig.stringify = kDebugMode;
   Bloc.observer = SimpleBlocObserver();
   runApp(
-    MyApp(
+    App(
       sportsfeedRepository: SportsfeedRepository(),
       authenticationRepository: AuthenticationRepository(),
       betsRepository: BetsRepository(),
