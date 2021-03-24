@@ -4,6 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/feature/authentication/authentication.dart';
+import 'package:vegas_lit/pages/contact_us.dart';
+import 'package:vegas_lit/pages/faq.dart';
+import 'package:vegas_lit/pages/privacy_policy.dart';
+import 'package:vegas_lit/pages/rules.dart';
+import 'package:vegas_lit/pages/service_terms.dart';
 
 import '../cubit/home_cubit.dart';
 
@@ -76,7 +81,11 @@ class HomeDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w200,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                Rules.route(),
+              );
+            },
           ),
           ListTile(
             title: Text(
@@ -87,7 +96,11 @@ class HomeDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w200,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                FAQ.route(),
+              );
+            },
           ),
           ListTile(
             title: Text(
@@ -98,7 +111,11 @@ class HomeDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w200,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                TermsOfService.route(),
+              );
+            },
           ),
           ListTile(
             title: Text(
@@ -109,7 +126,11 @@ class HomeDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w200,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                PrivacyPolicy.route(),
+              );
+            },
           ),
           ListTile(
             title: Text(
@@ -120,7 +141,11 @@ class HomeDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w200,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                ContactUs.route(),
+              );
+            },
           ),
         ],
       ),
