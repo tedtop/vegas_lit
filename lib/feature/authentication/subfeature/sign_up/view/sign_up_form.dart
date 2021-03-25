@@ -270,7 +270,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
             Expanded(
               child: TextField(
                 style: GoogleFonts.nunito(
-                  fontSize: 18,
+                  fontSize: 10,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_confirmedPasswordInput_textField'),

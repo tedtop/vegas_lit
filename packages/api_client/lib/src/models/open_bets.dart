@@ -17,7 +17,7 @@ class OpenBetsData extends Equatable {
   final String home;
   final String id;
   final String type;
-  final double win;
+  final int win;
   final int mlAmount;
 
   factory OpenBetsData.fromFirestore(DocumentSnapshot documentSnapshot) {
@@ -28,7 +28,7 @@ class OpenBetsData extends Equatable {
       away: data['away'] as String,
       home: data['home'] as String,
       type: data['type'] as String,
-      win: data['win'] as double,
+      win: data['win'] as int,
       mlAmount: data['ml_amount'] as int,
     );
   }

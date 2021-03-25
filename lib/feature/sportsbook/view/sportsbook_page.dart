@@ -131,20 +131,18 @@ class SportsBookView extends StatelessWidget {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: value == gameName
-                                  ? Center(
-                                      child: Text('$value ($length Games)',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.cream,
-                                          )),
-                                    )
-                                  : Center(
-                                      child: Text(
-                                        '$value ($length Games)',
-                                        style: GoogleFonts.nunito(
-                                          color: Palette.cream,
-                                        ),
+                                  ? Text('$value ($length Games)',
+                                      textAlign: TextAlign.left,
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.cream,
+                                      ))
+                                  : Text(
+                                      '$value ($length Games)',
+                                      textAlign: TextAlign.left,
+                                      style: GoogleFonts.nunito(
+                                        color: Palette.cream,
                                       ),
                                     ),
                             );

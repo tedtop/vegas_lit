@@ -41,59 +41,61 @@ class _LeaderboardState extends State<Leaderboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Palette.darkGrey,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'LEADERBOARD',
-                  style: Styles.pageTitle,
+    return SingleChildScrollView(
+      child: Container(
+        color: Palette.darkGrey,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'LEADERBOARD',
+                    style: Styles.pageTitle,
+                  ),
+                ),
+              ],
+            ),
+            const TextBar(
+              text: 'Current Week',
+            ),
+            const TextBar(
+              text: 'All Leagues',
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: SfDataGrid(
+                  columnWidthMode: ColumnWidthMode.lastColumnFill,
+                  gridLinesVisibility: GridLinesVisibility.none,
+                  source: _employeeDataSource,
+                  columns: [
+                    GridNumericColumn(
+                      mappingName: 'id',
+                      headerText: '#',
+                      textAlignment: Alignment.center,
+                      headerTextAlignment: Alignment.center,
+                    ),
+                    GridTextColumn(
+                      mappingName: 'name',
+                      headerText: 'Player',
+                    ),
+                    GridTextColumn(
+                      mappingName: 'designation',
+                      headerText: 'Profit',
+                    ),
+                    GridTextColumn(
+                      mappingName: 'salary',
+                      headerText: 'Balance',
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          const TextBar(
-            text: 'Current Week',
-          ),
-          const TextBar(
-            text: 'All Leagues',
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: SfDataGrid(
-                columnWidthMode: ColumnWidthMode.lastColumnFill,
-                gridLinesVisibility: GridLinesVisibility.none,
-                source: _employeeDataSource,
-                columns: [
-                  GridNumericColumn(
-                    mappingName: 'id',
-                    headerText: '#',
-                    textAlignment: Alignment.center,
-                    headerTextAlignment: Alignment.center,
-                  ),
-                  GridTextColumn(
-                    mappingName: 'name',
-                    headerText: 'Player',
-                  ),
-                  GridTextColumn(
-                    mappingName: 'designation',
-                    headerText: 'Profit',
-                  ),
-                  GridTextColumn(
-                    mappingName: 'salary',
-                    headerText: 'Balance',
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -116,7 +118,7 @@ class TextBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
         ),
         child: Container(
-          color: Palette.darkGrey,
+          color: Palette.lightGrey,
           padding: const EdgeInsets.all(8.0),
           height: 40,
           width: double.infinity,

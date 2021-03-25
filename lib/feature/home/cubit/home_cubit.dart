@@ -11,7 +11,18 @@ class HomeCubit extends Cubit<HomeState> {
 
   void homeChange(int pageIndex) {
     emit(
-      HomeState.changed(pageIndex: pageIndex),
+      HomeState.changed(
+        pageIndex: pageIndex,
+        balanceAmount: state.balanceAmount,
+      ),
     );
+  }
+
+  void balanceChange({int balanceAmount}) {
+    final newBalance = state.balanceAmount - balanceAmount;
+    emit(HomeState.balanceChanged(
+      pageIndex: state.pageIndex,
+      balanceAmount: newBalance,
+    ));
   }
 }

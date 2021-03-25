@@ -77,7 +77,7 @@ class OpenBetsSlip extends StatelessWidget {
                           vertical: 2.0,
                         ),
                         child: Text(
-                            'You bet \$${openBets.amount} to win \$${openBets.win.abs()}!',
+                            'You bet \$${openBets.amount} to win \$${openBets.win}!',
                             style: GoogleFonts.nunito(
                               color: Palette.green,
                               fontSize: 18,

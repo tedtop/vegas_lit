@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/feature/authentication/authentication.dart';
@@ -145,8 +146,8 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.of(context).push(
-                ContactUs.route(),
+              launch(
+                _emailLaunchUri.toString(),
               );
             },
           ),
@@ -154,4 +155,9 @@ class HomeDrawer extends StatelessWidget {
       ),
     );
   }
+
+  final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'support@vegaslit.com',
+      queryParameters: {'subject': 'VegasLit'});
 }

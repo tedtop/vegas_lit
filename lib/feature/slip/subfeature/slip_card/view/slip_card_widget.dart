@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/feature/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/feature/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/feature/sportsbook/subfeature/bet_button/cubit/bet_button_cubit.dart';
 import 'package:intl/intl.dart';
@@ -84,7 +85,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _betAmountController = TextEditingController(text: '0');
   final _focusNode = FocusNode();
 
-  double toWinAmount = 0;
+  int toWinAmount = 0;
 
   @override
   void initState() {
@@ -121,6 +122,14 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                 fontWeight: FontWeight.w400,
               ),
             ),
+          ],
+        ),
+        SizedBox(
+          height: 2,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
             Text(
               whichBetSystem(betType: betButtonState.betType),
               maxLines: 1,
@@ -141,7 +150,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
           ],
         ),
         SizedBox(
-          height: 4,
+          height: 2,
         ),
         Form(
           key: _formKey,
@@ -189,18 +198,18 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                                   betButtonState.mainOdds)
                                               .isNegative) {
                                             toWinAmount = (100 /
-                                                    double.parse(betButtonState
+                                                    int.parse(betButtonState
                                                         .mainOdds) *
-                                                    double.parse(text))
-                                                .toDouble()
+                                                    int.parse(text))
+                                                .round()
                                                 .abs();
                                           } else {
-                                            toWinAmount = (double.parse(
+                                            toWinAmount = (int.parse(
                                                         betButtonState
                                                             .mainOdds) /
                                                     100 *
-                                                    double.parse(text))
-                                                .toDouble()
+                                                    int.parse(text))
+                                                .round()
                                                 .abs();
                                           }
                                         },
@@ -304,9 +313,12 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                               betType: betButtonState.betType),
                                           mlAmount: int.parse(
                                               betButtonState.mainOdds),
-                                          win: double.parse(
-                                              toWinAmount.toStringAsFixed(2)),
+                                          win: toWinAmount,
                                         ),
+                                      );
+                                  context.read<HomeCubit>().balanceChange(
+                                        balanceAmount: int.parse(
+                                            _betAmountController.text),
                                       );
                                   ScaffoldMessenger.of(context)
                                     ..removeCurrentSnackBar()
@@ -377,8 +389,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                   child: SizedBox(),
                                 ),
                                 Center(
-                                  child: Text(
-                                      '\$${toWinAmount.toStringAsFixed(2)}',
+                                  child: Text('\$$toWinAmount',
                                       style: GoogleFonts.nunito(
                                         color: Palette.green,
                                         fontSize: 18,
@@ -467,10 +478,10 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
     }
     {
       if (betType == Bet.pts) {
-        return 'POINTS';
+        return 'POINT SPREAD';
       }
       if (betType == Bet.tot) {
-        return 'TOTAL';
+        return 'TOTAL SPREAD';
       } else {
         return 'Error';
       }

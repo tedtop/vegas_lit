@@ -66,7 +66,7 @@ class BetButtonUnclicked extends StatelessWidget {
       padding: const EdgeInsets.all(3.0),
       child: Container(
         width: 160,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         child: RaisedButton(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: 0,
@@ -106,7 +106,7 @@ class BetButtonClicked extends StatelessWidget {
       padding: const EdgeInsets.all(3.0),
       child: Container(
         width: 160,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         child: RaisedButton(
           elevation: 4,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -139,13 +139,27 @@ class BetButtonDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3.0),
       child: Container(
         width: 160,
-        height: 35,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: Center(
-          child: Icon(Icons.thumb_up),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: RaisedButton(
+          elevation: 4,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          color: Palette.darkGrey,
+          child: Text(
+            'BET PLACED',
+            maxLines: 1,
+            style: GoogleFonts.nunito(
+              fontSize: 14,
+              color: Palette.red,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: () {},
         ),
       ),
     );

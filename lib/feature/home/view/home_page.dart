@@ -63,6 +63,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final pageIndex =
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
+    final balanceAmount =
+        context.select((HomeCubit homeCubit) => homeCubit.state.balanceAmount);
     final userId = context.select(
       (AuthenticationBloc authenticationBloc) =>
           authenticationBloc.state.user?.uid,
@@ -102,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                       maxLines: 1,
                     ),
                     Text(
-                      '\$100',
+                      '\$$balanceAmount',
                       style: GoogleFonts.nunito(
                         color: Palette.cream,
                         fontSize: 14.0,
