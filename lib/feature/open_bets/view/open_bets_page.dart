@@ -88,18 +88,16 @@ class OpenBets extends StatelessWidget {
                     //   ),
                     // );
                   }
-                  return Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      key: Key('${state.openBetsDataList.length}'),
-                      itemCount: state.openBetsDataList.length,
-                      itemBuilder: (context, index) {
-                        return OpenBetsSlip(
-                          openBets: state.openBetsDataList[index],
-                        );
-                      },
-                    ),
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    key: Key('${state.openBetsDataList.length}'),
+                    itemCount: state.openBetsDataList.length,
+                    itemBuilder: (context, index) {
+                      return OpenBetsSlip(
+                        openBets: state.openBetsDataList[index],
+                      );
+                    },
                   );
                   break;
                 default:

@@ -33,6 +33,7 @@ class GameCard extends StatelessWidget {
     return BlocBuilder<GameCardCubit, GameCardState>(
       builder: (context, state) {
         if (state is GameCardOpened) {
+          final gameData = state.game.odds[0];
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             child: Container(
@@ -72,53 +73,40 @@ class GameCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   state.game.odds == null
-                                      ? Column(
-                                          children: [
-                                            BetButton.route(
-                                              mainOdds: '100',
-                                              betType: Bet.ml,
-                                              text: '100',
-                                              game: state.game,
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: '100',
-                                              betType: Bet.pts,
-                                              game: state.game,
-                                              text: '-112   100',
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: '100',
-                                              betType: Bet.tot,
-                                              game: state.game,
-                                              text: 'o-115   100',
-                                            ),
-                                          ],
-                                        )
+                                      ? Container()
                                       : Column(
                                           children: [
                                             BetButton.route(
-                                              mainOdds:
-                                                  '${state.game.odds[0].moneyline.current.awayOdds}',
+                                              mainOdds: gameData.moneyline
+                                                      .current?.awayOdds
+                                                      .toString() ??
+                                                  '100',
                                               betType: Bet.ml,
-                                              text:
-                                                  '${state.game.odds[0].moneyline.current.awayOdds}',
+                                              text: gameData.moneyline.current
+                                                      ?.awayOdds
+                                                      .toString() ??
+                                                  '100',
                                               game: state.game,
                                             ),
                                             BetButton.route(
-                                              mainOdds:
-                                                  '${state.game.odds[0].spread.current.awayOdds}',
+                                              mainOdds: gameData
+                                                      .spread.current?.awayOdds
+                                                      .toString() ??
+                                                  '100',
                                               betType: Bet.pts,
                                               game: state.game,
                                               text:
-                                                  '${state.game.odds[0].spread.current.away}     ${state.game.odds[0].spread.current.awayOdds}',
+                                                  '${gameData.spread.current.away}     ${gameData.spread.current.awayOdds}',
                                             ),
                                             BetButton.route(
-                                              mainOdds:
-                                                  '${state.game.odds[0].total.current.overOdds}',
+                                              mainOdds: gameData
+                                                      .total.current?.overOdds
+                                                      .toString() ??
+                                                  '100',
                                               betType: Bet.tot,
                                               game: state.game,
                                               text:
-                                                  'o${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.overOdds}',
+                                                  'o${gameData.total.current.total}     ${gameData.total.current.overOdds}',
                                             ),
                                           ],
                                         ),
@@ -152,53 +140,40 @@ class GameCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   state.game.odds == null
-                                      ? Column(
-                                          children: [
-                                            BetButton.route(
-                                              mainOdds: '100',
-                                              betType: Bet.ml,
-                                              game: state.game,
-                                              text: '134',
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: '100',
-                                              betType: Bet.pts,
-                                              game: state.game,
-                                              text: '-34   143',
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: '100',
-                                              betType: Bet.tot,
-                                              game: state.game,
-                                              text: '-23   156',
-                                            ),
-                                          ],
-                                        )
+                                      ? Container()
                                       : Column(
                                           children: [
                                             BetButton.route(
-                                              mainOdds:
-                                                  '${state.game.odds[0].moneyline.current.homeOdds}',
+                                              mainOdds: gameData.moneyline
+                                                      .current?.homeOdds
+                                                      .toString() ??
+                                                  '100',
                                               betType: Bet.ml,
                                               game: state.game,
-                                              text:
-                                                  '${state.game.odds[0].moneyline.current.homeOdds}',
+                                              text: gameData.moneyline.current
+                                                      ?.homeOdds
+                                                      .toString() ??
+                                                  '100',
                                             ),
                                             BetButton.route(
-                                              mainOdds:
-                                                  '${state.game.odds[0].spread.current.homeOdds}',
+                                              mainOdds: gameData
+                                                      .spread.current?.homeOdds
+                                                      .toString() ??
+                                                  '100',
                                               betType: Bet.pts,
                                               game: state.game,
                                               text:
-                                                  '${state.game.odds[0].spread.current.home}     ${state.game.odds[0].spread.current.homeOdds}',
+                                                  '${gameData.spread.current.home}     ${gameData.spread.current.homeOdds}',
                                             ),
                                             BetButton.route(
-                                              mainOdds:
-                                                  '${state.game.odds[0].total.current.underOdds}',
+                                              mainOdds: gameData
+                                                      .total.current?.underOdds
+                                                      .toString() ??
+                                                  '100',
                                               betType: Bet.tot,
                                               game: state.game,
                                               text:
-                                                  'u${state.game.odds[0].total.current.total}     ${state.game.odds[0].total.current.underOdds}',
+                                                  'u${gameData.total.current.total}     ${gameData.total.current.underOdds}',
                                             ),
                                           ],
                                         ),
@@ -218,20 +193,6 @@ class GameCard extends StatelessWidget {
                                 ),
                                 style: Styles.matchupTime,
                               ),
-                              // RichText(
-                              //   text: TextSpan(
-                              //     children: [
-                              //       TextSpan(
-                              //         text: 'Starting in',
-                              //         style: Styles.moreSmallSizeColorCream,
-                              //       ),
-                              //       TextSpan(
-                              //         text: '20hr:17m:18s',
-                              //         style: Styles.moreSmallSizeColorRed,
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -267,3 +228,49 @@ class GameCard extends StatelessWidget {
     );
   }
 }
+
+// Column(
+//                                           children: [
+//                                             BetButton.route(
+//                                               mainOdds: '100',
+//                                               betType: Bet.ml,
+//                                               text: '100',
+//                                               game: state.game,
+//                                             ),
+//                                             BetButton.route(
+//                                               mainOdds: '100',
+//                                               betType: Bet.pts,
+//                                               game: state.game,
+//                                               text: '-112   100',
+//                                             ),
+//                                             BetButton.route(
+//                                               mainOdds: '100',
+//                                               betType: Bet.tot,
+//                                               game: state.game,
+//                                               text: 'o-115   100',
+//                                             ),
+//                                           ],
+//                                         )
+
+//  Column(
+//                                           children: [
+//                                             BetButton.route(
+//                                               mainOdds: '100',
+//                                               betType: Bet.ml,
+//                                               game: state.game,
+//                                               text: '134',
+//                                             ),
+//                                             BetButton.route(
+//                                               mainOdds: '100',
+//                                               betType: Bet.pts,
+//                                               game: state.game,
+//                                               text: '-34   143',
+//                                             ),
+//                                             BetButton.route(
+//                                               mainOdds: '100',
+//                                               betType: Bet.tot,
+//                                               game: state.game,
+//                                               text: '-23   156',
+//                                             ),
+//                                           ],
+//                                         )
