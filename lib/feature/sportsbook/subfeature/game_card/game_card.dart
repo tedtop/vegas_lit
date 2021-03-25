@@ -57,7 +57,7 @@ class GameCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Flexible(
+                            Expanded(
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -137,7 +137,7 @@ class GameCard extends StatelessWidget {
                                 _betButtonSeparator(text: 'TOT'),
                               ],
                             ),
-                            Flexible(
+                            Expanded(
                               child: Column(
                                 children: [
                                   Text(
