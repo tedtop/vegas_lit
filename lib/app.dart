@@ -2,11 +2,11 @@ import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'authentication/bloc/authentication_bloc.dart';
+import 'authentication/subfeature/login/login.dart';
+import 'authentication/subfeature/splash/splash.dart';
 import 'config/themes.dart';
-import 'feature/authentication/bloc/authentication_bloc.dart';
-import 'feature/authentication/subfeature/login/view/login_page.dart';
-import 'feature/authentication/subfeature/splash/view/splash_page.dart';
-import 'feature/home/view/home_page.dart';
+import 'home/view/home_page.dart';
 
 class App extends StatelessWidget {
   const App({
