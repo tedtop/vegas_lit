@@ -8,7 +8,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/drawer_pages/faq.dart';
 import 'package:vegas_lit/drawer_pages/privacy_policy.dart';
 import 'package:vegas_lit/drawer_pages/rules.dart';
-import 'package:vegas_lit/drawer_pages/service_terms.dart';
+import 'package:vegas_lit/drawer_pages/terms.dart';
 
 import '../cubit/home_cubit.dart';
 

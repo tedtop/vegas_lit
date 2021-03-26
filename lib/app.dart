@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'authentication/bloc/authentication_bloc.dart';
-import 'authentication/subfeature/login/login.dart';
-import 'authentication/subfeature/splash/splash.dart';
+import 'authentication/screens/login/login.dart';
+import 'authentication/screens/splash/splash.dart';
 import 'config/themes.dart';
 import 'home/view/home_page.dart';
 

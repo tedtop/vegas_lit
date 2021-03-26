@@ -9,20 +9,20 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 
-import 'cubit/game_card_cubit.dart';
+import 'cubit/matchup_card_cubit.dart';
 
-class GameCard extends StatelessWidget {
-  const GameCard._({Key key}) : super(key: key);
+class MatchupCard extends StatelessWidget {
+  const MatchupCard._({Key key}) : super(key: key);
 
   static Builder route({@required Game game}) {
     return Builder(
       builder: (_) {
         return BlocProvider(
-          create: (context) => GameCardCubit()
-            ..openGameCard(
+          create: (context) => MatchupCardCubit()
+            ..openMatchupCard(
               game: game,
             ),
-          child: const GameCard._(),
+          child: const MatchupCard._(),
         );
       },
     );
@@ -30,9 +30,9 @@ class GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GameCardCubit, GameCardState>(
+    return BlocBuilder<MatchupCardCubit, MatchupCardState>(
       builder: (context, state) {
-        if (state is GameCardOpened) {
+        if (state is MatchupCardOpened) {
           final gameData = state.game.odds[0];
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),

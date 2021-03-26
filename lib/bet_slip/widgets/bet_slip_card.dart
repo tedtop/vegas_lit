@@ -8,7 +8,7 @@ import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
-import 'package:vegas_lit/intertitial/intertitial_page.dart';
+import 'package:vegas_lit/interstitial/interstitial_page.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';

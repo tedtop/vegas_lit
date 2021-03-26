@@ -6,8 +6,8 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vegas_lit/home/home.dart';
-import 'package:vegas_lit/intertitial/intertitial_page.dart';
-import 'package:vegas_lit/sportsbook/widgets/game_card/game_card.dart';
+import 'package:vegas_lit/interstitial/interstitial_page.dart';
+import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 import '../bloc/sportsbook_bloc.dart';
 
 class Sportsbook extends StatelessWidget {
@@ -221,7 +221,7 @@ class SportsBookView extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: games.length,
                   itemBuilder: (context, index) {
-                    return GameCard.route(
+                    return MatchupCard.route(
                       game: games[index],
                     );
                   },

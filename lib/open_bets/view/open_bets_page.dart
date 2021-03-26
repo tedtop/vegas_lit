@@ -5,7 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import '../cubit/open_bets_cubit.dart';
-import 'open_bets_slip.dart';
+import 'open_bet_card.dart';
 
 class OpenBets extends StatelessWidget {
   static Builder route({String currentUserId}) {
