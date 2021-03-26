@@ -4,25 +4,19 @@ enum BetSlipStatus { loading, empty, opened, added, removed }
 
 class BetSlipState {
   const BetSlipState._({
-    this.games,
+    this.betSlipCardData,
     this.status = BetSlipStatus.loading,
   });
 
   const BetSlipState.loading() : this._();
 
   const BetSlipState.opened({
-    @required List<Widget> games,
+    @required List<BetSlipCardData> betSlipCardData,
   }) : this._(
           status: BetSlipStatus.opened,
-          games: games,
+          betSlipCardData: betSlipCardData,
         );
 
-  // const BetSlipState.empty() : this._(status: BetSlipStatus.empty);
-
-  // const BetSlipState.added() : this._(status: BetSlipStatus.added);
-
-  // const BetSlipState.removed() : this._(status: BetSlipStatus.removed);
-
-  final List<Widget> games;
+  final List<BetSlipCardData> betSlipCardData;
   final BetSlipStatus status;
 }

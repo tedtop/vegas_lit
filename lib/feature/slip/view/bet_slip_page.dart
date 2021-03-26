@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/feature/slip/subfeature/slip_card/view/slip_card_widget.dart';
 
 import '../cubit/bet_slip_cubit.dart';
 import 'bet_slip_empty.dart';
@@ -9,21 +10,21 @@ import 'bet_slip_empty.dart';
 class BetSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BlocBuilder<BetSlipCubit, BetSlipState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case BetSlipStatus.opened:
-                return state.games.isEmpty ? EmptyBetSlip() : BetSlipList();
-                break;
-              default:
-                return const CircularProgressIndicator();
-                break;
-            }
-          },
-        ),
-      ],
+    return Scaffold(
+      body: BlocBuilder<BetSlipCubit, BetSlipState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case BetSlipStatus.opened:
+              return state.betSlipCardData.isEmpty
+                  ? EmptyBetSlip()
+                  : BetSlipList();
+              break;
+            default:
+              return const CircularProgressIndicator();
+              break;
+          }
+        },
+      ),
     );
   }
 }
@@ -91,24 +92,28 @@ class BetSlipList extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width / 10;
     final betSlipState = context.watch<BetSlipCubit>().state;
-    return Expanded(
-      child: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: kIsWeb ? width / 2 : 0,
-        ),
-        key: Key(
-          '${betSlipState.games.length}',
-        ),
-        shrinkWrap: true,
-        children: [
-          BetSlipUpper(),
-          ListView(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            children: betSlipState.games,
-          )
-        ],
+    return ListView(
+      padding: EdgeInsets.symmetric(
+        horizontal: kIsWeb ? width / 2 : 0,
       ),
+      key: Key(
+        '${betSlipState.betSlipCardData.length}',
+      ),
+      shrinkWrap: true,
+      children: [
+        BetSlipUpper(),
+        ListView.builder(
+          reverse: true,
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          itemCount: betSlipState.betSlipCardData.length,
+          itemBuilder: (context, index) {
+            return BetSlipCard.route(
+              betSlipCardData: betSlipState.betSlipCardData[index],
+            );
+          },
+        )
+      ],
     );
   }
 }

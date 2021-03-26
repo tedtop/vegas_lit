@@ -181,7 +181,7 @@ class SportsBookView extends StatelessWidget {
                                   width: 42,
                                   child: Center(
                                     child: Text(
-                                      state.games.length.toString(),
+                                      state.betSlipCardData.length.toString(),
                                       style: GoogleFonts.nunito(
                                         color: Palette.darkGrey,
                                         fontSize: 18,

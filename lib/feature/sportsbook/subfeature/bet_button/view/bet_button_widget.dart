@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/feature/slip/cubit/bet_slip_cubit.dart';
+import 'package:vegas_lit/feature/slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/feature/slip/subfeature/slip_card/slip_card.dart';
 
 import '../cubit/bet_button_cubit.dart';
@@ -85,10 +86,12 @@ class BetButtonUnclicked extends StatelessWidget {
           onPressed: () {
             context.read<BetButtonCubit>().clickBetButton();
             context.read<BetSlipCubit>().addBetSlip(
-                  game: BetSlipCard.route(
-                    key: Key('${betButtonState.uniqueId}'),
-                    betButtonCubit: context.read<BetButtonCubit>(),
+                  betSlipCardData: BetSlipCardData(
+                    id: betButtonState.uniqueId,
                     betType: betButtonState.betType,
+                    betAmount: 0,
+                    betButtonCubit: context.read<BetButtonCubit>(),
+                    toWinAmount: 0,
                   ),
                 );
           },

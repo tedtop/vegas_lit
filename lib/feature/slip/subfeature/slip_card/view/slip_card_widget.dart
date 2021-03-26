@@ -7,89 +7,55 @@ import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/feature/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/feature/open_bets/cubit/open_bets_cubit.dart';
+import 'package:vegas_lit/feature/slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/feature/sportsbook/subfeature/bet_button/cubit/bet_button_cubit.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/widgets/default_button.dart';
 import 'package:vegas_lit/widgets/abstract_card.dart';
 
 import '../../../bet_slip.dart';
-import '../cubit/bet_slip_card_cubit.dart';
 import 'slip_card_intertitial.dart';
 
+// ignore: must_be_immutable
 class BetSlipCard extends StatefulWidget {
-  BetSlipCard._({Key key}) : super(key: key);
+  const BetSlipCard._({
+    Key key,
+    @required this.betSlipCardData,
+  }) : super(key: key);
 
   static Builder route({
-    @required Key key,
-    @required BetButtonCubit betButtonCubit,
-    @required Bet betType,
+    @required BetSlipCardData betSlipCardData,
   }) {
     return Builder(
-      key: key,
       builder: (context) {
-        return BlocProvider<BetSlipCardCubit>(
-          create: (_) => BetSlipCardCubit()
-            ..openBetSlipCard(
-              betType: betType,
-            ),
-          child: BlocProvider.value(
-            value: betButtonCubit,
-            child: BetSlipCard._(),
+        return BlocProvider.value(
+          value: betSlipCardData.betButtonCubit,
+          child: BetSlipCard._(
+            betSlipCardData: betSlipCardData,
           ),
         );
       },
     );
   }
 
+  final BetSlipCardData betSlipCardData;
+
   @override
   _BetSlipCardState createState() => _BetSlipCardState();
 }
 
 class _BetSlipCardState extends State<BetSlipCard> {
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BetSlipCardCubit, BetSlipCardState>(
-      listener: (context, state) {
-        if (state.status == BetSlipCardStatus.confirmed) {
-          Navigator.of(context).push<void>(
-            Interstitial.route(),
-          );
-        }
-      },
-      builder: (context, state) {
-        switch (state.status) {
-          case BetSlipCardStatus.opened:
-            return BetSlipCardView();
-            break;
-          case BetSlipCardStatus.confirmed:
-            return BetSlipCardView();
-            break;
-          default:
-            return const CircularProgressIndicator();
-            break;
-        }
-      },
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class BetSlipCardView extends StatefulWidget {
-  @override
-  _BetSlipCardViewState createState() => _BetSlipCardViewState();
-}
-
-class _BetSlipCardViewState extends State<BetSlipCardView> {
   final _formKey = GlobalKey<FormState>();
 
-  final _betAmountController = TextEditingController(text: '0');
+  TextEditingController _betAmountController;
   final _focusNode = FocusNode();
-
-  int toWinAmount = 0;
 
   @override
   void initState() {
     super.initState();
+    _betAmountController = TextEditingController(
+      text: '${widget.betSlipCardData.betAmount}',
+    );
     _focusNode.addListener(
       () {
         if (_focusNode.hasFocus) {
@@ -105,7 +71,6 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-    final betSlipCardState = context.watch<BetSlipCardCubit>().state;
     return AbstractCard(
       padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +89,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 2,
         ),
         Row(
@@ -149,7 +114,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 2,
         ),
         Form(
@@ -167,7 +132,7 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                           fontWeight: FontWeight.bold,
                           color: Palette.cream,
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Stack(
@@ -197,20 +162,38 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                           if (double.parse(
                                                   betButtonState.mainOdds)
                                               .isNegative) {
-                                            toWinAmount = (100 /
+                                            final toWinAmount = (100 /
                                                     int.parse(betButtonState
                                                         .mainOdds) *
                                                     int.parse(text))
                                                 .round()
                                                 .abs();
+
+                                            context
+                                                .read<BetSlipCubit>()
+                                                .updateBetAmount(
+                                                  toWinAmount: toWinAmount,
+                                                  betAmount: int.parse(text),
+                                                  uniqueId:
+                                                      widget.betSlipCardData.id,
+                                                );
                                           } else {
-                                            toWinAmount = (int.parse(
+                                            final toWinAmount = (int.parse(
                                                         betButtonState
                                                             .mainOdds) /
                                                     100 *
                                                     int.parse(text))
                                                 .round()
                                                 .abs();
+
+                                            context
+                                                .read<BetSlipCubit>()
+                                                .updateBetAmount(
+                                                  toWinAmount: toWinAmount,
+                                                  betAmount: int.parse(text),
+                                                  uniqueId:
+                                                      widget.betSlipCardData.id,
+                                                );
                                           }
                                         },
                                       );
@@ -284,59 +267,56 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: betSlipCardState.status ==
-                              BetSlipCardStatus.confirmed
-                          ? const Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'BET PLACED',
+                      child:
+                          //  widget.betSlipCardData.betAmount != 0
+                          //     ? const Center(
+                          //         child: Padding(
+                          //           padding: EdgeInsets.all(8.0),
+                          //           child: Text(
+                          //             'BET PLACED',
+                          //           ),
+                          //         ),
+                          //       )
+                          //     :
+                          DefaultButton(
+                        text: 'PLACE BET',
+                        action: () {
+                          if (_formKey.currentState.validate()) {
+                            context.read<OpenBetsCubit>().updateOpenBets(
+                                  openBetsData: OpenBetsData(
+                                    amount:
+                                        int.parse(_betAmountController.text),
+                                    away: betButtonState.game.teams.away.mascot
+                                        .toUpperCase(),
+                                    home: betButtonState.game.teams.home.mascot
+                                        .toUpperCase(),
+                                    id: betButtonState.uniqueId,
+                                    type: whichBetSystem(
+                                        betType: betButtonState.betType),
+                                    mlAmount:
+                                        int.parse(betButtonState.mainOdds),
+                                    win: widget.betSlipCardData.toWinAmount,
+                                  ),
+                                );
+                            context.read<HomeCubit>().balanceChange(
+                                  balanceAmount:
+                                      int.parse(_betAmountController.text),
+                                );
+                            ScaffoldMessenger.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                const SnackBar(
+                                  content: Text('Your bet has been placed!'),
                                 ),
-                              ),
-                            )
-                          : DefaultButton(
-                              text: 'PLACE BET',
-                              action: () {
-                                if (_formKey.currentState.validate()) {
-                                  context.read<OpenBetsCubit>().updateOpenBets(
-                                        openBetsData: OpenBetsData(
-                                          amount: int.parse(
-                                              _betAmountController.text),
-                                          away: betButtonState
-                                              .game.teams.away.mascot
-                                              .toUpperCase(),
-                                          home: betButtonState
-                                              .game.teams.home.mascot
-                                              .toUpperCase(),
-                                          id: betButtonState.uniqueId,
-                                          type: whichBetSystem(
-                                              betType: betButtonState.betType),
-                                          mlAmount: int.parse(
-                                              betButtonState.mainOdds),
-                                          win: toWinAmount,
-                                        ),
-                                      );
-                                  context.read<HomeCubit>().balanceChange(
-                                        balanceAmount: int.parse(
-                                            _betAmountController.text),
-                                      );
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Your bet has been placed!'),
-                                      ),
-                                    );
-                                  context
-                                      .read<BetButtonCubit>()
-                                      .confirmBetButton();
-                                  context.read<BetSlipCubit>().removeBetSlip(
-                                        uniqueId: betButtonState.uniqueId,
-                                      );
-                                }
-                              },
-                            ),
+                              );
+
+                            context.read<BetButtonCubit>().confirmBetButton();
+                            context.read<BetSlipCubit>().removeBetSlip(
+                                  uniqueId: betButtonState.uniqueId,
+                                );
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -389,7 +369,8 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                                   child: SizedBox(),
                                 ),
                                 Center(
-                                  child: Text('\$$toWinAmount',
+                                  child: Text(
+                                      '\$${widget.betSlipCardData.toWinAmount}',
                                       style: GoogleFonts.nunito(
                                         color: Palette.green,
                                         fontSize: 18,
@@ -433,21 +414,20 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child:
-                          betSlipCardState.status == BetSlipCardStatus.confirmed
-                              ? Container()
-                              : DefaultButton(
-                                  color: Palette.red,
-                                  elevation: 0,
-                                  text: 'CANCEL',
-                                  action: () {
-                                    context
-                                        .read<BetButtonCubit>()
-                                        .unclickBetButton();
-                                    context.read<BetSlipCubit>().removeBetSlip(
-                                          uniqueId: betButtonState.uniqueId,
-                                        );
-                                  },
-                                ),
+                          //  widget.betSlipCardData.betAmount != 0
+                          //     ? Container()
+                          //     :
+                          DefaultButton(
+                        color: Palette.red,
+                        elevation: 0,
+                        text: 'CANCEL',
+                        action: () {
+                          context.read<BetButtonCubit>().unclickBetButton();
+                          context.read<BetSlipCubit>().removeBetSlip(
+                                uniqueId: betButtonState.uniqueId,
+                              );
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -476,15 +456,14 @@ class _BetSlipCardViewState extends State<BetSlipCardView> {
     if (betType == Bet.ml) {
       return 'MONEYLINE';
     }
-    {
-      if (betType == Bet.pts) {
-        return 'POINT SPREAD';
-      }
-      if (betType == Bet.tot) {
-        return 'TOTAL SPREAD';
-      } else {
-        return 'Error';
-      }
+
+    if (betType == Bet.pts) {
+      return 'POINT SPREAD';
+    }
+    if (betType == Bet.tot) {
+      return 'TOTAL SPREAD';
+    } else {
+      return 'Error';
     }
   }
 }
