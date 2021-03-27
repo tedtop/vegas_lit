@@ -36,9 +36,9 @@ class OpenBets extends StatelessWidget {
               ),
             ],
           ),
-          const TextBar(
-            text: 'Ascending - by start time',
-          ),
+          // const TextBar(
+          //   text: 'Ascending - by start time',
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
