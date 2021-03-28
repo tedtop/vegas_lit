@@ -230,9 +230,9 @@ class _PasswordInput extends StatelessWidget {
                   ),
                   hintText: 'Password',
                   helperText: '',
-                  errorText: state.password.invalid
-                      ? 'Password should be 8 characters and include at least one number'
-                      : null,
+                  // errorText: state.password.invalid
+                  //     ? 'Password should be 8 characters and include at least one number'
+                  //     : null,
                 ),
               ),
             ),
