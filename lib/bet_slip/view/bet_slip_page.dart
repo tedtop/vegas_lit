@@ -92,28 +92,33 @@ class BetSlipList extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width / 10;
     final betSlipState = context.watch<BetSlipCubit>().state;
-    return ListView(
-      padding: EdgeInsets.symmetric(
-        horizontal: kIsWeb ? width / 2 : 0,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: kIsWeb ? width / 2 : 0,
+        ),
+        key: Key(
+          '${betSlipState.betSlipCardData.length}',
+        ),
+        shrinkWrap: true,
+        children: [
+          BetSlipUpper(),
+          ListView.builder(
+            reverse: true,
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: betSlipState.betSlipCardData.length,
+            itemBuilder: (context, index) {
+              return BetSlipCard.route(
+                betSlipCardData: betSlipState.betSlipCardData[index],
+              );
+            },
+          )
+        ],
       ),
-      key: Key(
-        '${betSlipState.betSlipCardData.length}',
-      ),
-      shrinkWrap: true,
-      children: [
-        BetSlipUpper(),
-        ListView.builder(
-          reverse: true,
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemCount: betSlipState.betSlipCardData.length,
-          itemBuilder: (context, index) {
-            return BetSlipCard.route(
-              betSlipCardData: betSlipState.betSlipCardData[index],
-            );
-          },
-        )
-      ],
     );
   }
 }

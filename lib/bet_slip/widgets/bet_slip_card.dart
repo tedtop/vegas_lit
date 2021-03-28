@@ -145,7 +145,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                             color: Palette.cream,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          height: 80,
+                          height: 90,
                           width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
@@ -211,9 +211,14 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                     maxLengthEnforcement:
                                         MaxLengthEnforcement.enforced,
                                     maxLength: 3,
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
+                                      errorStyle: GoogleFonts.nunito(
+                                        fontSize: 12.0,
+                                        height: 1.2,
+                                      ),
+                                      errorMaxLines: 1,
                                       contentPadding:
-                                          EdgeInsets.only(bottom: 8),
+                                          const EdgeInsets.only(bottom: 8),
                                       border: InputBorder.none,
                                       counterText: '',
                                     ),
@@ -221,8 +226,11 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                       if (value.isEmpty) {
                                         return 'Empty Box';
                                       }
+                                      if (!isNumeric(value)) {
+                                        return 'Write a number!';
+                                      }
                                       if (int.parse(value) >= 101) {
-                                        return '100\$ Limit Reached';
+                                        return '100\$ Limit Reached!';
                                       }
                                       if (int.parse(value) == 0) {
                                         return 'Write Some Amount';
@@ -371,7 +379,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                             color: Palette.cream,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          height: 80,
+                          height: 90,
                           width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(7.0),
@@ -478,5 +486,12 @@ class _BetSlipCardState extends State<BetSlipCard> {
     } else {
       return 'Error';
     }
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
   }
 }
