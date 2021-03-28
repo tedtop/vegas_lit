@@ -6,7 +6,6 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vegas_lit/home/home.dart';
-import 'package:vegas_lit/interstitial/interstitial_page.dart';
 import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 import '../bloc/sportsbook_bloc.dart';
 
@@ -16,11 +15,11 @@ class Sportsbook extends StatelessWidget {
     return BlocConsumer<SportsbookBloc, SportsbookState>(
       listenWhen: (previous, current) => previous != current,
       listener: (context, state) {
-        if (state is SportsbookOpened) {
-          Navigator.of(context).push<void>(
-            Interstitial.route(),
-          );
-        }
+        // if (state is SportsbookOpened) {
+        //   Navigator.of(context).push<void>(
+        //     Interstitial.route(),
+        //   );
+        // }
       },
       builder: (context, state) {
         if (state is SportsbookOpened) {

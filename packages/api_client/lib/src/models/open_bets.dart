@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 class OpenBetsData extends Equatable {
   OpenBetsData({
-    this.amount,
-    this.away,
-    this.home,
-    this.id,
-    this.type,
-    this.mlAmount,
-    this.win,
+    @required this.amount,
+    @required this.away,
+    @required this.home,
+    @required this.dateTime,
+    @required this.id,
+    @required this.type,
+    @required this.mlAmount,
+    @required this.win,
   });
 
   final int amount;
@@ -18,6 +20,7 @@ class OpenBetsData extends Equatable {
   final String id;
   final String type;
   final int win;
+  final DateTime dateTime;
   final int mlAmount;
 
   factory OpenBetsData.fromFirestore(DocumentSnapshot documentSnapshot) {
@@ -29,6 +32,7 @@ class OpenBetsData extends Equatable {
       home: data['home'] as String,
       type: data['type'] as String,
       win: data['win'] as int,
+      dateTime: data['date'] as DateTime,
       mlAmount: data['ml_amount'] as int,
     );
   }
@@ -40,6 +44,7 @@ class OpenBetsData extends Equatable {
       'home': home,
       'id': id,
       'type': type,
+      'dateTime': dateTime,
       'win': win,
       'mlAmount': mlAmount,
     };
@@ -54,6 +59,7 @@ class OpenBetsData extends Equatable {
       id,
       type,
       mlAmount,
+      dateTime,
       win,
     ];
   }

@@ -1,6 +1,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
@@ -86,7 +87,9 @@ class OpenBetsSlip extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Sunday, November 08, 2020',
+                            DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                              openBets.dateTime.toLocal(),
+                            ),
                             style: Styles.matchupTime,
                           ),
                           // const SizedBox(

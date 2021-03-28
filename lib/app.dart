@@ -65,33 +65,36 @@ class _AppViewState extends State<AppView> {
       title: 'Vegas Lit',
       theme: Themes.dark,
       builder: (context, child) {
-        return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
-            switch (state.status) {
-              case AuthenticationStatus.authenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                  (route) => false,
-                );
-                break;
-              // case AuthenticationStatus.halfauthenticated:
-              //   _navigator.push<void>(
-              //     LoginInfoPage.route(
-              //       currentUser: state.user,
-              //     ),
-              //   );
-              //   break;
-              case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(),
-                  (route) => false,
-                );
-                break;
-              default:
-                break;
-            }
-          },
-          child: child,
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) {
+              switch (state.status) {
+                case AuthenticationStatus.authenticated:
+                  _navigator.pushAndRemoveUntil<void>(
+                    HomePage.route(),
+                    (route) => false,
+                  );
+                  break;
+                // case AuthenticationStatus.halfauthenticated:
+                //   _navigator.push<void>(
+                //     LoginInfoPage.route(
+                //       currentUser: state.user,
+                //     ),
+                //   );
+                //   break;
+                case AuthenticationStatus.unauthenticated:
+                  _navigator.pushAndRemoveUntil<void>(
+                    LoginPage.route(),
+                    (route) => false,
+                  );
+                  break;
+                default:
+                  break;
+              }
+            },
+            child: child,
+          ),
         );
       },
       onGenerateRoute: (_) => SplashPage.route(),

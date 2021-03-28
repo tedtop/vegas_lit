@@ -14,6 +14,7 @@ import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 import '../bet_slip.dart';
+import '../bet_slip.dart';
 
 // ignore: must_be_immutable
 class BetSlipCard extends StatefulWidget {
@@ -70,6 +71,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
+    final betPlacedCount = context.select(
+      (BetSlipCubit betSlipCubit) => betSlipCubit.state.betPlacedCount,
+    );
     return AbstractCard(
       padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,26 +299,33 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                     mlAmount:
                                         int.parse(betButtonState.mainOdds),
                                     win: widget.betSlipCardData.toWinAmount,
+                                    dateTime: betButtonState.game.schedule.date,
                                   ),
                                 );
                             context.read<HomeCubit>().balanceChange(
                                   balanceAmount:
                                       int.parse(_betAmountController.text),
                                 );
+                            if (betPlacedCount % 4 == 0 &&
+                                betPlacedCount != 0) {
+                              Navigator.of(context).push(
+                                Interstitial.route(),
+                              );
+                            }
+
                             ScaffoldMessenger.of(context)
                               ..removeCurrentSnackBar()
                               ..showSnackBar(
                                 const SnackBar(
+                                  duration: Duration(milliseconds: 1000),
                                   content: Text('Your bet has been placed!'),
                                 ),
                               );
-                            Navigator.of(context).push(
-                              Interstitial.route(),
-                            );
 
                             context.read<BetButtonCubit>().confirmBetButton();
-                            context.read<BetSlipCubit>().removeBetSlip(
+                            context.read<BetSlipCubit>().betPlaced(
                                   uniqueId: betButtonState.uniqueId,
+                                  betPlacedCount: betPlacedCount + 1,
                                 );
                           }
                         },

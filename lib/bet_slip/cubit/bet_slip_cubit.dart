@@ -18,6 +18,7 @@ class BetSlipCubit extends Cubit<BetSlipState> {
     emit(
       BetSlipState.opened(
         betSlipCardData: betSlipGames,
+        betPlacedCount: state.betPlacedCount,
       ),
     );
   }
@@ -27,6 +28,7 @@ class BetSlipCubit extends Cubit<BetSlipState> {
     emit(
       BetSlipState.opened(
         betSlipCardData: newBetSlipList,
+        betPlacedCount: state.betPlacedCount,
       ),
     );
   }
@@ -47,7 +49,24 @@ class BetSlipCubit extends Cubit<BetSlipState> {
       },
     ).toList();
 
-    emit(BetSlipState.opened(betSlipCardData: newBetSlipList));
+    emit(BetSlipState.opened(
+      betSlipCardData: newBetSlipList,
+      betPlacedCount: state.betPlacedCount,
+    ));
+  }
+
+  void betPlaced({
+    @required String uniqueId,
+    @required int betPlacedCount,
+  }) async {
+    final newBetSlipList = List.of(state.betSlipCardData)
+      ..removeWhere(
+        (element) => element.id == uniqueId,
+      );
+    emit(BetSlipState.opened(
+      betSlipCardData: newBetSlipList,
+      betPlacedCount: betPlacedCount,
+    ));
   }
 
   void removeBetSlip({@required String uniqueId}) async {
@@ -55,6 +74,9 @@ class BetSlipCubit extends Cubit<BetSlipState> {
       ..removeWhere(
         (element) => element.id == uniqueId,
       );
-    emit(BetSlipState.opened(betSlipCardData: newBetSlipList));
+    emit(BetSlipState.opened(
+      betSlipCardData: newBetSlipList,
+      betPlacedCount: state.betPlacedCount,
+    ));
   }
 }
