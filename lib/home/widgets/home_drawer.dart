@@ -9,6 +9,7 @@ import 'package:vegas_lit/drawer_pages/faq.dart';
 import 'package:vegas_lit/drawer_pages/privacy_policy.dart';
 import 'package:vegas_lit/drawer_pages/rules.dart';
 import 'package:vegas_lit/drawer_pages/terms.dart';
+import 'package:vegas_lit/profile/profile.dart';
 
 import '../cubit/home_cubit.dart';
 
@@ -41,7 +42,9 @@ class HomeDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(Profile.route());
+            },
           ),
           ListTile(
             title: Text(
