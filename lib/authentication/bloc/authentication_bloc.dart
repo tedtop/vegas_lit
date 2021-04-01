@@ -59,13 +59,13 @@ class AuthenticationBloc
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
     yield const AuthenticationState.splashscreen();
-    // final userData = await _authenticationRepository.isProfileComplete(
-    //   event.user.uid,
-    // );
-    // if (userData != null) {
-    yield AuthenticationState.authenticated(event.user);
-    // } else {
-    //   yield AuthenticationState.halfauthenticated(event.user);
-    // }
+    final userData = await _authenticationRepository.isProfileComplete(
+      event.user.uid,
+    );
+    if (userData != null) {
+      yield AuthenticationState.authenticated(event.user);
+    } else {
+      yield AuthenticationState.halfauthenticated(event.user);
+    }
   }
 }

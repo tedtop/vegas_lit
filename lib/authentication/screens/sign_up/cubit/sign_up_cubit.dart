@@ -17,14 +17,20 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void emailChanged(String value) {
     final email = Email.dirty(value);
-    emit(state.copyWith(
-      email: email,
-      status: Formz.validate([
-        email,
-        state.password,
-        state.confirmedPassword,
-      ]),
-    ));
+
+    emit(
+      state.copyWith(
+        email: email,
+        status: Formz.validate([
+          email,
+          state.password,
+          state.confirmedPassword,
+          state.username,
+          state.americanState,
+          state.number,
+        ]),
+      ),
+    );
   }
 
   void passwordChanged(String value) {
@@ -33,15 +39,20 @@ class SignUpCubit extends Cubit<SignUpState> {
       password: password.value,
       value: state.confirmedPassword.value,
     );
-    emit(state.copyWith(
-      password: password,
-      confirmedPassword: confirmedPassword,
-      status: Formz.validate([
-        state.email,
-        password,
-        state.confirmedPassword,
-      ]),
-    ));
+    emit(
+      state.copyWith(
+        password: password,
+        // confirmedPassword: confirmedPassword,
+        status: Formz.validate([
+          state.email,
+          password,
+          state.confirmedPassword,
+          state.username,
+          state.americanState,
+          state.number,
+        ]),
+      ),
+    );
   }
 
   void confirmedPasswordChanged(String value) {
@@ -49,14 +60,70 @@ class SignUpCubit extends Cubit<SignUpState> {
       password: state.password.value,
       value: value,
     );
-    emit(state.copyWith(
-      confirmedPassword: confirmedPassword,
-      status: Formz.validate([
-        state.email,
-        state.password,
-        confirmedPassword,
-      ]),
-    ));
+    emit(
+      state.copyWith(
+        confirmedPassword: confirmedPassword,
+        status: Formz.validate([
+          state.email,
+          state.password,
+          confirmedPassword,
+          state.username,
+          state.americanState,
+          state.number,
+        ]),
+      ),
+    );
+  }
+
+  void usernameChanged(String value) {
+    final username = Username.dirty(value);
+    emit(
+      state.copyWith(
+        username: username,
+        status: Formz.validate([
+          state.email,
+          state.password,
+          state.confirmedPassword,
+          username,
+          state.americanState,
+          state.number,
+        ]),
+      ),
+    );
+  }
+
+  void numberChanged(String value) {
+    final phoneNumber = PhoneNumber.dirty(value);
+    emit(
+      state.copyWith(
+        number: phoneNumber,
+        status: Formz.validate([
+          state.email,
+          state.password,
+          state.confirmedPassword,
+          state.username,
+          state.americanState,
+          phoneNumber,
+        ]),
+      ),
+    );
+  }
+
+  void americanStateChanged(String value) {
+    final americanState = AmericanState.dirty(value);
+    emit(
+      state.copyWith(
+        americanState: americanState,
+        status: Formz.validate([
+          state.email,
+          state.password,
+          state.confirmedPassword,
+          state.username,
+          americanState,
+          state.number,
+        ]),
+      ),
+    );
   }
 
   Future<void> signUpFormSubmitted() async {

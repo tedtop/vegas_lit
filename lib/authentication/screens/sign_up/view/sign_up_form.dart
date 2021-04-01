@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
@@ -62,6 +63,7 @@ class _UsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
         return Row(
           children: [
@@ -85,7 +87,8 @@ class _UsernameInput extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_usernameInput_textField'),
-                onChanged: print,
+                onChanged: (username) =>
+                    context.read<SignUpCubit>().usernameChanged(username),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 2.5,
@@ -105,6 +108,7 @@ class _UsernameInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Username',
                   helperText: '',
+                  errorText: state.username.invalid ? 'Invalid Username' : null,
                 ),
               ),
             ),
@@ -166,7 +170,7 @@ class _EmailInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
-                  errorText: state.email.invalid ? 'Invalid email' : null,
+                  // errorText: state.email.invalid ? 'Wrong Email' : '',
                 ),
               ),
             ),
@@ -313,9 +317,36 @@ class _ConfirmPasswordInput extends StatelessWidget {
 }
 
 class _StateInput extends StatelessWidget {
+  TextEditingController textEditingController = TextEditingController();
+
+  GlobalKey _dropdownButtonKey;
+
+  void openDropdown() {
+    GestureDetector detector;
+    void searchForGestureDetector(BuildContext element) {
+      element.visitChildElements((element) {
+        if (element.widget != null && element.widget is GestureDetector) {
+          detector = element.widget;
+          return false;
+        } else {
+          searchForGestureDetector(element);
+        }
+
+        return true;
+      });
+    }
+
+    searchForGestureDetector(_dropdownButtonKey.currentContext);
+    assert(detector != null);
+
+    detector.onTap();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) =>
+          previous.americanState != current.americanState,
       builder: (context, state) {
         return Row(
           children: [
@@ -339,6 +370,12 @@ class _StateInput extends StatelessWidget {
                     child: SizedBox(
                       width: 80,
                       child: TextField(
+                        controller: textEditingController,
+                        onChanged: (americanState) {
+                          context
+                              .read<SignUpCubit>()
+                              .americanStateChanged(americanState);
+                        },
                         style: GoogleFonts.nunito(
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
@@ -368,6 +405,9 @@ class _StateInput extends StatelessWidget {
                           isDense: true,
                           hintText: 'State',
                           helperText: '',
+                          errorText: state.americanState.invalid
+                              ? 'Wrong State'
+                              : null,
                         ),
                       ),
                     ),
@@ -376,7 +416,7 @@ class _StateInput extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 22),
                     child: Container(
                       height: 30,
-                      width: 30,
+                      width: 33,
                       decoration: const BoxDecoration(
                         color: Palette.green,
                         borderRadius: BorderRadius.only(
@@ -384,11 +424,23 @@ class _StateInput extends StatelessWidget {
                           bottomRight: Radius.circular(4),
                         ),
                       ),
-                      child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {},
-                        icon: const Icon(LineAwesomeIcons.arrow_circle_down),
-                        iconSize: 15,
+                      child: DropdownButton<String>(
+                        key: _dropdownButtonKey,
+                        items: [
+                          DropdownMenuItem(
+                            value: '1',
+                            child: Text('1'),
+                          ),
+                          DropdownMenuItem(
+                            value: '2',
+                            child: Text('2'),
+                          ),
+                          DropdownMenuItem(
+                            value: '3',
+                            child: Text('3'),
+                          ),
+                        ],
+                        onChanged: (String value) {},
                       ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                     ),
@@ -407,6 +459,7 @@ class _MobileNumberInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) => previous.number != current.number,
       builder: (context, state) {
         return Row(
           children: [
@@ -424,12 +477,15 @@ class _MobileNumberInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                autocorrect: false,
+                inputFormatters: [MaskedInputFormater('(###) ###-####')],
+                onChanged: (mobileNumber) =>
+                    context.read<SignUpCubit>().numberChanged(mobileNumber),
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_mobileNumberInput_textField'),
-                onChanged: print,
                 cursorColor: Palette.cream,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
@@ -451,6 +507,8 @@ class _MobileNumberInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Mobile Number',
                   helperText: '',
+                  errorText:
+                      state.number.invalid ? 'Wrong Mobile Number' : null,
                 ),
               ),
             ),
@@ -561,15 +619,27 @@ class _SignUpButton extends StatelessWidget {
       child: BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
+          final errorText = state.email.invalid ? 'Wrong Email' : '';
           return state.status.isSubmissionInProgress
               ? const CircularProgressIndicator()
-              : DefaultButton(
-                  text: 'SIGN UP',
-                  action: () {
-                    state.status.isValidated
-                        ? context.read<SignUpCubit>().signUpFormSubmitted()
-                        : null;
-                  },
+              : Column(
+                  children: [
+                    DefaultButton(
+                      text: 'SIGN UP',
+                      action: () {
+                        state.status.isValidated
+                            ? context.read<SignUpCubit>().signUpFormSubmitted()
+                            : null;
+                      },
+                    ),
+                    Text(
+                      errorText,
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
+                        color: Palette.red,
+                      ),
+                    ),
+                  ],
                 );
         },
       ),

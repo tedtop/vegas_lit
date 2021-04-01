@@ -1,13 +1,13 @@
 import 'package:formz/formz.dart';
 
-enum NumberValidationError { invalid }
+enum PhoneNumberValidationError { invalid }
 
-class Number extends FormzInput<String, NumberValidationError> {
-  Number.dirty(String value) : super.dirty(value);
-  const Number.pure() : super.pure('');
+class PhoneNumber extends FormzInput<String, PhoneNumberValidationError> {
+  const PhoneNumber.pure() : super.pure('');
+  const PhoneNumber.dirty([String value = '']) : super.dirty(value);
 
   @override
-  NumberValidationError validator(String value) {
-    return value.length == 10 ? null : NumberValidationError.invalid;
+  PhoneNumberValidationError validator(String value) {
+    return value.length == 14 ? null : PhoneNumberValidationError.invalid;
   }
 }

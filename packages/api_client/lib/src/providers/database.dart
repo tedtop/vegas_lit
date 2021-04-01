@@ -38,22 +38,24 @@ class DatabaseProvider extends BaseDatabaseProvider {
 
   @override
   Future<void> saveUserDetails({
+    // String currentUserId,
+    // String profileImageURL,
+    // int age,
+    // String username,
+    Map userDataMap,
     String currentUserId,
-    String profileImageURL,
-    int age,
-    String username,
   }) async {
-    final userData = {
-      'uploadPhoto': profileImageURL,
-      'age': age,
-      'username': username,
-      'bio': '',
-    };
+    // final userData = {
+    //   'uploadPhoto': profileImageURL,
+    //   'age': age,
+    //   'username': username,
+    //   'bio': '',
+    // };
     final currentUserReference = _firestoreData.collection('users').doc(
           currentUserId,
         );
     await currentUserReference.set(
-      userData,
+      userDataMap,
       SetOptions(
         merge: true,
       ),
@@ -71,7 +73,7 @@ class DatabaseProvider extends BaseDatabaseProvider {
         currentUserDocument.data().containsKey('uid') &&
         // currentUserDocument.data().containsKey('name') &&
         currentUserDocument.data().containsKey('email') &&
-        currentUserDocument.data().containsKey('uploadPhoto') &&
+        // currentUserDocument.data().containsKey('uploadPhoto') &&
         currentUserDocument.data().containsKey('username');
     if (isProfileComplete) {
       return UserData.fromFirestore(currentUserDocument);
@@ -117,5 +119,14 @@ class DatabaseProvider extends BaseDatabaseProvider {
         return value.id;
       },
     );
+  }
+
+  @override
+  Stream<UserData> fetchUserData({String currentUserId}) {
+    final documentSnapshot =
+        _firestoreData.collection('users').doc(currentUserId).snapshots().map(
+              (event) => UserData.fromFirestore(event),
+            );
+    return documentSnapshot;
   }
 }

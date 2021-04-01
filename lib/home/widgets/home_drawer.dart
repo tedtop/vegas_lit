@@ -43,7 +43,7 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.of(context).push(Profile.route());
+              // Navigator.of(context).push(Profile.route());
             },
           ),
           ListTile(

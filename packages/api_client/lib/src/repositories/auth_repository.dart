@@ -32,17 +32,9 @@ class AuthenticationRepository {
       databaseProvider.saveDetailsFromAuthentication(currentAuthenticatedUser);
 
   Future<void> saveUserDetails({
-    String currentUserId,
-    String profileImageURL,
-    String username,
-    int age,
+    Map userDataMap,
   }) =>
-      databaseProvider.saveUserDetails(
-        currentUserId: currentUserId,
-        profileImageURL: profileImageURL,
-        username: username,
-        age: age,
-      );
+      databaseProvider.saveUserDetails(userDataMap: userDataMap);
 
   Future<UserData> isProfileComplete(String currentUserId) =>
       databaseProvider.isProfileComplete(currentUserId);
