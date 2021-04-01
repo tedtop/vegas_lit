@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
@@ -73,6 +74,10 @@ class _BetSlipCardState extends State<BetSlipCard> {
     final betButtonState = context.watch<BetButtonCubit>().state;
     final betPlacedCount = context.select(
       (BetSlipCubit betSlipCubit) => betSlipCubit.state.betPlacedCount,
+    );
+    final currentUserId = context.select(
+      (AuthenticationBloc authenticationBloc) =>
+          authenticationBloc.state.user?.uid,
     );
     return AbstractCard(
       padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
@@ -291,9 +296,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           //     :
                           DefaultButton(
                         text: 'PLACE BET',
-                        action: () {
+                        action: () async {
                           if (_formKey.currentState.validate()) {
-                            context.read<OpenBetsCubit>().updateOpenBets(
+                            await context.read<OpenBetsCubit>().updateOpenBets(
                                   openBetsData: OpenBetsData(
                                     amount:
                                         int.parse(_betAmountController.text),
@@ -307,19 +312,19 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                     mlAmount:
                                         int.parse(betButtonState.mainOdds),
                                     win: widget.betSlipCardData.toWinAmount,
-                                    dateTime: betButtonState.game.schedule.date,
-                                  ),
+                                    dateTime:
+                                        DateFormat('EEEE, MMMM, c, y @ hh:mm a')
+                                            .format(
+                                      betButtonState.game.schedule.date
+                                          .toLocal(),
+                                    ),
+                                  ).toMap(),
+                                  currentUserId: currentUserId,
                                 );
                             context.read<HomeCubit>().balanceChange(
                                   balanceAmount:
                                       int.parse(_betAmountController.text),
                                 );
-                            if (betPlacedCount % 4 == 0 &&
-                                betPlacedCount != 0) {
-                              Navigator.of(context).push(
-                                Interstitial.route(),
-                              );
-                            }
 
                             ScaffoldMessenger.of(context)
                               ..removeCurrentSnackBar()
@@ -335,6 +340,12 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                   uniqueId: betButtonState.uniqueId,
                                   betPlacedCount: betPlacedCount + 1,
                                 );
+                            if (betPlacedCount % 4 == 0 &&
+                                betPlacedCount != 0) {
+                              await Navigator.of(context).push(
+                                Interstitial.route(),
+                              );
+                            }
                           }
                         },
                       ),

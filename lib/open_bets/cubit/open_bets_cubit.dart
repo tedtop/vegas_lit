@@ -18,30 +18,39 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
   final BetsRepository _betsRepository;
   StreamSubscription _openBetsSubscription;
 
-  Future<void> openBetsOpen({List<OpenBetsData> openBetsDataList}) async {
-    emit(
-      OpenBetsState.opened(
-        openBetsDataList: openBetsDataList,
-      ),
-    );
-    // final openBetsData = _betsRepository.fetchOpenBetsByUserId(currentUserId);
-    // await _openBetsSubscription?.cancel();
-    // _openBetsSubscription = openBetsData.listen(
-    //   (event) {
-    //     emit(
-    //       OpenBetsOpened(openBets: event),
-    //     );
-    //   },
+  Future<void> openBetsOpen({@required String currentUserId}) async {
+    // emit(
+    //   OpenBetsState.opened(
+    //     openBetsDataList: openBetsDataList,
+    //   ),
     // );
+    final openBetsData = _betsRepository.fetchOpenBetsByUserId(currentUserId);
+    await _openBetsSubscription?.cancel();
+    _openBetsSubscription = openBetsData.listen(
+      (event) {
+        emit(
+          OpenBetsState.opened(openBetsDataList: event),
+        );
+      },
+    );
   }
 
-  void updateOpenBets({OpenBetsData openBetsData}) {
-    final newList = state.openBetsDataList..add(openBetsData);
+  Future<void> updateOpenBets({
+    // OpenBetsData openBetsData,
+    @required String currentUserId,
+    @required Map openBetsData,
+  }) async {
+    // final newList = state.openBetsDataList..add(openBetsData);
 
-    emit(
-      OpenBetsState.opened(
-        openBetsDataList: List.of(newList),
-      ),
+    // emit(
+    //   OpenBetsState.opened(
+    //     openBetsDataList: List.of(newList),
+    //   ),
+    // );
+
+    await _betsRepository.saveOpenBetsById(
+      currentUserId: currentUserId,
+      openBetsData: openBetsData,
     );
   }
 

@@ -20,7 +20,6 @@ class OpenBetsSlip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
         width: 390,
-        height: 152,
         decoration: BoxDecoration(
           border: Border.all(
             color: Palette.cream,
@@ -38,81 +37,81 @@ class OpenBetsSlip extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 10.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('${openBets.home} TO WIN',
-                          style: GoogleFonts.nunito(
-                            fontSize: 24,
-                            color: Palette.cream,
-                            fontWeight: FontWeight.w700,
-                          )),
-                      RichText(
-                        text: TextSpan(
-                          style: Styles.normalText,
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 10.0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${openBets.home} TO WIN',
+                            style: GoogleFonts.nunito(
+                              fontSize: 24,
+                              color: Palette.cream,
+                              fontWeight: FontWeight.w700,
+                            )),
+                        RichText(
+                          text: TextSpan(
+                            style: Styles.normalText,
+                            children: [
+                              TextSpan(
+                                text: '${openBets.away}',
+                              ),
+                              const TextSpan(text: '  @  '),
+                              TextSpan(
+                                text: '${openBets.home}',
+                                style: GoogleFonts.nunito(color: Palette.green),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text('${openBets.type} ${openBets.mlAmount}',
+                            style: GoogleFonts.nunito(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300,
+                              color: Palette.cream,
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 2.0,
+                          ),
+                          child: Text(
+                              'You bet \$${openBets.amount} to win \$${openBets.win}!',
+                              style: GoogleFonts.nunito(
+                                color: Palette.green,
+                                fontSize: 18,
+                              )),
+                        ),
+                        Row(
                           children: [
-                            TextSpan(
-                              text: '${openBets.away}',
+                            Text(
+                              openBets.dateTime,
+                              style: Styles.matchupTime,
                             ),
-                            const TextSpan(text: '  @  '),
-                            TextSpan(
-                              text: '${openBets.home}',
-                              style: GoogleFonts.nunito(color: Palette.green),
-                            ),
+                            // const SizedBox(
+                            //   width: 2,
+                            // ),
+                            // RichText(
+                            //   text: TextSpan(
+                            //     style: Styles.small,
+                            //     children: [
+                            //       TextSpan(
+                            //         text: 'Starting in',
+                            //         style: Styles.creamColor,
+                            //       ),
+                            //       TextSpan(
+                            //         text: '20hr:17m:18s',
+                            //         style: Styles.redColor,
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
-                      ),
-                      Text('${openBets.type} ${openBets.mlAmount}',
-                          style: GoogleFonts.nunito(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Palette.cream,
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 2.0,
-                        ),
-                        child: Text(
-                            'You bet \$${openBets.amount} to win \$${openBets.win}!',
-                            style: GoogleFonts.nunito(
-                              color: Palette.green,
-                              fontSize: 18,
-                            )),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                              openBets.dateTime.toLocal(),
-                            ),
-                            style: Styles.matchupTime,
-                          ),
-                          // const SizedBox(
-                          //   width: 2,
-                          // ),
-                          // RichText(
-                          //   text: TextSpan(
-                          //     style: Styles.small,
-                          //     children: [
-                          //       TextSpan(
-                          //         text: 'Starting in',
-                          //         style: Styles.creamColor,
-                          //       ),
-                          //       TextSpan(
-                          //         text: '20hr:17m:18s',
-                          //         style: Styles.redColor,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(
@@ -125,7 +124,7 @@ class OpenBetsSlip extends StatelessWidget {
                       'assets/images/open_bets_logo.png',
                     ),
                   ),
-                  height: 150,
+                  height: 175,
                   width: 90,
                 ),
               ],

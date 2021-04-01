@@ -18,37 +18,43 @@ class HomePage extends StatefulWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (context) => MultiBlocProvider(
-        providers: [
-          BlocProvider<SportsbookBloc>(
-            create: (_) => SportsbookBloc(
-              sportsfeedRepository: context.read<SportsfeedRepository>(),
-            )..add(
-                SportsbookOpen(
-                  gameName: 'NBA',
+      builder: (context) {
+        final currentUserId = context.select(
+          (AuthenticationBloc authenticationBloc) =>
+              authenticationBloc.state.user?.uid,
+        );
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<SportsbookBloc>(
+              create: (_) => SportsbookBloc(
+                sportsfeedRepository: context.read<SportsfeedRepository>(),
+              )..add(
+                  SportsbookOpen(
+                    gameName: 'NBA',
+                  ),
                 ),
-              ),
-          ),
-          BlocProvider<BetSlipCubit>(
-            create: (_) => BetSlipCubit()
-              ..openBetSlip(
-                betSlipGames: [],
-              ),
-          ),
-          BlocProvider<OpenBetsCubit>(
-            create: (context) => OpenBetsCubit(
-              betsRepository: context.read<BetsRepository>(),
-            )..openBetsOpen(
-                // currentUserId: currentUserId,
-                openBetsDataList: [],
-              ),
-          ),
-          BlocProvider<HomeCubit>(
-            create: (_) => HomeCubit(),
-          ),
-        ],
-        child: const HomePage._(),
-      ),
+            ),
+            BlocProvider(
+              create: (context) => OpenBetsCubit(
+                betsRepository: context.read<BetsRepository>(),
+              )..openBetsOpen(
+                  currentUserId: currentUserId,
+                  // openBetsDataList: [],
+                ),
+            ),
+            BlocProvider<BetSlipCubit>(
+              create: (_) => BetSlipCubit()
+                ..openBetSlip(
+                  betSlipGames: [],
+                ),
+            ),
+            BlocProvider<HomeCubit>(
+              create: (_) => HomeCubit(),
+            ),
+          ],
+          child: const HomePage._(),
+        );
+      },
     );
   }
 
@@ -65,10 +71,7 @@ class _HomePageState extends State<HomePage> {
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
     final balanceAmount =
         context.select((HomeCubit homeCubit) => homeCubit.state.balanceAmount);
-    final userId = context.select(
-      (AuthenticationBloc authenticationBloc) =>
-          authenticationBloc.state.user?.uid,
-    );
+
     return Scaffold(
       // backgroundColor: Palette.lightGrey,
       appBar: AppBar(
@@ -126,7 +129,9 @@ class _HomePageState extends State<HomePage> {
           Sportsbook(),
           BetSlip(),
           Leaderboard(),
-          OpenBets.route(currentUserId: userId),
+          OpenBets.route(
+              // currentUserId: userId,
+              ),
           BetHistory(),
         ],
       ),

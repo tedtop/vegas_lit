@@ -5,6 +5,8 @@ import 'package:api_client/src/config/rapid_api.dart';
 import 'package:api_client/src/models/game.dart';
 import 'package:dio/dio.dart';
 
+import '../base_provider.dart';
+
 class SportsfeedProvider extends BaseSportsfeedProvider {
   SportsfeedProvider({Dio dio}) : _dio = dio ?? Dio();
 

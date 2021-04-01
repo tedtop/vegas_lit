@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,10 +9,14 @@ import '../cubit/open_bets_cubit.dart';
 import 'open_bet_card.dart';
 
 class OpenBets extends StatelessWidget {
-  static Builder route({String currentUserId}) {
+  const OpenBets._({Key key}) : super(key: key);
+
+  static Builder route(
+      // {String currentUserId}
+      ) {
     return Builder(
       builder: (context) {
-        return OpenBets();
+        return const OpenBets._();
       },
     );
   }

@@ -1,8 +1,12 @@
 import 'dart:io';
 
-import 'package:api_client/api_client.dart';
-
+import 'package:api_client/src/models/user.dart';
+import 'package:api_client/src/providers/authentication.dart';
+import 'package:api_client/src/providers/database.dart';
+import 'package:api_client/src/providers/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../base_provider.dart';
 
 class AuthenticationRepository {
   BaseAuthenticationProvider authenticationProvider = AuthenticationProvider();

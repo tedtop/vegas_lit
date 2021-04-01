@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/authentication/screens/sign_up/view/view.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/shared_widgets/auth_login_list.dart';
+import 'package:vegas_lit/shared_widgets/auth_socials.dart';
 import 'package:vegas_lit/shared_widgets/auth_logo.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 
@@ -42,9 +42,9 @@ class LoginForm extends StatelessWidget {
                   _PasswordInput(),
                   _LoginButton(),
                   _LinkToSignup(),
-                  const SocialLoginList(
-                    authenticationType: AuthenticationType.login,
-                  ),
+                  // const SocialLoginList(
+                  //   authenticationType: AuthenticationType.login,
+                  // ),
                 ],
               ),
             ],

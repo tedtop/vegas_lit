@@ -21,6 +21,8 @@ abstract class BaseDatabaseProvider {
       {String currentUserId, String profileImageURL, String username, int age});
   Future<UserData> isProfileComplete(String currentUserId);
   Stream<List<OpenBetsData>> fetchOpenBetsById(String currentUserId);
+
+  Future<void> saveOpenBetsById({String currentUserId, Map openBetsData});
 }
 
 abstract class BaseStorageProvider {

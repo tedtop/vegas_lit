@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meta/meta.dart';
 
 import '../base_provider.dart';
 import '../models/open_bets.dart';
@@ -81,7 +82,12 @@ class DatabaseProvider extends BaseDatabaseProvider {
 
   @override
   Stream<List<OpenBetsData>> fetchOpenBetsById(String currentUserId) {
-    final openBetsData = _firestoreData.collection('open_bets').snapshots().map(
+    final openBetsData = _firestoreData
+        .collection('users')
+        .doc(currentUserId)
+        .collection('open_bets')
+        .snapshots()
+        .map(
           (event) => event.docs
               .map(
                 (e) => OpenBetsData.fromFirestore(e),
@@ -90,5 +96,26 @@ class DatabaseProvider extends BaseDatabaseProvider {
         );
 
     return openBetsData;
+  }
+
+  @override
+  Future<void> saveOpenBetsById({
+    @required String currentUserId,
+    @required Map openBetsData,
+  }) async {
+    await _firestoreData
+        .collection('users')
+        .doc(currentUserId)
+        .collection('open_bets')
+        .add(openBetsData)
+        .then(
+      (value) async {
+        await value.set(
+          {'id': value.id},
+          SetOptions(merge: true),
+        );
+        return value.id;
+      },
+    );
   }
 }

@@ -7,4 +7,10 @@ class BetsRepository {
 
   Stream<List<OpenBetsData>> fetchOpenBetsByUserId(String currentUserId) =>
       _databaseProvider.fetchOpenBetsById(currentUserId);
+
+  Future<void> saveOpenBetsById({String currentUserId, Map openBetsData}) =>
+      _databaseProvider.saveOpenBetsById(
+        currentUserId: currentUserId,
+        openBetsData: openBetsData,
+      );
 }
