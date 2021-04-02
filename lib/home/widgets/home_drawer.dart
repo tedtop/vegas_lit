@@ -15,7 +15,20 @@ import 'package:vegas_lit/profile/profile.dart';
 
 import '../cubit/home_cubit.dart';
 
-class HomeDrawer extends StatelessWidget {
+class HomeDrawer extends StatefulWidget {
+  @override
+  _HomeDrawerState createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  String versionNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    _getAppVersion();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -103,30 +116,33 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           //..................................................................//
-          ListTile(
-            title: Text(
-              'Version: ${_getAppVersion()}', // _getAppVersion()
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 10,
-              ),
-            ),
+          Builder(
+            builder: (context) {
+              return ListTile(
+                title: Text(
+                  'Version: $versionNumber', // _getAppVersion()
+                  style: GoogleFonts.nunito(
+                    color: Palette.cream,
+                    fontSize: 10,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  String _getAppVersion() {
-    String version;
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      version = packageInfo.version;
-    });
-    return version;
+  void _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    versionNumber = packageInfo.version;
   }
 
   final Uri _emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: 'support@vegaslit.com',
-      queryParameters: {'subject': 'Question about Vegas Lit app'});
+    scheme: 'mailto',
+    path: 'support@vegaslit.com',
+    queryParameters: {'subject': 'Question about Vegas Lit app'},
+  );
 }

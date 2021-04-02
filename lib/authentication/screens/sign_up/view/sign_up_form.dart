@@ -171,7 +171,7 @@ class _EmailInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
-                  errorText: state.email.invalid ? 'Write Correct E-mail' : '',
+                  // errorText: state.email.invalid ? 'Write Correct E-mail' : '',
                 ),
               ),
             ),
