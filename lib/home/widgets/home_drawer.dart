@@ -120,7 +120,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             builder: (context) {
               return ListTile(
                 title: Text(
-                  'Version: $versionNumber', // _getAppVersion()
+                  'Version: $versionNumber',
                   style: GoogleFonts.nunito(
                     color: Palette.cream,
                     fontSize: 10,
