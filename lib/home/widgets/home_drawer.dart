@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/drawer_pages/faq.dart';
 import 'package:vegas_lit/drawer_pages/privacy_policy.dart';
 import 'package:vegas_lit/drawer_pages/rules.dart';
@@ -33,60 +35,35 @@ class HomeDrawer extends StatelessWidget {
               color: Palette.lightGrey,
             ),
           ),
+          //..................................................................//
           ListTile(
-            title: Text(
-              'PROFILE',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            title: Text('PROFILE', style: Styles.normalTextBold),
             onTap: () {
               // Navigator.of(context).push(Profile.route());
             },
           ),
           ListTile(
-            title: Text(
-              'LEADERBOARD',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            title: Text('LEADERBOARD', style: Styles.normalTextBold),
             onTap: () {
               context.read<HomeCubit>().homeChange(2);
               Navigator.of(context).pop();
             },
           ),
           ListTile(
-            leading: Text(
-              'LOGOUT',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            leading: Text('LOGOUT', style: Styles.normalTextBold),
             onTap: () {
-              context.read<AuthenticationBloc>().add(
-                    AuthenticationLogoutRequested(),
-                  );
+              context
+                  .read<AuthenticationBloc>()
+                  .add(AuthenticationLogoutRequested());
             },
           ),
+          //..................................................................//
           const Divider(
             color: Palette.cream,
           ),
+          //..................................................................//
           ListTile(
-            title: Text(
-              'RULES',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+            title: Text('RULES', style: Styles.normalText),
             onTap: () {
               Navigator.of(context).push(
                 Rules.route(),
@@ -94,14 +71,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(
-              'FAQ',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+            title: Text('FAQ', style: Styles.normalText),
             onTap: () {
               Navigator.of(context).push(
                 FAQ.route(),
@@ -109,14 +79,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(
-              'TERMS OF SERVICE',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+            title: Text('TERMS OF SERVICE', style: Styles.normalText),
             onTap: () {
               Navigator.of(context).push(
                 TermsOfService.route(),
@@ -124,14 +87,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(
-              'PRIVACY POLICY',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+            title: Text('PRIVACY POLICY', style: Styles.normalText),
             onTap: () {
               Navigator.of(context).push(
                 PrivacyPolicy.route(),
@@ -139,49 +95,38 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(
-              'CONTACT US',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 18,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+            title: Text('CONTACT US', style: Styles.normalText),
             onTap: () {
               launch(
                 _emailLaunchUri.toString(),
               );
             },
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                const Expanded(
-                  child: Divider(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('Version: 0.5.3',
-                      style: GoogleFonts.nunito(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w300,
-                        color: Palette.cream,
-                      )),
-                ),
-                const Expanded(
-                  child: Divider(),
-                ),
-              ],
+          //..................................................................//
+          ListTile(
+            title: Text(
+              'Version: ${_getAppVersion()}', // _getAppVersion()
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 10,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
+  String _getAppVersion() {
+    String version;
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      version = packageInfo.version;
+    });
+    return version;
+  }
+
   final Uri _emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'support@vegaslit.com',
-      queryParameters: {'subject': 'VegasLit'});
+      queryParameters: {'subject': 'Question about Vegas Lit app'});
 }

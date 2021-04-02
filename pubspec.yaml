@@ -35,6 +35,7 @@ dependencies:
   line_awesome_flutter: ^1.0.1
   meta: ^1.2.4
   numberpicker: ^1.3.0
+  package_info: ^2.0.0
   path_provider: ^2.0.0
   syncfusion_flutter_datagrid: ^18.4.43-beta
   universal_html: ^1.2.4
