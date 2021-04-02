@@ -229,6 +229,7 @@ class SportsBookView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return MatchupCard.route(
                       game: games[index],
+                      gameName: gameName,
                     );
                   },
                 );

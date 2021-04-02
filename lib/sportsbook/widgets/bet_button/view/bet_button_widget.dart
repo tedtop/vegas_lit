@@ -6,6 +6,7 @@ import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/sportsbook/models/team.dart';
 
 import '../cubit/bet_button_cubit.dart';
 
@@ -17,6 +18,8 @@ class BetButton extends StatelessWidget {
     @required Game game,
     @required Bet betType,
     @required String mainOdds,
+    @required Team awayTeamData,
+    @required Team homeTeamData,
   }) {
     return Builder(
       builder: (context) {
@@ -27,6 +30,8 @@ class BetButton extends StatelessWidget {
               game: game,
               mainOdds: mainOdds,
               betType: betType,
+              homeTeamData: homeTeamData,
+              awayTeamData: awayTeamData,
             ),
           child: const BetButton._(),
         );

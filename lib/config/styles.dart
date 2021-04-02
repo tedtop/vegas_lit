@@ -61,9 +61,9 @@ class Styles {
   );
 
   static final awayTeam = GoogleFonts.nunito(
-    fontSize: 18,
+    fontSize: 16,
     color: Palette.cream,
-    fontWeight: FontWeight.bold,
+    // fontWeight: FontWeight.bold,
   );
 
   static final matchupTime = GoogleFonts.nunito(

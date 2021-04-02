@@ -46,36 +46,48 @@ class OpenBetsSlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('${openBets.home} TO WIN',
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              color: Palette.cream,
-                              fontWeight: FontWeight.w700,
-                            )),
+                        // TODO: Refactor
+                        Text(
+                          '${openBets.home} TO WIN',
+                          style: GoogleFonts.nunito(
+                            fontSize: 20,
+                            color: Palette.cream,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         RichText(
                           text: TextSpan(
                             style: Styles.normalText,
                             children: [
                               TextSpan(
                                 text: '${openBets.away}',
+                                style: GoogleFonts.nunito(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
                                 text: '${openBets.home}',
-                                style: GoogleFonts.nunito(color: Palette.green),
+                                style: GoogleFonts.nunito(
+                                  color: Palette.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        Text('${openBets.type} ${openBets.mlAmount}',
+                        Text('${openBets.type}   ${openBets.mlAmount}',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.w300,
                               color: Palette.cream,
                             )),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 2.0,
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
                           ),
                           child: Text(
                               'You bet \$${openBets.amount} to win \$${openBets.win}!',

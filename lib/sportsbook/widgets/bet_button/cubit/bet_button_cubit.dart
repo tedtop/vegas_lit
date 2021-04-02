@@ -4,6 +4,7 @@ import 'package:api_client/api_client.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vegas_lit/config/enum.dart';
+import 'package:vegas_lit/sportsbook/models/team.dart';
 
 part 'bet_button_state.dart';
 
@@ -18,12 +19,16 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required Game game,
     @required Bet betType,
     @required String mainOdds,
+    @required Team awayTeamData,
+    @required Team homeTeamData,
   }) {
-    final uniqueId = Uuid().v1();
+    final uniqueId = const Uuid().v1();
     emit(
       BetButtonState.unclicked(
         text: text,
         game: game,
+        awayTeamData: awayTeamData,
+        homeTeamData: homeTeamData,
         uniqueId: uniqueId,
         betType: betType,
         mainOdds: mainOdds,
@@ -37,6 +42,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           text: state.text,
           game: state.game,
           uniqueId: state.uniqueId,
+          awayTeamData: state.awayTeamData,
+          homeTeamData: state.homeTeamData,
           mainOdds: state.mainOdds,
           betType: state.betType),
     );
@@ -48,6 +55,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           text: state.text,
           mainOdds: state.mainOdds,
           game: state.game,
+          awayTeamData: state.awayTeamData,
+          homeTeamData: state.homeTeamData,
           uniqueId: state.uniqueId,
           betType: state.betType),
     );
@@ -59,6 +68,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           text: state.text,
           game: state.game,
           mainOdds: state.mainOdds,
+          awayTeamData: state.awayTeamData,
+          homeTeamData: state.homeTeamData,
           uniqueId: state.uniqueId,
           betType: state.betType),
     );

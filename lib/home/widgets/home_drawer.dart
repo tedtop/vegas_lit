@@ -136,8 +136,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   void _getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
-
-    versionNumber = packageInfo.version;
+    setState(() {
+      versionNumber = packageInfo.version;
+    });
   }
 
   final Uri _emailLaunchUri = Uri(

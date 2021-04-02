@@ -10,6 +10,8 @@ class BetButtonState extends Equatable {
     this.mainOdds,
     this.status = BetButtonStatus.loading,
     this.betType,
+    this.awayTeamData,
+    this.homeTeamData,
   });
 
   const BetButtonState.loading() : this._();
@@ -18,6 +20,8 @@ class BetButtonState extends Equatable {
       {@required String text,
       @required Game game,
       @required String uniqueId,
+      @required Team awayTeamData,
+      @required Team homeTeamData,
       @required String mainOdds,
       @required Bet betType})
       : this._(
@@ -25,6 +29,8 @@ class BetButtonState extends Equatable {
             text: text,
             game: game,
             uniqueId: uniqueId,
+            homeTeamData: homeTeamData,
+            awayTeamData: awayTeamData,
             mainOdds: mainOdds,
             betType: betType);
 
@@ -33,6 +39,8 @@ class BetButtonState extends Equatable {
       @required Game game,
       @required String uniqueId,
       @required String mainOdds,
+      @required Team awayTeamData,
+      @required Team homeTeamData,
       @required Bet betType})
       : this._(
             status: BetButtonStatus.unclicked,
@@ -40,12 +48,16 @@ class BetButtonState extends Equatable {
             game: game,
             uniqueId: uniqueId,
             mainOdds: mainOdds,
+            homeTeamData: homeTeamData,
+            awayTeamData: awayTeamData,
             betType: betType);
 
   const BetButtonState.done(
       {@required String text,
       @required Game game,
       @required String mainOdds,
+      @required Team awayTeamData,
+      @required Team homeTeamData,
       @required String uniqueId,
       @required Bet betType})
       : this._(
@@ -53,6 +65,8 @@ class BetButtonState extends Equatable {
           text: text,
           game: game,
           uniqueId: uniqueId,
+          homeTeamData: homeTeamData,
+          awayTeamData: awayTeamData,
           mainOdds: mainOdds,
           betType: betType,
         );
@@ -65,7 +79,18 @@ class BetButtonState extends Equatable {
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
+  final Team awayTeamData;
+  final Team homeTeamData;
 
   @override
-  List<Object> get props => [status, text, game, uniqueId, betType, mainOdds];
+  List<Object> get props => [
+        status,
+        text,
+        game,
+        uniqueId,
+        betType,
+        mainOdds,
+        awayTeamData,
+        homeTeamData
+      ];
 }

@@ -8,13 +8,13 @@ import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/interstitial/interstitial_page.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
-import '../bet_slip.dart';
 import '../bet_slip.dart';
 
 // ignore: must_be_immutable
@@ -83,41 +83,23 @@ class _BetSlipCardState extends State<BetSlipCard> {
       padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
       crossAxisAlignment: CrossAxisAlignment.start,
       widgets: [
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   children: [],
+        // ),
+        // const SizedBox(
+        //   height: 2,
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              '${betButtonState.game.homeTeam.toUpperCase()} TO WIN',
+              '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
               maxLines: 1,
               style: GoogleFonts.nunito(
-                fontSize: 16,
+                fontSize: 24,
                 color: Palette.cream,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 2,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              whichBetSystem(betType: betButtonState.betType),
-              maxLines: 1,
-              style: GoogleFonts.nunito(
-                fontSize: 16,
-                color: Palette.cream,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Text(
-              betButtonState.text,
-              maxLines: 1,
-              style: GoogleFonts.nunito(
-                fontSize: 16,
-                color: Palette.cream,
+                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -132,14 +114,24 @@ class _BetSlipCardState extends State<BetSlipCard> {
               Flexible(
                 child: Column(
                   children: [
-                    Text(betButtonState.game.awayTeam.toUpperCase(),
-                        // maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.nunito(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Palette.cream,
-                        )),
+                    Column(
+                      children: [
+                        Text(
+                          betButtonState.awayTeamData.city,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.nunito(
+                            fontSize: 12,
+                            color: Palette.cream,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          betButtonState.awayTeamData.name.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: Styles.awayTeam,
+                        ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -228,20 +220,38 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                       counterText: '',
                                     ),
                                     validator: (value) {
+                                      // switch(value) {
+                                      //   case int.parse(value) > 100:
+                                      //     returne max;
+                                      //     break;
+                                      //   case asdf:
+                                      //   case asdf:
+                                      //   case asdf;
+                                      //   case asdf:
+                                      //   default:
+                                      //     return 'Minimum wager \$1';
+                                      //     break;
+                                      // }
+                                      // switch (value) {
+                                      //   case int.parse(value) > 100:
+
+                                      //     break;
+                                      //   default:
+                                      // }
                                       if (value.isEmpty) {
-                                        return 'Empty Box';
+                                        return 'Minimum wager \$1';
                                       }
                                       if (!isNumeric(value)) {
-                                        return 'Write a number!';
+                                        return 'Minimum wager \$1';
                                       }
-                                      if (int.parse(value) >= 101) {
-                                        return '100\$ Limit Reached!';
+                                      if (int.parse(value) > 100) {
+                                        return 'Maximum wager \$100';
                                       }
                                       if (int.parse(value) == 0) {
-                                        return 'Write Some Amount';
+                                        return 'Minimum wager \$1';
                                       }
                                       if (int.parse(value).isNegative) {
-                                        return 'Put Positive Amount';
+                                        return 'Minimum wager \$1';
                                       }
                                       return null;
                                     },
@@ -278,6 +288,18 @@ class _BetSlipCardState extends State<BetSlipCard> {
                         )
                       ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        whichBetSystem(betType: betButtonState.betType),
+                        maxLines: 1,
+                        style: GoogleFonts.nunito(
+                          fontSize: 16,
+                          color: Palette.cream,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
                     Container(
                       width: 174,
                       decoration: BoxDecoration(
@@ -302,9 +324,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                   openBetsData: OpenBetsData(
                                     amount:
                                         int.parse(_betAmountController.text),
-                                    away: betButtonState.game.awayTeam
+                                    away: betButtonState.awayTeamData.name
                                         .toUpperCase(),
-                                    home: betButtonState.game.homeTeam
+                                    home: betButtonState.homeTeamData.name
                                         .toUpperCase(),
                                     id: betButtonState.uniqueId,
                                     type: whichBetSystem(
@@ -356,7 +378,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
               //   width: 18,
               // ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 160),
+                padding: const EdgeInsets.only(bottom: 190),
                 child: Text(
                   '@',
                   style: GoogleFonts.nunito(
@@ -369,15 +391,27 @@ class _BetSlipCardState extends State<BetSlipCard> {
               Flexible(
                 child: Column(
                   children: [
-                    Text(
-                      betButtonState.game.homeTeam.toUpperCase(),
-                      // maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.green,
-                      ),
+                    Column(
+                      children: [
+                        Text(
+                          betButtonState.homeTeamData.city,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.nunito(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Palette.green,
+                          ),
+                        ),
+                        Text(
+                          betButtonState.homeTeamData.name.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Palette.green,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 8,
@@ -392,7 +426,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           height: 90,
                           width: 170,
                           child: Padding(
-                            padding: const EdgeInsets.all(7.0),
+                            padding: const EdgeInsets.all(6.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -400,13 +434,17 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                   child: SizedBox(),
                                 ),
                                 Center(
-                                  child: Text(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Text(
                                       '\$${widget.betSlipCardData.toWinAmount}',
                                       style: GoogleFonts.nunito(
                                         color: Palette.green,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                      )),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -430,14 +468,27 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           height: 40,
                           width: 174,
                           child: Center(
-                            child: Text('TO WIN',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 18,
-                                  color: Palette.cream,
-                                )),
+                            child: Text(
+                              'TO WIN',
+                              style: GoogleFonts.nunito(
+                                fontSize: 18,
+                                color: Palette.cream,
+                              ),
+                            ),
                           ),
                         )
                       ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        betButtonState.text,
+                        maxLines: 1,
+                        style: GoogleFonts.nunito(
+                          fontSize: 16,
+                          color: Palette.cream,
+                        ),
+                      ),
                     ),
                     Container(
                       width: 174,
