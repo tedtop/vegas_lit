@@ -33,7 +33,7 @@ class MatchupCard extends StatelessWidget {
     return BlocBuilder<MatchupCardCubit, MatchupCardState>(
       builder: (context, state) {
         if (state is MatchupCardOpened) {
-          final gameData = state.game.odds[0];
+          final gameData = state.game;
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             child: Container(
@@ -65,51 +65,41 @@ class MatchupCard extends StatelessWidget {
                                     width: 150,
                                     height: 25,
                                     child: Text(
-                                      state.game.teams.away.mascot
-                                          .toUpperCase(),
+                                      state.game.awayTeam.toUpperCase(),
                                       textAlign: TextAlign.center,
                                       style: Styles.awayTeam,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
-                                  state.game.odds == null
-                                      ? Container()
-                                      : Column(
-                                          children: [
-                                            BetButton.route(
-                                              mainOdds: gameData.moneyline
-                                                      .current?.awayOdds
-                                                      .toString() ??
-                                                  '100',
-                                              betType: Bet.ml,
-                                              text: gameData.moneyline.current
-                                                      ?.awayOdds
-                                                      .toString() ??
-                                                  '100',
-                                              game: state.game,
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: gameData
-                                                      .spread.current?.awayOdds
-                                                      .toString() ??
-                                                  '100',
-                                              betType: Bet.pts,
-                                              game: state.game,
-                                              text:
-                                                  '${gameData.spread.current.away}     ${gameData.spread.current.awayOdds}',
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: gameData
-                                                      .total.current?.overOdds
-                                                      .toString() ??
-                                                  '100',
-                                              betType: Bet.tot,
-                                              game: state.game,
-                                              text:
-                                                  'o${gameData.total.current.total}     ${gameData.total.current.overOdds}',
-                                            ),
-                                          ],
-                                        ),
+                                  Column(
+                                    children: [
+                                      BetButton.route(
+                                        mainOdds: gameData.awayTeamMoneyLine
+                                            .toString(),
+                                        betType: Bet.ml,
+                                        text: gameData.awayTeamMoneyLine
+                                            .toString(),
+                                        game: state.game,
+                                      ),
+                                      BetButton.route(
+                                        mainOdds: gameData
+                                            .pointSpreadAwayTeamMoneyLine
+                                            .toString(),
+                                        betType: Bet.pts,
+                                        game: state.game,
+                                        text:
+                                            '${gameData.pointSpread}     ${gameData.pointSpreadAwayTeamMoneyLine}',
+                                      ),
+                                      BetButton.route(
+                                        mainOdds:
+                                            gameData.overPayout.toString(),
+                                        betType: Bet.tot,
+                                        game: state.game,
+                                        text:
+                                            'o${gameData.overUnder}     ${gameData.overPayout}',
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
@@ -129,7 +119,7 @@ class MatchupCard extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(
-                                    state.game.teams.home.mascot.toUpperCase(),
+                                    state.game.homeTeam.toUpperCase(),
                                     // maxLines: 1,
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.nunito(
@@ -139,44 +129,35 @@ class MatchupCard extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 5),
-                                  state.game.odds == null
-                                      ? Container()
-                                      : Column(
-                                          children: [
-                                            BetButton.route(
-                                              mainOdds: gameData.moneyline
-                                                      .current?.homeOdds
-                                                      .toString() ??
-                                                  '100',
-                                              betType: Bet.ml,
-                                              game: state.game,
-                                              text: gameData.moneyline.current
-                                                      ?.homeOdds
-                                                      .toString() ??
-                                                  '100',
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: gameData
-                                                      .spread.current?.homeOdds
-                                                      .toString() ??
-                                                  '100',
-                                              betType: Bet.pts,
-                                              game: state.game,
-                                              text:
-                                                  '${gameData.spread.current.home}     ${gameData.spread.current.homeOdds}',
-                                            ),
-                                            BetButton.route(
-                                              mainOdds: gameData
-                                                      .total.current?.underOdds
-                                                      .toString() ??
-                                                  '100',
-                                              betType: Bet.tot,
-                                              game: state.game,
-                                              text:
-                                                  'u${gameData.total.current.total}     ${gameData.total.current.underOdds}',
-                                            ),
-                                          ],
-                                        ),
+                                  Column(
+                                    children: [
+                                      BetButton.route(
+                                        mainOdds: gameData.homeTeamMoneyLine
+                                            .toString(),
+                                        betType: Bet.ml,
+                                        game: state.game,
+                                        text: gameData.homeTeamMoneyLine
+                                            .toString(),
+                                      ),
+                                      BetButton.route(
+                                        mainOdds: gameData
+                                            .pointSpreadHomeTeamMoneyLine
+                                            .toString(),
+                                        betType: Bet.pts,
+                                        game: state.game,
+                                        text:
+                                            '${gameData.pointSpread}     ${gameData.pointSpreadHomeTeamMoneyLine}',
+                                      ),
+                                      BetButton.route(
+                                        mainOdds:
+                                            gameData.underPayout.toString(),
+                                        betType: Bet.tot,
+                                        game: state.game,
+                                        text:
+                                            'u${gameData.overUnder}     ${gameData.underPayout}',
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             )
@@ -189,7 +170,7 @@ class MatchupCard extends StatelessWidget {
                             children: [
                               Text(
                                 DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                                  state.game.schedule.date.toLocal(),
+                                  state.game.dateTime.toLocal(),
                                 ),
                                 style: Styles.matchupTime,
                               ),

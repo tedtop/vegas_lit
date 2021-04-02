@@ -7,36 +7,12 @@ import 'package:dio/dio.dart';
 
 import '../base_provider.dart';
 
-class SportsfeedProvider extends BaseSportsfeedProvider {
-  SportsfeedProvider({Dio dio}) : _dio = dio ?? Dio();
+class SportsFeedProvider extends BaseSportsfeedProvider {
+  SportsFeedProvider({Dio dio}) : _dio = dio ?? Dio();
 
   final Dio _dio;
 
-  @override
-  Future<List<Game>> fetchGameList() async {
-    final response = await _dio.get(
-      'https://$rapidApiUrl/games',
-      options: Options(
-        headers: {
-          'x-rapidapi-key': '$rapidApiKey',
-          'x-rapidapi-host': 'sportspage-feeds.p.rapidapi.com',
-          'useQueryString': true
-        },
-      ),
-    );
-    if (response.statusCode == 200) {
-      final List<dynamic> parsed =
-          json.decode(json.encode(response.data))["results"];
-      return parsed
-          .map<Game>(
-            (json) => Game.fromJson(json),
-          )
-          .toList();
-    } else {
-      throw FetchGameListFailure();
-    }
-  }
-
+ 
   @override
   Future<List<Game>> fetchGameListByGame({String gameName}) async {
     final response = await _dio.get(
@@ -66,4 +42,3 @@ class SportsfeedProvider extends BaseSportsfeedProvider {
 
 class FetchGameListByGameFailure implements Exception {}
 
-class FetchGameListFailure implements Exception {}

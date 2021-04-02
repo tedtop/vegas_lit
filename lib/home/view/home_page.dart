@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
                 sportsfeedRepository: context.read<SportsfeedRepository>(),
               )..add(
                   SportsbookOpen(
-                    gameName: 'NBA',
+                    gameName: 'MLB',
                   ),
                 ),
             ),

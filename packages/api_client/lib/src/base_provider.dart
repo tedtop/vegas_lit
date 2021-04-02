@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:api_client/src/models/game_new.dart';
 import 'package:api_client/src/models/open_bets.dart';
 import 'package:api_client/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,6 +33,9 @@ abstract class BaseStorageProvider {
 }
 
 abstract class BaseSportsfeedProvider {
-  Future<List<Game>> fetchGameList();
   Future<List<Game>> fetchGameListByGame({String gameName});
+}
+
+abstract class BaseSportsdataProvider {
+  Future<List<Game>> fetchGameListByNewGame({String gameName});
 }

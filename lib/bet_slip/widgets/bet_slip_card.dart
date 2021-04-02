@@ -87,7 +87,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              '${betButtonState.game.teams.home.mascot.toUpperCase()} TO WIN',
+              '${betButtonState.game.homeTeam.toUpperCase()} TO WIN',
               maxLines: 1,
               style: GoogleFonts.nunito(
                 fontSize: 16,
@@ -132,7 +132,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
               Flexible(
                 child: Column(
                   children: [
-                    Text(betButtonState.game.teams.away.mascot.toUpperCase(),
+                    Text(betButtonState.game.awayTeam.toUpperCase(),
                         // maxLines: 1,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.nunito(
@@ -302,9 +302,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                   openBetsData: OpenBetsData(
                                     amount:
                                         int.parse(_betAmountController.text),
-                                    away: betButtonState.game.teams.away.mascot
+                                    away: betButtonState.game.awayTeam
                                         .toUpperCase(),
-                                    home: betButtonState.game.teams.home.mascot
+                                    home: betButtonState.game.homeTeam
                                         .toUpperCase(),
                                     id: betButtonState.uniqueId,
                                     type: whichBetSystem(
@@ -315,8 +315,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                     dateTime:
                                         DateFormat('EEEE, MMMM, c, y @ hh:mm a')
                                             .format(
-                                      betButtonState.game.schedule.date
-                                          .toLocal(),
+                                      betButtonState.game.dateTime.toLocal(),
                                     ),
                                   ).toMap(),
                                   currentUserId: currentUserId,
@@ -371,7 +370,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                 child: Column(
                   children: [
                     Text(
-                      betButtonState.game.teams.home.mascot.toUpperCase(),
+                      betButtonState.game.homeTeam.toUpperCase(),
                       // maxLines: 1,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(
@@ -472,7 +471,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
           child: Center(
             child: Text(
                 DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                  betButtonState.game.schedule.date.toLocal(),
+                  betButtonState.game.dateTime.toLocal(),
                 ),
                 style: GoogleFonts.nunito(
                   color: Palette.cream,

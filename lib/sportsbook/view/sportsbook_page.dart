@@ -51,7 +51,7 @@ class SportsBookView extends StatelessWidget {
 
   final List<Game> games;
   final String gameName;
-  final Map<String, int> gameNumberList;
+  final Map gameNumberList;
 
   @override
   Widget build(BuildContext context) {
@@ -122,15 +122,22 @@ class SportsBookView extends StatelessWidget {
                           'NCAAB'
                         ].map<DropdownMenuItem<String>>(
                           (String value) {
-                            int length;
+                            String length;
                             gameNumberList.forEach(
-                              (key, newValue) =>
-                                  key == value ? length = newValue : null,
+                              (key, newValue) {
+                                if (key == 'NFL' || key == 'NCAAF') {
+                                  length = '$newValue';
+                                } else {
+                                  key == value
+                                      ? length = '$newValue Games'
+                                      : null;
+                                }
+                              },
                             );
                             return DropdownMenuItem<String>(
                               value: value,
                               child: value == gameName
-                                  ? Text('$value ($length Games)',
+                                  ? Text('$value ($length)',
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.nunito(
                                         fontSize: 18,
@@ -138,7 +145,7 @@ class SportsBookView extends StatelessWidget {
                                         color: Palette.cream,
                                       ))
                                   : Text(
-                                      '$value ($length Games)',
+                                      '$value ($length)',
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.nunito(
                                         color: Palette.cream,
@@ -208,7 +215,7 @@ class SportsBookView extends StatelessWidget {
               if (games.isEmpty) {
                 return Center(
                   child: Text(
-                    'No Games Found!',
+                    'No Games Scheduled Today!',
                     style: GoogleFonts.nunito(
                       color: Palette.cream,
                     ),

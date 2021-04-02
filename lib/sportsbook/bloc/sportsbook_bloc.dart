@@ -31,32 +31,43 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     yield (SportsbookInitial());
     final list = <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB'];
 
-    final gameNumberMap = <String, int>{};
+    final gameNumberMap = <String, String>{};
 
     await Future.wait(
-      list
-          .map(
-            (e) async => await _sportsfeedRepository
-                .fetchGameListByGame(
+      list.map(
+        (e) async {
+          if (e == 'NFL' || e == 'NCAAF') {
+            gameNumberMap[e] = 'OFF-SEASON';
+          } else {
+            await _sportsfeedRepository
+                .fetchGameListByNewGame(
               gameName: e,
             )
                 .then(
               (value) {
-                gameNumberMap[e] = value.length;
+                gameNumberMap[e] = value.length.toString();
               },
-            ),
-          )
-          .toList(),
+            );
+          }
+        },
+      ).toList(),
     );
 
-    final games = await _sportsfeedRepository.fetchGameListByGame(
-      gameName: event.gameName,
-    );
-
-    yield SportsbookOpened(
-      games: games,
-      gameName: event.gameName,
-      gameNumbers: gameNumberMap,
-    );
+    if (event.gameName == 'NFL' || event.gameName == 'NCAAF') {
+      yield SportsbookOpened(
+        games: [],
+        gameName: event.gameName,
+        gameNumbers: gameNumberMap,
+      );
+    } else {
+      final games = await _sportsfeedRepository.fetchGameListByNewGame(
+        gameName: event.gameName,
+      );
+      yield SportsbookOpened(
+        games: games,
+        gameName: event.gameName,
+        gameNumbers: gameNumberMap,
+      );
+    }
   }
 }

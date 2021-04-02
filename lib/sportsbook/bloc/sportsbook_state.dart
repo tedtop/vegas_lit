@@ -15,5 +15,5 @@ class SportsbookOpened extends SportsbookState {
 
   final List<Game> games;
   final String gameName;
-  final Map<String, int> gameNumbers;
+  final Map gameNumbers;
 }

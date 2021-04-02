@@ -153,6 +153,28 @@ class HomeDrawer extends StatelessWidget {
               );
             },
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                const Expanded(
+                  child: Divider(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text('Version: 0.5.3',
+                      style: GoogleFonts.nunito(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w300,
+                        color: Palette.cream,
+                      )),
+                ),
+                const Expanded(
+                  child: Divider(),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

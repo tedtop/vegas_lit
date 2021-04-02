@@ -83,7 +83,7 @@ class _UsernameInput extends StatelessWidget {
               child: TextField(
                 cursorColor: Palette.cream,
                 style: GoogleFonts.nunito(
-                  fontSize: 10,
+                  fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_usernameInput_textField'),
@@ -108,7 +108,8 @@ class _UsernameInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Username',
                   helperText: '',
-                  errorText: state.username.invalid ? 'Invalid Username' : null,
+                  errorText:
+                      state.username.invalid ? 'Should be less than 10' : null,
                 ),
               ),
             ),
@@ -170,7 +171,7 @@ class _EmailInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
-                  // errorText: state.email.invalid ? 'Wrong Email' : '',
+                  errorText: state.email.invalid ? 'Write Correct E-mail' : '',
                 ),
               ),
             ),
@@ -204,7 +205,7 @@ class _PasswordInput extends StatelessWidget {
             Expanded(
               child: TextField(
                 style: GoogleFonts.nunito(
-                  fontSize: 10,
+                  fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_passwordInput_textField'),
@@ -272,7 +273,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
             Expanded(
               child: TextField(
                 style: GoogleFonts.nunito(
-                  fontSize: 10,
+                  fontSize: 18,
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_confirmedPasswordInput_textField'),
@@ -619,27 +620,15 @@ class _SignUpButton extends StatelessWidget {
       child: BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
-          final errorText = state.email.invalid ? 'Wrong Email' : '';
           return state.status.isSubmissionInProgress
               ? const CircularProgressIndicator()
-              : Column(
-                  children: [
-                    DefaultButton(
-                      text: 'SIGN UP',
-                      action: () {
-                        state.status.isValidated
-                            ? context.read<SignUpCubit>().signUpFormSubmitted()
-                            : null;
-                      },
-                    ),
-                    Text(
-                      errorText,
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        color: Palette.red,
-                      ),
-                    ),
-                  ],
+              : DefaultButton(
+                  text: 'SIGN UP',
+                  action: () {
+                    state.status.isValidated
+                        ? context.read<SignUpCubit>().signUpFormSubmitted()
+                        : null;
+                  },
                 );
         },
       ),
