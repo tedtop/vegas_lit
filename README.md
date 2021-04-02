@@ -37,6 +37,9 @@ flutter doctor
 flutter upgrade
 ```
 
+### Android
+https://flutter.dev/docs/deployment/android#signing-the-app
+
 ## American Odds in Spreads vs. Moneylines
 https://www.actionnetwork.com/education/american-odds#Vs
 

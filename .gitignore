@@ -25,7 +25,7 @@
 # the last deployment. It's new in CLI version 4.2.0
 #
 # https://stackoverflow.com/questions/52130772/whats-the-purpose-of-firebase-hosting-alphanum-cache
-.firebase/*
+.firebase
 
 # Flutter/Dart/Pub related
 **/doc/api/
