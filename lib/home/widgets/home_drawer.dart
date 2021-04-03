@@ -52,7 +52,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             title: Text('PROFILE', style: Styles.normalTextBold),
             onTap: () {
-              // Navigator.of(context).push(Profile.route());
+              Navigator.of(context).push(Profile.route());
             },
           ),
           ListTile(
