@@ -99,7 +99,8 @@ class _UsernameInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
-                  fillColor: Colors.white,
+                  filled: true,
+                  fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(4),
@@ -161,7 +162,8 @@ class _EmailInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
-                  fillColor: Colors.white,
+                  filled: true,
+                  fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(4),
@@ -223,6 +225,8 @@ class _PasswordInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
+                  filled: true,
+                  fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(4),
@@ -301,6 +305,8 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   errorStyle: GoogleFonts.nunito(
                     fontSize: 10,
                   ),
+                  filled: true,
+                  fillColor: Palette.lightGrey,
                   isDense: true,
                   hintText: 'Verify Password',
                   helperText: '',
@@ -396,7 +402,6 @@ class _StateInput extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                             color: Palette.cream,
                           ),
-                          fillColor: Colors.white,
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4),
@@ -404,6 +409,8 @@ class _StateInput extends StatelessWidget {
                             ),
                           ),
                           isDense: true,
+                          filled: true,
+                          fillColor: Palette.lightGrey,
                           hintText: 'State',
                           helperText: '',
                           errorText: state.americanState.invalid
@@ -499,7 +506,8 @@ class _MobileNumberInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
-                  fillColor: Colors.white,
+                  filled: true,
+                  fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(4),

@@ -8,6 +8,7 @@ import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/strings.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/interstitial/interstitial_page.dart';
@@ -220,38 +221,20 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                       counterText: '',
                                     ),
                                     validator: (value) {
-                                      // switch(value) {
-                                      //   case int.parse(value) > 100:
-                                      //     returne max;
-                                      //     break;
-                                      //   case asdf:
-                                      //   case asdf:
-                                      //   case asdf;
-                                      //   case asdf:
-                                      //   default:
-                                      //     return 'Minimum wager \$1';
-                                      //     break;
-                                      // }
-                                      // switch (value) {
-                                      //   case int.parse(value) > 100:
-
-                                      //     break;
-                                      //   default:
-                                      // }
                                       if (value.isEmpty) {
-                                        return 'Minimum wager \$1';
+                                        return Strings.minimumWager;
                                       }
                                       if (!isNumeric(value)) {
-                                        return 'Minimum wager \$1';
+                                        return Strings.minimumWager;
                                       }
                                       if (int.parse(value) > 100) {
-                                        return 'Maximum wager \$100';
+                                        return Strings.maximumWager;
                                       }
                                       if (int.parse(value) == 0) {
-                                        return 'Minimum wager \$1';
+                                        return Strings.minimumWager;
                                       }
                                       if (int.parse(value).isNegative) {
-                                        return 'Minimum wager \$1';
+                                        return Strings.minimumWager;
                                       }
                                       return null;
                                     },
@@ -322,6 +305,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           if (_formKey.currentState.validate()) {
                             await context.read<OpenBetsCubit>().updateOpenBets(
                                   openBetsData: OpenBetsData(
+                                    league: betButtonState.league,
                                     amount:
                                         int.parse(_betAmountController.text),
                                     away: betButtonState.awayTeamData.name

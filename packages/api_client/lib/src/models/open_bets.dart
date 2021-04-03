@@ -10,11 +10,13 @@ class OpenBetsData extends Equatable {
     @required this.dateTime,
     @required this.id,
     @required this.type,
+    @required this.league,
     @required this.mlAmount,
     @required this.win,
   });
 
   final int amount;
+  final String league;
   final String away;
   final String home;
   final String id;
@@ -27,6 +29,7 @@ class OpenBetsData extends Equatable {
     final Map data = documentSnapshot.data();
     return OpenBetsData(
       id: documentSnapshot.id,
+      league: data['league'] as String,
       amount: data['amount'] as int,
       away: data['away'] as String,
       home: data['home'] as String,
@@ -47,6 +50,7 @@ class OpenBetsData extends Equatable {
       'dateTime': dateTime,
       'win': win,
       'mlAmount': mlAmount,
+      'league': league,
     };
   }
 
@@ -58,6 +62,7 @@ class OpenBetsData extends Equatable {
       home,
       id,
       type,
+      league,
       mlAmount,
       dateTime,
       win,

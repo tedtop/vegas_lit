@@ -102,6 +102,7 @@ class MatchupCard extends StatelessWidget {
                                               text: gameData.awayTeamMoneyLine
                                                   .toString(),
                                               game: state.game,
+                                              league: state.league,
                                             ),
                                       gameData.pointSpreadAwayTeamMoneyLine ==
                                               null
@@ -111,6 +112,7 @@ class MatchupCard extends StatelessWidget {
                                                   .pointSpreadAwayTeamMoneyLine
                                                   .toString(),
                                               betType: Bet.pts,
+                                              league: state.league,
                                               awayTeamData: state.awayTeamData,
                                               homeTeamData: state.homeTeamData,
                                               game: state.game,
@@ -120,6 +122,7 @@ class MatchupCard extends StatelessWidget {
                                       gameData.overPayout == null
                                           ? Container()
                                           : BetButton.route(
+                                              league: state.league,
                                               mainOdds: gameData.overPayout
                                                   .toString(),
                                               betType: Bet.tot,
@@ -183,6 +186,7 @@ class MatchupCard extends StatelessWidget {
                                       gameData.homeTeamMoneyLine == null
                                           ? Container()
                                           : BetButton.route(
+                                              league: state.league,
                                               mainOdds: gameData
                                                   .homeTeamMoneyLine
                                                   .toString(),
@@ -197,6 +201,7 @@ class MatchupCard extends StatelessWidget {
                                               null
                                           ? Container()
                                           : BetButton.route(
+                                              league: state.league,
                                               mainOdds: gameData
                                                   .pointSpreadHomeTeamMoneyLine
                                                   .toString(),
@@ -210,6 +215,7 @@ class MatchupCard extends StatelessWidget {
                                       gameData.underPayout == null
                                           ? Container()
                                           : BetButton.route(
+                                              league: state.league,
                                               mainOdds: gameData.underPayout
                                                   .toString(),
                                               betType: Bet.tot,

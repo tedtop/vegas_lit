@@ -26,6 +26,7 @@ class MatchupCardCubit extends Cubit<MatchupCardState> {
         game: game,
         awayTeamData: awayTeamData,
         homeTeamData: homeTeamData,
+        league: gameName,
       ),
     );
   }
