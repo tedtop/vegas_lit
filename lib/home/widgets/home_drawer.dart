@@ -31,6 +31,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUserId = context.select(
+      (AuthenticationBloc authenticationBloc) =>
+          authenticationBloc.state.user?.uid,
+    );
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -52,7 +56,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             title: Text('PROFILE', style: Styles.normalTextBold),
             onTap: () {
-              Navigator.of(context).push(Profile.route());
+              Navigator.of(context).push(
+                Profile.route(currentUserId: currentUserId),
+              );
             },
           ),
           ListTile(

@@ -125,7 +125,9 @@ class DatabaseProvider extends BaseDatabaseProvider {
   Stream<UserData> fetchUserData({String currentUserId}) {
     final documentSnapshot =
         _firestoreData.collection('users').doc(currentUserId).snapshots().map(
-              (event) => UserData.fromFirestore(event),
+              (event) => UserData.fromFirestore(
+                event,
+              ),
             );
     return documentSnapshot;
   }

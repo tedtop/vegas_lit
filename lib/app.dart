@@ -13,6 +13,7 @@ class App extends StatelessWidget {
     Key key,
     @required this.authenticationRepository,
     @required this.sportsfeedRepository,
+    @required this.userRepository,
     @required this.betsRepository,
   })  : assert(
           authenticationRepository != null,
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
 
   final AuthenticationRepository authenticationRepository;
   final SportsfeedRepository sportsfeedRepository;
+  final UserRepository userRepository;
   final BetsRepository betsRepository;
 
   @override
@@ -36,6 +38,9 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider.value(
           value: betsRepository,
+        ),
+        RepositoryProvider.value(
+          value: userRepository,
         ),
       ],
       child: BlocProvider(

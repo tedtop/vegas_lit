@@ -1,17 +1,27 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 
 class Profile extends StatelessWidget {
   const Profile._({Key key}) : super(key: key);
 
-  static Route route() {
+  static Route route({@required String currentUserId}) {
     return MaterialPageRoute<void>(
-      builder: (_) => const Profile._(),
+      builder: (context) => BlocProvider<ProfileCubit>(
+        create: (_) => ProfileCubit(
+          userRepository: context.read<UserRepository>(),
+        )..openProfile(
+            currentUserId: currentUserId,
+          ),
+        child: const Profile._(),
+      ),
     );
   }
 
@@ -31,18 +41,29 @@ class Profile extends StatelessWidget {
               const SizedBox(
                 height: 35,
               ),
-              AbstractCard(
-                padding: const EdgeInsets.fromLTRB(28, 33, 22, 40),
-                widgets: [
-                  _AvatarInput(),
-                  const SizedBox(height: 30),
-                  _UsernameInput(),
-                  _PasswordInput(),
-                  _EmailInput(),
-                  _StateInput(),
-                  _MobileNumberInput(),
-                  _EditButton(),
-                ],
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case ProfileStatus.opened:
+                      return AbstractCard(
+                        padding: const EdgeInsets.fromLTRB(28, 33, 22, 40),
+                        widgets: [
+                          _AvatarInput(),
+                          const SizedBox(height: 30),
+                          _UsernameInput(),
+                          _PasswordInput(),
+                          _EmailInput(),
+                          _StateInput(),
+                          _MobileNumberInput(),
+                          _EditButton(),
+                        ],
+                      );
+                      break;
+                    default:
+                      return const CircularProgressIndicator();
+                      break;
+                  }
+                },
               ),
             ],
           ),
@@ -86,62 +107,72 @@ class _AvatarInput extends StatelessWidget {
 }
 
 class _UsernameInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              'Username',
-              style: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: TextField(
-            cursorColor: Palette.cream,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
-            key: const Key('signUpForm_usernameInput_textField'),
-            onChanged: print,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 6,
-                horizontal: 8,
-              ),
-              hintStyle: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-                color: Palette.cream,
-              ),
-              filled: true,
-              fillColor: Palette.darkGrey,
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(4),
+    return Builder(
+      builder: (context) {
+        final username = context.watch<ProfileCubit>().state.userData.username;
+        textInputController.text = username;
+        return Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'Username',
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
-              isDense: true,
-              hintText: 'Username',
-              helperText: '',
-              // errorText:
-              //     state.username.invalid ? 'Should be less than 10' : null,
             ),
-          ),
-        ),
-      ],
+            Expanded(
+              child: TextField(
+                controller: textInputController,
+                cursorColor: Palette.cream,
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300,
+                ),
+                key: const Key('signUpForm_usernameInput_textField'),
+                onChanged: print,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 6,
+                    horizontal: 8,
+                  ),
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                    color: Palette.cream,
+                  ),
+                  filled: true,
+                  fillColor: Palette.darkGrey,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                  ),
+                  isDense: true,
+                  hintText: 'Username',
+                  helperText: '',
+                  // errorText:
+                  //     state.username.invalid ? 'Should be less than 10' : null,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
 
 class _PasswordInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -164,6 +195,7 @@ class _PasswordInput extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.w300,
             ),
+            controller: textInputController,
             key: const Key('signUpForm_passwordInput_textField'),
             onChanged: print,
             obscureText: true,
@@ -204,8 +236,11 @@ class _PasswordInput extends StatelessWidget {
 }
 
 class _EmailInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final email = context.watch<ProfileCubit>().state.userData.email;
+    textInputController.text = email;
     return Row(
       children: [
         Expanded(
@@ -222,6 +257,7 @@ class _EmailInput extends StatelessWidget {
         ),
         Expanded(
           child: TextField(
+            controller: textInputController,
             cursorColor: Palette.cream,
             style: GoogleFonts.nunito(
               fontSize: 18,
@@ -262,7 +298,7 @@ class _EmailInput extends StatelessWidget {
 }
 
 class _StateInput extends StatelessWidget {
-  TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textInputController = TextEditingController();
 
   GlobalKey _dropdownButtonKey;
 
@@ -289,6 +325,8 @@ class _StateInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<ProfileCubit>().state.userData.americanState;
+    textInputController.text = state;
     return Row(
       children: [
         Expanded(
@@ -311,7 +349,7 @@ class _StateInput extends StatelessWidget {
                 child: SizedBox(
                   width: 80,
                   child: TextField(
-                    controller: textEditingController,
+                    controller: textInputController,
                     onChanged: print,
                     style: GoogleFonts.nunito(
                       fontSize: 18,
@@ -392,8 +430,11 @@ class _StateInput extends StatelessWidget {
 }
 
 class _MobileNumberInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final number = context.watch<ProfileCubit>().state.userData.phoneNumber;
+    textInputController.text = number;
     return Row(
       children: [
         Expanded(
@@ -413,6 +454,7 @@ class _MobileNumberInput extends StatelessWidget {
             autocorrect: false,
             inputFormatters: [MaskedInputFormater('(###) ###-####')],
             onChanged: print,
+            controller: textInputController,
             style: GoogleFonts.nunito(
               fontSize: 18,
               fontWeight: FontWeight.w300,

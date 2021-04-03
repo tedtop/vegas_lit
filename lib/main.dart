@@ -15,6 +15,7 @@ Future<void> main() async {
   Bloc.observer = SimpleBlocObserver();
   runApp(
     App(
+      userRepository: UserRepository(),
       sportsfeedRepository: SportsfeedRepository(),
       authenticationRepository: AuthenticationRepository(),
       betsRepository: BetsRepository(),
