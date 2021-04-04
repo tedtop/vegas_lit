@@ -1,1 +1,1 @@
-export 'view/profile_page.dart';
+export 'screens/profile_page.dart';

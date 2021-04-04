@@ -1,1 +1,1 @@
-export 'view/bet_history_page.dart';
+export 'screens/bet_history_page.dart';

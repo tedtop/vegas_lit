@@ -1,1 +1,1 @@
-export 'view/leaderboard_page.dart';
+export 'screens/leaderboard_page.dart';

@@ -1,2 +1,2 @@
 export 'bloc/sportsbook_bloc.dart';
-export 'view/sportsbook_page.dart';
+export 'screens/sportsbook_page.dart';

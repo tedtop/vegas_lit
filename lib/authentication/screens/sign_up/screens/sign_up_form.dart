@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -109,8 +110,6 @@ class _UsernameInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Username',
                   helperText: '',
-                  errorText:
-                      state.username.invalid ? 'Should be less than 10' : null,
                 ),
               ),
             ),
@@ -173,7 +172,6 @@ class _EmailInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
-                  // errorText: state.email.invalid ? 'Write Correct E-mail' : '',
                 ),
               ),
             ),
@@ -239,9 +237,6 @@ class _PasswordInput extends StatelessWidget {
                   ),
                   hintText: 'Password',
                   helperText: '',
-                  // errorText: state.password.invalid
-                  //     ? 'Password should be 8 characters and include at least one number'
-                  //     : null,
                 ),
               ),
             ),
@@ -310,9 +305,6 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Verify Password',
                   helperText: '',
-                  errorText: state.confirmedPassword.invalid
-                      ? 'Passwords do not match'
-                      : null,
                 ),
               ),
             ),
@@ -413,9 +405,6 @@ class _StateInput extends StatelessWidget {
                           fillColor: Palette.lightGrey,
                           hintText: 'State',
                           helperText: '',
-                          errorText: state.americanState.invalid
-                              ? 'Wrong State'
-                              : null,
                         ),
                       ),
                     ),
@@ -486,7 +475,10 @@ class _MobileNumberInput extends StatelessWidget {
             Expanded(
               child: TextField(
                 autocorrect: false,
-                inputFormatters: [MaskedInputFormater('(###) ###-####')],
+                inputFormatters: [
+                  // FilteringTextInputFormatter.digitsOnly,
+                  MaskedInputFormater('(###) ###-####'),
+                ],
                 onChanged: (mobileNumber) =>
                     context.read<SignUpCubit>().numberChanged(mobileNumber),
                 style: GoogleFonts.nunito(
@@ -516,8 +508,7 @@ class _MobileNumberInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Mobile Number',
                   helperText: '',
-                  errorText:
-                      state.number.invalid ? 'Wrong Mobile Number' : null,
+                  errorText: state.number.invalid ? 'NO' : null,
                 ),
               ),
             ),
@@ -632,11 +623,9 @@ class _SignUpButton extends StatelessWidget {
               ? const CircularProgressIndicator()
               : DefaultButton(
                   text: 'SIGN UP',
-                  action: () {
-                    state.status.isValidated
-                        ? context.read<SignUpCubit>().signUpFormSubmitted()
-                        : null;
-                  },
+                  action: state.status.isValidated
+                      ? () => context.read<SignUpCubit>().signUpFormSubmitted()
+                      : null,
                 );
         },
       ),

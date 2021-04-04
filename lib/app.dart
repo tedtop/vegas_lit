@@ -6,7 +6,7 @@ import 'authentication/bloc/authentication_bloc.dart';
 import 'authentication/screens/login/login.dart';
 import 'authentication/screens/splash/splash.dart';
 import 'config/themes.dart';
-import 'home/view/home_page.dart';
+import 'home/screens/home_page.dart';
 
 class App extends StatelessWidget {
   const App({
