@@ -5,6 +5,7 @@ publish_to: "none"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 version: 0.5.5
 =======
 version: 0.5.7
@@ -12,6 +13,9 @@ version: 0.5.7
 =======
 version: 0.6.2
 >>>>>>> 108dd39... fix(ui): expanded team names
+=======
+version: 0.6.3+21
+>>>>>>> 1a5f2a0... fix(build): updated build system & drawer version string
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

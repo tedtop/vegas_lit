@@ -21,7 +21,8 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
-  String versionNumber;
+  String versionString;
+  String buildNumber;
 
   @override
   void initState() {
@@ -126,7 +127,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             builder: (context) {
               return ListTile(
                 title: Text(
-                  'Version: $versionNumber',
+                  'Version: $versionString ($buildNumber)',
                   style: GoogleFonts.nunito(
                     color: Palette.cream,
                     fontSize: 10,
@@ -143,7 +144,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
   void _getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
     setState(() {
-      versionNumber = packageInfo.version;
+      versionString = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
     });
   }
 
