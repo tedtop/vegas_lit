@@ -34,7 +34,7 @@ class HomePage extends StatefulWidget {
                   ),
                 ),
             ),
-            BlocProvider(
+            BlocProvider<OpenBetsCubit>(
               create: (context) => OpenBetsCubit(
                 betsRepository: context.read<BetsRepository>(),
               )..openBetsOpen(
