@@ -10,6 +10,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/shared_widgets/auth_socials.dart';
 import 'package:vegas_lit/shared_widgets/auth_logo.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
+import 'package:vegas_lit/shared_widgets/dropdown.dart';
 
 import '../sign_up.dart';
 
@@ -44,6 +45,9 @@ class SignUpForm extends StatelessWidget {
                 _PasswordInput(),
                 _ConfirmPasswordInput(),
                 _StateInput(),
+                SizedBox(
+                  height: 10,
+                ),
                 _MobileNumberInput(),
                 _AgeCheckbox(),
                 _RulesCheckbox(),
@@ -316,30 +320,67 @@ class _ConfirmPasswordInput extends StatelessWidget {
 }
 
 class _StateInput extends StatelessWidget {
-  TextEditingController textEditingController = TextEditingController();
-
-  GlobalKey _dropdownButtonKey;
-
-  void openDropdown() {
-    GestureDetector detector;
-    void searchForGestureDetector(BuildContext element) {
-      element.visitChildElements((element) {
-        if (element.widget != null && element.widget is GestureDetector) {
-          detector = element.widget;
-          return false;
-        } else {
-          searchForGestureDetector(element);
-        }
-
-        return true;
-      });
-    }
-
-    searchForGestureDetector(_dropdownButtonKey.currentContext);
-    assert(detector != null);
-
-    detector.onTap();
-  }
+  final listOfStates = [
+    "Alabama",
+    "Alaska",
+    "American Samoa",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "District Of Columbia",
+    "Federated States Of Micronesia",
+    "Florida",
+    "Georgia",
+    "Guam",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Marshall Islands",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Northern Mariana Islands",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Palau",
+    "Pennsylvania",
+    "Puerto Rico",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virgin Islands",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -350,99 +391,23 @@ class _StateInput extends StatelessWidget {
         return Row(
           children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'State',
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                  ),
+              child: Text(
+                'State',
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w200,
                 ),
               ),
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      width: 80,
-                      child: TextField(
-                        controller: textEditingController,
-                        onChanged: (americanState) {
-                          context
-                              .read<SignUpCubit>()
-                              .americanStateChanged(americanState);
-                        },
-                        style: GoogleFonts.nunito(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                        ),
-                        cursorColor: Palette.cream,
-                        key: const Key('signUpForm_stateInput_textField'),
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          suffixIconConstraints:
-                              const BoxConstraints(maxHeight: 10, maxWidth: 25),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 2.5,
-                            horizontal: 8,
-                          ),
-                          hintStyle: GoogleFonts.nunito(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Palette.cream,
-                          ),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4),
-                              bottomLeft: Radius.circular(4),
-                            ),
-                          ),
-                          isDense: true,
-                          filled: true,
-                          fillColor: Palette.lightGrey,
-                          hintText: 'State',
-                          helperText: '',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 22),
-                    child: Container(
-                      height: 30,
-                      width: 33,
-                      decoration: const BoxDecoration(
-                        color: Palette.green,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(4),
-                          bottomRight: Radius.circular(4),
-                        ),
-                      ),
-                      child: DropdownButton<String>(
-                        key: _dropdownButtonKey,
-                        items: [
-                          DropdownMenuItem(
-                            value: '1',
-                            child: Text('1'),
-                          ),
-                          DropdownMenuItem(
-                            value: '2',
-                            child: Text('2'),
-                          ),
-                          DropdownMenuItem(
-                            value: '3',
-                            child: Text('3'),
-                          ),
-                        ],
-                        onChanged: (String value) {},
-                      ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                    ),
-                  )
-                ],
+              child: DropDown(
+                isExpanded: true,
+                items: listOfStates,
+                hint: Text(
+                  'State',
+                  style: GoogleFonts.nunito(),
+                ),
+                onChanged: print,
               ),
             ),
           ],
@@ -476,8 +441,8 @@ class _MobileNumberInput extends StatelessWidget {
               child: TextField(
                 autocorrect: false,
                 inputFormatters: [
-                  // FilteringTextInputFormatter.digitsOnly,
-                  MaskedInputFormater('(###) ###-####'),
+                  FilteringTextInputFormatter.digitsOnly,
+                  // MaskedInputFormater('(###) ###-####'),
                 ],
                 onChanged: (mobileNumber) =>
                     context.read<SignUpCubit>().numberChanged(mobileNumber),
@@ -508,7 +473,6 @@ class _MobileNumberInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Mobile Number',
                   helperText: '',
-                  errorText: state.number.invalid ? 'NO' : null,
                 ),
               ),
             ),
