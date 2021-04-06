@@ -6,6 +6,7 @@ import 'package:formz/formz.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/shared_widgets/auth_socials.dart';
 import 'package:vegas_lit/shared_widgets/auth_logo.dart';
@@ -49,8 +50,8 @@ class SignUpForm extends StatelessWidget {
                   height: 10,
                 ),
                 _MobileNumberInput(),
-                _AgeCheckbox(),
-                _RulesCheckbox(),
+                _AgeCheck(),
+                _AgreementCheck(),
                 _SignUpButton(),
               ],
             ),
@@ -104,6 +105,7 @@ class _UsernameInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
+                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
                   filled: true,
                   fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
@@ -114,6 +116,7 @@ class _UsernameInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Username',
                   helperText: '',
+                  errorText: usernameError(state.username.error),
                 ),
               ),
             ),
@@ -121,6 +124,16 @@ class _UsernameInput extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+String usernameError(UsernameValidationError validationError) {
+  if (validationError == UsernameValidationError.invalid) {
+    return 'Username should be 3-15 chars';
+  } else if (validationError == UsernameValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
   }
 }
 
@@ -172,10 +185,11 @@ class _EmailInput extends StatelessWidget {
                       Radius.circular(4),
                     ),
                   ),
-                  errorStyle: GoogleFonts.nunito(fontSize: 10),
+                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
+                  errorText: emailError(state.email.error),
                 ),
               ),
             ),
@@ -183,6 +197,16 @@ class _EmailInput extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+String emailError(EmailValidationError validationError) {
+  if (validationError == EmailValidationError.invalid) {
+    return 'Invalid email address';
+  } else if (validationError == EmailValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
   }
 }
 
@@ -222,6 +246,7 @@ class _PasswordInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
+                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
@@ -236,11 +261,9 @@ class _PasswordInput extends StatelessWidget {
                   ),
                   isDense: true,
                   errorMaxLines: 3,
-                  errorStyle: GoogleFonts.nunito(
-                    fontSize: 10,
-                  ),
                   hintText: 'Password',
                   helperText: '',
+                  errorText: passwordError(state.password.error),
                 ),
               ),
             ),
@@ -248,6 +271,16 @@ class _PasswordInput extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+String passwordError(PasswordValidationError validationError) {
+  if (validationError == PasswordValidationError.invalid) {
+    return 'More than 8 with numbers';
+  } else if (validationError == PasswordValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
   }
 }
 
@@ -290,6 +323,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
+                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
@@ -301,14 +335,13 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     ),
                   ),
                   errorMaxLines: 3,
-                  errorStyle: GoogleFonts.nunito(
-                    fontSize: 10,
-                  ),
                   filled: true,
                   fillColor: Palette.lightGrey,
                   isDense: true,
                   hintText: 'Verify Password',
                   helperText: '',
+                  errorText:
+                      confirmedPasswordError(state.confirmedPassword.error),
                 ),
               ),
             ),
@@ -319,8 +352,19 @@ class _ConfirmPasswordInput extends StatelessWidget {
   }
 }
 
+String confirmedPasswordError(
+    ConfirmedPasswordValidationError validationError) {
+  if (validationError == ConfirmedPasswordValidationError.invalid) {
+    return 'Passwords do not match';
+  } else if (validationError == ConfirmedPasswordValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
+  }
+}
+
 class _StateInput extends StatelessWidget {
-  final listOfStates = [
+  final stateList = [
     "Alabama",
     "Alaska",
     "American Samoa",
@@ -400,14 +444,38 @@ class _StateInput extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: DropDown(
-                isExpanded: true,
-                items: listOfStates,
-                hint: Text(
-                  'State',
-                  style: GoogleFonts.nunito(),
-                ),
-                onChanged: print,
+              child: Column(
+                children: [
+                  DropDown(
+                    isExpanded: true,
+                    showUnderline: false,
+                    items: stateList,
+                    hint: Text(
+                      'State',
+                      style: GoogleFonts.nunito(),
+                    ),
+                    onChanged: (String value) =>
+                        context.read<SignUpCubit>().americanStateChanged(value),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      state.americanState.invalid
+                          ? Text(
+                              'Required',
+                              style: GoogleFonts.nunito(
+                                color: Colors.red,
+                                fontSize: 10,
+                                height: 0.3,
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -463,6 +531,7 @@ class _MobileNumberInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
+                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
                   filled: true,
                   fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
@@ -473,6 +542,7 @@ class _MobileNumberInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Mobile Number',
                   helperText: '',
+                  errorText: mobileNumberError(state.number.error),
                 ),
               ),
             ),
@@ -483,94 +553,139 @@ class _MobileNumberInput extends StatelessWidget {
   }
 }
 
-class _AgeCheckbox extends StatefulWidget {
-  @override
-  __AgeCheckboxState createState() => __AgeCheckboxState();
-}
-
-class __AgeCheckboxState extends State<_AgeCheckbox> {
-  bool isSelected = false;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Checkbox(
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          fillColor: MaterialStateProperty.all(Palette.green),
-          value: isSelected,
-          onChanged: (value) {
-            setState(
-              () {
-                isSelected = value;
-              },
-            );
-          },
-        ),
-        Text(
-          'I am 18 years or older',
-          style: GoogleFonts.nunito(
-            fontSize: 14,
-          ),
-        ),
-      ],
-    );
+String mobileNumberError(PhoneNumberValidationError validationError) {
+  if (validationError == PhoneNumberValidationError.invalid) {
+    return 'Invalid mobile number';
+  } else if (validationError == PhoneNumberValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
   }
 }
 
-class _RulesCheckbox extends StatefulWidget {
-  @override
-  __RulesCheckboxState createState() => __RulesCheckboxState();
-}
-
-class __RulesCheckboxState extends State<_RulesCheckbox> {
-  bool isSelected = false;
+class _AgeCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Checkbox(
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          fillColor: MaterialStateProperty.all(Palette.green),
-          value: isSelected,
-          onChanged: (value) {
-            setState(
-              () {
-                isSelected = value;
-              },
-            );
-          },
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: GoogleFonts.nunito(fontSize: 11, color: Palette.cream),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          'I have read and agree to the official Vegas Lit contest rules and conditions found ',
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) => previous.age != current.age,
+      builder: (context, state) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  fillColor: MaterialStateProperty.all(Palette.green),
+                  value: state.age.value,
+                  onChanged: (value) =>
+                      context.read<SignUpCubit>().ageClicked(value),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'I am 18 years or older',
                       style: GoogleFonts.nunito(
                         fontSize: 14,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'here',
-                      style: GoogleFonts.nunito(
-                        fontSize: 14,
-                        color: Palette.green,
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-      ],
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 40,
+                ),
+                state.age.invalid
+                    ? Text(
+                        'Required',
+                        style: GoogleFonts.nunito(
+                          color: Colors.red,
+                          fontSize: 10,
+                          height: 0.3,
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _AgreementCheck extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  fillColor: MaterialStateProperty.all(Palette.green),
+                  value: state.agreement.value,
+                  onChanged: (value) =>
+                      context.read<SignUpCubit>().agreementClicked(value),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          style: GoogleFonts.nunito(
+                              fontSize: 11, color: Palette.cream),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text:
+                                  'I have read and agree to the official Vegas Lit contest rules and conditions found ',
+                              style: GoogleFonts.nunito(
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'here',
+                              style: GoogleFonts.nunito(
+                                fontSize: 14,
+                                color: Palette.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 40,
+                ),
+                state.agreement.invalid
+                    ? Text(
+                        'Required',
+                        style: GoogleFonts.nunito(
+                          color: Colors.red,
+                          fontSize: 10,
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }
