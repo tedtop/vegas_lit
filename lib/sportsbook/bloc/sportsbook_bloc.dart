@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:api_client/api_client.dart';
+import 'package:intl/intl.dart';
+
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 part 'sportsbook_event.dart';
 part 'sportsbook_state.dart';
@@ -53,8 +57,19 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       ).toList(),
     );
 
+    // DateTime locationLocal = DateTime.now()
+
+    // final estTimeZone = convertToLocal();
+    // final currentTime = DateTime.now();
+    // final estTimeZone = DateTimeExtension(currentTime).toESTzone();
+
+    // final estTimeZone = fetchESTZone();
+    // print('Cool: $estTimeZone');
+    final estTimeZone = fetchESTZoneNew();
+
     if (event.gameName == 'NFL' || event.gameName == 'NCAAF') {
       yield SportsbookOpened(
+        timeZone: estTimeZone,
         games: [],
         gameName: event.gameName,
         gameNumbers: gameNumberMap,
@@ -64,10 +79,78 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         gameName: event.gameName,
       );
       yield SportsbookOpened(
+        timeZone: estTimeZone,
         games: games,
         gameName: event.gameName,
         gameNumbers: gameNumberMap,
       );
     }
   }
+
+  DateTime fetchESTZone() {
+    tz.initializeTimeZones();
+    final locationNY = tz.getLocation('America/New_York');
+
+    final nowNY = tz.TZDateTime.now(locationNY);
+    return nowNY;
+  }
+
+  DateTime fetchESTZoneNew() {
+    final result = DateTime.now().toUtc();
+    final time = result.add(
+      Duration(
+        hours: _getESTtoUTCDifference(),
+      ),
+    );
+    return time;
+  }
+
+  int _getESTtoUTCDifference() {
+    tz.initializeTimeZones();
+    final locationNY = tz.getLocation('America/New_York');
+    final nowNY = tz.TZDateTime.now(locationNY);
+    final _estToUtcDifference = nowNY.timeZoneOffset.inHours;
+    return _estToUtcDifference;
+  }
+
+  // TZDateTime convertToLocal(TZDateTime tzDateTime, String locationLocal) {
+  //   TZDateTime nowLocal = new TZDateTime.now(getLocation(locationLocal));
+  //   int difference = nowLocal.timeZoneOffset.inHours;
+  //   TZDateTime newTzDateTime;
+  //   newTzDateTime = tzDateTime.add(Duration(hours: difference));
+  //   return newTzDateTime;
+  // }
 }
+
+// extension DateTimeExtension on DateTime {
+//   static int _estToUtcDifference;
+
+//   int _getESTtoUTCDifference() {
+//     if (_estToUtcDifference == null) {
+//       tz.initializeTimeZones();
+//       final locationNY = tz.getLocation('America/New_York');
+//       tz.TZDateTime nowNY = tz.TZDateTime.now(locationNY);
+//       _estToUtcDifference = nowNY.timeZoneOffset.inHours;
+//     }
+
+//     return _estToUtcDifference;
+//   }
+
+//   DateTime toESTzone() {
+//     var result = toUtc(); // local time to UTC
+//     result = result
+//         .add(Duration(hours: _getESTtoUTCDifference())); // convert UTC to EST
+//     return result;
+//   }
+
+//   // DateTime fromESTzone() {
+//   //   DateTime result = this.subtract(Duration(hours: _getESTtoUTCDifference())); // convert EST to UTC
+
+//   //   String dateTimeAsIso8601String = result.toIso8601String();
+//   //   dateTimeAsIso8601String += dateTimeAsIso8601String.characters.last.equalsIgnoreCase('Z') ? '' : 'Z';
+//   //   result = DateTime.parse(dateTimeAsIso8601String); // make isUtc to be true
+
+//   //   result = result.toLocal(); // convert UTC to local time
+//   //   return result;
+//   // }
+// }

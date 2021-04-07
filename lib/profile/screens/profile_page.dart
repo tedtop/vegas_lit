@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
+import 'package:vegas_lit/shared_widgets/app_bar.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 
 class Profile extends StatelessWidget {
@@ -28,6 +30,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarWidget(),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(

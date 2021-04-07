@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:intl/intl.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -26,6 +28,7 @@ class Sportsbook extends StatelessWidget {
           return SportsBookView(
             games: state.games,
             gameName: state.gameName,
+            timeZone: state.timeZone,
             gameNumberList: state.gameNumbers,
           );
         } else {
@@ -43,6 +46,7 @@ class SportsBookView extends StatelessWidget {
     Key key,
     @required this.games,
     @required this.gameName,
+    @required this.timeZone,
     @required this.gameNumberList,
   })  : assert(games != null),
         assert(gameName != null),
@@ -51,6 +55,7 @@ class SportsBookView extends StatelessWidget {
 
   final List<Game> games;
   final String gameName;
+  final DateTime timeZone;
   final Map gameNumberList;
 
   @override
@@ -206,6 +211,20 @@ class SportsBookView extends StatelessWidget {
                       ],
                     ),
                   ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                    timeZone,
+                  ),
+                  style: Styles.matchupTime,
                 ),
               ],
             ),

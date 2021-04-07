@@ -6,7 +6,7 @@ import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/palette.dart';
 import '../cubit/home_cubit.dart';
 
-class HomeBottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -33,7 +33,7 @@ class HomeBottomNavigation extends StatelessWidget {
             },
             items: <BottomNavigationBarItem>[
               const BottomNavigationBarItem(
-                  icon: Icon(Feather.home), label: 'Sportsbook'),
+                  icon: Icon(Feather.home), label: 'Home'),
               BottomNavigationBarItem(
                   icon: Stack(
                     children: <Widget>[
@@ -66,7 +66,7 @@ class HomeBottomNavigation extends StatelessWidget {
                   ),
                   label: 'Bet Slip'),
               const BottomNavigationBarItem(
-                  icon: Icon(Feather.globe), label: 'Leaderboard'),
+                  icon: Icon(Icons.emoji_events), label: 'Leaderboard'),
               const BottomNavigationBarItem(
                   icon: Icon(Feather.file_text), label: 'Open Bets'),
               const BottomNavigationBarItem(

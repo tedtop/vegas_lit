@@ -11,9 +11,11 @@ class SportsbookOpened extends SportsbookState {
     @required this.games,
     @required this.gameName,
     @required this.gameNumbers,
+    @required this.timeZone,
   });
 
   final List<Game> games;
   final String gameName;
   final Map gameNumbers;
+  final DateTime timeZone;
 }

@@ -68,7 +68,7 @@ class _LeaderboardState extends State<Leaderboard> {
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 child: SfDataGrid(
-                  columnWidthMode: ColumnWidthMode.lastColumnFill,
+                  columnWidthMode: ColumnWidthMode.fill,
                   gridLinesVisibility: GridLinesVisibility.none,
                   source: _employeeDataSource,
                   columns: [

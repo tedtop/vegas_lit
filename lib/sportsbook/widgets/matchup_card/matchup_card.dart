@@ -246,6 +246,15 @@ class MatchupCard extends StatelessWidget {
                             ],
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Status: ${gameData.status}',
+                              style: Styles.matchupTime,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -278,49 +287,3 @@ class MatchupCard extends StatelessWidget {
     );
   }
 }
-
-// Column(
-//                                           children: [
-//                                             BetButton.route(
-//                                               mainOdds: '100',
-//                                               betType: Bet.ml,
-//                                               text: '100',
-//                                               game: state.game,
-//                                             ),
-//                                             BetButton.route(
-//                                               mainOdds: '100',
-//                                               betType: Bet.pts,
-//                                               game: state.game,
-//                                               text: '-112   100',
-//                                             ),
-//                                             BetButton.route(
-//                                               mainOdds: '100',
-//                                               betType: Bet.tot,
-//                                               game: state.game,
-//                                               text: 'o-115   100',
-//                                             ),
-//                                           ],
-//                                         )
-
-//  Column(
-//                                           children: [
-//                                             BetButton.route(
-//                                               mainOdds: '100',
-//                                               betType: Bet.ml,
-//                                               game: state.game,
-//                                               text: '134',
-//                                             ),
-//                                             BetButton.route(
-//                                               mainOdds: '100',
-//                                               betType: Bet.pts,
-//                                               game: state.game,
-//                                               text: '-34   143',
-//                                             ),
-//                                             BetButton.route(
-//                                               mainOdds: '100',
-//                                               betType: Bet.tot,
-//                                               game: state.game,
-//                                               text: '-23   156',
-//                                             ),
-//                                           ],
-//                                         )

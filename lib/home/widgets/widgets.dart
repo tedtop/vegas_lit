@@ -1,2 +1,2 @@
-export 'home_bottom_nav.dart';
+export 'bottom_navigation.dart';
 export 'home_drawer.dart';
