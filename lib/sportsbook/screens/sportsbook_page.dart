@@ -28,7 +28,8 @@ class Sportsbook extends StatelessWidget {
           return SportsBookView(
             games: state.games,
             gameName: state.gameName,
-            timeZone: state.timeZone,
+            currentTimeZone: state.currentTimeZone,
+            estTimeZone: state.estTimeZone,
             gameNumberList: state.gameNumbers,
           );
         } else {
@@ -46,16 +47,19 @@ class SportsBookView extends StatelessWidget {
     Key key,
     @required this.games,
     @required this.gameName,
-    @required this.timeZone,
+    @required this.estTimeZone,
     @required this.gameNumberList,
+    @required this.currentTimeZone,
   })  : assert(games != null),
         assert(gameName != null),
+        assert(currentTimeZone != null),
         assert(gameNumberList != null),
         super(key: key);
 
   final List<Game> games;
   final String gameName;
-  final DateTime timeZone;
+  final DateTime estTimeZone;
+  final DateTime currentTimeZone;
   final Map gameNumberList;
 
   @override
@@ -221,9 +225,19 @@ class SportsBookView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                    timeZone,
-                  ),
+                  'Local Time: ${formatDate(currentTimeZone)}',
+                  style: Styles.matchupTime,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Eastern Time: ${formatDate(estTimeZone)}',
                   style: Styles.matchupTime,
                 ),
               ],
@@ -257,6 +271,12 @@ class SportsBookView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  String formatDate(DateTime dateTime) {
+    return DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+      dateTime,
     );
   }
 }

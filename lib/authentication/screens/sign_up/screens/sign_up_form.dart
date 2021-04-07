@@ -377,10 +377,9 @@ String confirmedPasswordError(
 
 class _StateInput extends StatelessWidget {
   final stateList = [
-    "Outside USA",
+    "International",
     "Alabama",
     "Alaska",
-    "American Samoa",
     "Arizona",
     "Arkansas",
     "California",
@@ -388,10 +387,8 @@ class _StateInput extends StatelessWidget {
     "Connecticut",
     "Delaware",
     "District Of Columbia",
-    "Federated States Of Micronesia",
     "Florida",
     "Georgia",
-    "Guam",
     "Hawaii",
     "Idaho",
     "Illinois",
@@ -401,7 +398,6 @@ class _StateInput extends StatelessWidget {
     "Kentucky",
     "Louisiana",
     "Maine",
-    "Marshall Islands",
     "Maryland",
     "Massachusetts",
     "Michigan",
@@ -417,13 +413,10 @@ class _StateInput extends StatelessWidget {
     "New York",
     "North Carolina",
     "North Dakota",
-    "Northern Mariana Islands",
     "Ohio",
     "Oklahoma",
     "Oregon",
-    "Palau",
     "Pennsylvania",
-    "Puerto Rico",
     "Rhode Island",
     "South Carolina",
     "South Dakota",
@@ -431,7 +424,6 @@ class _StateInput extends StatelessWidget {
     "Texas",
     "Utah",
     "Vermont",
-    "Virgin Islands",
     "Virginia",
     "Washington",
     "West Virginia",
@@ -461,7 +453,7 @@ class _StateInput extends StatelessWidget {
                 children: [
                   DropDown(
                     isExpanded: true,
-                    showUnderline: false,
+                    showUnderline: true,
                     items: stateList,
                     hint: Text(
                       'State',
@@ -593,7 +585,7 @@ class _AgeCheck extends StatelessWidget {
                 Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   fillColor: MaterialStateProperty.all(Palette.green),
-                  value: state.ageValue,
+                  value: state.age.value,
                   onChanged: (value) =>
                       context.read<SignUpCubit>().ageClicked(value),
                 ),

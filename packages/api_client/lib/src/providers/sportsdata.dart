@@ -5,6 +5,7 @@ import 'package:api_client/src/config/sports_api.dart';
 import 'package:api_client/src/models/game_new.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
 
 class SportsDataProvider extends BaseSportsdataProvider {
   SportsDataProvider({Dio dio}) : _dio = dio ?? Dio();
@@ -12,10 +13,11 @@ class SportsDataProvider extends BaseSportsdataProvider {
   final Dio _dio;
 
   @override
-  Future<List<Game>> fetchGameListByNewGame({String gameName}) async {
+  Future<List<Game>> fetchGameListByNewGame(
+      {@required String gameName, @required DateTime dateTimeEastern}) async {
     final newGameName = whichGame(gameName: gameName);
-    final now = DateTime.now();
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(now);
+
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTimeEastern);
 
     final response = await _dio.get(
       'https://fly.sportsdata.io/v3/$newGameName/scores/json/GamesByDate/$formattedDate',

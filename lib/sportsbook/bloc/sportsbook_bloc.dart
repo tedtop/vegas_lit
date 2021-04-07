@@ -37,6 +37,9 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
     final gameNumberMap = <String, String>{};
 
+    final estTimeZone = fetchESTZoneNew();
+    final currentTimeZone = DateTime.now();
+
     await Future.wait(
       list.map(
         (e) async {
@@ -45,6 +48,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           } else {
             await _sportsfeedRepository
                 .fetchGameListByNewGame(
+              dateTime: estTimeZone,
               gameName: e,
             )
                 .then(
@@ -65,11 +69,11 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
     // final estTimeZone = fetchESTZone();
     // print('Cool: $estTimeZone');
-    final estTimeZone = fetchESTZoneNew();
 
     if (event.gameName == 'NFL' || event.gameName == 'NCAAF') {
       yield SportsbookOpened(
-        timeZone: estTimeZone,
+        currentTimeZone: currentTimeZone,
+        estTimeZone: estTimeZone,
         games: [],
         gameName: event.gameName,
         gameNumbers: gameNumberMap,
@@ -77,9 +81,11 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     } else {
       final games = await _sportsfeedRepository.fetchGameListByNewGame(
         gameName: event.gameName,
+        dateTime: estTimeZone,
       );
       yield SportsbookOpened(
-        timeZone: estTimeZone,
+        currentTimeZone: currentTimeZone,
+        estTimeZone: estTimeZone,
         games: games,
         gameName: event.gameName,
         gameNumbers: gameNumberMap,

@@ -58,7 +58,7 @@ class Profile extends StatelessWidget {
                           _EmailInput(),
                           _StateInput(),
                           _MobileNumberInput(),
-                          _EditButton(),
+                          // _EditButton(),
                         ],
                       );
                       break;

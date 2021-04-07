@@ -12,10 +12,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Future.delayed(
-    const Duration(seconds: 5),
+    const Duration(seconds: 1),
     () {
       // ignore: avoid_print
-      print('Launch screen stopped for 5 seconds');
+      print('Launch screen stopped for 1 seconds');
     },
   );
   EquatableConfig.stringify = kDebugMode;
