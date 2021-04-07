@@ -34,8 +34,10 @@ class AuthenticationRepository {
 
   Future<void> saveUserDetails({
     Map userDataMap,
+    String currentUserId,
   }) =>
-      _databaseProvider.saveUserDetails(userDataMap: userDataMap);
+      _databaseProvider.saveUserDetails(
+          userDataMap: userDataMap, currentUserId: currentUserId);
 
   Future<UserData> isProfileComplete(String currentUserId) =>
       _databaseProvider.isProfileComplete(currentUserId);

@@ -19,7 +19,7 @@ abstract class BaseAuthenticationProvider {
 
 abstract class BaseDatabaseProvider {
   Future<void> saveDetailsFromAuthentication(User currentAuthenticatedUser);
-  Future<void> saveUserDetails({Map userDataMap});
+  Future<void> saveUserDetails({Map userDataMap, String currentUserId});
   Future<UserData> isProfileComplete(String currentUserId);
   Stream<List<OpenBetsData>> fetchOpenBetsById(String currentUserId);
 

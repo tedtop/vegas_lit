@@ -50,7 +50,7 @@ class SignUpForm extends StatelessWidget {
                   height: 10,
                 ),
                 _MobileNumberInput(),
-                _AgeCheck(),
+                // _AgeCheck(),
                 _AgreementCheck(),
                 _SignUpButton(),
               ],
@@ -571,60 +571,60 @@ String mobileNumberError(PhoneNumberValidationError validationError) {
   }
 }
 
-class _AgeCheck extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.age != current.age,
-      builder: (context, state) {
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  fillColor: MaterialStateProperty.all(Palette.green),
-                  value: state.age.value,
-                  onChanged: (value) =>
-                      context.read<SignUpCubit>().ageClicked(value),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      'I am 18 years or older',
-                      style: GoogleFonts.nunito(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  width: 40,
-                ),
-                state.age.invalid
-                    ? Text(
-                        'Required',
-                        style: GoogleFonts.nunito(
-                          color: Colors.red,
-                          fontSize: 10,
-                          // height: 0.3,
-                        ),
-                      )
-                    : Container(),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class _AgeCheck extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(
+//       buildWhen: (previous, current) => previous.age != current.age,
+//       builder: (context, state) {
+//         return Column(
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 Checkbox(
+//                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+//                   fillColor: MaterialStateProperty.all(Palette.green),
+//                   value: state.age.value,
+//                   onChanged: (value) =>
+//                       context.read<SignUpCubit>().ageClicked(value),
+//                 ),
+//                 Column(
+//                   children: [
+//                     Text(
+//                       'I am 18 years or older',
+//                       style: GoogleFonts.nunito(
+//                         fontSize: 14,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 const SizedBox(
+//                   width: 40,
+//                 ),
+//                 state.age.invalid
+//                     ? Text(
+//                         'Required',
+//                         style: GoogleFonts.nunito(
+//                           color: Colors.red,
+//                           fontSize: 10,
+//                           // height: 0.3,
+//                         ),
+//                       )
+//                     : Container(),
+//               ],
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
 class _AgreementCheck extends StatelessWidget {
   @override
@@ -654,18 +654,18 @@ class _AgreementCheck extends StatelessWidget {
                           children: <TextSpan>[
                             TextSpan(
                               text:
-                                  'I have read and agree to the official Vegas Lit contest rules and conditions found ',
+                                  'By continuing/clicking I certify that I am (i) at least 18 years of age and (ii) use of this platform and service and participation in the contest is legal in the jurisdiction in which I reside',
                               style: GoogleFonts.nunito(
                                 fontSize: 14,
                               ),
                             ),
-                            TextSpan(
-                              text: 'here',
-                              style: GoogleFonts.nunito(
-                                fontSize: 14,
-                                color: Palette.green,
-                              ),
-                            ),
+                            // TextSpan(
+                            //   text: 'here',
+                            //   style: GoogleFonts.nunito(
+                            //     fontSize: 14,
+                            //     color: Palette.green,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

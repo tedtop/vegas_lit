@@ -8,7 +8,7 @@ class SignUpState extends Equatable {
     this.status = FormzStatus.pure,
     this.americanState = const AmericanState.pure(),
     this.number = const PhoneNumber.pure(),
-    this.age = const Age.pure(),
+    // this.age = const Age.pure(),
     this.agreement = const Agreement.pure(),
     this.username = const Username.pure(),
     this.emailValue = '',
@@ -18,7 +18,7 @@ class SignUpState extends Equatable {
     this.americanStateValue = '',
     this.numberValue = '',
     this.agreementValue = false,
-    this.ageValue = false,
+    // this.ageValue = false,
   });
 
   final Email email;
@@ -35,8 +35,8 @@ class SignUpState extends Equatable {
   final String numberValue;
   final Agreement agreement;
   final bool agreementValue;
-  final Age age;
-  final bool ageValue;
+  // final Age age;
+  // final bool ageValue;
 
   final FormzStatus status;
 
@@ -49,10 +49,10 @@ class SignUpState extends Equatable {
         americanStateValue,
         numberValue,
         agreementValue,
-        ageValue,
+        // ageValue,
         email,
         password,
-        age,
+        // age,
         agreement,
         confirmedPassword,
         status,
@@ -76,7 +76,7 @@ class SignUpState extends Equatable {
     String numberValue,
     Agreement agreement,
     bool agreementValue,
-    Age age,
+    // Age age,
     bool ageValue,
     FormzStatus status,
   }) {
@@ -96,8 +96,8 @@ class SignUpState extends Equatable {
       numberValue: numberValue ?? this.numberValue,
       agreement: agreement ?? this.agreement,
       agreementValue: agreementValue ?? this.agreementValue,
-      age: age ?? this.age,
-      ageValue: ageValue ?? this.ageValue,
+      // age: age ?? this.age,
+      // ageValue: ageValue ?? this.ageValue,
       status: status ?? this.status,
     );
   }
