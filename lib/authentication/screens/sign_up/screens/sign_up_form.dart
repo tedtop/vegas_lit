@@ -105,7 +105,10 @@ class _UsernameInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
-                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+                  errorStyle: const TextStyle(
+                    fontSize: 10,
+                    // height: 0.3,
+                  ),
                   filled: true,
                   fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
@@ -185,7 +188,10 @@ class _EmailInput extends StatelessWidget {
                       Radius.circular(4),
                     ),
                   ),
-                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+                  errorStyle: const TextStyle(
+                    fontSize: 10,
+                    // height: 0.3,
+                  ),
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
@@ -246,7 +252,10 @@ class _PasswordInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
-                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+                  errorStyle: const TextStyle(
+                    fontSize: 10,
+                    // height: 0.3,
+                  ),
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
@@ -323,7 +332,10 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
-                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+                  errorStyle: const TextStyle(
+                    fontSize: 10,
+                    // height: 0.3,
+                  ),
                   hintStyle: GoogleFonts.nunito(
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
@@ -365,6 +377,7 @@ String confirmedPasswordError(
 
 class _StateInput extends StatelessWidget {
   final stateList = [
+    "Outside USA",
     "Alabama",
     "Alaska",
     "American Samoa",
@@ -469,7 +482,7 @@ class _StateInput extends StatelessWidget {
                               style: GoogleFonts.nunito(
                                 color: Colors.red,
                                 fontSize: 10,
-                                height: 0.3,
+                                // height: 0.3,
                               ),
                             )
                           : Container(),
@@ -531,7 +544,10 @@ class _MobileNumberInput extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Palette.cream,
                   ),
-                  errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+                  errorStyle: const TextStyle(
+                    fontSize: 10,
+                    // height: 0.3,
+                  ),
                   filled: true,
                   fillColor: Palette.lightGrey,
                   border: const OutlineInputBorder(
@@ -577,7 +593,7 @@ class _AgeCheck extends StatelessWidget {
                 Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   fillColor: MaterialStateProperty.all(Palette.green),
-                  value: state.age.value,
+                  value: state.ageValue,
                   onChanged: (value) =>
                       context.read<SignUpCubit>().ageClicked(value),
                 ),
@@ -605,7 +621,7 @@ class _AgeCheck extends StatelessWidget {
                         style: GoogleFonts.nunito(
                           color: Colors.red,
                           fontSize: 10,
-                          height: 0.3,
+                          // height: 0.3,
                         ),
                       )
                     : Container(),
@@ -631,7 +647,7 @@ class _AgreementCheck extends StatelessWidget {
                 Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   fillColor: MaterialStateProperty.all(Palette.green),
-                  value: state.agreement.value,
+                  value: state.agreementValue,
                   onChanged: (value) =>
                       context.read<SignUpCubit>().agreementClicked(value),
                 ),
@@ -702,9 +718,9 @@ class _SignUpButton extends StatelessWidget {
               ? const CircularProgressIndicator()
               : DefaultButton(
                   text: 'SIGN UP',
-                  action: state.status.isValidated
-                      ? () => context.read<SignUpCubit>().signUpFormSubmitted()
-                      : null,
+                  action: () {
+                    context.read<SignUpCubit>().signUpFormSubmitted();
+                  },
                 );
         },
       ),

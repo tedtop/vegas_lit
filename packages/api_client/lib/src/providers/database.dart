@@ -70,10 +70,8 @@ class DatabaseProvider extends BaseDatabaseProvider {
     final currentUserDocument = await currentUserReference.get();
     final isProfileComplete = currentUserDocument != null &&
         currentUserDocument.exists &&
-        currentUserDocument.data().containsKey('uid') &&
-        // currentUserDocument.data().containsKey('name') &&
+        // currentUserDocument.data().containsKey('uid') &&
         currentUserDocument.data().containsKey('email') &&
-        // currentUserDocument.data().containsKey('uploadPhoto') &&
         currentUserDocument.data().containsKey('username');
     if (isProfileComplete) {
       return UserData.fromFirestore(currentUserDocument);

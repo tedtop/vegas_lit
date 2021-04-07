@@ -19,7 +19,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     final email = Email.dirty(value);
     emit(
       state.copyWith(
-        email: email,
+        // email: email,
+        emailValue: value,
         status: Formz.validate([
           email,
           state.password,
@@ -38,7 +39,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     final age = Age.dirty(value);
     emit(
       state.copyWith(
-        age: age,
+        ageValue: value,
+        // age: age,
         status: Formz.validate([
           state.email,
           state.password,
@@ -57,7 +59,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     final agreement = Agreement.dirty(value);
     emit(
       state.copyWith(
-        agreement: agreement,
+        agreementValue: value,
+        // agreement: agreement,
         status: Formz.validate([
           state.email,
           state.password,
@@ -80,7 +83,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     // );
     emit(
       state.copyWith(
-        password: password,
+        // password: password,
+        passwordValue: value,
         // confirmedPassword: confirmedPassword,
         status: Formz.validate([
           state.email,
@@ -98,12 +102,13 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void confirmedPasswordChanged(String value) {
     final confirmedPassword = ConfirmedPassword.dirty(
-      password: state.password.value,
+      password: state.passwordValue,
       value: value,
     );
     emit(
       state.copyWith(
-        confirmedPassword: confirmedPassword,
+        confirmedPasswordValue: value,
+        // confirmedPassword: confirmedPassword,
         status: Formz.validate([
           state.email,
           state.password,
@@ -122,7 +127,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     final username = Username.dirty(value);
     emit(
       state.copyWith(
-        username: username,
+        // username: username,
+        usernameValue: value,
         status: Formz.validate([
           state.email,
           state.password,
@@ -141,7 +147,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     final number = PhoneNumber.dirty(value);
     emit(
       state.copyWith(
-        number: number,
+        // number: number,
+        numberValue: value,
         status: Formz.validate([
           state.email,
           state.password,
@@ -160,7 +167,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     final americanState = AmericanState.dirty(value);
     emit(
       state.copyWith(
-        americanState: americanState,
+        americanStateValue: value,
+        // americanState: americanState,
         status: Formz.validate([
           state.email,
           state.password,
@@ -176,13 +184,49 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> signUpFormSubmitted() async {
+    final email = Email.dirty(state.emailValue);
+    final age = Age.dirty(state.ageValue);
+    final agreement = Agreement.dirty(state.agreementValue);
+    final password = Password.dirty(state.passwordValue);
+    final confirmedPassword = ConfirmedPassword.dirty(
+      password: state.password.value,
+      value: state.confirmedPasswordValue,
+    );
+    final username = Username.dirty(state.usernameValue);
+    final number = PhoneNumber.dirty(state.numberValue);
+    final americanState = AmericanState.dirty(state.americanStateValue);
+    emit(
+      state.copyWith(
+        email: email,
+        age: age,
+        agreement: agreement,
+        password: password,
+        confirmedPassword: confirmedPassword,
+        username: username,
+        number: number,
+        americanState: americanState,
+      ),
+    );
+
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
+
     try {
+      //  final currentUserId = await _authenticationRepository.getCurrentUser();
+      await _authenticationRepository.saveUserDetails(
+        userDataMap: UserData(
+                americanState: state.americanState.value,
+                email: state.email.value,
+                phoneNumber: state.number.value,
+                uid: '',
+                username: state.username.value)
+            .toMap(),
+      );
       await _authenticationRepository.signUp(
         email: state.email.value,
         password: state.password.value,
       );
+
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

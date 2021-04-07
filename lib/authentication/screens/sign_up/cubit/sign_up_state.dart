@@ -11,21 +11,45 @@ class SignUpState extends Equatable {
     this.age = const Age.pure(),
     this.agreement = const Agreement.pure(),
     this.username = const Username.pure(),
+    this.emailValue = '',
+    this.passwordValue = '',
+    this.confirmedPasswordValue = '',
+    this.usernameValue = '',
+    this.americanStateValue = '',
+    this.numberValue = '',
+    this.agreementValue = false,
+    this.ageValue = false,
   });
 
   final Email email;
+  final String emailValue;
   final Password password;
+  final String passwordValue;
   final ConfirmedPassword confirmedPassword;
+  final String confirmedPasswordValue;
   final Username username;
+  final String usernameValue;
   final AmericanState americanState;
+  final String americanStateValue;
   final PhoneNumber number;
+  final String numberValue;
   final Agreement agreement;
+  final bool agreementValue;
   final Age age;
+  final bool ageValue;
 
   final FormzStatus status;
 
   @override
   List<Object> get props => [
+        emailValue,
+        passwordValue,
+        confirmedPasswordValue,
+        usernameValue,
+        americanStateValue,
+        numberValue,
+        agreementValue,
+        ageValue,
         email,
         password,
         age,
@@ -39,25 +63,42 @@ class SignUpState extends Equatable {
 
   SignUpState copyWith({
     Email email,
+    String emailValue,
     Password password,
+    String passwordValue,
     ConfirmedPassword confirmedPassword,
-    FormzStatus status,
+    String confirmedPasswordValue,
     Username username,
+    String usernameValue,
     AmericanState americanState,
-    Age age,
-    Agreement agreement,
+    String americanStateValue,
     PhoneNumber number,
+    String numberValue,
+    Agreement agreement,
+    bool agreementValue,
+    Age age,
+    bool ageValue,
+    FormzStatus status,
   }) {
     return SignUpState(
       email: email ?? this.email,
+      emailValue: emailValue ?? this.emailValue,
       password: password ?? this.password,
+      passwordValue: passwordValue ?? this.passwordValue,
       confirmedPassword: confirmedPassword ?? this.confirmedPassword,
-      status: status ?? this.status,
+      confirmedPasswordValue:
+          confirmedPasswordValue ?? this.confirmedPasswordValue,
       username: username ?? this.username,
-      age: age ?? this.age,
-      agreement: agreement ?? this.agreement,
-      number: number ?? this.number,
+      usernameValue: usernameValue ?? this.usernameValue,
       americanState: americanState ?? this.americanState,
+      americanStateValue: americanStateValue ?? this.americanStateValue,
+      number: number ?? this.number,
+      numberValue: numberValue ?? this.numberValue,
+      agreement: agreement ?? this.agreement,
+      agreementValue: agreementValue ?? this.agreementValue,
+      age: age ?? this.age,
+      ageValue: ageValue ?? this.ageValue,
+      status: status ?? this.status,
     );
   }
 }

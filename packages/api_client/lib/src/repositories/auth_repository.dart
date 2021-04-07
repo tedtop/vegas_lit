@@ -9,36 +9,37 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../base_provider.dart';
 
 class AuthenticationRepository {
-  BaseAuthenticationProvider authenticationProvider = AuthenticationProvider();
-  BaseDatabaseProvider databaseProvider = DatabaseProvider();
-  BaseStorageProvider storageProvider = StorageProvider();
+  final BaseAuthenticationProvider _authenticationProvider =
+      AuthenticationProvider();
+  final BaseDatabaseProvider _databaseProvider = DatabaseProvider();
+  final BaseStorageProvider _storageProvider = StorageProvider();
 
-  Future<void> signInWithGoogle() => authenticationProvider.signInWithGoogle();
+  Future<void> signInWithGoogle() => _authenticationProvider.signInWithGoogle();
 
   Future<void> signUp({String email, String password}) =>
-      authenticationProvider.signUp(email: email, password: password);
+      _authenticationProvider.signUp(email: email, password: password);
 
   Future<void> logInWithEmailAndPassword({String email, String password}) =>
-      authenticationProvider.logInWithEmailAndPassword(
+      _authenticationProvider.logInWithEmailAndPassword(
           email: email, password: password);
 
-  Future<void> signOutUser() => authenticationProvider.signOutUser();
+  Future<void> signOutUser() => _authenticationProvider.signOutUser();
 
-  Future<User> getCurrentUser() => authenticationProvider.getCurrentUser();
+  Future<User> getCurrentUser() => _authenticationProvider.getCurrentUser();
 
-  Stream<User> get getUser => authenticationProvider.getUser;
+  Stream<User> get getUser => _authenticationProvider.getUser;
 
   Future<void> saveDetailsFromAuthentication(User currentAuthenticatedUser) =>
-      databaseProvider.saveDetailsFromAuthentication(currentAuthenticatedUser);
+      _databaseProvider.saveDetailsFromAuthentication(currentAuthenticatedUser);
 
   Future<void> saveUserDetails({
     Map userDataMap,
   }) =>
-      databaseProvider.saveUserDetails(userDataMap: userDataMap);
+      _databaseProvider.saveUserDetails(userDataMap: userDataMap);
 
   Future<UserData> isProfileComplete(String currentUserId) =>
-      databaseProvider.isProfileComplete(currentUserId);
+      _databaseProvider.isProfileComplete(currentUserId);
 
   Future<String> uploadFile(File file, String path) =>
-      storageProvider.uploadFile(file, path);
+      _storageProvider.uploadFile(file, path);
 }

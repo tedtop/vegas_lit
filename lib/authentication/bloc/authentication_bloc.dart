@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:api_client/api_client.dart';
+import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
 part 'authentication_event.dart';
@@ -59,13 +60,15 @@ class AuthenticationBloc
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
     yield const AuthenticationState.splashscreen();
-    // final userData = await _authenticationRepository.isProfileComplete(
-    //   event.user.uid,
-    // );
-    // if (userData != null) {
-    yield AuthenticationState.authenticated(event.user);
-    // } else {
-    //   yield AuthenticationState.halfauthenticated(event.user);
-    // }
+    final userData = await _authenticationRepository.isProfileComplete(
+      event.user.uid,
+    );
+    if (userData != null) {
+      yield AuthenticationState.authenticated(event.user);
+    } else {
+      add(
+        AuthenticationLogoutRequested(),
+      );
+    }
   }
 }

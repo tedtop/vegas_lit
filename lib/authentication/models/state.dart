@@ -7,6 +7,7 @@ class AmericanState extends FormzInput<String, AmericanStateValidationError> {
   const AmericanState.dirty([String value = '']) : super.dirty(value);
 
   static final List<String> stateList = [
+    "Outside USA",
     "Alabama",
     "Alaska",
     "American Samoa",
