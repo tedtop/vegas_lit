@@ -120,6 +120,9 @@ class SportsBookView extends StatelessWidget {
                             context.read<SportsbookBloc>().add(
                                   SportsbookOpen(gameName: newValue),
                                 );
+                            context.read<BetSlipCubit>().openBetSlip(
+                              betSlipGames: [],
+                            );
                           }
                         },
                         items: <String>[
