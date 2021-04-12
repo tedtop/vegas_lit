@@ -19,6 +19,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required Game game,
     @required Bet betType,
     @required String mainOdds,
+    @required int gameId,
+    @required bool isClosed,
     @required Team awayTeamData,
     @required String league,
     @required Team homeTeamData,
@@ -27,6 +29,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     emit(
       BetButtonState.unclicked(
         text: text,
+        gameId: gameId,
+        isClosed: isClosed,
         game: game,
         awayTeamData: awayTeamData,
         homeTeamData: homeTeamData,
@@ -42,6 +46,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     emit(
       BetButtonState.clicked(
           text: state.text,
+          isClosed: state.isClosed,
+          gameId: state.gameId,
           game: state.game,
           uniqueId: state.uniqueId,
           awayTeamData: state.awayTeamData,
@@ -59,6 +65,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           mainOdds: state.mainOdds,
           game: state.game,
           league: state.league,
+          isClosed: state.isClosed,
+          gameId: state.gameId,
           awayTeamData: state.awayTeamData,
           homeTeamData: state.homeTeamData,
           uniqueId: state.uniqueId,
@@ -72,6 +80,8 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           text: state.text,
           game: state.game,
           mainOdds: state.mainOdds,
+          isClosed: state.isClosed,
+          gameId: state.gameId,
           league: state.league,
           awayTeamData: state.awayTeamData,
           homeTeamData: state.homeTeamData,

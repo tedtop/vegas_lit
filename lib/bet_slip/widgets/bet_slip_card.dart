@@ -305,6 +305,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           if (_formKey.currentState.validate()) {
                             await context.read<OpenBetsCubit>().updateOpenBets(
                                   openBetsData: OpenBetsData(
+                                    gameId: betButtonState.gameId,
+                                    isClosed: betButtonState.isClosed,
                                     league: betButtonState.league,
                                     amount:
                                         int.parse(_betAmountController.text),

@@ -78,6 +78,8 @@ class BetHistory extends StatelessWidget {
               5,
               (index) => OpenBetsSlip(
                 openBets: OpenBetsData(
+                  isClosed: false,
+                  gameId: 35633356223,
                   amount: 50,
                   away: 'MAVERICKS',
                   home: 'WIZARDS',

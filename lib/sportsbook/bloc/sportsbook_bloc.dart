@@ -61,15 +61,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       ).toList(),
     );
 
-    // DateTime locationLocal = DateTime.now()
-
-    // final estTimeZone = convertToLocal();
-    // final currentTime = DateTime.now();
-    // final estTimeZone = DateTimeExtension(currentTime).toESTzone();
-
-    // final estTimeZone = fetchESTZone();
-    // print('Cool: $estTimeZone');
-
     if (event.gameName == 'NFL' || event.gameName == 'NCAAF') {
       yield SportsbookOpened(
         currentTimeZone: currentTimeZone,
@@ -118,45 +109,4 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final _estToUtcDifference = nowNY.timeZoneOffset.inHours;
     return _estToUtcDifference;
   }
-
-  // TZDateTime convertToLocal(TZDateTime tzDateTime, String locationLocal) {
-  //   TZDateTime nowLocal = new TZDateTime.now(getLocation(locationLocal));
-  //   int difference = nowLocal.timeZoneOffset.inHours;
-  //   TZDateTime newTzDateTime;
-  //   newTzDateTime = tzDateTime.add(Duration(hours: difference));
-  //   return newTzDateTime;
-  // }
 }
-
-// extension DateTimeExtension on DateTime {
-//   static int _estToUtcDifference;
-
-//   int _getESTtoUTCDifference() {
-//     if (_estToUtcDifference == null) {
-//       tz.initializeTimeZones();
-//       final locationNY = tz.getLocation('America/New_York');
-//       tz.TZDateTime nowNY = tz.TZDateTime.now(locationNY);
-//       _estToUtcDifference = nowNY.timeZoneOffset.inHours;
-//     }
-
-//     return _estToUtcDifference;
-//   }
-
-//   DateTime toESTzone() {
-//     var result = toUtc(); // local time to UTC
-//     result = result
-//         .add(Duration(hours: _getESTtoUTCDifference())); // convert UTC to EST
-//     return result;
-//   }
-
-//   // DateTime fromESTzone() {
-//   //   DateTime result = this.subtract(Duration(hours: _getESTtoUTCDifference())); // convert EST to UTC
-
-//   //   String dateTimeAsIso8601String = result.toIso8601String();
-//   //   dateTimeAsIso8601String += dateTimeAsIso8601String.characters.last.equalsIgnoreCase('Z') ? '' : 'Z';
-//   //   result = DateTime.parse(dateTimeAsIso8601String); // make isUtc to be true
-
-//   //   result = result.toLocal(); // convert UTC to local time
-//   //   return result;
-//   // }
-// }

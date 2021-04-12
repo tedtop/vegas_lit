@@ -21,12 +21,16 @@ class BetButton extends StatelessWidget {
     @required Team awayTeamData,
     @required String league,
     @required Team homeTeamData,
+    @required int gameId,
+    @required bool isClosed,
   }) {
     return Builder(
       builder: (context) {
         return BlocProvider(
           create: (_) => BetButtonCubit()
             ..openBetButton(
+              gameId: gameId,
+              isClosed: isClosed,
               text: text,
               game: game,
               mainOdds: mainOdds,

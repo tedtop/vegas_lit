@@ -83,9 +83,9 @@ class DatabaseProvider extends BaseDatabaseProvider {
   @override
   Stream<List<OpenBetsData>> fetchOpenBetsById(String currentUserId) {
     final openBetsData = _firestoreData
-        .collection('users')
-        .doc(currentUserId)
         .collection('open_bets')
+        .where('user', isEqualTo: currentUserId)
+        .where('isClosed', isEqualTo: false)
         .snapshots()
         .map(
           (event) => event.docs
@@ -103,15 +103,13 @@ class DatabaseProvider extends BaseDatabaseProvider {
     @required String currentUserId,
     @required Map openBetsData,
   }) async {
-    await _firestoreData
-        .collection('users')
-        .doc(currentUserId)
-        .collection('open_bets')
-        .add(openBetsData)
-        .then(
+    await _firestoreData.collection('open_bets').add(openBetsData).then(
       (value) async {
         await value.set(
-          {'id': value.id},
+          {
+            'id': value.id,
+            'user': currentUserId,
+          },
           SetOptions(merge: true),
         );
         return value.id;
