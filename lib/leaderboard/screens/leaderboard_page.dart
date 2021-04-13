@@ -509,11 +509,26 @@ class _LeaderboardState extends State<Leaderboard> {
             const SizedBox(
               height: 30,
             ),
-            Container(
-                // height: 20,
-                margin: const EdgeInsets.all(8),
-                constraints: const BoxConstraints(maxWidth: 1220),
-                child: PageNumberView(pages: 8))
+            ScreenTypeLayout(
+              mobile: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: PageNumberView(pages: 15),
+                  )
+                ],
+              ),
+              desktop: Container(
+                  margin: const EdgeInsets.all(8),
+                  constraints: const BoxConstraints(maxWidth: 1220),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      PageNumberView(pages: 15),
+                    ],
+                  )),
+            ),
           ],
         ),
       ),
