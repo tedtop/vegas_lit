@@ -15,6 +15,7 @@ export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(asy
 
             const dateTime = formatTime(data.dateTime);
             const league = data.league;
+            const isClosedFirestore = data.isClosed;
             const apikey = whichKey(league);
             const gameId = data.gameId;
             const documentId = data.id;
@@ -29,8 +30,15 @@ export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(asy
                     const isClosed = whichGame(gameId, jsonData);
                     console.log(isClosed);
 
-                    const betsRef = await app.firestore().collection("open_bets").doc(documentId).update({ isClosed: isClosed });
-                    return betsRef;
+                    if (isClosed == isClosedFirestore) {
+                        console.log('Value Already Updated');
+                        return null;
+                    } else {
+                        const betsRef = await app.firestore().collection("open_bets").doc(documentId).update({ isClosed: isClosed });
+                        return betsRef;
+                    }
+
+
                 })
                 .catch(function (error: any) {
                     console.log(error);
