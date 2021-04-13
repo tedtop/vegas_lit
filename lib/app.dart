@@ -1,4 +1,6 @@
 import 'package:api_client/api_client.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,12 +65,17 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState;
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _navigatorKey,
       title: 'Vegas Lit',
       theme: Themes.dark,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -81,13 +88,6 @@ class _AppViewState extends State<AppView> {
                     (route) => false,
                   );
                   break;
-                // case AuthenticationStatus.halfauthenticated:
-                //   _navigator.push<void>(
-                //     LoginInfoPage.route(
-                //       currentUser: state.user,
-                //     ),
-                //   );
-                //   break;
                 case AuthenticationStatus.unauthenticated:
                   _navigator.pushAndRemoveUntil<void>(
                     LoginPage.route(),

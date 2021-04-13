@@ -7,6 +7,7 @@ class Interstitial extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
+      settings: const RouteSettings(name: 'Interstitial'),
       builder: (context) {
         return const Interstitial._();
       },

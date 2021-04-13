@@ -6,6 +6,7 @@ class TermsOfService extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => TermsOfService(),
+      settings: const RouteSettings(name: 'TermsOfService'),
     );
   }
 

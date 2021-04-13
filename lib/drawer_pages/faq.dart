@@ -6,6 +6,7 @@ class FAQ extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => FAQ(),
+      settings: const RouteSettings(name: 'FAQ'),
     );
   }
 

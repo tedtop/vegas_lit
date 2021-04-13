@@ -9,6 +9,7 @@ class PlayerProfile extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
+      settings: const RouteSettings(name: 'PlayerProfile'),
       builder: (_) => const PlayerProfile._(),
     );
   }

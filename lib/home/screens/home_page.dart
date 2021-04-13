@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
+      settings: const RouteSettings(name: 'HomePage'),
       builder: (context) {
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>

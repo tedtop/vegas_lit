@@ -10,6 +10,7 @@ class SignUpPage extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => const SignUpPage._(),
+      settings: const RouteSettings(name: 'SignUpPage'),
     );
   }
 

@@ -6,6 +6,7 @@ class Rules extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => Rules(),
+      settings: const RouteSettings(name: 'Rules'),
     );
   }
 

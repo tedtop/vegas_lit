@@ -16,6 +16,7 @@ class Profile extends StatelessWidget {
 
   static Route route({@required String currentUserId}) {
     return MaterialPageRoute<void>(
+      settings: const RouteSettings(name: 'Profile'),
       builder: (context) => BlocProvider<ProfileCubit>(
         create: (_) => ProfileCubit(
           userRepository: context.read<UserRepository>(),

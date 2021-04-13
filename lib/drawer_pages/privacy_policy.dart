@@ -6,6 +6,7 @@ class PrivacyPolicy extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => PrivacyPolicy(),
+      settings: const RouteSettings(name: 'PrivacyPolicy'),
     );
   }
 
