@@ -39,7 +39,7 @@ class AuthenticationRepository {
       _databaseProvider.saveUserDetails(
           userDataMap: userDataMap, currentUserId: currentUserId);
 
-  Future<UserData> isProfileComplete(String currentUserId) =>
+  Future<bool> isProfileComplete(String currentUserId) =>
       _databaseProvider.isProfileComplete(currentUserId);
 
   Future<String> uploadFile(File file, String path) =>

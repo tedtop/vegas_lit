@@ -9,6 +9,7 @@ class UserData extends Equatable {
     @required this.email,
     @required this.phoneNumber,
     @required this.americanState,
+    @required this.isApproved,
     // @required this.name,
     // @required this.googlePhoto,
     // @required this.uploadPhoto,
@@ -23,6 +24,7 @@ class UserData extends Equatable {
     final Map data = documentSnapshot.data();
     return UserData(
       uid: documentSnapshot.id,
+      isApproved: data['isApproved'] as bool,
       email: data['email'] as String,
       username: data['username'] as String,
       phoneNumber: data['number'] as String,
@@ -40,6 +42,7 @@ class UserData extends Equatable {
       'email': email,
       'username': username,
       'number': phoneNumber,
+      'isApproved': isApproved,
       'state': americanState,
       'id': uid,
     };
@@ -50,6 +53,7 @@ class UserData extends Equatable {
   final String email;
   final String phoneNumber;
   final String americanState;
+  final bool isApproved;
   // final String googlePhoto;
   // final String uploadPhoto;
   // final int age;
@@ -61,6 +65,7 @@ class UserData extends Equatable {
         uid,
         username,
         email,
+        isApproved,
         phoneNumber,
         americanState,
         // name,

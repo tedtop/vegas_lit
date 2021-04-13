@@ -224,6 +224,7 @@ class SignUpCubit extends Cubit<SignUpState> {
                 email: state.email.value,
                 phoneNumber: state.number.value,
                 uid: currentUser.uid,
+                isApproved: false,
                 username: state.username.value)
             .toMap(),
       );

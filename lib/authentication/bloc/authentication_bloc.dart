@@ -60,15 +60,15 @@ class AuthenticationBloc
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
     yield const AuthenticationState.splashscreen();
-    // final userData = await _authenticationRepository.isProfileComplete(
-    //   event.user.uid,
-    // );
-    // if (userData != null) {
-    yield AuthenticationState.authenticated(event.user);
-    // } else {
-    //   add(
-    //     AuthenticationLogoutRequested(),
-    //   );
-    // }
+    final userData = await _authenticationRepository.isProfileComplete(
+      event.user.uid,
+    );
+    if (userData) {
+      yield AuthenticationState.authenticated(event.user);
+    } else {
+      add(
+        AuthenticationLogoutRequested(),
+      );
+    }
   }
 }

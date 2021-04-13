@@ -63,21 +63,24 @@ class DatabaseProvider extends BaseDatabaseProvider {
   }
 
   @override
-  Future<UserData> isProfileComplete(String currentUserId) async {
+  Future<bool> isProfileComplete(String currentUserId) async {
     final currentUserReference = _firestoreData.collection('users').doc(
           currentUserId,
         );
     final currentUserDocument = await currentUserReference.get();
-    final isProfileComplete = currentUserDocument != null &&
-        currentUserDocument.exists &&
-        // currentUserDocument.data().containsKey('uid') &&
-        currentUserDocument.data().containsKey('email') &&
-        currentUserDocument.data().containsKey('username');
-    if (isProfileComplete) {
-      return UserData.fromFirestore(currentUserDocument);
-    } else {
-      return null;
-    }
+    final isProfileComplete =
+        // currentUserDocument != null &&
+        //     currentUserDocument.exists &&
+        currentUserDocument.data()['isApproved'] == true;
+    return isProfileComplete;
+    // currentUserDocument.data().containsKey('uid') &&
+    // currentUserDocument.data().containsKey('email') &&
+    // currentUserDocument.data().containsKey('username');
+    // if (isProfileComplete) {
+    //   return UserData.fromFirestore(currentUserDocument);
+    // } else {
+    //   return null;
+    // }
   }
 
   @override
