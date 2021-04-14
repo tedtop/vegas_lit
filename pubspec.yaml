@@ -3,23 +3,7 @@ description: A sports betting game
 
 publish_to: "none"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-version: 0.5.5
-=======
-version: 0.5.7
->>>>>>> 7d51765... bump(version): build to 0.5.7
-=======
-version: 0.6.2
->>>>>>> 108dd39... fix(ui): expanded team names
-=======
-version: 0.6.3+21
->>>>>>> 1a5f2a0... fix(build): updated build system & drawer version string
-=======
-version: 0.6.4+22
->>>>>>> 34491e3... bump: 0.6.4, added timezone debug strings, fix sign_up
+version: 0.6.5+25
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -32,20 +16,8 @@ dependencies:
   bloc: ^6.1.1
   cupertino_icons: ^1.0.0
   custom_navigation_bar: ^0.7.1
-  dio: ^3.0.10
+  dio: ^4.0.0
   equatable: ^2.0.0
-<<<<<<< HEAD
-  flutter_multi_formatter: ^1.3.6
-  url_launcher: ^6.0.2
-  firebase_core: ^0.7.0
-  flutter_bloc: ^6.1.1
-  flutter_icons: ^1.1.0
-  font_awesome_flutter: ^8.11.0
-  formz: ^0.3.2
-  google_fonts: ^1.1.2
-  http: ^0.12.0+2
-  image_picker: ^0.6.7+22
-=======
   firebase_analytics: ^7.1.1
   firebase_core: ^1.0.2
   flutter_bloc: ^6.1.1
@@ -57,24 +29,19 @@ dependencies:
   http: ^0.13.1
   image_picker: ^0.7.4
   instant: ^0.4.1
->>>>>>> 050a651... fix: timezone, status, appbar, open_bets, saving userdata to firestore
   line_awesome_flutter: ^1.0.1
   meta: ^1.2.4
-<<<<<<< HEAD
-  numberpicker: ^1.3.0
-=======
-  hive: ^2.0.2
->>>>>>> 6e106fd... redesigned leaderboard
+  numberpicker: ^2.0.1
   package_info: ^2.0.0
   path_provider: ^2.0.0
+  pluto_grid: ^1.2.0
+  responsive_builder: ^0.4.1
   syncfusion_flutter_datagrid: ^18.4.43-beta
   timezone: ^0.7.0
   universal_html: ^1.2.4
-  uuid: ^2.2.2
+  url_launcher: ^6.0.2
+  uuid: ^3.0.3
   very_good_analysis: ^1.0.4
-  responsive_builder: ^0.4.1
-  pluto_grid: ^1.2.0
-  numberpicker: ^2.0.1
 
 dev_dependencies:
   flutter_test:

@@ -10,11 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.16.0
-  dio: ^3.0.10
+  cloud_firestore: ^1.0.3
+  dio: ^4.0.0
   equatable: ^2.0.0
-  firebase_auth: ^0.20.0+1
-  firebase_storage: ^7.0.0
+  firebase_auth: ^1.0.1
+  firebase_storage: ^8.0.1
   google_sign_in: ^4.5.9
   meta: ^1.2.4
   very_good_analysis: ^1.0.4
