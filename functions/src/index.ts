@@ -5,8 +5,8 @@ import moment = require('moment-timezone');
 
 var app = admin.initializeApp();
 
-export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(async (context) => {
-    console.log('This will be run every 12 hours!');
+export const resolveBets = functions.pubsub.schedule('every 6 hours').onRun(async (context) => {
+    console.log('This will be run every 6 hours!');
     await app.firestore().collection("open_bets").where('isClosed', '==', false).get().then(function (snapshots) {
         const promises: any = [];
 
@@ -28,23 +28,22 @@ export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(asy
                 .then(async function (data: any) {
                     const jsonData = data['data'];
                     const isClosed = whichGame(gameId, jsonData);
-                    console.log(isClosed);
 
-                    if (isClosed == isClosedFirestore) {
-                        console.log('Value Already Updated');
-                        return null;
-                    } else {
+                    if (isClosed != isClosedFirestore) {
+                        functions.logger.log(isClosed);
                         const betsRef = await app.firestore().collection("open_bets").doc(documentId).update({ isClosed: isClosed });
                         return betsRef;
                     }
 
-
+                    functions.logger.log('Value Already Updated');
+                    return null;
                 })
                 .catch(function (error: any) {
                     console.log(error);
+                    return null;
                 })
                 .then(function () {
-                    functions.logger.info("NBA API Call Completed!", { structuredData: true });
+                    functions.logger.info(`${league} API Call Completed!`, { structuredData: true });
                 });
 
             promises.push(promise);
@@ -53,10 +52,11 @@ export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(asy
         return Promise.all(promises);
     }).catch(function (error: any) {
         console.log(error);
+        return null;
     }).then(function () {
+        functions.logger.info("Function Completed!", { structuredData: true });
         return null;
     });
-
 
     function formatTime(dateTime: string): string {
         const d = new Date(dateTime);
@@ -67,16 +67,16 @@ export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(asy
     function whichKey(league: string): string {
         switch (league) {
             case 'nba':
-                return 'edf27d79dc564a1d9b5eccff1e64dc56';
+                return '4d77c75bcd884680ba8493da19f1aece';
                 break;
             case 'mlb':
-                return 'edd8f1c800b846b3af060bf0e5606fb5';
+                return 'd569ee15932e4266bf5e0fc8330dbb90';
                 break;
             case 'nhl':
-                return 'c624a2d014d6487aa12ec67df73632cd';
+                return 'd02fe5a19d1249daa5879948da06f627';
                 break;
             case 'ccb':
-                return 'ddae36a8fd5842b7be6f8b9309f5c91f';
+                return 'c4ddc8ca2fcd4c659c0910eabc75a4c6';
                 break;
             default:
                 return '';
@@ -92,5 +92,4 @@ export const resolveBets = functions.pubsub.schedule('every 12 hours').onRun(asy
         }
         return false;
     }
-
 });
