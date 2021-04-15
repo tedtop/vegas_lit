@@ -220,13 +220,13 @@ class SignUpCubit extends Cubit<SignUpState> {
       await _authenticationRepository.saveUserDetails(
         currentUserId: currentUser.uid,
         userDataMap: UserData(
-                americanState: state.americanState.value,
-                email: state.email.value,
-                phoneNumber: state.number.value,
-                uid: currentUser.uid,
-                isApproved: false,
-                username: state.username.value)
-            .toMap(),
+          americanState: state.americanState.value,
+          email: state.email.value,
+          phoneNumber: state.number.value,
+          uid: currentUser.uid,
+          isApproved: false,
+          username: state.username.value,
+        ).toMap(),
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
