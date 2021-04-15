@@ -34,42 +34,44 @@ class Profile extends StatelessWidget {
       appBar: AppBarWidget(),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                'MY PROFILE',
-                textAlign: TextAlign.center,
-                style: Styles.pageTitle,
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              BlocBuilder<ProfileCubit, ProfileState>(
-                builder: (context, state) {
-                  switch (state.status) {
-                    case ProfileStatus.opened:
-                      return AbstractCard(
-                        padding: const EdgeInsets.fromLTRB(28, 33, 22, 40),
-                        widgets: [
-                          _AvatarInput(),
-                          const SizedBox(height: 30),
-                          _UsernameInput(),
-                          _PasswordInput(),
-                          _EmailInput(),
-                          _StateInput(),
-                          _MobileNumberInput(),
-                          // _EditButton(),
-                        ],
-                      );
-                      break;
-                    default:
-                      return const CircularProgressIndicator();
-                      break;
-                  }
-                },
-              ),
-            ],
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  'MY PROFILE',
+                  textAlign: TextAlign.center,
+                  style: Styles.pageTitle,
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    switch (state.status) {
+                      case ProfileStatus.opened:
+                        return AbstractCard(
+                          padding: const EdgeInsets.fromLTRB(28, 33, 22, 40),
+                          widgets: [
+                            _AvatarInput(),
+                            const SizedBox(height: 30),
+                            _UsernameInput(),
+                            //_PasswordInput(),
+                            _EmailInput(),
+                            _StateInput(),
+                            _MobileNumberInput(),
+                            _EditButton(),
+                          ],
+                        );
+                        break;
+                      default:
+                        return const CircularProgressIndicator();
+                        break;
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -80,33 +82,39 @@ class Profile extends StatelessWidget {
 class _AvatarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            'Avatar/Pic',
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              color: Palette.cream,
-            ),
-          ),
-        ),
-        Expanded(
-          child: CircleAvatar(
-            child: Text(
-              'Change',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-            radius: 50,
-            backgroundImage:
-                const AssetImage('assets/images/profile_image.png'),
-          ),
-        ),
-      ],
+    return const CircleAvatar(
+      child: Image(
+        image: AssetImage('assets/images/profile_image.png'),
+      ),
+      radius: 50,
     );
+    // Row(
+    //   children: [
+    //     Expanded(
+    //       child: Text(
+    //         'Avatar/Pic',
+    //         style: GoogleFonts.nunito(
+    //           fontSize: 18,
+    //           color: Palette.cream,
+    //         ),
+    //       ),
+    //     ),
+    //     Expanded(
+    //       child: CircleAvatar(
+    //         child: Text(
+    //           'Change',
+    //           style: GoogleFonts.nunito(
+    //             fontWeight: FontWeight.bold,
+    //             fontSize: 14,
+    //           ),
+    //         ),
+    //         radius: 50,
+    //         backgroundImage:
+    //             const AssetImage('assets/images/profile_image.png'),
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 }
 
