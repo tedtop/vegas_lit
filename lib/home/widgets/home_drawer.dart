@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/config/assets.dart';
@@ -62,6 +64,40 @@ class _HomeDrawerState extends State<HomeDrawer> {
               );
             },
           ),
+          kIsWeb
+              ? Column(
+                  children: [
+                    ListTile(
+                      title: Text('SPORTSBOOK', style: Styles.normalTextBold),
+                      onTap: () {
+                        context.read<HomeCubit>().homeChange(0);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text('BET SLIP', style: Styles.normalTextBold),
+                      onTap: () {
+                        context.read<HomeCubit>().homeChange(1);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text('OPEN BETS', style: Styles.normalTextBold),
+                      onTap: () {
+                        context.read<HomeCubit>().homeChange(3);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text('HISTORY', style: Styles.normalTextBold),
+                      onTap: () {
+                        context.read<HomeCubit>().homeChange(4);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                )
+              : const SizedBox(),
           ListTile(
             title: Text('LEADERBOARD', style: Styles.normalTextBold),
             onTap: () {
@@ -78,50 +114,56 @@ class _HomeDrawerState extends State<HomeDrawer> {
             },
           ),
           //..................................................................//
-          const Divider(
-            color: Palette.cream,
-          ),
-          //..................................................................//
-          ListTile(
-            title: Text('RULES', style: Styles.normalText),
-            onTap: () {
-              Navigator.of(context).push(
-                Rules.route(),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('FAQ', style: Styles.normalText),
-            onTap: () {
-              Navigator.of(context).push(
-                FAQ.route(),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('TERMS OF SERVICE', style: Styles.normalText),
-            onTap: () {
-              Navigator.of(context).push(
-                TermsOfService.route(),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('PRIVACY POLICY', style: Styles.normalText),
-            onTap: () {
-              Navigator.of(context).push(
-                PrivacyPolicy.route(),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('CONTACT US', style: Styles.normalText),
-            onTap: () {
-              launch(
-                _emailLaunchUri.toString(),
-              );
-            },
-          ),
+          kIsWeb
+              ? const SizedBox()
+              : Column(
+                  children: [
+                    const Divider(
+                      color: Palette.cream,
+                    ),
+                    //..................................................................//
+                    ListTile(
+                      title: Text('RULES', style: Styles.normalText),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          Rules.route(),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Text('FAQ', style: Styles.normalText),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          FAQ.route(),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Text('TERMS OF SERVICE', style: Styles.normalText),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          TermsOfService.route(),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Text('PRIVACY POLICY', style: Styles.normalText),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          PrivacyPolicy.route(),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Text('CONTACT US', style: Styles.normalText),
+                      onTap: () {
+                        launch(
+                          _emailLaunchUri.toString(),
+                        );
+                      },
+                    ),
+                  ],
+                ),
           //..................................................................//
           Builder(
             builder: (context) {

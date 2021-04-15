@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/home/widgets/bottombar.dart';
 
 import '../cubit/bet_slip_cubit.dart';
 import '../widgets/bet_slip_card.dart';
@@ -116,7 +117,8 @@ class BetSlipList extends StatelessWidget {
                 betSlipCardData: betSlipState.betSlipCardData[index],
               );
             },
-          )
+          ),
+          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );

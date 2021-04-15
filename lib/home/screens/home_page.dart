@@ -7,6 +7,8 @@ import 'package:new_version/new_version.dart';
 import 'package:vegas_lit/bet_history/bet_history.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/assets.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/home/widgets/topnavbar.dart';
 import 'package:vegas_lit/shared_widgets/app_bar.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
@@ -83,12 +85,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final pageIndex =
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
-
+    final balanceAmount =
+        context.select((HomeCubit homeCubit) => homeCubit.state.balanceAmount);
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBarWidget(
-        isHomePage: true,
-      ),
-      drawer: HomeDrawer(),
+      // backgroundColor: Palette.lightGrey,
+      appBar: kIsWeb
+          ? webViewAppBar(width, balanceAmount, pageIndex)
+          : mobileViewAppBar(balanceAmount),
+      drawer: kIsWeb && width > 870 ? null : HomeDrawer(),
       body: IndexedStack(
         index: pageIndex,
         children: [
@@ -101,7 +106,105 @@ class _HomePageState extends State<HomePage> {
           BetHistory(),
         ],
       ),
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
+    );
+  }
+
+  AppBar webViewAppBar(width, balanceAmount, pageIndex) {
+    return AppBar(
+      iconTheme: const IconThemeData(color: Palette.cream),
+      toolbarHeight: 80.0,
+      title: width > 870
+          ? Row(
+              children: [
+                Image.asset(
+                  Images.topLogo,
+                  fit: BoxFit.contain,
+                  height: 80,
+                ),
+                InteractiveNavItem(
+                  title: 'Sportsbook',
+                  index: 0,
+                  selected: pageIndex == 0,
+                ),
+                InteractiveNavItem(
+                  title: 'Bet Slip',
+                  index: 1,
+                  selected: pageIndex == 1,
+                ),
+                InteractiveNavItem(
+                  title: 'Leaderboard',
+                  index: 2,
+                  selected: pageIndex == 2,
+                ),
+                InteractiveNavItem(
+                  title: 'Open Bets',
+                  index: 3,
+                  selected: pageIndex == 3,
+                ),
+                InteractiveNavItem(
+                  title: 'History',
+                  index: 4,
+                  selected: pageIndex == 4,
+                )
+              ],
+            )
+          : Image.asset(
+              Images.topLogo,
+              fit: BoxFit.contain,
+              height: 80,
+            ),
+    );
+  }
+
+  AppBar mobileViewAppBar(balanceAmount) {
+    return AppBar(
+      iconTheme: const IconThemeData(color: Palette.cream),
+      toolbarHeight: 80.0,
+      title: Image.asset(
+        Images.topLogo,
+        fit: BoxFit.contain,
+        height: 80,
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 9, 10, 11),
+          child: Container(
+            width: 60,
+            height: 60,
+            decoration: const ShapeDecoration(
+              shape: CircleBorder(),
+              color: Palette.green,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Balance',
+                    style: GoogleFonts.nunito(
+                      color: Palette.cream,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    maxLines: 1,
+                  ),
+                  Text(
+                    '\$$balanceAmount',
+                    style: GoogleFonts.nunito(
+                      color: Palette.cream,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

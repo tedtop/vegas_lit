@@ -1,9 +1,11 @@
 import 'package:api_client/api_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/open_bets/screens/open_bet_card.dart';
 
 class BetHistory extends StatelessWidget {
@@ -92,7 +94,8 @@ class BetHistory extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
+          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );

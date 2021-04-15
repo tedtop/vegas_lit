@@ -29,26 +29,35 @@ class LoginForm extends StatelessWidget {
           }
         },
         child: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(
-              vertical: 40,
-            ),
-            children: [
-              TopLogo(),
-              const SizedBox(height: 30),
-              Column(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 40,
+              ),
+              child: Column(
                 children: [
-                  _EmailInput(),
-                  _PasswordInput(),
-                  _LoginButton(),
-                  _ResetPassword(),
-                  _LinkToSignup(),
-                  // const SocialLoginList(
-                  //   authenticationType: AuthenticationType.login,
-                  // ),
+                  TopLogo(),
+                  const SizedBox(height: 30),
+                  Column(
+                    children: [
+                      _EmailInput(),
+                      _PasswordInput(),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      _LoginButton(),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      _LinkToSignup(),
+                      // const SocialLoginList(
+                      //   authenticationType: AuthenticationType.login,
+                      // ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -64,7 +73,7 @@ class _EmailInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return SizedBox(
-          width: width / 1.5,
+          width: width > 500 ? 333.34 : width / 1.5,
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
@@ -99,7 +108,7 @@ class _PasswordInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return SizedBox(
-          width: width / 1.5,
+          width: width > 500 ? 333.34 : width / 1.5,
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
@@ -116,6 +125,12 @@ class _PasswordInput extends StatelessWidget {
                 helperText: '',
                 // errorText: state.password.invalid ? 'Invalid password' : null,
               ),
+              onSubmitted: (password) {
+                state.status.isValidated
+                    ? context.read<LoginCubit>().logInWithCredentials()
+                    // ignore: unnecessary_statements
+                    : null;
+              },
             ),
           ),
         );
@@ -195,7 +210,7 @@ class _LinkToSignup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account yet?",
+          "Don't have an account yet? ",
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.w300,
             fontSize: 18,
