@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/shared_widgets/auth_socials.dart';
 import 'package:vegas_lit/shared_widgets/auth_logo.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 import 'package:vegas_lit/shared_widgets/dropdown.dart';
@@ -46,7 +43,7 @@ class SignUpForm extends StatelessWidget {
                 _PasswordInput(),
                 _ConfirmPasswordInput(),
                 _StateInput(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 _MobileNumberInput(),
