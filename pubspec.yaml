@@ -33,8 +33,8 @@ dependencies:
   cloud_firestore_web: ^1.0.5
   line_awesome_flutter: ^1.0.1
   meta: ^1.2.4
-  numberpicker: ^2.1.1
-  package_info: ^2.0.0
+  numberpicker: ^2.0.1
+  package_info_plus: ^1.0.0
   path_provider: ^2.0.0
   pluto_grid: ^1.2.0
   responsive_builder: ^0.4.1

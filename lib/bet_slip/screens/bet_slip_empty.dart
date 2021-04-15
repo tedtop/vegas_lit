@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'bet_slip_page.dart';
 
@@ -36,6 +38,7 @@ class EmptyBetSlip extends StatelessWidget {
               ),
             ],
           ),
+          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );

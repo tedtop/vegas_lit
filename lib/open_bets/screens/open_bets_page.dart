@@ -1,4 +1,5 @@
 import 'package:api_client/api_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
+import 'package:vegas_lit/home/widgets/bottombar.dart';
 import '../cubit/open_bets_cubit.dart';
 import 'open_bet_card.dart';
 
@@ -114,6 +116,7 @@ class OpenBets extends StatelessWidget {
               }
             },
           ),
+          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );
