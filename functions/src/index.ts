@@ -14,7 +14,7 @@ export const resolveBets = functions.pubsub.schedule('every 6 hours').onRun(asyn
             const data = document.data();
 
             const dateTime = formatTime(data.dateTime);
-            const league = data.league;
+            const league = data.league.toLowerCase();
             const isClosedFirestore = data.isClosed;
             const apikey = whichKey(league);
             const gameId = data.gameId;
