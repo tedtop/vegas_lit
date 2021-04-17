@@ -27,8 +27,10 @@ dependencies:
   google_fonts: ^2.0.0
   hive: ^2.0.2
   http: ^0.13.1
+  new_version: ^0.2.0
   image_picker: ^0.7.4
   instant: ^0.4.1
+  cloud_firestore_web: ^1.0.5
   line_awesome_flutter: ^1.0.1
   meta: ^1.2.4
   numberpicker: ^2.0.1
@@ -38,7 +40,7 @@ dependencies:
   responsive_builder: ^0.4.1
   syncfusion_flutter_datagrid: ^18.4.43-beta
   timezone: ^0.7.0
-  universal_html: ^1.2.4
+  universal_html: ^2.0.8
   url_launcher: ^6.0.2
   uuid: ^3.0.3
   very_good_analysis: ^1.0.4
