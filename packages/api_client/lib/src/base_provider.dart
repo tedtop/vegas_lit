@@ -14,6 +14,7 @@ abstract class BaseAuthenticationProvider {
   Future<void> logInWithEmailAndPassword({String email, String password});
   Future<void> signOutUser();
   Future<User> getCurrentUser();
+ Future<void> resetPassword({String email});
   Stream<User> getUser;
 }
 

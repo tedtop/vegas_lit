@@ -32,6 +32,9 @@ class AuthenticationRepository {
   Future<void> saveDetailsFromAuthentication(User currentAuthenticatedUser) =>
       _databaseProvider.saveDetailsFromAuthentication(currentAuthenticatedUser);
 
+  Future<void> resetPassword({String email}) =>
+      _authenticationProvider.resetPassword(email: email);
+
   Future<void> saveUserDetails({
     Map userDataMap,
     String currentUserId,
