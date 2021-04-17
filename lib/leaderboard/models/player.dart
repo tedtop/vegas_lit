@@ -35,6 +35,7 @@ class LeaderBoardPlayer {
     this.potentialWinnings,
     this.profit,
   });
+
   PlutoRow toPlutoRow() => PlutoRow(cells: {
         'rank': PlutoCell(value: rank),
         'player': PlutoCell(value: player),
