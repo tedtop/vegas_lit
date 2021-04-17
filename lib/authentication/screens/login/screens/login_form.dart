@@ -41,6 +41,7 @@ class LoginForm extends StatelessWidget {
                   _EmailInput(),
                   _PasswordInput(),
                   _LoginButton(),
+                  _ResetPassword(),
                   _LinkToSignup(),
                   // const SocialLoginList(
                   //   authenticationType: AuthenticationType.login,
@@ -145,6 +146,48 @@ class _LoginButton extends StatelessWidget {
   }
 }
 
+class _ResetPassword extends StatelessWidget {
+  @override
+  Widget build(BuildContext parentContext) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Forgot Password?',
+          style: GoogleFonts.nunito(
+            fontWeight: FontWeight.w300,
+            fontSize: 18,
+            color: Palette.cream,
+          ),
+        ),
+        TextButton(
+          key: const Key('loginForm_resetPassword_flatButton'),
+          onPressed: () {
+            showModalBottomSheet(
+              context: parentContext,
+              isScrollControlled: true,
+              builder: (context) => BlocProvider.value(
+                value: parentContext.read<LoginCubit>(),
+                child: SingleChildScrollView(
+                  child: _ResetPage(),
+                ),
+              ),
+            );
+          },
+          child: Text(
+            'Reset',
+            style: GoogleFonts.nunito(
+              color: Palette.green,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _LinkToSignup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -172,6 +215,70 @@ class _LinkToSignup extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ResetPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    String email;
+
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: Palette.lightGrey,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Text(
+            'Reset Password',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 26.0,
+              color: Palette.cream,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+            ),
+            decoration: InputDecoration(
+              hintText: 'Enter your email',
+              border: InputBorder.none,
+              isDense: true,
+              hintStyle: GoogleFonts.nunito(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                color: Palette.cream,
+              ),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            onChanged: (newText) {
+              email = newText;
+            },
+          ),
+          SizedBox(height: 20),
+          FlatButton(
+            child: Text(
+              'Done',
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+              ),
+            ),
+            color: Palette.green,
+            onPressed: () async {
+              await context.read<LoginCubit>().resetPassword(email: email);
+              FocusScope.of(context).unfocus();
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
     );
   }
 }

@@ -57,4 +57,8 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(status: FormzStatus.pure));
     }
   }
+
+  Future<void> resetPassword({String email}) async {
+    await _authenticationRepository.resetPassword(email: email);
+  }
 }

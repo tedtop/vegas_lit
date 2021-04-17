@@ -74,6 +74,11 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
   }
 
   @override
+  Future<void> resetPassword({String email}) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  @override
   Future<void> signOutUser() async {
     try {
       await Future.wait([
