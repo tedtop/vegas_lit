@@ -10,9 +10,9 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/home/widgets/bottombar.dart';
+import 'package:vegas_lit/leaderboard/models/fakedata.dart';
 import 'package:vegas_lit/leaderboard/models/player.dart';
-import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
+import 'package:vegas_lit/leaderboard/widgets/mobileleaderboard.dart';
 
 class Leaderboard extends StatefulWidget {
   @override
@@ -457,61 +457,39 @@ class _LeaderboardState extends State<Leaderboard> {
               margin: const EdgeInsets.symmetric(horizontal: 8),
               color: Palette.green,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-              child: Center(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    width: 1220,
-                    height: 450,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8))),
-                    constraints: const BoxConstraints(
-                      minHeight: 450,
-                    ),
-                    child: PlutoGrid(
-                      columns: leaderboardPlayerColumn,
-                      rows: players,
-                      configuration: PlutoGridConfiguration(
-                          activatedColor: Palette.cream,
-                          gridBorderColor: Palette.green,
-                          rowHeight: 20,
-                          scrollbarConfig: const PlutoGridScrollbarConfig(
-                            isAlwaysShown: kIsWeb,
-                            draggableScrollbar: true,
-                          )),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ScreenTypeLayout(
-              mobile: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: PageNumberView(pages: 15),
-                  )
-                ],
-              ),
-              desktop: Container(
-                  margin: const EdgeInsets.all(8),
-                  constraints: const BoxConstraints(maxWidth: 1220),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      PageNumberView(pages: 15),
-                    ],
-                  )),
-            ),
-            kIsWeb ? const BottomBar() : const SizedBox()
+            MobileLeaderboard(
+              players: playerList,
+            )
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Card(
+            //     child: SfDataGrid(
+            //       columnWidthMode: ColumnWidthMode.fill,
+            //       gridLinesVisibility: GridLinesVisibility.none,
+            //       source: _employeeDataSource,
+            //       columns: [
+            //         GridNumericColumn(
+            //           mappingName: 'id',
+            //           headerText: '#',
+            //           textAlignment: Alignment.center,
+            //           headerTextAlignment: Alignment.center,
+            //         ),
+            //         GridTextColumn(
+            //           mappingName: 'name',
+            //           headerText: 'Player',
+            //         ),
+            //         GridTextColumn(
+            //           mappingName: 'designation',
+            //           headerText: 'Profit',
+            //         ),
+            //         GridTextColumn(
+            //           mappingName: 'salary',
+            //           headerText: 'Balance',
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
