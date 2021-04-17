@@ -5,4 +5,5 @@ class Images {
 
 class Json {
   static const String mockData = 'assets/json/games.json';
+  static const String mockNBA = 'assets/json/nba_data.json';
 }

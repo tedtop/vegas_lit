@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:api_client/api_client.dart';
 import 'package:intl/intl.dart';
@@ -40,47 +43,87 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final estTimeZone = fetchESTZoneNew();
     final currentTimeZone = DateTime.now();
 
-    await Future.wait(
-      list.map(
-        (e) async {
-          if (e == 'NFL' || e == 'NCAAF') {
-            gameNumberMap[e] = 'OFF-SEASON';
-          } else {
-            await _sportsfeedRepository
-                .fetchGameListByNewGame(
-              dateTime: estTimeZone,
-              gameName: e,
-            )
-                .then(
-              (value) {
-                gameNumberMap[e] = value.length.toString();
-              },
-            );
-          }
-        },
-      ).toList(),
-    );
+    Future<List<Game>> getData() async {
+      final jsonData = await rootBundle.loadString('assets/json/nba_data.json');
+      final parsedTeamData = await json.decode(jsonData) as List;
+      final gameList = parsedTeamData.map((e) => Game.fromMap(e)).toList();
 
-    if (event.gameName == 'NFL' || event.gameName == 'NCAAF') {
-      yield SportsbookOpened(
-        currentTimeZone: currentTimeZone,
-        estTimeZone: estTimeZone,
-        games: [],
-        gameName: event.gameName,
-        gameNumbers: gameNumberMap,
-      );
+      return gameList;
+    }
+
+    // TODO: Change the Web Condition
+
+    if (kIsWeb) {
+      final mockGameData = await getData();
+      final mockGameNumberMap = <String, String>{
+        'NFL': '0',
+        'NBA': mockGameData.length.toString(),
+        'MLB': '0',
+        'NHL': '0',
+        'NCAAF': '0',
+        'NCAAB': '0',
+      };
+
+      if (event.gameName == 'NBA') {
+        yield SportsbookOpened(
+          currentTimeZone: currentTimeZone,
+          estTimeZone: estTimeZone,
+          games: mockGameData,
+          gameName: event.gameName,
+          gameNumbers: mockGameNumberMap,
+        );
+      } else {
+        yield SportsbookOpened(
+          currentTimeZone: currentTimeZone,
+          estTimeZone: estTimeZone,
+          games: [],
+          gameName: event.gameName,
+          gameNumbers: mockGameNumberMap,
+        );
+      }
     } else {
-      final games = await _sportsfeedRepository.fetchGameListByNewGame(
-        gameName: event.gameName,
-        dateTime: estTimeZone,
+      await Future.wait(
+        list.map(
+          (e) async {
+            if (e == 'NFL' || e == 'NCAAF') {
+              gameNumberMap[e] = 'OFF-SEASON';
+            } else {
+              await _sportsfeedRepository
+                  .fetchGameListByNewGame(
+                dateTime: estTimeZone,
+                gameName: e,
+              )
+                  .then(
+                (value) {
+                  gameNumberMap[e] = value.length.toString();
+                },
+              );
+            }
+          },
+        ).toList(),
       );
-      yield SportsbookOpened(
-        currentTimeZone: currentTimeZone,
-        estTimeZone: estTimeZone,
-        games: games,
-        gameName: event.gameName,
-        gameNumbers: gameNumberMap,
-      );
+
+      if (event.gameName == 'NFL' || event.gameName == 'NCAAF') {
+        yield SportsbookOpened(
+          currentTimeZone: currentTimeZone,
+          estTimeZone: estTimeZone,
+          games: [],
+          gameName: event.gameName,
+          gameNumbers: gameNumberMap,
+        );
+      } else {
+        final games = await _sportsfeedRepository.fetchGameListByNewGame(
+          gameName: event.gameName,
+          dateTime: estTimeZone,
+        );
+        yield SportsbookOpened(
+          currentTimeZone: currentTimeZone,
+          estTimeZone: estTimeZone,
+          games: games,
+          gameName: event.gameName,
+          gameNumbers: gameNumberMap,
+        );
+      }
     }
   }
 
