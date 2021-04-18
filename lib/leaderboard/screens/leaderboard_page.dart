@@ -14,6 +14,7 @@ import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/leaderboard/models/fakedata.dart';
 import 'package:vegas_lit/leaderboard/widgets/mobileleaderboard.dart';
 import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
+import 'package:vegas_lit/leaderboard/widgets/tabletleaderboard.dart';
 import 'package:vegas_lit/leaderboard/widgets/webleaderboard.dart';
 
 class Leaderboard extends StatefulWidget {
@@ -50,6 +51,9 @@ class _LeaderboardState extends State<Leaderboard> {
             ),
             ScreenTypeLayout(
               desktop: WebLeaderboard(
+                players: playerList,
+              ),
+              tablet: TabletLeaderboard(
                 players: playerList,
               ),
               mobile: MobileLeaderboard(
