@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/leaderboard/models/player.dart';
+import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
+import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {
   final List<LeaderBoardPlayer> players;
@@ -14,11 +16,50 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: widget.players
-          .map((player) => MobileLeaderboardTile(
-                player: player,
-              ))
-          .toList(),
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+              child: Text(
+                'Current Leaderboard',
+                style: Styles.normalTextBold,
+              ),
+            ),
+            Expanded(
+              child: Container(),
+            ),
+          ],
+        ),
+        const TextBar(
+          text: 'Current Week',
+        ),
+        const TextBar(
+          text: 'All Leagues',
+        ),
+        const TextBar(
+          text: 'All Bet Types',
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Column(
+          children: widget.players
+              .map((player) => MobileLeaderboardTile(
+                    player: player,
+                  ))
+              .toList(),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PageNumberView(pages: 15),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

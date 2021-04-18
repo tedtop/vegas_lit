@@ -14,6 +14,7 @@ import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/leaderboard/models/fakedata.dart';
 import 'package:vegas_lit/leaderboard/widgets/mobileleaderboard.dart';
 import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
+import 'package:vegas_lit/leaderboard/widgets/webleaderboard.dart';
 
 class Leaderboard extends StatefulWidget {
   @override
@@ -48,99 +49,15 @@ class _LeaderboardState extends State<Leaderboard> {
               ],
             ),
             ScreenTypeLayout(
-              desktop: Container(
-                constraints: const BoxConstraints(maxWidth: 1200),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          'Current Leaderboard',
-                          style: Styles.normalTextBold,
-                        ),
-                      ),
-                      Expanded(child: Container()),
-                      const TextBar(
-                        text: 'Current Week',
-                      ),
-                      const TextBar(
-                        text: 'All Leagues',
-                      ),
-                      const TextBar(
-                        text: 'All Bet Types',
-                      ),
-                    ],
-                  ),
-                ),
+              desktop: WebLeaderboard(
+                players: playerList,
               ),
-              mobile: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  MobileLeaderboard(
-                    players: playerList,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PageNumberView(pages: 15),
-                      ),
-                    ],
-                  )
-                ],
+              mobile: MobileLeaderboard(
+                players: playerList,
               ),
             ),
             kIsWeb ? const BottomBar() : const SizedBox(),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextBar extends StatelessWidget {
-  const TextBar({Key key, this.text}) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 5,
-        ),
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Container(
-            color: Palette.lightGrey,
-            padding: const EdgeInsets.all(8.0),
-            height: 40,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  text,
-                  style: GoogleFonts.nunito(
-                    color: Palette.cream,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const Icon(
-                  FontAwesome.angle_down,
-                )
-              ],
-            ),
-          ),
         ),
       ),
     );
