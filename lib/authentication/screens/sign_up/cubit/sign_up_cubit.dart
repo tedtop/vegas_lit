@@ -195,6 +195,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     final username = Username.dirty(state.usernameValue);
     final number = PhoneNumber.dirty(state.numberValue);
     final americanState = AmericanState.dirty(state.americanStateValue);
+
     emit(
       state.copyWith(
         email: email,
@@ -205,6 +206,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         username: username,
         number: number,
         americanState: americanState,
+        status: FormzStatus.valid,
       ),
     );
 
