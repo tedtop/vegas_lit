@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:intl/intl.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vegas_lit/home/home.dart';
+import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 import '../bloc/sportsbook_bloc.dart';
 
@@ -258,16 +260,11 @@ class SportsBookView extends StatelessWidget {
                   ),
                 );
               } else {
-                return ListView.builder(
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: games.length,
-                  itemBuilder: (context, index) {
-                    return MatchupCard.route(
-                      game: games[index],
-                      gameName: gameName,
-                    );
-                  },
+                return ScreenTypeLayout(
+                  mobile: MobileSportsbook(
+                    games: games,
+                    gameName: gameName,
+                  ),
                 );
               }
             },
