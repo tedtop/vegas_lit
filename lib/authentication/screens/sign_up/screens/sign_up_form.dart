@@ -709,6 +709,7 @@ class _SignUpButton extends StatelessWidget {
                   text: 'SIGN UP',
                   action: () {
                     context.read<SignUpCubit>().signUpFormSubmitted();
+                    print('Clicked');
                   },
                 );
         },
