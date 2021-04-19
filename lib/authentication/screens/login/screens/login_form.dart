@@ -272,9 +272,13 @@ class _ResetPage extends StatelessWidget {
             ),
             color: Palette.green,
             onPressed: () async {
-              await context.read<LoginCubit>().resetPassword(email: email);
-              FocusScope.of(context).unfocus();
-              Navigator.pop(context);
+              if (email != null) {
+                if (email.isNotEmpty) {
+                  await context.read<LoginCubit>().resetPassword(email: email);
+                  FocusScope.of(context).unfocus();
+                  Navigator.pop(context);
+                }
+              }
             },
           ),
         ],
