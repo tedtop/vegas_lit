@@ -10,6 +10,7 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vegas_lit/home/home.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.dart';
+import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/tabletsportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 import '../bloc/sportsbook_bloc.dart';
 
@@ -261,7 +262,16 @@ class SportsBookView extends StatelessWidget {
                 );
               } else {
                 return ScreenTypeLayout(
+                  breakpoints: const ScreenBreakpoints(
+                    desktop: 800,
+                    tablet: 600,
+                    watch: 80,
+                  ),
                   mobile: MobileSportsbook(
+                    games: games,
+                    gameName: gameName,
+                  ),
+                  tablet: TabletSportsbook(
                     games: games,
                     gameName: gameName,
                   ),
