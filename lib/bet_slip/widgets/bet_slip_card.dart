@@ -643,7 +643,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
           Column(
             children: [
               Text(
-                'Select your Bet Amount',
+                'Select your Bet Amount (Scroll Vertically)',
                 style: GoogleFonts.nunito(
                   color: Palette.cream,
                   fontSize: 14,
@@ -656,9 +656,14 @@ class _BetAmountPageState extends State<BetAmountPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   NumberPicker(
+                    itemHeight: 100,
                     value: newBetAmount ?? widget.betAmount,
                     minValue: 0,
+                    haptics: true,
                     maxValue: 100,
+                    itemCount: 1,
+                    // axis: Axis.horizontal,
+                    step: 25,
                     onChanged: (num number) {
                       setState(() {
                         newBetAmount = number;
@@ -692,7 +697,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                     width: 10,
                   ),
                   Text(
-                    'Years',
+                    '\$',
                     style: GoogleFonts.nunito(
                       color: Palette.cream,
                       fontSize: 14,
