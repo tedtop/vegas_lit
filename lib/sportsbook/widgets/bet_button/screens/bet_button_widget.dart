@@ -76,7 +76,7 @@ class BetButtonUnclicked extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        width: 160,
+        width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
         child: RaisedButton(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
