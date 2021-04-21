@@ -11,37 +11,32 @@ class TextBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 5,
+      width: 170,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
         ),
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Container(
-            color: Palette.lightGrey,
-            padding: const EdgeInsets.all(8.0),
-            height: 40,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  text,
-                  style: GoogleFonts.nunito(
-                    color: Palette.cream,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                  ),
+        child: Container(
+          color: Palette.lightGrey,
+          padding: const EdgeInsets.all(8.0),
+          height: 40,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: GoogleFonts.nunito(
+                  color: Palette.cream,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
                 ),
-                const Icon(
-                  FontAwesome.angle_down,
-                )
-              ],
-            ),
+              ),
+              const Icon(
+                FontAwesome.angle_down,
+              )
+            ],
           ),
         ),
       ),
