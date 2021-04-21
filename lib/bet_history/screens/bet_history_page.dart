@@ -1,11 +1,25 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
 
+import 'bet_history_card.dart';
+
 class BetHistory extends StatelessWidget {
+  const BetHistory._({Key key}) : super(key: key);
+
+  static Builder route() {
+    return Builder(
+      builder: (context) {
+        return const BetHistory._();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -23,12 +37,12 @@ class BetHistory extends StatelessWidget {
               ),
             ],
           ),
-          const TextBar(
-            text: 'All Bet Types',
-          ),
-          const TextBar(
-            text: 'All Leagues',
-          ),
+          // const TextBar(
+          //   text: 'All Bet Types',
+          // ),
+          // const TextBar(
+          //   text: 'All Leagues',
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 6,
@@ -69,6 +83,30 @@ class BetHistory extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          BlocBuilder<BetHistoryCubit, BetHistoryState>(
+            builder: (context, state) {
+              switch (state.status) {
+                case BetHistoryStatus.opened:
+                  if (state.betHistoryDataList.isEmpty) {
+                    return Container();
+                  }
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    key: Key('${state.betHistoryDataList.length}'),
+                    itemCount: state.betHistoryDataList.length,
+                    itemBuilder: (context, index) {
+                      return BetHistorySlip(
+                        betHistory: state.betHistoryDataList[index],
+                      );
+                    },
+                  );
+                  break;
+                default:
+                  return const CircularProgressIndicator();
+              }
+            },
           ),
           kIsWeb ? const BottomBar() : const SizedBox(),
         ],

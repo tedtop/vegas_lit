@@ -48,10 +48,8 @@ class LoginForm extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
+                      _ResetPassword(),
                       _LinkToSignup(),
-                      // const SocialLoginList(
-                      //   authenticationType: AuthenticationType.login,
-                      // ),
                     ],
                   ),
                 ],

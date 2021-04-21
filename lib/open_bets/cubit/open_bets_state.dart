@@ -1,6 +1,6 @@
 part of 'open_bets_cubit.dart';
 
-enum OpenBetsStatus { initial, opened, updated }
+enum OpenBetsStatus { initial, opened }
 
 class OpenBetsState extends Equatable {
   const OpenBetsState._({

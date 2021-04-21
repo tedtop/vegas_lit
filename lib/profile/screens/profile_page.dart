@@ -44,7 +44,7 @@ class Profile extends StatelessWidget {
                   style: Styles.pageTitle,
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 20,
                 ),
                 BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
@@ -56,11 +56,10 @@ class Profile extends StatelessWidget {
                             _AvatarInput(),
                             const SizedBox(height: 30),
                             _UsernameInput(),
-                            //_PasswordInput(),
                             _EmailInput(),
                             _StateInput(),
                             _MobileNumberInput(),
-                            _EditButton(),
+                            // _EditButton(),
                           ],
                         );
                         break;
@@ -84,37 +83,10 @@ class _AvatarInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CircleAvatar(
       child: Image(
-        image: AssetImage('assets/images/profile_image.png'),
+        image: AssetImage(Images.profileImage),
       ),
       radius: 50,
     );
-    // Row(
-    //   children: [
-    //     Expanded(
-    //       child: Text(
-    //         'Avatar/Pic',
-    //         style: GoogleFonts.nunito(
-    //           fontSize: 18,
-    //           color: Palette.cream,
-    //         ),
-    //       ),
-    //     ),
-    //     Expanded(
-    //       child: CircleAvatar(
-    //         child: Text(
-    //           'Change',
-    //           style: GoogleFonts.nunito(
-    //             fontWeight: FontWeight.bold,
-    //             fontSize: 14,
-    //           ),
-    //         ),
-    //         radius: 50,
-    //         backgroundImage:
-    //             const AssetImage('assets/images/profile_image.png'),
-    //       ),
-    //     ),
-    //   ],
-    // );
   }
 }
 
@@ -171,8 +143,6 @@ class _UsernameInput extends StatelessWidget {
                   isDense: true,
                   hintText: 'Username',
                   helperText: '',
-                  // errorText:
-                  //     state.username.invalid ? 'Should be less than 10' : null,
                 ),
               ),
             ),
@@ -236,9 +206,6 @@ class _PasswordInput extends StatelessWidget {
               ),
               hintText: 'Password',
               helperText: '',
-              // errorText: state.password.invalid
-              //     ? 'Password should be 8 characters and include at least one number'
-              //     : null,
             ),
           ),
         ),
@@ -384,7 +351,6 @@ class _StateInput extends StatelessWidget {
                         fontWeight: FontWeight.w300,
                         color: Palette.cream,
                       ),
-
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(4),
@@ -394,45 +360,10 @@ class _StateInput extends StatelessWidget {
                       isDense: true,
                       hintText: 'State',
                       helperText: '',
-                      // errorText:
-                      //     state.americanState.invalid ? 'Wrong State' : null,
                     ),
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(bottom: 22),
-              //   child: Container(
-              //     height: 30,
-              //     width: 33,
-              //     decoration: const BoxDecoration(
-              //       color: Palette.green,
-              //       borderRadius: BorderRadius.only(
-              //         topRight: Radius.circular(4),
-              //         bottomRight: Radius.circular(4),
-              //       ),
-              //     ),
-              //     child: DropdownButton<String>(
-              //       key: _dropdownButtonKey,
-              //       items: [
-              //         DropdownMenuItem(
-              //           value: '1',
-              //           child: Text('1'),
-              //         ),
-              //         DropdownMenuItem(
-              //           value: '2',
-              //           child: Text('2'),
-              //         ),
-              //         DropdownMenuItem(
-              //           value: '3',
-              //           child: Text('3'),
-              //         ),
-              //       ],
-              //       onChanged: (String value) {},
-              //     ),
-              //     clipBehavior: Clip.antiAliasWithSaveLayer,
-              //   ),
-              // )
             ],
           ),
         ),
