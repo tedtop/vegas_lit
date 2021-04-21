@@ -22,7 +22,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     @required String currentUserId,
   }) async {
     final userDataStream = _userRepository.fetchUserData(
-      currentUserId: currentUserId,
+      uid: currentUserId,
     );
     await _userDataSubscription?.cancel();
     _userDataSubscription = userDataStream.listen(

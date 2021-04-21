@@ -48,7 +48,7 @@ class OpenBetsSlip extends StatelessWidget {
                       children: [
                         // TODO: Refactor
                         Text(
-                          '${openBets.home} TO WIN',
+                          '${openBets.homeTeam} TO WIN',
                           style: GoogleFonts.nunito(
                             fontSize: 20,
                             color: Palette.cream,
@@ -63,14 +63,14 @@ class OpenBetsSlip extends StatelessWidget {
                             style: Styles.normalText,
                             children: [
                               TextSpan(
-                                text: '${openBets.away}',
+                                text: '${openBets.awayTeam}',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
-                                text: '${openBets.home}',
+                                text: '${openBets.homeTeam}',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class OpenBetsSlip extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text('${openBets.type}   ${openBets.mlAmount}',
+                        Text('${openBets.betType}   ${openBets.odd}',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.w300,
@@ -90,7 +90,7 @@ class OpenBetsSlip extends StatelessWidget {
                             top: 10.0,
                           ),
                           child: Text(
-                              'You bet \$${openBets.amount} to win \$${openBets.win}!',
+                              'You bet \$${openBets.amountBet} to win \$${openBets.amountWin}!',
                               style: GoogleFonts.nunito(
                                 color: Palette.green,
                                 fontSize: 18,

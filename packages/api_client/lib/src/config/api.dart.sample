@@ -1,0 +1,11 @@
+class ConstantRapidAPI {
+  static const key = 'RAPID_API_KEY';
+  static const url = 'RAPID_API_URL';
+}
+
+class ConstantSportsDataAPI {
+  static const nba = 'NBA_KEY';
+  static const mlb = 'MLB_KEY';
+  static const nhl = 'NHL_KEY';
+  static const ncaab = 'NCAAB_KEY';
+}

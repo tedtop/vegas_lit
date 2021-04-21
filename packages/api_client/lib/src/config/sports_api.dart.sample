@@ -1,6 +1,0 @@
-class SportsDataApi {
-  static const nba = 'NBA_API_KEY';
-  static const mlb = 'MLB_API_KEY';
-  static const nhl = 'NHL_API_KEY';
-  static const ncaab = 'NCAAB_API_KEY';
-}

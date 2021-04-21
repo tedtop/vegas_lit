@@ -1,27 +1,35 @@
 import 'dart:io';
 
 import 'package:api_client/src/models/user.dart';
-import 'package:api_client/src/providers/authentication.dart';
-import 'package:api_client/src/providers/database.dart';
-import 'package:api_client/src/providers/storage.dart';
+import 'package:api_client/src/providers/cloud_firestore.dart';
+import 'package:api_client/src/providers/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meta/meta.dart';
 
 import '../base_provider.dart';
 
 class AuthenticationRepository {
-  final BaseAuthenticationProvider _authenticationProvider =
-      AuthenticationProvider();
-  final BaseDatabaseProvider _databaseProvider = DatabaseProvider();
-  final BaseStorageProvider _storageProvider = StorageProvider();
+  final AuthenticationProvider _authenticationProvider =
+      FirebaseAuthentication();
+  final DatabaseProvider _databaseProvider = CloudFirestore();
 
-  Future<void> signInWithGoogle() => _authenticationProvider.signInWithGoogle();
+  Future<void> signUp({
+    @required String email,
+    @required String password,
+  }) =>
+      _authenticationProvider.signUp(
+        email: email,
+        password: password,
+      );
 
-  Future<void> signUp({String email, String password}) =>
-      _authenticationProvider.signUp(email: email, password: password);
-
-  Future<void> logInWithEmailAndPassword({String email, String password}) =>
+  Future<void> logInWithEmailAndPassword({
+    @required String email,
+    @required String password,
+  }) =>
       _authenticationProvider.logInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
 
   Future<void> signOutUser() => _authenticationProvider.signOutUser();
 
@@ -29,22 +37,19 @@ class AuthenticationRepository {
 
   Stream<User> get getUser => _authenticationProvider.getUser;
 
-  Future<void> saveDetailsFromAuthentication(User currentAuthenticatedUser) =>
-      _databaseProvider.saveDetailsFromAuthentication(currentAuthenticatedUser);
-
-  Future<void> resetPassword({String email}) =>
-      _authenticationProvider.resetPassword(email: email);
+  Future<void> resetPasswordEmail({
+    @required String email,
+  }) =>
+      _authenticationProvider.resetPasswordEmail(
+        email: email,
+      );
 
   Future<void> saveUserDetails({
-    Map userDataMap,
-    String currentUserId,
+    @required Map userDataMap,
+    @required String uid,
   }) =>
       _databaseProvider.saveUserDetails(
-          userDataMap: userDataMap, currentUserId: currentUserId);
-
-  Future<bool> isProfileComplete(String currentUserId) =>
-      _databaseProvider.isProfileComplete(currentUserId);
-
-  Future<String> uploadFile(File file, String path) =>
-      _storageProvider.uploadFile(file, path);
+        userDataMap: userDataMap,
+        uid: uid,
+      );
 }

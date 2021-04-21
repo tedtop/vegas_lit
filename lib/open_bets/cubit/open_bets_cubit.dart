@@ -19,12 +19,7 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
   StreamSubscription _openBetsSubscription;
 
   Future<void> openBetsOpen({@required String currentUserId}) async {
-    // emit(
-    //   OpenBetsState.opened(
-    //     openBetsDataList: openBetsDataList,
-    //   ),
-    // );
-    final openBetsData = _betsRepository.fetchOpenBetsByUserId(currentUserId);
+    final openBetsData = _betsRepository.fetchOpenBets(uid: currentUserId);
     await _openBetsSubscription?.cancel();
     _openBetsSubscription = openBetsData.listen(
       (event) {
@@ -36,21 +31,12 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
   }
 
   Future<void> updateOpenBets({
-    // OpenBetsData openBetsData,
     @required String currentUserId,
     @required Map openBetsData,
   }) async {
-    // final newList = state.openBetsDataList..add(openBetsData);
-
-    // emit(
-    //   OpenBetsState.opened(
-    //     openBetsDataList: List.of(newList),
-    //   ),
-    // );
-
-    await _betsRepository.saveOpenBetsById(
-      currentUserId: currentUserId,
-      openBetsData: openBetsData,
+    await _betsRepository.saveBets(
+      uid: currentUserId,
+      openBetsDataMap: openBetsData,
     );
   }
 

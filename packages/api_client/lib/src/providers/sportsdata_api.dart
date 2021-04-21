@@ -1,47 +1,49 @@
 import 'dart:convert';
 
 import 'package:api_client/src/base_provider.dart';
-import 'package:api_client/src/config/sports_api.dart';
-import 'package:api_client/src/models/game_new.dart';
+import 'package:api_client/src/config/api.dart';
+import 'package:api_client/src/models/game.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-class SportsDataProvider extends BaseSportsdataProvider {
-  SportsDataProvider({Dio dio}) : _dio = dio ?? Dio();
+class SportsDataAPI extends SportsDataProvider {
+  SportsDataAPI({Dio dio}) : _dio = dio ?? Dio();
 
   final Dio _dio;
 
   @override
-  Future<List<Game>> fetchGameListByNewGame(
-      {@required String gameName, @required DateTime dateTimeEastern}) async {
-    final newGameName = whichGame(gameName: gameName);
-
+  Future<List<Game>> fetchGameListByLeague({
+    @required String league,
+    @required DateTime dateTimeEastern,
+  }) async {
+    final newGameName = whichGame(league: league);
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTimeEastern);
 
     final response = await _dio.get(
       'https://fly.sportsdata.io/v3/$newGameName/scores/json/GamesByDate/$formattedDate',
       options: Options(
         headers: {
-          'Ocp-Apim-Subscription-Key': whichKey(gameName: gameName),
+          'Ocp-Apim-Subscription-Key': whichKey(league: league),
         },
       ),
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
+
       return parsed
           .map<Game>(
             (json) => Game.fromMap(json),
           )
           .toList();
     } else {
-      throw FetchGameListByGameFailure();
+      throw FetchGameListByLeagueFailure();
     }
   }
 
   // ignore: missing_return
-  String whichGame({String gameName}) {
-    switch (gameName) {
+  String whichGame({@required String league}) {
+    switch (league) {
       case 'NBA':
         return 'nba';
         break;
@@ -60,19 +62,19 @@ class SportsDataProvider extends BaseSportsdataProvider {
   }
 
   // ignore: missing_return
-  String whichKey({String gameName}) {
-    switch (gameName) {
+  String whichKey({@required String league}) {
+    switch (league) {
       case 'NBA':
-        return SportsDataApi.nba;
+        return ConstantSportsDataAPI.nba;
         break;
       case 'MLB':
-        return SportsDataApi.mlb;
+        return ConstantSportsDataAPI.mlb;
         break;
       case 'NHL':
-        return SportsDataApi.nhl;
+        return ConstantSportsDataAPI.nhl;
         break;
       case 'NCAAB':
-        return SportsDataApi.ncaab;
+        return ConstantSportsDataAPI.ncaab;
         break;
       default:
         break;
@@ -80,4 +82,4 @@ class SportsDataProvider extends BaseSportsdataProvider {
   }
 }
 
-class FetchGameListByGameFailure implements Exception {}
+class FetchGameListByLeagueFailure implements Exception {}
