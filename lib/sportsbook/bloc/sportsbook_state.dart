@@ -11,6 +11,7 @@ class SportsbookOpened extends SportsbookState {
     @required this.games,
     @required this.gameName,
     @required this.gameNumbers,
+    @required this.parsedTeamData,
     @required this.estTimeZone,
     @required this.currentTimeZone,
   });
@@ -18,6 +19,7 @@ class SportsbookOpened extends SportsbookState {
   final List<Game> games;
   final String gameName;
   final Map gameNumbers;
+  final dynamic parsedTeamData;
   final DateTime estTimeZone;
   final DateTime currentTimeZone;
 }

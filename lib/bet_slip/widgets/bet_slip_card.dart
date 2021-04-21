@@ -248,54 +248,72 @@ class _BetSlipCardState extends State<BetSlipCard> {
                         action: () async {
                           if (widget.betSlipCardData.betAmount != null &&
                               widget.betSlipCardData.betAmount != 0) {
-                            await context.read<OpenBetsCubit>().updateOpenBets(
-                                  openBetsData: OpenBetsData(
-                                    gameID: betButtonState.gameId,
-                                    isClosed: betButtonState.isClosed,
-                                    league: betButtonState.league,
-                                    amountBet: widget.betSlipCardData.betAmount,
-                                    awayTeam: betButtonState.awayTeamData.name
-                                        .toUpperCase(),
-                                    homeTeam: betButtonState.homeTeamData.name
-                                        .toUpperCase(),
-                                    id: betButtonState.uniqueId,
-                                    betType: whichBetSystem(
-                                        betType: betButtonState.betType),
-                                    odd: int.parse(betButtonState.mainOdds),
-                                    amountWin:
-                                        widget.betSlipCardData.toWinAmount,
-                                    dateTime:
-                                        DateFormat('EEEE, MMMM, c, y @ hh:mm a')
-                                            .format(
-                                      betButtonState.game.dateTime.toLocal(),
-                                    ),
-                                  ).toMap(),
-                                  currentUserId: currentUserId,
+                            if (balanceAmount -
+                                    widget.betSlipCardData.betAmount <
+                                0) {
+                              ScaffoldMessenger.of(context)
+                                ..removeCurrentSnackBar()
+                                ..showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(milliseconds: 1000),
+                                    content: Text(
+                                        // ignore: lines_longer_than_80_chars
+                                        'Your Balance is over! Restart the App.'),
+                                  ),
                                 );
-                            context.read<HomeCubit>().balanceChange(
-                                  balanceAmount:
-                                      widget.betSlipCardData.betAmount,
+                            } else {
+                              await context
+                                  .read<OpenBetsCubit>()
+                                  .updateOpenBets(
+                                    openBetsData: OpenBetsData(
+                                      gameID: betButtonState.gameId,
+                                      isClosed: betButtonState.isClosed,
+                                      league: betButtonState.league,
+                                      amountBet:
+                                          widget.betSlipCardData.betAmount,
+                                      awayTeam: betButtonState.awayTeamData.name
+                                          .toUpperCase(),
+                                      homeTeam: betButtonState.homeTeamData.name
+                                          .toUpperCase(),
+                                      id: betButtonState.uniqueId,
+                                      betType: whichBetSystem(
+                                          betType: betButtonState.betType),
+                                      odd: int.parse(betButtonState.mainOdds),
+                                      amountWin:
+                                          widget.betSlipCardData.toWinAmount,
+                                      dateTime: DateFormat(
+                                              'EEEE, MMMM, c, y @ hh:mm a')
+                                          .format(
+                                        betButtonState.game.dateTime.toLocal(),
+                                      ),
+                                    ).toMap(),
+                                    currentUserId: currentUserId,
+                                  );
+                              context.read<HomeCubit>().balanceChange(
+                                    balanceAmount:
+                                        widget.betSlipCardData.betAmount,
+                                  );
+
+                              ScaffoldMessenger.of(context)
+                                ..removeCurrentSnackBar()
+                                ..showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(milliseconds: 1000),
+                                    content: Text('Your bet has been placed!'),
+                                  ),
                                 );
 
-                            ScaffoldMessenger.of(context)
-                              ..removeCurrentSnackBar()
-                              ..showSnackBar(
-                                const SnackBar(
-                                  duration: Duration(milliseconds: 1000),
-                                  content: Text('Your bet has been placed!'),
-                                ),
-                              );
-
-                            context.read<BetButtonCubit>().confirmBetButton();
-                            context.read<BetSlipCubit>().betPlaced(
-                                  uniqueId: betButtonState.uniqueId,
-                                  betPlacedCount: betPlacedCount + 1,
+                              context.read<BetButtonCubit>().confirmBetButton();
+                              context.read<BetSlipCubit>().betPlaced(
+                                    uniqueId: betButtonState.uniqueId,
+                                    betPlacedCount: betPlacedCount + 1,
+                                  );
+                              if (betPlacedCount % 4 == 0 &&
+                                  betPlacedCount != 0) {
+                                await Navigator.of(context).push(
+                                  Interstitial.route(),
                                 );
-                            if (betPlacedCount % 4 == 0 &&
-                                betPlacedCount != 0) {
-                              await Navigator.of(context).push(
-                                Interstitial.route(),
-                              );
+                              }
                             }
                           }
                         },
@@ -609,12 +627,8 @@ class _BetAmountPageState extends State<BetAmountPage> {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-    List<int> betValues = List.generate(10, (index) => index + 10);
-    //  List.generate(
-    //     20,
-    //     (i) =>
-    //         i +
-    //         (newBetAmount != null ? newBetAmount - 10 : widget.betAmount - 10));
+    final betValues = List.generate(11, (index) => index * 10);
+
     return Container(
       padding: const EdgeInsets.all(15),
       height: 170,
@@ -627,8 +641,10 @@ class _BetAmountPageState extends State<BetAmountPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('Bet Amount',
-                      style: Styles.normalTextBold.copyWith(fontSize: 22)),
+                  Text(
+                    'Bet Amount',
+                    style: Styles.normalTextBold.copyWith(fontSize: 22),
+                  ),
                   const SizedBox(
                     height: 12,
                   ),
@@ -681,8 +697,9 @@ class _BetAmountPageState extends State<BetAmountPage> {
                             width: 20,
                             height: 30,
                             decoration: BoxDecoration(
-                                color: Palette.green,
-                                borderRadius: BorderRadius.circular(5)),
+                              color: Palette.green,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                             child: Center(
                               child: FittedBox(
                                 fit: BoxFit.contain,
@@ -696,14 +713,19 @@ class _BetAmountPageState extends State<BetAmountPage> {
                       .toList(),
                   carouselController: carouselController,
                   options: CarouselOptions(
+                    initialPage: newBetAmount != null
+                        ? betValues.indexOf(newBetAmount)
+                        : betValues.indexOf(widget.betAmount),
                     scrollDirection: Axis.vertical,
                     viewportFraction: 0.36,
                     enlargeCenterPage: true,
                     onPageChanged: (i, reason) {
-                      setState(() {
-                        newBetAmount = betValues[i];
-                      });
-                      if (double.parse(betButtonState.mainOdds).isNegative) {
+                      setState(
+                        () {
+                          newBetAmount = betValues[i];
+                        },
+                      );
+                      if (int.parse(betButtonState.mainOdds).isNegative) {
                         final toWinAmount = (100 /
                                 int.parse(betButtonState.mainOdds) *
                                 betValues[i])
@@ -740,12 +762,13 @@ class _BetAmountPageState extends State<BetAmountPage> {
                   height: 35,
                   width: 60,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                    Palette.darkGrey,
-                    Palette.darkGrey.withOpacity(0.9),
-                    Palette.darkGrey.withOpacity(0.7),
-                    Palette.darkGrey.withOpacity(0.05)
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                    gradient: LinearGradient(colors: [
+                      Palette.darkGrey,
+                      Palette.darkGrey.withOpacity(0.9),
+                      Palette.darkGrey.withOpacity(0.7),
+                      Palette.darkGrey.withOpacity(0.05)
+                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  ),
                 ),
               ),
               Positioned(
@@ -755,15 +778,16 @@ class _BetAmountPageState extends State<BetAmountPage> {
                   height: 35,
                   width: 60,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Palette.darkGrey,
-                            Palette.darkGrey.withOpacity(0.9),
-                            Palette.darkGrey.withOpacity(0.7),
-                            Palette.darkGrey.withOpacity(0.05)
-                          ].reversed.toList(),
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)),
+                    gradient: LinearGradient(
+                        colors: [
+                          Palette.darkGrey,
+                          Palette.darkGrey.withOpacity(0.9),
+                          Palette.darkGrey.withOpacity(0.7),
+                          Palette.darkGrey.withOpacity(0.05)
+                        ].reversed.toList(),
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter),
+                  ),
                 ),
               ),
             ],
