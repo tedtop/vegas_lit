@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,7 @@ import 'package:api_client/api_client.dart';
 import 'package:vegas_lit/home/home.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/tabletsportsbook.dart';
+import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/websportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 import '../bloc/sportsbook_bloc.dart';
 
@@ -173,55 +175,59 @@ class SportsBookView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      context.read<HomeCubit>().homeChange(1);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          'BET SLIP',
-                          style: GoogleFonts.nunito(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Palette.cream,
+                kIsWeb
+                    ? const SizedBox()
+                    : Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            context.read<HomeCubit>().homeChange(1);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                'BET SLIP',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Palette.cream,
+                                ),
+                              ),
+                              BlocBuilder<BetSlipCubit, BetSlipState>(
+                                builder: (context, state) {
+                                  switch (state.status) {
+                                    case BetSlipStatus.opened:
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          color: Palette.cream,
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        height: 40,
+                                        width: 42,
+                                        child: Center(
+                                          child: Text(
+                                            state.betSlipCardData.length
+                                                .toString(),
+                                            style: GoogleFonts.nunito(
+                                              color: Palette.darkGrey,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                      break;
+                                    default:
+                                      return const CircularProgressIndicator();
+                                      break;
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        BlocBuilder<BetSlipCubit, BetSlipState>(
-                          builder: (context, state) {
-                            switch (state.status) {
-                              case BetSlipStatus.opened:
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Palette.cream,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  height: 40,
-                                  width: 42,
-                                  child: Center(
-                                    child: Text(
-                                      state.betSlipCardData.length.toString(),
-                                      style: GoogleFonts.nunito(
-                                        color: Palette.darkGrey,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                                break;
-                              default:
-                                return const CircularProgressIndicator();
-                                break;
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
               ],
             ),
           ),
@@ -263,7 +269,7 @@ class SportsBookView extends StatelessWidget {
               } else {
                 return ScreenTypeLayout(
                   breakpoints: const ScreenBreakpoints(
-                    desktop: 800,
+                    desktop: 1000,
                     tablet: 600,
                     watch: 80,
                   ),
@@ -272,6 +278,10 @@ class SportsBookView extends StatelessWidget {
                     gameName: gameName,
                   ),
                   tablet: TabletSportsbook(
+                    games: games,
+                    gameName: gameName,
+                  ),
+                  desktop: WebSportsbook(
                     games: games,
                     gameName: gameName,
                   ),

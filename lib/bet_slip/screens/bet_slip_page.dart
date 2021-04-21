@@ -98,9 +98,9 @@ class BetSlipList extends StatelessWidget {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: kIsWeb ? width / 2 : 0,
-        ),
+        // padding: EdgeInsets.symmetric(
+        //   horizontal: kIsWeb ? width / 2 : 0,
+        // ),
         key: Key(
           '${betSlipState.betSlipCardData.length}',
         ),
