@@ -192,8 +192,9 @@ class Game {
             json["OverUnder"] == null ? null : json["OverUnder"].toDouble(),
         awayTeamMoneyLine:
             json["AwayTeamMoneyLine"] == null ? 100 : json["AwayTeamMoneyLine"],
-        homeTeamMoneyLine:
-            json["HomeTeamMoneyLine"] == null ? 100 : json["HomeTeamMoneyLine"],
+        homeTeamMoneyLine: json["HomeTeamMoneyLine"] == null
+            ? -100
+            : json["HomeTeamMoneyLine"],
         globalGameId:
             json["GlobalGameID"] == null ? null : json["GlobalGameID"],
         globalAwayTeamId:
