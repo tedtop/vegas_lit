@@ -261,11 +261,16 @@ class SportsBookView extends StatelessWidget {
           Builder(
             builder: (context) {
               if (games.isEmpty) {
-                return Center(
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 120),
                   child: Text(
-                    'No Games Scheduled Today!',
+                    // ignore: lines_longer_than_80_chars
+                    'No odds available for the league you have selected at this time.',
+                    textAlign: TextAlign.center,
                     style: GoogleFonts.nunito(
                       color: Palette.cream,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                 );

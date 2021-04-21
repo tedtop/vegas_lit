@@ -43,9 +43,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final estTimeZone = fetchESTZoneNew();
     final currentTimeZone = DateTime.now();
 
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
-
     Future<List<Game>> getData() async {
       final jsonData = await rootBundle.loadString('assets/json/nba_data.json');
       final parsedTeamData = await json.decode(jsonData) as List;
@@ -129,24 +126,12 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 (value) {
                   return value
                       .where((element) => element.status == 'Scheduled')
-                      .length;
-                },
-              );
-              final tomorrowGamesLength = await _sportsfeedRepository
-                  .fetchGameListByLeague(
-                dateTimeEastern: tomorrowEstTimeZone,
-                league: e,
-              )
-                  .then(
-                (value) {
-                  return value
-                      .where((element) => element.status == 'Scheduled')
+                      .where((element) => element.isClosed == false)
                       .length;
                 },
               );
 
-              gameNumberMap[e] =
-                  (todayGamesLength + tomorrowGamesLength).toString();
+              gameNumberMap[e] = todayGamesLength.toString();
             }
           },
         ).toList(),
@@ -170,21 +155,11 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             .then(
               (value) => value
                   .where((element) => element.status == 'Scheduled')
+                  .where((element) => element.isClosed == false)
                   .toList(),
             );
 
-        final tomorrowGames = await _sportsfeedRepository
-            .fetchGameListByLeague(
-              league: event.gameName,
-              dateTimeEastern: tomorrowEstTimeZone,
-            )
-            .then(
-              (value) => value
-                  .where((element) => element.status == 'Scheduled')
-                  .toList(),
-            );
-
-        final totalGames = todayGames + tomorrowGames;
+        final totalGames = todayGames;
         yield SportsbookOpened(
           currentTimeZone: currentTimeZone,
           estTimeZone: estTimeZone,
