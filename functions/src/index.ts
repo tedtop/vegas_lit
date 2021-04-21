@@ -5,7 +5,7 @@ import moment = require('moment-timezone');
 
 var app = admin.initializeApp();
 
-export const resolveBets = functions.pubsub.schedule('every 6 hours').onRun(async (context) => {
+export const resolveBets = functions.pubsub.schedule('every 4 hours').onRun(async (context) => {
     console.log('This will be run every 6 hours!');
     await app.firestore().collection("open_bets").where('isClosed', '==', false).get().then(function (snapshots) {
         const promises: any = [];
@@ -17,7 +17,7 @@ export const resolveBets = functions.pubsub.schedule('every 6 hours').onRun(asyn
             const league = data.league.toLowerCase();
             const isClosedFirestore = data.isClosed;
             const apikey = whichKey(league);
-            const gameId = data.gameId;
+            const gameId = data.gameID;
             const documentId = data.id;
 
             const promise = axios.get(`https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`, {
