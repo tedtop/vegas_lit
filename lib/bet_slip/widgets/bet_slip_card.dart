@@ -264,20 +264,20 @@ class _BetSlipCardState extends State<BetSlipCard> {
                               widget.betSlipCardData.betAmount != 0) {
                             await context.read<OpenBetsCubit>().updateOpenBets(
                                   openBetsData: OpenBetsData(
-                                    gameId: betButtonState.gameId,
+                                    gameID: betButtonState.gameId,
                                     isClosed: betButtonState.isClosed,
                                     league: betButtonState.league,
-                                    amount: widget.betSlipCardData.betAmount,
-                                    away: betButtonState.awayTeamData.name
+                                    amountBet: widget.betSlipCardData.betAmount,
+                                    awayTeam: betButtonState.awayTeamData.name
                                         .toUpperCase(),
-                                    home: betButtonState.homeTeamData.name
+                                    homeTeam: betButtonState.homeTeamData.name
                                         .toUpperCase(),
                                     id: betButtonState.uniqueId,
-                                    type: whichBetSystem(
+                                    betType: whichBetSystem(
                                         betType: betButtonState.betType),
-                                    mlAmount:
-                                        int.parse(betButtonState.mainOdds),
-                                    win: widget.betSlipCardData.toWinAmount,
+                                    odd: int.parse(betButtonState.mainOdds),
+                                    amountWin:
+                                        widget.betSlipCardData.toWinAmount,
                                     dateTime:
                                         DateFormat('EEEE, MMMM, c, y @ hh:mm a')
                                             .format(

@@ -7,33 +7,18 @@ class UserData extends Equatable {
     @required this.uid,
     @required this.username,
     @required this.email,
-    @required this.phoneNumber,
-    @required this.americanState,
-    @required this.isApproved,
-    // @required this.name,
-    // @required this.googlePhoto,
-    // @required this.uploadPhoto,
-    // @required this.age,
-    // @required this.bio,
-  })  : assert(uid != null),
-        assert(email != null),
-        // assert(uploadPhoto != null),
-        assert(username != null);
+    @required this.phone,
+    @required this.location,
+  });
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
     return UserData(
-      uid: documentSnapshot.id,
-      isApproved: data['isApproved'] as bool,
+      uid: data['uid'] as String,
       email: data['email'] as String,
       username: data['username'] as String,
-      phoneNumber: data['number'] as String,
-      americanState: data['state'] as String,
-      // name: data['name'] as String,
-      // googlePhoto: data['googlePhoto'] as String,
-      // uploadPhoto: data['uploadPhoto'] as String,
-      // age: data['age'] as int,
-      // bio: data['bio'] as String,
+      phone: data['phone'] as int,
+      location: data['location'] as String,
     );
   }
 
@@ -41,37 +26,24 @@ class UserData extends Equatable {
     return {
       'email': email,
       'username': username,
-      'number': phoneNumber,
-      'isApproved': isApproved,
-      'state': americanState,
-      'id': uid,
+      'phone': phone,
+      'location': location,
+      'uid': uid,
     };
   }
 
   final String uid;
   final String username;
   final String email;
-  final String phoneNumber;
-  final String americanState;
-  final bool isApproved;
-  // final String googlePhoto;
-  // final String uploadPhoto;
-  // final int age;
-  // final String username;
-  // final String bio;
+  final int phone;
+  final String location;
 
   @override
   List<Object> get props => [
         uid,
         username,
         email,
-        isApproved,
-        phoneNumber,
-        americanState,
-        // name,
-        // googlePhoto,
-        // uploadPhoto,
-        // age,
-        // bio,
+        phone,
+        location,
       ];
 }

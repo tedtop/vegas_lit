@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 
 import '../base_provider.dart';
 
-class AuthenticationProvider extends BaseAuthenticationProvider {
-  AuthenticationProvider({
+class FirebaseAuthentication extends AuthenticationProvider {
+  FirebaseAuthentication({
     FirebaseAuth firebaseAuth,
     GoogleSignIn googleSignIn,
   })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
@@ -16,9 +16,11 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
 
   @override
   Stream<User> get getUser {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      return firebaseUser ?? firebaseUser;
-    });
+    return _firebaseAuth.authStateChanges().map(
+      (firebaseUser) {
+        return firebaseUser ?? firebaseUser;
+      },
+    );
   }
 
   @override
@@ -54,28 +56,19 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
   }
 
   @override
-  Future<void> signInWithGoogle() async {
-    try {
-      final googleUser = await _googleSignIn.signIn();
-      final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      await _firebaseAuth.signInWithCredential(credential);
-    } on Exception {
-      throw LogInWithGoogleFailure();
-    }
-  }
-
-  @override
   Future<User> getCurrentUser() async {
     return _firebaseAuth.currentUser;
   }
 
   @override
-  Future<void> resetPassword({String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  Future<void> resetPasswordEmail({
+    @required String email,
+  }) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on Exception {
+      throw ResetPasswordEmailFailure();
+    }
   }
 
   @override
@@ -91,10 +84,10 @@ class AuthenticationProvider extends BaseAuthenticationProvider {
   }
 }
 
-class LogInWithGoogleFailure implements Exception {}
-
 class LogOutFailure implements Exception {}
 
 class SignUpFailure implements Exception {}
+
+class ResetPasswordEmailFailure implements Exception {}
 
 class LogInWithEmailAndPasswordFailure implements Exception {}

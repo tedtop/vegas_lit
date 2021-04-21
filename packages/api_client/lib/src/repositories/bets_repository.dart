@@ -1,16 +1,22 @@
 import 'package:api_client/src/base_provider.dart';
-import 'package:api_client/src/models/open_bets.dart';
-import 'package:api_client/src/providers/database.dart';
+import 'package:api_client/src/models/open_bet.dart';
+import 'package:api_client/src/providers/cloud_firestore.dart';
+import 'package:meta/meta.dart';
 
 class BetsRepository {
-  final BaseDatabaseProvider _databaseProvider = DatabaseProvider();
+  final DatabaseProvider _databaseProvider = CloudFirestore();
 
-  Stream<List<OpenBetsData>> fetchOpenBetsByUserId(String currentUserId) =>
-      _databaseProvider.fetchOpenBetsById(currentUserId);
+  Stream<List<OpenBetsData>> fetchOpenBets({
+    @required String uid,
+  }) =>
+      _databaseProvider.fetchOpenBets(uid: uid);
 
-  Future<void> saveOpenBetsById({String currentUserId, Map openBetsData}) =>
-      _databaseProvider.saveOpenBetsById(
-        currentUserId: currentUserId,
-        openBetsData: openBetsData,
+  Future<void> saveBets({
+    @required String uid,
+    @required Map openBetsDataMap,
+  }) =>
+      _databaseProvider.saveBets(
+        uid: uid,
+        openBetsDataMap: openBetsDataMap,
       );
 }

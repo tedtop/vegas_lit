@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:api_client/api_client.dart';
-import 'package:intl/intl.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -47,11 +46,10 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       final jsonData = await rootBundle.loadString('assets/json/nba_data.json');
       final parsedTeamData = await json.decode(jsonData) as List;
       final gameList = parsedTeamData.map((e) => Game.fromMap(e)).toList();
-
       return gameList;
     }
 
-    // TODO: Change the Web Condition
+    // TODO: Change the Web Condition.
 
     if (kIsWeb) {
       final mockGameData = await getData();
@@ -89,9 +87,9 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
               gameNumberMap[e] = 'OFF-SEASON';
             } else {
               await _sportsfeedRepository
-                  .fetchGameListByNewGame(
-                dateTime: estTimeZone,
-                gameName: e,
+                  .fetchGameListByLeague(
+                dateTimeEastern: estTimeZone,
+                league: e,
               )
                   .then(
                 (value) {
@@ -112,9 +110,9 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           gameNumbers: gameNumberMap,
         );
       } else {
-        final games = await _sportsfeedRepository.fetchGameListByNewGame(
-          gameName: event.gameName,
-          dateTime: estTimeZone,
+        final games = await _sportsfeedRepository.fetchGameListByLeague(
+          league: event.gameName,
+          dateTimeEastern: estTimeZone,
         );
         yield SportsbookOpened(
           currentTimeZone: currentTimeZone,
@@ -130,7 +128,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   DateTime fetchESTZone() {
     tz.initializeTimeZones();
     final locationNY = tz.getLocation('America/New_York');
-
     final nowNY = tz.TZDateTime.now(locationNY);
     return nowNY;
   }

@@ -1,42 +1,45 @@
-import 'dart:io';
-
-import 'package:api_client/src/models/game_new.dart';
-import 'package:api_client/src/models/open_bets.dart';
+import 'package:api_client/src/models/game.dart';
+import 'package:api_client/src/models/open_bet.dart';
 import 'package:api_client/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 import 'models/game.dart';
 
-abstract class BaseAuthenticationProvider {
-  Future<void> signInWithGoogle();
-  Future<void> signUp({String email, String password});
-  Future<void> logInWithEmailAndPassword({String email, String password});
+abstract class AuthenticationProvider {
+  Future<void> signUp({
+    @required String email,
+    @required String password,
+  });
+  Future<void> logInWithEmailAndPassword({
+    @required String email,
+    @required String password,
+  });
   Future<void> signOutUser();
   Future<User> getCurrentUser();
- Future<void> resetPassword({String email});
+  Future<void> resetPasswordEmail({@required String email});
   Stream<User> getUser;
 }
 
-abstract class BaseDatabaseProvider {
-  Future<void> saveDetailsFromAuthentication(User currentAuthenticatedUser);
-  Future<void> saveUserDetails({Map userDataMap, String currentUserId});
-  Future<bool> isProfileComplete(String currentUserId);
-  Stream<List<OpenBetsData>> fetchOpenBetsById(String currentUserId);
+abstract class DatabaseProvider {
+  Future<void> saveUserDetails({
+    @required String uid,
+    @required Map userDataMap,
+  });
 
-  Stream<UserData> fetchUserData({@required String currentUserId});
+  Stream<List<OpenBetsData>> fetchOpenBets({@required String uid});
 
-  Future<void> saveOpenBetsById({String currentUserId, Map openBetsData});
+  Stream<UserData> fetchUserData({@required String uid});
+
+  Future<void> saveBets({
+    @required String uid,
+    @required Map openBetsDataMap,
+  });
 }
 
-abstract class BaseStorageProvider {
-  Future<String> uploadFile(File file, String path);
-}
-
-abstract class BaseSportsfeedProvider {
-  Future<List<Game>> fetchGameListByGame({String gameName});
-}
-
-abstract class BaseSportsdataProvider {
-  Future<List<Game>> fetchGameListByNewGame({String gameName});
+abstract class SportsDataProvider {
+  Future<List<Game>> fetchGameListByLeague({
+    @required String league,
+    @required DateTime dateTimeEastern,
+  });
 }

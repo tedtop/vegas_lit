@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:api_client/api_client.dart';
-import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
 part 'authentication_event.dart';
@@ -60,20 +59,7 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
-    if (kIsWeb) {
-      yield const AuthenticationState.splashscreen();
-      final userData = await _authenticationRepository.isProfileComplete(
-        event.user.uid,
-      );
-      if (userData) {
-        yield AuthenticationState.authenticated(event.user);
-      } else {
-        add(
-          AuthenticationLogoutRequested(),
-        );
-      }
-    } else {
-      yield AuthenticationState.authenticated(event.user);
-    }
+    yield const AuthenticationState.splashscreen();
+    yield AuthenticationState.authenticated(event.user);
   }
 }

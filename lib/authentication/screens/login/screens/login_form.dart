@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:vegas_lit/authentication/screens/sign_up/screens/view.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/shared_widgets/auth_socials.dart';
 import 'package:vegas_lit/shared_widgets/auth_logo.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 

@@ -337,7 +337,7 @@ class _StateInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<ProfileCubit>().state.userData.americanState;
+    final state = context.watch<ProfileCubit>().state.userData.location;
     textInputController.text = state;
     return Row(
       children: [
@@ -445,8 +445,8 @@ class _MobileNumberInput extends StatelessWidget {
   final TextEditingController textInputController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final number = context.watch<ProfileCubit>().state.userData.phoneNumber;
-    textInputController.text = number;
+    final number = context.watch<ProfileCubit>().state.userData.phone;
+    textInputController.text = number.toString();
     return Row(
       children: [
         Expanded(

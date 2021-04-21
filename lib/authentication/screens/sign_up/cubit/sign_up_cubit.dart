@@ -220,13 +220,12 @@ class SignUpCubit extends Cubit<SignUpState> {
       );
       final currentUser = await _authenticationRepository.getCurrentUser();
       await _authenticationRepository.saveUserDetails(
-        currentUserId: currentUser.uid,
+        uid: currentUser.uid,
         userDataMap: UserData(
-          americanState: state.americanState.value,
+          location: state.americanState.value,
           email: state.email.value,
-          phoneNumber: state.number.value,
+          phone: int.parse(state.number.value),
           uid: currentUser.uid,
-          isApproved: false,
           username: state.username.value,
         ).toMap(),
       );
