@@ -122,7 +122,19 @@ class BetHistory extends StatelessWidget {
                     switch (state.status) {
                       case BetHistoryStatus.opened:
                         if (state.betHistoryDataList.isEmpty) {
-                          return Container();
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 120),
+                            child: Text(
+                              // ignore: lines_longer_than_80_chars
+                              'No bets resolved yet.',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunito(
+                                color: Palette.cream,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          );
                         }
                         return ListView.builder(
                           shrinkWrap: true,
