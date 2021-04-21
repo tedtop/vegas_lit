@@ -278,28 +278,28 @@ class MatchupCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          kDebugMode
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Status: ${gameData.status}',
-                                      style: Styles.matchupTime,
-                                    ),
-                                  ],
-                                )
-                              : Container(),
-                          kDebugMode
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'IsClosed: ${gameData.isClosed}',
-                                      style: Styles.matchupTime,
-                                    ),
-                                  ],
-                                )
-                              : Container(),
+                          // kDebugMode
+                          //     ? Row(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         children: [
+                          //           Text(
+                          //             'Status: ${gameData.status}',
+                          //             style: Styles.matchupTime,
+                          //           ),
+                          //         ],
+                          //       )
+                          //     : Container(),
+                          // kDebugMode
+                          //     ? Row(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         children: [
+                          //           Text(
+                          //             'IsClosed: ${gameData.isClosed}',
+                          //             style: Styles.matchupTime,
+                          //           ),
+                          //         ],
+                          //       )
+                          //     : Container(),
                         ],
                       ),
                     ),
