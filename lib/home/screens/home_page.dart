@@ -105,9 +105,7 @@ class _HomePageState extends State<HomePage> {
           Sportsbook(),
           BetSlip(),
           Leaderboard(),
-          OpenBets.route(
-              // currentUserId: userId,
-              ),
+          OpenBets.route(),
           BetHistory.route(),
         ],
       ),

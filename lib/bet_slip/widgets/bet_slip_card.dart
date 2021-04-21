@@ -55,27 +55,6 @@ class BetSlipCard extends StatefulWidget {
 class _BetSlipCardState extends State<BetSlipCard> {
   final _formKey = GlobalKey<FormState>();
 
-  // TextEditingController _betAmountController;
-  // final _focusNode = FocusNode();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _betAmountController = TextEditingController(
-  //     text: '${widget.betSlipCardData.betAmount}',
-  //   );
-  //   _focusNode.addListener(
-  //     () {
-  //       if (_focusNode.hasFocus) {
-  //         _betAmountController.selection = TextSelection(
-  //           baseOffset: 0,
-  //           extentOffset: _betAmountController.text.length,
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
@@ -86,6 +65,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
       (AuthenticationBloc authenticationBloc) =>
           authenticationBloc.state.user?.uid,
     );
+    final balanceAmount =
+        context.select((HomeCubit homeCubit) => homeCubit.state.balanceAmount);
     return AbstractCard(
       padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
       crossAxisAlignment: CrossAxisAlignment.start,
