@@ -16,26 +16,25 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+          child: Text(
+            'Current Leaderboard',
+            style: Styles.normalTextBold,
+          ),
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-              child: Text(
-                'Current Leaderboard',
-                style: Styles.normalTextBold,
-              ),
+            const TextBar(
+              text: 'Current Week',
             ),
-            Expanded(
-              child: Container(),
+            const TextBar(
+              text: 'All Leagues',
             ),
           ],
-        ),
-        const TextBar(
-          text: 'Current Week',
-        ),
-        const TextBar(
-          text: 'All Leagues',
         ),
         const TextBar(
           text: 'All Bet Types',

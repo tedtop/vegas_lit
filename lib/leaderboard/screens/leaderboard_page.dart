@@ -12,10 +12,10 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/leaderboard/models/fakedata.dart';
-import 'package:vegas_lit/leaderboard/widgets/mobileleaderboard.dart';
+import 'package:vegas_lit/leaderboard/widgets/adaptive_widgets/mobileleaderboard.dart';
 import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
-import 'package:vegas_lit/leaderboard/widgets/tabletleaderboard.dart';
-import 'package:vegas_lit/leaderboard/widgets/webleaderboard.dart';
+import 'package:vegas_lit/leaderboard/widgets/adaptive_widgets/tabletleaderboard.dart';
+import 'package:vegas_lit/leaderboard/widgets/adaptive_widgets/webleaderboard.dart';
 
 class Leaderboard extends StatefulWidget {
   @override
