@@ -1,8 +1,13 @@
+import 'dart:ui';
+
 import 'package:api_client/api_client.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meta/meta.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
@@ -618,110 +623,170 @@ class BetAmountPage extends StatefulWidget {
 
 class _BetAmountPageState extends State<BetAmountPage> {
   int newBetAmount;
+  final carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<BetButtonCubit>().state;
-
+    List<int> betValues = List.generate(10, (index) => index + 10);
+    //  List.generate(
+    //     20,
+    //     (i) =>
+    //         i +
+    //         (newBetAmount != null ? newBetAmount - 10 : widget.betAmount - 10));
     return Container(
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: Palette.lightGrey,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            'Bet Amount',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.nunito(
-              fontSize: 26.0,
-              color: Palette.cream,
-              fontWeight: FontWeight.w300,
+      padding: const EdgeInsets.all(15),
+      height: 170,
+      child: Row(
+        children: [
+          Expanded(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Bet Amount',
+                      style: Styles.normalTextBold.copyWith(fontSize: 22)),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    'Scroll to select your bet amount and press to confirm',
+                    style: Styles.normalText,
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                  )
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 20),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                'Select your Bet Amount (Scroll Vertically)',
-                style: GoogleFonts.nunito(
-                  color: Palette.cream,
-                  fontSize: 14,
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  NumberPicker(
-                    itemHeight: 100,
-                    value: newBetAmount ?? widget.betAmount,
-                    minValue: 0,
-                    haptics: true,
-                    maxValue: 100,
-                    itemCount: 1,
-                    // axis: Axis.horizontal,
-                    step: 25,
-                    onChanged: (num number) {
+              IconButton(
+                  icon: const Icon(
+                    FontAwesome.angle_up,
+                    size: 32,
+                  ),
+                  onPressed: () {
+                    carouselController.previousPage(
+                        curve: Curves.easeIn,
+                        duration: const Duration(microseconds: 100));
+                  }),
+              IconButton(
+                  icon: const Icon(
+                    FontAwesome.angle_down,
+                    size: 32,
+                  ),
+                  onPressed: () {
+                    carouselController.nextPage(
+                        curve: Curves.easeIn,
+                        duration: const Duration(microseconds: 100));
+                  }),
+            ],
+          ),
+          Stack(
+            fit: StackFit.passthrough,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    left: 10, top: 10, bottom: 10, right: 2),
+                width: 60,
+                height: 120,
+                child: CarouselSlider(
+                  items: betValues
+                      .map((betValue) => Container(
+                            width: 20,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: Palette.green,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Center(
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Text(
+                                  '\$$betValue',
+                                  style: Styles.normalText,
+                                ),
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                  carouselController: carouselController,
+                  options: CarouselOptions(
+                    scrollDirection: Axis.vertical,
+                    viewportFraction: 0.36,
+                    enlargeCenterPage: true,
+                    onPageChanged: (i, reason) {
                       setState(() {
-                        newBetAmount = number;
+                        newBetAmount = betValues[i];
                       });
                       if (double.parse(betButtonState.mainOdds).isNegative) {
-                        final toWinAmount =
-                            (100 / int.parse(betButtonState.mainOdds) * number)
-                                .round()
-                                .abs();
+                        final toWinAmount = (100 /
+                                int.parse(betButtonState.mainOdds) *
+                                betValues[i])
+                            .round()
+                            .abs();
 
                         context.read<BetSlipCubit>().updateBetAmount(
                               toWinAmount: toWinAmount,
-                              betAmount: number,
+                              betAmount: betValues[i],
                               uniqueId: widget.betSlipCardData.id,
                             );
                       } else {
                         final toWinAmount =
-                            (int.parse(betButtonState.mainOdds) / 100 * number)
+                            (int.parse(betButtonState.mainOdds) /
+                                    100 *
+                                    betValues[i])
                                 .round()
                                 .abs();
 
                         context.read<BetSlipCubit>().updateBetAmount(
                               toWinAmount: toWinAmount,
-                              betAmount: number,
+                              betAmount: betValues[i],
                               uniqueId: widget.betSlipCardData.id,
                             );
                       }
                     },
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '\$',
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
-                      fontSize: 14,
-                    ),
-                  )
-                ],
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 10,
+                child: Container(
+                  height: 35,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                    Palette.darkGrey,
+                    Palette.darkGrey.withOpacity(0.9),
+                    Palette.darkGrey.withOpacity(0.7),
+                    Palette.darkGrey.withOpacity(0.05)
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 10,
+                child: Container(
+                  height: 35,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            Palette.darkGrey,
+                            Palette.darkGrey.withOpacity(0.9),
+                            Palette.darkGrey.withOpacity(0.7),
+                            Palette.darkGrey.withOpacity(0.05)
+                          ].reversed.toList(),
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)),
+                ),
               ),
             ],
-          ),
-          const SizedBox(height: 20),
-          FlatButton(
-            child: Text(
-              'Done',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-              ),
-            ),
-            color: Palette.green,
-            onPressed: () async {
-              // await context.read<LoginCubit>().resetPassword(email: email);
-              // FocusScope.of(context).unfocus();
-              Navigator.pop(context);
-            },
-          ),
+          )
         ],
       ),
     );
