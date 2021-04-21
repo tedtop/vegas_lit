@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class OpenBetsData extends Equatable {
-  OpenBetsData({
+class BetHistoryData extends Equatable {
+  BetHistoryData({
     @required this.amountWin,
     @required this.awayTeam,
     @required this.homeTeam,
@@ -17,9 +17,9 @@ class OpenBetsData extends Equatable {
     @required this.amountBet,
   });
 
-  factory OpenBetsData.fromFirestore(DocumentSnapshot documentSnapshot) {
+  factory BetHistoryData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
-    return OpenBetsData(
+    return BetHistoryData(
       id: data['id'] as String,
       gameID: data['gameID'] as int,
       league: data['league'] as String,

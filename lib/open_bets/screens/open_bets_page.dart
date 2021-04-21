@@ -1,4 +1,3 @@
-import 'package:api_client/api_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +14,7 @@ import 'open_bet_card.dart';
 class OpenBets extends StatelessWidget {
   const OpenBets._({Key key}) : super(key: key);
 
-  static Builder route(
-      // {String currentUserId}
-      ) {
+  static Builder route() {
     return Builder(
       builder: (context) {
         return const OpenBets._();
@@ -31,7 +28,6 @@ class OpenBets extends StatelessWidget {
       color: Palette.darkGrey,
       child: ListView(
         shrinkWrap: true,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,9 +41,6 @@ class OpenBets extends StatelessWidget {
               ),
             ],
           ),
-          // const TextBar(
-          //   text: 'Ascending - by start time',
-          // ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
@@ -63,6 +56,7 @@ class OpenBets extends StatelessWidget {
                 children: <TextSpan>[
                   const TextSpan(
                     text:
+                        // ignore: lines_longer_than_80_chars
                         'Bets shown here cannot be modified and are awaiting the outcome of the event. Once bets have been closed they will appear in your',
                   ),
                   TextSpan(
@@ -88,16 +82,6 @@ class OpenBets extends StatelessWidget {
                 case OpenBetsStatus.opened:
                   if (state.openBetsDataList.isEmpty) {
                     return Container();
-                    // return Center(
-                    //   child: Text(
-                    //     'No open bet slips found!',
-                    //     style: GoogleFonts.nunito(
-                    //       fontSize: 18,
-                    //       color: Palette.cream,
-                    //       fontWeight: FontWeight.w300,
-                    //     ),
-                    //   ),
-                    // );
                   }
                   return ListView.builder(
                     shrinkWrap: true,

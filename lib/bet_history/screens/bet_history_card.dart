@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
-class OpenBetsSlip extends StatelessWidget {
-  const OpenBetsSlip({
+class BetHistorySlip extends StatelessWidget {
+  const BetHistorySlip({
     Key key,
-    @required this.openBets,
-  })  : assert(openBets != null),
+    @required this.betHistory,
+  })  : assert(betHistory != null),
         super(key: key);
 
-  final OpenBetsData openBets;
+  final BetHistoryData betHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class OpenBetsSlip extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${openBets.homeTeam} TO WIN',
+                          '${betHistory.homeTeam} TO WIN',
                           style: GoogleFonts.nunito(
                             fontSize: 20,
                             color: Palette.cream,
@@ -60,14 +60,14 @@ class OpenBetsSlip extends StatelessWidget {
                             style: Styles.normalText,
                             children: [
                               TextSpan(
-                                text: '${openBets.awayTeam}',
+                                text: '${betHistory.awayTeam}',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
-                                text: '${openBets.homeTeam}',
+                                text: '${betHistory.homeTeam}',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontWeight: FontWeight.bold,
@@ -76,28 +76,31 @@ class OpenBetsSlip extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text('${openBets.betType}   ${openBets.odd}',
-                            style: GoogleFonts.nunito(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              color: Palette.cream,
-                            )),
+                        Text(
+                          '${betHistory.betType}   ${betHistory.odd}',
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Palette.cream,
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(
                             top: 10.0,
                           ),
                           child: Text(
-                              // ignore: lines_longer_than_80_chars
-                              'You bet \$${openBets.amountBet} to win \$${openBets.amountWin}!',
-                              style: GoogleFonts.nunito(
-                                color: Palette.green,
-                                fontSize: 18,
-                              )),
+                            // ignore: lines_longer_than_80_chars
+                            'You bet \$${betHistory.amountBet} to win \$${betHistory.amountWin}!',
+                            style: GoogleFonts.nunito(
+                              color: Palette.green,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                         Row(
                           children: [
                             Text(
-                              openBets.dateTime,
+                              betHistory.dateTime,
                               style: Styles.matchupTime,
                             ),
                           ],

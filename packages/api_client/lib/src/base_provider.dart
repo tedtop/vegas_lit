@@ -4,6 +4,7 @@ import 'package:api_client/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
+import 'models/bet_history.dart';
 import 'models/game.dart';
 
 abstract class AuthenticationProvider {
@@ -28,7 +29,7 @@ abstract class DatabaseProvider {
   });
 
   Stream<List<OpenBetsData>> fetchOpenBets({@required String uid});
-
+  Stream<List<BetHistoryData>> fetchBetHistory({@required String uid});
   Stream<UserData> fetchUserData({@required String uid});
 
   Future<void> saveBets({

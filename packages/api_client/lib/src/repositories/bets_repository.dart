@@ -1,5 +1,6 @@
 import 'package:api_client/src/base_provider.dart';
 import 'package:api_client/src/models/open_bet.dart';
+import 'package:api_client/src/models/bet_history.dart';
 import 'package:api_client/src/providers/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
@@ -10,6 +11,11 @@ class BetsRepository {
     @required String uid,
   }) =>
       _databaseProvider.fetchOpenBets(uid: uid);
+
+  Stream<List<BetHistoryData>> fetchBetHistory({
+    @required String uid,
+  }) =>
+      _databaseProvider.fetchBetHistory(uid: uid);
 
   Future<void> saveBets({
     @required String uid,

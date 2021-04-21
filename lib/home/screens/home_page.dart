@@ -5,12 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:vegas_lit/bet_history/bet_history.dart';
+import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/home/widgets/topnavbar.dart';
-import 'package:vegas_lit/shared_widgets/app_bar.dart';
-import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/open_bets/open_bets.dart';
 import 'package:vegas_lit/sportsbook/sportsbook.dart';
@@ -45,7 +44,13 @@ class HomePage extends StatefulWidget {
                 betsRepository: context.read<BetsRepository>(),
               )..openBetsOpen(
                   currentUserId: currentUserId,
-                  // openBetsDataList: [],
+                ),
+            ),
+            BlocProvider<BetHistoryCubit>(
+              create: (context) => BetHistoryCubit(
+                betsRepository: context.read<BetsRepository>(),
+              )..betHistoryOpen(
+                  currentUserId: currentUserId,
                 ),
             ),
             BlocProvider<BetSlipCubit>(
@@ -103,7 +108,7 @@ class _HomePageState extends State<HomePage> {
           OpenBets.route(
               // currentUserId: userId,
               ),
-          BetHistory(),
+          BetHistory.route(),
         ],
       ),
       bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
