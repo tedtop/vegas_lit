@@ -49,7 +49,7 @@ class BetHistorySlip extends StatelessWidget {
                         Text(
                           '${betHistory.homeTeam} TO WIN',
                           style: GoogleFonts.nunito(
-                            fontSize: 24,
+                            fontSize: 20,
                             color: Palette.cream,
                           ),
                         ),
@@ -87,7 +87,7 @@ class BetHistorySlip extends StatelessWidget {
                           'You bet \$${betHistory.amountBet} and won \$${betHistory.amountWin}!',
                           style: GoogleFonts.nunito(
                             color: Palette.green,
-                            fontSize: 18,
+                            fontSize: 14,
                           ),
                         ),
                         Row(

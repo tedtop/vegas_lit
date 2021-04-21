@@ -281,9 +281,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                       odd: int.parse(betButtonState.mainOdds),
                                       amountWin:
                                           widget.betSlipCardData.toWinAmount,
-                                      dateTime: DateFormat(
-                                              'EEEE, MMMM, c, y @ hh:mm a')
-                                          .format(
+                                      dateTime:
+                                          DateFormat('E, MMMM, c, y @ hh:mm a')
+                                              .format(
                                         betButtonState.game.dateTime.toLocal(),
                                       ),
                                     ).toMap(),
@@ -469,7 +469,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
           padding: const EdgeInsets.only(bottom: 8),
           child: Center(
             child: Text(
-                DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                DateFormat('E, MMMM, c, y @ hh:mm a').format(
                   betButtonState.game.dateTime.toLocal(),
                 ),
                 style: GoogleFonts.nunito(
