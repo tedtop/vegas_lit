@@ -6,6 +6,7 @@ import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
+import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 
 import 'bet_history_card.dart';
 
@@ -22,6 +23,12 @@ class BetHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final betPlacedLength = context
+        .select((OpenBetsCubit cubit) => cubit.state.openBetsDataList.length);
+    final betAmountRisk = context.select(
+      (OpenBetsCubit cubit) =>
+          cubit.state.openBetsDataList.map((e) => e.amountBet).toList(),
+    );
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -59,27 +66,37 @@ class BetHistory extends StatelessWidget {
                   horizontal: 15,
                   vertical: 8,
                 ),
-                child: Column(
-                  children: [
-                    const BetHistoryRow(
-                      text: 'Your Rank',
-                      text2: 'N/A',
-                    ),
-                    const BetHistoryRow(
-                      text: 'Total Bets Placed',
-                      text2: '94',
-                    ),
-                    const BetHistoryRow(
-                      text: 'Total Risk',
-                      text2: '\$5,006.00',
-                      color: Palette.green,
-                    ),
-                    const BetHistoryRow(
-                      text: 'Total Profit',
-                      text2: '\$2,034.00',
-                      color: Palette.red,
-                    ),
-                  ],
+                child: BlocBuilder<BetHistoryCubit, BetHistoryState>(
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        const BetHistoryRow(
+                          text: 'Your Rank',
+                          text2: 'N/A',
+                        ),
+                        BetHistoryRow(
+                          text: 'Total Bets Placed',
+                          text2: (betPlacedLength +
+                                  state.betHistoryDataList.length)
+                              .toString(),
+                        ),
+                        BetHistoryRow(
+                          text: 'Total Risk',
+                          text2:
+                              // ignore: lines_longer_than_80_chars
+                              '\$${totalRisk(firstList: betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.amountBet).toList())}',
+                          color: Palette.green,
+                        ),
+                        BetHistoryRow(
+                          text: 'Total Profit',
+                          text2:
+                              // ignore: lines_longer_than_80_chars
+                              '\$${state.betHistoryDataList.map((e) => e.amountWin).toList().reduce((value, element) => value + element).toDouble().toString()}',
+                          color: Palette.red,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -112,6 +129,15 @@ class BetHistory extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String totalRisk({List<int> firstList, List<int> secondList}) {
+    final firstListSum =
+        firstList.reduce((value, element) => value + element).toDouble();
+    final secondListSum =
+        secondList.reduce((value, element) => value + element).toDouble();
+    final totalSum = firstListSum + secondListSum;
+    return totalSum.toString();
   }
 }
 

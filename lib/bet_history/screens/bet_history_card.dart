@@ -1,6 +1,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
@@ -48,12 +49,9 @@ class BetHistorySlip extends StatelessWidget {
                         Text(
                           '${betHistory.homeTeam} TO WIN',
                           style: GoogleFonts.nunito(
-                            fontSize: 20,
+                            fontSize: 24,
                             color: Palette.cream,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
                         ),
                         RichText(
                           text: TextSpan(
@@ -84,17 +82,12 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                          ),
-                          child: Text(
-                            // ignore: lines_longer_than_80_chars
-                            'You bet \$${betHistory.amountBet} to win \$${betHistory.amountWin}!',
-                            style: GoogleFonts.nunito(
-                              color: Palette.green,
-                              fontSize: 18,
-                            ),
+                        Text(
+                          // ignore: lines_longer_than_80_chars
+                          'You bet \$${betHistory.amountBet} and won \$${betHistory.amountWin}!',
+                          style: GoogleFonts.nunito(
+                            color: Palette.green,
+                            fontSize: 18,
                           ),
                         ),
                         Row(
@@ -111,15 +104,15 @@ class BetHistorySlip extends StatelessWidget {
                 ),
                 Container(
                   decoration: const BoxDecoration(
-                    color: Palette.lightGrey,
+                    color: Palette.green,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'assets/images/open_bets_logo.png',
+                      Images.betHistoryLogo,
                     ),
                   ),
-                  height: 175,
+                  height: 150,
                   width: 90,
                 ),
               ],
