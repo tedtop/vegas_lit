@@ -270,8 +270,7 @@ class MatchupCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  DateFormat('EEEE, MMMM, c, y @ hh:mm a')
-                                      .format(
+                                  DateFormat('E, MMMM, c, y @ hh:mm a').format(
                                     state.game.dateTime.toLocal(),
                                   ),
                                   style: Styles.matchupTime,

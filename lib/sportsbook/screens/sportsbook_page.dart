@@ -305,7 +305,7 @@ class SportsBookView extends StatelessWidget {
   }
 
   String formatDate(DateTime dateTime) {
-    return DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+    return DateFormat('E, MMMM, c, y @ hh:mm a').format(
       dateTime,
     );
   }
