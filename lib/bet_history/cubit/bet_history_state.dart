@@ -5,7 +5,7 @@ enum BetHistoryStatus { initial, opened }
 class BetHistoryState extends Equatable {
   const BetHistoryState._({
     this.status = BetHistoryStatus.initial,
-    this.betHistoryDataList,
+    this.betHistoryDataList = const [],
   });
 
   const BetHistoryState.initial() : this._();

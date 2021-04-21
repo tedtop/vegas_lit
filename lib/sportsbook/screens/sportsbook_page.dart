@@ -36,6 +36,7 @@ class Sportsbook extends StatelessWidget {
             currentTimeZone: state.currentTimeZone,
             estTimeZone: state.estTimeZone,
             gameNumberList: state.gameNumbers,
+            parsedTeamData: state.parsedTeamData,
           );
         } else {
           return const Center(
@@ -55,6 +56,7 @@ class SportsBookView extends StatelessWidget {
     @required this.estTimeZone,
     @required this.gameNumberList,
     @required this.currentTimeZone,
+    @required this.parsedTeamData,
   })  : assert(games != null),
         assert(gameName != null),
         assert(currentTimeZone != null),
@@ -64,6 +66,7 @@ class SportsBookView extends StatelessWidget {
   final List<Game> games;
   final String gameName;
   final DateTime estTimeZone;
+  final dynamic parsedTeamData;
   final DateTime currentTimeZone;
   final Map gameNumberList;
 
@@ -276,8 +279,10 @@ class SportsBookView extends StatelessWidget {
                   mobile: MobileSportsbook(
                     games: games,
                     gameName: gameName,
+                    parsedTeamData: parsedTeamData,
                   ),
                   tablet: TabletSportsbook(
+                    parsedTeamData: parsedTeamData,
                     games: games,
                     gameName: gameName,
                   ),

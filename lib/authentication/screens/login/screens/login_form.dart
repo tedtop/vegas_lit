@@ -231,11 +231,21 @@ class _LinkToSignup extends StatelessWidget {
   }
 }
 
-class _ResetPage extends StatelessWidget {
+class _ResetPage extends StatefulWidget {
+  @override
+  __ResetPageState createState() => __ResetPageState();
+}
+
+class __ResetPageState extends State<_ResetPage> {
+  String email;
+
+  final emailValid = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+  String isEmailValid;
+
   @override
   Widget build(BuildContext context) {
-    String email;
-
     return Container(
       padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
@@ -260,6 +270,7 @@ class _ResetPage extends StatelessWidget {
               fontWeight: FontWeight.w300,
             ),
             decoration: InputDecoration(
+              errorText: isEmailValid,
               hintText: 'Enter your email',
               border: InputBorder.none,
               isDense: true,
@@ -271,7 +282,10 @@ class _ResetPage extends StatelessWidget {
             ),
             keyboardType: TextInputType.emailAddress,
             onChanged: (newText) {
-              email = newText;
+              setState(() {
+                email = newText;
+              });
+              print(email);
             },
           ),
           SizedBox(height: 20),
@@ -286,10 +300,36 @@ class _ResetPage extends StatelessWidget {
             onPressed: () async {
               if (email != null) {
                 if (email.isNotEmpty) {
-                  await context.read<LoginCubit>().resetPassword(email: email);
-                  FocusScope.of(context).unfocus();
-                  Navigator.pop(context);
+                  if (emailValid.hasMatch(email)) {
+                    setState(() {
+                      isEmailValid = null;
+                    });
+
+                    await context
+                        .read<LoginCubit>()
+                        .resetPassword(email: email);
+                    FocusScope.of(context).unfocus();
+                    Navigator.pop(context);
+                  } else {
+                    setState(() {
+                      isEmailValid = 'Enter Correct Email!';
+                    });
+                  }
+                } else {
+                  // ignore: avoid_print
+                  print('Don\'t leave the field blank.');
+
+                  setState(() {
+                    isEmailValid = 'Don\'t leave the field blank.';
+                  });
                 }
+              } else {
+                // ignore: avoid_print
+                print('Type Something in the Field!');
+                print(email);
+                setState(() {
+                  isEmailValid = 'Type Something in the Field!';
+                });
               }
             },
           ),

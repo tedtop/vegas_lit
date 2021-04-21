@@ -1,4 +1,5 @@
 import 'package:api_client/api_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ class MatchupCard extends StatelessWidget {
   static Builder route({
     @required Game game,
     @required String gameName,
+    @required dynamic parsedTeamData,
   }) {
     return Builder(
       builder: (_) {
@@ -25,6 +27,7 @@ class MatchupCard extends StatelessWidget {
             ..openMatchupCard(
               game: game,
               gameName: gameName,
+              parsedTeamData: parsedTeamData,
             ),
           child: const MatchupCard._(),
         );
@@ -276,24 +279,28 @@ class MatchupCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Status: ${gameData.status}',
-                                style: Styles.matchupTime,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'IsClosed: ${gameData.isClosed}',
-                                style: Styles.matchupTime,
-                              ),
-                            ],
-                          ),
+                          kDebugMode
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Status: ${gameData.status}',
+                                      style: Styles.matchupTime,
+                                    ),
+                                  ],
+                                )
+                              : Container(),
+                          kDebugMode
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'IsClosed: ${gameData.isClosed}',
+                                      style: Styles.matchupTime,
+                                    ),
+                                  ],
+                                )
+                              : Container(),
                         ],
                       ),
                     ),

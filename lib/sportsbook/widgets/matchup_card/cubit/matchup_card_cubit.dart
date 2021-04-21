@@ -13,9 +13,10 @@ class MatchupCardCubit extends Cubit<MatchupCardState> {
 
   void openMatchupCard({
     @required Game game,
+    @required dynamic parsedTeamData,
     @required String gameName,
   }) async {
-    final teamData = await getData(gameName: gameName);
+    final teamData = getData(parsedTeamData: parsedTeamData);
     final awayTeamData =
         teamData.singleWhere((element) => element.key == game.awayTeam);
     final homeTeamData =
@@ -31,11 +32,7 @@ class MatchupCardCubit extends Cubit<MatchupCardState> {
     );
   }
 
-  Future<List<Team>> getData({@required String gameName}) async {
-    final newGame = whichGame(gameName: gameName);
-
-    final jsonData = await rootBundle.loadString('assets/json/$newGame.json');
-    final parsedTeamData = await json.decode(jsonData);
+  List<Team> getData({@required dynamic parsedTeamData}) {
     final teamData = parsedTeamData
         .map<Team>(
           (json) => Team.fromMap(json),

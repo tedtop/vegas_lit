@@ -9,6 +9,7 @@ import 'package:api_client/api_client.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/sportsbook/models/team.dart';
 
 part 'sportsbook_event.dart';
 part 'sportsbook_state.dart';
@@ -42,11 +43,42 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final estTimeZone = fetchESTZoneNew();
     final currentTimeZone = DateTime.now();
 
+    final tomorrowEstTimeZone =
+        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+
     Future<List<Game>> getData() async {
       final jsonData = await rootBundle.loadString('assets/json/nba_data.json');
       final parsedTeamData = await json.decode(jsonData) as List;
       final gameList = parsedTeamData.map((e) => Game.fromMap(e)).toList();
       return gameList;
+    }
+
+    // ignore: missing_return
+    String whichGame({String gameName}) {
+      switch (gameName) {
+        case 'NBA':
+          return 'nba';
+          break;
+        case 'MLB':
+          return 'mlb';
+          break;
+        case 'NHL':
+          return 'nhl';
+          break;
+        case 'NCAAB':
+          return 'cbb';
+          break;
+        default:
+          break;
+      }
+    }
+
+    dynamic getParsedTeamData({@required String gameName}) async {
+      final newGame = whichGame(gameName: gameName);
+
+      final jsonData = await rootBundle.loadString('assets/json/$newGame.json');
+      final parsedTeamData = await json.decode(jsonData);
+      return parsedTeamData;
     }
 
     // TODO: Change the Web Condition.
@@ -69,9 +101,11 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           games: mockGameData,
           gameName: event.gameName,
           gameNumbers: mockGameNumberMap,
+          parsedTeamData: await getParsedTeamData(gameName: event.gameName),
         );
       } else {
         yield SportsbookOpened(
+          parsedTeamData: await getParsedTeamData(gameName: event.gameName),
           currentTimeZone: currentTimeZone,
           estTimeZone: estTimeZone,
           games: [],
@@ -86,16 +120,33 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             if (e == 'NFL' || e == 'NCAAF') {
               gameNumberMap[e] = 'OFF-SEASON';
             } else {
-              await _sportsfeedRepository
+              final todayGamesLength = await _sportsfeedRepository
                   .fetchGameListByLeague(
                 dateTimeEastern: estTimeZone,
                 league: e,
               )
                   .then(
                 (value) {
-                  gameNumberMap[e] = value.length.toString();
+                  return value
+                      .where((element) => element.status == 'Scheduled')
+                      .length;
                 },
               );
+              final tomorrowGamesLength = await _sportsfeedRepository
+                  .fetchGameListByLeague(
+                dateTimeEastern: tomorrowEstTimeZone,
+                league: e,
+              )
+                  .then(
+                (value) {
+                  return value
+                      .where((element) => element.status == 'Scheduled')
+                      .length;
+                },
+              );
+
+              gameNumberMap[e] =
+                  (todayGamesLength + tomorrowGamesLength).toString();
             }
           },
         ).toList(),
@@ -108,17 +159,38 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           games: [],
           gameName: event.gameName,
           gameNumbers: gameNumberMap,
+          parsedTeamData: await getParsedTeamData(gameName: event.gameName),
         );
       } else {
-        final games = await _sportsfeedRepository.fetchGameListByLeague(
-          league: event.gameName,
-          dateTimeEastern: estTimeZone,
-        );
+        final todayGames = await _sportsfeedRepository
+            .fetchGameListByLeague(
+              league: event.gameName,
+              dateTimeEastern: estTimeZone,
+            )
+            .then(
+              (value) => value
+                  .where((element) => element.status == 'Scheduled')
+                  .toList(),
+            );
+
+        final tomorrowGames = await _sportsfeedRepository
+            .fetchGameListByLeague(
+              league: event.gameName,
+              dateTimeEastern: tomorrowEstTimeZone,
+            )
+            .then(
+              (value) => value
+                  .where((element) => element.status == 'Scheduled')
+                  .toList(),
+            );
+
+        final totalGames = todayGames + tomorrowGames;
         yield SportsbookOpened(
           currentTimeZone: currentTimeZone,
           estTimeZone: estTimeZone,
-          games: games,
+          games: totalGames,
           gameName: event.gameName,
+          parsedTeamData: await getParsedTeamData(gameName: event.gameName),
           gameNumbers: gameNumberMap,
         );
       }
