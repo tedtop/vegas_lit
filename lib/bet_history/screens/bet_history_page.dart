@@ -46,12 +46,12 @@ class BetHistory extends StatelessWidget {
                     ),
                   ],
                 ),
-                // const TextBar(
-                //   text: 'All Bet Types',
-                // ),
-                // const TextBar(
-                //   text: 'All Leagues',
-                // ),
+                const TextBar(
+                  text: 'All Bet Types',
+                ),
+                const TextBar(
+                  text: 'All Leagues',
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 6,
@@ -255,11 +255,6 @@ class TextBar extends StatelessWidget {
               onChanged: print,
               items: <String>[
                 'All Bet Types',
-                'List 2',
-                'List 3',
-                'List 4',
-                'List 5',
-                'List 6',
               ].map<DropdownMenuItem<String>>(
                 (String value) {
                   return DropdownMenuItem<String>(

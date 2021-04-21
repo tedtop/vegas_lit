@@ -8,9 +8,9 @@ import 'package:vegas_lit/config/styles.dart';
 typedef onNumberTap = void Function(int number);
 
 class PageNumberView extends StatefulWidget {
-  final int pages;
-
   PageNumberView({this.pages});
+
+  final int pages;
 
   @override
   _PageNumberViewState createState() => _PageNumberViewState();

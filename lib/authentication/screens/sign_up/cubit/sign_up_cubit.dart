@@ -169,43 +169,40 @@ class SignUpCubit extends Cubit<SignUpState> {
         americanState: americanState,
         status: Formz.validate(
           [
-            state.email,
-            state.password,
-            state.confirmedPassword,
-            state.americanState,
-            state.number,
-            state.agreement,
-            state.username,
+            email,
+            password,
+            confirmedPassword,
+            americanState,
+            number,
+            agreement,
+            username,
           ],
         ),
       ),
     );
 
-    if (state.status.isValidated) {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (!state.status.isValidated) return;
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-      try {
-        await _authenticationRepository.signUp(
+    try {
+      await _authenticationRepository.signUp(
+        email: state.email.value,
+        password: state.password.value,
+      );
+      final currentUser = await _authenticationRepository.getCurrentUser();
+      await _authenticationRepository.saveUserDetails(
+        uid: currentUser.uid,
+        userDataMap: UserData(
+          location: state.americanState.value,
           email: state.email.value,
-          password: state.password.value,
-        );
-        final currentUser = await _authenticationRepository.getCurrentUser();
-        await _authenticationRepository.saveUserDetails(
+          phone: int.parse(state.number.value),
           uid: currentUser.uid,
-          userDataMap: UserData(
-            location: state.americanState.value,
-            email: state.email.value,
-            phone: int.parse(state.number.value),
-            uid: currentUser.uid,
-            username: state.username.value,
-          ).toMap(),
-        );
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      } on Exception {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
-    } else {
-      print('Not Validated');
+          username: state.username.value,
+        ).toMap(),
+      );
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } on Exception {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
 }
