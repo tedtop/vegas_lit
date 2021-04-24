@@ -9,9 +9,10 @@ import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 
 class WebSportsbook extends StatelessWidget {
-  WebSportsbook({this.gameName, this.games});
+  WebSportsbook({this.gameName, this.games, this.parsedTeamData});
   final List<Game> games;
   final String gameName;
+  final dynamic parsedTeamData;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -36,8 +37,10 @@ class WebSportsbook extends StatelessWidget {
                 shrinkWrap: true,
                 children: games
                     .map(
-                      (game) =>
-                          MatchupCard.route(game: game, gameName: gameName),
+                      (game) => MatchupCard.route(
+                          game: game,
+                          gameName: gameName,
+                          parsedTeamData: parsedTeamData),
                     )
                     .toList()),
           ),

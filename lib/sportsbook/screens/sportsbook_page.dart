@@ -292,6 +292,7 @@ class SportsBookView extends StatelessWidget {
                     gameName: gameName,
                   ),
                   desktop: WebSportsbook(
+                    parsedTeamData: parsedTeamData,
                     games: games,
                     gameName: gameName,
                   ),
