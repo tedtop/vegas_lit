@@ -15,7 +15,7 @@ class WebSportsbook extends StatelessWidget {
   final dynamic parsedTeamData;
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    //final width = MediaQuery.of(context).size.width;
     final betSlipState = context.watch<BetSlipCubit>().state;
     return
         // Container(
