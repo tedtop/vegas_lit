@@ -45,13 +45,21 @@ class OpenBetsSlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${openBets.homeTeam} TO WIN',
-                          style: GoogleFonts.nunito(
-                            fontSize: 20,
-                            color: Palette.cream,
-                          ),
-                        ),
+                        openBets.winTeam == 'home'
+                            ? Text(
+                                '${openBets.homeTeam} TO WIN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  color: Palette.cream,
+                                ),
+                              )
+                            : Text(
+                                '${openBets.awayTeam} TO WIN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  color: Palette.cream,
+                                ),
+                              ),
                         const SizedBox(
                           height: 10,
                         ),

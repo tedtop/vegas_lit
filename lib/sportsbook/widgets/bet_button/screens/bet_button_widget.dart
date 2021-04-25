@@ -22,6 +22,7 @@ class BetButton extends StatelessWidget {
     @required String league,
     @required Team homeTeamData,
     @required int gameId,
+    @required BetButtonWin winTeam,
     @required bool isClosed,
   }) {
     return Builder(
@@ -32,6 +33,7 @@ class BetButton extends StatelessWidget {
               gameId: gameId,
               isClosed: isClosed,
               text: text,
+              winTeam: winTeam,
               game: game,
               mainOdds: mainOdds,
               betType: betType,
@@ -96,11 +98,12 @@ class BetButtonUnclicked extends StatelessWidget {
           onPressed: () {
             context.read<BetButtonCubit>().clickBetButton();
             context.read<BetSlipCubit>().addBetSlip(
+                  odds: betButtonState.mainOdds,
                   betSlipCardData: BetSlipCardData(
                     league: betButtonState.league,
                     id: betButtonState.uniqueId,
                     betType: betButtonState.betType,
-                    betAmount: 0,
+                    betAmount: 100,
                     betButtonCubit: context.read<BetButtonCubit>(),
                     toWinAmount: 0,
                   ),

@@ -5,14 +5,6 @@ import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 
 class BetSlipCardData extends Equatable {
-  final String id;
-
-  final Bet betType;
-  final int betAmount;
-  final BetButtonCubit betButtonCubit;
-  final int toWinAmount;
-  final String league;
-
   BetSlipCardData({
     @required this.id,
     @required this.betType,
@@ -21,6 +13,13 @@ class BetSlipCardData extends Equatable {
     @required this.toWinAmount,
     @required this.league,
   });
+
+  final String id;
+  final Bet betType;
+  final int betAmount;
+  final BetButtonCubit betButtonCubit;
+  final int toWinAmount;
+  final String league;
 
   BetSlipCardData copyWith({
     String id,

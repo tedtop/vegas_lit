@@ -23,8 +23,14 @@ class BetSlipCubit extends Cubit<BetSlipState> {
     );
   }
 
-  void addBetSlip({@required BetSlipCardData betSlipCardData}) async {
-    final newBetSlipList = List.of(state.betSlipCardData)..add(betSlipCardData);
+  void addBetSlip(
+      {@required BetSlipCardData betSlipCardData,
+      @required String odds}) async {
+    final toWinAmountValue =
+        toWinAmount(odds: odds, betAmount: betSlipCardData.betAmount);
+
+    final newBetSlip = betSlipCardData.copyWith(toWinAmount: toWinAmountValue);
+    final newBetSlipList = List.of(state.betSlipCardData)..add(newBetSlip);
     emit(
       BetSlipState.opened(
         betSlipCardData: newBetSlipList,
@@ -78,5 +84,17 @@ class BetSlipCubit extends Cubit<BetSlipState> {
       betSlipCardData: newBetSlipList,
       betPlacedCount: state.betPlacedCount,
     ));
+  }
+
+  int toWinAmount({@required String odds, @required int betAmount}) {
+    if (int.parse(odds).isNegative) {
+      final toWinAmount = (100 / int.parse(odds) * betAmount).round().abs();
+
+      return toWinAmount;
+    } else {
+      final toWinAmount = (int.parse(odds) / 100 * betAmount).round().abs();
+
+      return toWinAmount;
+    }
   }
 }

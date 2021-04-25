@@ -7,6 +7,7 @@ class OpenBetsData extends Equatable {
     @required this.amountWin,
     @required this.awayTeam,
     @required this.homeTeam,
+    @required this.winTeam,
     @required this.dateTime,
     @required this.id,
     @required this.betType,
@@ -25,6 +26,7 @@ class OpenBetsData extends Equatable {
       league: data['league'] as String,
       amountBet: data['amountBet'] as int,
       awayTeam: data['awayTeam'] as String,
+      winTeam: data['winTeam'] as String,
       homeTeam: data['homeTeam'] as String,
       betType: data['betType'] as String,
       amountWin: data['amountWin'] as int,
@@ -42,6 +44,7 @@ class OpenBetsData extends Equatable {
   final String betType;
   final int amountWin;
   final int gameID;
+  final String winTeam;
   final bool isClosed;
   final String dateTime;
   final int odd;
@@ -54,6 +57,7 @@ class OpenBetsData extends Equatable {
       'isClosed': isClosed,
       'id': id,
       'gameID': gameID,
+      'winTeam': winTeam,
       'betType': betType,
       'dateTime': dateTime,
       'amountWin': amountWin,
@@ -69,6 +73,7 @@ class OpenBetsData extends Equatable {
       awayTeam,
       homeTeam,
       gameID,
+      winTeam,
       isClosed,
       id,
       betType,
