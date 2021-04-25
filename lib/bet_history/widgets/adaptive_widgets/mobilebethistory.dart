@@ -25,11 +25,17 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const TextBar(
-                text: 'All Bet Types',
+              const Expanded(
+                flex: 1,
+                child: TextBar(
+                  text: 'All Bet Types',
+                ),
               ),
-              const TextBar(
-                text: 'All Leagues',
+              const Expanded(
+                flex: 1,
+                child: TextBar(
+                  text: 'All Leagues',
+                ),
               ),
             ],
           ),
