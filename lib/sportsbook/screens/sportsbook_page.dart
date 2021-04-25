@@ -10,6 +10,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:api_client/api_client.dart';
 import 'package:vegas_lit/home/home.dart';
+import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/tabletsportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/websportsbook.dart';
@@ -300,6 +301,7 @@ class SportsBookView extends StatelessWidget {
               }
             },
           ),
+          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );

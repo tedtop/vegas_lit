@@ -101,18 +101,21 @@ class _WebLeaderboardState extends State<WebLeaderboard> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: PageNumberView(pages: 15),
-                  ),
-                ],
-              )
             ],
           ),
         ),
+        Container(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: PageNumberView(pages: 15),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

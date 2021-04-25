@@ -130,11 +130,11 @@ class _HomePageState extends State<HomePage> {
                   index: 0,
                   selected: pageIndex == 0,
                 ),
-                InteractiveNavItem(
-                  title: 'Bet Slip',
-                  index: 1,
-                  selected: pageIndex == 1,
-                ),
+                // InteractiveNavItem(
+                //   title: 'Bet Slip',
+                //   index: 1,
+                //   selected: pageIndex == 1,
+                // ),
                 InteractiveNavItem(
                   title: 'Leaderboard',
                   index: 2,
