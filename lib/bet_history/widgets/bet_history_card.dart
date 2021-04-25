@@ -46,13 +46,21 @@ class BetHistorySlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${betHistory.homeTeam} TO WIN',
-                          style: GoogleFonts.nunito(
-                            fontSize: 20,
-                            color: Palette.cream,
-                          ),
-                        ),
+                        betHistory.winTeam == 'home'
+                            ? Text(
+                                '${betHistory.homeTeam} TO WIN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  color: Palette.cream,
+                                ),
+                              )
+                            : Text(
+                                '${betHistory.awayTeam} TO WIN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  color: Palette.cream,
+                                ),
+                              ),
                         RichText(
                           text: TextSpan(
                             style: Styles.normalText,

@@ -87,7 +87,7 @@ class _EmailInput extends StatelessWidget {
                 ),
                 labelText: 'Email / Username',
                 helperText: '',
-                // errorText: state.email.invalid ? 'Invalid email' : null,
+                errorText: state.email.invalid ? 'Invalid email' : null,
               ),
             ),
           ),
@@ -120,14 +120,8 @@ class _PasswordInput extends StatelessWidget {
                     const Icon(LineAwesomeIcons.lock, color: Palette.cream),
                 labelText: 'Password',
                 helperText: '',
-                // errorText: state.password.invalid ? 'Invalid password' : null,
+                errorText: state.password.invalid ? 'Invalid password' : null,
               ),
-              onSubmitted: (password) {
-                state.status.isValidated
-                    ? context.read<LoginCubit>().logInWithCredentials()
-                    // ignore: unnecessary_statements
-                    : null;
-              },
             ),
           ),
         );
@@ -147,10 +141,7 @@ class _LoginButton extends StatelessWidget {
             : DefaultButton(
                 text: 'LOGIN',
                 action: () {
-                  state.status.isValidated
-                      ? context.read<LoginCubit>().logInWithCredentials()
-                      // ignore: unnecessary_statements
-                      : null;
+                  context.read<LoginCubit>().logInWithCredentials();
                 },
               );
       },

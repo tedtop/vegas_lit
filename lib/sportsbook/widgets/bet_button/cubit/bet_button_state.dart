@@ -2,6 +2,8 @@ part of 'bet_button_cubit.dart';
 
 enum BetButtonStatus { done, error, loading, clicked, unclicked }
 
+enum BetButtonWin { away, home }
+
 class BetButtonState extends Equatable {
   const BetButtonState._({
     this.text,
@@ -15,6 +17,7 @@ class BetButtonState extends Equatable {
     this.awayTeamData,
     this.league,
     this.homeTeamData,
+    this.winTeam,
   });
 
   const BetButtonState.loading() : this._();
@@ -28,6 +31,7 @@ class BetButtonState extends Equatable {
       @required Team homeTeamData,
       @required bool isClosed,
       @required int gameId,
+      @required BetButtonWin winTeam,
       @required String mainOdds,
       @required Bet betType})
       : this._(
@@ -35,6 +39,7 @@ class BetButtonState extends Equatable {
           text: text,
           game: game,
           uniqueId: uniqueId,
+          winTeam: winTeam,
           homeTeamData: homeTeamData,
           gameId: gameId,
           isClosed: isClosed,
@@ -51,6 +56,7 @@ class BetButtonState extends Equatable {
       @required String mainOdds,
       @required bool isClosed,
       @required int gameId,
+      @required BetButtonWin winTeam,
       @required Team awayTeamData,
       @required String league,
       @required Team homeTeamData,
@@ -64,6 +70,7 @@ class BetButtonState extends Equatable {
             homeTeamData: homeTeamData,
             league: league,
             gameId: gameId,
+            winTeam: winTeam,
             isClosed: isClosed,
             awayTeamData: awayTeamData,
             betType: betType);
@@ -77,6 +84,7 @@ class BetButtonState extends Equatable {
       @required int gameId,
       @required Team homeTeamData,
       @required String league,
+      @required BetButtonWin winTeam,
       @required String uniqueId,
       @required Bet betType})
       : this._(
@@ -85,6 +93,7 @@ class BetButtonState extends Equatable {
           game: game,
           league: league,
           uniqueId: uniqueId,
+          winTeam: winTeam,
           gameId: gameId,
           isClosed: isClosed,
           homeTeamData: homeTeamData,
@@ -106,6 +115,7 @@ class BetButtonState extends Equatable {
   final int gameId;
   final bool isClosed;
   final Team homeTeamData;
+  final BetButtonWin winTeam;
 
   @override
   List<Object> get props => [
@@ -114,6 +124,7 @@ class BetButtonState extends Equatable {
         league,
         gameId,
         isClosed,
+        winTeam,
         game,
         uniqueId,
         betType,

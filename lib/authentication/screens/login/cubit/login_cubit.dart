@@ -18,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(state.copyWith(
-      email: email,
+      emailValue: value,
       status: Formz.validate([email, state.password]),
     ));
   }
@@ -26,12 +26,28 @@ class LoginCubit extends Cubit<LoginState> {
   void passwordChanged(String value) {
     final password = Password.dirty(value);
     emit(state.copyWith(
-      password: password,
+      passwordValue: value,
       status: Formz.validate([state.email, password]),
     ));
   }
 
   Future<void> logInWithCredentials() async {
+    final email = Email.dirty(state.emailValue);
+    final password = Password.dirty(state.passwordValue);
+
+    emit(
+      state.copyWith(
+        email: email,
+        password: password,
+        status: Formz.validate(
+          [
+            email,
+            password,
+          ],
+        ),
+      ),
+    );
+
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {

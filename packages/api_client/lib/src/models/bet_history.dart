@@ -10,6 +10,7 @@ class BetHistoryData extends Equatable {
     @required this.dateTime,
     @required this.id,
     @required this.betType,
+    @required this.winTeam,
     @required this.gameID,
     @required this.league,
     @required this.isClosed,
@@ -26,6 +27,7 @@ class BetHistoryData extends Equatable {
       amountBet: data['amountBet'] as int,
       awayTeam: data['awayTeam'] as String,
       homeTeam: data['homeTeam'] as String,
+      winTeam: data['winTeam'] as String ?? 'home',
       betType: data['betType'] as String,
       amountWin: data['amountWin'] as int,
       dateTime: data['dateTime'] as String,
@@ -43,6 +45,7 @@ class BetHistoryData extends Equatable {
   final int amountWin;
   final int gameID;
   final bool isClosed;
+  final String winTeam;
   final String dateTime;
   final int odd;
 
@@ -57,6 +60,7 @@ class BetHistoryData extends Equatable {
       'betType': betType,
       'dateTime': dateTime,
       'amountWin': amountWin,
+      'winTeam': winTeam,
       'odd': odd,
       'league': league,
     };
@@ -70,6 +74,7 @@ class BetHistoryData extends Equatable {
       homeTeam,
       gameID,
       isClosed,
+      winTeam,
       id,
       betType,
       league,

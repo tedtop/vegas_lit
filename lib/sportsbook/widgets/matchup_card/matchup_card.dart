@@ -99,6 +99,7 @@ class MatchupCard extends StatelessWidget {
                                         gameData.awayTeamMoneyLine == null
                                             ? Container()
                                             : BetButton.route(
+                                                winTeam: BetButtonWin.away,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
                                                 mainOdds: gameData
@@ -120,6 +121,7 @@ class MatchupCard extends StatelessWidget {
                                                 null
                                             ? Container()
                                             : BetButton.route(
+                                                winTeam: BetButtonWin.away,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
                                                 mainOdds: gameData
@@ -138,6 +140,7 @@ class MatchupCard extends StatelessWidget {
                                         gameData.overPayout == null
                                             ? Container()
                                             : BetButton.route(
+                                                winTeam: BetButtonWin.away,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
                                                 league: state.league,
@@ -206,6 +209,7 @@ class MatchupCard extends StatelessWidget {
                                         gameData.homeTeamMoneyLine == null
                                             ? Container()
                                             : BetButton.route(
+                                                winTeam: BetButtonWin.home,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
                                                 league: state.league,
@@ -226,6 +230,7 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 gameId: gameData.gameId,
+                                                winTeam: BetButtonWin.home,
                                                 isClosed: gameData.isClosed,
                                                 league: state.league,
                                                 mainOdds: gameData
@@ -244,6 +249,7 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 gameId: gameData.gameId,
+                                                winTeam: BetButtonWin.home,
                                                 isClosed: gameData.isClosed,
                                                 league: state.league,
                                                 mainOdds: gameData.underPayout
