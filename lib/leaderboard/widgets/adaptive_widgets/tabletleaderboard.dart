@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -6,8 +7,8 @@ import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
 import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class TabletLeaderboard extends StatefulWidget {
-  final List<LeaderBoardPlayer> players;
   TabletLeaderboard({this.players});
+  final List<UserData> players;
   @override
   _TabletLeaderboardState createState() => _TabletLeaderboardState();
 }
@@ -78,7 +79,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
 }
 
 class TabletLeaderboardTile extends StatelessWidget {
-  final LeaderBoardPlayer player;
+  final UserData player;
   TabletLeaderboardTile({this.player});
   @override
   Widget build(BuildContext context) {
@@ -102,7 +103,7 @@ class TabletLeaderboardTile extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '${player.rank}. ${player.player}',
+                  '${player.rank}. ${player.username}',
                   style: Styles.normalTextBold,
                 ),
                 Text(
@@ -110,7 +111,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.homeTeam,
                 ),
                 Text(
-                  '${player.noOfCorrectBets} out of ${player.noOfBets} Correct Bets!',
+                  '${player.correctBets} out of ${player.numberBets} Correct Bets!',
                   style: Styles.awayTeam,
                 ),
                 Text(

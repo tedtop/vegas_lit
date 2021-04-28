@@ -119,10 +119,10 @@ class _PageNumberViewState extends State<PageNumberView> {
 }
 
 class PageNumberWidget extends StatelessWidget {
+  PageNumberWidget({this.number, this.changeNumber, this.selected = false});
   final int number;
   final bool selected;
   final onNumberTap changeNumber;
-  PageNumberWidget({this.number, this.changeNumber, this.selected = false});
   @override
   Widget build(BuildContext context) {
     return Padding(

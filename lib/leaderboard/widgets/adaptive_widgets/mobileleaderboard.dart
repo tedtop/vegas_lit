@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -6,8 +7,8 @@ import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
 import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {
-  final List<LeaderBoardPlayer> players;
   MobileLeaderboard({@required this.players});
+  final List<UserData> players;
   @override
   _MobileLeaderboardState createState() => _MobileLeaderboardState();
 }
@@ -54,7 +55,7 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: PageNumberView(pages: 15),
+              child: PageNumberView(pages: 0),
             ),
           ],
         )
@@ -64,8 +65,8 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
 }
 
 class MobileLeaderboardTile extends StatelessWidget {
-  final LeaderBoardPlayer player;
   MobileLeaderboardTile({@required this.player});
+  final UserData player;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,7 +82,7 @@ class MobileLeaderboardTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: ExpansionTile(
           title: Text(
-            '${player.rank}. ${player.player}',
+            '${player.rank}. ${player.username}',
             style: Styles.normalTextBold,
           ),
           subtitle: Text(
@@ -99,7 +100,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${player.noOfCorrectBets} out of ${player.noOfBets} Correct Bets!',
+                    '${player.correctBets} out of ${player.numberBets} Correct Bets!',
                     style: Styles.awayTeam,
                   ),
                   Text(

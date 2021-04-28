@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -6,8 +7,8 @@ import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
 import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class WebLeaderboard extends StatefulWidget {
-  final List<LeaderBoardPlayer> players;
   WebLeaderboard({this.players});
+  final List<UserData> players;
   @override
   _WebLeaderboardState createState() => _WebLeaderboardState();
 }
@@ -219,8 +220,8 @@ class LeaderboardColumns extends StatelessWidget {
 }
 
 class WebLeaderboardItem extends StatelessWidget {
-  final LeaderBoardPlayer player;
   WebLeaderboardItem({this.player});
+  final UserData player;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -242,7 +243,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 120,
             child: Text(
-              '${player.player}',
+              '${player.username}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -266,7 +267,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 95,
             child: Text(
-              '${player.noOfBets}',
+              '${player.numberBets}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -274,7 +275,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 140,
             child: Text(
-              '${player.noOfCorrectBets}',
+              '${player.correctBets}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),

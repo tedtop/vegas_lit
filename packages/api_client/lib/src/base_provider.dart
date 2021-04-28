@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 
 import 'models/bet_history.dart';
 import 'models/game.dart';
+import 'models/user_bets.dart';
 
 abstract class AuthenticationProvider {
   Future<void> signUp({
@@ -36,6 +37,12 @@ abstract class DatabaseProvider {
     @required String uid,
     @required Map openBetsDataMap,
   });
+
+  Stream<List<UserData>> fetchRankedUsers();
+
+  Future<void> updateUserBetsData({@required String uid});
+
+  Future<void> addUserBetsData({String uid, Map userBetsData});
 }
 
 abstract class SportsDataProvider {

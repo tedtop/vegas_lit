@@ -129,11 +129,10 @@ class _TabletBetHistoryState extends State<TabletBetHistory> {
                     shrinkWrap: true,
                     key: Key('${state.betHistoryDataList.length}'),
                     children: state.betHistoryDataList
-                        .map((betData) => Expanded(
-                                child: FittedBox(
+                        .map((betData) => FittedBox(
                               child: BetHistorySlip(betHistory: betData),
                               fit: BoxFit.scaleDown,
-                            )))
+                            ))
                         .toList(),
                   ),
                 );

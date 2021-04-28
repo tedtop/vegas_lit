@@ -10,6 +10,7 @@ import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/home/widgets/topnavbar.dart';
+import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/open_bets/open_bets.dart';
 import 'package:vegas_lit/sportsbook/sportsbook.dart';
@@ -52,6 +53,11 @@ class HomePage extends StatefulWidget {
               )..betHistoryOpen(
                   currentUserId: currentUserId,
                 ),
+            ),
+            BlocProvider<LeaderboardCubit>(
+              create: (context) => LeaderboardCubit(
+                userRepository: context.read<UserRepository>(),
+              )..openLeaderboard(),
             ),
             BlocProvider<BetSlipCubit>(
               create: (_) => BetSlipCubit()
@@ -104,7 +110,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Sportsbook(),
           BetSlip(),
-          Leaderboard(),
+          Leaderboard.route(),
           OpenBets.route(),
           BetHistory.route(),
         ],

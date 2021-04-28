@@ -1,3 +1,4 @@
+import 'package:api_client/src/models/user_bets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
@@ -88,5 +89,33 @@ class CloudFirestore extends DatabaseProvider {
               ),
             );
     return documentSnapshot;
+  }
+
+  @override
+  Stream<List<UserData>> fetchRankedUsers() {
+    final documentSnapshot = _firestoreData
+        .collection('users')
+        .orderBy('profit', descending: true)
+        .limit(50)
+        .snapshots();
+    final userBetsList = documentSnapshot.map(
+      (event) => event.docs
+          .map(
+            (e) => UserData.fromFirestore(e),
+          )
+          .toList(),
+    );
+
+    return userBetsList;
+  }
+
+  @override
+  Future<void> updateUserBetsData({String uid, Map userBetsData}) async {
+    await _firestoreData.collection('user_bets').doc(uid).set(userBetsData);
+  }
+
+  @override
+  Future<void> addUserBetsData({String uid, Map userBetsData}) async {
+    await _firestoreData.collection('user_bets').doc(uid).set(userBetsData);
   }
 }

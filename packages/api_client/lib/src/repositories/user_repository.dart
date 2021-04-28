@@ -10,4 +10,7 @@ class UserRepository {
     @required String uid,
   }) =>
       _baseDatabaseProvider.fetchUserData(uid: uid);
+
+  Stream<List<UserData>> fetchRankedUsers() =>
+      _baseDatabaseProvider.fetchRankedUsers();
 }

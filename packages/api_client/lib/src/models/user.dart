@@ -9,6 +9,15 @@ class UserData extends Equatable {
     @required this.email,
     @required this.phone,
     @required this.location,
+    @required this.rank,
+    @required this.profit,
+    @required this.accountBalance,
+    @required this.numberBets,
+    @required this.correctBets,
+    @required this.openBets,
+    @required this.potentialWinnings,
+    @required this.biggestWin,
+    @required this.lastWeeksRank,
   });
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
@@ -19,6 +28,15 @@ class UserData extends Equatable {
       username: data['username'] as String,
       phone: data['phone'] as int,
       location: data['location'] as String,
+      accountBalance: data['accountBalance'] as int,
+      biggestWin: data['biggestWin'] as int,
+      openBets: data['openBets'] as int,
+      lastWeeksRank: data['lastWeeksRank'] as int,
+      correctBets: data['correctBets'] as int,
+      numberBets: data['numberBets'] as int,
+      potentialWinnings: data['potentialWinnings'] as int,
+      profit: data['profit'] as int,
+      rank: data['rank'] as int,
     );
   }
 
@@ -29,6 +47,15 @@ class UserData extends Equatable {
       'phone': phone,
       'location': location,
       'uid': uid,
+      'accountBalance': accountBalance,
+      'biggestWin': biggestWin,
+      'openBets': openBets,
+      'lastWeeksRank': lastWeeksRank,
+      'correctBets': correctBets,
+      'numberBets': numberBets,
+      'potentialWinnings': potentialWinnings,
+      'profit': profit,
+      'rank': rank,
     };
   }
 
@@ -37,13 +64,33 @@ class UserData extends Equatable {
   final String email;
   final int phone;
   final String location;
+  final int rank;
+  final int profit;
+  final int accountBalance;
+  final int numberBets;
+  final int correctBets;
+  final int openBets;
+  final int potentialWinnings;
+  final int biggestWin;
+  final int lastWeeksRank;
 
   @override
-  List<Object> get props => [
-        uid,
-        username,
-        email,
-        phone,
-        location,
-      ];
+  List<Object> get props {
+    return [
+      uid,
+      username,
+      email,
+      phone,
+      location,
+      rank,
+      profit,
+      accountBalance,
+      numberBets,
+      correctBets,
+      openBets,
+      potentialWinnings,
+      biggestWin,
+      lastWeeksRank,
+    ];
+  }
 }
