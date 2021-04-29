@@ -266,7 +266,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                   await context
                                       .read<OpenBetsCubit>()
                                       .updateOpenBets(
-                                        openBetsData: OpenBetsData(
+                                        openBetsData: BetData(
                                           gameID: betButtonState.gameId,
                                           isClosed: betButtonState.isClosed,
                                           winTeam: betButtonState.winTeam ==
@@ -295,6 +295,11 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                             betButtonState.game.dateTime
                                                 .toLocal(),
                                           ),
+                                          awayTeamScore:
+                                              betButtonState.game.awayTeamScore,
+                                          homeTeamScore:
+                                              betButtonState.game.homeTeamScore,
+                                          finalWinTeam: 'pending',
                                         ).toMap(),
                                         currentUserId: currentUserId,
                                       );

@@ -1,18 +1,17 @@
 import 'package:api_client/src/base_provider.dart';
-import 'package:api_client/src/models/open_bet.dart';
-import 'package:api_client/src/models/bet_history.dart';
+import 'package:api_client/src/models/bet.dart';
 import 'package:api_client/src/providers/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 class BetsRepository {
   final DatabaseProvider _databaseProvider = CloudFirestore();
 
-  Stream<List<OpenBetsData>> fetchOpenBets({
+  Stream<List<BetData>> fetchOpenBets({
     @required String uid,
   }) =>
       _databaseProvider.fetchOpenBets(uid: uid);
 
-  Stream<List<BetHistoryData>> fetchBetHistory({
+  Stream<List<BetData>> fetchBetHistory({
     @required String uid,
   }) =>
       _databaseProvider.fetchBetHistory(uid: uid);

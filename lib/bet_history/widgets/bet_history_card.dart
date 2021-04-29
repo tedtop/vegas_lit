@@ -12,7 +12,7 @@ class BetHistorySlip extends StatelessWidget {
   })  : assert(betHistory != null),
         super(key: key);
 
-  final BetHistoryData betHistory;
+  final BetData betHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -90,14 +90,23 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
-                        Text(
-                          // ignore: lines_longer_than_80_chars
-                          'You bet \$${betHistory.amountBet} and won \$${betHistory.amountWin}!',
-                          style: GoogleFonts.nunito(
-                            color: Palette.green,
-                            fontSize: 14,
-                          ),
-                        ),
+                        betHistory.finalWinTeam == betHistory.winTeam
+                            ? Text(
+                                // ignore: lines_longer_than_80_chars
+                                'You bet \$${betHistory.amountBet} and won \$${betHistory.amountWin}!',
+                                style: GoogleFonts.nunito(
+                                  color: Palette.green,
+                                  fontSize: 14,
+                                ),
+                              )
+                            : Text(
+                                // ignore: lines_longer_than_80_chars
+                                'You lose \$${betHistory.amountBet}!',
+                                style: GoogleFonts.nunito(
+                                  color: Palette.green,
+                                  fontSize: 14,
+                                ),
+                              ),
                         Row(
                           children: [
                             Text(

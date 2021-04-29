@@ -3,17 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_history/widgets/adaptive_widgets/mobilebethistory.dart';
 import 'package:vegas_lit/bet_history/widgets/adaptive_widgets/tabletbethistory.dart';
 import 'package:vegas_lit/bet_history/widgets/adaptive_widgets/webbethistory.dart';
-import 'package:vegas_lit/bet_history/widgets/textbar.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
-
-import '../widgets/bet_history_card.dart';
 
 class BetHistory extends StatelessWidget {
   const BetHistory._({Key key}) : super(key: key);

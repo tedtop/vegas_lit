@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class BetHistoryData extends Equatable {
-  BetHistoryData({
+class BetData extends Equatable {
+  BetData({
     @required this.amountWin,
     @required this.awayTeam,
     @required this.homeTeam,
+    @required this.awayTeamScore,
+    @required this.homeTeamScore,
+    @required this.finalWinTeam,
     @required this.dateTime,
     @required this.id,
     @required this.betType,
@@ -18,9 +21,9 @@ class BetHistoryData extends Equatable {
     @required this.amountBet,
   });
 
-  factory BetHistoryData.fromFirestore(DocumentSnapshot documentSnapshot) {
+  factory BetData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
-    return BetHistoryData(
+    return BetData(
       id: data['id'] as String,
       gameID: data['gameID'] as int,
       league: data['league'] as String,
@@ -33,6 +36,9 @@ class BetHistoryData extends Equatable {
       dateTime: data['dateTime'] as String,
       odd: data['odd'] as int,
       isClosed: data['isClosed'] as bool,
+      awayTeamScore: data['awayTeamScore'] as int,
+      finalWinTeam: data['finalWinTeam'] as String,
+      homeTeamScore: data['homeTeamScore'] as int,
     );
   }
 
@@ -45,6 +51,9 @@ class BetHistoryData extends Equatable {
   final int amountWin;
   final int gameID;
   final bool isClosed;
+  final int awayTeamScore;
+  final int homeTeamScore;
+  final String finalWinTeam;
   final String winTeam;
   final String dateTime;
   final int odd;
@@ -60,6 +69,9 @@ class BetHistoryData extends Equatable {
       'betType': betType,
       'dateTime': dateTime,
       'amountWin': amountWin,
+      'homeTeamScore': homeTeamScore,
+      'awayTeamScore': awayTeamScore,
+      'finalWinTeam': finalWinTeam,
       'winTeam': winTeam,
       'odd': odd,
       'league': league,
@@ -76,6 +88,9 @@ class BetHistoryData extends Equatable {
       isClosed,
       winTeam,
       id,
+      finalWinTeam,
+      awayTeamScore,
+      homeTeamScore,
       betType,
       league,
       odd,

@@ -1,10 +1,9 @@
+import 'package:api_client/src/models/bet.dart';
 import 'package:api_client/src/models/user_bets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 import '../base_provider.dart';
-import '../models/bet_history.dart';
-import '../models/open_bet.dart';
 import '../models/user.dart';
 
 class CloudFirestore extends DatabaseProvider {
@@ -28,16 +27,16 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   @override
-  Stream<List<OpenBetsData>> fetchOpenBets({@required String uid}) {
+  Stream<List<BetData>> fetchOpenBets({@required String uid}) {
     final openBetsData = _firestoreData
-        .collection('open_bets')
+        .collection('bets')
         .where('user', isEqualTo: uid)
         .where('isClosed', isEqualTo: false)
         .snapshots()
         .map(
           (event) => event.docs
               .map(
-                (e) => OpenBetsData.fromFirestore(e),
+                (e) => BetData.fromFirestore(e),
               )
               .toList(),
         );
@@ -45,16 +44,16 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   @override
-  Stream<List<BetHistoryData>> fetchBetHistory({@required String uid}) {
+  Stream<List<BetData>> fetchBetHistory({@required String uid}) {
     final betHistoryData = _firestoreData
-        .collection('open_bets')
+        .collection('bets')
         .where('user', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
         .snapshots()
         .map(
           (event) => event.docs
               .map(
-                (e) => BetHistoryData.fromFirestore(e),
+                (e) => BetData.fromFirestore(e),
               )
               .toList(),
         );
@@ -66,7 +65,7 @@ class CloudFirestore extends DatabaseProvider {
     @required String uid,
     @required Map openBetsDataMap,
   }) async {
-    await _firestoreData.collection('open_bets').add(openBetsDataMap).then(
+    await _firestoreData.collection('bets').add(openBetsDataMap).then(
       (value) async {
         await value.set(
           {

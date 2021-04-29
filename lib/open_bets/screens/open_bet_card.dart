@@ -11,7 +11,7 @@ class OpenBetsSlip extends StatelessWidget {
   })  : assert(openBets != null),
         super(key: key);
 
-  final OpenBetsData openBets;
+  final BetData openBets;
 
   @override
   Widget build(BuildContext context) {

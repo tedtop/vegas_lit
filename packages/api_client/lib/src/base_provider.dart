@@ -1,10 +1,9 @@
 import 'package:api_client/src/models/game.dart';
-import 'package:api_client/src/models/open_bet.dart';
 import 'package:api_client/src/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import 'models/bet_history.dart';
+import 'models/bet.dart';
 import 'models/game.dart';
 import 'models/user_bets.dart';
 
@@ -29,8 +28,8 @@ abstract class DatabaseProvider {
     @required Map userDataMap,
   });
 
-  Stream<List<OpenBetsData>> fetchOpenBets({@required String uid});
-  Stream<List<BetHistoryData>> fetchBetHistory({@required String uid});
+  Stream<List<BetData>> fetchOpenBets({@required String uid});
+  Stream<List<BetData>> fetchBetHistory({@required String uid});
   Stream<UserData> fetchUserData({@required String uid});
 
   Future<void> saveBets({

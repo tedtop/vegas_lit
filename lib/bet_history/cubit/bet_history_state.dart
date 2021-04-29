@@ -11,14 +11,14 @@ class BetHistoryState extends Equatable {
   const BetHistoryState.initial() : this._();
 
   const BetHistoryState.opened({
-    @required List<BetHistoryData> betHistoryDataList,
+    @required List<BetData> betHistoryDataList,
   }) : this._(
           status: BetHistoryStatus.opened,
           betHistoryDataList: betHistoryDataList,
         );
 
   final BetHistoryStatus status;
-  final List<BetHistoryData> betHistoryDataList;
+  final List<BetData> betHistoryDataList;
 
   @override
   List<Object> get props => [status, betHistoryDataList];
