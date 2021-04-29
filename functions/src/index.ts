@@ -26,6 +26,11 @@ export const resolveBets = functions.pubsub
           const apikey = whichKey(league);
           const gameId = data.gameID;
           const documentId = data.id;
+          const uid = data.user;
+          const winTeam = data.winTeam;
+          const amountBet = data.amountbet;
+          const amountWin = data.amountWin;
+          const totalWinAmount = amountWin + amountBet;
 
           const promise = axios
             .get(
@@ -49,19 +54,42 @@ export const resolveBets = functions.pubsub
                 if (homeTeamScore != null && awayTeamScore != null) {
                   finalWinTeam =
                     homeTeamScore > awayTeamScore ? "home" : "away";
-
+                  const isWin = winTeam == finalWinTeam;
                   functions.logger.log(isClosed);
-                  const betsRef = await app
+                  const betRef = await app
                     .firestore()
-                    .collection("open_bets")
+                    .collection("bets")
                     .doc(documentId)
                     .update({
                       isClosed: isClosed,
                       homeTeamScore: homeTeamScore,
                       awayTeamScore: awayTeamScore,
                       finalWinTeam: finalWinTeam,
+                    })
+                    .then(async (_) => {
+                      const userRef = await app
+                        .firestore()
+                        .collection("users")
+                        .doc(uid)
+                        .update({
+                          openBets: admin.firestore.FieldValue.increment(-1),
+                          profit: isWin
+                            ? admin.firestore.FieldValue.increment(amountWin)
+                            : admin.firestore.FieldValue.increment(0),
+                          accountBalance: isWin
+                            ? admin.firestore.FieldValue.increment(
+                                totalWinAmount
+                              )
+                            : admin.firestore.FieldValue.increment(-amountBet),
+                          correctBets: isWin
+                            ? admin.firestore.FieldValue.increment(1)
+                            : admin.firestore.FieldValue.increment(0),
+                        });
+
+                      return userRef;
                     });
-                  return betsRef;
+
+                  return betRef;
                 }
               }
 
