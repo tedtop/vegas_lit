@@ -45,8 +45,11 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
         ),
         Column(
           children: widget.players
-              .map((player) => MobileLeaderboardTile(
-                    player: player,
+              .asMap()
+              .entries
+              .map((entry) => MobileLeaderboardTile(
+                    player: entry.value,
+                    rank: entry.key + 1,
                   ))
               .toList(),
         ),
@@ -65,8 +68,9 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
 }
 
 class MobileLeaderboardTile extends StatelessWidget {
-  MobileLeaderboardTile({@required this.player});
+  MobileLeaderboardTile({@required this.player, @required this.rank});
   final UserData player;
+  final int rank;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,7 +86,7 @@ class MobileLeaderboardTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: ExpansionTile(
           title: Text(
-            '${player.rank}. ${player.username}',
+            '$rank. ${player.username}',
             style: Styles.normalTextBold,
           ),
           subtitle: Text(
@@ -103,10 +107,10 @@ class MobileLeaderboardTile extends StatelessWidget {
                     '${player.correctBets} out of ${player.numberBets} Correct Bets!',
                     style: Styles.awayTeam,
                   ),
-                  Text(
-                    'Biggest win: \$${player.biggestWin}',
-                    style: Styles.awayTeam,
-                  ),
+                  // Text(
+                  //   'Biggest win: \$${player.biggestWin}',
+                  //   style: Styles.awayTeam,
+                  // ),
                   Text(
                     'Account Balance: \$${player.accountBalance}',
                     style: Styles.awayTeam,

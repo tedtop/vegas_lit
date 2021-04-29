@@ -84,9 +84,14 @@ class _WebLeaderboardState extends State<WebLeaderboard> {
                       LeaderboardColumns(),
                       Column(
                         children: widget.players
-                            .map((player) => WebLeaderboardItem(
-                                  player: player,
-                                ))
+                            .asMap()
+                            .entries
+                            .map(
+                              (entry) => WebLeaderboardItem(
+                                player: entry.value,
+                                rank: entry.key + 1,
+                              ),
+                            )
                             .toList(),
                       ),
                       Container(
@@ -220,8 +225,9 @@ class LeaderboardColumns extends StatelessWidget {
 }
 
 class WebLeaderboardItem extends StatelessWidget {
-  WebLeaderboardItem({this.player});
+  WebLeaderboardItem({this.player, this.rank});
   final UserData player;
+  final int rank;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -235,7 +241,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 60,
             child: Text(
-              '${player.rank}',
+              '$rank',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -291,7 +297,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 145,
             child: Text(
-              '\$${player.potentialWinnings}',
+              'N/A',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -299,7 +305,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 120,
             child: Text(
-              '\$${player.biggestWin}',
+              'N/A',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -307,7 +313,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 120,
             child: Text(
-              '${player.lastWeeksRank}',
+              'N/A',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),

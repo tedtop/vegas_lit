@@ -58,8 +58,11 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
             shrinkWrap: true,
             childAspectRatio: 2,
             children: widget.players
-                .map((player) => TabletLeaderboardTile(
-                      player: player,
+                .asMap()
+                .entries
+                .map((entry) => TabletLeaderboardTile(
+                      player: entry.value,
+                      rank: entry.key + 1,
                     ))
                 .toList(),
           ),
@@ -79,8 +82,9 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
 }
 
 class TabletLeaderboardTile extends StatelessWidget {
+  TabletLeaderboardTile({@required this.player, @required this.rank});
   final UserData player;
-  TabletLeaderboardTile({this.player});
+  final int rank;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,7 +107,7 @@ class TabletLeaderboardTile extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '${player.rank}. ${player.username}',
+                  '$rank. ${player.username}',
                   style: Styles.normalTextBold,
                 ),
                 Text(
@@ -114,10 +118,10 @@ class TabletLeaderboardTile extends StatelessWidget {
                   '${player.correctBets} out of ${player.numberBets} Correct Bets!',
                   style: Styles.awayTeam,
                 ),
-                Text(
-                  'Biggest win: \$${player.biggestWin}',
-                  style: Styles.awayTeam,
-                ),
+                // Text(
+                //   'Biggest win: \$${player.biggestWin}',
+                //   style: Styles.awayTeam,
+                // ),
                 Text(
                   'Account Balance: \$${player.accountBalance}',
                   style: Styles.awayTeam,

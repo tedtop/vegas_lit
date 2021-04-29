@@ -24,4 +24,13 @@ class BetsRepository {
         uid: uid,
         openBetsDataMap: openBetsDataMap,
       );
+
+  Future<void> updateUserBets({
+    @required String uid,
+    @required int cutBalance,
+  }) =>
+      _databaseProvider.updateUserBets(
+        uid: uid,
+        cutBalance: cutBalance,
+      );
 }

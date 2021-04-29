@@ -66,7 +66,9 @@ class HomePage extends StatefulWidget {
                 ),
             ),
             BlocProvider<HomeCubit>(
-              create: (_) => HomeCubit(),
+              create: (_) => HomeCubit(
+                userRepository: context.read<UserRepository>(),
+              )..openHome(uid: currentUserId),
             ),
           ],
           child: const HomePage._(),
@@ -96,8 +98,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final pageIndex =
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
-    final balanceAmount =
-        context.select((HomeCubit homeCubit) => homeCubit.state.balanceAmount);
+    final balanceAmount = context.select(
+        (HomeCubit homeCubit) => homeCubit.state.userData?.accountBalance);
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       // backgroundColor: Palette.lightGrey,

@@ -1,5 +1,4 @@
 import 'package:api_client/src/models/bet.dart';
-import 'package:api_client/src/models/user_bets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
@@ -109,12 +108,11 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   @override
-  Future<void> updateUserBetsData({String uid, Map userBetsData}) async {
-    await _firestoreData.collection('user_bets').doc(uid).set(userBetsData);
-  }
-
-  @override
-  Future<void> addUserBetsData({String uid, Map userBetsData}) async {
-    await _firestoreData.collection('user_bets').doc(uid).set(userBetsData);
+  Future<void> updateUserBets({String uid, int cutBalance}) async {
+    await _firestoreData.collection('users').doc(uid).update({
+      'numberBets': FieldValue.increment(1),
+      'openBets': FieldValue.increment(1),
+      'accountBalance': FieldValue.increment(-cutBalance),
+    });
   }
 }

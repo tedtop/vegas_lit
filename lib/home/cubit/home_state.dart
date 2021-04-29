@@ -1,37 +1,37 @@
 part of 'home_cubit.dart';
 
-enum HomeStatus { initial, changed, balanceChanged }
+enum HomeStatus { initial, changed, user }
 
 class HomeState extends Equatable {
   const HomeState._({
     this.status = HomeStatus.initial,
     this.pageIndex = 0,
-    this.balanceAmount = 500,
+    this.userData,
   });
 
   const HomeState.initial() : this._();
 
   const HomeState.changed({
     int pageIndex,
-    int balanceAmount,
+    UserData userData,
   }) : this._(
           status: HomeStatus.changed,
           pageIndex: pageIndex,
-          balanceAmount: balanceAmount,
+          userData: userData,
         );
-  const HomeState.balanceChanged({
+  const HomeState.openHome({
     int pageIndex,
-    int balanceAmount,
+    UserData userData,
   }) : this._(
-          status: HomeStatus.balanceChanged,
+          status: HomeStatus.user,
           pageIndex: pageIndex,
-          balanceAmount: balanceAmount,
+          userData: userData,
         );
 
   final HomeStatus status;
   final int pageIndex;
-  final int balanceAmount;
+  final UserData userData;
 
   @override
-  List<Object> get props => [status, pageIndex, balanceAmount];
+  List<Object> get props => [status, pageIndex, userData];
 }

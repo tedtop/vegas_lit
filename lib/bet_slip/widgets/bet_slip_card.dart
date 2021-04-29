@@ -67,8 +67,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
-        final balanceAmount = context
-            .select((HomeCubit homeCubit) => homeCubit.state.balanceAmount);
+        final balanceAmount = context.select(
+            (HomeCubit homeCubit) => homeCubit.state.userData.accountBalance);
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +266,11 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                   await context
                                       .read<OpenBetsCubit>()
                                       .updateOpenBets(
+                                        betAmount:
+                                            widget.betSlipCardData.betAmount,
                                         openBetsData: BetData(
+                                          amountBet:
+                                              widget.betSlipCardData.betAmount,
                                           gameID: betButtonState.gameId,
                                           isClosed: betButtonState.isClosed,
                                           winTeam: betButtonState.winTeam ==
@@ -274,8 +278,6 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                               ? 'home'
                                               : 'away',
                                           league: betButtonState.league,
-                                          amountBet:
-                                              widget.betSlipCardData.betAmount,
                                           awayTeam: betButtonState
                                               .awayTeamData.name
                                               .toUpperCase(),
@@ -302,10 +304,6 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                           finalWinTeam: 'pending',
                                         ).toMap(),
                                         currentUserId: currentUserId,
-                                      );
-                                  context.read<HomeCubit>().balanceChange(
-                                        balanceAmount:
-                                            widget.betSlipCardData.betAmount,
                                       );
 
                                   ScaffoldMessenger.of(context)
