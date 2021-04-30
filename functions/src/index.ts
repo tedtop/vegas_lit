@@ -86,7 +86,7 @@ export const resolveBets = functions.pubsub
                             ? admin.firestore.FieldValue.increment(
                                 totalWinAmount
                               )
-                            : admin.firestore.FieldValue.increment(-amountBet),
+                            : admin.firestore.FieldValue.increment(0),
                           correctBets: isWin
                             ? admin.firestore.FieldValue.increment(1)
                             : admin.firestore.FieldValue.increment(0),
