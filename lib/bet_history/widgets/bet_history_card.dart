@@ -103,7 +103,7 @@ class BetHistorySlip extends StatelessWidget {
                                 // ignore: lines_longer_than_80_chars
                                 'You lose \$${betHistory.amountBet}!',
                                 style: GoogleFonts.nunito(
-                                  color: Palette.green,
+                                  color: Palette.red,
                                   fontSize: 14,
                                 ),
                               ),
@@ -120,8 +120,10 @@ class BetHistorySlip extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: const BoxDecoration(
-                    color: Palette.green,
+                  decoration: BoxDecoration(
+                    color: betHistory.finalWinTeam == betHistory.winTeam
+                        ? Palette.green
+                        : Palette.red,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -129,7 +131,7 @@ class BetHistorySlip extends StatelessWidget {
                       Images.betHistoryLogo,
                     ),
                   ),
-                  height: 150,
+                  height: 160,
                   width: 90,
                 ),
               ],

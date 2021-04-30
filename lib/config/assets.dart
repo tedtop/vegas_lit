@@ -2,8 +2,7 @@ class Images {
   static const String topLogo = 'assets/images/logo_top.png';
   static const String placeholderImage = 'assets/images/default_profile.png';
   static const String profileImage = 'assets/images/profile_image.png';
-  static const String betHistoryLogo =
-      'assets/images/bet_history_logo_new.jpeg';
+  static const String betHistoryLogo = 'assets/images/bet_history_logo.png';
 }
 
 class Json {
