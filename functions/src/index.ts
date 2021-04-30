@@ -28,7 +28,7 @@ export const resolveBets = functions.pubsub
           const documentId = data.id;
           const uid = data.user;
           const winTeam = data.winTeam;
-          const amountBet = data.amountbet;
+          const amountBet = data.amountBet;
           const amountWin = data.amountWin;
           const totalWinAmount = amountWin + amountBet;
 
@@ -49,14 +49,14 @@ export const resolveBets = functions.pubsub
               const isClosed = specificGame.IsClosed;
               const homeTeamScore = specificGame.HomeTeamScore;
               const awayTeamScore = specificGame.AwayTeamScore;
-              let finalWinTeam: string;
+
               if (isClosed != isClosedFirestore) {
                 if (homeTeamScore != null && awayTeamScore != null) {
-                  finalWinTeam =
+                  const finalWinTeam =
                     homeTeamScore > awayTeamScore ? "home" : "away";
                   const isWin = winTeam == finalWinTeam;
                   functions.logger.log(isClosed);
-                  const betRef = await app
+                  await app
                     .firestore()
                     .collection("bets")
                     .doc(documentId)
@@ -67,7 +67,7 @@ export const resolveBets = functions.pubsub
                       finalWinTeam: finalWinTeam,
                     })
                     .then(async (_) => {
-                      const userRef = await app
+                      await app
                         .firestore()
                         .collection("users")
                         .doc(uid)
@@ -85,16 +85,11 @@ export const resolveBets = functions.pubsub
                             ? admin.firestore.FieldValue.increment(1)
                             : admin.firestore.FieldValue.increment(0),
                         });
-
-                      return userRef;
                     });
-
-                  return betRef;
                 }
+              } else {
+                functions.logger.log("Value Already Updated");
               }
-
-              functions.logger.log("Value Already Updated");
-              return null;
             })
             .catch(function (error: any) {
               console.log(error);
