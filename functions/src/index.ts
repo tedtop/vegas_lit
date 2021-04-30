@@ -8,10 +8,10 @@ var app = admin.initializeApp();
 export const resolveBets = functions.pubsub
   .schedule("every 4 hours")
   .onRun(async (context) => {
-    console.log("This will be run every 6 hours!");
+    console.log("This will be run every 4 hours!");
     await app
       .firestore()
-      .collection("open_bets")
+      .collection("bets")
       .where("isClosed", "==", false)
       .get()
       .then(function (snapshots) {
