@@ -110,8 +110,8 @@ class MatchupCard extends StatelessWidget {
                                                     state.awayTeamData,
                                                 homeTeamData:
                                                     state.homeTeamData,
-                                                text: gameData.awayTeamMoneyLine
-                                                    .toString(),
+                                                text: positiveNumber(
+                                                    gameData.awayTeamMoneyLine),
                                                 game: state.game,
                                                 league: whichGame(
                                                   gameName: state.league,
@@ -135,7 +135,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '${gameData.pointSpread}     ${gameData.pointSpreadAwayTeamMoneyLine}',
+                                                    '${gameData.pointSpread}     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine)}',
                                               ),
                                         gameData.overPayout == null
                                             ? Container()
@@ -153,7 +153,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    'o${gameData.overUnder}     ${gameData.overPayout}',
+                                                    'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout)}',
                                               ),
                                       ],
                                     ),
@@ -222,8 +222,8 @@ class MatchupCard extends StatelessWidget {
                                                     state.awayTeamData,
                                                 homeTeamData:
                                                     state.homeTeamData,
-                                                text: gameData.homeTeamMoneyLine
-                                                    .toString(),
+                                                text: positiveNumber(
+                                                    gameData.homeTeamMoneyLine),
                                               ),
                                         gameData.pointSpreadHomeTeamMoneyLine ==
                                                 null
@@ -243,7 +243,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '${gameData.pointSpread}     ${gameData.pointSpreadHomeTeamMoneyLine}',
+                                                    '${gameData.pointSpread}     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine)}',
                                               ),
                                         gameData.underPayout == null
                                             ? Container()
@@ -261,7 +261,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    'u${gameData.overUnder}     ${gameData.underPayout}',
+                                                    'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout)}',
                                               ),
                                       ],
                                     ),
@@ -319,6 +319,12 @@ class MatchupCard extends StatelessWidget {
         }
       },
     );
+  }
+
+  String positiveNumber(int number) {
+    final value =
+        number.isNegative ? number.toString() : '+${number.toString()}';
+    return value;
   }
 
   Widget _betButtonSeparator({
