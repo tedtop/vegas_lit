@@ -32,7 +32,7 @@ class TextBar extends StatelessWidget {
             child: DropdownButton<String>(
               dropdownColor: Palette.green,
               isDense: true,
-              value: 'All Bet Types',
+              value: text,
               icon: const Icon(
                 FontAwesome.angle_down,
                 color: Palette.cream,
@@ -46,7 +46,7 @@ class TextBar extends StatelessWidget {
               ),
               onChanged: print,
               items: <String>[
-                'All Bet Types',
+                text,
               ].map<DropdownMenuItem<String>>(
                 (String value) {
                   return DropdownMenuItem<String>(

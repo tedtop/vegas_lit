@@ -61,7 +61,11 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                   final totalProfit = state.betHistoryDataList.isEmpty
                       ? 0
                       : state.betHistoryDataList
-                          .map((e) => e.amountWin)
+                          .map((e) {
+                            return e.winTeam == e.finalWinTeam
+                                ? e.amountWin
+                                : 0;
+                          })
                           .toList()
                           .reduce((value, element) => value + element)
                           .toDouble();

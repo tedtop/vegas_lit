@@ -93,6 +93,7 @@ class CloudFirestore extends DatabaseProvider {
   Stream<List<UserData>> fetchRankedUsers() {
     final documentSnapshot = _firestoreData
         .collection('users')
+        .where('profit', isGreaterThan: 0)
         .orderBy('profit', descending: true)
         .limit(50)
         .snapshots();
