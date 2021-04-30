@@ -47,15 +47,21 @@ export const resolveBets = functions.pubsub
                 (game) => game.GameID == gameId
               )[0];
               const isClosed = specificGame.IsClosed;
-              const homeTeamScore = specificGame.HomeTeamScore;
-              const awayTeamScore = specificGame.AwayTeamScore;
-
+              const homeTeamScore =
+                league == "mlb"
+                  ? specificGame.HomeTeamRuns
+                  : specificGame.HomeTeamScore;
+              const awayTeamScore =
+                league == "mlb"
+                  ? specificGame.AwayTeamRuns
+                  : specificGame.AwayTeamScore;
+              console.log(`${isClosed},${homeTeamScore}, ${awayTeamScore}`);
               if (isClosed != isClosedFirestore) {
                 if (homeTeamScore != null && awayTeamScore != null) {
                   const finalWinTeam =
                     homeTeamScore > awayTeamScore ? "home" : "away";
                   const isWin = winTeam == finalWinTeam;
-                  functions.logger.log(isClosed);
+
                   await app
                     .firestore()
                     .collection("bets")
@@ -115,6 +121,8 @@ export const resolveBets = functions.pubsub
         return null;
       });
 
+    return null;
+
     function formatTime(dateTime: string): string {
       const d = new Date(dateTime);
       const myDatetimeFormat = "yyyy-MMM-DD";
@@ -158,6 +166,8 @@ export interface Game {
   Attendance?: null;
   AwayTeamScore?: number;
   HomeTeamScore?: number;
+  AwayTeamRuns?: number;
+  HomeTeamRuns?: number;
   Updated?: Date;
   Quarter?: null;
   TimeRemainingMinutes?: null;
