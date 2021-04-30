@@ -67,8 +67,7 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                                 : 0;
                           })
                           .toList()
-                          .reduce((value, element) => value + element)
-                          .toDouble();
+                          .reduce((value, element) => value + element);
                   switch (state.status) {
                     case BetHistoryStatus.opened:
                       return Column(
