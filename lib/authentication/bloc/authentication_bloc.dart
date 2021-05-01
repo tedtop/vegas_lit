@@ -13,21 +13,20 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc({
-    @required UserRepository authenticationRepository,
-  })  : assert(authenticationRepository != null),
-        _authenticationRepository = authenticationRepository,
+  AuthenticationBloc({@required UserRepository userRepository})
+      : assert(userRepository != null),
+        _userRepository = userRepository,
         super(
           const AuthenticationState.splashscreen(),
         ) {
-    _userSubscription = _authenticationRepository.getUser.listen(
+    _userSubscription = _userRepository.getUser.listen(
       (user) => add(
         AuthenticationUserChanged(user),
       ),
     );
   }
 
-  final UserRepository _authenticationRepository;
+  final UserRepository _userRepository;
   StreamSubscription<User> _userSubscription;
 
   @override
@@ -46,7 +45,7 @@ class AuthenticationBloc
       yield* _checkProfileComplete(event);
     } else if (event is AuthenticationLogoutRequested) {
       unawaited(
-        _authenticationRepository.signOutUser(),
+        _userRepository.signOutUser(),
       );
     }
   }

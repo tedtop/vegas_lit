@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class AbstractCard extends StatelessWidget {

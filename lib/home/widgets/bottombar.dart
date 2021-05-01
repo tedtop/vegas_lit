@@ -6,7 +6,6 @@ import 'package:vegas_lit/drawer_pages/faq.dart';
 import 'package:vegas_lit/drawer_pages/privacy_policy.dart';
 import 'package:vegas_lit/drawer_pages/rules.dart';
 import 'package:vegas_lit/drawer_pages/terms.dart';
-import 'package:vegas_lit/home/widgets/home_drawer.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({

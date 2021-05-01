@@ -19,6 +19,30 @@ class Team {
     this.globalTeamId,
   });
 
+  factory Team.fromJson(String str) => Team.fromMap(json.decode(str));
+
+  factory Team.fromMap(Map<String, dynamic> json) => Team(
+        teamId: json['TeamID'],
+        key: json['Key'],
+        active: json['Active'],
+        city: json['City'],
+        name: json['Name'],
+        stadiumId: json['StadiumID'],
+        conference: json['Conference'] == null
+            ? null
+            : conferenceValues.map[json['Conference']],
+        division: json['Division'] == null
+            ? null
+            : divisionValues.map[json['Division']],
+        primaryColor: json['PrimaryColor'],
+        secondaryColor: json['SecondaryColor'],
+        tertiaryColor: json['TertiaryColor'],
+        quaternaryColor: json['QuaternaryColor'],
+        wikipediaLogoUrl: json['WikipediaLogoUrl'],
+        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'],
+        globalTeamId: json['GlobalTeamID'],
+      );
+
   final int teamId;
   final String key;
   final bool active;
@@ -70,85 +94,50 @@ class Team {
         globalTeamId: globalTeamId ?? this.globalTeamId,
       );
 
-  factory Team.fromJson(String str) => Team.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
 
-  factory Team.fromMap(Map<String, dynamic> json) => Team(
-        teamId: json["TeamID"] == null ? null : json["TeamID"],
-        key: json["Key"] == null ? null : json["Key"],
-        active: json["Active"] == null ? null : json["Active"],
-        city: json["City"] == null ? null : json["City"],
-        name: json["Name"] == null ? null : json["Name"],
-        stadiumId: json["StadiumID"] == null ? null : json["StadiumID"],
-        conference: json["Conference"] == null
-            ? null
-            : conferenceValues.map[json["Conference"]],
-        division: json["Division"] == null
-            ? null
-            : divisionValues.map[json["Division"]],
-        primaryColor:
-            json["PrimaryColor"] == null ? null : json["PrimaryColor"],
-        secondaryColor:
-            json["SecondaryColor"] == null ? null : json["SecondaryColor"],
-        tertiaryColor:
-            json["TertiaryColor"] == null ? null : json["TertiaryColor"],
-        quaternaryColor:
-            json["QuaternaryColor"] == null ? null : json["QuaternaryColor"],
-        wikipediaLogoUrl:
-            json["WikipediaLogoUrl"] == null ? null : json["WikipediaLogoUrl"],
-        wikipediaWordMarkUrl: json["WikipediaWordMarkUrl"] == null
-            ? null
-            : json["WikipediaWordMarkUrl"],
-        globalTeamId:
-            json["GlobalTeamID"] == null ? null : json["GlobalTeamID"],
-      );
-
   Map<String, dynamic> toMap() => {
-        "TeamID": teamId == null ? null : teamId,
-        "Key": key == null ? null : key,
-        "Active": active == null ? null : active,
-        "City": city == null ? null : city,
-        "Name": name == null ? null : name,
-        "StadiumID": stadiumId == null ? null : stadiumId,
-        "Conference":
+        'TeamID': teamId,
+        'Key': key,
+        'Active': active,
+        'City': city,
+        'Name': name,
+        'StadiumID': stadiumId,
+        'Conference':
             conference == null ? null : conferenceValues.reverse[conference],
-        "Division": division == null ? null : divisionValues.reverse[division],
-        "PrimaryColor": primaryColor == null ? null : primaryColor,
-        "SecondaryColor": secondaryColor == null ? null : secondaryColor,
-        "TertiaryColor": tertiaryColor == null ? null : tertiaryColor,
-        "QuaternaryColor": quaternaryColor == null ? null : quaternaryColor,
-        "WikipediaLogoUrl": wikipediaLogoUrl == null ? null : wikipediaLogoUrl,
-        "WikipediaWordMarkUrl":
-            wikipediaWordMarkUrl == null ? null : wikipediaWordMarkUrl,
-        "GlobalTeamID": globalTeamId == null ? null : globalTeamId,
+        'Division': division == null ? null : divisionValues.reverse[division],
+        'PrimaryColor': primaryColor,
+        'SecondaryColor': secondaryColor,
+        'TertiaryColor': tertiaryColor,
+        'QuaternaryColor': quaternaryColor,
+        'WikipediaLogoUrl': wikipediaLogoUrl,
+        'WikipediaWordMarkUrl': wikipediaWordMarkUrl,
+        'GlobalTeamID': globalTeamId,
       };
 }
 
-enum Conference { EASTERN, WESTERN }
+enum Conference { eastern, western }
 
 final conferenceValues =
-    EnumValues({"Eastern": Conference.EASTERN, "Western": Conference.WESTERN});
+    EnumValues({'Eastern': Conference.eastern, 'Western': Conference.western});
 
-enum Division { EAST, CENTRAL, NORTH, WEST }
+enum Division { east, central, north, west }
 
 final divisionValues = EnumValues({
-  "Central": Division.CENTRAL,
-  "East": Division.EAST,
-  "North": Division.NORTH,
-  "West": Division.WEST
+  'Central': Division.central,
+  'East': Division.east,
+  'North': Division.north,
+  'West': Division.west
 });
 
 class EnumValues<T> {
+  EnumValues(this.map);
+
   Map<String, T> map;
   Map<T, String> reverseMap;
 
-  EnumValues(this.map);
-
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }

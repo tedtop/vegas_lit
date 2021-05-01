@@ -238,14 +238,14 @@ class __ResetPageState extends State<_ResetPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(20.0),
+      decoration: const BoxDecoration(
         color: Palette.lightGrey,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
+          const Text(
             'Reset Password',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -254,7 +254,7 @@ class __ResetPageState extends State<_ResetPage> {
               fontWeight: FontWeight.w300,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           TextField(
             style: GoogleFonts.nunito(
               fontSize: 18,
@@ -276,18 +276,19 @@ class __ResetPageState extends State<_ResetPage> {
               setState(() {
                 email = newText;
               });
-              print(email);
             },
           ),
-          SizedBox(height: 20),
-          FlatButton(
+          const SizedBox(height: 20),
+          TextButton(
             child: Text(
               'Done',
               style: GoogleFonts.nunito(
                 color: Palette.cream,
               ),
             ),
-            color: Palette.green,
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Palette.green),
+            ),
             onPressed: () async {
               if (email != null) {
                 if (email.isNotEmpty) {
@@ -317,7 +318,7 @@ class __ResetPageState extends State<_ResetPage> {
               } else {
                 // ignore: avoid_print
                 print('Type Something in the Field!');
-                print(email);
+
                 setState(() {
                   isEmailValid = 'Type Something in the Field!';
                 });

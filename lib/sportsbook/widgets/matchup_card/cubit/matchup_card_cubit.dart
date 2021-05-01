@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:vegas_lit/sportsbook/models/team.dart';
 
 part 'matchup_card_state.dart';

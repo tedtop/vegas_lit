@@ -1,16 +1,14 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:universal_html/html.dart' as html;
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 
 class InteractiveNavItem extends StatelessWidget {
+  InteractiveNavItem({this.index, this.selected, this.title});
   final String title;
   final bool selected;
   final int index;
-  InteractiveNavItem({this.index, this.selected, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +26,10 @@ class InteractiveNavItem extends StatelessWidget {
 }
 
 class InteractiveText extends StatefulWidget {
+  const InteractiveText({@required this.text, @required this.selected});
+
   final String text;
   final bool selected;
-
-  const InteractiveText({@required this.text, @required this.selected});
 
   @override
   InteractiveTextState createState() => InteractiveTextState();

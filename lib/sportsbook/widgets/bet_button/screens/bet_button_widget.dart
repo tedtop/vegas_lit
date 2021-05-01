@@ -80,13 +80,17 @@ class BetButtonUnclicked extends StatelessWidget {
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: RaisedButton(
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            elevation: MaterialStateProperty.all(0),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            foregroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          color: Palette.darkGrey,
           child: Text(
             betButtonState.text ?? '100',
             maxLines: 1,
@@ -124,13 +128,17 @@ class BetButtonClicked extends StatelessWidget {
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: RaisedButton(
-          elevation: 4,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            elevation: MaterialStateProperty.all(4),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            foregroundColor: MaterialStateProperty.all(Palette.green),
           ),
-          color: Palette.green,
           child: Text(
             betButtonState.text ?? '100',
             maxLines: 1,
@@ -160,13 +168,17 @@ class BetButtonDone extends StatelessWidget {
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: RaisedButton(
-          elevation: 4,
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            elevation: MaterialStateProperty.all(4),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            foregroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          color: Palette.darkGrey,
           child: Text(
             'BET PLACED',
             maxLines: 1,

@@ -41,6 +41,54 @@ class Game {
     this.quarters,
   });
 
+  factory Game.fromJson(String str) => Game.fromMap(json.decode(str));
+
+  factory Game.fromMap(Map<String, dynamic> json) => Game(
+        gameId: json['GameID'],
+        season: json['Season'],
+        seasonType: json['SeasonType'],
+        status: json['Status'],
+        day: json['Day'] == null ? null : DateTime.parse(json['Day']),
+        dateTime:
+            json['DateTime'] == null ? null : DateTime.parse(json['DateTime']),
+        awayTeam: json['AwayTeam'],
+        homeTeam: json['HomeTeam'],
+        awayTeamId: json['AwayTeamID'],
+        homeTeamId: json['HomeTeamID'],
+        stadiumId: json['StadiumID'],
+        channel: json['Channel'],
+        attendance: json['Attendance'],
+        awayTeamScore: json['AwayTeamScore'],
+        homeTeamScore: json['HomeTeamScore'],
+        updated:
+            json['Updated'] == null ? null : DateTime.parse(json['Updated']),
+        quarter: json['Quarter'],
+        timeRemainingMinutes: json['TimeRemainingMinutes'],
+        timeRemainingSeconds: json['TimeRemainingSeconds'],
+        pointSpread:
+            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
+        overUnder:
+            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] ?? 100,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] ?? -100,
+        globalGameId: json['GlobalGameID'],
+        globalAwayTeamId: json['GlobalAwayTeamID'],
+        globalHomeTeamId: json['GlobalHomeTeamID'],
+        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
+        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
+        lastPlay: json['LastPlay'],
+        isClosed: json['IsClosed'],
+        gameEndDateTime: json['GameEndDateTime'],
+        homeRotationNumber: json['HomeRotationNumber'],
+        awayRotationNumber: json['AwayRotationNumber'],
+        neutralVenue: json['NeutralVenue'],
+        overPayout: json['OverPayout'],
+        underPayout: json['UnderPayout'],
+        quarters: json['Quarters'] == null
+            ? null
+            : List<dynamic>.from(json['Quarters'].map((x) => x)),
+      );
+
   final int gameId;
   final int season;
   final int seasonType;
@@ -160,55 +208,7 @@ class Game {
         quarters: quarters ?? this.quarters,
       );
 
-  factory Game.fromJson(String str) => Game.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
-
-  factory Game.fromMap(Map<String, dynamic> json) => Game(
-        gameId: json['GameID'],
-        season: json['Season'],
-        seasonType: json['SeasonType'],
-        status: json['Status'],
-        day: json['Day'] == null ? null : DateTime.parse(json['Day']),
-        dateTime:
-            json['DateTime'] == null ? null : DateTime.parse(json['DateTime']),
-        awayTeam: json['AwayTeam'],
-        homeTeam: json['HomeTeam'],
-        awayTeamId: json['AwayTeamID'],
-        homeTeamId: json['HomeTeamID'],
-        stadiumId: json['StadiumID'],
-        channel: json['Channel'],
-        attendance: json['Attendance'],
-        awayTeamScore: json['AwayTeamScore'],
-        homeTeamScore: json['HomeTeamScore'],
-        updated:
-            json['Updated'] == null ? null : DateTime.parse(json['Updated']),
-        quarter: json['Quarter'],
-        timeRemainingMinutes: json['TimeRemainingMinutes'],
-        timeRemainingSeconds: json['TimeRemainingSeconds'],
-        pointSpread:
-            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
-        overUnder:
-            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'] ?? 100,
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'] ?? -100,
-        globalGameId: json['GlobalGameID'],
-        globalAwayTeamId: json['GlobalAwayTeamID'],
-        globalHomeTeamId: json['GlobalHomeTeamID'],
-        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
-        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
-        lastPlay: json['LastPlay'],
-        isClosed: json['IsClosed'],
-        gameEndDateTime: json['GameEndDateTime'],
-        homeRotationNumber: json['HomeRotationNumber'],
-        awayRotationNumber: json['AwayRotationNumber'],
-        neutralVenue: json['NeutralVenue'],
-        overPayout: json['OverPayout'],
-        underPayout: json['UnderPayout'],
-        quarters: json['Quarters'] == null
-            ? null
-            : List<dynamic>.from(json['Quarters'].map((x) => x)),
-      );
 
   Map<String, dynamic> toMap() => {
         'GameID': gameId,

@@ -13,18 +13,15 @@ import 'home/screens/home_page.dart';
 class App extends StatelessWidget {
   const App({
     Key key,
-    @required this.authenticationRepository,
-    @required this.sportsfeedRepository,
+    @required this.sportsRepository,
     @required this.userRepository,
     @required this.betsRepository,
   })  : assert(
-          authenticationRepository != null,
-          sportsfeedRepository != null,
+          sportsRepository != null,
         ),
         super(key: key);
 
-  final UserRepository authenticationRepository;
-  final SportsRepository sportsfeedRepository;
+  final SportsRepository sportsRepository;
   final UserRepository userRepository;
   final BetsRepository betsRepository;
 
@@ -33,10 +30,7 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(
-          value: authenticationRepository,
-        ),
-        RepositoryProvider.value(
-          value: sportsfeedRepository,
+          value: sportsRepository,
         ),
         RepositoryProvider.value(
           value: betsRepository,
@@ -47,7 +41,7 @@ class App extends StatelessWidget {
       ],
       child: BlocProvider(
         create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
+          userRepository: userRepository,
         ),
         child: AppView(),
       ),

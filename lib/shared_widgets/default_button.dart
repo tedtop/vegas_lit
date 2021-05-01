@@ -25,12 +25,20 @@ class DefaultButton extends StatelessWidget {
       width: 174,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: RaisedButton(
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          elevation: elevation,
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-          ),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              elevation: MaterialStateProperty.all(elevation),
+              shape: MaterialStateProperty.all(Styles.smallRadius),
+              textStyle: MaterialStateProperty.all(
+                const TextStyle(color: Palette.cream),
+              ),
+              foregroundColor: MaterialStateProperty.all(color),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
           child: Text(
             text,
             style: GoogleFonts.nunito(
@@ -38,9 +46,6 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          shape: Styles.smallRadius,
-          textColor: Palette.cream,
-          color: color,
           onPressed: action,
         ),
       ),

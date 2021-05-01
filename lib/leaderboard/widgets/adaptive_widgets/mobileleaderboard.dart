@@ -2,7 +2,6 @@ import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/leaderboard/models/player.dart';
 import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
 import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 

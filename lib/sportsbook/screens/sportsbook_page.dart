@@ -14,7 +14,6 @@ import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/tabletsportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/websportsbook.dart';
-import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 import '../bloc/sportsbook_bloc.dart';
 
 class Sportsbook extends StatelessWidget {
@@ -149,9 +148,9 @@ class SportsBookView extends StatelessWidget {
                                 if (key == 'NFL' || key == 'NCAAF') {
                                   length = '$newValue';
                                 } else {
-                                  key == value
-                                      ? length = '$newValue Games'
-                                      : null;
+                                  if (key == value) {
+                                    length = '$newValue Games';
+                                  }
                                 }
                               },
                             );

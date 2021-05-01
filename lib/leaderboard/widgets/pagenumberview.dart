@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 

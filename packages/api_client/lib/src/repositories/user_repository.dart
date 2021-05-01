@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:api_client/src/models/user.dart';
 import 'package:api_client/src/providers/cloud_firestore.dart';
 import 'package:api_client/src/providers/firebase_auth.dart';

@@ -2,15 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DropDown<T> extends StatefulWidget {
-  final List<T> items;
-  final List<Widget> customWidgets;
-  final T initialValue;
-  final Widget hint;
-  final Function onChanged;
-  final bool isExpanded;
-  final bool isCleared;
-  final bool showUnderline;
-
   DropDown({
     @required this.items,
     this.customWidgets,
@@ -24,6 +15,15 @@ class DropDown<T> extends StatefulWidget {
         assert((customWidgets != null)
             ? items.length == customWidgets.length
             : (customWidgets == null));
+
+  final List<T> items;
+  final List<Widget> customWidgets;
+  final T initialValue;
+  final Widget hint;
+  final Function onChanged;
+  final bool isExpanded;
+  final bool isCleared;
+  final bool showUnderline;
 
   @override
   _DropDownState createState() => _DropDownState();

@@ -9,7 +9,6 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/app_bar.dart';
-import 'package:vegas_lit/shared_widgets/default_button.dart';
 
 class Profile extends StatelessWidget {
   const Profile._({Key key}) : super(key: key);
@@ -153,67 +152,6 @@ class _UsernameInput extends StatelessWidget {
   }
 }
 
-class _PasswordInput extends StatelessWidget {
-  final TextEditingController textInputController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              'Password',
-              style: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: TextField(
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
-            controller: textInputController,
-            key: const Key('signUpForm_passwordInput_textField'),
-            onChanged: print,
-            obscureText: true,
-            cursorColor: Palette.cream,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 6,
-                horizontal: 8,
-              ),
-              hintStyle: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-                color: Palette.cream,
-              ),
-              filled: true,
-              fillColor: Palette.darkGrey,
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(4),
-                ),
-              ),
-              isDense: true,
-              errorMaxLines: 3,
-              errorStyle: GoogleFonts.nunito(
-                fontSize: 10,
-              ),
-              hintText: 'Password',
-              helperText: '',
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _EmailInput extends StatelessWidget {
   final TextEditingController textInputController = TextEditingController();
   @override
@@ -276,6 +214,7 @@ class _EmailInput extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _StateInput extends StatelessWidget {
   final TextEditingController textInputController = TextEditingController();
 
@@ -435,21 +374,21 @@ class _MobileNumberInput extends StatelessWidget {
   }
 }
 
-class _EditButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(
-          child: SizedBox(),
-        ),
-        Expanded(
-          child: DefaultButton(
-            action: () {},
-            text: 'EDIT',
-          ),
-        ),
-      ],
-    );
-  }
-}
+// class _EditButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         const Expanded(
+//           child: SizedBox(),
+//         ),
+//         Expanded(
+//           child: DefaultButton(
+//             action: () {},
+//             text: 'EDIT',
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

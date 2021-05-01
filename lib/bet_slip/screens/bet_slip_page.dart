@@ -91,7 +91,7 @@ class BetSlipUpper extends StatelessWidget {
 class BetSlipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width / 10;
+    // final width = MediaQuery.of(context).size.width / 10;
     final betSlipState = context.watch<BetSlipCubit>().state;
     return GestureDetector(
       onTap: () {

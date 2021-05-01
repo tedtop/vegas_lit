@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
     final balanceAmount = context.select(
         (HomeCubit homeCubit) => homeCubit.state.userData?.accountBalance);
-    var width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       // backgroundColor: Palette.lightGrey,
       appBar: kIsWeb

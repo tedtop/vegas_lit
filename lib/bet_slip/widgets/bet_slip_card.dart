@@ -3,18 +3,15 @@ import 'dart:ui';
 import 'package:api_client/api_client.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meta/meta.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/strings.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/interstitial/interstitial_page.dart';
@@ -376,7 +373,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Stack(

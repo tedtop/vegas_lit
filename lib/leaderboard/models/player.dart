@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:pluto_grid/pluto_grid.dart';
-import 'package:vegas_lit/config/palette.dart';
 
 List<LeaderBoardPlayer> playerFromJson(String str) =>
     List<LeaderBoardPlayer>.from(
@@ -25,6 +22,20 @@ class LeaderBoardPlayer {
     this.potentialWinnings,
     this.profit,
   });
+
+  factory LeaderBoardPlayer.fromJson(Map<String, dynamic> json) =>
+      LeaderBoardPlayer(
+        rank: json['rank'],
+        player: json['player'],
+        profit: json['profit'].toDouble(),
+        accountBalance: json['accountBalance'].toDouble(),
+        noOfBets: json['noOfBets'],
+        noOfCorrectBets: json['noOfCorrectBets'],
+        openBets: json['openBets'].toDouble(),
+        potentialWinnings: json['potentialWinnings'].toDouble(),
+        biggestWin: json['biggestWin'].toDouble(),
+        lastWeeksRank: json['lastWeeksRank'],
+      );
 
   final int rank;
   final String player;
@@ -50,20 +61,6 @@ class LeaderBoardPlayer {
           'biggestWin': PlutoCell(value: biggestWin),
           'lastWeeksRank': PlutoCell(value: lastWeeksRank),
         },
-      );
-
-  factory LeaderBoardPlayer.fromJson(Map<String, dynamic> json) =>
-      LeaderBoardPlayer(
-        rank: json['rank'],
-        player: json['player'],
-        profit: json['profit'].toDouble(),
-        accountBalance: json['accountBalance'].toDouble(),
-        noOfBets: json['noOfBets'],
-        noOfCorrectBets: json['noOfCorrectBets'],
-        openBets: json['openBets'].toDouble(),
-        potentialWinnings: json['potentialWinnings'].toDouble(),
-        biggestWin: json['biggestWin'].toDouble(),
-        lastWeeksRank: json['lastWeeksRank'],
       );
 
   Map<String, dynamic> toJson() => {
