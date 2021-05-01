@@ -7,21 +7,21 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-class SportsDataAPI extends SportsProvider {
-  SportsDataAPI({Dio dio}) : _dio = dio ?? Dio();
+class SportsAPI extends SportsProvider {
+  SportsAPI({Dio dio}) : _dio = dio ?? Dio();
 
   final Dio _dio;
 
   @override
-  Future<List<Game>> fetchGameListByLeague({
+  Future<List<Game>> fetchGameCommon({
     @required String league,
-    @required DateTime dateTimeEastern,
+    @required DateTime dateTime,
   }) async {
-    final newGameName = whichGame(league: league);
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTimeEastern);
+    final formattedLeague = whichGame(league: league);
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/$newGameName/scores/json/GamesByDate/$formattedDate',
+      'https://fly.sportsdata.io/v3/$formattedLeague/scores/json/GamesByDate/$formattedDate',
       options: Options(
         headers: {
           'Ocp-Apim-Subscription-Key': whichKey(league: league),
@@ -36,9 +36,7 @@ class SportsDataAPI extends SportsProvider {
             (json) => Game.fromMap(json),
           )
           .toList();
-    } else {
-      throw FetchGameListByLeagueFailure();
-    }
+    } else {}
   }
 
   // ignore: missing_return

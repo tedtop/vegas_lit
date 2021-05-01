@@ -31,16 +31,12 @@ class UserRepository {
 
   Future<void> signOutUser() => _authenticationProvider.signOutUser();
 
-  Future<User> getCurrentUser() => _authenticationProvider.getCurrentUser();
+  Future<User> getCurrentUser() => _authenticationProvider.getCurrentUser;
 
   Stream<User> get getUser => _authenticationProvider.getUser;
 
-  Future<void> resetPasswordEmail({
-    @required String email,
-  }) =>
-      _authenticationProvider.resetPasswordEmail(
-        email: email,
-      );
+  Future<void> resetPasswordEmail({@required String email}) =>
+      _authenticationProvider.resetPasswordEmail(email: email);
 
   Future<void> saveUserDetails({
     @required Map userDataMap,
@@ -51,9 +47,7 @@ class UserRepository {
         uid: uid,
       );
 
-  Stream<UserData> fetchUserData({
-    @required String uid,
-  }) =>
+  Stream<UserData> fetchUserData({@required String uid}) =>
       _databaseProvider.fetchUserData(uid: uid);
 
   Stream<List<UserData>> fetchRankedUsers() =>

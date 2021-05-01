@@ -7,16 +7,11 @@ import 'models/bet.dart';
 import 'models/game.dart';
 
 abstract class AuthenticationProvider {
-  Future<void> signUp({
-    @required String email,
-    @required String password,
-  });
-  Future<void> logInWithEmailAndPassword({
-    @required String email,
-    @required String password,
-  });
+  Future<void> signUp({@required String email, @required String password});
+  Future<void> logInWithEmailAndPassword(
+      {@required String email, @required String password});
   Future<void> signOutUser();
-  Future<User> getCurrentUser();
+  Future<User> getCurrentUser;
   Future<void> resetPasswordEmail({@required String email});
   Stream<User> getUser;
 }
@@ -41,8 +36,8 @@ abstract class DatabaseProvider {
 }
 
 abstract class SportsProvider {
-  Future<List<Game>> fetchGameListByLeague({
+  Future<List<Game>> fetchGameCommon({
     @required String league,
-    @required DateTime dateTimeEastern,
+    @required DateTime dateTime,
   });
 }

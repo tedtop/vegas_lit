@@ -24,6 +24,11 @@ class FirebaseAuthentication extends AuthenticationProvider {
   }
 
   @override
+  Future<User> get getCurrentUser async {
+    return _firebaseAuth.currentUser;
+  }
+
+  @override
   Future<void> signUp({
     @required String email,
     @required String password,
@@ -53,11 +58,6 @@ class FirebaseAuthentication extends AuthenticationProvider {
     } on Exception {
       throw LogInWithEmailAndPasswordFailure();
     }
-  }
-
-  @override
-  Future<User> getCurrentUser() async {
-    return _firebaseAuth.currentUser;
   }
 
   @override
