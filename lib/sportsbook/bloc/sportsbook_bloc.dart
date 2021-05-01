@@ -15,14 +15,14 @@ part 'sportsbook_event.dart';
 part 'sportsbook_state.dart';
 
 class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
-  SportsbookBloc({@required SportsfeedRepository sportsfeedRepository})
+  SportsbookBloc({@required SportsRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           SportsbookInitial(),
         );
 
-  final SportsfeedRepository _sportsfeedRepository;
+  final SportsRepository _sportsfeedRepository;
 
   @override
   Stream<SportsbookState> mapEventToState(

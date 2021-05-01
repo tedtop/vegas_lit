@@ -13,7 +13,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       : assert(_authenticationRepository != null),
         super(const SignUpState());
 
-  final AuthenticationRepository _authenticationRepository;
+  final UserRepository _authenticationRepository;
 
   void emailChanged(String value) {
     final email = Email.dirty(value);

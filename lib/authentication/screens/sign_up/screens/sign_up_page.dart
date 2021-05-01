@@ -23,7 +23,7 @@ class SignUpPage extends StatelessWidget {
       body: SafeArea(
         child: BlocProvider<SignUpCubit>(
             create: (_) => SignUpCubit(
-                  context.read<AuthenticationRepository>(),
+                  context.read<UserRepository>(),
                 ),
             child: ScreenTypeLayout(
               desktop: Center(

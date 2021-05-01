@@ -33,7 +33,7 @@ class HomePage extends StatefulWidget {
           providers: [
             BlocProvider<SportsbookBloc>(
               create: (_) => SportsbookBloc(
-                sportsfeedRepository: context.read<SportsfeedRepository>(),
+                sportsfeedRepository: context.read<SportsRepository>(),
               )..add(
                   SportsbookOpen(
                     gameName: 'MLB',

@@ -11,20 +11,15 @@ class CloudFirestore extends DatabaseProvider {
 
   final FirebaseFirestore _firestoreData;
 
+  // Sign Up Page
   @override
-  Future<void> saveUserDetails({
-    Map userDataMap,
-    String uid,
-  }) async {
+  Future<void> saveUserDetails(
+      {@required Map userDataMap, @required String uid}) async {
     final currentUserReference = _firestoreData.collection('users').doc(uid);
-    await currentUserReference.set(
-      userDataMap,
-      SetOptions(
-        merge: true,
-      ),
-    );
+    await currentUserReference.set(userDataMap, SetOptions(merge: true));
   }
 
+  // Open Bets Page
   @override
   Stream<List<BetData>> fetchOpenBets({@required String uid}) {
     final openBetsData = _firestoreData
@@ -32,16 +27,12 @@ class CloudFirestore extends DatabaseProvider {
         .where('user', isEqualTo: uid)
         .where('isClosed', isEqualTo: false)
         .snapshots()
-        .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
-        );
+        .map((event) =>
+            event.docs.map((e) => BetData.fromFirestore(e)).toList());
     return openBetsData;
   }
 
+  // Bet History Page
   @override
   Stream<List<BetData>> fetchBetHistory({@required String uid}) {
     final betHistoryData = _firestoreData
@@ -49,46 +40,42 @@ class CloudFirestore extends DatabaseProvider {
         .where('user', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
         .snapshots()
-        .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
-        );
+        .map((event) =>
+            event.docs.map((e) => BetData.fromFirestore(e)).toList());
     return betHistoryData;
   }
 
+  // Bet Slip Page
   @override
-  Future<void> saveBets({
+  Future<void> saveBet({
     @required String uid,
-    @required Map openBetsDataMap,
+    @required Map betDataMap,
+    @required int cutBalance,
   }) async {
-    await _firestoreData.collection('bets').add(openBetsDataMap).then(
+    await _firestoreData.collection('bets').add(betDataMap).then(
       (value) async {
-        await value.set(
-          {
-            'id': value.id,
-            'user': uid,
-          },
-          SetOptions(merge: true),
-        );
-        return value.id;
+        await value.set({'id': value.id, 'user': uid}, SetOptions(merge: true));
       },
     );
+    await _firestoreData.collection('users').doc(uid).update({
+      'numberBets': FieldValue.increment(1),
+      'openBets': FieldValue.increment(1),
+      'accountBalance': FieldValue.increment(-cutBalance),
+    });
   }
 
+  // Profile Page
   @override
   Stream<UserData> fetchUserData({@required String uid}) {
-    final documentSnapshot =
-        _firestoreData.collection('users').doc(uid).snapshots().map(
-              (event) => UserData.fromFirestore(
-                event,
-              ),
-            );
+    final documentSnapshot = _firestoreData
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((event) => UserData.fromFirestore(event));
     return documentSnapshot;
   }
 
+  // Leaderboard Page
   @override
   Stream<List<UserData>> fetchRankedUsers() {
     final documentSnapshot = _firestoreData
@@ -98,22 +85,8 @@ class CloudFirestore extends DatabaseProvider {
         .limit(50)
         .snapshots();
     final userBetsList = documentSnapshot.map(
-      (event) => event.docs
-          .map(
-            (e) => UserData.fromFirestore(e),
-          )
-          .toList(),
-    );
+        (event) => event.docs.map((e) => UserData.fromFirestore(e)).toList());
 
     return userBetsList;
-  }
-
-  @override
-  Future<void> updateUserBets({String uid, int cutBalance}) async {
-    await _firestoreData.collection('users').doc(uid).update({
-      'numberBets': FieldValue.increment(1),
-      'openBets': FieldValue.increment(1),
-      'accountBalance': FieldValue.increment(-cutBalance),
-    });
   }
 }

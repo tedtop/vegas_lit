@@ -35,12 +35,9 @@ class OpenBetsCubit extends Cubit<OpenBetsState> {
     @required Map openBetsData,
     @required int betAmount,
   }) async {
-    await _betsRepository.saveBets(
+    await _betsRepository.saveBet(
       uid: currentUserId,
       openBetsDataMap: openBetsData,
-    );
-    await _betsRepository.updateUserBets(
-      uid: currentUserId,
       cutBalance: betAmount,
     );
   }

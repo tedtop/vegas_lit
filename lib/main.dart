@@ -23,8 +23,8 @@ Future<void> main() async {
   runApp(
     App(
       userRepository: UserRepository(),
-      sportsfeedRepository: SportsfeedRepository(),
-      authenticationRepository: AuthenticationRepository(),
+      sportsfeedRepository: SportsRepository(),
+      authenticationRepository: UserRepository(),
       betsRepository: BetsRepository(),
     ),
   );

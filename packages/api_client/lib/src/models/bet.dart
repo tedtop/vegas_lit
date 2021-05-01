@@ -30,7 +30,7 @@ class BetData extends Equatable {
       amountBet: data['amountBet'] as int,
       awayTeam: data['awayTeam'] as String,
       homeTeam: data['homeTeam'] as String,
-      winTeam: data['winTeam'] as String ?? 'home',
+      winTeam: data['winTeam'] as String,
       betType: data['betType'] as String,
       amountWin: data['amountWin'] as int,
       dateTime: data['dateTime'] as String,

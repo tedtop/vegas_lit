@@ -23,8 +23,8 @@ class App extends StatelessWidget {
         ),
         super(key: key);
 
-  final AuthenticationRepository authenticationRepository;
-  final SportsfeedRepository sportsfeedRepository;
+  final UserRepository authenticationRepository;
+  final SportsRepository sportsfeedRepository;
   final UserRepository userRepository;
   final BetsRepository betsRepository;
 

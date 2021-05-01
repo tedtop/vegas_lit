@@ -31,17 +31,16 @@ abstract class DatabaseProvider {
   Stream<List<BetData>> fetchBetHistory({@required String uid});
   Stream<UserData> fetchUserData({@required String uid});
 
-  Future<void> saveBets({
+  Future<void> saveBet({
     @required String uid,
-    @required Map openBetsDataMap,
+    @required Map betDataMap,
+    @required int cutBalance,
   });
 
   Stream<List<UserData>> fetchRankedUsers();
-
-  Future<void> updateUserBets({@required String uid, @required int cutBalance});
 }
 
-abstract class SportsDataProvider {
+abstract class SportsProvider {
   Future<List<Game>> fetchGameListByLeague({
     @required String league,
     @required DateTime dateTimeEastern,

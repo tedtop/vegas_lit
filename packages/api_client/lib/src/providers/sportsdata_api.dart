@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-class SportsDataAPI extends SportsDataProvider {
+class SportsDataAPI extends SportsProvider {
   SportsDataAPI({Dio dio}) : _dio = dio ?? Dio();
 
   final Dio _dio;

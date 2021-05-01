@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: BlocProvider<LoginCubit>(
           create: (_) => LoginCubit(
-            context.read<AuthenticationRepository>(),
+            context.read<UserRepository>(),
           ),
           child: LoginForm(),
         ),

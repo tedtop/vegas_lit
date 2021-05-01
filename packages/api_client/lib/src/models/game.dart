@@ -165,114 +165,89 @@ class Game {
   String toJson() => json.encode(toMap());
 
   factory Game.fromMap(Map<String, dynamic> json) => Game(
-        gameId: json["GameID"] == null ? null : json['GameID'],
+        gameId: json['GameID'],
         season: json['Season'],
-        seasonType: json['SeasonType'] == null ? null : json['SeasonType'],
-        status: json["Status"] == null ? null : json["Status"],
-        day: json["Day"] == null ? null : DateTime.parse(json["Day"]),
+        seasonType: json['SeasonType'],
+        status: json['Status'],
+        day: json['Day'] == null ? null : DateTime.parse(json['Day']),
         dateTime:
-            json["DateTime"] == null ? null : DateTime.parse(json["DateTime"]),
-        awayTeam: json["AwayTeam"] == null ? null : json["AwayTeam"],
-        homeTeam: json["HomeTeam"] == null ? null : json["HomeTeam"],
-        awayTeamId: json["AwayTeamID"] == null ? null : json["AwayTeamID"],
-        homeTeamId: json["HomeTeamID"] == null ? null : json["HomeTeamID"],
-        stadiumId: json["StadiumID"] == null ? null : json["StadiumID"],
-        channel: json["Channel"] == null ? null : json["Channel"],
-        attendance: json["Attendance"],
-        awayTeamScore: json["AwayTeamScore"],
-        homeTeamScore: json["HomeTeamScore"],
+            json['DateTime'] == null ? null : DateTime.parse(json['DateTime']),
+        awayTeam: json['AwayTeam'],
+        homeTeam: json['HomeTeam'],
+        awayTeamId: json['AwayTeamID'],
+        homeTeamId: json['HomeTeamID'],
+        stadiumId: json['StadiumID'],
+        channel: json['Channel'],
+        attendance: json['Attendance'],
+        awayTeamScore: json['AwayTeamScore'],
+        homeTeamScore: json['HomeTeamScore'],
         updated:
-            json["Updated"] == null ? null : DateTime.parse(json["Updated"]),
-        quarter: json["Quarter"],
-        timeRemainingMinutes: json["TimeRemainingMinutes"],
-        timeRemainingSeconds: json["TimeRemainingSeconds"],
+            json['Updated'] == null ? null : DateTime.parse(json['Updated']),
+        quarter: json['Quarter'],
+        timeRemainingMinutes: json['TimeRemainingMinutes'],
+        timeRemainingSeconds: json['TimeRemainingSeconds'],
         pointSpread:
-            json["PointSpread"] == null ? null : json["PointSpread"].toDouble(),
+            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
         overUnder:
-            json["OverUnder"] == null ? null : json["OverUnder"].toDouble(),
-        awayTeamMoneyLine:
-            json["AwayTeamMoneyLine"] == null ? 100 : json["AwayTeamMoneyLine"],
-        homeTeamMoneyLine: json["HomeTeamMoneyLine"] == null
-            ? -100
-            : json["HomeTeamMoneyLine"],
-        globalGameId:
-            json["GlobalGameID"] == null ? null : json["GlobalGameID"],
-        globalAwayTeamId:
-            json["GlobalAwayTeamID"] == null ? null : json["GlobalAwayTeamID"],
-        globalHomeTeamId:
-            json["GlobalHomeTeamID"] == null ? null : json["GlobalHomeTeamID"],
-        pointSpreadAwayTeamMoneyLine:
-            json["PointSpreadAwayTeamMoneyLine"] == null
-                ? null
-                : json["PointSpreadAwayTeamMoneyLine"],
-        pointSpreadHomeTeamMoneyLine:
-            json["PointSpreadHomeTeamMoneyLine"] == null
-                ? null
-                : json["PointSpreadHomeTeamMoneyLine"],
-        lastPlay: json["LastPlay"],
-        isClosed: json["IsClosed"] == null ? null : json["IsClosed"],
-        gameEndDateTime: json["GameEndDateTime"],
-        homeRotationNumber: json["HomeRotationNumber"] == null
+            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] ?? 100,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] ?? -100,
+        globalGameId: json['GlobalGameID'],
+        globalAwayTeamId: json['GlobalAwayTeamID'],
+        globalHomeTeamId: json['GlobalHomeTeamID'],
+        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
+        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
+        lastPlay: json['LastPlay'],
+        isClosed: json['IsClosed'],
+        gameEndDateTime: json['GameEndDateTime'],
+        homeRotationNumber: json['HomeRotationNumber'],
+        awayRotationNumber: json['AwayRotationNumber'],
+        neutralVenue: json['NeutralVenue'],
+        overPayout: json['OverPayout'],
+        underPayout: json['UnderPayout'],
+        quarters: json['Quarters'] == null
             ? null
-            : json["HomeRotationNumber"],
-        awayRotationNumber: json["AwayRotationNumber"] == null
-            ? null
-            : json["AwayRotationNumber"],
-        neutralVenue:
-            json["NeutralVenue"] == null ? null : json["NeutralVenue"],
-        overPayout: json["OverPayout"] == null ? null : json["OverPayout"],
-        underPayout: json["UnderPayout"] == null ? null : json["UnderPayout"],
-        quarters: json["Quarters"] == null
-            ? null
-            : List<dynamic>.from(json["Quarters"].map((x) => x)),
+            : List<dynamic>.from(json['Quarters'].map((x) => x)),
       );
 
   Map<String, dynamic> toMap() => {
-        "GameID": gameId == null ? null : gameId,
-        "Season": season == null ? null : season,
-        "SeasonType": seasonType == null ? null : seasonType,
-        "Status": status == null ? null : status,
-        "Day": day == null ? null : day.toIso8601String(),
-        "DateTime": dateTime == null ? null : dateTime.toIso8601String(),
-        "AwayTeam": awayTeam == null ? null : awayTeam,
-        "HomeTeam": homeTeam == null ? null : homeTeam,
-        "AwayTeamID": awayTeamId == null ? null : awayTeamId,
-        "HomeTeamID": homeTeamId == null ? null : homeTeamId,
-        "StadiumID": stadiumId == null ? null : stadiumId,
-        "Channel": channel == null ? null : channel,
-        "Attendance": attendance,
-        "AwayTeamScore": awayTeamScore,
-        "HomeTeamScore": homeTeamScore,
-        "Updated": updated == null ? null : updated.toIso8601String(),
-        "Quarter": quarter,
-        "TimeRemainingMinutes": timeRemainingMinutes,
-        "TimeRemainingSeconds": timeRemainingSeconds,
-        "PointSpread": pointSpread == null ? null : pointSpread,
-        "OverUnder": overUnder == null ? null : overUnder,
-        "AwayTeamMoneyLine":
-            awayTeamMoneyLine == null ? null : awayTeamMoneyLine,
-        "HomeTeamMoneyLine":
-            homeTeamMoneyLine == null ? null : homeTeamMoneyLine,
-        "GlobalGameID": globalGameId == null ? null : globalGameId,
-        "GlobalAwayTeamID": globalAwayTeamId == null ? null : globalAwayTeamId,
-        "GlobalHomeTeamID": globalHomeTeamId == null ? null : globalHomeTeamId,
-        "PointSpreadAwayTeamMoneyLine": pointSpreadAwayTeamMoneyLine == null
-            ? null
-            : pointSpreadAwayTeamMoneyLine,
-        "PointSpreadHomeTeamMoneyLine": pointSpreadHomeTeamMoneyLine == null
-            ? null
-            : pointSpreadHomeTeamMoneyLine,
-        "LastPlay": lastPlay,
-        "IsClosed": isClosed == null ? null : isClosed,
-        "GameEndDateTime": gameEndDateTime,
-        "HomeRotationNumber":
-            homeRotationNumber == null ? null : homeRotationNumber,
-        "AwayRotationNumber":
-            awayRotationNumber == null ? null : awayRotationNumber,
-        "NeutralVenue": neutralVenue == null ? null : neutralVenue,
-        "OverPayout": overPayout == null ? null : overPayout,
-        "UnderPayout": underPayout == null ? null : underPayout,
-        "Quarters": quarters == null
+        'GameID': gameId,
+        'Season': season,
+        'SeasonType': seasonType,
+        'Status': status,
+        'Day': day == null ? null : day.toIso8601String(),
+        'DateTime': dateTime == null ? null : dateTime.toIso8601String(),
+        'AwayTeam': awayTeam,
+        'HomeTeam': homeTeam,
+        'AwayTeamID': awayTeamId,
+        'HomeTeamID': homeTeamId,
+        'StadiumID': stadiumId,
+        'Channel': channel,
+        'Attendance': attendance,
+        'AwayTeamScore': awayTeamScore,
+        'HomeTeamScore': homeTeamScore,
+        'Updated': updated == null ? null : updated.toIso8601String(),
+        'Quarter': quarter,
+        'TimeRemainingMinutes': timeRemainingMinutes,
+        'TimeRemainingSeconds': timeRemainingSeconds,
+        'PointSpread': pointSpread,
+        'OverUnder': overUnder,
+        'AwayTeamMoneyLine': awayTeamMoneyLine,
+        'HomeTeamMoneyLine': homeTeamMoneyLine,
+        'GlobalGameID': globalGameId,
+        'GlobalAwayTeamID': globalAwayTeamId,
+        'GlobalHomeTeamID': globalHomeTeamId,
+        'PointSpreadAwayTeamMoneyLine': pointSpreadAwayTeamMoneyLine,
+        'PointSpreadHomeTeamMoneyLine': pointSpreadHomeTeamMoneyLine,
+        'LastPlay': lastPlay,
+        'IsClosed': isClosed,
+        'GameEndDateTime': gameEndDateTime,
+        'HomeRotationNumber': homeRotationNumber,
+        'AwayRotationNumber': awayRotationNumber,
+        'NeutralVenue': neutralVenue,
+        'OverPayout': overPayout,
+        'UnderPayout': underPayout,
+        'Quarters': quarters == null
             ? null
             : List<dynamic>.from(quarters.map((x) => x)),
       };

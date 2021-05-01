@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 
 import '../base_provider.dart';
 
-class SportsfeedRepository {
-  final SportsDataProvider _baseSportsDataProvider = SportsDataAPI();
+class SportsRepository {
+  final SportsProvider _baseSportsDataProvider = SportsDataAPI();
 
   Future<List<Game>> fetchGameListByLeague({
     @required String league,

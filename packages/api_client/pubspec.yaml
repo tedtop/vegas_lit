@@ -1,7 +1,7 @@
 name: api_client
 description: Dart package which manages the connection to the backend.
 version: 0.0.1
-author: null
+author: Ritik
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -14,13 +14,12 @@ dependencies:
   dio: ^4.0.0
   equatable: ^2.0.0
   firebase_auth: ^1.0.1
-  firebase_storage: ^8.0.1
   google_sign_in: ^4.5.9
-  meta: ^1.2.4
-  very_good_analysis: ^1.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  meta: ^1.2.4
+  very_good_analysis: ^1.0.4
 
 flutter: null
