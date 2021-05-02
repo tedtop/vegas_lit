@@ -386,37 +386,37 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     const league = 'NCAAF';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
-    List<Game> totalGames;
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // List<Game> totalGames;
 
-    final todayGames = await _sportsfeedRepository
-        .fetchNCAAF(
-          dateTime: estTimeZone,
-        )
-        .then(
-          (value) => value
-              .where((element) => element.status == 'Scheduled')
-              .where((element) => element.isClosed == false)
-              .toList(),
-        );
+    // final todayGames = await _sportsfeedRepository
+    //     .fetchNCAAF(
+    //       dateTime: estTimeZone,
+    //     )
+    //     .then(
+    //       (value) => value
+    //           .where((element) => element.status == 'Scheduled')
+    //           .where((element) => element.isClosed == false)
+    //           .toList(),
+    //     );
 
-    if (greeting(dateTime: estTimeZone) == 'evening') {
-      final tomorrowGames = await _sportsfeedRepository
-          .fetchNCAAF(
-            dateTime: tomorrowEstTimeZone,
-          )
-          .then(
-            (value) => value
-                .where((element) => element.status == 'Scheduled')
-                .where((element) => element.isClosed == false)
-                .toList(),
-          );
+    // if (greeting(dateTime: estTimeZone) == 'evening') {
+    //   final tomorrowGames = await _sportsfeedRepository
+    //       .fetchNCAAF(
+    //         dateTime: tomorrowEstTimeZone,
+    //       )
+    //       .then(
+    //         (value) => value
+    //             .where((element) => element.status == 'Scheduled')
+    //             .where((element) => element.isClosed == false)
+    //             .toList(),
+    //       );
 
-      totalGames = todayGames + tomorrowGames;
-    } else {
-      totalGames = todayGames;
-    }
+    //   totalGames = todayGames + tomorrowGames;
+    // } else {
+    //   totalGames = todayGames;
+    // }
 
     yield SportsbookOpened(
       localTimeZone: localTimeZone,
