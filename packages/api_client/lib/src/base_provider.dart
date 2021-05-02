@@ -36,8 +36,10 @@ abstract class DatabaseProvider {
 }
 
 abstract class SportsProvider {
-  Future<List<Game>> fetchGameCommon({
-    @required String league,
-    @required DateTime dateTime,
-  });
+  Future<List<Game>> fetchNFL({@required DateTime dateTime});
+  Future<List<Game>> fetchNBA({@required DateTime dateTime});
+  Future<List<Game>> fetchMLB({@required DateTime dateTime});
+  Future<List<Game>> fetchNHL({@required DateTime dateTime});
+  Future<List<Game>> fetchNCAAF({@required DateTime dateTime});
+  Future<List<Game>> fetchNCAAB({@required DateTime dateTime});
 }

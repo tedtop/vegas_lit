@@ -5,6 +5,6 @@ abstract class SportsbookEvent {
 }
 
 class SportsbookOpen extends SportsbookEvent {
-  SportsbookOpen({@required this.gameName});
-  final String gameName;
+  SportsbookOpen({@required this.league});
+  final String league;
 }

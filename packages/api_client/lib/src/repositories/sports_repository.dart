@@ -5,14 +5,23 @@ import 'package:meta/meta.dart';
 import '../base_provider.dart';
 
 class SportsRepository {
-  final SportsProvider _baseSportsDataProvider = SportsDataAPI();
+  final SportsProvider _sportsProvider = SportsAPI();
 
-  Future<List<Game>> fetchGameListByLeague({
-    @required String league,
-    @required DateTime dateTimeEastern,
-  }) =>
-      _baseSportsDataProvider.fetchGameListByLeague(
-        league: league,
-        dateTimeEastern: dateTimeEastern,
-      );
+  Future<List<Game>> fetchMLB({@required DateTime dateTime}) =>
+      _sportsProvider.fetchMLB(dateTime: dateTime);
+
+  Future<List<Game>> fetchNBA({@required DateTime dateTime}) =>
+      _sportsProvider.fetchNBA(dateTime: dateTime);
+
+  Future<List<Game>> fetchNCAAB({@required DateTime dateTime}) =>
+      _sportsProvider.fetchNCAAB(dateTime: dateTime);
+
+  Future<List<Game>> fetchNCAAF({@required DateTime dateTime}) =>
+      _sportsProvider.fetchNCAAF(dateTime: dateTime);
+
+  Future<List<Game>> fetchNFL({@required DateTime dateTime}) =>
+      _sportsProvider.fetchNFL(dateTime: dateTime);
+
+  Future<List<Game>> fetchNHL({@required DateTime dateTime}) =>
+      _sportsProvider.fetchNHL(dateTime: dateTime);
 }

@@ -32,8 +32,8 @@ class Sportsbook extends StatelessWidget {
         if (state is SportsbookOpened) {
           return SportsBookView(
             games: state.games,
-            gameName: state.gameName,
-            currentTimeZone: state.currentTimeZone,
+            league: state.league,
+            currentTimeZone: state.localTimeZone,
             estTimeZone: state.estTimeZone,
             gameNumberList: state.gameNumbers,
             parsedTeamData: state.parsedTeamData,
@@ -52,19 +52,19 @@ class SportsBookView extends StatelessWidget {
   const SportsBookView({
     Key key,
     @required this.games,
-    @required this.gameName,
+    @required this.league,
     @required this.estTimeZone,
     @required this.gameNumberList,
     @required this.currentTimeZone,
     @required this.parsedTeamData,
   })  : assert(games != null),
-        assert(gameName != null),
+        assert(league != null),
         assert(currentTimeZone != null),
         assert(gameNumberList != null),
         super(key: key);
 
   final List<Game> games;
-  final String gameName;
+  final String league;
   final DateTime estTimeZone;
   final dynamic parsedTeamData;
   final DateTime currentTimeZone;
@@ -75,7 +75,7 @@ class SportsBookView extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () async {
         context.read<SportsbookBloc>().add(
-              SportsbookOpen(gameName: gameName),
+              SportsbookOpen(league: league),
             );
         context.read<BetSlipCubit>()
           ..openBetSlip(
@@ -110,7 +110,7 @@ class SportsBookView extends StatelessWidget {
                       child: DropdownButton<String>(
                         dropdownColor: Palette.green,
                         isDense: true,
-                        value: '$gameName',
+                        value: '$league',
                         icon: const Icon(
                           Icons.arrow_circle_down,
                           color: Palette.cream,
@@ -124,9 +124,9 @@ class SportsBookView extends StatelessWidget {
                           fontSize: 18,
                         ),
                         onChanged: (String newValue) {
-                          if (newValue != gameName) {
+                          if (newValue != league) {
                             context.read<SportsbookBloc>().add(
-                                  SportsbookOpen(gameName: newValue),
+                                  SportsbookOpen(league: newValue),
                                 );
                             context.read<BetSlipCubit>().openBetSlip(
                               betSlipGames: [],
@@ -156,7 +156,7 @@ class SportsBookView extends StatelessWidget {
                             );
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: value == gameName
+                              child: value == league
                                   ? Text('$value ($length)',
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.nunito(
@@ -283,18 +283,18 @@ class SportsBookView extends StatelessWidget {
                   ),
                   mobile: MobileSportsbook(
                     games: games,
-                    gameName: gameName,
+                    gameName: league,
                     parsedTeamData: parsedTeamData,
                   ),
                   tablet: TabletSportsbook(
                     parsedTeamData: parsedTeamData,
                     games: games,
-                    gameName: gameName,
+                    gameName: league,
                   ),
                   desktop: WebSportsbook(
                     parsedTeamData: parsedTeamData,
                     games: games,
-                    gameName: gameName,
+                    gameName: league,
                   ),
                 );
               }

@@ -13,18 +13,15 @@ class SportsAPI extends SportsProvider {
   final Dio _dio;
 
   @override
-  Future<List<Game>> fetchGameCommon({
-    @required String league,
-    @required DateTime dateTime,
-  }) async {
-    final formattedLeague = whichGame(league: league);
+  Future<List<Game>> fetchMLB({@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.mlb;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/$formattedLeague/scores/json/GamesByDate/$formattedDate',
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
       options: Options(
         headers: {
-          'Ocp-Apim-Subscription-Key': whichKey(league: league),
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
         },
       ),
     );
@@ -36,48 +33,154 @@ class SportsAPI extends SportsProvider {
             (json) => Game.fromMap(json),
           )
           .toList();
-    } else {}
-  }
-
-  // ignore: missing_return
-  String whichGame({@required String league}) {
-    switch (league) {
-      case 'NBA':
-        return 'nba';
-        break;
-      case 'MLB':
-        return 'mlb';
-        break;
-      case 'NHL':
-        return 'nhl';
-        break;
-      case 'NCAAB':
-        return 'cbb';
-        break;
-      default:
-        break;
+    } else {
+      throw FetchFailureMLB();
     }
   }
 
-  // ignore: missing_return
-  String whichKey({@required String league}) {
-    switch (league) {
-      case 'NBA':
-        return ConstantSportsDataAPI.nba;
-        break;
-      case 'MLB':
-        return ConstantSportsDataAPI.mlb;
-        break;
-      case 'NHL':
-        return ConstantSportsDataAPI.nhl;
-        break;
-      case 'NCAAB':
-        return ConstantSportsDataAPI.ncaab;
-        break;
-      default:
-        break;
+  @override
+  Future<List<Game>> fetchNBA({@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nba;
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
+
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
+      options: Options(
+        headers: {
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+
+      return parsed
+          .map<Game>(
+            (json) => Game.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNBA();
+    }
+  }
+
+  @override
+  Future<List<Game>> fetchNCAAB({@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.ncaab;
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
+
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
+      options: Options(
+        headers: {
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(
+        json.encode(response.data),
+      );
+
+      return parsed
+          .map<Game>(
+            (json) => Game.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNCAAB();
+    }
+  }
+
+  @override
+  Future<List<Game>> fetchNCAAF({@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.ncaaf;
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
+
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
+      options: Options(
+        headers: {
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(
+        json.encode(response.data),
+      );
+
+      return parsed
+          .map<Game>(
+            (json) => Game.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNCAAB();
+    }
+  }
+
+  @override
+  Future<List<Game>> fetchNFL({@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nfl;
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
+
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
+      options: Options(
+        headers: {
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+
+      return parsed
+          .map<Game>(
+            (json) => Game.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNFL();
+    }
+  }
+
+  @override
+  Future<List<Game>> fetchNHL({@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nhl;
+    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
+
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
+      options: Options(
+        headers: {
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+
+      return parsed
+          .map<Game>(
+            (json) => Game.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNHL();
     }
   }
 }
 
-class FetchGameListByLeagueFailure implements Exception {}
+class FetchFailureNFL implements Exception {}
+
+class FetchFailureNBA implements Exception {}
+
+class FetchFailureMLB implements Exception {}
+
+class FetchFailureNHL implements Exception {}
+
+class FetchFailureNCAAF implements Exception {}
+
+class FetchFailureNCAAB implements Exception {}

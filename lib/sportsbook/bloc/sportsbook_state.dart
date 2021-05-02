@@ -9,17 +9,17 @@ class SportsbookInitial extends SportsbookState {}
 class SportsbookOpened extends SportsbookState {
   SportsbookOpened({
     @required this.games,
-    @required this.gameName,
+    @required this.league,
     @required this.gameNumbers,
     @required this.parsedTeamData,
     @required this.estTimeZone,
-    @required this.currentTimeZone,
+    @required this.localTimeZone,
   });
 
   final List<Game> games;
-  final String gameName;
+  final String league;
   final Map gameNumbers;
   final dynamic parsedTeamData;
   final DateTime estTimeZone;
-  final DateTime currentTimeZone;
+  final DateTime localTimeZone;
 }
