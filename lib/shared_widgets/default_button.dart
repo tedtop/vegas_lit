@@ -37,7 +37,7 @@ class DefaultButton extends StatelessWidget {
               textStyle: MaterialStateProperty.all(
                 const TextStyle(color: Palette.cream),
               ),
-              foregroundColor: MaterialStateProperty.all(color),
+              backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
           child: Text(
             text,

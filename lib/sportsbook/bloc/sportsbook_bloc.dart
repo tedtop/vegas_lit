@@ -69,22 +69,22 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
     switch (event.league) {
       case 'NFL':
-        _mapGameNFL(gameNumberMap: gameNumberMap);
+        yield* _mapGameNFL(gameNumberMap: gameNumberMap);
         break;
       case 'NBA':
-        _mapGameNBA(gameNumberMap: gameNumberMap);
+        yield* _mapGameNBA(gameNumberMap: gameNumberMap);
         break;
       case 'MLB':
-        _mapGameMLB(gameNumberMap: gameNumberMap);
+        yield* _mapGameMLB(gameNumberMap: gameNumberMap);
         break;
       case 'NHL':
-        _mapGameNHL(gameNumberMap: gameNumberMap);
+        yield* _mapGameNHL(gameNumberMap: gameNumberMap);
         break;
       case 'NCAAF':
-        _mapGameNCAAF(gameNumberMap: gameNumberMap);
+        yield* _mapGameNCAAF(gameNumberMap: gameNumberMap);
         break;
       case 'NCAAB':
-        _mapGameNCAAB(gameNumberMap: gameNumberMap);
+        yield* _mapGameNCAAB(gameNumberMap: gameNumberMap);
         break;
       default:
     }
@@ -239,44 +239,44 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     const league = 'NFL';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
-    List<Game> totalGames;
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // List<Game> totalGames;
 
-    final todayGames = await _sportsfeedRepository
-        .fetchNFL(
-          dateTime: estTimeZone,
-        )
-        .then(
-          (value) => value
-              .where((element) => element.status == 'Scheduled')
-              .where((element) => element.isClosed == false)
-              .toList(),
-        );
+    // final todayGames = await _sportsfeedRepository
+    //     .fetchNFL(
+    //       dateTime: estTimeZone,
+    //     )
+    //     .then(
+    //       (value) => value
+    //           .where((element) => element.status == 'Scheduled')
+    //           .where((element) => element.isClosed == false)
+    //           .toList(),
+    //     );
 
-    if (greeting(dateTime: estTimeZone) == 'evening') {
-      final tomorrowGames = await _sportsfeedRepository
-          .fetchNFL(
-            dateTime: tomorrowEstTimeZone,
-          )
-          .then(
-            (value) => value
-                .where((element) => element.status == 'Scheduled')
-                .where((element) => element.isClosed == false)
-                .toList(),
-          );
+    // if (greeting(dateTime: estTimeZone) == 'evening') {
+    //   final tomorrowGames = await _sportsfeedRepository
+    //       .fetchNFL(
+    //         dateTime: tomorrowEstTimeZone,
+    //       )
+    //       .then(
+    //         (value) => value
+    //             .where((element) => element.status == 'Scheduled')
+    //             .where((element) => element.isClosed == false)
+    //             .toList(),
+    //       );
 
-      totalGames = todayGames + tomorrowGames;
-    } else {
-      totalGames = todayGames;
-    }
+    //   totalGames = todayGames + tomorrowGames;
+    // } else {
+    //   totalGames = todayGames;
+    // }
 
     yield SportsbookOpened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
-      games: totalGames,
+      games: [],
       league: league,
-      parsedTeamData: await getParsedTeamData(league: league),
+      parsedTeamData: await getParsedTeamData(league: 'MLB'),
       gameNumbers: gameNumberMap,
     );
   }
@@ -421,9 +421,9 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     yield SportsbookOpened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
-      games: totalGames,
+      games: [],
       league: league,
-      parsedTeamData: await getParsedTeamData(league: league),
+      parsedTeamData: await getParsedTeamData(league: 'MLB'),
       gameNumbers: gameNumberMap,
     );
   }

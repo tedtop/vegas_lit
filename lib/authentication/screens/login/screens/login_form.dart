@@ -287,7 +287,7 @@ class __ResetPageState extends State<_ResetPage> {
               ),
             ),
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Palette.green),
+              backgroundColor: MaterialStateProperty.all(Palette.green),
             ),
             onPressed: () async {
               if (email != null) {

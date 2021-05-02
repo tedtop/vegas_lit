@@ -89,7 +89,7 @@ class BetButtonUnclicked extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
-            foregroundColor: MaterialStateProperty.all(Palette.darkGrey),
+            backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
           child: Text(
             betButtonState.text ?? '100',
@@ -137,7 +137,7 @@ class BetButtonClicked extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
-            foregroundColor: MaterialStateProperty.all(Palette.green),
+            backgroundColor: MaterialStateProperty.all(Palette.green),
           ),
           child: Text(
             betButtonState.text ?? '100',
@@ -177,7 +177,7 @@ class BetButtonDone extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
-            foregroundColor: MaterialStateProperty.all(Palette.darkGrey),
+            backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
           child: Text(
             'BET PLACED',

@@ -41,6 +41,20 @@ class MatchupCard extends StatelessWidget {
       builder: (context, state) {
         if (state is MatchupCardOpened) {
           final gameData = state.game;
+          final isPointSpreadNegative = state.game.pointSpread == null
+              ? true
+              : state.game.pointSpread.isNegative;
+          String awayTeamPointSpread;
+          String homeTeamPointSpread;
+          if (state.game.pointSpread != null) {
+            awayTeamPointSpread = isPointSpreadNegative
+                ? '-${state.game.pointSpread.abs()}'
+                : '+${state.game.pointSpread.abs()}';
+            homeTeamPointSpread = isPointSpreadNegative
+                ? '+${state.game.pointSpread.abs()}'
+                : '-${state.game.pointSpread.abs()}';
+          }
+
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             child: FittedBox(
@@ -135,7 +149,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '${gameData.pointSpread}     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine)}',
+                                                    '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine)}',
                                               ),
                                         gameData.overPayout == null
                                             ? Container()
@@ -243,7 +257,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '${gameData.pointSpread}     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine)}',
+                                                    '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine)}',
                                               ),
                                         gameData.underPayout == null
                                             ? Container()
