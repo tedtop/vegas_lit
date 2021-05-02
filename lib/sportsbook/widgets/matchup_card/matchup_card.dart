@@ -48,11 +48,11 @@ class MatchupCard extends StatelessWidget {
           String homeTeamPointSpread;
           if (state.game.pointSpread != null) {
             awayTeamPointSpread = isPointSpreadNegative
-                ? '-${state.game.pointSpread.abs()}'
-                : '+${state.game.pointSpread.abs()}';
-            homeTeamPointSpread = isPointSpreadNegative
                 ? '+${state.game.pointSpread.abs()}'
                 : '-${state.game.pointSpread.abs()}';
+            homeTeamPointSpread = isPointSpreadNegative
+                ? '-${state.game.pointSpread.abs()}'
+                : '+${state.game.pointSpread.abs()}';
           }
 
           return Padding(
