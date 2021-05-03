@@ -27,7 +27,9 @@ export const resolveBets = functions.pubsub
           const gameId = data.gameID;
           const documentId = data.id;
           const uid = data.user;
+          const betType = data.betType;
           const winTeam = data.winTeam;
+          // const spread = data.spread;
           const amountBet = data.amountBet;
           const amountWin = data.amountWin;
           const totalWinAmount = amountWin + amountBet;
@@ -58,8 +60,17 @@ export const resolveBets = functions.pubsub
               console.log(`${isClosed},${homeTeamScore}, ${awayTeamScore}`);
               if (isClosed != isClosedFirestore) {
                 if (homeTeamScore != null && awayTeamScore != null) {
-                  const finalWinTeam =
-                    homeTeamScore > awayTeamScore ? "home" : "away";
+                  const spread =
+                    betType == "POINT SPREAD"
+                      ? specificGame.PointSpread
+                      : specificGame.OverUnder;
+                  const finalWinTeam = whichTeamWin(
+                    homeTeamScore,
+                    awayTeamScore,
+                    betType,
+                    spread,
+                    winTeam
+                  );
                   const isWin = winTeam == finalWinTeam;
 
                   await app
@@ -122,6 +133,53 @@ export const resolveBets = functions.pubsub
       });
 
     return null;
+
+    function whichTeamWin(
+      homeTeamScore: number,
+      awayTeamScore: number,
+      betType: string,
+      spread: any,
+      winTeam: string
+    ): string {
+      if (betType == "MONEYLINE") {
+        return homeTeamScore > awayTeamScore ? "home" : "away";
+      }
+      if (betType == "POINT SPREAD") {
+        const finalWinTeam = homeTeamScore > awayTeamScore ? "home" : "away";
+        const scoreDifference = homeTeamScore - awayTeamScore;
+        if (spread >= 0) {
+          // Positive Value
+          // Underdog Betting Team
+          if (winTeam != finalWinTeam) {
+            if (scoreDifference <= Math.abs(spread)) {
+              return winTeam == "home" ? "home" : "away";
+            } else {
+              return winTeam == "home" ? "away" : "home";
+            }
+          } else {
+            return winTeam == "home" ? "away" : "home";
+          }
+        } else {
+          // Negative Value
+          // Favorite Betting Team
+          if (winTeam == finalWinTeam) {
+            if (scoreDifference >= Math.abs(spread)) {
+              return winTeam == "home" ? "home" : "away";
+            } else {
+              return winTeam == "home" ? "away" : "home";
+            }
+          } else {
+            return winTeam == "home" ? "away" : "home";
+          }
+        }
+      }
+      if (betType == "TOTAL SPREAD") {
+        const totalScore = homeTeamScore + awayTeamScore;
+        return totalScore <= spread ? "home" : "away";
+      } else {
+        return "";
+      }
+    }
 
     function formatTime(dateTime: string): string {
       const d = new Date(dateTime);
