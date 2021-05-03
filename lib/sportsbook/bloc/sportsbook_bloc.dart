@@ -29,6 +29,12 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   ) async* {
     if (event is SportsbookOpen) {
       yield* _mapSportsbookOpenToState(event);
+    } else if (event is GolfTournamentsOpen) {
+      yield* _mapGolfTournamentsOpenToState(event);
+    } else if (event is GolfDetailOpen) {
+      yield* _mapGolfDetailOpenToState(event);
+    } else if (event is GolfPlayerOpen) {
+      yield* _mapGolfPlayerOpenToState(event);
     }
   }
 
@@ -88,6 +94,37 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         break;
       default:
     }
+  }
+
+  Stream<SportsbookState> _mapGolfTournamentsOpenToState(
+      GolfTournamentsOpen event) async* {
+    yield (SportsbookInitial());
+    final estTimeZone = fetchTimeEST();
+    List<GolfTournament> tournaments;
+    tournaments = await _sportsfeedRepository.fetchGolfTournaments(
+        dateTimeEastern: estTimeZone);
+    yield GolfTournamentsOpened(tournaments: tournaments);
+  }
+
+  Stream<SportsbookState> _mapGolfDetailOpenToState(
+      GolfDetailOpen event) async* {
+    yield (SportsbookInitial());
+    GolfLeaderboard leaderboard;
+    leaderboard = await _sportsfeedRepository.fetchGolfLeaderboard(
+        tournamentID: event.tournamentID);
+    yield GolfDetailOpened(
+        tournament: leaderboard.tournament, players: leaderboard.players);
+  }
+
+  Stream<SportsbookState> _mapGolfPlayerOpenToState(
+      GolfPlayerOpen event) async* {
+    yield (SportsbookInitial());
+    yield GolfPlayerOpened(
+        player: event.player,
+        tournamentID: event.tournament.tournamentId,
+        name: event.tournament.name,
+        venue: event.tournament.venue,
+        location: event.tournament.location);
   }
 
   Future<int> mapGameLength(

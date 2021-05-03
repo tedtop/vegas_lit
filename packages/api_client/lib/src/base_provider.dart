@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'models/bet.dart';
 import 'models/game.dart';
+import 'models/golf.dart';
 
 abstract class AuthenticationProvider {
   Future<void> signUp({@required String email, @required String password});
@@ -46,4 +47,7 @@ abstract class SportsProvider {
   Future<List<Game>> fetchNHL({@required DateTime dateTime});
   Future<List<Game>> fetchNCAAF({@required DateTime dateTime});
   Future<List<Game>> fetchNCAAB({@required DateTime dateTime});
+  Future<List<GolfTournament>> fetchGolfTournaments(
+      {@required DateTime dateTimeEastern});
+  Future<GolfLeaderboard> fetchGolfLeaderboard({@required int tournamentID});
 }

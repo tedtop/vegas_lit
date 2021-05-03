@@ -14,7 +14,11 @@ import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/tabletsportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/websportsbook.dart';
+
 import '../bloc/sportsbook_bloc.dart';
+import 'golf_screens/golf_matchup.dart';
+import 'golf_screens/golf_tour.dart';
+import 'golf_screens/golf_tour_detail.dart';
 
 class Sportsbook extends StatelessWidget {
   @override
@@ -37,6 +41,23 @@ class Sportsbook extends StatelessWidget {
             estTimeZone: state.estTimeZone,
             gameNumberList: state.gameNumbers,
             parsedTeamData: state.parsedTeamData,
+          );
+        } else if (state is GolfTournamentsOpened) {
+          return GolfTournamentsView(
+            tournaments: state.tournaments,
+          );
+        } else if (state is GolfDetailOpened) {
+          return GolfDetailView(
+            tournament: state.tournament,
+            players: state.players,
+          );
+        } else if (state is GolfPlayerOpened) {
+          return GolfMatchup(
+            player: state.player,
+            tournamentID: state.tournamentID,
+            name: state.name,
+            venue: state.venue,
+            location: state.location,
           );
         } else {
           return const Center(
@@ -125,12 +146,21 @@ class SportsBookView extends StatelessWidget {
                         ),
                         onChanged: (String newValue) {
                           if (newValue != league) {
-                            context.read<SportsbookBloc>().add(
-                                  SportsbookOpen(league: newValue),
-                                );
-                            context.read<BetSlipCubit>().openBetSlip(
-                              betSlipGames: [],
-                            );
+                            if (newValue == 'GOLF') {
+                              context.read<SportsbookBloc>().add(
+                                    GolfTournamentsOpen(),
+                                  );
+                              context.read<BetSlipCubit>().openBetSlip(
+                                betSlipGames: [],
+                              );
+                            } else {
+                              context.read<SportsbookBloc>().add(
+                                    SportsbookOpen(league: newValue),
+                                  );
+                              context.read<BetSlipCubit>().openBetSlip(
+                                betSlipGames: [],
+                              );
+                            }
                           }
                         },
                         items: <String>[
@@ -139,7 +169,8 @@ class SportsBookView extends StatelessWidget {
                           'MLB',
                           'NHL',
                           'NCAAF',
-                          'NCAAB'
+                          'NCAAB',
+                          'GOLF'
                         ].map<DropdownMenuItem<String>>(
                           (String value) {
                             String length;
