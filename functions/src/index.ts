@@ -8,6 +8,9 @@ var app = admin.initializeApp();
 export const resolveBets = functions.pubsub
   .schedule("every 4 hours")
   .onRun(async (context) => {
+    let valueUpdateNumber = 0;
+    let alreadyUpdateNumber = 0;
+
     console.log("This will be run every 4 hours!");
     await app
       .firestore()
@@ -57,7 +60,7 @@ export const resolveBets = functions.pubsub
                 league == "mlb"
                   ? specificGame.AwayTeamRuns
                   : specificGame.AwayTeamScore;
-              console.log(`${isClosed},${homeTeamScore}, ${awayTeamScore}`);
+
               if (isClosed != isClosedFirestore) {
                 if (homeTeamScore != null && awayTeamScore != null) {
                   const spread =
@@ -102,20 +105,16 @@ export const resolveBets = functions.pubsub
                             ? admin.firestore.FieldValue.increment(1)
                             : admin.firestore.FieldValue.increment(0),
                         });
+                      valueUpdateNumber++;
                     });
                 }
               } else {
-                functions.logger.log("Value Already Updated");
+                alreadyUpdateNumber++;
               }
             })
             .catch(function (error: any) {
               console.log(error);
               return null;
-            })
-            .then(function () {
-              functions.logger.info(`${league} API Call Completed!`, {
-                structuredData: true,
-              });
             });
 
           promises.push(promise);
@@ -128,6 +127,8 @@ export const resolveBets = functions.pubsub
         return null;
       })
       .then(function () {
+        console.log(`${valueUpdateNumber} value updated!`);
+        console.log(`${alreadyUpdateNumber} value already updated!`);
         functions.logger.info("Function Completed!", { structuredData: true });
         return null;
       });
