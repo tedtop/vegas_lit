@@ -22,6 +22,7 @@ class BetButton extends StatelessWidget {
     @required String league,
     @required Team homeTeamData,
     @required int gameId,
+    @required int spread,
     @required BetButtonWin winTeam,
     @required bool isClosed,
   }) {
@@ -33,6 +34,7 @@ class BetButton extends StatelessWidget {
               gameId: gameId,
               isClosed: isClosed,
               text: text,
+              spread: spread,
               winTeam: winTeam,
               game: game,
               mainOdds: mainOdds,

@@ -275,6 +275,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                               ? 'home'
                                               : 'away',
                                           league: betButtonState.league,
+                                          spread: betButtonState.spread,
                                           awayTeam: betButtonState
                                               .awayTeamData.name
                                               .toUpperCase(),
@@ -498,7 +499,6 @@ class _BetSlipCardState extends State<BetSlipCard> {
     if (betType == Bet.ml) {
       return 'MONEYLINE';
     }
-
     if (betType == Bet.pts) {
       return 'POINT SPREAD';
     }

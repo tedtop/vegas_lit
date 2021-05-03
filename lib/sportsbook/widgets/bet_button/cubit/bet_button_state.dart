@@ -15,6 +15,7 @@ class BetButtonState extends Equatable {
     this.isClosed,
     this.gameId,
     this.awayTeamData,
+    this.spread,
     this.league,
     this.homeTeamData,
     this.winTeam,
@@ -27,6 +28,7 @@ class BetButtonState extends Equatable {
       @required Game game,
       @required String uniqueId,
       @required String league,
+      @required int spread,
       @required Team awayTeamData,
       @required Team homeTeamData,
       @required bool isClosed,
@@ -43,6 +45,7 @@ class BetButtonState extends Equatable {
           homeTeamData: homeTeamData,
           gameId: gameId,
           isClosed: isClosed,
+          spread: spread,
           awayTeamData: awayTeamData,
           mainOdds: mainOdds,
           league: league,
@@ -56,6 +59,7 @@ class BetButtonState extends Equatable {
       @required String mainOdds,
       @required bool isClosed,
       @required int gameId,
+      @required int spread,
       @required BetButtonWin winTeam,
       @required Team awayTeamData,
       @required String league,
@@ -68,6 +72,7 @@ class BetButtonState extends Equatable {
             uniqueId: uniqueId,
             mainOdds: mainOdds,
             homeTeamData: homeTeamData,
+            spread: spread,
             league: league,
             gameId: gameId,
             winTeam: winTeam,
@@ -83,6 +88,7 @@ class BetButtonState extends Equatable {
       @required bool isClosed,
       @required int gameId,
       @required Team homeTeamData,
+      @required int spread,
       @required String league,
       @required BetButtonWin winTeam,
       @required String uniqueId,
@@ -95,6 +101,7 @@ class BetButtonState extends Equatable {
           uniqueId: uniqueId,
           winTeam: winTeam,
           gameId: gameId,
+          spread: spread,
           isClosed: isClosed,
           homeTeamData: homeTeamData,
           awayTeamData: awayTeamData,
@@ -110,6 +117,7 @@ class BetButtonState extends Equatable {
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
+  final int spread;
   final Team awayTeamData;
   final String league;
   final int gameId;
@@ -125,6 +133,7 @@ class BetButtonState extends Equatable {
         gameId,
         isClosed,
         winTeam,
+        spread,
         game,
         uniqueId,
         betType,
