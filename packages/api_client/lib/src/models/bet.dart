@@ -34,7 +34,7 @@ class BetData extends Equatable {
       winTeam: data['winTeam'] as String,
       betType: data['betType'] as String,
       amountWin: data['amountWin'] as int,
-      spread: data['spread'] as int,
+      spread: data['spread'] as double,
       dateTime: data['dateTime'] as String,
       odd: data['odd'] as int,
       isClosed: data['isClosed'] as bool,
@@ -54,7 +54,7 @@ class BetData extends Equatable {
   final int gameID;
   final bool isClosed;
   final int awayTeamScore;
-  final int spread;
+  final double spread;
   final int homeTeamScore;
   final String finalWinTeam;
   final String winTeam;

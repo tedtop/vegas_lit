@@ -22,15 +22,16 @@ class BetButton extends StatelessWidget {
     @required String league,
     @required Team homeTeamData,
     @required int gameId,
-    @required int spread,
+    @required double spread,
     @required BetButtonWin winTeam,
     @required bool isClosed,
   }) {
     return Builder(
       builder: (context) {
         return BlocProvider(
-          create: (_) => BetButtonCubit()
-            ..openBetButton(
+          create: (_) => BetButtonCubit(
+            betsRepository: context.read<BetsRepository>(),
+          )..openBetButton(
               gameId: gameId,
               isClosed: isClosed,
               text: text,
@@ -51,24 +52,45 @@ class BetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final betButtonState = context.watch<BetButtonCubit>().state;
-        switch (betButtonState.status) {
-          case BetButtonStatus.unclicked:
-            return BetButtonUnclicked();
-            break;
-          case BetButtonStatus.clicked:
-            return BetButtonClicked();
-            break;
-          case BetButtonStatus.done:
-            return BetButtonDone();
+    return BlocListener<BetButtonCubit, BetButtonState>(
+      listener: (context, state) {
+        switch (state.status) {
+          case BetButtonStatus.placed:
+            return ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Bet Already Placed',
+                  ),
+                ),
+              );
             break;
           default:
-            return const CircularProgressIndicator();
-            break;
         }
       },
+      child: Builder(
+        builder: (context) {
+          final betButtonState = context.watch<BetButtonCubit>().state;
+          switch (betButtonState.status) {
+            case BetButtonStatus.unclicked:
+              return BetButtonUnclicked();
+              break;
+            case BetButtonStatus.clicked:
+              return BetButtonClicked();
+              break;
+            case BetButtonStatus.done:
+              return BetButtonDone();
+              break;
+            case BetButtonStatus.placed:
+              return BetButtonDone();
+              break;
+            default:
+              return const CircularProgressIndicator();
+              break;
+          }
+        },
+      ),
     );
   }
 }
@@ -101,19 +123,22 @@ class BetButtonUnclicked extends StatelessWidget {
               color: Palette.cream,
             ),
           ),
-          onPressed: () {
-            context.read<BetButtonCubit>().clickBetButton();
-            context.read<BetSlipCubit>().addBetSlip(
-                  odds: betButtonState.mainOdds,
-                  betSlipCardData: BetSlipCardData(
-                    league: betButtonState.league,
-                    id: betButtonState.uniqueId,
-                    betType: betButtonState.betType,
-                    betAmount: 100,
-                    betButtonCubit: context.read<BetButtonCubit>(),
-                    toWinAmount: 0,
-                  ),
-                );
+          onPressed: () async {
+            final isBetExist =
+                await context.read<BetButtonCubit>().clickBetButton();
+            isBetExist
+                ? null
+                : context.read<BetSlipCubit>().addBetSlip(
+                      odds: betButtonState.mainOdds,
+                      betSlipCardData: BetSlipCardData(
+                        league: betButtonState.league,
+                        id: betButtonState.uniqueId,
+                        betType: betButtonState.betType,
+                        betAmount: 100,
+                        betButtonCubit: context.read<BetButtonCubit>(),
+                        toWinAmount: 0,
+                      ),
+                    );
           },
         ),
       ),

@@ -33,6 +33,10 @@ abstract class DatabaseProvider {
   });
 
   Stream<List<UserData>> fetchRankedUsers();
+
+  Future<bool> isBetExist({
+    @required String betId,
+  });
 }
 
 abstract class SportsProvider {

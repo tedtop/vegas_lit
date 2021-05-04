@@ -22,4 +22,7 @@ class BetsRepository {
         betDataMap: openBetsDataMap,
         cutBalance: cutBalance,
       );
+
+  Future<bool> isBetExist({@required String betId}) =>
+      _databaseProvider.isBetExist(betId: betId);
 }

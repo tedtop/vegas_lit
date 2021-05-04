@@ -52,9 +52,10 @@ class CloudFirestore extends DatabaseProvider {
     @required Map betDataMap,
     @required int cutBalance,
   }) async {
-    await _firestoreData.collection('bets').add(betDataMap).then(
+    final docRef = _firestoreData.collection('bets').doc(betDataMap['id']);
+    await docRef.set(betDataMap, SetOptions(merge: true)).then(
       (value) async {
-        await value.set({'id': value.id, 'user': uid}, SetOptions(merge: true));
+        await docRef.set({'user': uid}, SetOptions(merge: true));
       },
     );
     await _firestoreData.collection('users').doc(uid).update({
@@ -88,5 +89,14 @@ class CloudFirestore extends DatabaseProvider {
         (event) => event.docs.map((e) => UserData.fromFirestore(e)).toList());
 
     return userBetsList;
+  }
+
+  @override
+  Future<bool> isBetExist({String betId}) async {
+    final isBetExist =
+        await _firestoreData.collection('bets').doc(betId).get().then(
+              (value) => value.exists,
+            );
+    return isBetExist;
   }
 }

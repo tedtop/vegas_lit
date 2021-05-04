@@ -1,6 +1,6 @@
 part of 'bet_button_cubit.dart';
 
-enum BetButtonStatus { done, error, loading, clicked, unclicked }
+enum BetButtonStatus { done, error, loading, clicked, unclicked, placed }
 
 enum BetButtonWin { away, home }
 
@@ -28,7 +28,7 @@ class BetButtonState extends Equatable {
       @required Game game,
       @required String uniqueId,
       @required String league,
-      @required int spread,
+      @required double spread,
       @required Team awayTeamData,
       @required Team homeTeamData,
       @required bool isClosed,
@@ -59,7 +59,7 @@ class BetButtonState extends Equatable {
       @required String mainOdds,
       @required bool isClosed,
       @required int gameId,
-      @required int spread,
+      @required double spread,
       @required BetButtonWin winTeam,
       @required Team awayTeamData,
       @required String league,
@@ -80,21 +80,50 @@ class BetButtonState extends Equatable {
             awayTeamData: awayTeamData,
             betType: betType);
 
-  const BetButtonState.done(
-      {@required String text,
-      @required Game game,
-      @required String mainOdds,
-      @required Team awayTeamData,
-      @required bool isClosed,
-      @required int gameId,
-      @required Team homeTeamData,
-      @required int spread,
-      @required String league,
-      @required BetButtonWin winTeam,
-      @required String uniqueId,
-      @required Bet betType})
-      : this._(
+  const BetButtonState.done({
+    @required String text,
+    @required Game game,
+    @required String mainOdds,
+    @required Team awayTeamData,
+    @required bool isClosed,
+    @required int gameId,
+    @required Team homeTeamData,
+    @required double spread,
+    @required String league,
+    @required BetButtonWin winTeam,
+    @required String uniqueId,
+    @required Bet betType,
+  }) : this._(
           status: BetButtonStatus.done,
+          text: text,
+          game: game,
+          league: league,
+          uniqueId: uniqueId,
+          winTeam: winTeam,
+          gameId: gameId,
+          spread: spread,
+          isClosed: isClosed,
+          homeTeamData: homeTeamData,
+          awayTeamData: awayTeamData,
+          mainOdds: mainOdds,
+          betType: betType,
+        );
+
+  const BetButtonState.placed({
+    @required String text,
+    @required Game game,
+    @required String mainOdds,
+    @required Team awayTeamData,
+    @required bool isClosed,
+    @required int gameId,
+    @required Team homeTeamData,
+    @required double spread,
+    @required String league,
+    @required BetButtonWin winTeam,
+    @required String uniqueId,
+    @required Bet betType,
+  }) : this._(
+          status: BetButtonStatus.placed,
           text: text,
           game: game,
           league: league,
@@ -117,7 +146,7 @@ class BetButtonState extends Equatable {
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
-  final int spread;
+  final double spread;
   final Team awayTeamData;
   final String league;
   final int gameId;
