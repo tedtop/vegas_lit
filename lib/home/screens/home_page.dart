@@ -1,4 +1,5 @@
 import 'package:api_client/api_client.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +20,11 @@ import '../../authentication/bloc/authentication_bloc.dart';
 import '../home.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage._({Key key}) : super(key: key);
+  const HomePage._({@required this.observer, Key key}) : super(key: key);
 
-  static Route route() {
+  final FirebaseAnalyticsObserver observer;
+
+  static Route route({@required FirebaseAnalyticsObserver observer}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'HomePage'),
       builder: (context) {
@@ -71,7 +74,9 @@ class HomePage extends StatefulWidget {
               )..openHome(uid: currentUserId),
             ),
           ],
-          child: const HomePage._(),
+          child: HomePage._(
+            observer: observer,
+          ),
         );
       },
     );
@@ -81,7 +86,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin, RouteAware {
   @override
   void initState() {
     super.initState();
@@ -92,33 +98,96 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  PageController pageController = PageController();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.observer.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void dispose() {
+    widget.observer.unsubscribe(this);
+    super.dispose();
+  }
+
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final pageIndex =
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
     final balanceAmount = context.select(
-        (HomeCubit homeCubit) => homeCubit.state.userData?.accountBalance);
-    final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      // backgroundColor: Palette.lightGrey,
-      appBar: kIsWeb
-          ? webViewAppBar(width, balanceAmount, pageIndex)
-          : mobileViewAppBar(balanceAmount),
-      drawer: kIsWeb && width > 870 ? null : HomeDrawer(),
-      body: IndexedStack(
-        index: pageIndex,
-        children: [
-          Sportsbook(),
-          BetSlip(),
-          Leaderboard.route(),
-          OpenBets.route(),
-          BetHistory.route(),
-        ],
-      ),
-      bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
+      (HomeCubit homeCubit) => homeCubit.state.userData == null
+          ? 0
+          : homeCubit.state.userData.accountBalance,
     );
+    final width = MediaQuery.of(context).size.width;
+
+    return BlocListener<HomeCubit, HomeState>(
+      listenWhen: (previous, current) =>
+          previous.pageIndex != current.pageIndex,
+      listener: (context, state) {
+        if (state.status == HomeStatus.changed) {
+          selectedIndex = state.pageIndex;
+
+          _sendCurrentTabToAnalytics();
+        }
+      },
+      child: Scaffold(
+        // backgroundColor: Palette.lightGrey,
+        appBar: kIsWeb
+            ? webViewAppBar(width, balanceAmount, pageIndex)
+            : mobileViewAppBar(balanceAmount),
+        drawer: kIsWeb && width > 870 ? null : HomeDrawer(),
+        body: IndexedStack(
+          index: pageIndex,
+          children: [
+            Sportsbook(),
+            BetSlip(),
+            Leaderboard.route(),
+            OpenBets.route(),
+            BetHistory.route(),
+          ],
+        ),
+        bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
+      ),
+    );
+  }
+
+  @override
+  void didPush() {
+    _sendCurrentTabToAnalytics();
+  }
+
+  @override
+  void didPopNext() {
+    _sendCurrentTabToAnalytics();
+  }
+
+  void _sendCurrentTabToAnalytics() {
+    widget.observer.analytics.setCurrentScreen(
+      screenName: 'HomePage/${whichIndexPage(selectedIndex)}',
+    );
+  }
+
+  String whichIndexPage(int pageIndex) {
+    switch (pageIndex) {
+      case 1:
+        return 'BetSlip';
+        break;
+      case 2:
+        return 'Leaderboard';
+        break;
+      case 3:
+        return 'OpenBets';
+        break;
+      case 4:
+        return 'BetHistory';
+        break;
+      default:
+        return 'Sportsbook';
+        break;
+    }
   }
 
   AppBar webViewAppBar(width, balanceAmount, pageIndex) {

@@ -18,6 +18,11 @@ Future<void> main() async {
       print('Launch screen stopped for 1 seconds');
     },
   );
+  // if (kDebugMode) {
+  //   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  // } else {
+  //   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // }
   EquatableConfig.stringify = kDebugMode;
   Bloc.observer = SimpleBlocObserver();
   runApp(
