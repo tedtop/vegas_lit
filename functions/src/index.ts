@@ -61,11 +61,16 @@ export const resolveBets = functions.pubsub
                   ? specificGame.AwayTeamRuns
                   : specificGame.AwayTeamScore;
 
+              const pointSpread = pointSpreadAssign(
+                specificGame.PointSpread,
+                winTeam
+              );
+
               if (isClosed != isClosedFirestore) {
                 if (homeTeamScore != null && awayTeamScore != null) {
                   const spread =
                     betType == "POINT SPREAD"
-                      ? specificGame.PointSpread
+                      ? pointSpread
                       : specificGame.OverUnder;
                   const finalWinTeam = whichTeamWin(
                     homeTeamScore,
@@ -134,6 +139,25 @@ export const resolveBets = functions.pubsub
       });
 
     return null;
+
+    function pointSpreadAssign(pointSpread: any, winTeam: string) {
+      if (pointSpread != null) {
+        const isPointSpreadNegative = pointSpread > 0 ? false : true;
+        if (winTeam == "home") {
+          const homeTeamPointSpread = isPointSpreadNegative
+            ? -Math.abs(pointSpread)
+            : Math.abs(pointSpread);
+          return homeTeamPointSpread;
+        } else {
+          const awayTeamPointSpread = isPointSpreadNegative
+            ? Math.abs(pointSpread)
+            : -Math.abs(pointSpread);
+          return awayTeamPointSpread;
+        }
+      } else {
+        return null;
+      }
+    }
 
     function whichTeamWin(
       homeTeamScore: number,
