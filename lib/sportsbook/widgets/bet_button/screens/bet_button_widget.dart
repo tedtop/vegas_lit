@@ -127,6 +127,7 @@ class BetButtonUnclicked extends StatelessWidget {
             final isBetExist =
                 await context.read<BetButtonCubit>().clickBetButton();
             isBetExist
+                // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
                       odds: betButtonState.mainOdds,

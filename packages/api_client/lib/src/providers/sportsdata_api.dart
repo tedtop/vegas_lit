@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:api_client/src/base_provider.dart';
 import 'package:api_client/src/config/api.dart';
 import 'package:api_client/src/models/game.dart';
 import 'package:api_client/src/models/golf.dart';
@@ -8,12 +7,11 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-class SportsAPI extends SportsProvider {
+class SportsAPI {
   SportsAPI({Dio dio}) : _dio = dio ?? Dio();
 
   final Dio _dio;
 
-  @override
   Future<List<Game>> fetchMLB({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -39,7 +37,6 @@ class SportsAPI extends SportsProvider {
     }
   }
 
-  @override
   Future<List<Game>> fetchNBA({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nba;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -65,7 +62,6 @@ class SportsAPI extends SportsProvider {
     }
   }
 
-  @override
   Future<List<Game>> fetchNCAAB({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -93,7 +89,6 @@ class SportsAPI extends SportsProvider {
     }
   }
 
-  @override
   Future<List<Game>> fetchNCAAF({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -121,7 +116,6 @@ class SportsAPI extends SportsProvider {
     }
   }
 
-  @override
   Future<List<Game>> fetchNFL({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -147,7 +141,6 @@ class SportsAPI extends SportsProvider {
     }
   }
 
-  @override
   Future<List<Game>> fetchNHL({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
