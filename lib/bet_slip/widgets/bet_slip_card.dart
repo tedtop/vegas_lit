@@ -256,7 +256,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                         duration: Duration(milliseconds: 1000),
                                         content: Text(
                                             // ignore: lines_longer_than_80_chars
-                                            'Your Balance is over! Restart the App.'),
+                                            "You're out of funds!"),
                                       ),
                                     );
                                 } else {

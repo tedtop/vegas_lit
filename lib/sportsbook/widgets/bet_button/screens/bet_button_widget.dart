@@ -61,7 +61,7 @@ class BetButton extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   content: Text(
-                    'Bet Already Placed',
+                    'Bet already placed!',
                   ),
                 ),
               );
