@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
@@ -18,7 +19,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
-          SportsbookInitial(),
+          const SportsbookState.initial(),
         );
 
   final SportsRepository _sportsfeedRepository;
@@ -30,11 +31,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     if (event is SportsbookOpen) {
       yield* _mapSportsbookOpenToState(event);
     }
+    if (event is SportsbookLeagueChange) {
+      yield* _mapSportsbookLeagueChangeToState(event);
+    }
   }
 
   Stream<SportsbookState> _mapSportsbookOpenToState(
       SportsbookOpen event) async* {
-    yield (SportsbookInitial());
+    yield const SportsbookState.initial();
     final list = <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB'];
 
     final gameNumberMap = <String, String>{};
@@ -85,6 +89,38 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         break;
       case 'NCAAB':
         yield* _mapGameNCAAB(gameNumberMap: gameNumberMap);
+        break;
+      default:
+    }
+  }
+
+  Stream<SportsbookState> _mapSportsbookLeagueChangeToState(
+      SportsbookLeagueChange event) async* {
+    yield SportsbookState.loading(
+      league: state.league,
+      gameNumbers: state.gameNumbers,
+      estTimeZone: state.estTimeZone,
+      localTimeZone: state.localTimeZone,
+    );
+
+    switch (event.league) {
+      case 'NFL':
+        yield* _mapGameNFL(gameNumberMap: state.gameNumbers);
+        break;
+      case 'NBA':
+        yield* _mapGameNBA(gameNumberMap: state.gameNumbers);
+        break;
+      case 'MLB':
+        yield* _mapGameMLB(gameNumberMap: state.gameNumbers);
+        break;
+      case 'NHL':
+        yield* _mapGameNHL(gameNumberMap: state.gameNumbers);
+        break;
+      case 'NCAAF':
+        yield* _mapGameNCAAF(gameNumberMap: state.gameNumbers);
+        break;
+      case 'NCAAB':
+        yield* _mapGameNCAAB(gameNumberMap: state.gameNumbers);
         break;
       default:
     }
@@ -222,7 +258,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       totalGames = todayGames;
     }
 
-    yield SportsbookOpened(
+    yield SportsbookState.opened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
       games: totalGames,
@@ -271,7 +307,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     //   totalGames = todayGames;
     // }
 
-    yield SportsbookOpened(
+    yield SportsbookState.opened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
       games: [],
@@ -320,7 +356,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       totalGames = todayGames;
     }
 
-    yield SportsbookOpened(
+    yield SportsbookState.opened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
       games: totalGames,
@@ -369,7 +405,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       totalGames = todayGames;
     }
 
-    yield SportsbookOpened(
+    yield SportsbookState.opened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
       games: totalGames,
@@ -418,7 +454,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     //   totalGames = todayGames;
     // }
 
-    yield SportsbookOpened(
+    yield SportsbookState.opened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
       games: [],
@@ -467,7 +503,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       totalGames = todayGames;
     }
 
-    yield SportsbookOpened(
+    yield SportsbookState.opened(
       localTimeZone: localTimeZone,
       estTimeZone: estTimeZone,
       games: totalGames,

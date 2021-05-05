@@ -29,19 +29,22 @@ class Sportsbook extends StatelessWidget {
         // }
       },
       builder: (context, state) {
-        if (state is SportsbookOpened) {
-          return SportsBookView(
-            games: state.games,
-            league: state.league,
-            currentTimeZone: state.localTimeZone,
-            estTimeZone: state.estTimeZone,
-            gameNumberList: state.gameNumbers,
-            parsedTeamData: state.parsedTeamData,
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+        switch (state.status) {
+          case SportsbookStatus.initial:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+            break;
+          default:
+            return SportsBookView(
+              games: state.games,
+              league: state.league,
+              currentTimeZone: state.localTimeZone,
+              estTimeZone: state.estTimeZone,
+              gameNumberList: state.gameNumbers,
+              parsedTeamData: state.parsedTeamData,
+            );
+            break;
         }
       },
     );
@@ -126,7 +129,7 @@ class SportsBookView extends StatelessWidget {
                         onChanged: (String newValue) {
                           if (newValue != league) {
                             context.read<SportsbookBloc>().add(
-                                  SportsbookOpen(league: newValue),
+                                  SportsbookLeagueChange(league: newValue),
                                 );
                             context.read<BetSlipCubit>().openBetSlip(
                               betSlipGames: [],
@@ -260,43 +263,57 @@ class SportsBookView extends StatelessWidget {
           ),
           Builder(
             builder: (context) {
-              if (games.isEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 120),
-                  child: Text(
-                    // ignore: lines_longer_than_80_chars
-                    'No odds available for the league you have selected at this time.',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                );
-              } else {
-                return ScreenTypeLayout(
-                  breakpoints: const ScreenBreakpoints(
-                    desktop: 1000,
-                    tablet: 600,
-                    watch: 80,
-                  ),
-                  mobile: MobileSportsbook(
-                    games: games,
-                    gameName: league,
-                    parsedTeamData: parsedTeamData,
-                  ),
-                  tablet: TabletSportsbook(
-                    parsedTeamData: parsedTeamData,
-                    games: games,
-                    gameName: league,
-                  ),
-                  desktop: WebSportsbook(
-                    parsedTeamData: parsedTeamData,
-                    games: games,
-                    gameName: league,
-                  ),
-                );
+              final sportsbookState = context.watch<SportsbookBloc>().state;
+              switch (sportsbookState.status) {
+                case SportsbookStatus.loading:
+                  return Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 180),
+                        child: CircularProgressIndicator(),
+                      ),
+                    ],
+                  );
+                  break;
+                default:
+                  if (games.isEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 120),
+                      child: Text(
+                        // ignore: lines_longer_than_80_chars
+                        'No odds available for the league you have selected at this time.',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(
+                          color: Palette.cream,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return ScreenTypeLayout(
+                      breakpoints: const ScreenBreakpoints(
+                        desktop: 1000,
+                        tablet: 600,
+                        watch: 80,
+                      ),
+                      mobile: MobileSportsbook(
+                        games: games,
+                        gameName: league,
+                        parsedTeamData: parsedTeamData,
+                      ),
+                      tablet: TabletSportsbook(
+                        parsedTeamData: parsedTeamData,
+                        games: games,
+                        gameName: league,
+                      ),
+                      desktop: WebSportsbook(
+                        parsedTeamData: parsedTeamData,
+                        games: games,
+                        gameName: league,
+                      ),
+                    );
+                  }
               }
             },
           ),
