@@ -2,6 +2,8 @@ import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/leaderboard/widgets/pagenumberview.dart';
 import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
@@ -15,6 +17,7 @@ class TabletLeaderboard extends StatefulWidget {
 class _TabletLeaderboardState extends State<TabletLeaderboard> {
   @override
   Widget build(BuildContext context) {
+    final leaderboardState = context.watch<LeaderboardCubit>().state;
     return Column(
       children: [
         Row(
@@ -34,14 +37,22 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const TextBar(
-              text: 'Current Week',
+            TextBar(
+              text: leaderboardState.week,
+              textList: leaderboardState.weeks,
+              onPress: (String value) {
+                context.read<LeaderboardCubit>().changeWeek(week: value);
+              },
             ),
             const TextBar(
               text: 'All Leagues',
+              textList: ['All Leagues'],
+              onPress: print,
             ),
             const TextBar(
               text: 'All Bet Types',
+              textList: ['All Bet Types'],
+              onPress: print,
             ),
           ],
         ),

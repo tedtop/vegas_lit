@@ -49,4 +49,11 @@ class UserRepository {
 
   Stream<List<UserData>> fetchRankedUsers() =>
       _databaseProvider.fetchRankedUsers();
+
+  Future<List<String>> fetchLeaderboardWeeks() =>
+      _databaseProvider.fetchLeaderboardWeeks();
+
+  Future<List<UserData>> fetchLeaderboardWeeksUserData(
+          {@required String week}) =>
+      _databaseProvider.fetchLeaderboardWeeksUserData(week: week);
 }

@@ -19,13 +19,42 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
   StreamSubscription _leaderboardSubscription;
 
   Future<void> openLeaderboard() async {
+    final currentWeek = <String>['Current Week'];
+    final weeks = await _userRepository.fetchLeaderboardWeeks();
+    final totalWeek = currentWeek + weeks;
+
+    await userDataValue(totalWeek: totalWeek);
+  }
+
+  Future<void> changeWeek({@required String week}) async {
+    if (week == 'Current Week') {
+      await userDataValue(totalWeek: state.weeks);
+    } else {
+      emit(
+        LeaderboardState.loading(weeks: state.weeks, week: week),
+      );
+      final userDataList =
+          await _userRepository.fetchLeaderboardWeeksUserData(week: week);
+      emit(
+        LeaderboardState.weekChanged(
+          rankedUserList: userDataList,
+          weeks: state.weeks,
+          week: week,
+        ),
+      );
+    }
+  }
+
+  Future<void> userDataValue({List<String> totalWeek}) async {
     final usersStream = _userRepository.fetchRankedUsers();
+
     await _leaderboardSubscription?.cancel();
     _leaderboardSubscription = usersStream.listen(
       (event) {
         emit(
           LeaderboardState.opened(
             rankedUserList: event,
+            weeks: totalWeek,
           ),
         );
       },

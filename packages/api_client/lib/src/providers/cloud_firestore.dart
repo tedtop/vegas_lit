@@ -97,4 +97,31 @@ class CloudFirestore {
             );
     return isBetExist;
   }
+
+  Future<List<String>> fetchLeaderboardWeeks() async {
+    final weeks = await _firestoreData.collection('leaderboard').get().then(
+          (value) => value.docs.map((e) => e.id).toList(),
+        );
+    return weeks;
+  }
+
+  Future<List<UserData>> fetchLeaderboardWeeksUserData(
+      {@required String week}) async {
+    final userDataList = await _firestoreData
+        .collection('leaderboard')
+        .doc(week)
+        .collection('users')
+        .where('profit', isGreaterThan: 0)
+        .orderBy('profit', descending: true)
+        .limit(50)
+        .get()
+        .then(
+          (value) => value.docs
+              .map(
+                (e) => UserData.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return userDataList;
+  }
 }
