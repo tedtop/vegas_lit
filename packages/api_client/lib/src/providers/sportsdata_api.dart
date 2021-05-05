@@ -183,22 +183,21 @@ class SportsAPI {
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
-      //final filteredTournaments = <GolfTournament>[];
+      final filteredTournaments = <GolfTournament>[];
       final List<GolfTournament> allTournaments =
           parsed.map<GolfTournament>((json) {
         return GolfTournament.fromMap(json);
       }).toList();
-      // allTournaments.forEach((tournament) {
-      //   if (tournament != null &&
-      //       tournament.endDate
-      //           .isBefore(dateTimeEastern.add(const Duration(days: 5))) &&
-      //       tournament.endDate
-      //           .isAfter(dateTimeEastern.subtract(const Duration(days: 1)))) {
-      //     filteredTournaments.add(tournament);
-      //   }
-      // });
-      // return filteredTournaments;
-      return allTournaments;
+      allTournaments.forEach((tournament) {
+        if (tournament.endDate
+                .isBefore(dateTimeEastern.add(const Duration(days: 20))) &&
+            tournament.endDate
+                .isAfter(dateTimeEastern.subtract(const Duration(days: 1)))) {
+          filteredTournaments.add(tournament);
+        }
+      });
+      return filteredTournaments.reversed.toList();
+      //return allTournaments;
     } else {
       throw FetchGolfFailure();
     }
