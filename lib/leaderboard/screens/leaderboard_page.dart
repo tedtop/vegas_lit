@@ -47,7 +47,7 @@ class Leaderboard extends StatelessWidget {
                   case LeaderboardStatus.initial:
                     return const CircularProgressIndicator();
                     break;
-                  case LeaderboardStatus.opened:
+                  default:
                     return ScreenTypeLayout(
                       desktop: WebLeaderboard(
                         players: state.rankedUserList,
@@ -59,9 +59,6 @@ class Leaderboard extends StatelessWidget {
                         players: state.rankedUserList,
                       ),
                     );
-                    break;
-                  default:
-                    return const CircularProgressIndicator();
                     break;
                 }
               },

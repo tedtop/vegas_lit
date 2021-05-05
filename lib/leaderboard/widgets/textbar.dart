@@ -4,14 +4,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class TextBar extends StatelessWidget {
-  const TextBar({Key key, this.text}) : super(key: key);
+  const TextBar({
+    Key key,
+    @required this.text,
+    @required this.textList,
+    @required this.onPress,
+  }) : super(key: key);
 
   final String text;
-
+  final List<String> textList;
+  final Function onPress;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180,
       padding: const EdgeInsets.symmetric(
         horizontal: 6,
       ),
@@ -44,25 +49,25 @@ class TextBar extends StatelessWidget {
               style: GoogleFonts.nunito(
                 fontSize: 18,
               ),
-              onChanged: print,
-              items: <String>[
-                text,
-              ].map<DropdownMenuItem<String>>(
-                (String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      text,
-                      textAlign: TextAlign.left,
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.cream,
-                      ),
-                    ),
-                  );
-                },
-              ).toList(),
+              onChanged: onPress,
+              items: textList.isNotEmpty == true
+                  ? textList.map<DropdownMenuItem<String>>(
+                      (String weekValue) {
+                        return DropdownMenuItem<String>(
+                          value: weekValue,
+                          child: Text(
+                            weekValue,
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.nunito(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Palette.cream,
+                            ),
+                          ),
+                        );
+                      },
+                    ).toList()
+                  : const [],
             ),
           ),
         ),
