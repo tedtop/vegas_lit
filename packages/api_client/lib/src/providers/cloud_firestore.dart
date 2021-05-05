@@ -2,17 +2,16 @@ import 'package:api_client/src/models/bet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
-import '../base_provider.dart';
 import '../models/user.dart';
 
-class CloudFirestore extends DatabaseProvider {
+class CloudFirestore {
   CloudFirestore({FirebaseFirestore firebaseFirestore})
       : _firestoreData = firebaseFirestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestoreData;
 
   // Sign Up Page
-  @override
+
   Future<void> saveUserDetails(
       {@required Map userDataMap, @required String uid}) async {
     final currentUserReference = _firestoreData.collection('users').doc(uid);
@@ -20,7 +19,7 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   // Open Bets Page
-  @override
+
   Stream<List<BetData>> fetchOpenBets({@required String uid}) {
     final openBetsData = _firestoreData
         .collection('bets')
@@ -33,7 +32,7 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   // Bet History Page
-  @override
+
   Stream<List<BetData>> fetchBetHistory({@required String uid}) {
     final betHistoryData = _firestoreData
         .collection('bets')
@@ -46,7 +45,7 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   // Bet Slip Page
-  @override
+
   Future<void> saveBet({
     @required String uid,
     @required Map betDataMap,
@@ -66,7 +65,7 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   // Profile Page
-  @override
+
   Stream<UserData> fetchUserData({@required String uid}) {
     final documentSnapshot = _firestoreData
         .collection('users')
@@ -77,7 +76,7 @@ class CloudFirestore extends DatabaseProvider {
   }
 
   // Leaderboard Page
-  @override
+
   Stream<List<UserData>> fetchRankedUsers() {
     final documentSnapshot = _firestoreData
         .collection('users')
@@ -91,7 +90,6 @@ class CloudFirestore extends DatabaseProvider {
     return userBetsList;
   }
 
-  @override
   Future<bool> isBetExist({String betId}) async {
     final isBetExist =
         await _firestoreData.collection('bets').doc(betId).get().then(

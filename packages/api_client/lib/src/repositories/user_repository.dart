@@ -4,12 +4,9 @@ import 'package:api_client/src/providers/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import '../base_provider.dart';
-
 class UserRepository {
-  final AuthenticationProvider _authenticationProvider =
-      FirebaseAuthentication();
-  final DatabaseProvider _databaseProvider = CloudFirestore();
+  final _authenticationProvider = FirebaseAuthentication();
+  final _databaseProvider = CloudFirestore();
 
   Future<void> signUp({
     @required String email,

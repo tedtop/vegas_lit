@@ -2,10 +2,8 @@ import 'package:api_client/src/models/game.dart';
 import 'package:api_client/src/providers/sportsdata_api.dart';
 import 'package:meta/meta.dart';
 
-import '../base_provider.dart';
-
 class SportsRepository {
-  final SportsProvider _sportsProvider = SportsAPI();
+  final _sportsProvider = SportsAPI();
 
   Future<List<Game>> fetchMLB({@required DateTime dateTime}) =>
       _sportsProvider.fetchMLB(dateTime: dateTime);

@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
-import '../base_provider.dart';
-
-class FirebaseAuthentication extends AuthenticationProvider {
+class FirebaseAuthentication {
   FirebaseAuthentication({
     FirebaseAuth firebaseAuth,
     GoogleSignIn googleSignIn,
@@ -14,7 +12,6 @@ class FirebaseAuthentication extends AuthenticationProvider {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  @override
   Stream<User> get getUser {
     return _firebaseAuth.authStateChanges().map(
       (firebaseUser) {
@@ -23,12 +20,10 @@ class FirebaseAuthentication extends AuthenticationProvider {
     );
   }
 
-  @override
   Future<User> get getCurrentUser async {
     return _firebaseAuth.currentUser;
   }
 
-  @override
   Future<void> signUp({
     @required String email,
     @required String password,
@@ -44,7 +39,6 @@ class FirebaseAuthentication extends AuthenticationProvider {
     }
   }
 
-  @override
   Future<void> logInWithEmailAndPassword({
     @required String email,
     @required String password,
@@ -60,7 +54,6 @@ class FirebaseAuthentication extends AuthenticationProvider {
     }
   }
 
-  @override
   Future<void> resetPasswordEmail({
     @required String email,
   }) async {
@@ -71,7 +64,6 @@ class FirebaseAuthentication extends AuthenticationProvider {
     }
   }
 
-  @override
   Future<void> signOutUser() async {
     try {
       await Future.wait([
