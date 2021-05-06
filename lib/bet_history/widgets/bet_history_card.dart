@@ -16,6 +16,9 @@ class BetHistorySlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final odd = betHistory.odd.isNegative
+        ? betHistory.odd.toString()
+        : '+${betHistory.odd}';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
@@ -83,7 +86,7 @@ class BetHistorySlip extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${betHistory.betType}   ${betHistory.odd}',
+                          '${betHistory.betType}   $odd',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
@@ -101,7 +104,7 @@ class BetHistorySlip extends StatelessWidget {
                               )
                             : Text(
                                 // ignore: lines_longer_than_80_chars
-                                'You lose \$${betHistory.amountBet}!',
+                                'You lost \$${betHistory.amountBet}!',
                                 style: GoogleFonts.nunito(
                                   color: Palette.red,
                                   fontSize: 14,

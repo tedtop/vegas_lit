@@ -15,6 +15,8 @@ class OpenBetsSlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final odd =
+        openBets.odd.isNegative ? openBets.odd.toString() : '+${openBets.odd}';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
@@ -84,7 +86,7 @@ class OpenBetsSlip extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text('${openBets.betType}   ${openBets.odd}',
+                        Text('${openBets.betType}   $odd',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.w300,
