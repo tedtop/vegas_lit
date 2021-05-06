@@ -233,6 +233,84 @@ export const resolveBets = functions.pubsub
     }
   });
 
+export const resolveLeaderboard = functions.pubsub
+  .schedule("0 0 * * *")
+  .onRun(async (context) => {
+    console.log("This will be run every 1 days!");
+
+    const documentName = await getWeekDate();
+
+    await app
+      .firestore()
+      .collection("users")
+      .get()
+      .then((snapshots) => {
+        snapshots.docs.forEach(async (element) => {
+          await app
+            .firestore()
+            .collection("leaderboard")
+            .doc(documentName)
+            .set({ isArchive: true })
+            .then(async (value) => {
+              await app
+                .firestore()
+                .collection("leaderboard")
+                .doc(documentName)
+                .collection("users")
+                .doc(element.id)
+                .set(element.data())
+                .then(async () => {
+                  await app
+                    .firestore()
+                    .collection("users")
+                    .doc(element.id)
+                    .update({
+                      profit: 0,
+                      accountBalance: 1000,
+                      correctBets: 0,
+                      numberBets: 0,
+                      openBets: 0,
+                    });
+
+                  return null;
+                });
+            });
+        });
+      })
+      .then(() => {
+        console.log("Leaderboard Function Completed");
+        return null;
+      });
+
+    return null;
+
+    async function getWeekDate(): Promise<string> {
+      const constants = await app
+        .firestore()
+        .collection("constants")
+        .doc("cloud")
+        .get()
+        .then((doc) => {
+          return doc.data();
+        })
+        .then(async (data) => {
+          await app
+            .firestore()
+            .collection("constants")
+            .doc("cloud")
+            .update({ nextWeek: admin.firestore.FieldValue.increment(1) });
+          return data != null ? data.nextWeek : 0;
+        });
+      const start = new Date();
+      var end = moment(start).add(7, "days");
+      const myDatetimeFormat = "MM.DD.YY";
+      const startFormat = moment(start).format(myDatetimeFormat);
+      const endFormat = moment(end).format(myDatetimeFormat);
+      const totalDocumentName = `Week ${constants} (${startFormat} - ${endFormat})`;
+      return totalDocumentName;
+    }
+  });
+
 export interface Game {
   GameID?: number;
   Season?: number;
