@@ -44,8 +44,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final gameNumberMap = <String, String>{};
     // final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
 
     await Future.wait(
       list.map(
@@ -56,16 +56,16 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             final todayGamesLength =
                 await mapGameLength(dateTime: estTimeZone, league: e);
 
-            if (greeting(dateTime: estTimeZone) == 'evening') {
-              final tomorrowGamesLength = await mapGameLength(
-                dateTime: tomorrowEstTimeZone,
-                league: e,
-              );
-              gameNumberMap[e] =
-                  (todayGamesLength + tomorrowGamesLength).toString();
-            } else {
-              gameNumberMap[e] = todayGamesLength.toString();
-            }
+            // if (greeting(dateTime: estTimeZone) == 'evening') {
+            //   final tomorrowGamesLength = await mapGameLength(
+            //     dateTime: tomorrowEstTimeZone,
+            //     league: e,
+            //   );
+            //   gameNumberMap[e] =
+            //       (todayGamesLength + tomorrowGamesLength).toString();
+            // } else {
+            gameNumberMap[e] = todayGamesLength.toString();
+            // }
           }
         },
       ).toList(),
@@ -226,8 +226,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     const league = 'MLB';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
     List<Game> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -241,22 +241,22 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
               .toList(),
         );
 
-    if (greeting(dateTime: estTimeZone) == 'evening') {
-      final tomorrowGames = await _sportsfeedRepository
-          .fetchMLB(
-            dateTime: tomorrowEstTimeZone,
-          )
-          .then(
-            (value) => value
-                .where((element) => element.status == 'Scheduled')
-                .where((element) => element.isClosed == false)
-                .toList(),
-          );
+    // if (greeting(dateTime: estTimeZone) == 'evening') {
+    //   final tomorrowGames = await _sportsfeedRepository
+    //       .fetchMLB(
+    //         dateTime: tomorrowEstTimeZone,
+    //       )
+    //       .then(
+    //         (value) => value
+    //             .where((element) => element.status == 'Scheduled')
+    //             .where((element) => element.isClosed == false)
+    //             .toList(),
+    //       );
 
-      totalGames = todayGames + tomorrowGames;
-    } else {
-      totalGames = todayGames;
-    }
+    //   totalGames = todayGames + tomorrowGames;
+    // } else {
+    totalGames = todayGames;
+    // }
 
     yield SportsbookState.opened(
       localTimeZone: localTimeZone,
@@ -324,8 +324,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     const league = 'NBA';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
     List<Game> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -339,22 +339,22 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
               .toList(),
         );
 
-    if (greeting(dateTime: estTimeZone) == 'evening') {
-      final tomorrowGames = await _sportsfeedRepository
-          .fetchNBA(
-            dateTime: tomorrowEstTimeZone,
-          )
-          .then(
-            (value) => value
-                .where((element) => element.status == 'Scheduled')
-                .where((element) => element.isClosed == false)
-                .toList(),
-          );
+    // if (greeting(dateTime: estTimeZone) == 'evening') {
+    //   final tomorrowGames = await _sportsfeedRepository
+    //       .fetchNBA(
+    //         dateTime: tomorrowEstTimeZone,
+    //       )
+    //       .then(
+    //         (value) => value
+    //             .where((element) => element.status == 'Scheduled')
+    //             .where((element) => element.isClosed == false)
+    //             .toList(),
+    //       );
 
-      totalGames = todayGames + tomorrowGames;
-    } else {
-      totalGames = todayGames;
-    }
+    //   totalGames = todayGames + tomorrowGames;
+    // } else {
+    totalGames = todayGames;
+    // }
 
     yield SportsbookState.opened(
       localTimeZone: localTimeZone,
@@ -373,8 +373,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     const league = 'NHL';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
     List<Game> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -388,22 +388,22 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
               .toList(),
         );
 
-    if (greeting(dateTime: estTimeZone) == 'evening') {
-      final tomorrowGames = await _sportsfeedRepository
-          .fetchNHL(
-            dateTime: tomorrowEstTimeZone,
-          )
-          .then(
-            (value) => value
-                .where((element) => element.status == 'Scheduled')
-                .where((element) => element.isClosed == false)
-                .toList(),
-          );
+    // if (greeting(dateTime: estTimeZone) == 'evening') {
+    //   final tomorrowGames = await _sportsfeedRepository
+    //       .fetchNHL(
+    //         dateTime: tomorrowEstTimeZone,
+    //       )
+    //       .then(
+    //         (value) => value
+    //             .where((element) => element.status == 'Scheduled')
+    //             .where((element) => element.isClosed == false)
+    //             .toList(),
+    //       );
 
-      totalGames = todayGames + tomorrowGames;
-    } else {
-      totalGames = todayGames;
-    }
+    //   totalGames = todayGames + tomorrowGames;
+    // } else {
+    totalGames = todayGames;
+    // }
 
     yield SportsbookState.opened(
       localTimeZone: localTimeZone,
@@ -471,8 +471,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     const league = 'NCAAB';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    final tomorrowEstTimeZone =
-        DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+    // final tomorrowEstTimeZone =
+    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
     List<Game> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -486,22 +486,22 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
               .toList(),
         );
 
-    if (greeting(dateTime: estTimeZone) == 'evening') {
-      final tomorrowGames = await _sportsfeedRepository
-          .fetchNCAAB(
-            dateTime: tomorrowEstTimeZone,
-          )
-          .then(
-            (value) => value
-                .where((element) => element.status == 'Scheduled')
-                .where((element) => element.isClosed == false)
-                .toList(),
-          );
+    // if (greeting(dateTime: estTimeZone) == 'evening') {
+    //   final tomorrowGames = await _sportsfeedRepository
+    //       .fetchNCAAB(
+    //         dateTime: tomorrowEstTimeZone,
+    //       )
+    //       .then(
+    //         (value) => value
+    //             .where((element) => element.status == 'Scheduled')
+    //             .where((element) => element.isClosed == false)
+    //             .toList(),
+    //       );
 
-      totalGames = todayGames + tomorrowGames;
-    } else {
-      totalGames = todayGames;
-    }
+    //   totalGames = todayGames + tomorrowGames;
+    // } else {
+    totalGames = todayGames;
+    // }
 
     yield SportsbookState.opened(
       localTimeZone: localTimeZone,
@@ -521,16 +521,16 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     return nowNY;
   }
 
-  String greeting({@required DateTime dateTime}) {
-    final hour = dateTime.hour;
-    if (hour < 12) {
-      return 'morning';
-    }
-    if (hour < 17) {
-      return 'afternoon';
-    }
-    return 'evening';
-  }
+  // String greeting({@required DateTime dateTime}) {
+  //   final hour = dateTime.hour;
+  //   if (hour < 12) {
+  //     return 'morning';
+  //   }
+  //   if (hour < 17) {
+  //     return 'afternoon';
+  //   }
+  //   return 'evening';
+  // }
 
   dynamic getParsedTeamData({@required String league}) async {
     final newLeague = whichGame(league: league);
