@@ -18,13 +18,15 @@ class LoginForm extends StatelessWidget {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.status.isSubmissionFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'Authentication Error',
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Authentication Error',
+                  ),
                 ),
-              ),
-            );
+              );
           }
         },
         child: SafeArea(
