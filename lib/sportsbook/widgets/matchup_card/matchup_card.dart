@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/sportsbook/team_info/team_info.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 
 import 'cubit/matchup_card_cubit.dart';
@@ -87,24 +88,31 @@ class MatchupCard extends StatelessWidget {
                                     SizedBox(
                                       width: 150,
                                       // height: 25,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            state.awayTeamData.city,
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 12,
-                                              color: Palette.cream,
-                                              fontWeight: FontWeight.bold,
+
+                                      child: GestureDetector(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            TeamInfo.route(
+                                                teamData: state.awayTeamData)),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              state.awayTeamData.city,
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 12,
+                                                color: Palette.cream,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            state.awayTeamData.name
-                                                .toUpperCase(),
-                                            textAlign: TextAlign.center,
-                                            style: Styles.awayTeam,
-                                          ),
-                                        ],
+                                            Text(
+                                              state.awayTeamData.name
+                                                  .toUpperCase(),
+                                              textAlign: TextAlign.center,
+                                              style: Styles.awayTeam,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(height: 5),
@@ -200,27 +208,34 @@ class MatchupCard extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          state.homeTeamData.city,
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.green,
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          TeamInfo.route(
+                                              teamData: state.homeTeamData)),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            state.homeTeamData.city,
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.green,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          state.homeTeamData.name.toUpperCase(),
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 16,
-                                            // fontWeight: FontWeight.bold,
-                                            color: Palette.green,
+                                          Text(
+                                            state.homeTeamData.name
+                                                .toUpperCase(),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 16,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Palette.green,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(height: 5),
                                     Column(
