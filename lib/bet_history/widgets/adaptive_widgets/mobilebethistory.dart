@@ -20,26 +20,26 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Expanded(
-                flex: 1,
-                child: TextBar(
-                  text: 'All Bet Types',
-                ),
-              ),
-              const Expanded(
-                flex: 1,
-                child: TextBar(
-                  text: 'All Leagues',
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: [
+        //       const Expanded(
+        //         flex: 1,
+        //         child: TextBar(
+        //           text: 'All Bet Types',
+        //         ),
+        //       ),
+        //       const Expanded(
+        //         flex: 1,
+        //         child: TextBar(
+        //           text: 'All Leagues',
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 6,

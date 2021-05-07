@@ -37,16 +37,16 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
             context.read<LeaderboardCubit>().changeWeek(week: value);
           },
         ),
-        const TextBar(
-          text: 'All Leagues',
-          textList: ['All Leagues'],
-          onPress: print,
-        ),
-        const TextBar(
-          text: 'All Bet Types',
-          textList: ['All Bet Types'],
-          onPress: print,
-        ),
+        // const TextBar(
+        //   text: 'All Leagues',
+        //   textList: ['All Leagues'],
+        //   onPress: print,
+        // ),
+        // const TextBar(
+        //   text: 'All Bet Types',
+        //   textList: ['All Bet Types'],
+        //   onPress: print,
+        // ),
         const SizedBox(
           height: 10,
         ),
