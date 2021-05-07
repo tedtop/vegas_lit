@@ -139,21 +139,25 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                     ),
                     ListTile(
-                      title: Text('TERMS OF SERVICE', style: Styles.normalText),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          TermsOfService.route(),
-                        );
-                      },
-                    ),
+                        title:
+                            Text('TERMS OF SERVICE', style: Styles.normalText),
+                        onTap: _launchTermsAndConditions
+                        //() {
+
+                        // Navigator.of(context).push(
+                        //   TermsOfService.route(),
+                        // );
+                        //},
+                        ),
                     ListTile(
-                      title: Text('PRIVACY POLICY', style: Styles.normalText),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          PrivacyPolicy.route(),
-                        );
-                      },
-                    ),
+                        title: Text('PRIVACY POLICY', style: Styles.normalText),
+                        onTap: _launchPrivacyPolicy
+                        // () {
+                        //   Navigator.of(context).push(
+                        //     PrivacyPolicy.route(),
+                        //   );
+                        // },
+                        ),
                     ListTile(
                       title: Text('CONTACT US', style: Styles.normalText),
                       onTap: () {
@@ -182,6 +186,17 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
     );
   }
+
+  final _termsAndConditionsUrl = 'https://vegaslit.web.app/terms.html';
+  void _launchTermsAndConditions() async =>
+      await canLaunch(_termsAndConditionsUrl)
+          ? await launch(_termsAndConditionsUrl)
+          : throw 'Could not launch $_termsAndConditionsUrl';
+
+  final _privacyPolicyUrl = 'https://vegaslit.web.app/privacy.html';
+  void _launchPrivacyPolicy() async => await canLaunch(_privacyPolicyUrl)
+      ? await launch(_privacyPolicyUrl)
+      : throw 'Could not launch $_privacyPolicyUrl';
 
   void _getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();

@@ -1,11 +1,30 @@
-class ConstantRapidAPI {
-  static const key = 'RAPID_API_KEY';
-  static const url = 'RAPID_API_URL';
-}
-
 class ConstantSportsDataAPI {
-  static const nba = 'NBA_KEY';
-  static const mlb = 'MLB_KEY';
-  static const nhl = 'NHL_KEY';
-  static const ncaab = 'NCAAB_KEY';
+  static const golf = {
+    'league': 'golf',
+    'key': 'GOLF_KEY',
+  };
+  static const mlb = {
+    'league': 'mlb',
+    'key': 'MLB_KEY',
+  };
+  static const nba = {
+    'league': 'nba',
+    'key': 'NBA_KEY',
+  };
+  static const ncaab = {
+    'league': 'cbb',
+    'key': 'NCAAB_KEY',
+  };
+  static const ncaaf = {
+    'league': 'cfb',
+    'key': 'NCAAF_KEY',
+  };
+  static const nfl = {
+    'league': 'nfl',
+    'key': 'NFL_KEY',
+  };
+  static const nhl = {
+    'league': 'nhl',
+    'key': 'NHL_KEY',
+  };
 }

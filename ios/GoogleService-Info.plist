@@ -34,5 +34,7 @@
 	<string>1:629095888262:ios:7940a806f278dbbc752807</string>
 	<key>DATABASE_URL</key>
 	<string>https://vegaslit.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-8972894064340370~4396590528</string>
 </dict>
 </plist>

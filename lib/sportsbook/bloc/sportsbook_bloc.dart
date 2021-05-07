@@ -30,6 +30,12 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   ) async* {
     if (event is SportsbookOpen) {
       yield* _mapSportsbookOpenToState(event);
+    } else if (event is GolfTournamentsOpen) {
+      yield* _mapGolfTournamentsOpenToState(event);
+    } else if (event is GolfDetailOpen) {
+      yield* _mapGolfDetailOpenToState(event);
+    } else if (event is GolfPlayerOpen) {
+      yield* _mapGolfPlayerOpenToState(event);
     }
     if (event is SportsbookLeagueChange) {
       yield* _mapSportsbookLeagueChangeToState(event);
@@ -124,6 +130,77 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         break;
       default:
     }
+  }
+
+  DateTime fetchTimeEST() {
+    tz.initializeTimeZones();
+    final locationNY = tz.getLocation('America/New_York');
+    final nowNY = tz.TZDateTime.now(locationNY);
+    return nowNY;
+  }
+
+  // ignore: missing_return
+  String whichGame({String league}) {
+    switch (league) {
+      case 'NBA':
+        return 'nba';
+        break;
+      case 'MLB':
+        return 'mlb';
+        break;
+      case 'NHL':
+        return 'nhl';
+        break;
+      case 'NCAAB':
+        return 'cbb';
+        break;
+      case 'NCAAF':
+        return 'cfb';
+        break;
+      case 'NFL':
+        return 'nfl';
+        break;
+      default:
+        break;
+    }
+  }
+
+  dynamic getParsedTeamData({@required String league}) async {
+    final newLeague = whichGame(league: league);
+    final jsonData = await rootBundle.loadString('assets/json/$newLeague.json');
+    final parsedTeamData = await json.decode(jsonData);
+    return parsedTeamData;
+  }
+
+  Stream<SportsbookState> _mapGolfTournamentsOpenToState(
+      GolfTournamentsOpen event) async* {
+    yield (const SportsbookState.initial());
+    final estTimeZone = fetchTimeEST();
+    List<GolfTournament> tournaments;
+    tournaments = await _sportsfeedRepository.fetchGolfTournaments(
+        dateTimeEastern: estTimeZone);
+    yield SportsbookState.golfTournamentOpened(tournaments: tournaments);
+  }
+
+  Stream<SportsbookState> _mapGolfDetailOpenToState(
+      GolfDetailOpen event) async* {
+    yield (const SportsbookState.initial());
+    GolfLeaderboard leaderboard;
+    leaderboard = await _sportsfeedRepository.fetchGolfLeaderboard(
+        tournamentID: event.tournamentID);
+    yield SportsbookState.golfDetailOpened(
+        tournament: leaderboard.tournament, players: leaderboard.players);
+  }
+
+  Stream<SportsbookState> _mapGolfPlayerOpenToState(
+      GolfPlayerOpen event) async* {
+    yield (const SportsbookState.initial());
+    yield SportsbookState.golfPlayerOpened(
+        player: event.player,
+        tournamentID: event.tournament.tournamentId,
+        name: event.tournament.name,
+        venue: event.tournament.venue,
+        location: event.tournament.location);
   }
 
   Future<int> mapGameLength(
@@ -514,12 +591,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   }
 
   // Additional Functions
-  DateTime fetchTimeEST() {
-    tz.initializeTimeZones();
-    final locationNY = tz.getLocation('America/New_York');
-    final nowNY = tz.TZDateTime.now(locationNY);
-    return nowNY;
-  }
 
   // String greeting({@required DateTime dateTime}) {
   //   final hour = dateTime.hour;
@@ -531,37 +602,4 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   //   }
   //   return 'evening';
   // }
-
-  dynamic getParsedTeamData({@required String league}) async {
-    final newLeague = whichGame(league: league);
-    final jsonData = await rootBundle.loadString('assets/json/$newLeague.json');
-    final parsedTeamData = await json.decode(jsonData);
-    return parsedTeamData;
-  }
-
-  // ignore: missing_return
-  String whichGame({String league}) {
-    switch (league) {
-      case 'NBA':
-        return 'nba';
-        break;
-      case 'MLB':
-        return 'mlb';
-        break;
-      case 'NHL':
-        return 'nhl';
-        break;
-      case 'NCAAB':
-        return 'cbb';
-        break;
-      case 'NCAAF':
-        return 'cfb';
-        break;
-      case 'NFL':
-        return 'nfl';
-        break;
-      default:
-        break;
-    }
-  }
 }

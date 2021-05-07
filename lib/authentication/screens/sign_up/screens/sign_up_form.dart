@@ -23,7 +23,7 @@ class SignUpForm extends StatelessWidget {
             ..showSnackBar(
               const SnackBar(
                 content: Text(
-                  'Sign Up Failure',
+                  'Registration Error',
                 ),
               ),
             );

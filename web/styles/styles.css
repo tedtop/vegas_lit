@@ -1,0 +1,797 @@
+@import "animations.css";
+@font-face {
+    font-family: RobotoL;
+    src: url("./../assets/fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: RobotoB;
+    src: url("./../assets/fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+    font-family: RobotoBI;
+    src: url("./../assets/fonts/Roboto-BoldItalic.ttf");
+}
+
+:root {
+    --primary-red: #CD5967;
+    --primary-green: #63A088;
+    --primary-sandwhite: #F2EEE0;
+    --primary-darkblue: #2D3540;
+    --primary-lightblue: #364558;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #F2F2F2;
+}
+
+h1, h2 {
+    margin: 0;
+    pad: 0;
+}
+
+a {
+    color: var(--primary-sandwhite);
+    padding: 1vw;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-red);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #333;
+}
+
+/* ==================== LOADING CONTAINER ==================== */
+
+.loading-container {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: var(--primary-darkblue);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    max-height: 100vh;
+}
+
+.loading-container img {
+    height: 80px;
+    transform-origin: center;
+    animation: pulsateLogo 3s infinite;
+}
+
+.loading-text {
+    color: whitesmoke;
+    position: absolute;
+    left: 47.5vw;
+    font-family: RobotoL;
+    font-weight: 300;
+    font-size: 20px;
+    margin: 3vh 0 0 0;
+}
+
+/* ====================== BUTTONS ==========================*/
+
+.button-round-green {
+    width: 90px;
+    height: 32px;
+    background-color: var(--primary-green);
+    color: var(--primary-sandwhite);
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: RobotoB;
+    text-transform: uppercase;
+    border: none;
+}
+
+.button-round-white {
+    width: 90px;
+    height: 32px;
+    background-color: var(--primary-sandwhite);
+    color: var(--primary-darkblue);
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: RobotoB;
+    text-transform: uppercase;
+    border: none;
+}
+
+.button-round-blue {
+    width: 90px;
+    height: 32px;
+    background-color: var(--primary-lightblue);
+    color: var(--primary-sandwhite);
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: RobotoB;
+    text-transform: uppercase;
+    border: none;
+}
+
+/* ==================== MENU =============================== */
+
+.menu {
+    height: 4vh;
+    width: 100vw;
+    padding: 2vh 4vw 2vh 4vw;
+    background-color: var(--primary-darkblue);
+}
+
+.menu-content {
+    height: 4vh;
+    width: 60vw;
+    margin-left: 20vw;
+    background-color: var(--primary-darkblue);
+    display: grid;
+    grid-template-columns: auto auto auto;
+    font-family: RobotoB;
+    text-transform: uppercase;
+}
+
+.menu-navigation {
+    grid-template-columns: auto auto auto auto;
+    padding-top: 0.8vh;
+}
+
+.header {
+    height: 73vh;
+    width: 100vw;
+    background-image: url("./../assets/cover_home.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.header-content {
+    width: 60vw;
+    margin-left: 20vw;
+}
+
+.header-content h1 {
+    color: white;
+    text-align: center;
+    font-family: RobotoB;
+    font-size: 50px;
+    padding-top: 10vh;
+}
+
+.header-content p {
+    color: white;
+    text-align: center;
+    font-family: RobotoL;
+    font-weight: 0;
+    font-size: 20px;
+    padding-top: 3vh;
+}
+
+.header-auth-buttons {
+    margin-left: 20vw;
+}
+
+.header-auth-buttons button {
+    height: 45px;
+    width: 120px;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+/* ========== SECOND CONTAINER ============= */
+
+.home-container-second {
+    height: 60vh;
+    width: 100vw;
+    background-color: var(--primary-darkblue);
+}
+
+.home-container-second-content h1 {
+    color: white;
+    text-align: center;
+    font-family: RobotoB;
+    font-size: 40px;
+    padding-top: 10vh;
+}
+
+.home-container-second-content p {
+    color: white;
+    text-align: center;
+    font-family: RobotoL;
+    font-weight: 0;
+    font-size: 20px;
+    padding-top: 3vh;
+}
+
+.home-container-second-content button {
+    height: 45px;
+    width: 120px;
+    border-radius: 15px;
+    margin: 5vh 0 5vh 45vw;
+}
+
+/* ============== THIRD CONTAINER ============= */
+
+.home-container-third {
+    height: 75vh;
+    width: 100vw;
+    background-image: url("./../assets/cover_ice.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.home-container-third-content {
+    padding-top: 10vh;
+}
+
+.home-container-third-content h1 {
+    color: var(--primary-lightblue);
+    text-align: center;
+    font-family: RobotoB;
+    font-size: 50px;
+    padding-top: 10vh;
+}
+
+.home-container-third-content p {
+    color: var(--primary-lightblue);
+    text-align: center;
+    font-family: RobotoL;
+    font-weight: 0;
+    font-size: 20px;
+    padding-top: 3vh;
+}
+
+/*  ================== CONTAINER APP ============== */
+
+.container-app {
+    height: 50vh;
+    width: 100vw;
+    background-image: url("./../assets/baseball.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    grid-template-columns: 55vw 300px;
+}
+
+.container-app .container-left {
+    width: 30vw;
+    height: 40vh;
+    margin-top: 5vh;
+    margin-left: 25vw;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+}
+
+.container-app .container-left img {
+    margin-left: 40px;
+}
+
+.container-app .container-right {
+    margin-top: 12vh;
+}
+
+.container-app h1 {
+    color: white;
+    font-size: 50px;
+    font-family: RobotoB;
+    text-align: center;
+}
+
+/* ================= TERMS PAGES ===================== */
+
+.rules-header {
+    height: auto;
+    width: 100vw;
+    padding-top: 10vh;
+    background-image: url("./../assets/rules_cover.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+    background-position: top;
+}
+
+.complete-rules-header {
+    height: auto;
+    width: 100vw;
+    padding-top: 10vh;
+    background-image: url("./../assets/complete_rules_cover.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+}
+
+.terms-header {
+    height: auto;
+    width: 100vw;
+    padding-top: 10vh;
+    background-image: url("./../assets/terms_cover.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+}
+
+.privacy-header {
+    height: auto;
+    width: 100vw;
+    padding-top: 10vh;
+    background-image: url("./../assets/privacy_cover.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+}
+
+.rules-header-content {
+    width: 70vw;
+    background-color: rgba(255, 255, 255, 0.687);
+    margin-left: 15vw;
+    margin-bottom: 8vh;
+    padding: 1vw;
+}
+
+.rules-header-content h1 {
+    color: var(--primary-darkblue);
+    opacity: 1.0;
+    text-align: center;
+    font-family: RobotoB;
+    font-size: 50px;
+    padding-top: 1vh;
+}
+
+.rules-header-content p {
+    color: var(--primary-darkblue);
+    text-align: start;
+    font-family: RobotoL;
+    font-weight: 0;
+    font-size: 17px;
+    padding: 10px 10px 2vh 10px;
+}
+
+.rules-header-content .light-p {
+    font-size: 14px;
+    padding-top: 0;
+    ;
+}
+
+.rules-header-content h2 {
+    color: var(--primary-darkblue);
+    opacity: 1.0;
+    font-family: RobotoB;
+    font-size: 40px;
+    padding-top: 1vh;
+}
+
+.rules-header-content h3 {
+    color: var(--primary-darkblue);
+    opacity: 1.0;
+    font-family: RobotoB;
+    padding-top: 1vh;
+    padding-left: 10px;
+}
+
+.rules-header-content .decimal-list {
+    list-style-type: decimal;
+}
+
+.rules-header-content .alpha-list {
+    list-style-type: lower-alpha;
+}
+
+.rules-header-content li {
+    font-size: 14px;
+    padding: 5px;
+    font-family: RobotoL;
+}
+
+.rules-header-content #pub {
+    font-size: 14px;
+    padding-top: 0;
+    font-family: RobotoL;
+}
+
+/* ============== SPORTSBOOK =================== */
+
+.sportsbook-header {
+    height: 73vh;
+    width: 100vw;
+    background-image: url("./../assets/sportsbook_cover.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.sportsbook-header-content {
+    width: 60vw;
+    margin-left: 20vw;
+}
+
+.sportsbook-header-content h1 {
+    color: white;
+    text-align: center;
+    font-family: RobotoB;
+    font-size: 50px;
+    padding-top: 30vh;
+}
+
+.sportsbook-main {
+    height: auto;
+    width: 100vw;
+    background-color: var(--primary-lightblue);
+}
+
+.league-list {
+    display: grid;
+    padding-top: 5vh;
+    padding-left: 8vw;
+    grid-template-columns: 12vw 12vw 12vw 12vw 12vw 12vw 12vw;
+}
+
+.league-container {
+    color: #F2EEE0;
+    text-align: center;
+}
+
+.league-container h1 {
+    font-size: 40px;
+    font-family: RobotoB;
+}
+
+.league-container p {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-family: RobotoL;
+}
+
+.selected-league::after {
+    display: block;
+    content: "";
+    margin-top: 1vh;
+    background-color: var(--primary-red);
+    border-radius: 10px;
+    height: 5px;
+    width: auto;
+}
+
+.betting-container {
+    height: auto;
+    width: 100vw;
+    background-color: var(--primary-lightblue);
+    display: grid;
+    grid-template-columns: 65vw 35vw;
+}
+
+.games {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2vw 2vw;
+    padding: 3vh 3vw 3vw 5vw;
+    grid-auto-flow: row;
+}
+
+/* GAME CARDS */
+
+.game-card {
+    position: relative;
+    height: 220px;
+    width: 28vw;
+    border-radius: 10px;
+    background-color: var(--primary-darkblue);
+}
+
+.game-card-title {
+    color: #F2EEE0;
+}
+
+.game-card-title .teams {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    font-family: RobotoB;
+}
+
+.game-card-title .time {
+    position: absolute;
+    top: 35px;
+    left: 10px;
+    font-size: 13px;
+    font-family: RobotoL;
+}
+
+.game-card-title .starting-in {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    font-size: 13px;
+    font-family: RobotoL;
+}
+
+.game-card-teams {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.game-card-teams .team-left {
+    margin-top: 62px;
+    text-align: center;
+}
+
+.game-card-teams .team-right {
+    margin-top: 62px;
+    text-align: center;
+}
+
+.game-card-teams .team-name {
+    color: #F2EEE0;
+    font-family: RobotoB;
+    font-size: 23px;
+}
+
+.game-card-teams .team-containers-grid {
+    padding-top: 5px;
+    padding-left: 10%;
+    display: grid;
+    grid-auto-flow: row;
+    gap: 5px 5px;
+}
+
+.game-card-teams .team-container {
+    position: relative;
+    width: 90%;
+    height: 35px;
+    border-radius: 10px;
+    background-color: var(--primary-lightblue);
+    color: #F2EEE0;
+    font-family: RobotoB;
+    font-size: 20px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.game-card-teams .container-highlighted {
+    background-color: var(--primary-green);
+}
+
+.game-card-teams .team-container-text-left {
+    position: absolute;
+    font-family: RobotoL;
+    left: 2vw;
+}
+
+.game-card-teams .team-container-text-right {
+    position: absolute;
+    font-family: RobotoL;
+    right: 2vw;
+}
+
+/* BET SLIP */
+
+.bet-slip-header {
+    position: relative;
+    margin-top: 3vh;
+    height: 8vh;
+    width: 85%;
+    background-color: var(--primary-green);
+}
+
+.bet-slip-header h3 {
+    position: absolute;
+    left: 5%;
+    color: #F2EEE0;
+    font-family: RobotoB;
+}
+
+.bet-slip-header .balance {
+    position: absolute;
+    right: 20%;
+    line-height: 8vh;
+    font-size: 20px;
+    font-family: RobotoB;
+    color: #F2EEE0;
+}
+
+/* BET CARD */
+
+.bet-card {
+    position: relative;
+    height: 300px;
+    margin-top: 2vh;
+    left: 2%;
+    width: 80%;
+    border-radius: 10px;
+    background-color: var(--primary-darkblue);
+}
+
+.bet-card-title {
+    color: #F2EEE0;
+}
+
+.bet-card-title .teams {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    font-family: RobotoB;
+}
+
+.bet-card-title .time {
+    position: absolute;
+    top: 35px;
+    left: 10px;
+    font-size: 13px;
+    font-family: RobotoL;
+}
+
+.bet-card-title .starting-in {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    font-size: 13px;
+    font-family: RobotoL;
+}
+
+.bet-card .team-left {
+    position: absolute;
+    width: 40%;
+    top: 60px;
+    left: 10px;
+    color: #F2EEE0;
+    font-size: 23px;
+    font-family: RobotoB;
+    text-justify: center;
+    text-align: center;
+}
+
+.bet-card .team-right {
+    position: absolute;
+    width: 40%;
+    top: 60px;
+    right: 10px;
+    color: #F2EEE0;
+    font-size: 23px;
+    font-family: RobotoB;
+    text-justify: center;
+    text-align: center;
+}
+
+.bet-card .bet-to-win {
+    position: absolute;
+    top: 100px;
+    height: 40px;
+    border-radius: 10px;
+    width: 95%;
+    left: 2.5%;
+    background-color: var(--primary-green);
+}
+
+.bet-card .bet-to-win h3 {
+    position: absolute;
+    color: #F2EEE0;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    padding-left: 1vw;
+    font-family: RobotoL;
+    font-size: 14px;
+}
+
+.bet-card .bet-to-win .bet-amount {
+    position: absolute;
+    color: #F2EEE0;
+    padding: 0;
+    margin: 0;
+    right: 4vw;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    padding-left: 1vw;
+    font-family: RobotoB;
+    font-size: 16px;
+}
+
+.bet-card .action-containers-grid {
+    position: relative;
+    top: 150px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.bet-card .action-containers-grid .left {
+    padding-top: 10px;
+    width: 90%;
+    height: 80px;
+    margin-left: 5%;
+    border-radius: 10px;
+    background-color: var(--primary-lightblue);
+    text-align: center;
+    color: #F2EEE0;
+    line-height: 35px;
+    font-family: RobotoL;
+}
+
+.bet-card .action-containers-grid .right {
+    padding-top: 10px;
+    width: 90%;
+    height: 80px;
+    margin-left: 5%;
+    border-radius: 10px;
+    background-color: var(--primary-lightblue);
+    text-align: center;
+    color: #F2EEE0;
+    line-height: 35px;
+    font-family: RobotoL;
+}
+
+.bet-card .action-containers-grid .button-bet {
+    width: 90%;
+    height: 45px;
+    margin-left: 5%;
+    margin-top: 7px;
+    border-radius: 10px;
+    background-color: var(--primary-green);
+    text-align: center;
+    color: #F2EEE0;
+    line-height: 45px;
+    font-family: RobotoB;
+    font-size: 18px;
+}
+
+.bet-card .action-containers-grid .button-cancel {
+    width: 90%;
+    height: 45px;
+    margin-left: 5%;
+    margin-top: 7px;
+    border-radius: 10px;
+    background-color: var(--primary-red);
+    text-align: center;
+    color: #F2EEE0;
+    line-height: 45px;
+    font-family: RobotoB;
+    font-size: 18px;
+}
+
+/* ============== FOOTER =================== */
+
+.footer {
+    height: 45vh;
+    width: 100vw;
+    background-color: var(--primary-darkblue);
+}
+
+.footer .social {
+    display: grid;
+    grid-template-columns: 40px 40px 40px 40px;
+    gap: 3vw;
+    justify-content: center;
+    padding-top: 10vh;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    color: #7C7F80;
+    font-family: RobotoL;
+    gap: 3vw;
+    justify-content: center;
+    padding-top: 10vh;
+}
+
+.footer .copyright {
+    width: 100vw;
+    display: block;
+    color: #7C7F80;
+    font-family: RobotoL;
+    text-align: center;
+}

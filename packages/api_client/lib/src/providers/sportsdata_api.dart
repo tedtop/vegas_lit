@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:api_client/src/config/api.dart';
 import 'package:api_client/src/models/game.dart';
+import 'package:api_client/src/models/golf.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -164,6 +165,64 @@ class SportsAPI {
       throw FetchFailureNHL();
     }
   }
+
+  @override
+  Future<List<GolfTournament>> fetchGolfTournaments({
+    DateTime dateTimeEastern,
+  }) async {
+    const leagueData = ConstantSportsDataAPI.golf;
+    final formattedYear = DateFormat('yyyy').format(dateTimeEastern);
+
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/golf/v2/json/Tournaments/$formattedYear',
+      options: Options(
+        headers: {
+          'Ocp-Apim-Subscription-Key': leagueData['key'],
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      final filteredTournaments = <GolfTournament>[];
+      final List<GolfTournament> allTournaments =
+          parsed.map<GolfTournament>((json) {
+        return GolfTournament.fromMap(json);
+      }).toList();
+      allTournaments.forEach((tournament) {
+        if (tournament.endDate
+                .isBefore(dateTimeEastern.add(const Duration(days: 20))) &&
+            tournament.endDate
+                .isAfter(dateTimeEastern.subtract(const Duration(days: 1)))) {
+          filteredTournaments.add(tournament);
+        }
+      });
+      return filteredTournaments.reversed.toList();
+      //return allTournaments;
+    } else {
+      throw FetchGolfFailure();
+    }
+  }
+
+  @override
+  Future<GolfLeaderboard> fetchGolfLeaderboard(
+      {@required int tournamentID}) async {
+    const leagueData = ConstantSportsDataAPI.golf;
+
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/golf/v2/json/Leaderboard/$tournamentID',
+        options: Options(
+          headers: {
+            'Ocp-Apim-Subscription-Key': leagueData['key'],
+          },
+        ));
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      final leaderboard = GolfLeaderboard.fromMap(parsed);
+      return leaderboard;
+    } else {
+      throw FetchGolfFailure();
+    }
+  }
 }
 
 class FetchFailureNFL implements Exception {}
@@ -177,3 +236,5 @@ class FetchFailureNHL implements Exception {}
 class FetchFailureNCAAF implements Exception {}
 
 class FetchFailureNCAAB implements Exception {}
+
+class FetchGolfFailure implements Exception {}

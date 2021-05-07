@@ -1,4 +1,5 @@
 import 'package:api_client/src/models/game.dart';
+import 'package:api_client/src/models/golf.dart';
 import 'package:api_client/src/providers/sportsdata_api.dart';
 import 'package:meta/meta.dart';
 
@@ -22,4 +23,12 @@ class SportsRepository {
 
   Future<List<Game>> fetchNHL({@required DateTime dateTime}) =>
       _sportsProvider.fetchNHL(dateTime: dateTime);
+
+  Future<List<GolfTournament>> fetchGolfTournaments({
+    @required DateTime dateTimeEastern,
+  }) =>
+      _sportsProvider.fetchGolfTournaments(dateTimeEastern: dateTimeEastern);
+
+  Future<GolfLeaderboard> fetchGolfLeaderboard({@required int tournamentID}) =>
+      _sportsProvider.fetchGolfLeaderboard(tournamentID: tournamentID);
 }
