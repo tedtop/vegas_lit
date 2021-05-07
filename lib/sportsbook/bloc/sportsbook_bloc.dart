@@ -45,7 +45,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   Stream<SportsbookState> _mapSportsbookOpenToState(
       SportsbookOpen event) async* {
     yield const SportsbookState.initial();
-    final list = <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB'];
+    final list = <String>['NFL', 'NBA', 'MLB', 'NHL', 'NCAAF', 'NCAAB', 'GOLF'];
 
     final gameNumberMap = <String, String>{};
     // final localTimeZone = DateTime.now();
@@ -56,7 +56,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     await Future.wait(
       list.map(
         (e) async {
-          if (e == 'NFL' || e == 'NCAAF') {
+          if (e == 'NFL' || e == 'NCAAF' || e == 'GOLF') {
             gameNumberMap[e] = 'OFF-SEASON';
           } else {
             final todayGamesLength =
@@ -174,33 +174,74 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
   Stream<SportsbookState> _mapGolfTournamentsOpenToState(
       GolfTournamentsOpen event) async* {
-    yield (const SportsbookState.initial());
+    yield SportsbookState.loading(
+      league: state.league,
+      gameNumbers: state.gameNumbers,
+      estTimeZone: state.estTimeZone,
+      localTimeZone: state.localTimeZone,
+    );
+
     final estTimeZone = fetchTimeEST();
+    final localTimeZone = DateTime.now();
+
     List<GolfTournament> tournaments;
     tournaments = await _sportsfeedRepository.fetchGolfTournaments(
         dateTimeEastern: estTimeZone);
-    yield SportsbookState.golfTournamentOpened(tournaments: tournaments);
+    yield SportsbookState.golfTournamentOpened(
+      tournaments: tournaments,
+      league: 'GOLF',
+      gameNumbers: state.gameNumbers,
+      estTimeZone: estTimeZone,
+      localTimeZone: localTimeZone,
+    );
   }
 
   Stream<SportsbookState> _mapGolfDetailOpenToState(
       GolfDetailOpen event) async* {
-    yield (const SportsbookState.initial());
+    yield SportsbookState.loading(
+      league: state.league,
+      gameNumbers: state.gameNumbers,
+      estTimeZone: state.estTimeZone,
+      localTimeZone: state.localTimeZone,
+    );
+
+    final estTimeZone = fetchTimeEST();
+    final localTimeZone = DateTime.now();
     GolfLeaderboard leaderboard;
     leaderboard = await _sportsfeedRepository.fetchGolfLeaderboard(
         tournamentID: event.tournamentID);
     yield SportsbookState.golfDetailOpened(
-        tournament: leaderboard.tournament, players: leaderboard.players);
+      tournament: leaderboard.tournament,
+      players: leaderboard.players,
+      league: 'GOLF',
+      gameNumbers: state.gameNumbers,
+      estTimeZone: estTimeZone,
+      localTimeZone: localTimeZone,
+    );
   }
 
   Stream<SportsbookState> _mapGolfPlayerOpenToState(
       GolfPlayerOpen event) async* {
-    yield (const SportsbookState.initial());
+    yield SportsbookState.loading(
+      league: state.league,
+      gameNumbers: state.gameNumbers,
+      estTimeZone: state.estTimeZone,
+      localTimeZone: state.localTimeZone,
+    );
+
+    final estTimeZone = fetchTimeEST();
+    final localTimeZone = DateTime.now();
     yield SportsbookState.golfPlayerOpened(
-        player: event.player,
-        tournamentID: event.tournament.tournamentId,
-        name: event.tournament.name,
-        venue: event.tournament.venue,
-        location: event.tournament.location);
+      player: event.player,
+      tournamentID: event.tournament.tournamentId,
+      name: event.tournament.name,
+      venue: event.tournament.venue,
+      location: event.tournament.location,
+      league: 'GOLF',
+      gameNumbers: state.gameNumbers,
+      estTimeZone: estTimeZone,
+      localTimeZone: localTimeZone,
+    );
   }
 
   Future<int> mapGameLength(

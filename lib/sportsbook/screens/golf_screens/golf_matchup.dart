@@ -364,8 +364,8 @@ class RoundNumberBox extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 7),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: isSelected ? Palette.green : Palette.lightGrey),

@@ -39,26 +39,6 @@ class Sportsbook extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
             break;
-          case SportsbookStatus.golfOpen:
-            return GolfTournamentsView(
-              tournaments: state.tournaments,
-            );
-            break;
-          case SportsbookStatus.golfPlayerOpened:
-            return GolfMatchup(
-              player: state.player,
-              tournamentID: state.tournamentID,
-              name: state.name,
-              venue: state.venue,
-              location: state.location,
-            );
-            break;
-          case SportsbookStatus.golfDetailOpen:
-            return GolfDetailView(
-              tournament: state.tournament,
-              players: state.players,
-            );
-            break;
           default:
             return SportsBookView(
               games: state.games,
@@ -161,7 +141,7 @@ class SportsBookView extends StatelessWidget {
                               );
                             } else {
                               context.read<SportsbookBloc>().add(
-                                    SportsbookOpen(league: newValue),
+                                    SportsbookLeagueChange(league: newValue),
                                   );
                               context.read<BetSlipCubit>().openBetSlip(
                                 betSlipGames: [],
@@ -182,7 +162,9 @@ class SportsBookView extends StatelessWidget {
                             String length;
                             gameNumberList.forEach(
                               (key, newValue) {
-                                if (key == 'NFL' || key == 'NCAAF') {
+                                if (key == 'NFL' ||
+                                    key == 'NCAAF' ||
+                                    key == 'GOLF') {
                                   length = '$newValue';
                                 } else {
                                   if (key == value) {
@@ -299,6 +281,26 @@ class SportsBookView extends StatelessWidget {
             builder: (context) {
               final sportsbookState = context.watch<SportsbookBloc>().state;
               switch (sportsbookState.status) {
+                case SportsbookStatus.golfOpen:
+                  return GolfTournamentsView(
+                    tournaments: sportsbookState.tournaments,
+                  );
+                  break;
+                case SportsbookStatus.golfPlayerOpened:
+                  return GolfMatchup(
+                    player: sportsbookState.player,
+                    tournamentID: sportsbookState.tournamentID,
+                    name: sportsbookState.name,
+                    venue: sportsbookState.venue,
+                    location: sportsbookState.location,
+                  );
+                  break;
+                case SportsbookStatus.golfDetailOpen:
+                  return GolfDetailView(
+                    tournament: sportsbookState.tournament,
+                    players: sportsbookState.players,
+                  );
+                  break;
                 case SportsbookStatus.loading:
                   return Column(
                     children: [

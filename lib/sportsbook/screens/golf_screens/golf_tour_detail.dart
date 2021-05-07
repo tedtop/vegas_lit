@@ -37,11 +37,9 @@ class _GolfDetailViewState extends State<GolfDetailView> {
             ),
           ))
         ]),
-        Expanded(
-          child: GolfTournamentDetailCard(
-            tournament: widget.tournament,
-            players: widget.players,
-          ),
+        GolfTournamentDetailCard(
+          tournament: widget.tournament,
+          players: widget.players,
         ),
       ],
     );
@@ -54,152 +52,157 @@ class GolfTournamentDetailCard extends StatelessWidget {
   final List<GolfPlayer> players;
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      Container(
-        width: 360,
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: Palette.cream,
-            ),
-            borderRadius: BorderRadius.circular(12),
-            color: Palette.lightGrey),
-        child: Column(
-          children: [
-            Text(
-              'Tournament ID: ${tournament.tournamentId}',
-              style: Styles.normalTextBold,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Start Date: ${tournament.startDate.day}-${DateFormat.MMMM().format(tournament.startDate)}-${tournament.startDate.year}',
-              style: Styles.normalText,
-            ),
-            Text(
-              'End Date: ${tournament.endDate.day}-${DateFormat.MMMM().format(tournament.endDate)}-${tournament.endDate.year}',
-              style: Styles.normalText,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Text(
-              'Venue:',
-              style: Styles.greenTextBold,
-            ),
-            Text(
-              '${tournament.venue ?? 'NA'}',
-              style: Styles.awayTeam,
-            ),
-            Text(
-              '${tournament.location ?? 'NA'}',
-              style: Styles.awayTeam,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        children: [
+          Container(
+            width: 360,
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: Palette.cream,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                color: Palette.lightGrey),
+            child: Column(
               children: [
-                GolfStyledBox(
-                  child: Text(
-                    'Par: ${tournament.par ?? 'NA'}',
-                    style: Styles.normalTextBold,
-                  ),
+                Text(
+                  'Tournament ID: ${tournament.tournamentId}',
+                  style: Styles.normalTextBold,
                 ),
-                GolfStyledBox(
-                  child: Text(
-                    'Yards: ${tournament.yards ?? 'NA'}',
-                    style: Styles.normalTextBold,
-                  ),
+                const SizedBox(
+                  height: 10,
                 ),
-                GolfStyledBox(
-                  child: Text(
-                    'Purse: ${tournament.purse ?? 'NA'}',
-                    style: Styles.normalTextBold,
-                  ),
+                Text(
+                  'Start Date: ${tournament.startDate.day}-${DateFormat.MMMM().format(tournament.startDate)}-${tournament.startDate.year}',
+                  style: Styles.normalText,
+                ),
+                Text(
+                  'End Date: ${tournament.endDate.day}-${DateFormat.MMMM().format(tournament.endDate)}-${tournament.endDate.year}',
+                  style: Styles.normalText,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Venue:',
+                  style: Styles.greenTextBold,
+                ),
+                Text(
+                  '${tournament.venue ?? 'NA'}',
+                  style: Styles.awayTeam,
+                ),
+                Text(
+                  '${tournament.location ?? 'NA'}',
+                  style: Styles.awayTeam,
                 ),
                 const SizedBox(
                   height: 20,
-                )
-              ],
-            ),
-            tournament.isInProgress
-                ? Text(
-                    'This tournament is in progress!',
-                    style: Styles.largeTextBold,
-                    textAlign: TextAlign.center,
-                  )
-                : (tournament.isOver
-                    ? Text(
-                        'This tournament is over!',
-                        style: Styles.largeTextBold,
-                        textAlign: TextAlign.center,
-                      )
-                    : Text(
-                        'This tournament has not started yet!',
-                        style: Styles.largeTextBold,
-                        textAlign: TextAlign.center,
-                      ))
-          ],
-        ),
-      ),
-      players.isNotEmpty
-          ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              child: Text(
-                'Players',
-                style: Styles.pageTitle,
-              ),
-            )
-          : const SizedBox(),
-      ...players
-          .map((player) => InkWell(
-                onTap: () {
-                  BlocProvider.of<SportsbookBloc>(context).add(
-                      GolfPlayerOpen(player: player, tournament: tournament));
-                },
-                child: Container(
-                  width: 360,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Palette.lightGrey,
-                    border: Border.all(color: Palette.cream),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${player.name}',
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GolfStyledBox(
+                      child: Text(
+                        'Par: ${tournament.par ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
-                      Text(
-                        '${player.country}',
-                        style: Styles.normalText,
+                    ),
+                    GolfStyledBox(
+                      child: Text(
+                        'Yards: ${tournament.yards ?? 'NA'}',
+                        style: Styles.normalTextBold,
                       ),
-                      Text(
-                        'Rank: ${player.rank ?? 'N/A'}',
-                        style: Styles.greenTextBold,
+                    ),
+                    GolfStyledBox(
+                      child: Text(
+                        'Purse: ${tournament.purse ?? 'NA'}',
+                        style: Styles.normalTextBold,
                       ),
-                      Text(
-                        'Total Score: ${player.totalScore}',
-                        style: Styles.greenTextBold,
-                      ),
-                      Text(
-                        'Total Strokes: ${player.totalStrokes}',
-                        style: Styles.greenTextBold,
-                      )
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    )
+                  ],
                 ),
-              ))
-          .toList()
-    ]);
+                tournament.isInProgress
+                    ? Text(
+                        'This tournament is in progress!',
+                        style: Styles.largeTextBold,
+                        textAlign: TextAlign.center,
+                      )
+                    : (tournament.isOver
+                        ? Text(
+                            'This tournament is over!',
+                            style: Styles.largeTextBold,
+                            textAlign: TextAlign.center,
+                          )
+                        : Text(
+                            'This tournament has not started yet!',
+                            style: Styles.largeTextBold,
+                            textAlign: TextAlign.center,
+                          ))
+              ],
+            ),
+          ),
+          players.isNotEmpty
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                  child: Text(
+                    'Players',
+                    style: Styles.pageTitle,
+                  ),
+                )
+              : const SizedBox(),
+          ...players
+              .map((player) => InkWell(
+                    onTap: () {
+                      BlocProvider.of<SportsbookBloc>(context).add(
+                          GolfPlayerOpen(
+                              player: player, tournament: tournament));
+                    },
+                    child: Container(
+                      width: 360,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Palette.lightGrey,
+                        border: Border.all(color: Palette.cream),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${player.name}',
+                            style: Styles.normalTextBold,
+                          ),
+                          Text(
+                            '${player.country}',
+                            style: Styles.normalText,
+                          ),
+                          Text(
+                            'Rank: ${player.rank ?? 'N/A'}',
+                            style: Styles.greenTextBold,
+                          ),
+                          Text(
+                            'Total Score: ${player.totalScore}',
+                            style: Styles.greenTextBold,
+                          ),
+                          Text(
+                            'Total Strokes: ${player.totalStrokes}',
+                            style: Styles.greenTextBold,
+                          )
+                        ],
+                      ),
+                    ),
+                  ))
+              .toList()
+        ]);
   }
 }
 

@@ -17,6 +17,8 @@ class _GolfTournamentsViewState extends State<GolfTournamentsView> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
       children: widget.tournaments.map((tournament) {
         return GolfTournamentCard(tournament: tournament);
       }).toList(),
