@@ -1,6 +1,7 @@
 import 'package:api_client/src/models/game.dart';
 import 'package:api_client/src/models/golf.dart';
 import 'package:api_client/src/models/player.dart';
+import 'package:api_client/src/models/player_details.dart';
 import 'package:api_client/src/providers/sportsdata_api.dart';
 import 'package:meta/meta.dart';
 
@@ -32,6 +33,10 @@ class SportsRepository {
 
   Future<GolfLeaderboard> fetchGolfLeaderboard({@required int tournamentID}) =>
       _sportsProvider.fetchGolfLeaderboard(tournamentID: tournamentID);
+
   Future<List<Player>> fetchPlayers({@required String teamKey}) =>
       _sportsProvider.fetchPlayers(teamKey: teamKey);
+
+  Future<PlayerDetails> fetchPlayerDetails({@required String playerId}) =>
+      _sportsProvider.fetchPlayerDetails(playerId: playerId);
 }

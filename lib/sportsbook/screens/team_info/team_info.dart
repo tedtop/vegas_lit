@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/shared_widgets/app_bar.dart';
 import 'package:vegas_lit/sportsbook/models/team.dart';
+import 'package:vegas_lit/sportsbook/screens/player_details/player_details.dart';
 
 import 'cubit/team_info_cubit.dart';
 
@@ -70,6 +71,12 @@ class TeamInfoView extends StatelessWidget {
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
         return ListTile(
+          onTap: () {
+            Navigator.push(
+                context,
+                PlayerDetailsPage.route(
+                    playerId: players[index].playerID.toString()));
+          },
           leading: CircleAvatar(
             child: Image.network(players[index].photoUrl),
             backgroundColor: Color(teamColor),

@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/sportsbook/team_info/team_info.dart';
+import 'package:vegas_lit/sportsbook/screens/team_info/team_info.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 
 import 'cubit/matchup_card_cubit.dart';

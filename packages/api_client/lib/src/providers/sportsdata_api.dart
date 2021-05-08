@@ -4,6 +4,7 @@ import 'package:api_client/api_client.dart';
 import 'package:api_client/src/config/api.dart';
 import 'package:api_client/src/models/game.dart';
 import 'package:api_client/src/models/player.dart';
+import 'package:api_client/src/models/player_details.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -231,18 +232,27 @@ class SportsAPI {
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
-      return parsed
-          .map<Player>(
-            (json) => Player.fromJson(json),
-          )
-          .toList();
+      return parsed.map<Player>((json) => Player.fromJson(json)).toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<PlayerDetails> fetchPlayerDetails({String playerId}) async {
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/mlb/scores/json/Player/$playerId?key=${ConstantSportsDataAPI.mlb['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return PlayerDetails.fromJson(parsed);
+    } else {
+      throw FetchFailurePlayerDetails();
     }
   }
 }
 
 class FetchFailurePlayer implements Exception {}
+
+class FetchFailurePlayerDetails implements Exception {}
 
 class FetchFailureNFL implements Exception {}
 
