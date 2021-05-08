@@ -17,6 +17,13 @@ class OpenBetsSlip extends StatelessWidget {
   Widget build(BuildContext context) {
     final odd =
         openBets.odd.isNegative ? openBets.odd.toString() : '+${openBets.odd}';
+
+    final isMoneyline = openBets.betType == 'MONEYLINE';
+    final spread = openBets.spread == 0
+        ? ''
+        : openBets.spread.isNegative
+            ? openBets.spread.toString()
+            : '+${openBets.spread}';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
@@ -48,20 +55,24 @@ class OpenBetsSlip extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         openBets.winTeam == 'home'
-                            ? Text(
-                                '${openBets.homeTeam} TO WIN',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 20,
-                                  color: Palette.cream,
-                                ),
-                              )
-                            : Text(
-                                '${openBets.awayTeam} TO WIN',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 20,
-                                  color: Palette.cream,
-                                ),
-                              ),
+                            ? isMoneyline
+                                ? Text(
+                                    '${openBets.homeTeam} TO WIN',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 20,
+                                      color: Palette.cream,
+                                    ),
+                                  )
+                                : Container()
+                            : isMoneyline
+                                ? Text(
+                                    '${openBets.awayTeam} TO WIN',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 20,
+                                      color: Palette.cream,
+                                    ),
+                                  )
+                                : Container(),
                         const SizedBox(
                           height: 10,
                         ),
@@ -86,7 +97,8 @@ class OpenBetsSlip extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text('${openBets.betType}   $odd',
+                        Text(
+                            '${whichBetSystem(openBets.betType)}  $spread  $odd',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.w300,
@@ -135,5 +147,29 @@ class OpenBetsSlip extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String whichBetSystem(String betType) {
+    if (betType == 'moneyline') {
+      return 'MONEYLINE';
+    }
+    if (betType == 'pointSpread') {
+      return 'POINT SPREAD';
+    }
+    if (betType == 'total') {
+      return 'TOTAL O/U';
+    } else {
+      if (betType == 'MONEYLINE') {
+        return 'MONEYLINE';
+      }
+      if (betType == 'POINT SPREAD') {
+        return 'POINT SPREAD';
+      }
+      if (betType == 'TOTAL SPREAD') {
+        return 'TOTAL O/U';
+      } else {
+        return 'Error';
+      }
+    }
   }
 }

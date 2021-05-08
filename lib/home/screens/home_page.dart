@@ -1,4 +1,5 @@
 import 'package:api_client/api_client.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/home/cubit/internet_cubit.dart';
 import 'package:vegas_lit/home/widgets/topnavbar.dart';
 import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
@@ -24,7 +26,10 @@ class HomePage extends StatefulWidget {
 
   final FirebaseAnalyticsObserver observer;
 
-  static Route route({@required FirebaseAnalyticsObserver observer}) {
+  static Route route({
+    @required FirebaseAnalyticsObserver observer,
+    @required Connectivity connectivity,
+  }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'HomePage'),
       builder: (context) {
@@ -32,51 +37,67 @@ class HomePage extends StatefulWidget {
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider<SportsbookBloc>(
-              create: (_) => SportsbookBloc(
-                sportsfeedRepository: context.read<SportsRepository>(),
-              )..add(
-                  SportsbookOpen(
-                    league: 'MLB',
+        return BlocBuilder<InternetCubit, InternetState>(
+          builder: (context, state) {
+            if (state is InternetDisconnected) {
+              return Scaffold(
+                body: Center(
+                    child: Text(
+                  'No Connection',
+                  style: GoogleFonts.nunito(
+                    fontSize: 24,
                   ),
+                )),
+              );
+            } else {
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider<SportsbookBloc>(
+                    create: (_) => SportsbookBloc(
+                      sportsfeedRepository: context.read<SportsRepository>(),
+                    )..add(
+                        SportsbookOpen(
+                          league: 'MLB',
+                        ),
+                      ),
+                  ),
+                  BlocProvider<OpenBetsCubit>(
+                    create: (context) => OpenBetsCubit(
+                      betsRepository: context.read<BetsRepository>(),
+                    )..openBetsOpen(
+                        currentUserId: currentUserId,
+                      ),
+                  ),
+                  BlocProvider<BetHistoryCubit>(
+                    create: (context) => BetHistoryCubit(
+                      betsRepository: context.read<BetsRepository>(),
+                    )..betHistoryOpen(
+                        currentUserId: currentUserId,
+                      ),
+                  ),
+                  BlocProvider<LeaderboardCubit>(
+                    create: (context) => LeaderboardCubit(
+                      userRepository: context.read<UserRepository>(),
+                    )..openLeaderboard(),
+                  ),
+                  BlocProvider<BetSlipCubit>(
+                    create: (_) => BetSlipCubit()
+                      ..openBetSlip(
+                        betSlipGames: [],
+                      ),
+                  ),
+                  BlocProvider<HomeCubit>(
+                    create: (_) => HomeCubit(
+                      userRepository: context.read<UserRepository>(),
+                    )..openHome(uid: currentUserId),
+                  ),
+                ],
+                child: HomePage._(
+                  observer: observer,
                 ),
-            ),
-            BlocProvider<OpenBetsCubit>(
-              create: (context) => OpenBetsCubit(
-                betsRepository: context.read<BetsRepository>(),
-              )..openBetsOpen(
-                  currentUserId: currentUserId,
-                ),
-            ),
-            BlocProvider<BetHistoryCubit>(
-              create: (context) => BetHistoryCubit(
-                betsRepository: context.read<BetsRepository>(),
-              )..betHistoryOpen(
-                  currentUserId: currentUserId,
-                ),
-            ),
-            BlocProvider<LeaderboardCubit>(
-              create: (context) => LeaderboardCubit(
-                userRepository: context.read<UserRepository>(),
-              )..openLeaderboard(),
-            ),
-            BlocProvider<BetSlipCubit>(
-              create: (_) => BetSlipCubit()
-                ..openBetSlip(
-                  betSlipGames: [],
-                ),
-            ),
-            BlocProvider<HomeCubit>(
-              create: (_) => HomeCubit(
-                userRepository: context.read<UserRepository>(),
-              )..openHome(uid: currentUserId),
-            ),
-          ],
-          child: HomePage._(
-            observer: observer,
-          ),
+              );
+            }
+          },
         );
       },
     );
@@ -139,15 +160,25 @@ class _HomePageState extends State<HomePage>
             ? webViewAppBar(width, balanceAmount, pageIndex)
             : mobileViewAppBar(balanceAmount),
         drawer: kIsWeb && width > 870 ? null : HomeDrawer(),
-        body: IndexedStack(
-          index: pageIndex,
-          children: [
-            Sportsbook(),
-            BetSlip(),
-            Leaderboard.route(),
-            OpenBets.route(),
-            BetHistory.route(),
-          ],
+        body: BlocBuilder<InternetCubit, InternetState>(
+          builder: (context, state) {
+            if (state is InternetDisconnected) {
+              return const Center(
+                child: Text('Disconnected'),
+              );
+            } else {
+              return IndexedStack(
+                index: pageIndex,
+                children: [
+                  Sportsbook(),
+                  BetSlip(),
+                  Leaderboard.route(),
+                  OpenBets.route(),
+                  BetHistory.route(),
+                ],
+              );
+            }
+          },
         ),
         bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
       ),

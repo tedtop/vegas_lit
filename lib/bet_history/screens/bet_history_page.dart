@@ -32,37 +32,35 @@ class BetHistory extends StatelessWidget {
           final betAmountRisk =
               openBetsState.openBetsDataList.map((e) => e.amountBet).toList();
 
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'BET HISTORY',
-                        style: Styles.pageTitle,
-                      ),
+          return ListView(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'BET HISTORY',
+                      style: Styles.pageTitle,
                     ),
-                  ],
-                ),
-                ScreenTypeLayout(
-                  mobile: MobileBetHistory(
-                      betPlacedLength: betPlacedLength,
-                      betAmountRisk: betAmountRisk),
-                  tablet: TabletBetHistory(
-                    betAmountRisk: betAmountRisk,
-                    betPlacedLength: betPlacedLength,
                   ),
-                  desktop: WebBetHistory(
-                    betAmountRisk: betAmountRisk,
+                ],
+              ),
+              ScreenTypeLayout(
+                mobile: MobileBetHistory(
                     betPlacedLength: betPlacedLength,
-                  ),
+                    betAmountRisk: betAmountRisk),
+                tablet: TabletBetHistory(
+                  betAmountRisk: betAmountRisk,
+                  betPlacedLength: betPlacedLength,
                 ),
-                kIsWeb ? const BottomBar() : const SizedBox(),
-              ],
-            ),
+                desktop: WebBetHistory(
+                  betAmountRisk: betAmountRisk,
+                  betPlacedLength: betPlacedLength,
+                ),
+              ),
+              kIsWeb ? const BottomBar() : const SizedBox(),
+            ],
           );
         } else {
           return const CircularProgressIndicator();

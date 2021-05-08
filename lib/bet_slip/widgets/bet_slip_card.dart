@@ -52,6 +52,8 @@ class BetSlipCard extends StatefulWidget {
 class _BetSlipCardState extends State<BetSlipCard> {
   final _formKey = GlobalKey<FormState>();
 
+  bool isBetPlaced = true;
+
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -66,6 +68,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
         );
         final balanceAmount = context.select(
             (HomeCubit homeCubit) => homeCubit.state.userData.accountBalance);
+        final isMoneyline = betButtonState.betType == Bet.ml;
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,24 +84,28 @@ class _BetSlipCardState extends State<BetSlipCard> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 betButtonState.winTeam == BetButtonWin.home
-                    ? Text(
-                        '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
-                        maxLines: 1,
-                        style: GoogleFonts.nunito(
-                          fontSize: 24,
-                          color: Palette.cream,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    : Text(
-                        '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
-                        maxLines: 1,
-                        style: GoogleFonts.nunito(
-                          fontSize: 24,
-                          color: Palette.cream,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    ? isMoneyline
+                        ? Text(
+                            '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
+                            maxLines: 1,
+                            style: GoogleFonts.nunito(
+                              fontSize: 24,
+                              color: Palette.cream,
+                              // fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Container()
+                    : isMoneyline
+                        ? Text(
+                            '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
+                            maxLines: 1,
+                            style: GoogleFonts.nunito(
+                              fontSize: 24,
+                              color: Palette.cream,
+                              // fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Container(),
               ],
             ),
             const SizedBox(
@@ -224,9 +231,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
-                            whichBetSystem(betType: betButtonState.betType),
+                            (whichBetSystem(betType: betButtonState.betType)),
                             maxLines: 1,
                             style: GoogleFonts.nunito(
                               fontSize: 16,
@@ -240,96 +247,115 @@ class _BetSlipCardState extends State<BetSlipCard> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: DefaultButton(
-                            text: 'PLACE BET',
-                            action: () async {
-                              if (widget.betSlipCardData.betAmount != null &&
-                                  widget.betSlipCardData.betAmount != 0 &&
-                                  widget.betSlipCardData.toWinAmount != 0) {
-                                if (balanceAmount -
-                                        widget.betSlipCardData.betAmount <
-                                    0) {
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      const SnackBar(
-                                        duration: Duration(milliseconds: 1000),
-                                        content: Text(
-                                            // ignore: lines_longer_than_80_chars
-                                            "You're out of funds!"),
-                                      ),
-                                    );
-                                } else {
-                                  await context
-                                      .read<OpenBetsCubit>()
-                                      .updateOpenBets(
-                                        betAmount:
-                                            widget.betSlipCardData.betAmount,
-                                        openBetsData: BetData(
-                                          amountBet:
+                          child: Visibility(
+                            visible: isBetPlaced,
+                            replacement: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 6.5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CircularProgressIndicator(),
+                                ],
+                              ),
+                            ),
+                            child: DefaultButton(
+                              text: 'PLACE BET',
+                              action: () async {
+                                if (widget.betSlipCardData.betAmount != null &&
+                                    widget.betSlipCardData.betAmount != 0 &&
+                                    widget.betSlipCardData.toWinAmount != 0) {
+                                  if (balanceAmount -
+                                          widget.betSlipCardData.betAmount <
+                                      0) {
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        const SnackBar(
+                                          duration:
+                                              Duration(milliseconds: 1000),
+                                          content: Text(
+                                              // ignore: lines_longer_than_80_chars
+                                              "You're out of funds!"),
+                                        ),
+                                      );
+                                  } else {
+                                    setState(() {
+                                      isBetPlaced = false;
+                                    });
+                                    await context
+                                        .read<OpenBetsCubit>()
+                                        .updateOpenBets(
+                                          betAmount:
                                               widget.betSlipCardData.betAmount,
-                                          gameID: betButtonState.gameId,
-                                          isClosed: betButtonState.isClosed,
-                                          winTeam: betButtonState.winTeam ==
-                                                  BetButtonWin.home
-                                              ? 'home'
-                                              : 'away',
-                                          league: betButtonState.league,
-                                          spread: betButtonState.spread,
-                                          awayTeam: betButtonState
-                                              .awayTeamData.name
-                                              .toUpperCase(),
-                                          homeTeam: betButtonState
-                                              .homeTeamData.name
-                                              .toUpperCase(),
-                                          id: betButtonState.uniqueId,
-                                          betType: whichBetSystem(
-                                              betType: betButtonState.betType),
-                                          odd: int.parse(
-                                              betButtonState.mainOdds),
-                                          amountWin: widget
-                                              .betSlipCardData.toWinAmount,
-                                          dateTime: DateFormat(
-                                                  'E, MMMM, c, y @ hh:mm a')
-                                              .format(
-                                            betButtonState.game.dateTime
-                                                .toLocal(),
-                                          ),
-                                          awayTeamScore:
-                                              betButtonState.game.awayTeamScore,
-                                          homeTeamScore:
-                                              betButtonState.game.homeTeamScore,
-                                          finalWinTeam: 'pending',
-                                        ).toMap(),
-                                        currentUserId: currentUserId,
+                                          openBetsData: BetData(
+                                            amountBet: widget
+                                                .betSlipCardData.betAmount,
+                                            gameID: betButtonState.gameId,
+                                            isClosed: betButtonState.isClosed,
+                                            winTeam: betButtonState.winTeam ==
+                                                    BetButtonWin.home
+                                                ? 'home'
+                                                : 'away',
+                                            league: betButtonState.league,
+                                            spread: betButtonState.spread,
+                                            awayTeam: betButtonState
+                                                .awayTeamData.name
+                                                .toUpperCase(),
+                                            homeTeam: betButtonState
+                                                .homeTeamData.name
+                                                .toUpperCase(),
+                                            id: betButtonState.uniqueId,
+                                            betType: whichBetSystemToSave(
+                                                betType:
+                                                    betButtonState.betType),
+                                            odd: int.parse(
+                                                betButtonState.mainOdds),
+                                            amountWin: widget
+                                                .betSlipCardData.toWinAmount,
+                                            dateTime: DateFormat(
+                                                    'E, MMMM, c, y @ hh:mm a')
+                                                .format(
+                                              betButtonState.game.dateTime
+                                                  .toLocal(),
+                                            ),
+                                            awayTeamScore: betButtonState
+                                                .game.awayTeamScore,
+                                            homeTeamScore: betButtonState
+                                                .game.homeTeamScore,
+                                            finalWinTeam: 'pending',
+                                          ).toMap(),
+                                          currentUserId: currentUserId,
+                                        );
+
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        const SnackBar(
+                                          duration:
+                                              Duration(milliseconds: 1000),
+                                          content:
+                                              Text('Your bet has been placed!'),
+                                        ),
                                       );
 
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      const SnackBar(
-                                        duration: Duration(milliseconds: 1000),
-                                        content:
-                                            Text('Your bet has been placed!'),
-                                      ),
-                                    );
-
-                                  context
-                                      .read<BetButtonCubit>()
-                                      .confirmBetButton();
-                                  context.read<BetSlipCubit>().betPlaced(
-                                        uniqueId: betButtonState.uniqueId,
-                                        betPlacedCount: betPlacedCount + 1,
+                                    context
+                                        .read<BetButtonCubit>()
+                                        .confirmBetButton();
+                                    context.read<BetSlipCubit>().betPlaced(
+                                          uniqueId: betButtonState.uniqueId,
+                                          betPlacedCount: betPlacedCount + 1,
+                                        );
+                                    if (betPlacedCount % 4 == 0 &&
+                                        betPlacedCount != 0) {
+                                      await Navigator.of(context).push(
+                                        Interstitial.route(),
                                       );
-                                  if (betPlacedCount % 4 == 0 &&
-                                      betPlacedCount != 0) {
-                                    await Navigator.of(context).push(
-                                      Interstitial.route(),
-                                    );
+                                    }
                                   }
                                 }
-                              }
-                            },
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -503,9 +529,23 @@ class _BetSlipCardState extends State<BetSlipCard> {
       return 'POINT SPREAD';
     }
     if (betType == Bet.tot) {
-      return 'TOTAL SPREAD';
+      return 'TOTAL O/U';
     } else {
       return 'Error';
+    }
+  }
+
+  String whichBetSystemToSave({@required Bet betType}) {
+    if (betType == Bet.ml) {
+      return 'moneyline';
+    }
+    if (betType == Bet.pts) {
+      return 'pointSpread';
+    }
+    if (betType == Bet.tot) {
+      return 'total';
+    } else {
+      return 'error';
     }
   }
 

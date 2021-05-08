@@ -166,10 +166,10 @@ export const resolveBets = functions.pubsub
       spread: any,
       winTeam: string
     ): string {
-      if (betType == "MONEYLINE") {
+      if (betType == "moneyline") {
         return homeTeamScore > awayTeamScore ? "home" : "away";
       }
-      if (betType == "POINT SPREAD") {
+      if (betType == "pointSpread") {
         const finalWinTeam = homeTeamScore > awayTeamScore ? "home" : "away";
         const scoreDifference = homeTeamScore - awayTeamScore;
         if (spread >= 0) {
@@ -198,7 +198,7 @@ export const resolveBets = functions.pubsub
           }
         }
       }
-      if (betType == "TOTAL SPREAD") {
+      if (betType == "total") {
         const totalScore = homeTeamScore + awayTeamScore;
         return totalScore <= spread ? "home" : "away";
       } else {

@@ -19,6 +19,14 @@ class BetHistorySlip extends StatelessWidget {
     final odd = betHistory.odd.isNegative
         ? betHistory.odd.toString()
         : '+${betHistory.odd}';
+
+    final spread = betHistory.spread == 0
+        ? ''
+        : betHistory.spread.isNegative
+            ? betHistory.spread.toString()
+            : '+${betHistory.spread}';
+
+    final isMoneyline = betHistory.betType == 'MONEYLINE';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
@@ -50,20 +58,24 @@ class BetHistorySlip extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         betHistory.winTeam == 'home'
-                            ? Text(
-                                '${betHistory.homeTeam} TO WIN',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 20,
-                                  color: Palette.cream,
-                                ),
-                              )
-                            : Text(
-                                '${betHistory.awayTeam} TO WIN',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 20,
-                                  color: Palette.cream,
-                                ),
-                              ),
+                            ? isMoneyline
+                                ? Text(
+                                    '${betHistory.homeTeam} TO WIN',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 20,
+                                      color: Palette.cream,
+                                    ),
+                                  )
+                                : Container()
+                            : isMoneyline
+                                ? Text(
+                                    '${betHistory.awayTeam} TO WIN',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 20,
+                                      color: Palette.cream,
+                                    ),
+                                  )
+                                : Container(),
                         RichText(
                           text: TextSpan(
                             style: Styles.normalText,
@@ -86,7 +98,7 @@ class BetHistorySlip extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${betHistory.betType}   $odd',
+                          '${whichBetSystem(betHistory.betType)}  $spread  $odd',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
@@ -143,5 +155,29 @@ class BetHistorySlip extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String whichBetSystem(String betType) {
+    if (betType == 'moneyline') {
+      return 'MONEYLINE';
+    }
+    if (betType == 'pointSpread') {
+      return 'POINT SPREAD';
+    }
+    if (betType == 'total') {
+      return 'TOTAL O/U';
+    } else {
+      if (betType == 'MONEYLINE') {
+        return 'MONEYLINE';
+      }
+      if (betType == 'POINT SPREAD') {
+        return 'POINT SPREAD';
+      }
+      if (betType == 'TOTAL SPREAD') {
+        return 'TOTAL O/U';
+      } else {
+        return 'Error';
+      }
+    }
   }
 }
