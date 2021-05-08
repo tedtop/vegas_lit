@@ -32,7 +32,6 @@ class SportsRepository {
 
   Future<GolfLeaderboard> fetchGolfLeaderboard({@required int tournamentID}) =>
       _sportsProvider.fetchGolfLeaderboard(tournamentID: tournamentID);
-
   Future<List<Player>> fetchPlayers({@required String teamKey}) =>
       _sportsProvider.fetchPlayers(teamKey: teamKey);
 }
