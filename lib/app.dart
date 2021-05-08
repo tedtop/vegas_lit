@@ -1,8 +1,11 @@
 import 'package:api_client/api_client.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/home/cubit/internet_cubit.dart';
 
 import 'authentication/bloc/authentication_bloc.dart';
 import 'authentication/screens/login/login.dart';
@@ -43,13 +46,18 @@ class App extends StatelessWidget {
         create: (_) => AuthenticationBloc(
           userRepository: userRepository,
         ),
-        child: AppView(),
+        child: AppView(
+          connectivity: Connectivity(),
+        ),
       ),
     );
   }
 }
 
 class AppView extends StatefulWidget {
+  const AppView({Key key, this.connectivity}) : super(key: key);
+  final Connectivity connectivity;
+
   @override
   _AppViewState createState() => _AppViewState();
 }
@@ -65,40 +73,46 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: _navigatorKey,
-      title: 'Vegas Lit',
-      theme: Themes.dark,
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
-      ],
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state) {
-              switch (state.status) {
-                case AuthenticationStatus.authenticated:
-                  _navigator.pushAndRemoveUntil<void>(
-                    HomePage.route(observer: observer),
-                    (route) => false,
-                  );
-                  break;
-                case AuthenticationStatus.unauthenticated:
-                  _navigator.pushAndRemoveUntil<void>(
-                    LoginPage.route(),
-                    (route) => false,
-                  );
-                  break;
-                default:
-                  break;
-              }
-            },
-            child: child,
-          ),
-        );
-      },
-      onGenerateRoute: (_) => SplashPage.route(),
+    return BlocProvider<InternetCubit>(
+      create: (context) => InternetCubit(
+        connectivity: widget.connectivity,
+      ),
+      child: MaterialApp(
+        navigatorKey: _navigatorKey,
+        title: 'Vegas Lit',
+        theme: Themes.dark,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: BlocListener<AuthenticationBloc, AuthenticationState>(
+              listener: (context, state) {
+                switch (state.status) {
+                  case AuthenticationStatus.authenticated:
+                    _navigator.pushAndRemoveUntil<void>(
+                      HomePage.route(
+                          observer: observer, connectivity: Connectivity()),
+                      (route) => false,
+                    );
+                    break;
+                  case AuthenticationStatus.unauthenticated:
+                    _navigator.pushAndRemoveUntil<void>(
+                      LoginPage.route(),
+                      (route) => false,
+                    );
+                    break;
+                  default:
+                    break;
+                }
+              },
+              child: child,
+            ),
+          );
+        },
+        onGenerateRoute: (_) => SplashPage.route(),
+      ),
     );
   }
 }
