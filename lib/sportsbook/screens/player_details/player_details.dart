@@ -9,23 +9,24 @@ import 'package:vegas_lit/shared_widgets/app_bar.dart';
 import 'package:vegas_lit/sportsbook/screens/player_details/cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  PlayerDetailsPage({this.playerId});
+  PlayerDetailsPage({this.playerId, this.gameName});
   final String playerId;
+  final String gameName;
 
-  static Route route({@required String playerId}) {
+  static Route route({@required String playerId, @required String gameName}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
-        create: (_) => PlayerDetailsCubit(sportsRepository: SportsRepository()),
-        child: PlayerDetailsPage(playerId: playerId),
+        create: (_) => PlayerDetailsCubit(
+            sportsRepository: SportsRepository(), gameName: gameName)
+          ..fetchPlayerDetails(playerID: playerId),
+        child: PlayerDetailsPage(playerId: playerId, gameName: gameName),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<PlayerDetailsCubit>(context)
-        .fetchPlayerDetails(playerID: playerId);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBarWidget(),
@@ -39,6 +40,7 @@ class PlayerDetailsPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          const SizedBox(height: 12),
           _buildProfileWidget(size),
         ],
       ),

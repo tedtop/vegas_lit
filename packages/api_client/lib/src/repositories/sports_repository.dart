@@ -34,9 +34,16 @@ class SportsRepository {
   Future<GolfLeaderboard> fetchGolfLeaderboard({@required int tournamentID}) =>
       _sportsProvider.fetchGolfLeaderboard(tournamentID: tournamentID);
 
-  Future<List<Player>> fetchPlayers({@required String teamKey}) =>
-      _sportsProvider.fetchPlayers(teamKey: teamKey);
+  Future<List<Player>> fetchPlayers({
+    @required String teamKey,
+    @required String gameName,
+  }) =>
+      _sportsProvider.fetchPlayers(teamKey: teamKey, gameName: gameName);
 
-  Future<PlayerDetails> fetchPlayerDetails({@required String playerId}) =>
-      _sportsProvider.fetchPlayerDetails(playerId: playerId);
+  Future<PlayerDetails> fetchPlayerDetails({
+    @required String playerId,
+    @required String gameName,
+  }) =>
+      _sportsProvider.fetchPlayerDetails(
+          playerId: playerId, gameName: gameName);
 }

@@ -14,7 +14,8 @@ import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  const MatchupCard._({Key key}) : super(key: key);
+  const MatchupCard._({Key key, this.gameName}) : super(key: key);
+  final String gameName;
 
   static Builder route({
     @required Game game,
@@ -30,7 +31,7 @@ class MatchupCard extends StatelessWidget {
               gameName: gameName,
               parsedTeamData: parsedTeamData,
             ),
-          child: const MatchupCard._(),
+          child: MatchupCard._(gameName: gameName),
         );
       },
     );
@@ -41,6 +42,7 @@ class MatchupCard extends StatelessWidget {
     return BlocBuilder<MatchupCardCubit, MatchupCardState>(
       builder: (context, state) {
         if (state is MatchupCardOpened) {
+          print(gameName);
           final gameData = state.game;
           final isPointSpreadNegative = state.game.pointSpread == null
               ? true
@@ -93,7 +95,8 @@ class MatchupCard extends StatelessWidget {
                                         onTap: () => Navigator.push(
                                             context,
                                             TeamInfo.route(
-                                                teamData: state.awayTeamData)),
+                                                teamData: state.awayTeamData,
+                                                gameName: gameName)),
                                         child: Column(
                                           children: [
                                             Text(

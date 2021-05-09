@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:api_client/src/models/player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,43 +13,45 @@ import 'package:vegas_lit/sportsbook/screens/player_details/player_details.dart'
 import 'cubit/team_info_cubit.dart';
 
 class TeamInfo extends StatelessWidget {
-  TeamInfo._({this.teamData});
+  TeamInfo._({this.teamData, this.gameName});
   final Team teamData;
+  final String gameName;
 
-  static Route route({@required Team teamData}) {
+  static Route route({@required Team teamData, @required String gameName}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'TeamInfo'),
       builder: (context) => BlocProvider<TeamInfoCubit>(
-        create: (_) => TeamInfoCubit(),
-        child: TeamInfo._(teamData: teamData),
+        create: (_) => TeamInfoCubit(SportsRepository())
+          ..listTeamPlayers(teamData.key, gameName),
+        child: TeamInfo._(teamData: teamData, gameName: gameName),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<TeamInfoCubit>(context).listTeamPlayers(teamData.key);
-
     return Scaffold(
       appBar: AppBarWidget(),
-      body: TeamInfoView(teamData: teamData),
+      body: TeamInfoView(teamData: teamData, gameName: gameName),
     );
   }
 }
 
 class TeamInfoView extends StatelessWidget {
-  TeamInfoView({this.teamData});
+  TeamInfoView({this.teamData, this.gameName});
   final Team teamData;
+  final String gameName;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
         Text(
-          'Team Profile',
-          style: GoogleFonts.nunito(fontSize: 42, color: Palette.green),
+          'TEAM PROFILE',
+          style: GoogleFonts.nunito(
+              fontSize: 24, color: Palette.green, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 12),
         _teamBadge(size),
         BlocConsumer<TeamInfoCubit, TeamInfoState>(
             builder: (context, state) {
@@ -75,6 +78,7 @@ class TeamInfoView extends StatelessWidget {
             Navigator.push(
                 context,
                 PlayerDetailsPage.route(
+                    gameName: gameName,
                     playerId: players[index].playerID.toString()));
           },
           leading: CircleAvatar(
@@ -95,7 +99,7 @@ class TeamInfoView extends StatelessWidget {
   Widget _teamBadge(Size size) {
     return Container(
       width: size.width,
-      height: 150,
+      height: 130,
       child: Row(
         children: [
           const SizedBox(width: 12),

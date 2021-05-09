@@ -7,13 +7,14 @@ import 'package:api_client/src/models/player_details.dart';
 part 'player_details_state.dart';
 
 class PlayerDetailsCubit extends Cubit<PlayerDetailsState> {
-  PlayerDetailsCubit({@required this.sportsRepository})
+  PlayerDetailsCubit({@required this.sportsRepository, @required this.gameName})
       : super(PlayerDetailsInitial());
   final SportsRepository sportsRepository;
+  final String gameName;
 
   void fetchPlayerDetails({String playerID}) async {
-    final playerDetails =
-        await sportsRepository.fetchPlayerDetails(playerId: playerID);
+    final playerDetails = await sportsRepository.fetchPlayerDetails(
+        playerId: playerID, gameName: gameName);
     emit(PlayerDetailsFetched(playerDetails));
   }
 }
