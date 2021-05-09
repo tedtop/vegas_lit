@@ -293,10 +293,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                                 .betSlipCardData.betAmount,
                                             gameId: betButtonState.gameId,
                                             isClosed: betButtonState.isClosed,
-                                            winTeam: betButtonState.winTeam ==
-                                                    BetButtonWin.home
-                                                ? 'home'
-                                                : 'away',
+                                            winTeam: null,
                                             league: betButtonState.league,
                                             betOverUnder:
                                                 betButtonState.game.overUnder,
@@ -327,7 +324,10 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                                 .game.awayTeamScore,
                                             homeTeamScore: betButtonState
                                                 .game.homeTeamScore,
-                                            betTeam: null,
+                                            betTeam: betButtonState.winTeam ==
+                                                    BetButtonWin.home
+                                                ? 'home'
+                                                : 'away',
                                             dateTime: DateTime.now().toString(),
                                           ).toMap(),
                                           currentUserId: currentUserId,

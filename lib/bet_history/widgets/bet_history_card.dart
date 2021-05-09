@@ -28,6 +28,11 @@ class BetHistorySlip extends StatelessWidget {
             ? betSpread.toString()
             : '+$betSpread';
 
+    final isWin = betHistory.winTeam == betHistory.betTeam ? 'won' : 'lost';
+    final betTeam = betHistory.betTeam == 'home'
+        ? betHistory.homeTeam
+        : betHistory.awayTeam;
+
     final isMoneyline = betHistory.betType == 'MONEYLINE';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
@@ -78,6 +83,14 @@ class BetHistorySlip extends StatelessWidget {
                                     ),
                                   )
                                 : Container(),
+                        Text(
+                          '$betTeam ${isWin.toUpperCase()} ${betHistory.awayTeamScore}-${betHistory.homeTeamScore}',
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Palette.cream,
+                          ),
+                        ),
                         RichText(
                           text: TextSpan(
                             style: Styles.normalText,
@@ -107,7 +120,7 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
-                        betHistory.winTeam == betHistory.winTeam
+                        betHistory.winTeam == betHistory.betTeam
                             ? Text(
                                 // ignore: lines_longer_than_80_chars
                                 'You bet \$${betHistory.betAmount} and won \$${betHistory.betProfit}!',
@@ -127,7 +140,7 @@ class BetHistorySlip extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              betHistory.dateTime,
+                              betHistory.gameDateTime,
                               style: Styles.matchupTime,
                             ),
                           ],
@@ -138,7 +151,7 @@ class BetHistorySlip extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: betHistory.winTeam == betHistory.winTeam
+                    color: betHistory.winTeam == betHistory.betTeam
                         ? Palette.green
                         : Palette.red,
                   ),
