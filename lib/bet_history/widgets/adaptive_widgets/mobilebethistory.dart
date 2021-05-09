@@ -62,9 +62,7 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                       ? 0
                       : state.betHistoryDataList
                           .map((e) {
-                            return e.winTeam == e.finalWinTeam
-                                ? e.amountWin
-                                : 0;
+                            return e.winTeam == e.betTeam ? e.betProfit : 0;
                           })
                           .toList()
                           .reduce((value, element) => value + element);
@@ -83,10 +81,10 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                                 .toString(),
                           ),
                           BetHistoryRow(
-                            text: 'Total Risk',
+                            text: 'Total Risked',
                             text2:
                                 // ignore: lines_longer_than_80_chars
-                                '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.amountBet).toList())}',
+                                '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.betAmount).toList())}',
                             color: Palette.green,
                           ),
                           BetHistoryRow(

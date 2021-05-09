@@ -10,7 +10,7 @@ import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {
   MobileLeaderboard({@required this.players});
-  final List<UserData> players;
+  final List<Purse> players;
   @override
   _MobileLeaderboardState createState() => _MobileLeaderboardState();
 }
@@ -128,7 +128,7 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
 
 class MobileLeaderboardTile extends StatelessWidget {
   MobileLeaderboardTile({@required this.player, @required this.rank});
-  final UserData player;
+  final Purse player;
   final int rank;
   @override
   Widget build(BuildContext context) {
@@ -149,7 +149,7 @@ class MobileLeaderboardTile extends StatelessWidget {
             style: Styles.normalTextBold,
           ),
           subtitle: Text(
-            'Total Profit: \$${player.profit}',
+            'Total Profit: \$${player.totalProfit}',
             style: Styles.homeTeam,
           ),
           collapsedBackgroundColor: Palette.lightGrey,
@@ -163,7 +163,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${player.correctBets} out of ${player.numberBets} Correct Bets!',
+                    '${player.totalWinBets} out of ${player.totalBets} Correct Bets!',
                     style: Styles.awayTeam,
                   ),
                   // Text(

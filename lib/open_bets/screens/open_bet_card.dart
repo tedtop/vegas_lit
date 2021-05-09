@@ -15,15 +15,19 @@ class OpenBetsSlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final odd =
-        openBets.odd.isNegative ? openBets.odd.toString() : '+${openBets.odd}';
+    final odd = openBets.odds.isNegative
+        ? openBets.odds.toString()
+        : '+${openBets.odds}';
 
     final isMoneyline = openBets.betType == 'MONEYLINE';
-    final spread = openBets.spread == 0
+    final betSpread = openBets.betType == 'total'
+        ? openBets.betOverUnder
+        : openBets.betPointSpread;
+    final spread = betSpread == 0
         ? ''
-        : openBets.spread.isNegative
-            ? openBets.spread.toString()
-            : '+${openBets.spread}';
+        : betSpread.isNegative
+            ? betSpread.toString()
+            : '+$betSpread';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
@@ -110,7 +114,7 @@ class OpenBetsSlip extends StatelessWidget {
                           ),
                           child: Text(
                               // ignore: lines_longer_than_80_chars
-                              'You bet \$${openBets.amountBet} to win \$${openBets.amountWin}!',
+                              'You bet \$${openBets.betAmount} to win \$${openBets.betProfit}!',
                               style: GoogleFonts.nunito(
                                 color: Palette.green,
                                 fontSize: 18,

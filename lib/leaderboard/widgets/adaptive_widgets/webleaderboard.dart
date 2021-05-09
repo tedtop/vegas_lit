@@ -9,7 +9,7 @@ import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class WebLeaderboard extends StatefulWidget {
   WebLeaderboard({this.players});
-  final List<UserData> players;
+  final List<Purse> players;
   @override
   _WebLeaderboardState createState() => _WebLeaderboardState();
 }
@@ -236,7 +236,7 @@ class LeaderboardColumns extends StatelessWidget {
 
 class WebLeaderboardItem extends StatelessWidget {
   WebLeaderboardItem({this.player, this.rank});
-  final UserData player;
+  final Purse player;
   final int rank;
   @override
   Widget build(BuildContext context) {
@@ -267,7 +267,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 120,
             child: Text(
-              '\$${player.profit}',
+              '\$${player.totalProfit}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -283,7 +283,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 95,
             child: Text(
-              '${player.numberBets}',
+              '${player.totalBets}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -291,7 +291,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 140,
             child: Text(
-              '${player.correctBets}',
+              '${player.totalWinBets}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),
@@ -299,7 +299,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 110,
             child: Text(
-              '\$${player.openBets}',
+              '\$${player.totalOpenBets}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),

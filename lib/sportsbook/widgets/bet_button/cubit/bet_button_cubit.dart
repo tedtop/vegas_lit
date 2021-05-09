@@ -38,8 +38,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
         : betType == Bet.pts
             ? 'pts'
             : 'tot';
-    final uniqueId =
-        '$gameId$league${game.dateTime}$winTeamString$betTypeString';
+    final uniqueId = '$league$gameId$winTeamString$betTypeString'.toUpperCase();
     emit(
       BetButtonState.unclicked(
         text: text,

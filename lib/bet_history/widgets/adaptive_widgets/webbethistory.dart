@@ -60,7 +60,7 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                     final totalProfit = state.betHistoryDataList.isEmpty
                         ? 0
                         : state.betHistoryDataList
-                            .map((e) => e.amountWin)
+                            .map((e) => e.betProfit)
                             .toList()
                             .reduce((value, element) => value + element)
                             .toDouble();
@@ -82,7 +82,7 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                               text: 'Total Risk',
                               text2:
                                   // ignore: lines_longer_than_80_chars
-                                  '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.amountBet).toList())}',
+                                  '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.betAmount).toList())}',
                               color: Palette.green,
                             ),
                             BetHistoryRow(

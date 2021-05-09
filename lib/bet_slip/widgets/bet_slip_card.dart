@@ -67,7 +67,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
               authenticationBloc.state.user?.uid,
         );
         final balanceAmount = context.select(
-            (HomeCubit homeCubit) => homeCubit.state.userData.accountBalance);
+            (HomeCubit homeCubit) => homeCubit.state.userPurse.accountBalance);
         final isMoneyline = betButtonState.betType == Bet.ml;
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
@@ -289,31 +289,35 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                           betAmount:
                                               widget.betSlipCardData.betAmount,
                                           openBetsData: BetData(
-                                            amountBet: widget
+                                            betAmount: widget
                                                 .betSlipCardData.betAmount,
-                                            gameID: betButtonState.gameId,
+                                            gameId: betButtonState.gameId,
                                             isClosed: betButtonState.isClosed,
                                             winTeam: betButtonState.winTeam ==
                                                     BetButtonWin.home
                                                 ? 'home'
                                                 : 'away',
                                             league: betButtonState.league,
-                                            spread: betButtonState.spread,
+                                            betOverUnder:
+                                                betButtonState.game.overUnder,
+                                            betPointSpread:
+                                                betButtonState.game.pointSpread,
                                             awayTeam: betButtonState
                                                 .awayTeamData.name
                                                 .toUpperCase(),
                                             homeTeam: betButtonState
                                                 .homeTeamData.name
                                                 .toUpperCase(),
+                                            totalGameScore: null,
                                             id: betButtonState.uniqueId,
                                             betType: whichBetSystemToSave(
                                                 betType:
                                                     betButtonState.betType),
-                                            odd: int.parse(
+                                            odds: int.parse(
                                                 betButtonState.mainOdds),
-                                            amountWin: widget
+                                            betProfit: widget
                                                 .betSlipCardData.toWinAmount,
-                                            dateTime: DateFormat(
+                                            gameDateTime: DateFormat(
                                                     'E, MMMM, c, y @ hh:mm a')
                                                 .format(
                                               betButtonState.game.dateTime
@@ -323,7 +327,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                                 .game.awayTeamScore,
                                             homeTeamScore: betButtonState
                                                 .game.homeTeamScore,
-                                            finalWinTeam: 'pending',
+                                            betTeam: null,
+                                            dateTime: DateTime.now().toString(),
                                           ).toMap(),
                                           currentUserId: currentUserId,
                                         );

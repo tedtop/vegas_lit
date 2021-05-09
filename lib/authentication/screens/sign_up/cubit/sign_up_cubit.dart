@@ -198,11 +198,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           phone: int.parse(state.number.value),
           uid: currentUser.uid,
           username: state.username.value,
-          accountBalance: 500,
-          correctBets: 0,
-          numberBets: 0,
-          openBets: 0,
-          profit: 0,
         ).toMap(),
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));

@@ -16,15 +16,17 @@ class BetHistorySlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final odd = betHistory.odd.isNegative
-        ? betHistory.odd.toString()
-        : '+${betHistory.odd}';
-
-    final spread = betHistory.spread == 0
+    final odd = betHistory.odds.isNegative
+        ? betHistory.odds.toString()
+        : '+${betHistory.odds}';
+    final betSpread = betHistory.betType == 'total'
+        ? betHistory.betOverUnder
+        : betHistory.betPointSpread;
+    final spread = betSpread == 0
         ? ''
-        : betHistory.spread.isNegative
-            ? betHistory.spread.toString()
-            : '+${betHistory.spread}';
+        : betSpread.isNegative
+            ? betSpread.toString()
+            : '+$betSpread';
 
     final isMoneyline = betHistory.betType == 'MONEYLINE';
     return Padding(
@@ -105,10 +107,10 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
-                        betHistory.finalWinTeam == betHistory.winTeam
+                        betHistory.winTeam == betHistory.winTeam
                             ? Text(
                                 // ignore: lines_longer_than_80_chars
-                                'You bet \$${betHistory.amountBet} and won \$${betHistory.amountWin}!',
+                                'You bet \$${betHistory.betAmount} and won \$${betHistory.betProfit}!',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontSize: 14,
@@ -116,7 +118,7 @@ class BetHistorySlip extends StatelessWidget {
                               )
                             : Text(
                                 // ignore: lines_longer_than_80_chars
-                                'You lost \$${betHistory.amountBet}!',
+                                'You lost \$${betHistory.betAmount}!',
                                 style: GoogleFonts.nunito(
                                   color: Palette.red,
                                   fontSize: 14,
@@ -136,7 +138,7 @@ class BetHistorySlip extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: betHistory.finalWinTeam == betHistory.winTeam
+                    color: betHistory.winTeam == betHistory.winTeam
                         ? Palette.green
                         : Palette.red,
                   ),

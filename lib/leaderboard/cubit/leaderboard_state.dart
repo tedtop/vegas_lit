@@ -13,7 +13,7 @@ class LeaderboardState extends Equatable {
   const LeaderboardState.initial() : this._();
 
   const LeaderboardState.opened({
-    @required List<UserData> rankedUserList,
+    @required List<Purse> rankedUserList,
     @required List<String> weeks,
   }) : this._(
           rankedUserList: rankedUserList,
@@ -22,7 +22,7 @@ class LeaderboardState extends Equatable {
         );
 
   const LeaderboardState.weekChanged({
-    @required List<UserData> rankedUserList,
+    @required List<Purse> rankedUserList,
     @required List<String> weeks,
     @required String week,
   }) : this._(
@@ -41,7 +41,7 @@ class LeaderboardState extends Equatable {
           week: week,
         );
 
-  final List<UserData> rankedUserList;
+  final List<Purse> rankedUserList;
   final List<String> weeks;
   final String week;
   final LeaderboardStatus status;

@@ -17,29 +17,23 @@ class InternetCubit extends Cubit<InternetState> {
 
   Future<StreamSubscription<ConnectivityResult>>
       monitorInternetConnection() async {
-    final logger = Logger();
     final currentStatus = await connectivity.checkConnectivity();
     if (currentStatus == ConnectivityResult.wifi) {
-      logger.d("WIFI");
       emitInternetConnected(ConnectionType.wifi);
     } else if (currentStatus == ConnectivityResult.mobile) {
-      logger.d("Mobile");
       emitInternetConnected(ConnectionType.mobile);
     } else if (currentStatus == ConnectivityResult.none) {
-      logger.d("Disconnected");
       emitInternetDisconnected();
     }
+    await connectivityStreamSubscription?.cancel();
     return connectivityStreamSubscription =
         connectivity.onConnectivityChanged.listen(
       (connectivityResult) {
         if (connectivityResult == ConnectivityResult.wifi) {
-          logger.d("WIFI");
           emitInternetConnected(ConnectionType.wifi);
         } else if (connectivityResult == ConnectivityResult.mobile) {
-          logger.d("Mobile");
           emitInternetConnected(ConnectionType.mobile);
         } else if (connectivityResult == ConnectivityResult.none) {
-          logger.d("Disconnected");
           emitInternetDisconnected();
         }
       },

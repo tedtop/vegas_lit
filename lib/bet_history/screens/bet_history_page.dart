@@ -30,7 +30,7 @@ class BetHistory extends StatelessWidget {
         if (openBetsState.status == OpenBetsStatus.opened) {
           final betPlacedLength = openBetsState.openBetsDataList.length;
           final betAmountRisk =
-              openBetsState.openBetsDataList.map((e) => e.amountBet).toList();
+              openBetsState.openBetsDataList.map((e) => e.betAmount).toList();
 
           return ListView(
             children: [

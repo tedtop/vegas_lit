@@ -59,7 +59,10 @@ class MatchupCard extends StatelessWidget {
           }
 
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            padding: const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 12,
+            ),
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Container(
@@ -156,7 +159,9 @@ class MatchupCard extends StatelessWidget {
                                                 spread: double.parse(
                                                     awayTeamPointSpread),
                                                 betType: Bet.pts,
-                                                league: state.league,
+                                                league: whichGame(
+                                                  gameName: state.league,
+                                                ),
                                                 awayTeamData:
                                                     state.awayTeamData,
                                                 homeTeamData:
@@ -171,7 +176,9 @@ class MatchupCard extends StatelessWidget {
                                                 winTeam: BetButtonWin.away,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
-                                                league: state.league,
+                                                league: whichGame(
+                                                  gameName: state.league,
+                                                ),
                                                 spread: gameData.overUnder
                                                     .toDouble(),
                                                 mainOdds: gameData.overPayout
@@ -249,7 +256,9 @@ class MatchupCard extends StatelessWidget {
                                                 winTeam: BetButtonWin.home,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
-                                                league: state.league,
+                                                league: whichGame(
+                                                  gameName: state.league,
+                                                ),
                                                 mainOdds: gameData
                                                     .homeTeamMoneyLine
                                                     .toString(),
@@ -272,7 +281,9 @@ class MatchupCard extends StatelessWidget {
                                                 spread: double.parse(
                                                     homeTeamPointSpread),
                                                 isClosed: gameData.isClosed,
-                                                league: state.league,
+                                                league: whichGame(
+                                                  gameName: state.league,
+                                                ),
                                                 mainOdds: gameData
                                                     .pointSpreadHomeTeamMoneyLine
                                                     .toString(),
@@ -291,7 +302,9 @@ class MatchupCard extends StatelessWidget {
                                                 gameId: gameData.gameId,
                                                 winTeam: BetButtonWin.home,
                                                 isClosed: gameData.isClosed,
-                                                league: state.league,
+                                                league: whichGame(
+                                                  gameName: state.league,
+                                                ),
                                                 mainOdds: gameData.underPayout
                                                     .toString(),
                                                 betType: Bet.tot,

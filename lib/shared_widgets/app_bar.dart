@@ -20,7 +20,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final balanceAmount = isHomePage
         ? context.select(
-            (HomeCubit homeCubit) => homeCubit.state.userData.accountBalance,
+            (HomeCubit homeCubit) => homeCubit.state.userPurse.accountBalance,
           )
         : 0;
 

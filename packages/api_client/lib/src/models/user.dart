@@ -9,11 +9,6 @@ class UserData extends Equatable {
     @required this.email,
     @required this.phone,
     @required this.location,
-    @required this.profit,
-    @required this.accountBalance,
-    @required this.numberBets,
-    @required this.correctBets,
-    @required this.openBets,
   });
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
@@ -24,11 +19,6 @@ class UserData extends Equatable {
       username: data['username'] as String,
       phone: data['phone'] as int,
       location: data['location'] as String,
-      accountBalance: data['accountBalance'] as int,
-      openBets: data['openBets'] as int,
-      correctBets: data['correctBets'] as int,
-      numberBets: data['numberBets'] as int,
-      profit: data['profit'] as int,
     );
   }
 
@@ -39,11 +29,6 @@ class UserData extends Equatable {
       'phone': phone,
       'location': location,
       'uid': uid,
-      'accountBalance': accountBalance,
-      'openBets': openBets,
-      'correctBets': correctBets,
-      'numberBets': numberBets,
-      'profit': profit,
     };
   }
 
@@ -52,15 +37,6 @@ class UserData extends Equatable {
   final String email;
   final int phone;
   final String location;
-  final int profit;
-  final int accountBalance;
-  final int numberBets;
-  final int correctBets;
-  final int openBets;
-  // int potentialWinnings;
-  // int lastWeeksRank
-  // int rank
-  // double biggestWin
 
   @override
   List<Object> get props {
@@ -70,11 +46,6 @@ class UserData extends Equatable {
       email,
       phone,
       location,
-      profit,
-      accountBalance,
-      numberBets,
-      correctBets,
-      openBets,
     ];
   }
 }

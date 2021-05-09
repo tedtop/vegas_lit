@@ -4,103 +4,118 @@ import 'package:flutter/cupertino.dart';
 
 class BetData extends Equatable {
   BetData({
-    @required this.amountWin,
-    @required this.awayTeam,
-    @required this.homeTeam,
+    @required this.id,
+    @required this.betAmount,
+    @required this.betProfit,
+    @required this.betType,
+    @required this.betTeam,
+    @required this.winTeam,
+    @required this.betPointSpread,
+    @required this.betOverUnder,
     @required this.awayTeamScore,
     @required this.homeTeamScore,
-    @required this.finalWinTeam,
+    @required this.totalGameScore,
+    @required this.homeTeam,
+    @required this.awayTeam,
+    @required this.gameDateTime,
     @required this.dateTime,
-    @required this.id,
-    @required this.spread,
-    @required this.betType,
-    @required this.winTeam,
-    @required this.gameID,
-    @required this.league,
+    @required this.gameId,
     @required this.isClosed,
-    @required this.odd,
-    @required this.amountBet,
+    @required this.league,
+    @required this.odds,
   });
 
-  factory BetData.fromFirestore(DocumentSnapshot documentSnapshot) {
-    final Map data = documentSnapshot.data();
+  factory BetData.fromFirestore(DocumentSnapshot snapshot) {
+    final Map data = snapshot.data();
     return BetData(
       id: data['id'] as String,
-      gameID: data['gameID'] as int,
-      league: data['league'] as String,
-      amountBet: data['amountBet'] as int,
-      awayTeam: data['awayTeam'] as String,
-      homeTeam: data['homeTeam'] as String,
-      winTeam: data['winTeam'] as String,
+      betAmount: data['betAmount'] as int,
+      betProfit: data['betProfit'] as int,
       betType: data['betType'] as String,
-      amountWin: data['amountWin'] as int,
-      spread: data['spread'] as double,
-      dateTime: data['dateTime'] as String,
-      odd: data['odd'] as int,
-      isClosed: data['isClosed'] as bool,
+      betTeam: data['betTeam'] as String,
+      winTeam: data['winTeam'] as String,
+      betPointSpread: data['betPointSpread'] as double,
+      betOverUnder: data['betOverUnder'] as double,
       awayTeamScore: data['awayTeamScore'] as int,
-      finalWinTeam: data['finalWinTeam'] as String,
       homeTeamScore: data['homeTeamScore'] as int,
+      totalGameScore: data['totalGameScore'] as int,
+      homeTeam: data['homeTeam'] as String,
+      awayTeam: data['awayTeam'] as String,
+      gameDateTime: data['gameDateTime'] as String,
+      dateTime: data['dateTime'] as String,
+      gameId: data['gameId'] as int,
+      isClosed: data['isClosed'] as bool,
+      league: data['league'] as String,
+      odds: data['odds'] as int,
     );
   }
 
-  final int amountBet;
-  final String league;
-  final String awayTeam;
-  final String homeTeam;
   final String id;
+  final int betAmount;
+  final int betProfit;
   final String betType;
-  final int amountWin;
-  final int gameID;
-  final bool isClosed;
-  final int awayTeamScore;
-  final double spread;
-  final int homeTeamScore;
-  final String finalWinTeam;
+  final String betTeam;
   final String winTeam;
+  final double betPointSpread;
+  final double betOverUnder;
+  final int awayTeamScore;
+  final int homeTeamScore;
+  final int totalGameScore;
+  final String homeTeam;
+  final String awayTeam;
+  final String gameDateTime;
   final String dateTime;
-  final int odd;
+  final int gameId;
+  final bool isClosed;
+  final String league;
+  final int odds;
 
   Map<String, dynamic> toMap() {
     return {
-      'amountBet': amountBet,
-      'awayTeam': awayTeam,
-      'homeTeam': homeTeam,
-      'isClosed': isClosed,
       'id': id,
-      'gameID': gameID,
+      'betAmount': betAmount,
+      'betProfit': betProfit,
       'betType': betType,
-      'dateTime': dateTime,
-      'spread': spread,
-      'amountWin': amountWin,
-      'homeTeamScore': homeTeamScore,
-      'awayTeamScore': awayTeamScore,
-      'finalWinTeam': finalWinTeam,
+      'betTeam': betTeam,
       'winTeam': winTeam,
-      'odd': odd,
+      'betPointSpread': betPointSpread,
+      'betOverUnder': betOverUnder,
+      'awayTeamScore': awayTeamScore,
+      'homeTeamScore': homeTeamScore,
+      'totalGameScore': totalGameScore,
+      'homeTeam': homeTeam,
+      'awayTeam': awayTeam,
+      'gameDateTime': gameDateTime,
+      'dateTime': dateTime,
+      'gameId': gameId,
+      'isClosed': isClosed,
       'league': league,
+      'odds': odds
     };
   }
 
   @override
   List<Object> get props {
     return [
-      amountBet,
-      awayTeam,
-      homeTeam,
-      gameID,
-      isClosed,
-      winTeam,
       id,
-      finalWinTeam,
-      spread,
+      betAmount,
+      betProfit,
+      betType,
+      betTeam,
+      winTeam,
+      betPointSpread,
+      betOverUnder,
       awayTeamScore,
       homeTeamScore,
-      betType,
-      league,
-      odd,
+      totalGameScore,
+      homeTeam,
+      awayTeam,
+      gameDateTime,
       dateTime,
-      amountWin,
+      gameId,
+      isClosed,
+      league,
+      odds,
     ];
   }
 }

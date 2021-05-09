@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -16,20 +17,27 @@ class HomeCubit extends Cubit<HomeState> {
         );
 
   final UserRepository _userRepository;
-  StreamSubscription _userDataSubscription;
+  StreamSubscription _homeDataSubscription;
 
   Future<void> openHome({@required String uid}) async {
     final userStream = _userRepository.fetchUserData(uid: uid);
-    await _userDataSubscription?.cancel();
-    _userDataSubscription = userStream.listen(
-      (event) {
+    final purseStream = _userRepository.fetchPurseData(uid: uid);
+    await _homeDataSubscription?.cancel();
+    _homeDataSubscription = Rx.combineLatest2(
+      userStream,
+      purseStream,
+      (UserData userData, Purse userPurse) {
         emit(
           HomeState.openHome(
             pageIndex: state.pageIndex,
-            userData: event,
+            userData: userData,
+            userPurse: userPurse,
           ),
         );
       },
+    ).listen(
+      // ignore: avoid_print
+      print,
     );
   }
 
@@ -38,13 +46,14 @@ class HomeCubit extends Cubit<HomeState> {
       HomeState.changed(
         pageIndex: pageIndex,
         userData: state.userData,
+        userPurse: state.userPurse,
       ),
     );
   }
 
   @override
   Future<void> close() async {
-    await _userDataSubscription?.cancel();
+    await _homeDataSubscription?.cancel();
     return super.close();
   }
 }

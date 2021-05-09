@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage>
     final balanceAmount = context.select(
       (HomeCubit homeCubit) => homeCubit.state.userData == null
           ? 0
-          : homeCubit.state.userData.accountBalance,
+          : homeCubit.state.userPurse.accountBalance,
     );
     final width = MediaQuery.of(context).size.width;
 
