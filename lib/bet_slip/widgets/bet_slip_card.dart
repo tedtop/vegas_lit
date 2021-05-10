@@ -71,7 +71,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
               authenticationBloc.state.user?.uid,
         );
         final balanceAmount = context.select(
-            (HomeCubit homeCubit) => homeCubit.state.userPurse.accountBalance);
+            (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
         final isMoneyline = betButtonState.betType == Bet.ml;
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),

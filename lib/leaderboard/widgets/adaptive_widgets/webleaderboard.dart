@@ -9,7 +9,7 @@ import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class WebLeaderboard extends StatefulWidget {
   WebLeaderboard({this.players});
-  final List<Purse> players;
+  final List<Wallet> players;
   @override
   _WebLeaderboardState createState() => _WebLeaderboardState();
 }
@@ -236,7 +236,7 @@ class LeaderboardColumns extends StatelessWidget {
 
 class WebLeaderboardItem extends StatelessWidget {
   WebLeaderboardItem({this.player, this.rank});
-  final Purse player;
+  final Wallet player;
   final int rank;
   @override
   Widget build(BuildContext context) {

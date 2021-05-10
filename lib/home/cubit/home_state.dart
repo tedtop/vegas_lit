@@ -7,7 +7,7 @@ class HomeState extends Equatable {
     this.status = HomeStatus.initial,
     this.pageIndex = 0,
     this.userData,
-    this.userPurse,
+    this.userWallet,
   });
 
   const HomeState.initial() : this._();
@@ -15,29 +15,29 @@ class HomeState extends Equatable {
   const HomeState.changed({
     @required int pageIndex,
     @required UserData userData,
-    @required Purse userPurse,
+    @required Wallet userWallet,
   }) : this._(
           status: HomeStatus.changed,
           pageIndex: pageIndex,
           userData: userData,
-          userPurse: userPurse,
+          userWallet: userWallet,
         );
   const HomeState.openHome({
     @required int pageIndex,
     @required UserData userData,
-    @required Purse userPurse,
+    @required Wallet userWallet,
   }) : this._(
           status: HomeStatus.user,
           pageIndex: pageIndex,
           userData: userData,
-          userPurse: userPurse,
+          userWallet: userWallet,
         );
 
   final HomeStatus status;
   final int pageIndex;
   final UserData userData;
-  final Purse userPurse;
+  final Wallet userWallet;
 
   @override
-  List<Object> get props => [status, pageIndex, userData, userPurse];
+  List<Object> get props => [status, pageIndex, userData, userWallet];
 }

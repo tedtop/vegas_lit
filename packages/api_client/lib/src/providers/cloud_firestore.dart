@@ -1,5 +1,5 @@
 import 'package:api_client/src/models/bet.dart';
-import 'package:api_client/src/models/purse.dart';
+import 'package:api_client/src/models/wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
@@ -16,8 +16,8 @@ class CloudFirestore {
   Future<void> saveUserDetails(
       {@required Map userDataMap, @required String uid}) async {
     final userReference = _firestoreData.collection('users').doc(uid);
-    final purseReference = _firestoreData.collection('purse').doc(uid);
-    final purseMap = Purse(
+    final walletReference = _firestoreData.collection('wallets').doc(uid);
+    final walletMap = Wallet(
       accountBalance: 1000,
       totalBets: 0,
       totalLoseBets: 0,
@@ -31,7 +31,7 @@ class CloudFirestore {
       username: userDataMap['username'],
     ).toMap();
     await userReference.set(userDataMap, SetOptions(merge: true));
-    await purseReference.set(purseMap, SetOptions(merge: true));
+    await walletReference.set(walletMap, SetOptions(merge: true));
   }
 
   // Open Bets Page
@@ -75,7 +75,7 @@ class CloudFirestore {
         await docRef.set({'user': uid}, SetOptions(merge: true));
       },
     );
-    await _firestoreData.collection('purse').doc(uid).update({
+    await _firestoreData.collection('wallets').doc(uid).update({
       'totalBets': FieldValue.increment(1),
       'totalOpenBets': FieldValue.increment(1),
       'accountBalance': FieldValue.increment(-cutBalance),
@@ -95,28 +95,28 @@ class CloudFirestore {
     return snapshot;
   }
 
-  Stream<Purse> fetchUserPurse({@required String uid}) {
+  Stream<Wallet> fetchUserWallet({@required String uid}) {
     final snapshot = _firestoreData
-        .collection('purse')
+        .collection('wallets')
         .doc(uid)
         .snapshots()
-        .map((event) => Purse.fromFirestore(event));
+        .map((event) => Wallet.fromFirestore(event));
     return snapshot;
   }
 
   // Leaderboard Page
 
-  Stream<List<Purse>> fetchRankedUsers() {
+  Stream<List<Wallet>> fetchRankedUsers() {
     final snapshot = _firestoreData
-        .collection('purse')
+        .collection('wallets')
         .where('totalProfit', isGreaterThan: 0)
         .orderBy('totalProfit', descending: true)
         .limit(50)
         .snapshots();
-    final userPurseList = snapshot
-        .map((event) => event.docs.map((e) => Purse.fromFirestore(e)).toList());
+    final userWalletList = snapshot.map(
+        (event) => event.docs.map((e) => Wallet.fromFirestore(e)).toList());
 
-    return userPurseList;
+    return userWalletList;
   }
 
   Future<bool> isBetExist({String betId}) async {
@@ -134,12 +134,12 @@ class CloudFirestore {
     return weeks;
   }
 
-  Future<List<Purse>> fetchLeaderboardWeeksUserData(
+  Future<List<Wallet>> fetchLeaderboardWeeksUserData(
       {@required String week}) async {
-    final userPurseList = await _firestoreData
+    final userWalletList = await _firestoreData
         .collection('leaderboard')
         .doc(week)
-        .collection('purse')
+        .collection('wallets')
         .where('totalProfit', isGreaterThan: 0)
         .orderBy('totalProfit', descending: true)
         .limit(50)
@@ -147,10 +147,10 @@ class CloudFirestore {
         .then(
           (value) => value.docs
               .map(
-                (e) => Purse.fromFirestore(e),
+                (e) => Wallet.fromFirestore(e),
               )
               .toList(),
         );
-    return userPurseList;
+    return userWalletList;
   }
 }

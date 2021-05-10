@@ -9,7 +9,7 @@ import 'package:vegas_lit/leaderboard/widgets/textbar.dart';
 
 class TabletLeaderboard extends StatefulWidget {
   TabletLeaderboard({this.players});
-  final List<Purse> players;
+  final List<Wallet> players;
   @override
   _TabletLeaderboardState createState() => _TabletLeaderboardState();
 }
@@ -93,7 +93,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
 
 class TabletLeaderboardTile extends StatelessWidget {
   TabletLeaderboardTile({@required this.player, @required this.rank});
-  final Purse player;
+  final Wallet player;
   final int rank;
   @override
   Widget build(BuildContext context) {

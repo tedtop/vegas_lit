@@ -21,17 +21,17 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> openHome({@required String uid}) async {
     final userStream = _userRepository.fetchUserData(uid: uid);
-    final purseStream = _userRepository.fetchPurseData(uid: uid);
+    final walletStream = _userRepository.fetchWalletData(uid: uid);
     await _homeDataSubscription?.cancel();
     _homeDataSubscription = Rx.combineLatest2(
       userStream,
-      purseStream,
-      (UserData userData, Purse userPurse) {
+      walletStream,
+      (UserData userData, Wallet userWallet) {
         emit(
           HomeState.openHome(
             pageIndex: state.pageIndex,
             userData: userData,
-            userPurse: userPurse,
+            userWallet: userWallet,
           ),
         );
       },
@@ -46,7 +46,7 @@ class HomeCubit extends Cubit<HomeState> {
       HomeState.changed(
         pageIndex: pageIndex,
         userData: state.userData,
-        userPurse: state.userPurse,
+        userWallet: state.userWallet,
       ),
     );
   }

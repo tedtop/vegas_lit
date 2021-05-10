@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class Purse extends Equatable {
-  Purse({
+class Wallet extends Equatable {
+  Wallet({
     @required this.uid,
     @required this.username,
     @required this.totalProfit,
@@ -17,11 +17,11 @@ class Purse extends Equatable {
     @required this.totalRiskedAmount,
   });
 
-  factory Purse.fromFirestore(DocumentSnapshot snapshot) {
+  factory Wallet.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
     final map = snapshot.data();
 
-    return Purse(
+    return Wallet(
       uid: map['uid'],
       username: map['username'],
       totalProfit: map['totalProfit'],
@@ -36,10 +36,10 @@ class Purse extends Equatable {
     );
   }
 
-  factory Purse.fromMap(Map<String, dynamic> map) {
+  factory Wallet.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return Purse(
+    return Wallet(
       uid: map['uid'],
       username: map['username'],
       totalProfit: map['totalProfit'],
@@ -80,7 +80,7 @@ class Purse extends Equatable {
         'totalRiskedAmount': totalRiskedAmount,
       };
 
-  Purse copyWith({
+  Wallet copyWith({
     String uid,
     String username,
     int totalProfit,
@@ -93,7 +93,7 @@ class Purse extends Equatable {
     int biggestWinAmount,
     int totalRiskedAmount,
   }) {
-    return Purse(
+    return Wallet(
       uid: uid ?? this.uid,
       username: username ?? this.username,
       totalProfit: totalProfit ?? this.totalProfit,

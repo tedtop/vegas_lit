@@ -1,4 +1,4 @@
-import 'package:api_client/src/models/purse.dart';
+import 'package:api_client/src/models/wallet.dart';
 import 'package:api_client/src/models/user.dart';
 import 'package:api_client/src/providers/cloud_firestore.dart';
 import 'package:api_client/src/providers/firebase_auth.dart';
@@ -47,15 +47,15 @@ class UserRepository {
 
   Stream<UserData> fetchUserData({@required String uid}) =>
       _databaseProvider.fetchUserData(uid: uid);
-  Stream<Purse> fetchPurseData({@required String uid}) =>
-      _databaseProvider.fetchUserPurse(uid: uid);
+  Stream<Wallet> fetchWalletData({@required String uid}) =>
+      _databaseProvider.fetchUserWallet(uid: uid);
 
-  Stream<List<Purse>> fetchRankedUsers() =>
+  Stream<List<Wallet>> fetchRankedUsers() =>
       _databaseProvider.fetchRankedUsers();
 
   Future<List<String>> fetchLeaderboardWeeks() =>
       _databaseProvider.fetchLeaderboardWeeks();
 
-  Future<List<Purse>> fetchLeaderboardWeeksUserData({@required String week}) =>
+  Future<List<Wallet>> fetchLeaderboardWeeksUserData({@required String week}) =>
       _databaseProvider.fetchLeaderboardWeeksUserData(week: week);
 }
