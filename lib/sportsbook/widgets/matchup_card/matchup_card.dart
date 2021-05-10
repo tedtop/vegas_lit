@@ -8,13 +8,15 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/shared_widgets/countdown_timer.dart';
+import 'package:vegas_lit/sportsbook/bloc/sportsbook_bloc.dart';
 import 'package:vegas_lit/sportsbook/screens/team_info/team_info.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  const MatchupCard._({Key key, this.gameName}) : super(key: key);
+  MatchupCard._({Key key, this.gameName}) : super(key: key);
   final String gameName;
 
   static Builder route({
@@ -41,8 +43,9 @@ class MatchupCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MatchupCardCubit, MatchupCardState>(
       builder: (context, state) {
+        final estTimeZone =
+            context.select((SportsbookBloc bloc) => bloc.state?.estTimeZone);
         if (state is MatchupCardOpened) {
-          print(gameName);
           final gameData = state.game;
           final isPointSpreadNegative = state.game.pointSpread == null
               ? true
@@ -338,6 +341,10 @@ class MatchupCard extends StatelessWidget {
                                 ),
                               ],
                             ),
+                          ),
+                          CountdownTimer(
+                            estTimeZone: estTimeZone,
+                            endDateTime: state.game.dateTime,
                           ),
                           // kDebugMode
                           //     ? Row(

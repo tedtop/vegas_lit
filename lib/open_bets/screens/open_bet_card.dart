@@ -1,8 +1,10 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/sportsbook/bloc/sportsbook_bloc.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
@@ -15,19 +17,28 @@ class OpenBetsSlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final estTimeZone =
+        context.select((SportsbookBloc bloc) => bloc.state?.estTimeZone);
     final odd = openBets.odds.isNegative
         ? openBets.odds.toString()
         : '+${openBets.odds}';
 
-    final isMoneyline = openBets.betType == 'MONEYLINE';
-    final betSpread = openBets.betType == 'total'
-        ? openBets.betOverUnder
-        : openBets.betPointSpread;
-    final spread = betSpread == 0
-        ? ''
-        : betSpread.isNegative
-            ? betSpread.toString()
-            : '+$betSpread';
+    bool isMoneyline = true;
+    double betSpread = 0.0;
+    String spread = '0';
+
+    if (openBets.betOverUnder != null || openBets.betPointSpread != null) {
+      isMoneyline = openBets.betType == 'MONEYLINE';
+      betSpread = openBets.betType == 'total'
+          ? openBets.betOverUnder
+          : openBets.betPointSpread;
+      spread = betSpread == 0
+          ? ''
+          : betSpread.isNegative
+              ? betSpread.toString()
+              : '+$betSpread';
+    } else {}
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Container(
@@ -123,9 +134,10 @@ class OpenBetsSlip extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              openBets.dateTime,
+                              openBets.gameDateTime,
                               style: Styles.matchupTime,
                             ),
+                            // TODO:
                           ],
                         ),
                       ],

@@ -17,7 +17,9 @@ import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/interstitial/interstitial_page.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
+import 'package:vegas_lit/shared_widgets/countdown_timer.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
+import 'package:vegas_lit/sportsbook/bloc/sportsbook_bloc.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 import '../bet_slip.dart';
 
@@ -58,6 +60,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
+        final estTimeZone =
+            context.select((SportsbookBloc bloc) => bloc.state?.estTimeZone);
         final betButtonState = context.watch<BetButtonCubit>().state;
         final betPlacedCount = context.select(
           (BetSlipCubit betSlipCubit) => betSlipCubit.state.betPlacedCount,
@@ -508,7 +512,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.only(bottom: 5),
               child: Center(
                 child: Text(
                     DateFormat('E, MMMM, c, y @ hh:mm a').format(
@@ -518,6 +522,13 @@ class _BetSlipCardState extends State<BetSlipCard> {
                       color: Palette.cream,
                       fontSize: 13,
                     )),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: CountdownTimer(
+                estTimeZone: estTimeZone,
+                endDateTime: betButtonState.game.dateTime,
               ),
             ),
           ],
