@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:intl/intl.dart';
 
 class BetHistorySlip extends StatelessWidget {
   const BetHistorySlip({
@@ -140,7 +141,10 @@ class BetHistorySlip extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              betHistory.gameDateTime,
+                              DateFormat('E, MMMM, c, y @ hh:mm a').format(
+                                DateTime.parse(betHistory.gameDateTime)
+                                    .toLocal(),
+                              ),
                               style: Styles.matchupTime,
                             ),
                           ],

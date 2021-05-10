@@ -318,12 +318,9 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                                 betButtonState.mainOdds),
                                             betProfit: widget
                                                 .betSlipCardData.toWinAmount,
-                                            gameDateTime: DateFormat(
-                                                    'E, MMMM, c, y @ hh:mm a')
-                                                .format(
-                                              betButtonState.game.dateTime
-                                                  .toLocal(),
-                                            ),
+                                            gameDateTime: betButtonState
+                                                .game.dateTime
+                                                .toString(),
                                             awayTeamScore: betButtonState
                                                 .game.awayTeamScore,
                                             homeTeamScore: betButtonState
