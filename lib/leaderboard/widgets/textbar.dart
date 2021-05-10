@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class TextBar extends StatelessWidget {
@@ -53,10 +54,23 @@ class TextBar extends StatelessWidget {
               items: textList.isNotEmpty == true
                   ? textList.map<DropdownMenuItem<String>>(
                       (String weekValue) {
+                        dynamic dateFormat;
+                        if (weekValue != 'Today') {
+                          final formatValue = weekValue.split('-');
+
+                          final dateTime = DateTime(
+                            int.parse(formatValue[0]),
+                            int.parse(formatValue[1]),
+                            int.parse(formatValue[2]),
+                          );
+                          dateFormat = DateFormat('MMMM c, y').format(dateTime);
+                        } else {
+                          dateFormat = weekValue;
+                        }
                         return DropdownMenuItem<String>(
                           value: weekValue,
                           child: Text(
-                            weekValue,
+                            dateFormat.toString(),
                             textAlign: TextAlign.left,
                             style: GoogleFonts.nunito(
                               fontSize: 18,
