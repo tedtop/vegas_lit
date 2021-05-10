@@ -225,7 +225,8 @@ class MatchupCard extends StatelessWidget {
                                       onTap: () => Navigator.push(
                                           context,
                                           TeamInfo.route(
-                                              teamData: state.homeTeamData)),
+                                              teamData: state.homeTeamData,
+                                              gameName: state.league)),
                                       child: Column(
                                         children: [
                                           Text(
