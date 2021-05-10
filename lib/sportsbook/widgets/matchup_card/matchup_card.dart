@@ -10,8 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/shared_widgets/countdown_timer.dart';
-import 'package:vegas_lit/sportsbook/bloc/sportsbook_bloc.dart';
 import 'package:vegas_lit/sportsbook/screens/team_info/team_info.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 

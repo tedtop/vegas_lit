@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 part 'internet_state.dart';

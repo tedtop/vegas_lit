@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_history/screens/bet_history_page.dart';
 import 'package:vegas_lit/bet_history/widgets/bet_history_card.dart';
-import 'package:vegas_lit/bet_history/widgets/textbar.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class MobileBetHistory extends StatefulWidget {

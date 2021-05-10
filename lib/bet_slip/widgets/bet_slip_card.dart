@@ -19,9 +19,7 @@ import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/interstitial/interstitial_page.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
-import 'package:vegas_lit/shared_widgets/countdown_timer.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
-import 'package:vegas_lit/sportsbook/bloc/sportsbook_bloc.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 import '../bet_slip.dart';
 
