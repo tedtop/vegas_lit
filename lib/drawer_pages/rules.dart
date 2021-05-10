@@ -111,7 +111,7 @@ class Rules extends StatelessWidget {
 class RulesList extends StatelessWidget {
   final List<String> texts = [
     'Players get \$1000 every Thursday at 3AM PST when the weekly game starts. Each weekly game ends the following Wednesday night at midnight PST.',
-    'Once you register, you’ll get \$1000 in virtual currency to play with each week. You can easily see how you did on each bet and also track how much you’re making over time.',
+    'Once you register, you\'ll get \$1000 in virtual currency to play with each week. You can easily see how you did on each bet and also track how much you\'re making over time.',
     'Players can only participate in the contest with a single Vegas Lit account. ',
     'Every week (3AM PST Thursday) player accounts are reset at \$1000 and the game restarts.',
     'Players can choose from a daily list of active games in the sportsbook.',
