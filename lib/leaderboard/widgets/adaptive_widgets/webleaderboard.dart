@@ -35,10 +35,10 @@ class _WebLeaderboardState extends State<WebLeaderboard> {
                 ),
                 Expanded(child: Container()),
                 TextBar(
-                  text: leaderboardState.week,
-                  textList: leaderboardState.weeks,
+                  text: leaderboardState.day,
+                  textList: leaderboardState.days,
                   onPress: (String value) {
-                    context.read<LeaderboardCubit>().changeWeek(week: value);
+                    context.read<LeaderboardCubit>().changeWeek(day: value);
                   },
                 ),
                 const TextBar(

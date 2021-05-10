@@ -54,9 +54,9 @@ class UserRepository {
   Stream<List<Wallet>> fetchRankedUsers() =>
       _databaseProvider.fetchRankedUsers();
 
-  Future<List<String>> fetchLeaderboardWeeks() =>
-      _databaseProvider.fetchLeaderboardWeeks();
+  Future<List<String>> fetchLeaderboardDays() =>
+      _databaseProvider.fetchLeaderboardDays();
 
-  Future<List<Wallet>> fetchLeaderboardWeeksUserData({@required String week}) =>
-      _databaseProvider.fetchLeaderboardWeeksUserData(week: week);
+  Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String day}) =>
+      _databaseProvider.fetchLeaderboardDaysUserData(day: day);
 }

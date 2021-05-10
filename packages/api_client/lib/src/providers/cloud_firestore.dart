@@ -127,18 +127,18 @@ class CloudFirestore {
     return isBetExist;
   }
 
-  Future<List<String>> fetchLeaderboardWeeks() async {
-    final weeks = await _firestoreData.collection('leaderboard').get().then(
+  Future<List<String>> fetchLeaderboardDays() async {
+    final days = await _firestoreData.collection('leaderboard').get().then(
           (value) => value.docs.map((e) => e.id).toList(),
         );
-    return weeks;
+    return days;
   }
 
-  Future<List<Wallet>> fetchLeaderboardWeeksUserData(
-      {@required String week}) async {
+  Future<List<Wallet>> fetchLeaderboardDaysUserData(
+      {@required String day}) async {
     final userWalletList = await _firestoreData
         .collection('leaderboard')
-        .doc(week)
+        .doc(day)
         .collection('wallets')
         .where('totalProfit', isGreaterThan: 0)
         .orderBy('totalProfit', descending: true)

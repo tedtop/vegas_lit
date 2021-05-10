@@ -6,46 +6,46 @@ class LeaderboardState extends Equatable {
   const LeaderboardState._({
     this.rankedUserList = const [],
     this.status = LeaderboardStatus.initial,
-    this.weeks,
-    this.week = 'Current Week',
+    this.days,
+    this.day = 'Today',
   });
 
   const LeaderboardState.initial() : this._();
 
   const LeaderboardState.opened({
     @required List<Wallet> rankedUserList,
-    @required List<String> weeks,
+    @required List<String> days,
   }) : this._(
           rankedUserList: rankedUserList,
           status: LeaderboardStatus.opened,
-          weeks: weeks,
+          days: days,
         );
 
   const LeaderboardState.weekChanged({
     @required List<Wallet> rankedUserList,
-    @required List<String> weeks,
-    @required String week,
+    @required List<String> days,
+    @required String day,
   }) : this._(
           rankedUserList: rankedUserList,
           status: LeaderboardStatus.weekChanged,
-          weeks: weeks,
-          week: week,
+          days: days,
+          day: day,
         );
 
   const LeaderboardState.loading({
-    @required List<String> weeks,
-    @required String week,
+    @required List<String> days,
+    @required String day,
   }) : this._(
           status: LeaderboardStatus.loading,
-          weeks: weeks,
-          week: week,
+          days: days,
+          day: day,
         );
 
   final List<Wallet> rankedUserList;
-  final List<String> weeks;
-  final String week;
+  final List<String> days;
+  final String day;
   final LeaderboardStatus status;
 
   @override
-  List<Object> get props => [status, rankedUserList, week, weeks];
+  List<Object> get props => [status, rankedUserList, day, days];
 }

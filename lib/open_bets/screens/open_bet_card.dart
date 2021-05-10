@@ -1,10 +1,8 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/sportsbook/bloc/sportsbook_bloc.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
@@ -21,12 +19,12 @@ class OpenBetsSlip extends StatelessWidget {
         ? openBets.odds.toString()
         : '+${openBets.odds}';
 
-    bool isMoneyline = true;
-    double betSpread = 0.0;
-    String spread = '0';
+    var isMoneyline = true;
+    var betSpread = 0.0;
+    var spread = '0';
 
     if (openBets.betOverUnder != null || openBets.betPointSpread != null) {
-      isMoneyline = openBets.betType == 'MONEYLINE';
+      isMoneyline = openBets.betType == 'moneyline';
       betSpread = openBets.betType == 'total'
           ? openBets.betOverUnder
           : openBets.betPointSpread;
@@ -35,7 +33,7 @@ class OpenBetsSlip extends StatelessWidget {
           : betSpread.isNegative
               ? betSpread.toString()
               : '+$betSpread';
-    } else {}
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
