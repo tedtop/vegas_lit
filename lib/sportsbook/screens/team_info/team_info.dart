@@ -89,7 +89,7 @@ class TeamInfoView extends StatelessWidget {
           ),
           title: Text('${players[index].firstName} ${players[index].lastName}'),
           trailing: Text('Position : ${players[index].position}'),
-          subtitle: const Text('Backup :'),
+          // subtitle: const Text('Backup:'),
         );
       },
       itemCount: players.length,
