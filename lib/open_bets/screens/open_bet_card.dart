@@ -1,8 +1,11 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:intl/intl.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
@@ -120,21 +123,43 @@ class OpenBetsSlip extends StatelessWidget {
                             top: 10.0,
                           ),
                           child: Text(
-                              // ignore: lines_longer_than_80_chars
-                              'You bet \$${openBets.betAmount} to win \$${openBets.betProfit}!',
-                              style: GoogleFonts.nunito(
-                                color: Palette.green,
-                                fontSize: 18,
-                              )),
+                            // ignore: lines_longer_than_80_chars
+                            'You bet \$${openBets.betAmount} to win \$${openBets.betProfit}!',
+                            style: GoogleFonts.nunito(
+                              color: Palette.green,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                         Row(
                           children: [
                             Text(
-                              openBets.gameDateTime,
+                              DateFormat('E, MMMM, c, y @ hh:mm a').format(
+                                DateTime.parse(openBets.gameDateTime).toLocal(),
+                              ),
                               style: Styles.matchupTime,
                             ),
-                            // TODO:
                           ],
+                        ),
+                        CountdownTimer(
+                          endTime: DateTime.parse(openBets.gameDateTime)
+                              .millisecondsSinceEpoch,
+                          widgetBuilder: (_, CurrentRemainingTime time) {
+                            if (time == null) {
+                              return Text(
+                                'In Progress',
+                                style: GoogleFonts.nunito(
+                                  color: Palette.red,
+                                ),
+                              );
+                            }
+                            return Text(
+                              'Starting in ${time.hours}hr ${time.min}m ${time.sec}s',
+                              style: GoogleFonts.nunito(
+                                color: Palette.red,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
