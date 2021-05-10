@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/assets.dart';
 
-Future<Null> showOverlay(
-    BuildContext context, GlobalKey key1, GlobalKey key2) async {
+Future<void> showOverlay(
+    {BuildContext context, GlobalKey key1, GlobalKey key2}) async {
   final RenderBox currentRenderObject1 = key1.currentContext.findRenderObject();
   final RenderBox currentRenderObject2 = key2.currentContext.findRenderObject();
 
@@ -26,7 +26,6 @@ Future<Null> showOverlay(
       ),
       Positioned(
           //typeOfSports
-
           top: topSafeSpacePadding + 15,
           left: 25,
           child: Image.asset(
@@ -65,6 +64,8 @@ Future<Null> showOverlay(
   });
 
   Overlay.of(context).insert(overlayEntry);
-  await Future.delayed(const Duration(seconds: 5));
+  await Future.delayed(
+    const Duration(seconds: 5),
+  );
   overlayEntry.remove();
 }
