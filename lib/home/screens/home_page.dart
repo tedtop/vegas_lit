@@ -35,7 +35,7 @@ class HomePage extends StatefulWidget {
       builder: (context) {
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
-              authenticationBloc.state.user?.uid,
+              authenticationBloc.state?.user?.uid,
         );
         return BlocBuilder<InternetCubit, InternetState>(
           builder: (context, state) {

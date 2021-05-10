@@ -17,8 +17,6 @@ class OpenBetsSlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final estTimeZone =
-        context.select((SportsbookBloc bloc) => bloc.state?.estTimeZone);
     final odd = openBets.odds.isNegative
         ? openBets.odds.toString()
         : '+${openBets.odds}';

@@ -2,6 +2,8 @@ import 'package:api_client/api_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -43,8 +45,6 @@ class MatchupCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MatchupCardCubit, MatchupCardState>(
       builder: (context, state) {
-        final estTimeZone =
-            context.select((SportsbookBloc bloc) => bloc.state?.estTimeZone);
         if (state is MatchupCardOpened) {
           final gameData = state.game;
           final isPointSpreadNegative = state.game.pointSpread == null
@@ -344,9 +344,27 @@ class MatchupCard extends StatelessWidget {
                             ),
                           ),
                           CountdownTimer(
-                            estTimeZone: estTimeZone,
-                            endDateTime: state.game.dateTime,
+                            endTime: state.game.dateTime.millisecondsSinceEpoch,
+                            widgetBuilder: (_, CurrentRemainingTime time) {
+                              if (time == null) {
+                                return Text(
+                                  'In Progress',
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.red,
+                                  ),
+                                );
+                              }
+                              return Text(
+                                'Starting in ${time.hours}hr ${time.min}m ${time.sec}s',
+                                style: GoogleFonts.nunito(
+                                  color: Palette.red,
+                                ),
+                              );
+                            },
                           ),
+                          // CountdownTimer(
+                          //   endDateTime: state.game.dateTime,
+                          // ),
                           // kDebugMode
                           //     ? Row(
                           //         mainAxisAlignment: MainAxisAlignment.center,

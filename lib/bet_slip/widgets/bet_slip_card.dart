@@ -4,6 +4,8 @@ import 'package:api_client/api_client.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_countdown_timer/current_remaining_time.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meta/meta.dart';
@@ -60,8 +62,6 @@ class _BetSlipCardState extends State<BetSlipCard> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final estTimeZone =
-            context.select((SportsbookBloc bloc) => bloc.state?.estTimeZone);
         final betButtonState = context.watch<BetButtonCubit>().state;
         final betPlacedCount = context.select(
           (BetSlipCubit betSlipCubit) => betSlipCubit.state.betPlacedCount,
@@ -524,13 +524,36 @@ class _BetSlipCardState extends State<BetSlipCard> {
                     )),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: CountdownTimer(
-                estTimeZone: estTimeZone,
-                endDateTime: betButtonState.game.dateTime,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: CountdownTimer(
+                  endTime: betButtonState.game.dateTime.millisecondsSinceEpoch,
+                  widgetBuilder: (_, CurrentRemainingTime time) {
+                    if (time == null) {
+                      return Text(
+                        'In Progress',
+                        style: GoogleFonts.nunito(
+                          color: Palette.red,
+                        ),
+                      );
+                    }
+                    return Text(
+                      'Starting in ${time.hours}hr ${time.min}m ${time.sec}s',
+                      style: GoogleFonts.nunito(
+                        color: Palette.red,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(bottom: 5),
+            //   child: CountdownTimer(
+            //     endDateTime: betButtonState.game.dateTime,
+            //   ),
+            // ),
           ],
         );
       },
