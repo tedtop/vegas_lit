@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage>
 
   void _sendCurrentTabToAnalytics() {
     widget.observer.analytics.setCurrentScreen(
-      screenName: 'HomePage/${whichIndexPage(selectedIndex)}',
+      screenName: '${whichIndexPage(selectedIndex)}',
     );
   }
 
