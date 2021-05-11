@@ -378,10 +378,13 @@ class _SportsBookViewState extends State<SportsBookView> {
           widget.games.isEmpty
               ? Container()
               : Positioned(
-                  bottom: 5,
-                  right: 5,
+                  bottom: 7,
+                  right: 6,
                   child: FloatingActionButton(
-                    child: const Icon(Icons.help),
+                    child: const Icon(
+                      Icons.help,
+                      size: 50,
+                    ),
                     onPressed: () async {
                       await _scrollController.animateTo(
                         _scrollController.initialScrollOffset,
