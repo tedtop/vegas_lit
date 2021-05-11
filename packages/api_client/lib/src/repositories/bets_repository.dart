@@ -22,6 +22,6 @@ class BetsRepository {
         cutBalance: cutBalance,
       );
 
-  Future<bool> isBetExist({@required String betId}) =>
-      _databaseProvider.isBetExist(betId: betId);
+  Future<bool> isBetExist({@required String betId, @required String uid}) =>
+      _databaseProvider.isBetExist(betId: betId, uid: uid);
 }

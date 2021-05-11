@@ -119,7 +119,8 @@ class CloudFirestore {
     return userWalletList;
   }
 
-  Future<bool> isBetExist({String betId, String uid}) async {
+  Future<bool> isBetExist(
+      {@required String betId, @required String uid}) async {
     final isBetExist = await _firestoreData
         .collection('bets')
         .where('id', isEqualTo: betId)
