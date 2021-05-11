@@ -53,13 +53,14 @@ class TeamInfoView extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         _teamBadge(size),
+        const SizedBox(height: 12),
         BlocConsumer<TeamInfoCubit, TeamInfoState>(
             builder: (context, state) {
               if (state is TeamInfoOpened) {
                 final players = state.player;
                 return _buildPlayersList(players);
               } else {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               }
             },
             listener: (context, state) {})
