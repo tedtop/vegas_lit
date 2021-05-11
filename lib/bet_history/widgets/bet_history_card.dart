@@ -69,7 +69,7 @@ class BetHistorySlip extends StatelessWidget {
                         betHistory.winningTeamName == 'home'
                             ? isMoneyline
                                 ? Text(
-                                    '${betHistory.homeTeamName} TO WIN',
+                                    '${betHistory.homeTeamName.toUpperCase()} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -78,7 +78,7 @@ class BetHistorySlip extends StatelessWidget {
                                 : Container()
                             : isMoneyline
                                 ? Text(
-                                    '${betHistory.awayTeamName} TO WIN',
+                                    '${betHistory.awayTeamName.toUpperCase()} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -86,7 +86,7 @@ class BetHistorySlip extends StatelessWidget {
                                   )
                                 : Container(),
                         Text(
-                          '$betTeam ${isWin.toUpperCase()} ${betHistory.awayTeamScore}-${betHistory.homeTeamScore}',
+                          '${betTeam.toUpperCase()} ${isWin.toUpperCase()} ${betHistory.awayTeamScore}-${betHistory.homeTeamScore}',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
@@ -98,14 +98,16 @@ class BetHistorySlip extends StatelessWidget {
                             style: Styles.normalText,
                             children: [
                               TextSpan(
-                                text: '${betHistory.awayTeamName}',
+                                text:
+                                    '${betHistory.awayTeamName.toUpperCase()}',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
-                                text: '${betHistory.homeTeamName}',
+                                text:
+                                    '${betHistory.homeTeamName.toUpperCase()}',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontWeight: FontWeight.bold,

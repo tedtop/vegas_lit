@@ -71,7 +71,7 @@ class OpenBetsSlip extends StatelessWidget {
                         openBets.winningTeamName == 'home'
                             ? isMoneyline
                                 ? Text(
-                                    '${openBets.homeTeamName} TO WIN',
+                                    '${openBets.homeTeamName.toUpperCase()} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -80,7 +80,7 @@ class OpenBetsSlip extends StatelessWidget {
                                 : Container()
                             : isMoneyline
                                 ? Text(
-                                    '${openBets.awayTeamName} TO WIN',
+                                    '${openBets.awayTeamName.toUpperCase()} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -95,14 +95,14 @@ class OpenBetsSlip extends StatelessWidget {
                             style: Styles.normalText,
                             children: [
                               TextSpan(
-                                text: '${openBets.awayTeamName}',
+                                text: '${openBets.awayTeamName.toUpperCase()}',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
-                                text: '${openBets.homeTeamName}',
+                                text: '${openBets.homeTeamName.toUpperCase()}',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontWeight: FontWeight.bold,
