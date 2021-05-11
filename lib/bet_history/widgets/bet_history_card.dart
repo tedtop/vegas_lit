@@ -20,6 +20,7 @@ class BetHistorySlip extends StatelessWidget {
     final odd = betHistory.odds.isNegative
         ? betHistory.odds.toString()
         : '+${betHistory.odds}';
+    final isMoneyLine = betHistory.betType == 'moneyline';
     final betSpread = betHistory.betType == 'total'
         ? betHistory.betOverUnder
         : betHistory.betPointSpread;
@@ -117,7 +118,7 @@ class BetHistorySlip extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${whichBetSystem(betHistory.betType)}  $spread  $odd',
+                          '${whichBetSystem(betHistory.betType)}  ${isMoneyLine ? spread : ''}  $odd',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
