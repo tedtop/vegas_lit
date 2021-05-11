@@ -119,11 +119,20 @@ class CloudFirestore {
     return userWalletList;
   }
 
-  Future<bool> isBetExist({String betId}) async {
-    final isBetExist =
-        await _firestoreData.collection('bets').doc(betId).get().then(
-              (value) => value.exists,
-            );
+  Future<bool> isBetExist({String betId, String uid}) async {
+    final isBetExist = await _firestoreData
+        .collection('bets')
+        .where('id', isEqualTo: betId)
+        .where('user', isEqualTo: uid)
+        .get()
+        .then(
+          (value) => value.docs
+              .map(
+                (e) => e.exists,
+              )
+              .toList()
+              .isNotEmpty,
+        );
     return isBetExist;
   }
 
@@ -152,5 +161,14 @@ class CloudFirestore {
               .toList(),
         );
     return userWalletList;
+  }
+
+  Future<String> fetchMinimumVersion() async {
+    final minimumVersion =
+        await _firestoreData.collection('constants').doc('version').get().then(
+              (value) => value.data()['minimumVersion'] as String,
+            );
+
+    return minimumVersion;
   }
 }
