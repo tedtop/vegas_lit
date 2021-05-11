@@ -38,24 +38,4 @@ class MatchupCardCubit extends Cubit<MatchupCardState> {
 
     return teamData;
   }
-
-  // ignore: missing_return
-  String whichGame({String gameName}) {
-    switch (gameName) {
-      case 'NBA':
-        return 'nba';
-        break;
-      case 'MLB':
-        return 'mlb';
-        break;
-      case 'NHL':
-        return 'nhl';
-        break;
-      case 'NCAAB':
-        return 'cbb';
-        break;
-      default:
-        break;
-    }
-  }
 }

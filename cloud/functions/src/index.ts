@@ -45,6 +45,9 @@ export const resolveBets = functions.pubsub
                 },
               }
             )
+            .catch((error: any) => {
+              console.log(error);
+            })
             .then(async function (data: any) {
               const jsonData: Game[] = data["data"];
               const specificGame = jsonData.filter(
@@ -71,6 +74,8 @@ export const resolveBets = functions.pubsub
                     betType == "pointspread"
                       ? pointSpread
                       : specificGame.OverUnder;
+
+                  const totalGameScore = homeTeamScore + awayTeamScore;
                   const finalWinTeam = whichTeamWin(
                     homeTeamScore,
                     awayTeamScore,
@@ -93,6 +98,7 @@ export const resolveBets = functions.pubsub
                       homeTeamScore: homeTeamScore,
                       awayTeamScore: awayTeamScore,
                       winningTeamName: finalWinTeam,
+                      totalGameScore: totalGameScore,
                       winningTeam: finalWinTeamKey,
                     })
                     .then(async (_) => {
