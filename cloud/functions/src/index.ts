@@ -107,9 +107,8 @@ export const resolveBets = functions.pubsub
                         .collection("wallets")
                         .doc(uid)
                         .update({
-                          totalOpenBets: admin.firestore.FieldValue.increment(
-                            -1
-                          ),
+                          totalOpenBets:
+                            admin.firestore.FieldValue.increment(-1),
                           totalProfit: isWin
                             ? admin.firestore.FieldValue.increment(amountWin)
                             : admin.firestore.FieldValue.increment(-amountBet),
@@ -124,9 +123,8 @@ export const resolveBets = functions.pubsub
                           totalLoseBets: isWin
                             ? admin.firestore.FieldValue.increment(0)
                             : admin.firestore.FieldValue.increment(1),
-                          potentialWinAmount: admin.firestore.FieldValue.increment(
-                            -amountWin
-                          ),
+                          potentialWinAmount:
+                            admin.firestore.FieldValue.increment(-amountWin),
                         });
                       valueUpdateNumber++;
                     });
@@ -137,7 +135,6 @@ export const resolveBets = functions.pubsub
             })
             .catch(function (error: any) {
               console.log(error);
-              return null;
             });
 
           promises.push(promise);
@@ -147,7 +144,6 @@ export const resolveBets = functions.pubsub
       })
       .catch(function (error: any) {
         console.log(error);
-        return null;
       })
       .then(function () {
         console.log(`${valueUpdateNumber} value updated!`);
@@ -293,7 +289,6 @@ export const resolveLeaderboard = functions.pubsub
                       totalRiskedAmount: 0,
                       potentialWinAmount: 0,
                     });
-                  return null;
                 });
               promises.push(promise);
             });
@@ -302,10 +297,11 @@ export const resolveLeaderboard = functions.pubsub
       })
       .catch(function (error: any) {
         console.log(error);
-        return null;
       })
       .then(() => {
-        console.log("Leaderboard Resolved!");
+        functions.logger.info("Leaderboard Resolved!", {
+          structuredData: true,
+        });
         return null;
       });
 
@@ -317,32 +313,6 @@ export const resolveLeaderboard = functions.pubsub
       const todayFormat = moment(today).format(walletsDayFormat);
       return todayFormat;
     }
-
-    // async function getWeekDate(): Promise<string> {
-    //   const constants = await app
-    //     .firestore()
-    //     .collection("constants")
-    //     .doc("cloud")
-    //     .get()
-    //     .then((doc) => {
-    //       return doc.data();
-    //     })
-    //     .then(async (data) => {
-    //       await app
-    //         .firestore()
-    //         .collection("constants")
-    //         .doc("cloud")
-    //         .update({ nextWeek: admin.firestore.FieldValue.increment(1) });
-    //       return data != null ? data.nextWeek : 0;
-    //     });
-    //   const start = new Date();
-    //   var end = moment(start).add(7, "days");
-    //   const myDatetimeFormat = "MM.DD.YY";
-    //   const startFormat = moment(start).format(myDatetimeFormat);
-    //   const endFormat = moment(end).format(myDatetimeFormat);
-    //   const totalDocumentName = `Week ${constants} (${startFormat} - ${endFormat})`;
-    //   return totalDocumentName;
-    // }
   });
 
 export interface Game {
