@@ -112,7 +112,7 @@ class OpenBetsSlip extends StatelessWidget {
                           ),
                         ),
                         Text(
-                            '${whichBetSystem(openBets.betType)}  ${isMoneyline ? spread : ''}  $odd',
+                            '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.w300,

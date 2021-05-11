@@ -118,7 +118,7 @@ class BetHistorySlip extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${whichBetSystem(betHistory.betType)}  ${isMoneyLine ? spread : ''}  $odd',
+                          '${whichBetSystem(betHistory.betType)}  ${isMoneyLine ? '' : spread}  $odd',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,

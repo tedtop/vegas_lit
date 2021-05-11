@@ -379,7 +379,7 @@ class _SportsBookViewState extends State<SportsBookView> {
               ? Container()
               : Positioned(
                   bottom: 5,
-                  right: 10,
+                  right: 5,
                   child: FloatingActionButton(
                     child: const Icon(Icons.help),
                     onPressed: () async {
