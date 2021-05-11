@@ -37,13 +37,13 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // TextBar(
-            //   text: leaderboardState.day,
-            //   textList: leaderboardState.days,
-            //   onPress: (String value) {
-            //     context.read<LeaderboardCubit>().changeWeek(day: value);
-            //   },
-            // ),
+            TextBar(
+              text: leaderboardState.day,
+              textList: leaderboardState.days,
+              onPress: (String value) {
+                context.read<LeaderboardCubit>().changeWeek(day: value);
+              },
+            ),
             // const TextBar(
             //   text: 'All Leagues',
             //   textList: ['All Leagues'],
