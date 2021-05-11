@@ -375,7 +375,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                       const SnackBar(
                                         duration: Duration(milliseconds: 1000),
                                         content: Text(
-                                            'You\'re using the older version. Please update your App.'),
+                                          'Please update your app to place bets',
+                                        ),
                                       ),
                                     );
                                 }
