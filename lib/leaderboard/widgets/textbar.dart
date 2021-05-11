@@ -21,6 +21,8 @@ class TextBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: 6,
       ),
+      height: 40,
+      width: 150,
       child: Card(
         // elevation: 1,
         clipBehavior: Clip.antiAlias,
@@ -32,7 +34,7 @@ class TextBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
           ),
-          height: 40,
+          //height: 40,
           width: double.infinity,
           child: Center(
             child: DropdownButton<String>(

@@ -20,12 +20,14 @@ Future<void> main() async {
       print('Launch screen stopped for 1 seconds');
     },
   );
-  if (kDebugMode) {
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    await FirebaseAnalytics().setAnalyticsCollectionEnabled(false);
-  } else {
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    await FirebaseAnalytics().setAnalyticsCollectionEnabled(true);
+  if (!kIsWeb) {
+    if (kDebugMode) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+      await FirebaseAnalytics().setAnalyticsCollectionEnabled(false);
+    } else {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      await FirebaseAnalytics().setAnalyticsCollectionEnabled(true);
+    }
   }
   EquatableConfig.stringify = kDebugMode;
   Bloc.observer = SimpleBlocObserver();
