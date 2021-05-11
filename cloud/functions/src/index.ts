@@ -11,7 +11,7 @@ export const resolveBets = functions.pubsub
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
-    console.log("This function will be run everyday at 11:50 AM!");
+    console.log("This function will be run everyday at 11:50 PM!");
     await app
       .firestore()
       .collection("bets")
@@ -248,7 +248,7 @@ export const resolveBets = functions.pubsub
 export const resolveLeaderboard = functions.pubsub
   .schedule("55 23 * * *")
   .onRun(async (context) => {
-    console.log("This function will be run everyday at 11:55 AM!");
+    console.log("This function will be run everyday at 11:55 PM!");
 
     const documentName = getCurrentDate();
 
@@ -263,8 +263,9 @@ export const resolveLeaderboard = functions.pubsub
           .doc(documentName)
           .set({ isArchive: true })
           .then((_) => {
+            const promises: any = [];
             snapshots.docs.forEach(async (element) => {
-              await app
+              const promise = await app
                 .firestore()
                 .collection("leaderboard")
                 .doc(documentName)
@@ -288,11 +289,17 @@ export const resolveLeaderboard = functions.pubsub
                     });
                   return null;
                 });
+              promises.push(promise);
             });
+            return Promise.all(promises);
           });
       })
+      .catch(function (error: any) {
+        console.log(error);
+        return null;
+      })
       .then(() => {
-        console.log("Leaderboard Function Completed");
+        console.log("Leaderboard Resolved!");
         return null;
       });
 
