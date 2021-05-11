@@ -9,14 +9,17 @@ class BetData extends Equatable {
     @required this.betProfit,
     @required this.betType,
     @required this.betTeam,
-    @required this.winTeam,
+    @required this.winningTeamName,
+    @required this.winningTeam,
     @required this.betPointSpread,
     @required this.betOverUnder,
+    @required this.homeTeam,
+    @required this.awayTeam,
     @required this.awayTeamScore,
     @required this.homeTeamScore,
     @required this.totalGameScore,
-    @required this.homeTeam,
-    @required this.awayTeam,
+    @required this.homeTeamName,
+    @required this.awayTeamName,
     @required this.gameDateTime,
     @required this.dateTime,
     @required this.gameId,
@@ -29,18 +32,21 @@ class BetData extends Equatable {
     final Map data = snapshot.data();
     return BetData(
       id: data['id'] as String,
+      winningTeam: data['winningTeam'] as String,
       betAmount: data['betAmount'] as int,
       betProfit: data['betProfit'] as int,
       betType: data['betType'] as String,
+      homeTeam: data['homeTeam'] as String,
+      awayTeam: data['awayTeam'] as String,
       betTeam: data['betTeam'] as String,
-      winTeam: data['winTeam'] as String,
+      winningTeamName: data['winningTeamName'] as String,
       betPointSpread: data['betPointSpread'] as double,
       betOverUnder: data['betOverUnder'] as double,
       awayTeamScore: data['awayTeamScore'] as int,
       homeTeamScore: data['homeTeamScore'] as int,
       totalGameScore: data['totalGameScore'] as int,
-      homeTeam: data['homeTeam'] as String,
-      awayTeam: data['awayTeam'] as String,
+      homeTeamName: data['homeTeamName'] as String,
+      awayTeamName: data['awayTeamName'] as String,
       gameDateTime: data['gameDateTime'] as String,
       dateTime: data['dateTime'] as String,
       gameId: data['gameId'] as int,
@@ -55,17 +61,20 @@ class BetData extends Equatable {
   final int betProfit;
   final String betType;
   final String betTeam;
-  final String winTeam;
+  final String winningTeamName;
   final double betPointSpread;
   final double betOverUnder;
   final int awayTeamScore;
   final int homeTeamScore;
   final int totalGameScore;
+  final String homeTeamName;
   final String homeTeam;
+  final String awayTeamName;
   final String awayTeam;
   final String gameDateTime;
   final String dateTime;
   final int gameId;
+  final String winningTeam;
   final bool isClosed;
   final String league;
   final int odds;
@@ -77,16 +86,19 @@ class BetData extends Equatable {
       'betProfit': betProfit,
       'betType': betType,
       'betTeam': betTeam,
-      'winTeam': winTeam,
+      'winningTeamName': winningTeamName,
       'betPointSpread': betPointSpread,
       'betOverUnder': betOverUnder,
       'awayTeamScore': awayTeamScore,
       'homeTeamScore': homeTeamScore,
       'totalGameScore': totalGameScore,
-      'homeTeam': homeTeam,
-      'awayTeam': awayTeam,
+      'winningTeam': winningTeam,
+      'homeTeamName': homeTeamName,
+      'awayTeamName': awayTeamName,
       'gameDateTime': gameDateTime,
       'dateTime': dateTime,
+      'homeTeam': homeTeam,
+      'awayTeam': awayTeam,
       'gameId': gameId,
       'isClosed': isClosed,
       'league': league,
@@ -102,14 +114,17 @@ class BetData extends Equatable {
       betProfit,
       betType,
       betTeam,
-      winTeam,
+      winningTeamName,
       betPointSpread,
       betOverUnder,
+      winningTeam,
+      homeTeam,
+      awayTeam,
       awayTeamScore,
       homeTeamScore,
       totalGameScore,
-      homeTeam,
-      awayTeam,
+      homeTeamName,
+      awayTeamName,
       gameDateTime,
       dateTime,
       gameId,

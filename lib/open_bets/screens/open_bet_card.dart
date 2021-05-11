@@ -68,10 +68,10 @@ class OpenBetsSlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        openBets.winTeam == 'home'
+                        openBets.winningTeamName == 'home'
                             ? isMoneyline
                                 ? Text(
-                                    '${openBets.homeTeam} TO WIN',
+                                    '${openBets.homeTeamName} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -80,7 +80,7 @@ class OpenBetsSlip extends StatelessWidget {
                                 : Container()
                             : isMoneyline
                                 ? Text(
-                                    '${openBets.awayTeam} TO WIN',
+                                    '${openBets.awayTeamName} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -95,14 +95,14 @@ class OpenBetsSlip extends StatelessWidget {
                             style: Styles.normalText,
                             children: [
                               TextSpan(
-                                text: '${openBets.awayTeam}',
+                                text: '${openBets.awayTeamName}',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
-                                text: '${openBets.homeTeam}',
+                                text: '${openBets.homeTeamName}',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontWeight: FontWeight.bold,
@@ -190,7 +190,7 @@ class OpenBetsSlip extends StatelessWidget {
     if (betType == 'moneyline') {
       return 'MONEYLINE';
     }
-    if (betType == 'pointSpread') {
+    if (betType == 'pointspread') {
       return 'POINT SPREAD';
     }
     if (betType == 'total') {

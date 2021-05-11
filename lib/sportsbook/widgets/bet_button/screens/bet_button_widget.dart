@@ -2,6 +2,7 @@ import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/authentication/bloc/authentication_bloc.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
@@ -28,12 +29,17 @@ class BetButton extends StatelessWidget {
   }) {
     return Builder(
       builder: (context) {
+        final currentUserId = context.select(
+          (AuthenticationBloc authenticationBloc) =>
+              authenticationBloc.state?.user?.uid,
+        );
         return BlocProvider(
           create: (_) => BetButtonCubit(
             betsRepository: context.read<BetsRepository>(),
           )..openBetButton(
               gameId: gameId,
               isClosed: isClosed,
+              uid: currentUserId,
               text: text,
               spread: spread,
               winTeam: winTeam,

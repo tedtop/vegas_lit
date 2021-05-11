@@ -29,10 +29,11 @@ class BetHistorySlip extends StatelessWidget {
             ? betSpread.toString()
             : '+$betSpread';
 
-    final isWin = betHistory.winTeam == betHistory.betTeam ? 'won' : 'lost';
+    final isWin =
+        betHistory.winningTeamName == betHistory.betTeam ? 'won' : 'lost';
     final betTeam = betHistory.betTeam == 'home'
-        ? betHistory.homeTeam
-        : betHistory.awayTeam;
+        ? betHistory.homeTeamName
+        : betHistory.awayTeamName;
 
     final isMoneyline = betHistory.betType == 'MONEYLINE';
     return Padding(
@@ -65,10 +66,10 @@ class BetHistorySlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        betHistory.winTeam == 'home'
+                        betHistory.winningTeamName == 'home'
                             ? isMoneyline
                                 ? Text(
-                                    '${betHistory.homeTeam} TO WIN',
+                                    '${betHistory.homeTeamName} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -77,7 +78,7 @@ class BetHistorySlip extends StatelessWidget {
                                 : Container()
                             : isMoneyline
                                 ? Text(
-                                    '${betHistory.awayTeam} TO WIN',
+                                    '${betHistory.awayTeamName} TO WIN',
                                     style: GoogleFonts.nunito(
                                       fontSize: 20,
                                       color: Palette.cream,
@@ -97,14 +98,14 @@ class BetHistorySlip extends StatelessWidget {
                             style: Styles.normalText,
                             children: [
                               TextSpan(
-                                text: '${betHistory.awayTeam}',
+                                text: '${betHistory.awayTeamName}',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
-                                text: '${betHistory.homeTeam}',
+                                text: '${betHistory.homeTeamName}',
                                 style: GoogleFonts.nunito(
                                   color: Palette.green,
                                   fontWeight: FontWeight.bold,
@@ -121,7 +122,7 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
-                        betHistory.winTeam == betHistory.betTeam
+                        betHistory.winningTeamName == betHistory.betTeam
                             ? Text(
                                 // ignore: lines_longer_than_80_chars
                                 'You bet \$${betHistory.betAmount} and won \$${betHistory.betProfit}!',
@@ -155,7 +156,7 @@ class BetHistorySlip extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: betHistory.winTeam == betHistory.betTeam
+                    color: betHistory.winningTeamName == betHistory.betTeam
                         ? Palette.green
                         : Palette.red,
                   ),
@@ -180,7 +181,7 @@ class BetHistorySlip extends StatelessWidget {
     if (betType == 'moneyline') {
       return 'MONEYLINE';
     }
-    if (betType == 'pointSpread') {
+    if (betType == 'pointspread') {
       return 'POINT SPREAD';
     }
     if (betType == 'total') {
