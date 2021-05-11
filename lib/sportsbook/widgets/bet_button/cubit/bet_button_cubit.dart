@@ -2,10 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:api_client/api_client.dart';
 import 'package:meta/meta.dart';
-// ignore: unused_import
-import 'package:uuid/uuid.dart';
 import 'package:vegas_lit/config/enum.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/sportsbook/models/team.dart';
+import 'package:intl/intl.dart';
 
 part 'bet_button_state.dart';
 
@@ -19,10 +20,18 @@ class BetButtonCubit extends Cubit<BetButtonState> {
 
   final BetsRepository _betsRepository;
 
+  DateTime fetchTimeEST() {
+    tz.initializeTimeZones();
+    final locationNY = tz.getLocation('America/New_York');
+    final nowNY = tz.TZDateTime.now(locationNY);
+    return nowNY;
+  }
+
   void openBetButton({
     @required String text,
     @required Game game,
     @required Bet betType,
+    @required String uid,
     @required String mainOdds,
     @required int gameId,
     @required bool isClosed,
@@ -32,13 +41,18 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required String league,
     @required Team homeTeamData,
   }) {
+    final todayDateTime = fetchTimeEST();
+    final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
+    final gameStartTimeFormat = DateFormat('hh:mm').format(game.dateTime);
     final betTypeString = betType == Bet.ml
         ? 'ml'
         : betType == Bet.pts
             ? 'pts'
             : 'tot';
-    final uniqueId = '$league$gameId$winTeamString$betTypeString'.toUpperCase();
+    final uniqueId =
+        '$league-${game.awayTeam}-${game.homeTeam}-$betTypeString-$winTeamString@$todayFormatDate $gameStartTimeFormat'
+            .toUpperCase();
     emit(
       BetButtonState.unclicked(
         text: text,
@@ -53,6 +67,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
         league: league,
         betType: betType,
         mainOdds: mainOdds,
+        uid: uid,
       ),
     );
   }
@@ -68,6 +83,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           isClosed: state.isClosed,
           gameId: state.gameId,
           game: state.game,
+          uid: state.uid,
           winTeam: state.winTeam,
           uniqueId: state.uniqueId,
           spread: state.spread,
@@ -84,6 +100,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
         BetButtonState.clicked(
           text: state.text,
           isClosed: state.isClosed,
+          uid: state.uid,
           gameId: state.gameId,
           game: state.game,
           winTeam: state.winTeam,
@@ -109,6 +126,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
         league: state.league,
         isClosed: state.isClosed,
         gameId: state.gameId,
+        uid: state.uid,
         winTeam: state.winTeam,
         awayTeamData: state.awayTeamData,
         homeTeamData: state.homeTeamData,
@@ -122,18 +140,20 @@ class BetButtonCubit extends Cubit<BetButtonState> {
   void confirmBetButton() {
     emit(
       BetButtonState.done(
-          text: state.text,
-          game: state.game,
-          mainOdds: state.mainOdds,
-          winTeam: state.winTeam,
-          isClosed: state.isClosed,
-          gameId: state.gameId,
-          league: state.league,
-          awayTeamData: state.awayTeamData,
-          homeTeamData: state.homeTeamData,
-          spread: state.spread,
-          uniqueId: state.uniqueId,
-          betType: state.betType),
+        text: state.text,
+        game: state.game,
+        mainOdds: state.mainOdds,
+        winTeam: state.winTeam,
+        uid: state.uid,
+        isClosed: state.isClosed,
+        gameId: state.gameId,
+        league: state.league,
+        awayTeamData: state.awayTeamData,
+        homeTeamData: state.homeTeamData,
+        spread: state.spread,
+        uniqueId: state.uniqueId,
+        betType: state.betType,
+      ),
     );
   }
 }
