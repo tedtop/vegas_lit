@@ -17,6 +17,7 @@ import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/open_bets/open_bets.dart';
 import 'package:vegas_lit/sportsbook/sportsbook.dart';
+import '../cubit/version_cubit.dart';
 
 import '../../authentication/bloc/authentication_bloc.dart';
 import '../home.dart';
@@ -67,6 +68,11 @@ class HomePage extends StatefulWidget {
                     )..openBetsOpen(
                         currentUserId: currentUserId,
                       ),
+                  ),
+                  BlocProvider<VersionCubit>(
+                    create: (context) => VersionCubit(
+                      userRepository: context.read<UserRepository>(),
+                    )..checkMinimumVersion(),
                   ),
                   BlocProvider<BetHistoryCubit>(
                     create: (context) => BetHistoryCubit(
