@@ -38,72 +38,56 @@ class HomePage extends StatefulWidget {
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state?.user?.uid,
         );
-        return BlocBuilder<InternetCubit, InternetState>(
-          builder: (context, state) {
-            if (state is InternetDisconnected) {
-              return Scaffold(
-                body: Center(
-                    child: Text(
-                  'No Connection',
-                  style: GoogleFonts.nunito(
-                    fontSize: 24,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<SportsbookBloc>(
+              create: (_) => SportsbookBloc(
+                sportsfeedRepository: context.read<SportsRepository>(),
+              )..add(
+                  SportsbookOpen(
+                    league: 'MLB',
                   ),
-                )),
-              );
-            } else {
-              return MultiBlocProvider(
-                providers: [
-                  BlocProvider<SportsbookBloc>(
-                    create: (_) => SportsbookBloc(
-                      sportsfeedRepository: context.read<SportsRepository>(),
-                    )..add(
-                        SportsbookOpen(
-                          league: 'MLB',
-                        ),
-                      ),
-                  ),
-                  BlocProvider<OpenBetsCubit>(
-                    create: (context) => OpenBetsCubit(
-                      betsRepository: context.read<BetsRepository>(),
-                    )..openBetsOpen(
-                        currentUserId: currentUserId,
-                      ),
-                  ),
-                  BlocProvider<VersionCubit>(
-                    create: (context) => VersionCubit(
-                      userRepository: context.read<UserRepository>(),
-                    )..checkMinimumVersion(),
-                  ),
-                  BlocProvider<BetHistoryCubit>(
-                    create: (context) => BetHistoryCubit(
-                      betsRepository: context.read<BetsRepository>(),
-                    )..betHistoryOpen(
-                        currentUserId: currentUserId,
-                      ),
-                  ),
-                  BlocProvider<LeaderboardCubit>(
-                    create: (context) => LeaderboardCubit(
-                      userRepository: context.read<UserRepository>(),
-                    )..openLeaderboard(),
-                  ),
-                  BlocProvider<BetSlipCubit>(
-                    create: (_) => BetSlipCubit()
-                      ..openBetSlip(
-                        betSlipGames: [],
-                      ),
-                  ),
-                  BlocProvider<HomeCubit>(
-                    create: (_) => HomeCubit(
-                      userRepository: context.read<UserRepository>(),
-                    )..openHome(uid: currentUserId),
-                  ),
-                ],
-                child: HomePage._(
-                  observer: observer,
                 ),
-              );
-            }
-          },
+            ),
+            BlocProvider<OpenBetsCubit>(
+              create: (context) => OpenBetsCubit(
+                betsRepository: context.read<BetsRepository>(),
+              )..openBetsOpen(
+                  currentUserId: currentUserId,
+                ),
+            ),
+            BlocProvider<VersionCubit>(
+              create: (context) => VersionCubit(
+                userRepository: context.read<UserRepository>(),
+              )..checkMinimumVersion(),
+            ),
+            BlocProvider<BetHistoryCubit>(
+              create: (context) => BetHistoryCubit(
+                betsRepository: context.read<BetsRepository>(),
+              )..betHistoryOpen(
+                  currentUserId: currentUserId,
+                ),
+            ),
+            BlocProvider<LeaderboardCubit>(
+              create: (context) => LeaderboardCubit(
+                userRepository: context.read<UserRepository>(),
+              )..openLeaderboard(),
+            ),
+            BlocProvider<BetSlipCubit>(
+              create: (_) => BetSlipCubit()
+                ..openBetSlip(
+                  betSlipGames: [],
+                ),
+            ),
+            BlocProvider<HomeCubit>(
+              create: (_) => HomeCubit(
+                userRepository: context.read<UserRepository>(),
+              )..openHome(uid: currentUserId),
+            ),
+          ],
+          child: HomePage._(
+            observer: observer,
+          ),
         );
       },
     );
@@ -169,8 +153,11 @@ class _HomePageState extends State<HomePage>
         body: BlocBuilder<InternetCubit, InternetState>(
           builder: (context, state) {
             if (state is InternetDisconnected) {
-              return const Center(
-                child: Text('Disconnected'),
+              return Center(
+                child: Text(
+                  'NO CONNECTION',
+                  style: GoogleFonts.nunito(fontSize: 15),
+                ),
               );
             } else {
               return IndexedStack(
