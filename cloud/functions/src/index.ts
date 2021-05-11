@@ -6,12 +6,12 @@ import moment = require("moment-timezone");
 var app = admin.initializeApp();
 
 export const resolveBets = functions.pubsub
-  .schedule("every 4 hours")
+  .schedule("50 23 * * *")
   .onRun(async (context) => {
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
-    console.log("This will be run every 4 hours!");
+    console.log("This function will be run everyday at 11:50 AM!");
     await app
       .firestore()
       .collection("bets")
@@ -246,48 +246,50 @@ export const resolveBets = functions.pubsub
   });
 
 export const resolveLeaderboard = functions.pubsub
-  .schedule("0 0 * * *")
+  .schedule("55 23 * * *")
   .onRun(async (context) => {
-    console.log("This will be run every 1 days!");
+    console.log("This function will be run everyday at 11:55 AM!");
 
-    const documentName = await getWeekDate();
+    const documentName = getCurrentDate();
 
     await app
       .firestore()
-      .collection("users")
+      .collection("wallets")
       .get()
-      .then((snapshots) => {
-        snapshots.docs.forEach(async (element) => {
-          await app
-            .firestore()
-            .collection("leaderboard")
-            .doc(documentName)
-            .set({ isArchive: true })
-            .then(async (value) => {
+      .then(async (snapshots) => {
+        await app
+          .firestore()
+          .collection("leaderboard")
+          .doc(documentName)
+          .set({ isArchive: true })
+          .then((_) => {
+            snapshots.docs.forEach(async (element) => {
               await app
                 .firestore()
                 .collection("leaderboard")
                 .doc(documentName)
-                .collection("users")
+                .collection("wallets")
                 .doc(element.id)
                 .set(element.data())
                 .then(async () => {
                   await app
                     .firestore()
-                    .collection("users")
+                    .collection("wallets")
                     .doc(element.id)
                     .update({
-                      profit: 0,
+                      totalProfit: 0,
                       accountBalance: 1000,
-                      correctBets: 0,
-                      numberBets: 0,
-                      openBets: 0,
+                      totalWinBets: 0,
+                      totalLoseBets: 0,
+                      totalBets: 0,
+                      totalOpenBets: 0,
+                      totalRiskedAmount: 0,
+                      potentialWinAmount: 0,
                     });
-
                   return null;
                 });
             });
-        });
+          });
       })
       .then(() => {
         console.log("Leaderboard Function Completed");
@@ -296,31 +298,38 @@ export const resolveLeaderboard = functions.pubsub
 
     return null;
 
-    async function getWeekDate(): Promise<string> {
-      const constants = await app
-        .firestore()
-        .collection("constants")
-        .doc("cloud")
-        .get()
-        .then((doc) => {
-          return doc.data();
-        })
-        .then(async (data) => {
-          await app
-            .firestore()
-            .collection("constants")
-            .doc("cloud")
-            .update({ nextWeek: admin.firestore.FieldValue.increment(1) });
-          return data != null ? data.nextWeek : 0;
-        });
-      const start = new Date();
-      var end = moment(start).add(7, "days");
-      const myDatetimeFormat = "MM.DD.YY";
-      const startFormat = moment(start).format(myDatetimeFormat);
-      const endFormat = moment(end).format(myDatetimeFormat);
-      const totalDocumentName = `Week ${constants} (${startFormat} - ${endFormat})`;
-      return totalDocumentName;
+    function getCurrentDate(): string {
+      const today = new Date();
+      const walletsDayFormat = "YYYY-MM-DD";
+      const todayFormat = moment(today).format(walletsDayFormat);
+      return todayFormat;
     }
+
+    // async function getWeekDate(): Promise<string> {
+    //   const constants = await app
+    //     .firestore()
+    //     .collection("constants")
+    //     .doc("cloud")
+    //     .get()
+    //     .then((doc) => {
+    //       return doc.data();
+    //     })
+    //     .then(async (data) => {
+    //       await app
+    //         .firestore()
+    //         .collection("constants")
+    //         .doc("cloud")
+    //         .update({ nextWeek: admin.firestore.FieldValue.increment(1) });
+    //       return data != null ? data.nextWeek : 0;
+    //     });
+    //   const start = new Date();
+    //   var end = moment(start).add(7, "days");
+    //   const myDatetimeFormat = "MM.DD.YY";
+    //   const startFormat = moment(start).format(myDatetimeFormat);
+    //   const endFormat = moment(end).format(myDatetimeFormat);
+    //   const totalDocumentName = `Week ${constants} (${startFormat} - ${endFormat})`;
+    //   return totalDocumentName;
+    // }
   });
 
 export interface Game {
