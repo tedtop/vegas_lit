@@ -556,7 +556,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                       );
                     }
                     return Text(
-                      'Starting in ${time.hours}hr ${time.min}m ${time.sec}s',
+                      'Starting in ${time.hours ?? ''}hr ${time.min ?? ''}m ${time.sec}s',
                       style: GoogleFonts.nunito(
                         color: Palette.red,
                       ),
