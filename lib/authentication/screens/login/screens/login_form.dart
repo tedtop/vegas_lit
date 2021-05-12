@@ -363,11 +363,13 @@ class _VersionNumberState extends State<VersionNumber> {
     return Builder(
       builder: (context) {
         return ListTile(
-          title: Text(
-            'Version: $versionString ($buildNumber)',
-            style: GoogleFonts.nunito(
-              color: Palette.cream,
-              fontSize: 10,
+          title: Center(
+            child: Text(
+              'Version: $versionString ($buildNumber)',
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 10,
+              ),
             ),
           ),
         );

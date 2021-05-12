@@ -537,7 +537,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                     ),
                     style: GoogleFonts.nunito(
                       color: Palette.cream,
-                      fontSize: 13,
+                      fontSize: 14,
                     )),
               ),
             ),
@@ -552,12 +552,19 @@ class _BetSlipCardState extends State<BetSlipCard> {
                         'In Progress',
                         style: GoogleFonts.nunito(
                           color: Palette.red,
+                          fontSize: 15,
                         ),
                       );
                     }
+
+                    final hours = time.hours == null ? '' : '${time.hours}hr';
+                    final min = time.min == null ? '' : '${time.min}m';
+                    final sec = time.sec == null ? '' : '${time.sec}s';
+
                     return Text(
-                      'Starting in ${time.hours ?? ''}hr ${time.min ?? ''}m ${time.sec}s',
+                      'Starting in $hours $min $sec',
                       style: GoogleFonts.nunito(
+                        fontSize: 15,
                         color: Palette.red,
                       ),
                     );

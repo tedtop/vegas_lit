@@ -67,7 +67,7 @@ class Styles {
   );
 
   static final matchupTime = GoogleFonts.nunito(
-    fontSize: 13,
+    fontSize: 14,
     color: Palette.cream,
   );
 
