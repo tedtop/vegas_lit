@@ -35,9 +35,16 @@ class AuthenticationBloc
   ) async* {
     if (event is AuthenticationUserChanged) {
       if (event.user != null) {
-        add(
-          CheckProfileComplete(event.user),
-        );
+        if (!event.user.emailVerified) {
+          await _userRepository.sendEmailVerification(user: event.user);
+          add(
+            AuthenticationEmailVerification(),
+          );
+        } else {
+          add(
+            CheckProfileComplete(event.user),
+          );
+        }
       } else {
         yield const AuthenticationState.unauthenticated();
       }
@@ -47,6 +54,8 @@ class AuthenticationBloc
       unawaited(
         _userRepository.signOutUser(),
       );
+    } else if (event is AuthenticationEmailVerification) {
+      yield const AuthenticationState.verification();
     }
   }
 
