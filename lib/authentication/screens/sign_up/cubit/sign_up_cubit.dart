@@ -78,7 +78,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(
       state.copyWith(
         confirmedPasswordValue: value,
-        confirmedPassword: confirmedPassword,
         status: Formz.validate([
           state.email,
           state.password,
@@ -92,11 +91,19 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  void usernameChanged(String value) {
-    final username = Username.dirty(value);
+  Future<void> usernameChanged(String value) async {
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    final isUsernameExist =
+        await _authenticationRepository.isUsernameExist(username: value);
+    final usernameValidationError =
+        isUsernameExist ? UsernameValidationError.exist : null;
+    final username = Username.dirty(usernameValidationError, value);
     emit(
       state.copyWith(
         usernameValue: value,
+        username: username,
         status: Formz.validate([
           state.email,
           state.password,
@@ -147,6 +154,10 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> signUpFormSubmitted() async {
+    final isUsernameExist = await _authenticationRepository.isUsernameExist(
+        username: state.usernameValue);
+    final usernameValidationError =
+        isUsernameExist ? UsernameValidationError.exist : null;
     final email = Email.dirty(state.emailValue);
     final agreement = Agreement.dirty(state.agreementValue);
     final password = Password.dirty(state.passwordValue);
@@ -154,7 +165,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       password: state.passwordValue,
       value: state.confirmedPasswordValue,
     );
-    final username = Username.dirty(state.usernameValue);
+    final username =
+        Username.dirty(usernameValidationError, state.usernameValue);
     final number = PhoneNumber.dirty(state.numberValue);
     final americanState = AmericanState.dirty(state.americanStateValue);
 

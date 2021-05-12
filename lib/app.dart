@@ -3,6 +3,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/authentication/screens/verify/screens/verify_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/home/cubit/internet_cubit.dart';
 
@@ -99,6 +100,12 @@ class _AppViewState extends State<AppView> {
                   case AuthenticationStatus.unauthenticated:
                     _navigator.pushAndRemoveUntil<void>(
                       LoginPage.route(),
+                      (route) => false,
+                    );
+                    break;
+                  case AuthenticationStatus.notverified:
+                    _navigator.pushAndRemoveUntil<void>(
+                      VerifyPage.route(),
                       (route) => false,
                     );
                     break;

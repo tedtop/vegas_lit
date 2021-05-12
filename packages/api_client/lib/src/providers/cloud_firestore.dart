@@ -137,6 +137,15 @@ class CloudFirestore {
     return isBetExist;
   }
 
+  Future<bool> isUsernameExist({@required String username}) async {
+    final documentSnapshot = await _firestoreData
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+    final isUsernameExist = documentSnapshot.docs.isNotEmpty;
+    return isUsernameExist;
+  }
+
   Future<List<String>> fetchLeaderboardDays() async {
     final days = await _firestoreData.collection('leaderboard').get().then(
           (value) => value.docs.map((e) => e.id).toList(),

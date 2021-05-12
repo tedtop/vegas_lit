@@ -132,6 +132,8 @@ String usernameError(UsernameValidationError validationError) {
     return 'Username should be 3-15 chars';
   } else if (validationError == UsernameValidationError.empty) {
     return 'Required';
+  } else if (validationError == UsernameValidationError.exist) {
+    return 'Username already exists';
   } else {
     return null;
   }
@@ -294,9 +296,9 @@ class _ConfirmPasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
-      // buildWhen: (previous, current) =>
-      //     previous.password != current.password ||
-      //     previous.confirmedPassword != current.confirmedPassword,
+      buildWhen: (previous, current) =>
+          previous.password != current.password ||
+          previous.confirmedPassword != current.confirmedPassword,
       builder: (context, state) {
         return Row(
           children: [
@@ -319,7 +321,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                 ),
                 key: const Key('signUpForm_confirmedPasswordInput_textField'),
-                onSubmitted: (confirmPassword) => context
+                onChanged: (confirmPassword) => context
                     .read<SignUpCubit>()
                     .confirmedPasswordChanged(confirmPassword),
                 obscureText: true,
