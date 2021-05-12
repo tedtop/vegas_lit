@@ -4,6 +4,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:vegas_lit/bet_history/bet_history.dart';
@@ -154,10 +155,7 @@ class _HomePageState extends State<HomePage>
           builder: (context, state) {
             if (state is InternetDisconnected) {
               return Center(
-                child: Text(
-                  'NO CONNECTION',
-                  style: GoogleFonts.nunito(fontSize: 15),
-                ),
+                child: SvgPicture.asset(SVG.networkError),
               );
             } else {
               return IndexedStack(

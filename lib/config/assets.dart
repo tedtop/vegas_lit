@@ -17,3 +17,7 @@ class Json {
   static const String mockData = 'assets/json/games.json';
   static const String mockNBA = 'assets/json/nba_data.json';
 }
+
+class SVG {
+  static const String networkError = 'assets/svg/network_error.svg';
+}
