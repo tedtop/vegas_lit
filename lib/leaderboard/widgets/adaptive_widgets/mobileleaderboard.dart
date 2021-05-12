@@ -134,7 +134,7 @@ class MobileLeaderboardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 380,
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       decoration: BoxDecoration(
         border: Border.all(
           color: Palette.cream,

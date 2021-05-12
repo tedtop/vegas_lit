@@ -60,9 +60,10 @@ class BetHistorySlip extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 10.0,
+                    padding: const EdgeInsets.only(
+                      left: 12.0,
+                      right: 12,
+                      bottom: 10.0,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +95,9 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
+                        const SizedBox(
+                          height: 3,
+                        ),
                         RichText(
                           text: TextSpan(
                             style: Styles.normalText,
@@ -116,6 +120,9 @@ class BetHistorySlip extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                        const SizedBox(
+                          height: 3,
                         ),
                         Text(
                           '${whichBetSystem(betHistory.betType)}  ${isMoneyLine ? '' : spread}  $odd',

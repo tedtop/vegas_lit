@@ -353,7 +353,7 @@ class MatchupCard extends StatelessWidget {
                                 );
                               }
                               return Text(
-                                'Starting in ${time.hours}hr ${time.min}m ${time.sec}s',
+                                'Starting in ${time.hours ?? '0'}hr ${time.min ?? '0'}m ${time.sec ?? '0'}s',
                                 style: GoogleFonts.nunito(
                                   color: Palette.red,
                                 ),

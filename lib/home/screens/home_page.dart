@@ -265,6 +265,7 @@ class _HomePageState extends State<HomePage>
     return AppBar(
       iconTheme: const IconThemeData(color: Palette.cream),
       toolbarHeight: 80.0,
+      titleSpacing: 0,
       title: Image.asset(
         Images.topLogo,
         fit: BoxFit.contain,
