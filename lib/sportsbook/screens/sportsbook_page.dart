@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
+import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:api_client/api_client.dart';
@@ -15,7 +16,6 @@ import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/mobilesportsbook.d
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/tabletsportsbook.dart';
 import 'package:vegas_lit/sportsbook/widgets/adaptive_widgets/websportsbook.dart';
 
-import 'package:vegas_lit/sportsbook/widgets/help_overlay.dart';
 import '../bloc/sportsbook_bloc.dart';
 import 'golf_screens/golf_matchup.dart';
 import 'golf_screens/golf_tour.dart';
@@ -88,7 +88,7 @@ class _SportsBookViewState extends State<SportsBookView> {
   final GlobalKey _key2 = GlobalKey();
 
   final ScrollController _scrollController = ScrollController();
-
+  OverlayEntry _overlayEntry;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -392,10 +392,96 @@ class _SportsBookViewState extends State<SportsBookView> {
                   const Duration(milliseconds: 300),
                 );
 
-                await showOverlay(context: context, key1: _key1, key2: _key2);
+                await showHelp(context: context, key1: _key1, key2: _key2);
               },
             ),
     );
+  }
+
+  Future<void> showHelp(
+      {BuildContext context, GlobalKey key1, GlobalKey key2}) async {
+    _overlayEntry =
+        _createOverlayEntry(context: context, key1: key1, key2: key2);
+    Overlay.of(context).insert(_overlayEntry);
+  }
+
+  OverlayEntry _createOverlayEntry(
+      {BuildContext context, GlobalKey key1, GlobalKey key2}) {
+    final RenderBox currentRenderObject1 =
+        key1.currentContext.findRenderObject();
+    final RenderBox currentRenderObject2 =
+        key2.currentContext.findRenderObject();
+
+    final betTypesOverlay =
+        currentRenderObject1.localToGlobal(const Offset(0, 0));
+    final sportsTypesOverlay =
+        currentRenderObject2.localToGlobal(const Offset(0, 0));
+
+    return OverlayEntry(builder: (context) {
+      final size = MediaQuery.of(context).size;
+      final topSafeSpacePadding = MediaQuery.of(context).viewPadding.top;
+      return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        child: Align(
+          alignment: Alignment.center,
+          child: Stack(children: [
+            Positioned(
+              //BET TYPES
+              top: betTypesOverlay.dy + 100,
+              child: Image.asset(
+                Images.betTypesHelpOverlay,
+                fit: BoxFit.contain,
+                width: size.width,
+              ),
+            ),
+            Positioned(
+                //typeOfSports
+                top: topSafeSpacePadding + 15,
+                left: 25,
+                child: Image.asset(
+                  Images.sportTypesHelpOverlay,
+                  fit: BoxFit.contain,
+                  height: sportsTypesOverlay.dy - topSafeSpacePadding,
+                )),
+            Positioned(
+                //coin Balance
+                top: topSafeSpacePadding + 15,
+                right: 50,
+                child: Image.asset(
+                  Images.coinBalanceHelpOverlay,
+                  fit: BoxFit.contain,
+                  height: 60,
+                )),
+            Positioned(
+                //Placing a bet
+                left: size.width * 0.3,
+                top: topSafeSpacePadding + 15,
+                child: Image.asset(
+                  Images.placeBetHelpOverlay,
+                  fit: BoxFit.contain,
+                  height: betTypesOverlay.dy + 130, //TRICKY
+                )),
+            Positioned(
+                //Number of bets
+                right: 40,
+                top: topSafeSpacePadding + 75,
+                child: Image.asset(
+                  Images.numberOfBetsHelpOverlay,
+                  fit: BoxFit.contain,
+                  height:
+                      sportsTypesOverlay.dy - topSafeSpacePadding - 55, //TRICKY
+                ))
+          ]),
+        ),
+        onTap: () {
+          hideHelp();
+        },
+      );
+    });
+  }
+
+  void hideHelp() {
+    _overlayEntry.remove();
   }
 
   String formatDate(DateTime dateTime) {
