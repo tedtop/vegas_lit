@@ -35,12 +35,6 @@ class AuthenticationBloc
   ) async* {
     if (event is AuthenticationUserChanged) {
       if (event.user != null) {
-        // if (!event.user.emailVerified) {
-        // await _userRepository.sendEmailVerification(user: event.user);
-        // add(
-        //   AuthenticationEmailVerification(),
-        // );
-        // } else {}
         add(
           CheckProfileComplete(event.user),
         );

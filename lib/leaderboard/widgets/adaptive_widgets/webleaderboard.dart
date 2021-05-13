@@ -291,7 +291,7 @@ class WebLeaderboardItem extends StatelessWidget {
           SizedBox(
             width: 140,
             child: Text(
-              '${player.totalWinBets}',
+              '${player.totalBetsWon}',
               style: Styles.normalText
                   .copyWith(color: Palette.cream, fontSize: 14),
             ),

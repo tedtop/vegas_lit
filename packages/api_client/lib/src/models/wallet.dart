@@ -7,10 +7,11 @@ class Wallet extends Equatable {
     @required this.uid,
     @required this.username,
     @required this.totalProfit,
+    @required this.totalLoss,
     @required this.accountBalance,
     @required this.totalBets,
-    @required this.totalWinBets,
-    @required this.totalLoseBets,
+    @required this.totalBetsWon,
+    @required this.totalBetsLost,
     @required this.totalOpenBets,
     @required this.potentialWinAmount,
     @required this.biggestWinAmount,
@@ -24,11 +25,12 @@ class Wallet extends Equatable {
     return Wallet(
       uid: map['uid'],
       username: map['username'],
+      totalLoss: map['totalLoss'],
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],
       totalBets: map['totalBets'],
-      totalWinBets: map['totalWinBets'],
-      totalLoseBets: map['totalLoseBets'],
+      totalBetsWon: map['totalBetsWon'],
+      totalBetsLost: map['totalBetsLost'],
       totalOpenBets: map['totalOpenBets'],
       potentialWinAmount: map['potentialWinAmount'],
       biggestWinAmount: map['biggestWinAmount'],
@@ -42,11 +44,12 @@ class Wallet extends Equatable {
     return Wallet(
       uid: map['uid'],
       username: map['username'],
+      totalLoss: map['totalLoss'],
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],
       totalBets: map['totalBets'],
-      totalWinBets: map['totalWinBets'],
-      totalLoseBets: map['totalLoseBets'],
+      totalBetsWon: map['totalBetsWon'],
+      totalBetsLost: map['totalBetsLost'],
       totalOpenBets: map['totalOpenBets'],
       potentialWinAmount: map['potentialWinAmount'],
       biggestWinAmount: map['biggestWinAmount'],
@@ -57,10 +60,11 @@ class Wallet extends Equatable {
   final String uid;
   final String username;
   final int totalProfit;
+  final int totalLoss;
   final int accountBalance;
   final int totalBets;
-  final int totalWinBets;
-  final int totalLoseBets;
+  final int totalBetsWon;
+  final int totalBetsLost;
   final int totalOpenBets;
   final int totalRiskedAmount;
   final int potentialWinAmount;
@@ -70,10 +74,11 @@ class Wallet extends Equatable {
         'uid': uid,
         'username': username,
         'totalProfit': totalProfit,
+        'totalLoss': totalLoss,
         'accountBalance': accountBalance,
         'totalBets': totalBets,
-        'totalWinBets': totalWinBets,
-        'totalLoseBets': totalLoseBets,
+        'totalBetsWon': totalBetsWon,
+        'totalBetsLost': totalBetsLost,
         'totalOpenBets': totalOpenBets,
         'potentialWinAmount': potentialWinAmount,
         'biggestWinAmount': biggestWinAmount,
@@ -84,10 +89,11 @@ class Wallet extends Equatable {
     String uid,
     String username,
     int totalProfit,
+    int totalLoss,
     int accountBalance,
     int totalBets,
-    int totalWinBets,
-    int totalLoseBets,
+    int totalBetsWon,
+    int totalBetsLost,
     int totalOpenBets,
     int potentialWinAmount,
     int biggestWinAmount,
@@ -97,10 +103,11 @@ class Wallet extends Equatable {
       uid: uid ?? this.uid,
       username: username ?? this.username,
       totalProfit: totalProfit ?? this.totalProfit,
+      totalLoss: totalLoss ?? this.totalLoss,
       accountBalance: accountBalance ?? this.accountBalance,
       totalBets: totalBets ?? this.totalBets,
-      totalWinBets: totalWinBets ?? this.totalWinBets,
-      totalLoseBets: totalLoseBets ?? this.totalLoseBets,
+      totalBetsWon: totalBetsWon ?? this.totalBetsWon,
+      totalBetsLost: totalBetsLost ?? this.totalBetsLost,
       totalOpenBets: totalOpenBets ?? this.totalOpenBets,
       potentialWinAmount: potentialWinAmount ?? this.potentialWinAmount,
       biggestWinAmount: biggestWinAmount ?? this.biggestWinAmount,
@@ -114,10 +121,11 @@ class Wallet extends Equatable {
       uid,
       username,
       totalProfit,
+      totalLoss,
       accountBalance,
       totalBets,
-      totalWinBets,
-      totalLoseBets,
+      totalBetsWon,
+      totalBetsLost,
       totalOpenBets,
       totalRiskedAmount,
       potentialWinAmount,

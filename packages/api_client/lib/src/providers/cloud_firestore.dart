@@ -20,11 +20,12 @@ class CloudFirestore {
     final walletMap = Wallet(
       accountBalance: 1000,
       totalBets: 0,
-      totalLoseBets: 0,
+      totalBetsLost: 0,
+      totalLoss: 0,
       totalOpenBets: 0,
       totalRiskedAmount: 0,
       totalProfit: 0,
-      totalWinBets: 0,
+      totalBetsWon: 0,
       uid: uid,
       potentialWinAmount: 0,
       biggestWinAmount: 0,
@@ -118,12 +119,17 @@ class CloudFirestore {
   Stream<List<Wallet>> fetchRankedUsers() {
     final snapshot = _firestoreData
         .collection('wallets')
-        .where('totalProfit', isGreaterThan: 0)
-        .orderBy('totalProfit', descending: true)
-        .limit(50)
+        .where('totalBets', isGreaterThan: 5)
+        // .orderBy('totalProfit', descending: true)
+        .limit(100)
         .snapshots();
     final userWalletList = snapshot.map(
-        (event) => event.docs.map((e) => Wallet.fromFirestore(e)).toList());
+      (event) => event.docs
+          .map(
+            (e) => Wallet.fromFirestore(e),
+          )
+          .toList(),
+    );
 
     return userWalletList;
   }
@@ -168,9 +174,9 @@ class CloudFirestore {
         .collection('leaderboard')
         .doc(day)
         .collection('wallets')
-        .where('totalProfit', isGreaterThan: 0)
-        .orderBy('totalProfit', descending: true)
-        .limit(50)
+        .where('totalBets', isGreaterThan: 5)
+        // .orderBy('totalProfit', descending: true)
+        .limit(100)
         .get()
         .then(
           (value) => value.docs

@@ -24,6 +24,8 @@ Future<void> main() async {
   );
   if (!kIsWeb) {
     if (kDebugMode) {
+      Bloc.observer = SimpleBlocObserver();
+      EquatableConfig.stringify = kDebugMode;
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
       await FirebaseAnalytics().setAnalyticsCollectionEnabled(false);
     } else {
@@ -31,8 +33,7 @@ Future<void> main() async {
       await FirebaseAnalytics().setAnalyticsCollectionEnabled(true);
     }
   }
-  EquatableConfig.stringify = kDebugMode;
-  Bloc.observer = SimpleBlocObserver();
+
   runApp(
     App(
       userRepository: UserRepository(),

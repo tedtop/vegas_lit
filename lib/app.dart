@@ -93,7 +93,10 @@ class _AppViewState extends State<AppView> {
                   case AuthenticationStatus.authenticated:
                     _navigator.pushAndRemoveUntil<void>(
                       HomePage.route(
-                          observer: observer, connectivity: Connectivity()),
+                        observer: observer,
+                        connectivity: Connectivity(),
+                        currentUserId: state.user.uid,
+                      ),
                       (route) => false,
                     );
                     break;

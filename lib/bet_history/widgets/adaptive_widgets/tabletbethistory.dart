@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_history/screens/bet_history_page.dart';
 import 'package:vegas_lit/bet_history/widgets/bet_history_card.dart';
-import 'package:vegas_lit/bet_history/widgets/textbar.dart';
 import 'package:vegas_lit/config/palette.dart';
 
 class TabletBetHistory extends StatefulWidget {
@@ -20,20 +19,20 @@ class _TabletBetHistoryState extends State<TabletBetHistory> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const TextBar(
-                text: 'All Bet Types',
-              ),
-              const TextBar(
-                text: 'All Leagues',
-              ),
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: [
+        //       const TextBar(
+        //         text: 'All Bet Types',
+        //       ),
+        //       const TextBar(
+        //         text: 'All Leagues',
+        //       ),
+        //     ],
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 6,

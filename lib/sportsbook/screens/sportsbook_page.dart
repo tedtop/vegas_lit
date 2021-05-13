@@ -273,8 +273,12 @@ class _SportsBookViewState extends State<SportsBookView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Text(
+                  //   'Local Time: ${formatDate(widget.currentTimeZone)}',
+                  //   style: Styles.matchupTime,
+                  // ),
                   Text(
-                    'Local Time: ${formatDate(widget.currentTimeZone)}',
+                    'All games are based on Eastern Standard Time',
                     style: Styles.matchupTime,
                   ),
                 ],

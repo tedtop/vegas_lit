@@ -125,7 +125,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.homeTeam,
                 ),
                 Text(
-                  '${player.totalWinBets} out of ${player.totalBets} Correct Bets!',
+                  '${player.totalBetsWon} out of ${player.totalBets} Correct Bets!',
                   style: Styles.awayTeam,
                 ),
                 // Text(

@@ -11,7 +11,7 @@ export const resolveBets = functions.pubsub
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
-    console.log("'This will be run every 4 hours!");
+    console.log("This will be run every 4 hours!");
     await app
       .firestore()
       .collection("bets")
@@ -248,10 +248,10 @@ export const resolveBets = functions.pubsub
   });
 
 export const resolveLeaderboard = functions.pubsub
-  .schedule("55 23 * * *")
+  .schedule("20 4 * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
-    console.log("This function will be run everyday at 11:55 PM!");
+    console.log("This function will be run everyday at 04:20 AM!");
 
     const documentName = getCurrentDate();
 
@@ -309,10 +309,12 @@ export const resolveLeaderboard = functions.pubsub
     return null;
 
     function getCurrentDate(): string {
-      const today = new Date();
+      let today = new Date();
+      let yesterday = new Date();
+      yesterday.setDate(today.getDate() - 1);
       const walletsDayFormat = "YYYY-MM-DD";
-      const todayFormat = moment(today).format(walletsDayFormat);
-      return todayFormat;
+      const yesterdayFormat = moment(yesterday).format(walletsDayFormat);
+      return yesterdayFormat;
     }
   });
 

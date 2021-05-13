@@ -8,23 +8,23 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
-import 'package:vegas_lit/interstitial/interstitial_page.dart';
+import 'package:vegas_lit/home/cubit/version_cubit.dart';
+import 'package:vegas_lit/interstitial/reward_ad.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
-import 'package:vegas_lit/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
+
 import '../bet_slip.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:vegas_lit/interstitial/reward_ad.dart';
 
 // ignore: must_be_immutable
 class BetSlipCard extends StatefulWidget {

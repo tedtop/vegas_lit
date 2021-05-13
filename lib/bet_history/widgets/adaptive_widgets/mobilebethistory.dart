@@ -18,10 +18,10 @@ class MobileBetHistory extends StatefulWidget {
 class _MobileBetHistoryState extends State<MobileBetHistory> {
   @override
   Widget build(BuildContext context) {
-    final totalWin = context.watch<HomeCubit>().state?.userWallet?.totalWinBets;
+    final totalWin = context.watch<HomeCubit>().state?.userWallet?.totalBetsWon;
     final totalLose =
-        context.watch<HomeCubit>().state?.userWallet?.totalLoseBets;
-    print(totalWin / totalLose);
+        context.watch<HomeCubit>().state?.userWallet?.totalBetsLost;
+
     return Column(
       children: [
         // Padding(
@@ -99,7 +99,7 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                             color: Palette.red,
                           ),
                           BetHistoryRow(
-                            text: 'Win/Lose Ratio',
+                            text: 'Win/Loss Ratio',
                             text2:
                                 // ignore: lines_longer_than_80_chars
                                 '${(totalWin / totalLose) > 0 ? totalWin ~/ totalLose : 0}',

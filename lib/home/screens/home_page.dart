@@ -31,14 +31,11 @@ class HomePage extends StatefulWidget {
   static Route route({
     @required FirebaseAnalyticsObserver observer,
     @required Connectivity connectivity,
+    @required String currentUserId,
   }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'HomePage'),
       builder: (context) {
-        final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
-              authenticationBloc.state?.user?.uid,
-        );
         return MultiBlocProvider(
           providers: [
             BlocProvider<SportsbookBloc>(

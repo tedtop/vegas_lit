@@ -126,10 +126,18 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
   }
 }
 
-class MobileLeaderboardTile extends StatelessWidget {
+class MobileLeaderboardTile extends StatefulWidget {
   MobileLeaderboardTile({@required this.player, @required this.rank});
   final Wallet player;
   final int rank;
+
+  @override
+  _MobileLeaderboardTileState createState() => _MobileLeaderboardTileState();
+}
+
+class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
+  bool expanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -144,12 +152,27 @@ class MobileLeaderboardTile extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: ExpansionTile(
+          onExpansionChanged: (isExpanded) {
+            setState(() {
+              expanded = isExpanded;
+            });
+          },
+          leading: CircleAvatar(
+            backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
+            child: Text(
+              widget.player.username.substring(0, 1).toUpperCase(),
+              style: GoogleFonts.nunito(
+                fontWeight: FontWeight.bold,
+                color: Palette.cream,
+              ),
+            ),
+          ),
           title: Text(
-            '$rank. ${player.username}',
+            '${widget.rank}. ${widget.player.username}',
             style: Styles.normalTextBold,
           ),
           subtitle: Text(
-            'Total Profit: \$${player.totalProfit}',
+            profitOrLoss(number: widget.player.totalProfit),
             style: Styles.homeTeam,
           ),
           collapsedBackgroundColor: Palette.lightGrey,
@@ -163,15 +186,19 @@ class MobileLeaderboardTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${player.totalWinBets} out of ${player.totalBets} Correct Bets!',
+                    '${widget.player.totalBetsWon} out of ${widget.player.totalBets} Correct Bets!',
                     style: Styles.awayTeam,
                   ),
-                  // Text(
-                  //   'Biggest win: \$${player.biggestWin}',
-                  //   style: Styles.awayTeam,
-                  // ),
                   Text(
-                    'Account Balance: \$${player.accountBalance}',
+                    'Total Lost Bets: ${widget.player.totalBetsLost}',
+                    style: Styles.awayTeam,
+                  ),
+                  Text(
+                    'Open Bets: ${widget.player.totalOpenBets}',
+                    style: Styles.awayTeam,
+                  ),
+                  Text(
+                    'Account Balance: \$${widget.player.accountBalance}',
                     style: Styles.awayTeam,
                   )
                 ],
@@ -181,5 +208,13 @@ class MobileLeaderboardTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String profitOrLoss({@required int number}) {
+    if (number.isNegative) {
+      return 'Total Loss: \$${widget.player.totalProfit.abs()}';
+    } else {
+      return 'Total Profit: \$${widget.player.totalProfit}';
+    }
   }
 }
