@@ -45,11 +45,17 @@ class UserRepository {
         uid: uid,
       );
 
+  Future<void> sendEmailVerification({@required User user}) =>
+      _authenticationProvider.sendEmailVerification(user: user);
+
   Stream<UserData> fetchUserData({@required String uid}) =>
       _databaseProvider.fetchUserData(uid: uid);
 
   Stream<Wallet> fetchWalletData({@required String uid}) =>
       _databaseProvider.fetchUserWallet(uid: uid);
+
+  Future<bool> isUsernameExist({@required String username}) =>
+      _databaseProvider.isUsernameExist(username: username);
 
   Stream<List<Wallet>> fetchRankedUsers() =>
       _databaseProvider.fetchRankedUsers();

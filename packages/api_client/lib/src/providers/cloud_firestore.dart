@@ -119,7 +119,8 @@ class CloudFirestore {
     return userWalletList;
   }
 
-  Future<bool> isBetExist({String betId, String uid}) async {
+  Future<bool> isBetExist(
+      {@required String betId, @required String uid}) async {
     final isBetExist = await _firestoreData
         .collection('bets')
         .where('id', isEqualTo: betId)
@@ -134,6 +135,15 @@ class CloudFirestore {
               .isNotEmpty,
         );
     return isBetExist;
+  }
+
+  Future<bool> isUsernameExist({@required String username}) async {
+    final documentSnapshot = await _firestoreData
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+    final isUsernameExist = documentSnapshot.docs.isNotEmpty;
+    return isUsernameExist;
   }
 
   Future<List<String>> fetchLeaderboardDays() async {

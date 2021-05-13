@@ -20,6 +20,7 @@ class BetHistorySlip extends StatelessWidget {
     final odd = betHistory.odds.isNegative
         ? betHistory.odds.toString()
         : '+${betHistory.odds}';
+    final isMoneyLine = betHistory.betType == 'moneyline';
     final betSpread = betHistory.betType == 'total'
         ? betHistory.betOverUnder
         : betHistory.betPointSpread;
@@ -59,9 +60,10 @@ class BetHistorySlip extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 10.0,
+                    padding: const EdgeInsets.only(
+                      left: 12.0,
+                      right: 12,
+                      bottom: 10.0,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,6 +95,9 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
+                        const SizedBox(
+                          height: 3,
+                        ),
                         RichText(
                           text: TextSpan(
                             style: Styles.normalText,
@@ -116,8 +121,11 @@ class BetHistorySlip extends StatelessWidget {
                             ],
                           ),
                         ),
+                        const SizedBox(
+                          height: 3,
+                        ),
                         Text(
-                          '${whichBetSystem(betHistory.betType)}  $spread  $odd',
+                          '${whichBetSystem(betHistory.betType)}  ${isMoneyLine ? '' : spread}  $odd',
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,

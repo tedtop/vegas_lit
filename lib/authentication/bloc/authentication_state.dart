@@ -4,6 +4,7 @@ enum AuthenticationStatus {
   authenticated,
   unauthenticated,
   halfauthenticated,
+  notverified,
   splashscreen,
 }
 
@@ -22,6 +23,11 @@ class AuthenticationState extends Equatable {
   ) : this._(
           status: AuthenticationStatus.authenticated,
           user: user,
+        );
+
+  const AuthenticationState.verification()
+      : this._(
+          status: AuthenticationStatus.notverified,
         );
 
   const AuthenticationState.halfauthenticated(User user)

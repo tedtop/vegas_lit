@@ -4,6 +4,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:vegas_lit/bet_history/bet_history.dart';
@@ -154,10 +155,7 @@ class _HomePageState extends State<HomePage>
           builder: (context, state) {
             if (state is InternetDisconnected) {
               return Center(
-                child: Text(
-                  'NO CONNECTION',
-                  style: GoogleFonts.nunito(fontSize: 15),
-                ),
+                child: SvgPicture.asset(SVG.networkError),
               );
             } else {
               return IndexedStack(
@@ -265,6 +263,7 @@ class _HomePageState extends State<HomePage>
     return AppBar(
       iconTheme: const IconThemeData(color: Palette.cream),
       toolbarHeight: 80.0,
+      titleSpacing: 0,
       title: Image.asset(
         Images.topLogo,
         fit: BoxFit.contain,
@@ -273,37 +272,42 @@ class _HomePageState extends State<HomePage>
       actions: [
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 9, 10, 11),
-          child: Container(
-            width: 60,
-            height: 60,
-            decoration: const ShapeDecoration(
-              shape: CircleBorder(),
-              color: Palette.green,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Balance',
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
+          child: GestureDetector(
+            onTap: () {
+              context.read<HomeCubit>().homeChange(4);
+            },
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: const ShapeDecoration(
+                shape: CircleBorder(),
+                color: Palette.green,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Balance',
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      maxLines: 1,
                     ),
-                    maxLines: 1,
-                  ),
-                  Text(
-                    '\$$balanceAmount',
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      '\$$balanceAmount',
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
                     ),
-                    maxLines: 1,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

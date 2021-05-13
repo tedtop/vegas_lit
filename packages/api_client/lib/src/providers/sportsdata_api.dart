@@ -19,12 +19,7 @@ class SportsAPI {
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
@@ -44,12 +39,7 @@ class SportsAPI {
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
@@ -69,12 +59,7 @@ class SportsAPI {
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(
@@ -96,12 +81,7 @@ class SportsAPI {
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(
@@ -123,12 +103,7 @@ class SportsAPI {
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
@@ -148,12 +123,7 @@ class SportsAPI {
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
@@ -176,12 +146,7 @@ class SportsAPI {
     final formattedYear = DateFormat('yyyy').format(dateTimeEastern);
 
     final response = await _dio.get(
-      'https://fly.sportsdata.io/golf/v2/json/Tournaments/$formattedYear',
-      options: Options(
-        headers: {
-          'Ocp-Apim-Subscription-Key': leagueData['key'],
-        },
-      ),
+      'https://fly.sportsdata.io/golf/v2/json/Tournaments/$formattedYear?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
@@ -211,12 +176,8 @@ class SportsAPI {
     const leagueData = ConstantSportsDataAPI.golf;
 
     final response = await _dio.get(
-        'https://fly.sportsdata.io/golf/v2/json/Leaderboard/$tournamentID',
-        options: Options(
-          headers: {
-            'Ocp-Apim-Subscription-Key': leagueData['key'],
-          },
-        ));
+      'https://fly.sportsdata.io/golf/v2/json/Leaderboard/$tournamentID?key=${leagueData['key']}',
+    );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
       final leaderboard = GolfLeaderboard.fromMap(parsed);

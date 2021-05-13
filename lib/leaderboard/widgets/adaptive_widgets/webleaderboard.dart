@@ -41,16 +41,16 @@ class _WebLeaderboardState extends State<WebLeaderboard> {
                     context.read<LeaderboardCubit>().changeWeek(day: value);
                   },
                 ),
-                const TextBar(
-                  text: 'All Leagues',
-                  textList: ['All Leagues'],
-                  onPress: print,
-                ),
-                const TextBar(
-                  text: 'All Bet Types',
-                  textList: ['All Bet Types'],
-                  onPress: print,
-                ),
+                // const TextBar(
+                //   text: 'All Leagues',
+                //   textList: ['All Leagues'],
+                //   onPress: print,
+                // ),
+                // const TextBar(
+                //   text: 'All Bet Types',
+                //   textList: ['All Bet Types'],
+                //   onPress: print,
+                // ),
               ],
             ),
           ),

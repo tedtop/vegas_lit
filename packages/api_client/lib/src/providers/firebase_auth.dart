@@ -30,13 +30,20 @@ class FirebaseAuthentication {
   }) async {
     assert(email != null && password != null);
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      if (!credential.user.emailVerified) {
+        await credential.user.sendEmailVerification();
+      }
     } on Exception {
       throw SignUpFailure();
     }
+  }
+
+  Future<void> sendEmailVerification({@required User user}) async {
+    await user.sendEmailVerification();
   }
 
   Future<void> logInWithEmailAndPassword({

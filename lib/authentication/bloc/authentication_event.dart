@@ -26,3 +26,5 @@ class CheckProfileComplete extends AuthenticationEvent {
 }
 
 class AuthenticationLogoutRequested extends AuthenticationEvent {}
+
+class AuthenticationEmailVerification extends AuthenticationEvent {}

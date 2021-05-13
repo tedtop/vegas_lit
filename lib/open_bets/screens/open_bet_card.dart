@@ -112,7 +112,7 @@ class OpenBetsSlip extends StatelessWidget {
                           ),
                         ),
                         Text(
-                            '${whichBetSystem(openBets.betType)}  $spread  $odd',
+                            '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.w300,
@@ -150,12 +150,20 @@ class OpenBetsSlip extends StatelessWidget {
                                 'In Progress',
                                 style: GoogleFonts.nunito(
                                   color: Palette.red,
+                                  fontSize: 15,
                                 ),
                               );
                             }
+
+                            final hours =
+                                time.hours == null ? '' : '${time.hours}hr';
+                            final min = time.min == null ? '' : '${time.min}m';
+                            final sec = time.sec == null ? '' : '${time.sec}s';
+
                             return Text(
-                              'Starting in ${time.hours}hr ${time.min}m ${time.sec}s',
+                              'Starting in $hours $min $sec',
                               style: GoogleFonts.nunito(
+                                fontSize: 15,
                                 color: Palette.red,
                               ),
                             );

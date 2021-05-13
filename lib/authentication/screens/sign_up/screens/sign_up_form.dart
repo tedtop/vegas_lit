@@ -132,6 +132,8 @@ String usernameError(UsernameValidationError validationError) {
     return 'Username should be 3-15 chars';
   } else if (validationError == UsernameValidationError.empty) {
     return 'Required';
+  } else if (validationError == UsernameValidationError.exist) {
+    return 'Username already exists';
   } else {
     return null;
   }
@@ -644,26 +646,31 @@ class _AgreementCheck extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          style: GoogleFonts.nunito(
-                              fontSize: 11, color: Palette.cream),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text:
-                                  'By continuing/clicking I certify that I am (i) at least 18 years of age and (ii) use of this platform and service and participation in the contest is legal in the jurisdiction in which I reside',
-                              style: GoogleFonts.nunito(
-                                fontSize: 14,
+                      GestureDetector(
+                        onTap: () => context
+                            .read<SignUpCubit>()
+                            .agreementClicked(!state.agreementValue),
+                        child: RichText(
+                          text: TextSpan(
+                            style: GoogleFonts.nunito(
+                                fontSize: 11, color: Palette.cream),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    'By continuing/clicking I certify that I am (i) at least 18 years of age and (ii) use of this platform and service and participation in the contest is legal in the jurisdiction in which I reside',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                            // TextSpan(
-                            //   text: 'here',
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 14,
-                            //     color: Palette.green,
-                            //   ),
-                            // ),
-                          ],
+                              // TextSpan(
+                              //   text: 'here',
+                              //   style: GoogleFonts.nunito(
+                              //     fontSize: 14,
+                              //     color: Palette.green,
+                              //   ),
+                              // ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

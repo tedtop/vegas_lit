@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/authentication/screens/sign_up/screens/view.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/shared_widgets/auth_logo.dart';
@@ -52,6 +53,7 @@ class LoginForm extends StatelessWidget {
                       ),
                       _ResetPassword(),
                       _LinkToSignup(),
+                      VersionNumber(),
                     ],
                   ),
                 ],
@@ -329,6 +331,49 @@ class __ResetPageState extends State<_ResetPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class VersionNumber extends StatefulWidget {
+  @override
+  _VersionNumberState createState() => _VersionNumberState();
+}
+
+class _VersionNumberState extends State<VersionNumber> {
+  String versionString;
+  String buildNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    _getAppVersion();
+  }
+
+  void _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      versionString = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        return ListTile(
+          title: Center(
+            child: Text(
+              'Version: $versionString ($buildNumber)',
+              style: GoogleFonts.nunito(
+                color: Palette.cream,
+                fontSize: 10,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

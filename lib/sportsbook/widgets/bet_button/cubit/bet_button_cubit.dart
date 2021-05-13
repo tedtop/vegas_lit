@@ -75,6 +75,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
   Future<bool> clickBetButton() async {
     final isBetExists = await _betsRepository.isBetExist(
       betId: state.uniqueId,
+      uid: state.uid,
     );
     if (isBetExists) {
       emit(

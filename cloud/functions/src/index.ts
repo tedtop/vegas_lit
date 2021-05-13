@@ -6,12 +6,12 @@ import moment = require("moment-timezone");
 var app = admin.initializeApp();
 
 export const resolveBets = functions.pubsub
-  .schedule("every 4 hours")
+  .schedule("50 23 * * *")
   .onRun(async (context) => {
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
-    console.log("This will be run every 4 hours!");
+    console.log("This function will be run everyday at 11:50 PM!");
     await app
       .firestore()
       .collection("bets")
@@ -23,18 +23,17 @@ export const resolveBets = functions.pubsub
         snapshots.docs.forEach(async (document) => {
           const data = document.data();
 
-          const dateTime = formatTime(data.dateTime);
+          const dateTime = formatTime(data.gameDateTime);
           const league = data.league.toLowerCase();
           const isClosedFirestore = data.isClosed;
           const apikey = whichKey(league);
-          const gameId = data.gameID;
+          const gameId = data.gameId;
           const documentId = data.id;
           const uid = data.user;
           const betType = data.betType;
-          const winTeam = data.winTeam;
-          // const spread = data.spread;
-          const amountBet = data.amountBet;
-          const amountWin = data.amountWin;
+          const betTeam = data.betTeam;
+          const amountBet = data.betAmount;
+          const amountWin = data.betProfit;
           const totalWinAmount = amountWin + amountBet;
 
           const promise = axios
@@ -46,6 +45,9 @@ export const resolveBets = functions.pubsub
                 },
               }
             )
+            .catch((error: any) => {
+              console.log(error);
+            })
             .then(async function (data: any) {
               const jsonData: Game[] = data["data"];
               const specificGame = jsonData.filter(
@@ -63,23 +65,29 @@ export const resolveBets = functions.pubsub
 
               const pointSpread = pointSpreadAssign(
                 specificGame.PointSpread,
-                winTeam
+                betTeam
               );
 
               if (isClosed != isClosedFirestore) {
                 if (homeTeamScore != null && awayTeamScore != null) {
-                  const spread =
-                    betType == "POINT SPREAD"
+                  const gameNumber =
+                    betType == "pointspread"
                       ? pointSpread
                       : specificGame.OverUnder;
+
+                  const totalGameScore = homeTeamScore + awayTeamScore;
                   const finalWinTeam = whichTeamWin(
                     homeTeamScore,
                     awayTeamScore,
                     betType,
-                    spread,
-                    winTeam
+                    gameNumber,
+                    betTeam
                   );
-                  const isWin = winTeam == finalWinTeam;
+                  const finalWinTeamKey =
+                    finalWinTeam == "away"
+                      ? specificGame.AwayTeam
+                      : specificGame.HomeTeam;
+                  const isWin = betTeam == finalWinTeam;
 
                   await app
                     .firestore()
@@ -89,26 +97,34 @@ export const resolveBets = functions.pubsub
                       isClosed: isClosed,
                       homeTeamScore: homeTeamScore,
                       awayTeamScore: awayTeamScore,
-                      finalWinTeam: finalWinTeam,
+                      winningTeamName: finalWinTeam,
+                      totalGameScore: totalGameScore,
+                      winningTeam: finalWinTeamKey,
                     })
                     .then(async (_) => {
                       await app
                         .firestore()
-                        .collection("users")
+                        .collection("wallets")
                         .doc(uid)
                         .update({
-                          openBets: admin.firestore.FieldValue.increment(-1),
-                          profit: isWin
+                          totalOpenBets:
+                            admin.firestore.FieldValue.increment(-1),
+                          totalProfit: isWin
                             ? admin.firestore.FieldValue.increment(amountWin)
-                            : admin.firestore.FieldValue.increment(0),
+                            : admin.firestore.FieldValue.increment(-amountBet),
                           accountBalance: isWin
                             ? admin.firestore.FieldValue.increment(
                                 totalWinAmount
                               )
                             : admin.firestore.FieldValue.increment(0),
-                          correctBets: isWin
+                          totalWinBets: isWin
                             ? admin.firestore.FieldValue.increment(1)
                             : admin.firestore.FieldValue.increment(0),
+                          totalLoseBets: isWin
+                            ? admin.firestore.FieldValue.increment(0)
+                            : admin.firestore.FieldValue.increment(1),
+                          potentialWinAmount:
+                            admin.firestore.FieldValue.increment(-amountWin),
                         });
                       valueUpdateNumber++;
                     });
@@ -119,7 +135,6 @@ export const resolveBets = functions.pubsub
             })
             .catch(function (error: any) {
               console.log(error);
-              return null;
             });
 
           promises.push(promise);
@@ -129,7 +144,6 @@ export const resolveBets = functions.pubsub
       })
       .catch(function (error: any) {
         console.log(error);
-        return null;
       })
       .then(function () {
         console.log(`${valueUpdateNumber} value updated!`);
@@ -163,44 +177,44 @@ export const resolveBets = functions.pubsub
       homeTeamScore: number,
       awayTeamScore: number,
       betType: string,
-      spread: any,
-      winTeam: string
+      gameNumber: any,
+      betTeam: string
     ): string {
       if (betType == "moneyline") {
         return homeTeamScore > awayTeamScore ? "home" : "away";
       }
-      if (betType == "pointSpread") {
+      if (betType == "pointspread") {
         const finalWinTeam = homeTeamScore > awayTeamScore ? "home" : "away";
         const scoreDifference = homeTeamScore - awayTeamScore;
-        if (spread >= 0) {
+        if (gameNumber >= 0) {
           // Positive Value
           // Underdog Betting Team
-          if (winTeam != finalWinTeam) {
-            if (scoreDifference <= Math.abs(spread)) {
-              return winTeam == "home" ? "home" : "away";
+          if (betTeam != finalWinTeam) {
+            if (scoreDifference <= Math.abs(gameNumber)) {
+              return betTeam == "home" ? "home" : "away";
             } else {
-              return winTeam == "home" ? "away" : "home";
+              return betTeam == "home" ? "away" : "home";
             }
           } else {
-            return winTeam == "home" ? "away" : "home";
+            return betTeam == "home" ? "away" : "home";
           }
         } else {
           // Negative Value
           // Favorite Betting Team
-          if (winTeam == finalWinTeam) {
-            if (scoreDifference >= Math.abs(spread)) {
-              return winTeam == "home" ? "home" : "away";
+          if (betTeam == finalWinTeam) {
+            if (scoreDifference >= Math.abs(gameNumber)) {
+              return betTeam == "home" ? "home" : "away";
             } else {
-              return winTeam == "home" ? "away" : "home";
+              return betTeam == "home" ? "away" : "home";
             }
           } else {
-            return winTeam == "home" ? "away" : "home";
+            return betTeam == "home" ? "away" : "home";
           }
         }
       }
       if (betType == "total") {
         const totalScore = homeTeamScore + awayTeamScore;
-        return totalScore <= spread ? "home" : "away";
+        return totalScore <= gameNumber ? "home" : "away";
       } else {
         return "";
       }
@@ -234,80 +248,70 @@ export const resolveBets = functions.pubsub
   });
 
 export const resolveLeaderboard = functions.pubsub
-  .schedule("0 0 * * *")
+  .schedule("55 23 * * *")
   .onRun(async (context) => {
-    console.log("This will be run every 1 days!");
+    console.log("This function will be run everyday at 11:55 PM!");
 
-    const documentName = await getWeekDate();
+    const documentName = getCurrentDate();
 
     await app
       .firestore()
-      .collection("users")
+      .collection("wallets")
       .get()
-      .then((snapshots) => {
-        snapshots.docs.forEach(async (element) => {
-          await app
-            .firestore()
-            .collection("leaderboard")
-            .doc(documentName)
-            .set({ isArchive: true })
-            .then(async (value) => {
-              await app
+      .then(async (snapshots) => {
+        await app
+          .firestore()
+          .collection("leaderboard")
+          .doc(documentName)
+          .set({ isArchive: true })
+          .then((_) => {
+            const promises: any = [];
+            snapshots.docs.forEach(async (element) => {
+              const promise = await app
                 .firestore()
                 .collection("leaderboard")
                 .doc(documentName)
-                .collection("users")
+                .collection("wallets")
                 .doc(element.id)
                 .set(element.data())
                 .then(async () => {
                   await app
                     .firestore()
-                    .collection("users")
+                    .collection("wallets")
                     .doc(element.id)
                     .update({
-                      profit: 0,
+                      totalProfit: 0,
                       accountBalance: 1000,
-                      correctBets: 0,
-                      numberBets: 0,
-                      openBets: 0,
+                      totalWinBets: 0,
+                      totalLoseBets: 0,
+                      totalBets: 0,
+                      totalOpenBets: 0,
+                      totalRiskedAmount: 0,
+                      potentialWinAmount: 0,
                     });
-
-                  return null;
                 });
+              promises.push(promise);
             });
-        });
+            return Promise.all(promises);
+          });
+      })
+      .catch(function (error: any) {
+        console.log(error);
       })
       .then(() => {
-        console.log("Leaderboard Function Completed");
+        functions.logger.info("Leaderboard Resolved!", {
+          structuredData: true,
+        });
         return null;
       });
 
     return null;
 
-    async function getWeekDate(): Promise<string> {
-      const constants = await app
-        .firestore()
-        .collection("constants")
-        .doc("cloud")
-        .get()
-        .then((doc) => {
-          return doc.data();
-        })
-        .then(async (data) => {
-          await app
-            .firestore()
-            .collection("constants")
-            .doc("cloud")
-            .update({ nextWeek: admin.firestore.FieldValue.increment(1) });
-          return data != null ? data.nextWeek : 0;
-        });
-      const start = new Date();
-      var end = moment(start).add(7, "days");
-      const myDatetimeFormat = "MM.DD.YY";
-      const startFormat = moment(start).format(myDatetimeFormat);
-      const endFormat = moment(end).format(myDatetimeFormat);
-      const totalDocumentName = `Week ${constants} (${startFormat} - ${endFormat})`;
-      return totalDocumentName;
+    function getCurrentDate(): string {
+      const today = new Date();
+      const walletsDayFormat = "YYYY-MM-DD";
+      const todayFormat = moment(today).format(walletsDayFormat);
+      return todayFormat;
     }
   });
 
