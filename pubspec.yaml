@@ -50,6 +50,7 @@ dependencies:
   very_good_analysis: ^1.0.4
   jiffy: ^4.1.0
   flutter_countdown_timer: ^4.1.0
+  google_mobile_ads: ^0.12.1+1
 
 dev_dependencies:
   flutter_test:

@@ -62,4 +62,8 @@ class UserRepository {
 
   Future<String> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();
+
+  Future<void> rewardForVideoAd(
+          {@required String uid, @required int rewardValue}) =>
+      _databaseProvider.rewardBalance(uid: uid, rewardValue: rewardValue);
 }

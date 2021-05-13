@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         applicationId "com.vegasLit.sportsbook"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

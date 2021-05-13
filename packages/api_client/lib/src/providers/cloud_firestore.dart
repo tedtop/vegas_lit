@@ -171,4 +171,14 @@ class CloudFirestore {
 
     return minimumVersion;
   }
+
+  Future<void> rewardBalance({
+    @required String uid,
+    @required int rewardValue,
+  }) async {
+    await _firestoreData.collection('wallets').doc(uid).update({
+      // 'totalRewards': FieldValue.increment(1),
+      'accountBalance': FieldValue.increment(rewardValue),
+    });
+  }
 }

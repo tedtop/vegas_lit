@@ -23,6 +23,8 @@ import 'package:vegas_lit/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 import '../bet_slip.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:vegas_lit/interstitial/reward_ad.dart';
 
 // ignore: must_be_immutable
 class BetSlipCard extends StatefulWidget {
@@ -362,9 +364,22 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                           );
                                       if (betPlacedCount % 4 == 0 &&
                                           betPlacedCount != 0) {
-                                        await Navigator.of(context).push(
-                                          Interstitial.route(),
+                                        final onRewardCallBack = (
+                                          RewardedAd rewardedAd,
+                                          RewardItem rewardItem,
+                                        ) async {
+                                          await UserRepository()
+                                              .rewardForVideoAd(
+                                            uid: currentUserId,
+                                            rewardValue: rewardItem.amount,
+                                          );
+                                        };
+                                        final ads = RewardAd(
+                                          balanceAmount,
+                                          onRewardCallBack,
                                         );
+                                        await ads.loadAd();
+                                        await ads.play();
                                       }
                                     }
                                   }
