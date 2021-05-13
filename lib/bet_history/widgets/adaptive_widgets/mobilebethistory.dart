@@ -5,6 +5,7 @@ import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_history/screens/bet_history_page.dart';
 import 'package:vegas_lit/bet_history/widgets/bet_history_card.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/home/cubit/home_cubit.dart';
 
 class MobileBetHistory extends StatefulWidget {
   MobileBetHistory({this.betPlacedLength, this.betAmountRisk});
@@ -17,6 +18,10 @@ class MobileBetHistory extends StatefulWidget {
 class _MobileBetHistoryState extends State<MobileBetHistory> {
   @override
   Widget build(BuildContext context) {
+    final totalWin = context.watch<HomeCubit>().state?.userWallet?.totalWinBets;
+    final totalLose =
+        context.watch<HomeCubit>().state?.userWallet?.totalLoseBets;
+    print(totalWin / totalLose);
     return Column(
       children: [
         // Padding(
@@ -94,6 +99,13 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                                 // ignore: lines_longer_than_80_chars
                                 '\$$totalProfit',
                             color: Palette.red,
+                          ),
+                          BetHistoryRow(
+                            text: 'Win/Lose Ratio',
+                            text2:
+                                // ignore: lines_longer_than_80_chars
+                                '${(totalWin / totalLose) > 0 ? totalWin ~/ totalLose : 0}',
+                            color: Palette.cream,
                           ),
                         ],
                       );

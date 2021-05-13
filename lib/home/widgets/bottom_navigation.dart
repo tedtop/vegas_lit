@@ -66,7 +66,7 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   label: 'Bet Slip'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.emoji_events), label: 'Leaderboard'),
+                  icon: Icon(Icons.emoji_events), label: 'Leaders'),
               const BottomNavigationBarItem(
                   icon: Icon(Feather.file_text), label: 'Open Bets'),
               const BottomNavigationBarItem(

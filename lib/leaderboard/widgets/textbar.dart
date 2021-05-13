@@ -22,7 +22,7 @@ class TextBar extends StatelessWidget {
         horizontal: 6,
       ),
       height: 40,
-      width: 150,
+      width: 190,
       child: Card(
         // elevation: 1,
         clipBehavior: Clip.antiAlias,

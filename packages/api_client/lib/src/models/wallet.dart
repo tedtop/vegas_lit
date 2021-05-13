@@ -22,7 +22,7 @@ class Wallet extends Equatable {
     final map = snapshot.data();
 
     return Wallet(
-      uid: map['uid'] ?? '',
+      uid: map['uid'],
       username: map['username'],
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],

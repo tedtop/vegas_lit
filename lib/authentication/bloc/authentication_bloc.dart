@@ -35,16 +35,15 @@ class AuthenticationBloc
   ) async* {
     if (event is AuthenticationUserChanged) {
       if (event.user != null) {
-        if (!event.user.emailVerified) {
-          await _userRepository.sendEmailVerification(user: event.user);
-          add(
-            AuthenticationEmailVerification(),
-          );
-        } else {
-          add(
-            CheckProfileComplete(event.user),
-          );
-        }
+        // if (!event.user.emailVerified) {
+        // await _userRepository.sendEmailVerification(user: event.user);
+        // add(
+        //   AuthenticationEmailVerification(),
+        // );
+        // } else {}
+        add(
+          CheckProfileComplete(event.user),
+        );
       } else {
         yield const AuthenticationState.unauthenticated();
       }
@@ -68,6 +67,14 @@ class AuthenticationBloc
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
     yield const AuthenticationState.splashscreen();
-    yield AuthenticationState.authenticated(event.user);
+    final isUserExist =
+        await _userRepository.isProfileComplete(uid: event.user.uid);
+    if (isUserExist) {
+      yield AuthenticationState.authenticated(event.user);
+    } else {
+      add(
+        AuthenticationUserChanged(event.user),
+      );
+    }
   }
 }

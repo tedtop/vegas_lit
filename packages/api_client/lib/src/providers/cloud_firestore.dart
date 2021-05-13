@@ -34,6 +34,15 @@ class CloudFirestore {
     await walletReference.set(walletMap, SetOptions(merge: true));
   }
 
+  Future<bool> isProfileComplete({@required String uid}) async {
+    final snapshot = await _firestoreData.collection('users').doc(uid).get();
+
+    final isProfileComplete = snapshot != null &&
+        snapshot.exists &&
+        snapshot.data().containsKey('uid');
+    return isProfileComplete;
+  }
+
   // Open Bets Page
 
   Stream<List<BetData>> fetchOpenBets({@required String uid}) {

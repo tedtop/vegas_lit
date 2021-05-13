@@ -38,15 +38,27 @@ class SignUpForm extends StatelessWidget {
             child: Column(
               children: [
                 _ExistingAccountSignIn(),
-                _UsernameInput(),
-                _EmailInput(),
-                _PasswordInput(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: _UsernameInput(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: _EmailInput(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: _PasswordInput(),
+                ),
                 _ConfirmPasswordInput(),
                 _StateInput(),
                 const SizedBox(
                   height: 10,
                 ),
-                _MobileNumberInput(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4, bottom: 5),
+                  child: _MobileNumberInput(),
+                ),
                 // _AgeCheck(),
                 _AgreementCheck(),
                 _SignUpButton(),

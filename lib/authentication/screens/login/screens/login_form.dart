@@ -14,6 +14,7 @@ import '../login.dart';
 class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: BlocListener<LoginCubit, LoginState>(
@@ -53,9 +54,10 @@ class LoginForm extends StatelessWidget {
                       ),
                       _ResetPassword(),
                       _LinkToSignup(),
-                      VersionNumber(),
                     ],
                   ),
+                  SizedBox(height: height / 3),
+                  VersionNumber(),
                 ],
               ),
             ),
@@ -362,15 +364,11 @@ class _VersionNumberState extends State<VersionNumber> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return ListTile(
-          title: Center(
-            child: Text(
-              'Version: $versionString ($buildNumber)',
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 10,
-              ),
-            ),
+        return Text(
+          'Version: $versionString ($buildNumber)',
+          style: GoogleFonts.nunito(
+            color: Palette.cream,
+            fontSize: 10,
           ),
         );
       },

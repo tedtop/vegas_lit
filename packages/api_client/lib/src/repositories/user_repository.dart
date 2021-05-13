@@ -45,6 +45,9 @@ class UserRepository {
         uid: uid,
       );
 
+  Future<bool> isProfileComplete({@required String uid}) =>
+      _databaseProvider.isProfileComplete(uid: uid);
+
   Future<void> sendEmailVerification({@required User user}) =>
       _authenticationProvider.sendEmailVerification(user: user);
 

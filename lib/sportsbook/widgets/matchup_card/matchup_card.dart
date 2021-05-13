@@ -199,18 +199,22 @@ class MatchupCard extends StatelessWidget {
                                 ),
                               ),
                               Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  const SizedBox(height: 2),
                                   Text(
                                     '@',
                                     style: Styles.matchupSeparator,
                                   ),
-                                  const SizedBox(height: 22),
+                                  const SizedBox(height: 16),
                                   gameData.homeTeamMoneyLine == null
                                       ? Container()
                                       : _betButtonSeparator(text: 'ML'),
+                                  const SizedBox(height: 2),
                                   gameData.pointSpreadHomeTeamMoneyLine == null
                                       ? Container()
                                       : _betButtonSeparator(text: 'PTS'),
+                                  const SizedBox(height: 1),
                                   gameData.underPayout == null
                                       ? Container()
                                       : _betButtonSeparator(text: 'TOT'),

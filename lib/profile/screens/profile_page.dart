@@ -80,11 +80,25 @@ class Profile extends StatelessWidget {
 class _AvatarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
-      child: Image(
-        image: AssetImage(Images.profileImage),
+    final username = context.watch<ProfileCubit>().state.userData.username;
+    return ClipPath(
+      child: Center(
+        child: ClipOval(
+          child: Container(
+            alignment: Alignment.center,
+            color: Palette.darkGrey,
+            height: 100.0,
+            width: 100.0,
+            child: Text(
+              username.substring(0, 1).toUpperCase(),
+              style: GoogleFonts.nunito(
+                fontSize: 60,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ),
-      radius: 50,
     );
   }
 }
