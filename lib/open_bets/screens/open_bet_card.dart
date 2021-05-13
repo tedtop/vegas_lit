@@ -68,7 +68,7 @@ class OpenBetsSlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        openBets.winningTeamName == 'home'
+                        openBets.winningTeam == 'home'
                             ? isMoneyline
                                 ? Text(
                                     '${openBets.homeTeamName.toUpperCase()} TO WIN',

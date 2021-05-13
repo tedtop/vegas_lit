@@ -6,12 +6,12 @@ import moment = require("moment-timezone");
 var app = admin.initializeApp();
 
 export const resolveBets = functions.pubsub
-  .schedule("50 23 * * *")
+  .schedule("every 4 hours")
   .onRun(async (context) => {
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
-    console.log("This function will be run everyday at 11:50 PM!");
+    console.log("'This will be run every 4 hours!");
     await app
       .firestore()
       .collection("bets")
@@ -83,7 +83,7 @@ export const resolveBets = functions.pubsub
                     gameNumber,
                     betTeam
                   );
-                  const finalWinTeamKey =
+                  const finalWinTeamName =
                     finalWinTeam == "away"
                       ? specificGame.AwayTeam
                       : specificGame.HomeTeam;
@@ -97,9 +97,9 @@ export const resolveBets = functions.pubsub
                       isClosed: isClosed,
                       homeTeamScore: homeTeamScore,
                       awayTeamScore: awayTeamScore,
-                      winningTeamName: finalWinTeam,
+                      winningTeamName: finalWinTeamName,
                       totalGameScore: totalGameScore,
-                      winningTeam: finalWinTeamKey,
+                      winningTeam: finalWinTeam,
                     })
                     .then(async (_) => {
                       await app
@@ -249,6 +249,7 @@ export const resolveBets = functions.pubsub
 
 export const resolveLeaderboard = functions.pubsub
   .schedule("55 23 * * *")
+  .timeZone("America/New_York")
   .onRun(async (context) => {
     console.log("This function will be run everyday at 11:55 PM!");
 

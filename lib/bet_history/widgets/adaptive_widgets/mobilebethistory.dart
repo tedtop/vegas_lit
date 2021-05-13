@@ -66,9 +66,7 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                       ? 0
                       : state.betHistoryDataList
                           .map((e) {
-                            return e.winningTeamName == e.betTeam
-                                ? e.betProfit
-                                : 0;
+                            return e.winningTeam == e.betTeam ? e.betProfit : 0;
                           })
                           .toList()
                           .reduce((value, element) => value + element);

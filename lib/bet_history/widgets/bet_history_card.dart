@@ -30,8 +30,7 @@ class BetHistorySlip extends StatelessWidget {
             ? betSpread.toString()
             : '+$betSpread';
 
-    final isWin =
-        betHistory.winningTeamName == betHistory.betTeam ? 'won' : 'lost';
+    final isWin = betHistory.winningTeam == betHistory.betTeam ? 'won' : 'lost';
     final betTeam = betHistory.betTeam == 'home'
         ? betHistory.homeTeamName
         : betHistory.awayTeamName;
@@ -68,7 +67,7 @@ class BetHistorySlip extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        betHistory.winningTeamName == 'home'
+                        betHistory.winningTeam == 'home'
                             ? isMoneyline
                                 ? Text(
                                     '${betHistory.homeTeamName.toUpperCase()} TO WIN',
@@ -132,7 +131,7 @@ class BetHistorySlip extends StatelessWidget {
                             color: Palette.cream,
                           ),
                         ),
-                        betHistory.winningTeamName == betHistory.betTeam
+                        betHistory.winningTeam == betHistory.betTeam
                             ? Text(
                                 // ignore: lines_longer_than_80_chars
                                 'You bet \$${betHistory.betAmount} and won \$${betHistory.betProfit}!',
@@ -166,7 +165,7 @@ class BetHistorySlip extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: betHistory.winningTeamName == betHistory.betTeam
+                    color: betHistory.winningTeam == betHistory.betTeam
                         ? Palette.green
                         : Palette.red,
                   ),
