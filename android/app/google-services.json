@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "629095888262-3k1cun59s027kiplch26m4hvrdis0b7v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vegasLit.sportsbook",
+            "certificate_hash": "74904b3d14564a2509dcf362f17b65729f50efbf"
+          }
+        },
+        {
           "client_id": "629095888262-qiq47tj3hjeu48thbldbll9v1e6l2vu5.apps.googleusercontent.com",
           "client_type": 3
         }
