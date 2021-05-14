@@ -112,15 +112,18 @@ export const resolveBets = functions.pubsub
                           totalProfit: isWin
                             ? admin.firestore.FieldValue.increment(amountWin)
                             : admin.firestore.FieldValue.increment(-amountBet),
+                          totalLoss: isWin
+                            ? admin.firestore.FieldValue.increment(0)
+                            : admin.firestore.FieldValue.increment(-amountBet),
                           accountBalance: isWin
                             ? admin.firestore.FieldValue.increment(
                                 totalWinAmount
                               )
                             : admin.firestore.FieldValue.increment(0),
-                          totalWinBets: isWin
+                          totalBetsWon: isWin
                             ? admin.firestore.FieldValue.increment(1)
                             : admin.firestore.FieldValue.increment(0),
-                          totalLoseBets: isWin
+                          totalBetsLost: isWin
                             ? admin.firestore.FieldValue.increment(0)
                             : admin.firestore.FieldValue.increment(1),
                           potentialWinAmount:
@@ -264,7 +267,7 @@ export const resolveLeaderboard = functions.pubsub
           .firestore()
           .collection("leaderboard")
           .doc(documentName)
-          .set({ isArchive: true })
+          .set({ isArchived: true })
           .then((_) => {
             const promises: any = [];
             snapshots.docs.forEach(async (element) => {
@@ -283,8 +286,9 @@ export const resolveLeaderboard = functions.pubsub
                     .update({
                       totalProfit: 0,
                       accountBalance: 1000,
-                      totalWinBets: 0,
-                      totalLoseBets: 0,
+                      totalBetsWon: 0,
+                      totalBetsLost: 0,
+                      totalLoss: 0,
                       totalBets: 0,
                       totalOpenBets: 0,
                       totalRiskedAmount: 0,
