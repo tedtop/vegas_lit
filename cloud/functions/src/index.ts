@@ -30,11 +30,14 @@ export const resolveBets = functions.pubsub
           const gameId = data.gameId;
           const documentId = data.id;
           const uid = data.user;
+          const betPlacedTimeHours = new Date(data.dateTime).getHours();
           const betType = data.betType;
           const betTeam = data.betTeam;
           const amountBet = data.betAmount;
           const amountWin = data.betProfit;
           const totalWinAmount = amountWin + amountBet;
+
+          const documentName = getYesterdayDate();
 
           const promise = axios
             .get(
@@ -102,33 +105,73 @@ export const resolveBets = functions.pubsub
                       winningTeam: finalWinTeam,
                     })
                     .then(async (_) => {
-                      await app
-                        .firestore()
-                        .collection("wallets")
-                        .doc(uid)
-                        .update({
-                          totalOpenBets:
-                            admin.firestore.FieldValue.increment(-1),
-                          totalProfit: isWin
-                            ? admin.firestore.FieldValue.increment(amountWin)
-                            : admin.firestore.FieldValue.increment(-amountBet),
-                          totalLoss: isWin
-                            ? admin.firestore.FieldValue.increment(0)
-                            : admin.firestore.FieldValue.increment(-amountBet),
-                          accountBalance: isWin
-                            ? admin.firestore.FieldValue.increment(
-                                totalWinAmount
-                              )
-                            : admin.firestore.FieldValue.increment(0),
-                          totalBetsWon: isWin
-                            ? admin.firestore.FieldValue.increment(1)
-                            : admin.firestore.FieldValue.increment(0),
-                          totalBetsLost: isWin
-                            ? admin.firestore.FieldValue.increment(0)
-                            : admin.firestore.FieldValue.increment(1),
-                          potentialWinAmount:
-                            admin.firestore.FieldValue.increment(-amountWin),
-                        });
+                      if (betPlacedTimeHours >= 0 && betPlacedTimeHours < 4) {
+                        await app
+                          .firestore()
+                          .collection("leaderboard")
+                          .doc(documentName)
+                          .collection("wallets")
+                          .doc(uid)
+                          .update({
+                            totalOpenBets:
+                              admin.firestore.FieldValue.increment(-1),
+                            totalProfit: isWin
+                              ? admin.firestore.FieldValue.increment(amountWin)
+                              : admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                            totalLoss: isWin
+                              ? admin.firestore.FieldValue.increment(0)
+                              : admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                            accountBalance: isWin
+                              ? admin.firestore.FieldValue.increment(
+                                  totalWinAmount
+                                )
+                              : admin.firestore.FieldValue.increment(0),
+                            totalBetsWon: isWin
+                              ? admin.firestore.FieldValue.increment(1)
+                              : admin.firestore.FieldValue.increment(0),
+                            totalBetsLost: isWin
+                              ? admin.firestore.FieldValue.increment(0)
+                              : admin.firestore.FieldValue.increment(1),
+                            potentialWinAmount:
+                              admin.firestore.FieldValue.increment(-amountWin),
+                          });
+                      } else {
+                        await app
+                          .firestore()
+                          .collection("wallets")
+                          .doc(uid)
+                          .update({
+                            totalOpenBets:
+                              admin.firestore.FieldValue.increment(-1),
+                            totalProfit: isWin
+                              ? admin.firestore.FieldValue.increment(amountWin)
+                              : admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                            totalLoss: isWin
+                              ? admin.firestore.FieldValue.increment(0)
+                              : admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                            accountBalance: isWin
+                              ? admin.firestore.FieldValue.increment(
+                                  totalWinAmount
+                                )
+                              : admin.firestore.FieldValue.increment(0),
+                            totalBetsWon: isWin
+                              ? admin.firestore.FieldValue.increment(1)
+                              : admin.firestore.FieldValue.increment(0),
+                            totalBetsLost: isWin
+                              ? admin.firestore.FieldValue.increment(0)
+                              : admin.firestore.FieldValue.increment(1),
+                            potentialWinAmount:
+                              admin.firestore.FieldValue.increment(-amountWin),
+                          });
+                      }
                       valueUpdateNumber++;
                     });
                 }
@@ -156,6 +199,15 @@ export const resolveBets = functions.pubsub
       });
 
     return null;
+
+    function getYesterdayDate(): string {
+      let today = new Date();
+      let yesterday = new Date();
+      yesterday.setDate(today.getDate() - 1);
+      const walletsDayFormat = "YYYY-MM-DD";
+      const yesterdayFormat = moment(yesterday).format(walletsDayFormat);
+      return yesterdayFormat;
+    }
 
     function pointSpreadAssign(pointSpread: any, winTeam: string) {
       if (pointSpread != null) {
@@ -251,12 +303,12 @@ export const resolveBets = functions.pubsub
   });
 
 export const resolveLeaderboard = functions.pubsub
-  .schedule("20 4 * * *")
+  .schedule("0 4 * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
     console.log("This function will be run everyday at 04:20 AM!");
 
-    const documentName = getCurrentDate();
+    const documentName = getYesterdayDate();
 
     await app
       .firestore()
@@ -312,7 +364,7 @@ export const resolveLeaderboard = functions.pubsub
 
     return null;
 
-    function getCurrentDate(): string {
+    function getYesterdayDate(): string {
       let today = new Date();
       let yesterday = new Date();
       yesterday.setDate(today.getDate() - 1);
