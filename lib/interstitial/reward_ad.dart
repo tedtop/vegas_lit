@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -19,6 +21,16 @@ class RewardAd {
   AdType adType;
   RewardedAd _rewardedAd;
   InterstitialAd _interstitialAd;
+
+  final interstitialAd = Platform.isIOS
+      ? 'ca-app-pub-8972894064340370/7835556907'
+      : 'ca-app-pub-8972894064340370/7394743202';
+  final rewardedAd = Platform.isIOS
+      ? 'ca-app-pub-8972894064340370/3118061623'
+      : 'ca-app-pub-8972894064340370/1258556174';
+
+  final testInterstitialAd = 'ca-app-pub-3940256099942544/8691691433';
+  final testRewardedAd = 'ca-app-pub-3940256099942544/5224354917';
 
   void _buildAd() {
     switch (adType) {
@@ -56,8 +68,8 @@ class RewardAd {
   InterstitialAd _buildInterstitialAd() {
     return InterstitialAd(
       adUnitId: kDebugMode
-          ? 'ca-app-pub-3940256099942544/8691691433' // TestID
-          : 'ca-app-pub-8972894064340370/7835556907',
+          ? testInterstitialAd
+          : interstitialAd,
       request: const AdRequest(),
       listener: AdListener(
         onAdLoaded: (Ad ad) => play(),
@@ -69,8 +81,8 @@ class RewardAd {
   RewardedAd _buildRewardedAd() {
     return RewardedAd(
       adUnitId: kDebugMode
-          ? 'ca-app-pub-3940256099942544/5224354917' // TestID
-          : 'ca-app-pub-8972894064340370/3118061623',
+          ? testRewardedAd
+          : rewardedAd,
       request: const AdRequest(),
       listener: AdListener(
         onRewardedAdUserEarnedReward: rewardCallback,
