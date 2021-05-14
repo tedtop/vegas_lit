@@ -141,7 +141,7 @@ class _UsernameInput extends StatelessWidget {
 
 String usernameError(UsernameValidationError validationError) {
   if (validationError == UsernameValidationError.invalid) {
-    return 'Username should be 3-15 chars';
+    return 'Username should be 5-15 chars';
   } else if (validationError == UsernameValidationError.empty) {
     return 'Required';
   } else if (validationError == UsernameValidationError.exist) {
@@ -690,22 +690,25 @@ class _AgreementCheck extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  width: 40,
-                ),
-                state.agreement.invalid
-                    ? Text(
-                        'Required',
-                        style: GoogleFonts.nunito(
-                          color: Colors.red,
-                          fontSize: 10,
-                        ),
-                      )
-                    : Container(),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    width: 40,
+                  ),
+                  state.agreement.invalid
+                      ? Text(
+                          'Required',
+                          style: GoogleFonts.nunito(
+                            color: Colors.red,
+                            fontSize: 10,
+                          ),
+                        )
+                      : Container(),
+                ],
+              ),
             ),
           ],
         );
