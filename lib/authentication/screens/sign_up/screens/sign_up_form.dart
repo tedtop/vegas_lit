@@ -669,7 +669,7 @@ class _AgreementCheck extends StatelessWidget {
                             children: <TextSpan>[
                               TextSpan(
                                 text:
-                                    'By continuing/clicking I certify that I am (i) at least 18 years of age and (ii) use of this platform and service and participation in the contest is legal in the jurisdiction in which I reside',
+                                    'I certify that I am at least 18 years of age and the use of this platform and service and participation in the contest is legal in the jurisdiction where I reside',
                                 style: GoogleFonts.nunito(
                                   fontSize: 14,
                                 ),
