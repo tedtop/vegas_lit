@@ -37,11 +37,8 @@ dependencies:
   google_mobile_ads: ^0.12.1+1
   image_picker: ^0.7.4
   instant: ^0.4.1
-  jiffy: ^4.1.0
   line_awesome_flutter: ^1.0.1
-  logger: ^1.0.0
   meta: ^1.2.4
-  new_version: ^0.2.0
   numberpicker: ^2.0.1
   package_info_plus: ^1.0.0
   path_provider: ^2.0.0

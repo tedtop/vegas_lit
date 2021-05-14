@@ -378,7 +378,8 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                             await UserRepository()
                                                 .rewardForVideoAd(
                                               uid: currentUserId,
-                                              rewardValue: rewardItem.amount,
+                                              rewardValue:
+                                                  rewardItem.amount.toInt(),
                                             );
                                           };
                                           final ads = RewardAd(

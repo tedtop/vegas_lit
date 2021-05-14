@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_version/new_version.dart';
 import 'package:vegas_lit/bet_history/bet_history.dart';
 import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_slip/bet_slip.dart';
@@ -18,9 +17,8 @@ import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/open_bets/open_bets.dart';
 import 'package:vegas_lit/sportsbook/sportsbook.dart';
-import '../cubit/version_cubit.dart';
 
-import '../../authentication/bloc/authentication_bloc.dart';
+import '../cubit/version_cubit.dart';
 import '../home.dart';
 
 class HomePage extends StatefulWidget {
@@ -100,11 +98,11 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    if (kIsWeb != true) {
-      final newVersion = NewVersion();
-      // ignore: cascade_invocations
-      newVersion.showAlertIfNecessary(context: context);
-    }
+    // if (kIsWeb != true) {
+    //   final newVersion = NewVersion();
+    //   // ignore: cascade_invocations
+    //   newVersion.showAlertIfNecessary(context: context);
+    // }
   }
 
   @override

@@ -67,7 +67,7 @@ class AuthenticationBloc
       yield AuthenticationState.authenticated(event.user);
     } else {
       add(
-        AuthenticationUserChanged(event.user),
+        CheckProfileComplete(event.user),
       );
     }
   }
