@@ -13,7 +13,7 @@ import 'observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MobileAds.instance.initialize();
+  if (!kIsWeb) await MobileAds.instance.initialize();
   await Firebase.initializeApp();
   await Future.delayed(
     const Duration(seconds: 1),

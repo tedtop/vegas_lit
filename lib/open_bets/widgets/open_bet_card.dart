@@ -193,28 +193,28 @@ class OpenBetsSlip extends StatelessWidget {
       ),
     );
   }
+}
 
-  String whichBetSystem(String betType) {
-    if (betType == 'moneyline') {
+String whichBetSystem(String betType) {
+  if (betType == 'moneyline') {
+    return 'MONEYLINE';
+  }
+  if (betType == 'pointspread') {
+    return 'POINT SPREAD';
+  }
+  if (betType == 'total') {
+    return 'TOTAL O/U';
+  } else {
+    if (betType == 'MONEYLINE') {
       return 'MONEYLINE';
     }
-    if (betType == 'pointspread') {
+    if (betType == 'POINT SPREAD') {
       return 'POINT SPREAD';
     }
-    if (betType == 'total') {
+    if (betType == 'TOTAL SPREAD') {
       return 'TOTAL O/U';
     } else {
-      if (betType == 'MONEYLINE') {
-        return 'MONEYLINE';
-      }
-      if (betType == 'POINT SPREAD') {
-        return 'POINT SPREAD';
-      }
-      if (betType == 'TOTAL SPREAD') {
-        return 'TOTAL O/U';
-      } else {
-        return 'Error';
-      }
+      return 'Error';
     }
   }
 }
