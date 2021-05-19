@@ -19,7 +19,7 @@ class OpenBetsSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
+      padding: const EdgeInsets.fromLTRB(10, 20, 10, 2),
       child: Stack(
         overflow: Overflow.visible,
         // alignment: Alignment.topCenter,
