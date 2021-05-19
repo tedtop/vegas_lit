@@ -19,6 +19,8 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/interstitial/reward_ad.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
@@ -345,7 +347,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                                         ? 'home'
                                                         : 'away',
                                                 dateTime:
-                                                    DateTime.now().toString(),
+                                                    fetchTimeEST().toString(),
                                               ).toMap(),
                                               currentUserId: currentUserId,
                                             );
@@ -621,6 +623,13 @@ class _BetSlipCardState extends State<BetSlipCard> {
     } else {
       return 'Error';
     }
+  }
+
+  DateTime fetchTimeEST() {
+    tz.initializeTimeZones();
+    final locationNY = tz.getLocation('America/New_York');
+    final nowNY = tz.TZDateTime.now(locationNY);
+    return nowNY;
   }
 
   String whichBetSystemToSave({@required Bet betType}) {
