@@ -15,7 +15,7 @@ class UserData extends Equatable {
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
     return UserData(
-      isAdmin: data['isAdmin'] as bool,
+      isAdmin: data['isAdmin'] ?? false,
       uid: data['uid'] as String,
       email: data['email'] as String,
       username: data['username'] as String,

@@ -38,8 +38,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
       (AuthenticationBloc authenticationBloc) =>
           authenticationBloc.state.user?.uid,
     );
-    final isAdmin = context.select(
-        (ProfileCubit profileCubit) => profileCubit.state.userData.isAdmin);
+    final isAdmin = context.select((ProfileCubit profileCubit) =>
+        profileCubit.state.userData?.isAdmin ?? false);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -107,14 +107,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
               Navigator.of(context).pop();
             },
           ),
-          ListTile(
-            leading: Text('LOGOUT', style: Styles.normalTextBold),
-            onTap: () {
-              context
-                  .read<AuthenticationBloc>()
-                  .add(AuthenticationLogoutRequested());
-            },
-          ),
           isAdmin
               ? ListTile(
                   title: Text('VAULT', style: Styles.normalTextBold),
@@ -123,6 +115,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   },
                 )
               : Container(),
+          ListTile(
+            leading: Text('LOGOUT', style: Styles.normalTextBold),
+            onTap: () {
+              context
+                  .read<AuthenticationBloc>()
+                  .add(AuthenticationLogoutRequested());
+            },
+          ),
+
           //..................................................................//
           kIsWeb
               ? const SizedBox()
