@@ -8,3 +8,9 @@ abstract class AdminVaultState extends Equatable {
 }
 
 class AdminVaultInitial extends AdminVaultState {}
+
+class AdminVaultDataFetched extends AdminVaultState {
+  AdminVaultDataFetched({this.cumulativeData, this.totalData});
+  final VaultItem cumulativeData;
+  final List<VaultItem> totalData;
+}

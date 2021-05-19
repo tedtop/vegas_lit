@@ -1,3 +1,4 @@
+import 'package:api_client/src/models/vault_data.dart';
 import 'package:api_client/src/models/wallet.dart';
 import 'package:api_client/src/models/user.dart';
 import 'package:api_client/src/providers/cloud_firestore.dart';
@@ -71,6 +72,12 @@ class UserRepository {
 
   Future<String> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();
+
+  Stream<List<VaultItem>> fetchAllDataDateWise() =>
+      _databaseProvider.fetchAllDataDateWise();
+
+  Future<VaultItem> fetchCumulativeAdminVaultData() =>
+      _databaseProvider.fetchCumulativeAdminVaultData();
 
   Future<void> rewardForVideoAd(
           {@required String uid, @required int rewardValue}) =>

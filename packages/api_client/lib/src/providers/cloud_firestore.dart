@@ -1,7 +1,9 @@
 import 'package:api_client/src/models/bet.dart';
+import 'package:api_client/src/models/vault_data.dart';
 import 'package:api_client/src/models/wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:intl/intl.dart';
 
 import '../models/user.dart';
 
@@ -94,6 +96,73 @@ class CloudFirestore {
       'potentialWinAmount': FieldValue.increment(betProfit),
       'totalRiskedAmount': FieldValue.increment(betAmount),
     });
+
+    await _saveToAdminVault(betDataMap);
+  }
+
+  Future<void> _saveToAdminVault(Map betDataMap) async {
+    final betProfit = betDataMap['betProfit'] as int ?? 0;
+    final betAmount = betDataMap['betAmount'] as int ?? 0;
+    final dateFormat = DateFormat('yyyy-MM-dd');
+    try {
+      await _firestoreData
+          .collection('vault')
+          .doc(dateFormat.format(DateTime.now()))
+          .update({
+        'moneyIn': FieldValue.increment(betAmount),
+        'moneyOut': FieldValue.increment(betProfit),
+        'numberOfBets': FieldValue.increment(1),
+        'date': dateFormat.format(DateTime.now()),
+      });
+    } catch (_) {
+      await _firestoreData
+          .collection('vault')
+          .doc(dateFormat.format(DateTime.now()))
+          .set({
+        'moneyIn': FieldValue.increment(betAmount),
+        'moneyOut': FieldValue.increment(betProfit),
+        'numberOfBets': FieldValue.increment(1),
+        'date': dateFormat.format(DateTime.now()),
+      });
+    }
+
+    //for saving data to cumulative:
+    try {
+      await _firestoreData.collection('vault').doc('cumulative').update({
+        'moneyIn': FieldValue.increment(betAmount),
+        'moneyOut': FieldValue.increment(betProfit),
+        'numberOfBets': FieldValue.increment(1),
+      });
+    } catch (_) {
+      await _firestoreData.collection('vault').doc('cumulative').set({
+        'moneyIn': FieldValue.increment(betAmount),
+        'moneyOut': FieldValue.increment(betProfit),
+        'numberOfBets': FieldValue.increment(1),
+      });
+    }
+  }
+
+  // Vault Page
+  Stream<List<VaultItem>> fetchAllDataDateWise() {
+    // var vaultDataConverted = <VaultItem>[];
+    final vaultSnapshot = _firestoreData
+        .collection('vault')
+        .limit(10)
+        .snapshots()
+        .map((event) => event.docs
+            .map((element) => VaultItem.fromFirestore(element))
+            .toList());
+    return vaultSnapshot;
+  }
+
+  Future<VaultItem> fetchCumulativeAdminVaultData() {
+    final cumulativeData = _firestoreData
+        .collection('vault')
+        .doc('cumulative')
+        .snapshots()
+        .map((event) => VaultItem.fromFirestore(event))
+        .first;
+    return cumulativeData;
   }
 
   // Profile Page

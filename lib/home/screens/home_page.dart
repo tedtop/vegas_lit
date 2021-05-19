@@ -16,6 +16,7 @@ import 'package:vegas_lit/home/widgets/topnavbar.dart';
 import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/leaderboard/leaderboard.dart';
 import 'package:vegas_lit/open_bets/open_bets.dart';
+import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/sportsbook/sportsbook.dart';
 
 import '../cubit/version_cubit.dart';
@@ -36,6 +37,10 @@ class HomePage extends StatefulWidget {
       builder: (context) {
         return MultiBlocProvider(
           providers: [
+            BlocProvider<ProfileCubit>(
+                create: (context) =>
+                    ProfileCubit(userRepository: context.read<UserRepository>())
+                      ..openProfile(currentUserId: currentUserId)),
             BlocProvider<SportsbookBloc>(
               create: (_) => SportsbookBloc(
                 sportsfeedRepository: context.read<SportsRepository>(),

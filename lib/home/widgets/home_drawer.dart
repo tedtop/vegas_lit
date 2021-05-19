@@ -5,12 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/admin_vault/screens/admin_vault_screen.dart';
 import 'package:vegas_lit/authentication/authentication.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/drawer_pages/faq.dart';
 import 'package:vegas_lit/drawer_pages/rules.dart';
+import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/profile/profile.dart';
 
 import '../cubit/home_cubit.dart';
@@ -36,6 +38,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
       (AuthenticationBloc authenticationBloc) =>
           authenticationBloc.state.user?.uid,
     );
+    final isAdmin = context.select(
+        (ProfileCubit profileCubit) => profileCubit.state.userData.isAdmin);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -111,6 +115,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   .add(AuthenticationLogoutRequested());
             },
           ),
+          isAdmin
+              ? ListTile(
+                  title: Text('VAULT', style: Styles.normalTextBold),
+                  onTap: () {
+                    Navigator.of(context).push(AdminVaultScreen.route());
+                  },
+                )
+              : Container(),
           //..................................................................//
           kIsWeb
               ? const SizedBox()
