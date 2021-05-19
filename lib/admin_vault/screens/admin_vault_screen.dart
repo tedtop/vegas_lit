@@ -27,8 +27,7 @@ class AdminVaultScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBarWidget(),
-        body: BlocConsumer<AdminVaultCubit, AdminVaultState>(
-          listener: (context, state) {},
+        body: BlocBuilder<AdminVaultCubit, AdminVaultState>(
           builder: (context, state) {
             if (state is AdminVaultDataFetched) {
               final totalData = state.totalData
@@ -56,145 +55,143 @@ class AdminVaultScreen extends StatelessWidget {
 
   Widget _buildRecordTable(
       List<VaultItem> totalData, VaultItem cumulativeData) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Table(
-            columnWidths: {
-              0: const FlexColumnWidth(1.5),
-            },
-            border: TableBorder.all(color: Palette.green),
-            children: [
-              const TableRow(children: [
-                Padding(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Table(
+          columnWidths: {
+            0: const FlexColumnWidth(1.5),
+          },
+          border: TableBorder.all(color: Palette.green),
+          children: [
+            const TableRow(children: [
+              TableCell(
+                child: Padding(
                   padding: EdgeInsets.all(2.0),
-                  child: TableCell(
-                    child: Text(
-                      'Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: TableCell(
-                    child: Text(
-                      'Bets',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: TableCell(
-                    child: Text(
-                      'Money In',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: TableCell(
-                    child: Text(
-                      'Money Out',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: TableCell(
-                    child: Text(
-                      'Profit',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ]),
-              ...totalData.map((item) => TableRow(
-                    children: [
-                      TableCell(
-                        child: Text(
-                          item.date.toString(),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          item.numberOfBets.toString(),
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          '\$${item.moneyIn.toString()}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          '\$${item.moneyOut.toString()}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          '\$${item.totalProfit.toString()}',
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  )),
-              TableRow(children: [
-                const TableCell(
                   child: Text(
-                    'Total : ',
+                    'Date',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              TableCell(
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Text(
+                    'Bets',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                TableCell(
+              ),
+              TableCell(
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
                   child: Text(
-                    cumulativeData.numberOfBets.toString(),
-                    textAlign: TextAlign.right,
+                    'Money In',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                TableCell(
+              ),
+              TableCell(
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
                   child: Text(
-                    '\$${cumulativeData.moneyIn.toString()}',
-                    textAlign: TextAlign.right,
+                    'Money Out',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                TableCell(
+              ),
+              TableCell(
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
                   child: Text(
-                    '\$${cumulativeData.moneyOut.toString()}',
-                    textAlign: TextAlign.right,
+                    'Profit',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                TableCell(
-                  child: Text(
-                    '\$${cumulativeData.totalProfit.toString()}',
-                    textAlign: TextAlign.right,
+              ),
+            ]),
+            ...totalData.map((item) => TableRow(
+                  children: [
+                    TableCell(
+                      child: Text(
+                        item.date.toString(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        item.numberOfBets.toString(),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        '\$${item.moneyIn.toString()}',
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        '\$${item.moneyOut.toString()}',
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    TableCell(
+                      child: Text(
+                        '\$${item.totalProfit.toString()}',
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                  ],
+                )),
+            TableRow(children: [
+              const TableCell(
+                child: Text(
+                  'Total : ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ])
-            ],
-          ),
+              ),
+              TableCell(
+                child: Text(
+                  cumulativeData.numberOfBets.toString(),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  '\$${cumulativeData.moneyIn.toString()}',
+                  textAlign: TextAlign.right,
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  '\$${cumulativeData.moneyOut.toString()}',
+                  textAlign: TextAlign.right,
+                ),
+              ),
+              TableCell(
+                child: Text(
+                  '\$${cumulativeData.totalProfit.toString()}',
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ])
+          ],
         ),
       ),
     );
