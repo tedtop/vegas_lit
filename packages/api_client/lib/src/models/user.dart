@@ -9,11 +9,13 @@ class UserData extends Equatable {
     @required this.email,
     @required this.phone,
     @required this.location,
+    this.isAdmin,
   });
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
     return UserData(
+      isAdmin: data['isAdmin'] as bool,
       uid: data['uid'] as String,
       email: data['email'] as String,
       username: data['username'] as String,
@@ -29,6 +31,7 @@ class UserData extends Equatable {
       'phone': phone,
       'location': location,
       'uid': uid,
+      'isAdmin': false,
     };
   }
 
@@ -37,6 +40,7 @@ class UserData extends Equatable {
   final String email;
   final int phone;
   final String location;
+  final bool isAdmin;
 
   @override
   List<Object> get props {
@@ -46,6 +50,7 @@ class UserData extends Equatable {
       email,
       phone,
       location,
+      isAdmin,
     ];
   }
 }
