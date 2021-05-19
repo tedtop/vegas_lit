@@ -21,6 +21,7 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
   Future<void> openLeaderboard() async {
     final currentWeek = <String>['Today'];
     final weeks = await _userRepository.fetchLeaderboardDays();
+    weeks.sort((a, b) => b.compareTo(a));
     final totalWeek = currentWeek + weeks;
 
     await userDataValue(totalWeek: totalWeek);
