@@ -51,6 +51,7 @@ class CloudFirestore {
         .collection('bets')
         .where('user', isEqualTo: uid)
         .where('isClosed', isEqualTo: false)
+        .orderBy('dateTime', descending: true)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => BetData.fromFirestore(e)).toList());
@@ -64,6 +65,7 @@ class CloudFirestore {
         .collection('bets')
         .where('user', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
+        .orderBy('dateTime', descending: true)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => BetData.fromFirestore(e)).toList());

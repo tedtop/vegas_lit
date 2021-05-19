@@ -18,180 +18,393 @@ class OpenBetsSlip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final odd = openBets.odds.isNegative
-        ? openBets.odds.toString()
-        : '+${openBets.odds}';
-
-    var isMoneyline = true;
-    var betSpread = 0.0;
-    var spread = '0';
-
-    if (openBets.betOverUnder != null || openBets.betPointSpread != null) {
-      isMoneyline = openBets.betType == 'moneyline';
-      betSpread = openBets.betType == 'total'
-          ? openBets.betOverUnder
-          : openBets.betPointSpread;
-      spread = betSpread == 0
-          ? ''
-          : betSpread.isNegative
-              ? betSpread.toString()
-              : '+$betSpread';
-    }
-
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-      child: Container(
-        width: 390,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Palette.cream,
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Card(
-          margin: EdgeInsets.zero,
-          color: Palette.darkGrey,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      child: Stack(
+        overflow: Overflow.visible,
+        // alignment: Alignment.topCenter,
+        children: [
+          Container(
+            width: 390,
+            height: 110,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Palette.cream,
+              ),
+              borderRadius: BorderRadius.circular(12),
+              color: Palette.cream,
+            ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 10.0,
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        openBets.winningTeam == 'home'
-                            ? isMoneyline
-                                ? Text(
-                                    '${openBets.homeTeamName.toUpperCase()} TO WIN',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 20,
-                                      color: Palette.cream,
-                                    ),
-                                  )
-                                : Container()
-                            : isMoneyline
-                                ? Text(
-                                    '${openBets.awayTeamName.toUpperCase()} TO WIN',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 20,
-                                      color: Palette.cream,
-                                    ),
-                                  )
-                                : Container(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            style: Styles.normalText,
+                    color: Palette.darkGrey,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 11,
+                        bottom: 3,
+                        left: 6,
+                        right: 6,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 4,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              style: GoogleFonts.nunito(
+                                fontWeight: FontWeight.normal,
+                                color: Palette.cream,
+                                fontSize: 14,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      '${openBets.awayTeamName.toUpperCase()}',
+                                ),
+                                const TextSpan(text: '  @  '),
+                                TextSpan(
+                                  text:
+                                      '${openBets.homeTeamName.toUpperCase()}',
+                                  style:
+                                      GoogleFonts.nunito(color: Palette.green),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          whichBetText(betData: openBets),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          // Last Row
+                          Row(
                             children: [
-                              TextSpan(
-                                text: '${openBets.awayTeamName.toUpperCase()}',
-                                style: GoogleFonts.nunito(
-                                  fontWeight: FontWeight.bold,
+                              // Text(
+                              //   '${openBets.betType == 'moneyline' ? 'M' : openBets.betType == 'pointspread' ? 'P' : 'T'}',
+                              //   style: GoogleFonts.nunito(
+                              //     fontSize: 14,
+                              //     color: Palette.red,
+                              //     fontWeight: FontWeight.bold,
+                              //   ),
+                              // ),
+                              Expanded(
+                                child: CountdownTimer(
+                                  endTime: DateTime.parse(openBets.gameDateTime)
+                                      .millisecondsSinceEpoch,
+                                  widgetBuilder:
+                                      (_, CurrentRemainingTime time) {
+                                    if (time == null) {
+                                      return Center(
+                                        child: Text(
+                                          'In Progress',
+                                          style: GoogleFonts.nunito(
+                                            color: Palette.red,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    final hours = time.hours == null
+                                        ? ''
+                                        : ' ${time.hours}hr';
+                                    final min =
+                                        time.min == null ? '' : ' ${time.min}m';
+                                    final sec =
+                                        time.sec == null ? '' : ' ${time.sec}s';
+
+                                    return Center(
+                                      child: Text(
+                                        'Starting in$hours$min$sec',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 14,
+                                          color: Palette.red,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                              const TextSpan(text: '  @  '),
-                              TextSpan(
-                                text: '${openBets.homeTeamName.toUpperCase()}',
-                                style: GoogleFonts.nunito(
-                                  color: Palette.green,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              // Text(
+                              //   '${openBets.betType == 'moneyline' ? 'M' : openBets.betType == 'pointspread' ? 'P' : 'T'}',
+                              //   style: GoogleFonts.nunito(
+                              //     fontSize: 14,
+                              //     color: Palette.red,
+                              //     fontWeight: FontWeight.bold,
+                              //   ),
+                              // ),
                             ],
                           ),
-                        ),
-                        Text(
-                            '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
-                            style: GoogleFonts.nunito(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              color: Palette.cream,
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                          ),
-                          child: Text(
-                            // ignore: lines_longer_than_80_chars
-                            'You bet \$${openBets.betAmount} to win \$${openBets.betProfit}!',
-                            style: GoogleFonts.nunito(
-                              color: Palette.green,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                                DateTime.parse(openBets.gameDateTime).toLocal(),
-                              ),
-                              style: Styles.matchupTime,
-                            ),
-                          ],
-                        ),
-                        CountdownTimer(
-                          endTime: DateTime.parse(openBets.gameDateTime)
-                              .millisecondsSinceEpoch,
-                          widgetBuilder: (_, CurrentRemainingTime time) {
-                            if (time == null) {
-                              return Text(
-                                'In Progress',
-                                style: GoogleFonts.nunito(
-                                  color: Palette.red,
-                                  fontSize: 15,
-                                ),
-                              );
-                            }
-
-                            final hours =
-                                time.hours == null ? '' : '${time.hours}hr';
-                            final min = time.min == null ? '' : '${time.min}m';
-                            final sec = time.sec == null ? '' : '${time.sec}s';
-
-                            return Text(
-                              'Starting in $hours $min $sec',
-                              style: GoogleFonts.nunito(
-                                fontSize: 15,
-                                color: Palette.red,
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Palette.lightGrey,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      'assets/images/open_bets_logo.png',
+                const SizedBox(width: 1),
+                Card(
+                  margin: EdgeInsets.zero,
+                  clipBehavior: Clip.antiAlias,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
                     ),
                   ),
-                  height: 175,
-                  width: 90,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 90,
+                        height: 54,
+                        decoration: const BoxDecoration(
+                          color: Palette.green,
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              'you bet',
+                              style: GoogleFonts.nunito(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '\$${openBets.betAmount}',
+                              style: GoogleFonts.nunito(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 90,
+                        height: 54,
+                        decoration: const BoxDecoration(
+                          color: Palette.cream,
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              'to win',
+                              style: GoogleFonts.nunito(
+                                fontSize: 14,
+                                color: Palette.darkGrey,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '\$${openBets.betProfit}',
+                              style: GoogleFonts.nunito(
+                                fontSize: 24,
+                                color: Palette.darkGrey,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ),
+          Positioned(
+            top: -15,
+            left: 15,
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Palette.cream,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                color: Palette.darkGrey,
+              ),
+              height: 25,
+              width: 80,
+              child: Center(
+                child: Text(
+                  whichBetSystem(openBets.betType),
+                  style: GoogleFonts.nunito(
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
+  }
+}
+
+Widget whichBetText({@required BetData betData}) {
+  final textStyle = GoogleFonts.nunito(
+    fontSize: 14,
+    color: Palette.cream,
+  );
+  final odds =
+      betData.odds.isNegative ? betData.odds.toString() : '+${betData.odds}';
+  final pointSpread = betData.betPointSpread.isNegative
+      ? betData.betPointSpread.toString()
+      : '+${betData.betPointSpread}';
+  final overUnder = betData.betTeam == 'away'
+      ? '+${betData.betOverUnder}'
+      : '-${betData.betOverUnder}';
+  switch (betData.betType) {
+    case 'moneyline':
+      return Column(
+        children: [
+          Text(
+            '${whichBetSystem(betData.betType)}  ($odds)',
+            style: textStyle,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          RichText(
+            text: TextSpan(
+              style: textStyle,
+              children: [
+                betData.betTeam == 'away'
+                    ? TextSpan(
+                        text: '${betData.awayTeamName.toUpperCase()} ',
+                        style: textStyle,
+                      )
+                    : TextSpan(
+                        text: '${betData.homeTeamName.toUpperCase()} ',
+                        style: textStyle.copyWith(color: Palette.green),
+                      ),
+                const TextSpan(text: 'TO WIN'),
+              ],
+            ),
+          )
+        ],
+      );
+      break;
+    case 'pointspread':
+      if (!betData.betPointSpread.isNegative) {
+        return Column(
+          children: [
+            betData.betTeam == 'away'
+                ? Text(
+                    '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
+                    style: textStyle,
+                  )
+                : RichText(
+                    text: TextSpan(
+                      style: textStyle,
+                      children: [
+                        TextSpan(
+                          text: '${betData.homeTeamName.toUpperCase()}',
+                          style: textStyle.copyWith(
+                            color: Palette.green,
+                          ),
+                        ),
+                        TextSpan(text: ' TO WIN  ($odds)'),
+                      ],
+                    ),
+                  ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              'OR LOSE BY LESS THAN $pointSpread POINTS',
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: textStyle,
+            ),
+          ],
+        );
+      } else {
+        return Column(
+          children: [
+            betData.betTeam == 'away'
+                ? RichText(
+                    text: TextSpan(
+                      style: textStyle,
+                      children: [
+                        TextSpan(
+                          text: '${betData.homeTeamName.toUpperCase()} ',
+                          style: textStyle.copyWith(
+                            color: Palette.green,
+                          ),
+                        ),
+                        TextSpan(text: 'TO WIN ($odds)'),
+                      ],
+                    ),
+                  )
+                : Text(
+                    '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
+                    style: textStyle,
+                  ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              'BY MORE THAN $pointSpread POINTS',
+              style: textStyle,
+            ),
+          ],
+        );
+      }
+      break;
+    case 'total':
+      if (betData.betTeam == 'away') {
+        return Column(
+          children: [
+            Text(
+              'YOU BET THE COMBINED SCORE',
+              style: textStyle,
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              'WILL BE ABOVE $overUnder @ ($odds)',
+              style: textStyle,
+            )
+          ],
+        );
+      } else {
+        return Column(
+          children: [
+            Text(
+              'YOU BET THE COMBINED SCORE',
+              style: textStyle,
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              'WILL BE BELOW $overUnder @ ($odds)',
+              style: textStyle,
+            )
+          ],
+        );
+      }
+      break;
+    default:
+      return Center(
+        child: Text(
+          'NO DATA FOUND',
+          style: textStyle,
+        ),
+      );
   }
 }
 
@@ -199,22 +412,12 @@ String whichBetSystem(String betType) {
   if (betType == 'moneyline') {
     return 'MONEYLINE';
   }
-  if (betType == 'pointspread') {
+  if (betType == 'POINT SPREAD') {
     return 'POINT SPREAD';
   }
-  if (betType == 'total') {
+  if (betType == 'TOTAL SPREAD') {
     return 'TOTAL O/U';
   } else {
-    if (betType == 'MONEYLINE') {
-      return 'MONEYLINE';
-    }
-    if (betType == 'POINT SPREAD') {
-      return 'POINT SPREAD';
-    }
-    if (betType == 'TOTAL SPREAD') {
-      return 'TOTAL O/U';
-    } else {
-      return 'Error';
-    }
+    return 'Error';
   }
 }
