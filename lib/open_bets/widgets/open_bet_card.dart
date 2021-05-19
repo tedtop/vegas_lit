@@ -19,7 +19,7 @@ class OpenBetsSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 10),
       child: Stack(
         overflow: Overflow.visible,
         // alignment: Alignment.topCenter,
@@ -412,12 +412,22 @@ String whichBetSystem(String betType) {
   if (betType == 'moneyline') {
     return 'MONEYLINE';
   }
-  if (betType == 'POINT SPREAD') {
+  if (betType == 'pointspread') {
     return 'POINT SPREAD';
   }
-  if (betType == 'TOTAL SPREAD') {
+  if (betType == 'total') {
     return 'TOTAL O/U';
   } else {
-    return 'Error';
+    if (betType == 'MONEYLINE') {
+      return 'MONEYLINE';
+    }
+    if (betType == 'POINT SPREAD') {
+      return 'POINT SPREAD';
+    }
+    if (betType == 'TOTAL SPREAD') {
+      return 'TOTAL O/U';
+    } else {
+      return 'Error';
+    }
   }
 }

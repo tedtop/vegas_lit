@@ -21,7 +21,7 @@ class BetHistorySlip extends StatelessWidget {
   Widget build(BuildContext context) {
     final isWin = betHistory.winningTeam == betHistory.betTeam;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       child: Stack(overflow: Overflow.visible,
           // alignment: Alignment.topLeft,
           children: [
