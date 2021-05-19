@@ -105,6 +105,7 @@ class _SportsBookViewState extends State<SportsBookView> {
         child: ListView(
           controller: _scrollController,
           shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
           children: [
             Text(
               'SPORTSBOOK',
