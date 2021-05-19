@@ -22,14 +22,21 @@ class RewardAd {
   RewardedAd _rewardedAd;
   InterstitialAd _interstitialAd;
 
-  final interstitialAd = Platform.isIOS
-      ? 'ca-app-pub-8972894064340370/7835556907'
-      : 'ca-app-pub-8972894064340370/7394743202';
-  final rewardedAd = Platform.isIOS
-      ? 'ca-app-pub-8972894064340370/3118061623'
-      : 'ca-app-pub-8972894064340370/1258556174';
+  // final interstitialAd = Platform.isIOS
+  //     ? 'ca-app-pub-8972894064340370/7835556907'
+  //     : 'ca-app-pub-8972894064340370/7394743202';
+  // final rewardedAd = Platform.isIOS
+  //     ? 'ca-app-pub-8972894064340370/3118061623'
+  //     : 'ca-app-pub-8972894064340370/1258556174';
 
-  final testInterstitialAd = 'ca-app-pub-3940256099942544/8691691433';
+  final interstitialAd = Platform.isIOS
+      ? 'ca-app-pub-3940256099942544/1033173712'
+      : 'ca-app-pub-3940256099942544/1033173712';
+  final rewardedAd = Platform.isIOS
+      ? 'ca-app-pub-3940256099942544/5224354917'
+      : 'ca-app-pub-3940256099942544/5224354917';
+
+  final testInterstitialAd = 'ca-app-pub-3940256099942544/1033173712';
   final testRewardedAd = 'ca-app-pub-3940256099942544/5224354917';
 
   void _buildAd() {
@@ -67,9 +74,7 @@ class RewardAd {
 
   InterstitialAd _buildInterstitialAd() {
     return InterstitialAd(
-      adUnitId: kDebugMode
-          ? testInterstitialAd
-          : interstitialAd,
+      adUnitId: kDebugMode ? testInterstitialAd : interstitialAd,
       request: const AdRequest(),
       listener: AdListener(
         onAdLoaded: (Ad ad) => play(),
@@ -80,9 +85,7 @@ class RewardAd {
 
   RewardedAd _buildRewardedAd() {
     return RewardedAd(
-      adUnitId: kDebugMode
-          ? testRewardedAd
-          : rewardedAd,
+      adUnitId: kDebugMode ? testRewardedAd : rewardedAd,
       request: const AdRequest(),
       listener: AdListener(
         onRewardedAdUserEarnedReward: rewardCallback,

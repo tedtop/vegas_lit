@@ -3,7 +3,7 @@ description: A sports betting game
 
 publish_to: "none"
 
-version: 0.7.6+40
+version: 0.7.7+41
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
