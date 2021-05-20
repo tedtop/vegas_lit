@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/leaderboard/cubit/leaderboard_cubit.dart';

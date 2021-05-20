@@ -3,7 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
-typedef onNumberTap = void Function(int number);
+typedef OnNumberTap = void Function(int number);
 
 class PageNumberView extends StatefulWidget {
   PageNumberView({this.pages});
@@ -120,7 +120,7 @@ class PageNumberWidget extends StatelessWidget {
   PageNumberWidget({this.number, this.changeNumber, this.selected = false});
   final int number;
   final bool selected;
-  final onNumberTap changeNumber;
+  final OnNumberTap changeNumber;
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/admin_vault/cubit/admin_vault_cubit.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/shared_widgets/app_bar.dart';
-import 'package:api_client/src/models/vault_data.dart';
 
 class AdminVaultScreen extends StatelessWidget {
   AdminVaultScreen._();
@@ -24,7 +23,6 @@ class AdminVaultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBarWidget(),
         body: BlocBuilder<AdminVaultCubit, AdminVaultState>(

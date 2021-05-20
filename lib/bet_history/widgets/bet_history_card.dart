@@ -1,11 +1,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
 import 'package:intl/intl.dart';
 
 class BetHistorySlip extends StatelessWidget {
@@ -22,202 +18,197 @@ class BetHistorySlip extends StatelessWidget {
     final isWin = betHistory.winningTeam == betHistory.betTeam;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
-      child: Stack(overflow: Overflow.visible,
-          // alignment: Alignment.topLeft,
-          children: [
-            Container(
-              width: 390,
-              height: 108,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Palette.cream,
-                ),
-                borderRadius: BorderRadius.circular(12),
-                color: Palette.cream,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Card(
-                      margin: EdgeInsets.zero,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          bottomLeft: Radius.circular(12),
-                        ),
-                      ),
-                      color: Palette.darkGrey,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 9.0,
-                          vertical: 10,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: GoogleFonts.nunito(
-                                  fontWeight: FontWeight.normal,
-                                  color: Palette.cream,
-                                  fontSize: 14,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text:
-                                        '${betHistory.awayTeamName.toUpperCase()}',
-                                  ),
-                                  const TextSpan(text: '  @  '),
-                                  TextSpan(
-                                    text:
-                                        '${betHistory.homeTeamName.toUpperCase()}',
-                                    style: GoogleFonts.nunito(
-                                        color: Palette.green),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            whichBetText(betData: betHistory),
-                            // Last Row
-                            Row(
-                              children: [
-                                // Text(
-                                //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
-                                //   style: GoogleFonts.nunito(
-                                //     fontSize: 14,
-                                //     color: Palette.cream,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      DateFormat('E, MMMM, c, y @ hh:mm a')
-                                          .format(
-                                        DateTime.parse(betHistory.gameDateTime)
-                                            .toLocal(),
-                                      ),
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 12,
-                                        color:
-                                            isWin ? Palette.green : Palette.red,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // Text(
-                                //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
-                                //   style: GoogleFonts.nunito(
-                                //     fontSize: 14,
-                                //     color: Palette.cream,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+      child: Stack(clipBehavior: Clip.none, children: [
+        Container(
+          width: 390,
+          height: 108,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.cream,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            color: Palette.cream,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
                     ),
                   ),
-                  const SizedBox(width: 1),
-                  Card(
-                    margin: EdgeInsets.zero,
-                    clipBehavior: Clip.antiAlias,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
-                      ),
+                  color: Palette.darkGrey,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 9.0,
+                      vertical: 10,
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
-                          width: 90,
-                          height: 53,
-                          decoration: const BoxDecoration(
-                            color: Palette.cream,
-                          ),
-                          child: Column(
+                        RichText(
+                          text: TextSpan(
+                            style: GoogleFonts.nunito(
+                              fontWeight: FontWeight.normal,
+                              color: Palette.cream,
+                              fontSize: 14,
+                            ),
                             children: [
-                              Text(
-                                'you bet',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: isWin ? Palette.green : Palette.red,
-                                ),
+                              TextSpan(
+                                text:
+                                    '${betHistory.awayTeamName.toUpperCase()}',
                               ),
-                              Text(
-                                '\$${betHistory.betAmount}',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: isWin ? Palette.green : Palette.red,
-                                ),
+                              const TextSpan(text: '  @  '),
+                              TextSpan(
+                                text:
+                                    '${betHistory.homeTeamName.toUpperCase()}',
+                                style: GoogleFonts.nunito(color: Palette.green),
                               ),
                             ],
                           ),
                         ),
-                        Container(
-                          width: 90,
-                          height: 53,
-                          decoration: BoxDecoration(
-                            color: isWin ? Palette.green : Palette.red,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                '${isWin ? 'and won' : 'you lost'}',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 14,
-                                  color: Palette.cream,
-                                  fontWeight: FontWeight.bold,
+                        whichBetText(betData: betHistory),
+                        // Last Row
+                        Row(
+                          children: [
+                            // Text(
+                            //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
+                            //   style: GoogleFonts.nunito(
+                            //     fontSize: 14,
+                            //     color: Palette.cream,
+                            //     fontWeight: FontWeight.bold,
+                            //   ),
+                            // ),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  DateFormat('E, MMMM, c, y @ hh:mm a').format(
+                                    DateTime.parse(betHistory.gameDateTime)
+                                        .toLocal(),
+                                  ),
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 12,
+                                    color: isWin ? Palette.green : Palette.red,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                isWin
-                                    ? '\$${betHistory.betProfit}'
-                                    : '\$${betHistory.betAmount}',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 24,
-                                  color: Palette.cream,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                            // Text(
+                            //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
+                            //   style: GoogleFonts.nunito(
+                            //     fontSize: 14,
+                            //     color: Palette.cream,
+                            //     fontWeight: FontWeight.bold,
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ],
+                ),
+              ),
+              const SizedBox(width: 1),
+              Card(
+                margin: EdgeInsets.zero,
+                clipBehavior: Clip.antiAlias,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 90,
+                      height: 53,
+                      decoration: const BoxDecoration(
+                        color: Palette.cream,
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'you bet',
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: isWin ? Palette.green : Palette.red,
+                            ),
+                          ),
+                          Text(
+                            '\$${betHistory.betAmount}',
+                            style: GoogleFonts.nunito(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: isWin ? Palette.green : Palette.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 90,
+                      height: 53,
+                      decoration: BoxDecoration(
+                        color: isWin ? Palette.green : Palette.red,
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            '${isWin ? 'and won' : 'you lost'}',
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.cream,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            isWin
+                                ? '\$${betHistory.betProfit}'
+                                : '\$${betHistory.betAmount}',
+                            style: GoogleFonts.nunito(
+                              fontSize: 24,
+                              color: Palette.cream,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          top: -15,
+          left: 15,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Palette.cream,
+              ),
+              borderRadius: BorderRadius.circular(12),
+              color: Palette.darkGrey,
+            ),
+            height: 25,
+            width: 80,
+            child: Center(
+              child: Text(
+                whichBetSystem(betHistory.betType),
+                style: GoogleFonts.nunito(
+                  fontSize: 10,
+                ),
               ),
             ),
-            Positioned(
-              top: -15,
-              left: 15,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Palette.cream,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                  color: Palette.darkGrey,
-                ),
-                height: 25,
-                width: 80,
-                child: Center(
-                  child: Text(
-                    whichBetSystem(betHistory.betType),
-                    style: GoogleFonts.nunito(
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ]),
+          ),
+        )
+      ]),
     );
   }
 
@@ -234,9 +225,9 @@ class BetHistorySlip extends StatelessWidget {
     final betTeam = betHistory.betTeam == 'home'
         ? betHistory.homeTeamName
         : betHistory.awayTeamName;
-    final notBetTeam = betHistory.betTeam != 'home'
-        ? betHistory.homeTeamName
-        : betHistory.awayTeamName;
+    // final notBetTeam = betHistory.betTeam != 'home'
+    //     ? betHistory.homeTeamName
+    //     : betHistory.awayTeamName;
     final winTeamByScore = betData.awayTeamScore > betData.homeTeamScore
         ? betData.awayTeamName
         : betData.homeTeamName;

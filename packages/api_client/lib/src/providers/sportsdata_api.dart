@@ -138,7 +138,6 @@ class SportsAPI {
     }
   }
 
-  @override
   Future<List<GolfTournament>> fetchGolfTournaments({
     DateTime dateTimeEastern,
   }) async {
@@ -151,18 +150,19 @@ class SportsAPI {
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
       final filteredTournaments = <GolfTournament>[];
-      final List<GolfTournament> allTournaments =
-          parsed.map<GolfTournament>((json) {
-        return GolfTournament.fromMap(json);
-      }).toList();
-      allTournaments.forEach((tournament) {
-        if (tournament.endDate
-                .isBefore(dateTimeEastern.add(const Duration(days: 20))) &&
-            tournament.endDate
-                .isAfter(dateTimeEastern.subtract(const Duration(days: 1)))) {
-          filteredTournaments.add(tournament);
-        }
-      });
+      parsed
+          .map<GolfTournament>((json) {
+            return GolfTournament.fromMap(json);
+          })
+          .toList()
+          .forEach((tournament) {
+            if (tournament.endDate
+                    .isBefore(dateTimeEastern.add(const Duration(days: 20))) &&
+                tournament.endDate.isAfter(
+                    dateTimeEastern.subtract(const Duration(days: 1)))) {
+              filteredTournaments.add(tournament);
+            }
+          });
       return filteredTournaments.reversed.toList();
       //return allTournaments;
     } else {
@@ -170,7 +170,6 @@ class SportsAPI {
     }
   }
 
-  @override
   Future<GolfLeaderboard> fetchGolfLeaderboard(
       {@required int tournamentID}) async {
     const leagueData = ConstantSportsDataAPI.golf;
@@ -229,13 +228,10 @@ class SportsAPI {
     // 'NCAAF',
     // 'NCAAB',
     // 'GOLF'
-    print('gameName $gameName');
     switch (gameName.toLowerCase()) {
       case 'mlb':
         return 'https://fly.sportsdata.io/v3/$gameName/scores/json/Player/$playerId?key=${ConstantSportsDataAPI.mlb['key']}';
       case 'nba':
-        print(
-            'https://fly.sportsdata.io/v3/$gameName/scores/json/Player/$playerId?key=${ConstantSportsDataAPI.nba['key']}');
         return 'https://fly.sportsdata.io/v3/$gameName/scores/json/Player/$playerId?key=${ConstantSportsDataAPI.nba['key']}';
       case 'nhl':
         return 'https://fly.sportsdata.io/v3/$gameName/scores/json/Player/$playerId?key=${ConstantSportsDataAPI.nhl['key']}';

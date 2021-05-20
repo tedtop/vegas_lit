@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
@@ -124,12 +123,13 @@ class RulesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var widgetList = <Widget>[];
-    int counter = 0;
-    for (var text in texts) {
+    final widgetList = <Widget>[];
+    var counter = 0;
+    for (final text in texts) {
       counter++;
-      widgetList.add(OrderedListItem(counter, text));
-      widgetList.add(const SizedBox(height: 5.0));
+      widgetList
+        ..add(OrderedListItem(counter, text))
+        ..add(const SizedBox(height: 5.0));
     }
 
     return Column(children: widgetList);
@@ -147,13 +147,13 @@ class OrderedListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "$counter. ",
-          style: TextStyle(color: Palette.cream),
+          '$counter. ',
+          style: const TextStyle(color: Palette.cream),
         ),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(color: Palette.cream),
+            style: const TextStyle(color: Palette.cream),
           ),
         ),
       ],

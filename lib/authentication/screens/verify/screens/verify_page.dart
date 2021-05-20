@@ -20,13 +20,13 @@ class VerifyPage extends StatelessWidget {
             children: [
               const Text(
                   'Your Email isn\'t verified. Please check your inbox.'),
-              RaisedButton(
+              ElevatedButton(
+                child: const Text('Go Back'),
                 onPressed: () {
                   context.read<AuthenticationBloc>().add(
                         AuthenticationLogoutRequested(),
                       );
                 },
-                child: const Text('Go Back'),
               )
             ],
           ),

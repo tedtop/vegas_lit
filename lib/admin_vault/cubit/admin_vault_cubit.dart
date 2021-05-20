@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:api_client/src/models/vault_data.dart';
 import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

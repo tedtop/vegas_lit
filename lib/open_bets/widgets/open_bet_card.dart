@@ -4,8 +4,6 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:intl/intl.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
@@ -21,7 +19,7 @@ class OpenBetsSlip extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 20, 10, 2),
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         // alignment: Alignment.topCenter,
         children: [
           Container(
@@ -55,7 +53,7 @@ class OpenBetsSlip extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           RichText(
@@ -80,11 +78,11 @@ class OpenBetsSlip extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           whichBetText(betData: openBets),
-                          SizedBox(
+                          const SizedBox(
                             height: 6,
                           ),
                           // Last Row
@@ -273,7 +271,7 @@ Widget whichBetText({@required BetData betData}) {
             '${whichBetSystem(betData.betType)}  ($odds)',
             style: textStyle,
           ),
-          SizedBox(
+          const SizedBox(
             height: 4,
           ),
           RichText(
@@ -319,7 +317,7 @@ Widget whichBetText({@required BetData betData}) {
                       ],
                     ),
                   ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(
@@ -352,7 +350,7 @@ Widget whichBetText({@required BetData betData}) {
                     '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
                     style: textStyle,
                   ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(
@@ -371,7 +369,7 @@ Widget whichBetText({@required BetData betData}) {
               'YOU BET THE COMBINED SCORE',
               style: textStyle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(
@@ -387,7 +385,7 @@ Widget whichBetText({@required BetData betData}) {
               'YOU BET THE COMBINED SCORE',
               style: textStyle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(

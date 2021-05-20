@@ -3,7 +3,10 @@ library api_client;
 export 'src/models/bet.dart';
 export 'src/models/game.dart';
 export 'src/models/golf.dart';
+export 'src/models/player.dart';
+export 'src/models/player_details.dart';
 export 'src/models/user.dart';
+export 'src/models/vault_data.dart';
 export 'src/models/wallet.dart';
 
 export 'src/repositories/bets_repository.dart';

@@ -98,7 +98,7 @@ class Player {
     globalTeamID = json['GlobalTeamID'];
     fantasyDraftName = json['FantasyDraftName'];
     fantasyDraftPlayerID = json['FantasyDraftPlayerID'];
-    experience = json['Experience'] ?? null;
+    experience = json['Experience'];
     usaTodayPlayerID = json['UsaTodayPlayerID'];
     usaTodayHeadshotUrl = json['UsaTodayHeadshotUrl'];
     usaTodayHeadshotNoBackgroundUrl = json['UsaTodayHeadshotNoBackgroundUrl'];
