@@ -51,7 +51,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '$league-${game.awayTeam}-${game.homeTeam}-$betTypeString-$winTeamString@$todayFormatDate $gameStartTimeFormat'
+        '$league${game.awayTeam}${game.homeTeam}$betTypeString$winTeamString$todayFormatDate$gameStartTimeFormat$uid'
             .toUpperCase();
     emit(
       BetButtonState.unclicked(

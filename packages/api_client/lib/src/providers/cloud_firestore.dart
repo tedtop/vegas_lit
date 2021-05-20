@@ -84,11 +84,7 @@ class CloudFirestore {
     final betProfit = betDataMap['betProfit'] as int;
     final betAmount = betDataMap['betAmount'] as int;
     final docRef = _firestoreData.collection('bets').doc(betDataMap['id']);
-    await docRef.set(betDataMap, SetOptions(merge: true)).then(
-      (value) async {
-        await docRef.set({'user': uid}, SetOptions(merge: true));
-      },
-    );
+    await docRef.set(betDataMap, SetOptions(merge: true));
     await _firestoreData.collection('wallets').doc(uid).update({
       'totalBets': FieldValue.increment(1),
       'totalOpenBets': FieldValue.increment(1),
