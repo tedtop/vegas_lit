@@ -402,6 +402,47 @@ class PlayerRound {
     this.holes,
   });
 
+  factory PlayerRound.fromJson(String str) =>
+      PlayerRound.fromMap(json.decode(str));
+
+  factory PlayerRound.fromMap(Map<String, dynamic> json) => PlayerRound(
+        playerRoundId: json['PlayerRoundID']?.toInt(),
+        playerTournamentId: json['PlayerTournamentID']?.toInt(),
+        number: json['Number']?.toInt(),
+        day: DateTime.parse(json['Day']),
+        par: json['Par']?.toInt(),
+        score: json['Score']?.toInt(),
+        bogeyFree: json['BogeyFree'],
+        includesStreakOfThreeBirdiesOrBetter:
+            json['IncludesStreakOfThreeBirdiesOrBetter'],
+        doubleEagles: json['DoubleEagles']?.toInt(),
+        eagles: json['Eagles']?.toInt(),
+        birdies: json['Birdies']?.toInt(),
+        pars: json['Pars']?.toInt(),
+        bogeys: json['Bogeys']?.toInt(),
+        doubleBogeys: json['DoubleBogeys']?.toInt(),
+        worseThanDoubleBogey: json['WorseThanDoubleBogey']?.toInt(),
+        holeInOnes: json['HoleInOnes']?.toInt(),
+        tripleBogeys: json['TripleBogeys']?.toInt(),
+        worseThanTripleBogey: json['WorseThanTripleBogey']?.toInt(),
+        longestBirdieOrBetterStreak:
+            json['LongestBirdieOrBetterStreak']?.toInt(),
+        consecutiveBirdieOrBetterCount:
+            json['ConsecutiveBirdieOrBetterCount']?.toInt(),
+        bounceBackCount: json['BounceBackCount']?.toInt(),
+        includesStreakOfFourBirdiesOrBetter:
+            json['IncludesStreakOfFourBirdiesOrBetter'],
+        includesStreakOfFiveBirdiesOrBetter:
+            json['IncludesStreakOfFiveBirdiesOrBetter'],
+        includesFiveOrMoreBirdiesOrBetter:
+            json['IncludesFiveOrMoreBirdiesOrBetter'],
+        includesStreakOfSixBirdiesOrBetter:
+            json['IncludesStreakOfSixBirdiesOrBetter'],
+        teeTime:
+            json['TeeTime'] == null ? null : DateTime.parse(json['TeeTime']),
+        holes: List<Hole>.from(json['Holes'].map((x) => Hole.fromMap(x))),
+      );
+
   final int playerRoundId;
   final int playerTournamentId;
   final int number;
@@ -500,49 +541,6 @@ class PlayerRound {
         holes: holes ?? this.holes,
       );
 
-  factory PlayerRound.fromJson(String str) =>
-      PlayerRound.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory PlayerRound.fromMap(Map<String, dynamic> json) => PlayerRound(
-        playerRoundId: json['PlayerRoundID']?.toInt(),
-        playerTournamentId: json['PlayerTournamentID']?.toInt(),
-        number: json['Number']?.toInt(),
-        day: DateTime.parse(json['Day']),
-        par: json['Par']?.toInt(),
-        score: json['Score']?.toInt(),
-        bogeyFree: json['BogeyFree'],
-        includesStreakOfThreeBirdiesOrBetter:
-            json['IncludesStreakOfThreeBirdiesOrBetter'],
-        doubleEagles: json['DoubleEagles']?.toInt(),
-        eagles: json['Eagles']?.toInt(),
-        birdies: json['Birdies']?.toInt(),
-        pars: json['Pars']?.toInt(),
-        bogeys: json['Bogeys']?.toInt(),
-        doubleBogeys: json['DoubleBogeys']?.toInt(),
-        worseThanDoubleBogey: json['WorseThanDoubleBogey']?.toInt(),
-        holeInOnes: json['HoleInOnes']?.toInt(),
-        tripleBogeys: json['TripleBogeys']?.toInt(),
-        worseThanTripleBogey: json['WorseThanTripleBogey']?.toInt(),
-        longestBirdieOrBetterStreak:
-            json['LongestBirdieOrBetterStreak']?.toInt(),
-        consecutiveBirdieOrBetterCount:
-            json['ConsecutiveBirdieOrBetterCount']?.toInt(),
-        bounceBackCount: json['BounceBackCount']?.toInt(),
-        includesStreakOfFourBirdiesOrBetter:
-            json['IncludesStreakOfFourBirdiesOrBetter'],
-        includesStreakOfFiveBirdiesOrBetter:
-            json['IncludesStreakOfFiveBirdiesOrBetter'],
-        includesFiveOrMoreBirdiesOrBetter:
-            json['IncludesFiveOrMoreBirdiesOrBetter'],
-        includesStreakOfSixBirdiesOrBetter:
-            json['IncludesStreakOfSixBirdiesOrBetter'],
-        teeTime:
-            json['TeeTime'] == null ? null : DateTime.parse(json['TeeTime']),
-        holes: List<Hole>.from(json['Holes'].map((x) => Hole.fromMap(x))),
-      );
-
   Map<String, dynamic> toMap() => {
         'PlayerRoundID': playerRoundId,
         'PlayerTournamentID': playerTournamentId,
@@ -576,6 +574,8 @@ class PlayerRound {
         'TeeTime': teeTime == null ? null : teeTime.toIso8601String(),
         'Holes': List<dynamic>.from(holes.map((x) => x.toMap())),
       };
+
+  String toJson() => json.encode(toMap());
 }
 
 class Hole {
@@ -594,6 +594,24 @@ class Hole {
     this.doubleBogey,
     this.worseThanDoubleBogey,
   });
+
+  factory Hole.fromJson(String str) => Hole.fromMap(json.decode(str));
+
+  factory Hole.fromMap(Map<String, dynamic> json) => Hole(
+        playerRoundId: json['PlayerRoundID']?.toInt(),
+        number: json['Number']?.toInt(),
+        par: json['Par']?.toInt(),
+        score: json['Score'] == null ? null : json['Score']?.toInt(),
+        toPar: json['ToPar'] == null ? null : json['ToPar']?.toInt(),
+        holeInOne: json['HoleInOne'],
+        doubleEagle: json['DoubleEagle'],
+        eagle: json['Eagle'],
+        birdie: json['Birdie'],
+        isPar: json['IsPar'],
+        bogey: json['Bogey'],
+        doubleBogey: json['DoubleBogey'],
+        worseThanDoubleBogey: json['WorseThanDoubleBogey'],
+      );
 
   final int playerRoundId;
   final int number;
@@ -640,25 +658,7 @@ class Hole {
         worseThanDoubleBogey: worseThanDoubleBogey ?? this.worseThanDoubleBogey,
       );
 
-  factory Hole.fromJson(String str) => Hole.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
-
-  factory Hole.fromMap(Map<String, dynamic> json) => Hole(
-        playerRoundId: json['PlayerRoundID']?.toInt(),
-        number: json['Number']?.toInt(),
-        par: json['Par']?.toInt(),
-        score: json['Score'] == null ? null : json['Score']?.toInt(),
-        toPar: json['ToPar'] == null ? null : json['ToPar']?.toInt(),
-        holeInOne: json['HoleInOne'],
-        doubleEagle: json['DoubleEagle'],
-        eagle: json['Eagle'],
-        birdie: json['Birdie'],
-        isPar: json['IsPar'],
-        bogey: json['Bogey'],
-        doubleBogey: json['DoubleBogey'],
-        worseThanDoubleBogey: json['WorseThanDoubleBogey'],
-      );
 
   Map<String, dynamic> toMap() => {
         'PlayerRoundID': playerRoundId,
@@ -702,6 +702,37 @@ class GolfTournament {
     this.sportRadarTournamentId,
     this.rounds,
   });
+
+  factory GolfTournament.fromJson(String str) =>
+      GolfTournament.fromMap(json.decode(str));
+
+  factory GolfTournament.fromMap(Map<String, dynamic> json) => GolfTournament(
+        tournamentId: json['TournamentID'].toInt(),
+        name: json['Name'],
+        startDate: DateTime.parse(json['StartDate']),
+        endDate: DateTime.parse(json['EndDate']),
+        isOver: json['IsOver'],
+        isInProgress: json['IsInProgress'],
+        venue: json['Venue'],
+        location: json['Location'],
+        par: json['Par'] == null ? null : json['Par'].toInt(),
+        yards: json['Yards'] == null ? null : json['Yards'].toInt(),
+        purse: json['Purse'] == null ? null : json['Purse'].toInt(),
+        startDateTime: json['StartDateTime'] == null
+            ? null
+            : DateTime.parse(json['StartDateTime']),
+        canceled: json['Canceled'],
+        covered: json['Covered'],
+        city: json['City'],
+        state: json['State'],
+        zipCode: json['ZipCode'],
+        country: json['Country'],
+        timeZone: json['TimeZone'],
+        format:
+            json['Format'] == null ? null : formatValues.map[json['Format']],
+        sportRadarTournamentId: json['SportRadarTournamentID'],
+        rounds: List<Round>.from(json['Rounds'].map((x) => Round.fromMap(x))),
+      );
 
   final int tournamentId;
   final String name;
@@ -776,38 +807,7 @@ class GolfTournament {
         rounds: rounds ?? this.rounds,
       );
 
-  factory GolfTournament.fromJson(String str) =>
-      GolfTournament.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
-
-  factory GolfTournament.fromMap(Map<String, dynamic> json) => GolfTournament(
-        tournamentId: json['TournamentID'].toInt(),
-        name: json['Name'],
-        startDate: DateTime.parse(json['StartDate']),
-        endDate: DateTime.parse(json['EndDate']),
-        isOver: json['IsOver'],
-        isInProgress: json['IsInProgress'],
-        venue: json['Venue'],
-        location: json['Location'],
-        par: json['Par'] == null ? null : json['Par'].toInt(),
-        yards: json['Yards'] == null ? null : json['Yards'].toInt(),
-        purse: json['Purse'] == null ? null : json['Purse'].toInt(),
-        startDateTime: json['StartDateTime'] == null
-            ? null
-            : DateTime.parse(json['StartDateTime']),
-        canceled: json['Canceled'],
-        covered: json['Covered'],
-        city: json['City'],
-        state: json['State'],
-        zipCode: json['ZipCode'],
-        country: json['Country'],
-        timeZone: json['TimeZone'],
-        format:
-            json['Format'] == null ? null : formatValues.map[json['Format']],
-        sportRadarTournamentId: json['SportRadarTournamentID'],
-        rounds: List<Round>.from(json['Rounds'].map((x) => Round.fromMap(x))),
-      );
 
   Map<String, dynamic> toMap() => {
         'TournamentID': tournamentId,
