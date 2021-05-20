@@ -75,6 +75,10 @@ class _BetSlipCardState extends State<BetSlipCard> {
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
+        final username = context.select(
+          (AuthenticationBloc authenticationBloc) =>
+              authenticationBloc.state.userData?.username,
+        );
         final balanceAmount = context.select(
             (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
         final isMoneyline = betButtonState.betType == Bet.ml;
@@ -304,6 +308,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                               betAmount: widget
                                                   .betSlipCardData.betAmount,
                                               openBetsData: BetData(
+                                                username: username,
                                                 homeTeamCity: betButtonState
                                                     .homeTeamData.city,
                                                 awayTeamCity: betButtonState
