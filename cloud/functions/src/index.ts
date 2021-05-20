@@ -390,10 +390,11 @@ export const sendBetCreateToSlack = functions.firestore
     const url =
       "https://hooks.slack.com/services/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";
     const webhook = new IncomingWebhook(url);
-    const team = data.betTeam == "away" ? data.awayTeam : data.homeTeam;
+    const teamCity =
+      data.betTeam == "away" ? data.awayTeamCity : data.homeTeamCity;
     const teamName =
       data.betTeam == "away" ? data.awayTeamName : data.homeTeamName;
-    const msg = `${data.user} placed a bet for $${data.betAmount} –${data.betType} bet on the ${team} ${teamName}`;
+    const msg = `:slot_machine: *${data.username}* placed a bet for $${data.betAmount} ${data.betType} bet on the ${teamCity} ${teamName}`;
 
     await sendMessage(msg);
     return true;
