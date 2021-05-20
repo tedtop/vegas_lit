@@ -26,19 +26,15 @@ class OpenBets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Palette.darkGrey,
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          ScreenTypeLayout(
-            mobile: MobileOpenBets(),
-            tablet: TabletOpenBets(),
-            desktop: DesktopOpenBets(),
-          ),
-          kIsWeb ? const BottomBar() : const SizedBox(),
-        ],
-      ),
+    return ListView(
+      children: [
+        ScreenTypeLayout(
+          mobile: MobileOpenBets(),
+          tablet: TabletOpenBets(),
+          desktop: DesktopOpenBets(),
+        ),
+        kIsWeb ? const BottomBar() : const SizedBox(),
+      ],
     );
   }
 }

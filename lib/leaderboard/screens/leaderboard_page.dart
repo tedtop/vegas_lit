@@ -24,49 +24,44 @@ class Leaderboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        color: Palette.darkGrey,
-        child: Column(
+    return ListView(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'LEADERBOARD',
-                    style: Styles.pageTitle,
-                  ),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'LEADERBOARD',
+                style: Styles.pageTitle,
+              ),
             ),
-            BlocBuilder<LeaderboardCubit, LeaderboardState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case LeaderboardStatus.initial:
-                    return const CircularProgressIndicator();
-                    break;
-                  default:
-                    return ScreenTypeLayout(
-                      desktop: WebLeaderboard(
-                        players: state.rankedUserList,
-                      ),
-                      tablet: TabletLeaderboard(
-                        players: state.rankedUserList,
-                      ),
-                      mobile: MobileLeaderboard(
-                        players: state.rankedUserList,
-                      ),
-                    );
-                    break;
-                }
-              },
-            ),
-            kIsWeb ? const BottomBar() : const SizedBox(),
           ],
         ),
-      ),
+        BlocBuilder<LeaderboardCubit, LeaderboardState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case LeaderboardStatus.initial:
+                return const CircularProgressIndicator();
+                break;
+              default:
+                return ScreenTypeLayout(
+                  desktop: WebLeaderboard(
+                    players: state.rankedUserList,
+                  ),
+                  tablet: TabletLeaderboard(
+                    players: state.rankedUserList,
+                  ),
+                  mobile: MobileLeaderboard(
+                    players: state.rankedUserList,
+                  ),
+                );
+                break;
+            }
+          },
+        ),
+        kIsWeb ? const BottomBar() : const SizedBox(),
+      ],
     );
   }
 }

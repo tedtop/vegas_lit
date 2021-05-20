@@ -12,20 +12,22 @@ class BetSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<BetSlipCubit, BetSlipState>(
-        builder: (context, state) {
-          switch (state.status) {
-            case BetSlipStatus.opened:
-              return state.betSlipCardData.isEmpty
-                  ? EmptyBetSlip()
-                  : BetSlipList();
-              break;
-            default:
-              return const CircularProgressIndicator();
-              break;
-          }
-        },
-      ),
+      body: ListView(children: [
+        BlocBuilder<BetSlipCubit, BetSlipState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case BetSlipStatus.opened:
+                return state.betSlipCardData.isEmpty
+                    ? EmptyBetSlip()
+                    : BetSlipList();
+                break;
+              default:
+                return const CircularProgressIndicator();
+                break;
+            }
+          },
+        ),
+      ]),
     );
   }
 }
