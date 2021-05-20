@@ -432,7 +432,7 @@ class _SportsBookViewState extends State<SportsBookView> {
           child: Stack(children: [
             Positioned(
               //BET TYPES
-              top: betTypesOverlay.dy + 100,
+              bottom: 0,
               child: Image.asset(
                 Images.betTypesHelpOverlay,
                 fit: BoxFit.contain,
@@ -441,41 +441,38 @@ class _SportsBookViewState extends State<SportsBookView> {
             ),
             Positioned(
                 //typeOfSports
-                top: topSafeSpacePadding + 15,
+                top: topSafeSpacePadding + 108,
                 left: 25,
-                child: Image.asset(
-                  Images.sportTypesHelpOverlay,
-                  fit: BoxFit.contain,
-                  height: sportsTypesOverlay.dy - topSafeSpacePadding,
-                )),
+                child: Image.asset(Images.sportTypesHelpOverlay,
+                    fit: BoxFit.contain, width: 285
+                    //height: sportsTypesOverlay.dy - topSafeSpacePadding,
+                    )),
             Positioned(
                 //coin Balance
-                top: topSafeSpacePadding + 15,
-                right: 50,
-                child: Image.asset(
-                  Images.coinBalanceHelpOverlay,
-                  fit: BoxFit.contain,
-                  height: 60,
-                )),
+                top: topSafeSpacePadding + 18,
+                right: 22,
+                child: Image.asset(Images.coinBalanceHelpOverlay,
+                    fit: BoxFit.contain, width: 300
+                    // height: 60,
+                    )),
             Positioned(
                 //Placing a bet
-                left: size.width * 0.3,
-                top: topSafeSpacePadding + 15,
-                child: Image.asset(
-                  Images.placeBetHelpOverlay,
-                  fit: BoxFit.contain,
-                  height: betTypesOverlay.dy + 130, //TRICKY
-                )),
+                left: size.width / 2 - 110,
+                top: topSafeSpacePadding + 245,
+                child: Image.asset(Images.placeBetHelpOverlay,
+                    fit: BoxFit.contain, width: 220
+                    // betTypesOverlay.dy + 130, //TRICKY
+                    )),
             Positioned(
                 //Number of bets
-                right: 40,
-                top: topSafeSpacePadding + 75,
-                child: Image.asset(
-                  Images.numberOfBetsHelpOverlay,
-                  fit: BoxFit.contain,
-                  height:
-                      sportsTypesOverlay.dy - topSafeSpacePadding - 55, //TRICKY
-                ))
+                right: 17,
+                top: topSafeSpacePadding + 56,
+                child: Image.asset(Images.numberOfBetsHelpOverlay,
+                    fit: BoxFit.contain, width: 300
+                    // height:
+                    //     sportsTypesOverlay.dy - topSafeSpacePadd
+                    //ing - 55, //TRICKY
+                    ))
           ]),
         ),
         onTap: () {
