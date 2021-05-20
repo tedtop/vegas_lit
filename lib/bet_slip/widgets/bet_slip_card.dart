@@ -304,6 +304,10 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                               betAmount: widget
                                                   .betSlipCardData.betAmount,
                                               openBetsData: BetData(
+                                                homeTeamCity: betButtonState
+                                                    .homeTeamData.city,
+                                                awayTeamCity: betButtonState
+                                                    .awayTeamData.city,
                                                 betAmount: widget
                                                     .betSlipCardData.betAmount,
                                                 gameId: betButtonState.gameId,
@@ -341,6 +345,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                                     .game.awayTeamScore,
                                                 homeTeamScore: betButtonState
                                                     .game.homeTeamScore,
+                                                uid: currentUserId,
                                                 betTeam:
                                                     betButtonState.winTeam ==
                                                             BetButtonWin.home

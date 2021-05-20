@@ -16,8 +16,11 @@ class BetData extends Equatable {
     @required this.homeTeam,
     @required this.awayTeam,
     @required this.awayTeamScore,
+    @required this.homeTeamCity,
+    @required this.awayTeamCity,
     @required this.homeTeamScore,
     @required this.totalGameScore,
+    @required this.uid,
     @required this.homeTeamName,
     @required this.awayTeamName,
     @required this.gameDateTime,
@@ -35,7 +38,10 @@ class BetData extends Equatable {
       winningTeam: data['winningTeam'] as String,
       betAmount: data['betAmount'] as int,
       betProfit: data['betProfit'] as int,
+      uid: data['uid'] as String,
       betType: data['betType'] as String,
+      awayTeamCity: data['awayTeamCity'] as String,
+      homeTeamCity: data['homeTeamCity'] as String,
       homeTeam: data['homeTeam'] as String,
       awayTeam: data['awayTeam'] as String,
       betTeam: data['betTeam'] as String,
@@ -67,10 +73,13 @@ class BetData extends Equatable {
   final int awayTeamScore;
   final int homeTeamScore;
   final int totalGameScore;
+  final String homeTeamCity;
+  final String awayTeamCity;
   final String homeTeamName;
   final String homeTeam;
   final String awayTeamName;
   final String awayTeam;
+  final String uid;
   final String gameDateTime;
   final String dateTime;
   final int gameId;
@@ -86,11 +95,14 @@ class BetData extends Equatable {
       'betProfit': betProfit,
       'betType': betType,
       'betTeam': betTeam,
+      'uid': uid,
       'winningTeamName': winningTeamName,
       'betPointSpread': betPointSpread,
       'betOverUnder': betOverUnder,
       'awayTeamScore': awayTeamScore,
       'homeTeamScore': homeTeamScore,
+      'homeTeamCity': homeTeamCity,
+      'awayTeamCity': awayTeamCity,
       'totalGameScore': totalGameScore,
       'winningTeam': winningTeam,
       'homeTeamName': homeTeamName,
@@ -111,6 +123,7 @@ class BetData extends Equatable {
     return [
       id,
       betAmount,
+      uid,
       betProfit,
       betType,
       betTeam,
@@ -128,6 +141,8 @@ class BetData extends Equatable {
       gameDateTime,
       dateTime,
       gameId,
+      homeTeamCity,
+      awayTeamCity,
       isClosed,
       league,
       odds,
