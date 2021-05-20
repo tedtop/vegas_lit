@@ -42,16 +42,17 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required Team homeTeamData,
   }) {
     final todayDateTime = fetchTimeEST();
-    final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
+    final todayFormatDate = todayDateTime.millisecondsSinceEpoch;
+    // final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
-    final gameStartTimeFormat = DateFormat('hh:mm').format(game.dateTime);
+    // final gameStartTimeFormat = DateFormat('hh:mm').format(game.dateTime);
     final betTypeString = betType == Bet.ml
         ? 'ml'
         : betType == Bet.pts
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '$league${game.awayTeam}${game.homeTeam}$betTypeString$winTeamString$todayFormatDate$gameStartTimeFormat$uid'
+        '$todayFormatDate$league${game.awayTeam}${game.homeTeam}$betTypeString$winTeamString$uid'
             .toUpperCase();
     emit(
       BetButtonState.unclicked(

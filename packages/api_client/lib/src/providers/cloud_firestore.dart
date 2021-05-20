@@ -51,7 +51,7 @@ class CloudFirestore {
   Stream<List<BetData>> fetchOpenBets({@required String uid}) {
     final openBetsData = _firestoreData
         .collection('bets')
-        .where('user', isEqualTo: uid)
+        .where('uid', isEqualTo: uid)
         .where('isClosed', isEqualTo: false)
         .orderBy('dateTime', descending: true)
         .snapshots()
@@ -65,7 +65,7 @@ class CloudFirestore {
   Stream<List<BetData>> fetchBetHistory({@required String uid}) {
     final betHistoryData = _firestoreData
         .collection('bets')
-        .where('user', isEqualTo: uid)
+        .where('uid', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
         .orderBy('dateTime', descending: true)
         .snapshots()
@@ -206,7 +206,7 @@ class CloudFirestore {
     final isBetExist = await _firestoreData
         .collection('bets')
         .where('id', isEqualTo: betId)
-        .where('user', isEqualTo: uid)
+        .where('uid', isEqualTo: uid)
         .get()
         .then(
           (value) => value.docs
