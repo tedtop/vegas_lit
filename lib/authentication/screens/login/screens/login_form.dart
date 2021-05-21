@@ -56,7 +56,7 @@ class LoginForm extends StatelessWidget {
                       _LinkToSignup(),
                     ],
                   ),
-                  SizedBox(height: height / 3),
+                  SizedBox(height: height / 5),
                   VersionNumber(),
                 ],
               ),
