@@ -172,7 +172,9 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
             style: Styles.normalTextBold,
           ),
           subtitle: Text(
-            profitOrLoss(number: widget.player.totalProfit),
+            profitOrLoss(
+              number: (widget.player.totalProfit - widget.player.totalLoss),
+            ),
             style: Styles.homeTeam,
           ),
           collapsedBackgroundColor: Palette.lightGrey,

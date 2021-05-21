@@ -36,7 +36,8 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
       );
       final userDataList =
           await _userRepository.fetchLeaderboardDaysUserData(day: day);
-      userDataList.sort((a, b) => b.totalProfit.compareTo(a.totalProfit));
+      userDataList.sort((a, b) =>
+          (b.totalProfit - b.totalLoss).compareTo(b.totalProfit - b.totalLoss));
       emit(
         LeaderboardState.weekChanged(
           rankedUserList: userDataList,
