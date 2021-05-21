@@ -6,7 +6,6 @@ import 'package:vegas_lit/config/enum.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/sportsbook/models/team.dart';
-import 'package:intl/intl.dart';
 
 part 'bet_button_state.dart';
 
@@ -44,7 +43,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     final todayDateTime = fetchTimeEST();
     final todayFormatDate = todayDateTime.millisecondsSinceEpoch;
     // final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
-    final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
+    // final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
     // final gameStartTimeFormat = DateFormat('hh:mm').format(game.dateTime);
     final betTypeString = betType == Bet.ml
         ? 'ml'
@@ -52,7 +51,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '$todayFormatDate$league${game.awayTeam}${game.homeTeam}$betTypeString$winTeamString$uid'
+        '$league-${game.awayTeam}-${game.homeTeam}-$betTypeString-$uid-$todayFormatDate'
             .toUpperCase();
     emit(
       BetButtonState.unclicked(

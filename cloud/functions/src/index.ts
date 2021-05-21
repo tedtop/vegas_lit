@@ -286,7 +286,7 @@ export const resolveBets = functions.pubsub
   });
 
 export const resetContestDay = functions.pubsub
-  .schedule("58 23 * * *")
+  .schedule("59 23 * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
     console.log("This function will be run everyday at 11:58 PM!");
