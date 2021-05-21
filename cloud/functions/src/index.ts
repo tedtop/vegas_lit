@@ -6,6 +6,7 @@ const url =
   "https://hooks.slack.com/services/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";
 const webhook = new IncomingWebhook(url);
 import moment = require("moment-timezone");
+const performance = require("perf_hooks").performance;
 
 var app = admin.initializeApp();
 
@@ -13,7 +14,7 @@ export const resolveBets = functions.pubsub
   .schedule("every 1 hours")
   .onRun(async (context) => {
     const startTime = performance.now();
-    await sendMessageToSlack(`:abacus: Resolving bets...`);
+    await sendMessageToSlack(`:mega: Resolving bets...`);
     console.log("This will be run every 1 hours!");
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
@@ -127,7 +128,7 @@ export const resolveBets = functions.pubsub
                                 ),
                             });
                           await sendMessageToSlack(
-                            `:white_check_mark: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                            `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
                           );
                         } else {
                           await app
@@ -147,7 +148,7 @@ export const resolveBets = functions.pubsub
                                 ),
                             });
                           await sendMessageToSlack(
-                            `:money_with_wings: *${username}* lost their bet for $${amountBet}`
+                            `:moneybag: *${username}* lost their bet for $${amountBet}`
                           );
                         }
                         valueUpdateNumber++;
@@ -168,10 +169,9 @@ export const resolveBets = functions.pubsub
       })
       .then(async function () {
         console.log(`${valueUpdateNumber} value updated!`);
-        await sendMessageToSlack(`${valueUpdateNumber} value updated!`);
         console.log(`${alreadyUpdateNumber} value already updated!`);
         await sendMessageToSlack(
-          `${alreadyUpdateNumber} value already updated!`
+          `:white_check_mark: ${valueUpdateNumber} bets resolved, ${alreadyUpdateNumber} bets remain open`
         );
         functions.logger.info("Function Completed!", { structuredData: true });
       });
