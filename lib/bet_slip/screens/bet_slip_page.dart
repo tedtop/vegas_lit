@@ -103,9 +103,11 @@ class BetSlipList extends StatelessWidget {
         // padding: EdgeInsets.symmetric(
         //   horizontal: kIsWeb ? width / 2 : 0,
         // ),
+
         key: Key(
           '${betSlipState.betSlipCardData.length}',
         ),
+        physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
         children: [
           BetSlipUpper(),
