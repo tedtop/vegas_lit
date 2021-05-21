@@ -4,6 +4,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
@@ -98,8 +99,9 @@ class OpenBetsSlip extends StatelessWidget {
                               // ),
                               Expanded(
                                 child: CountdownTimer(
-                                  endTime: DateTime.parse(openBets.gameDateTime)
-                                      .millisecondsSinceEpoch,
+                                  endTime: getESTGameTimeInMS(
+                                    DateTime.parse(openBets.gameDateTime),
+                                  ),
                                   widgetBuilder:
                                       (_, CurrentRemainingTime time) {
                                     if (time == null) {

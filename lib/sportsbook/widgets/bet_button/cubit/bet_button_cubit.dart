@@ -41,7 +41,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required String league,
     @required Team homeTeamData,
   }) {
-    final todayDateTime = fetchTimeEST();
+    // final todayDateTime = fetchTimeEST();
     // final todayFormatDate = todayDateTime.millisecondsSinceEpoch;
     // final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';

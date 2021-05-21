@@ -25,6 +25,7 @@ import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/shared_widgets/default_button.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
+import 'package:vegas_lit/sportsbook/widgets/matchup_card/matchup_card.dart';
 
 import '../bet_slip.dart';
 
@@ -583,7 +584,7 @@ class _BetSlipCardState extends State<BetSlipCard> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: CountdownTimer(
-                  endTime: betButtonState.game.dateTime.millisecondsSinceEpoch,
+                  endTime: getESTGameTimeInMS(betButtonState.game.dateTime),
                   widgetBuilder: (_, CurrentRemainingTime time) {
                     if (time == null) {
                       return Text(
