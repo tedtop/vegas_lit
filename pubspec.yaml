@@ -3,7 +3,7 @@ description: This is a free to play sports simulation game
 
 publish_to: "none"
 
-version: 0.7.8+42
+version: 0.7.9+43
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -24,7 +24,7 @@ dependencies:
   custom_navigation_bar: ^0.7.1
   dio: ^4.0.0
   equatable: ^2.0.0
-  firebase_analytics: ^7.1.1
+  firebase_analytics: ^8.1.0
   firebase_core: ^1.0.2
   firebase_crashlytics: ^2.0.2
   flutter_bloc: ^6.1.1
@@ -34,7 +34,7 @@ dependencies:
   flutter_svg: ^0.22.0
   formz: ^0.3.2
   google_fonts: ^2.0.0
-  google_mobile_ads: ^0.12.1+1
+  google_mobile_ads: ^0.13.0
   instant: ^0.4.1
   intl: ^0.17.0
   jiffy: ^4.1.0

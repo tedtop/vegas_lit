@@ -109,7 +109,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           isAdmin
               ? ListTile(
-                  title: Text('VAULT', style: Styles.normalTextBold),
+                  title: Text('ADMIN VAULT', style: Styles.normalTextBold),
                   onTap: () {
                     Navigator.of(context).push(AdminVaultScreen.route());
                   },
