@@ -18,7 +18,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/home/cubit/version_cubit.dart';
-import 'package:vegas_lit/interstitial/reward_ad.dart';
+// import 'package:vegas_lit/interstitial/reward_ad.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
@@ -383,26 +383,26 @@ class _BetSlipCardState extends State<BetSlipCard> {
                                               betPlacedCount:
                                                   betPlacedCount + 1,
                                             );
-                                        if (betPlacedCount % 4 == 0 &&
-                                            betPlacedCount != 0) {
-                                          final onRewardCallBack = (
-                                            RewardedAd rewardedAd,
-                                            RewardItem rewardItem,
-                                          ) async {
-                                            await UserRepository()
-                                                .rewardForVideoAd(
-                                              uid: currentUserId,
-                                              rewardValue:
-                                                  rewardItem.amount.toInt(),
-                                            );
-                                          };
-                                          final ads = RewardAd(
-                                            balanceAmount,
-                                            onRewardCallBack,
-                                          );
-                                          await ads.loadAd();
-                                          await ads.play();
-                                        }
+                                        // if (betPlacedCount % 4 == 0 &&
+                                        //     betPlacedCount != 0) {
+                                        //   final onRewardCallBack = (
+                                        //     RewardedAd rewardedAd,
+                                        //     RewardItem rewardItem,
+                                        //   ) async {
+                                        //     await UserRepository()
+                                        //         .rewardForVideoAd(
+                                        //       uid: currentUserId,
+                                        //       rewardValue:
+                                        //           rewardItem.amount.toInt(),
+                                        //     );
+                                        //   };
+                                        //   final ads = RewardAd(
+                                        //     balanceAmount,
+                                        //     onRewardCallBack,
+                                        //   );
+                                        //   await ads.loadAd();
+                                        //   await ads.play();
+                                        // }
                                       }
                                     }
                                   } else {
