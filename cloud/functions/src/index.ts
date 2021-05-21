@@ -11,11 +11,11 @@ const performance = require("perf_hooks").performance;
 var app = admin.initializeApp();
 
 export const resolveBets = functions.pubsub
-  .schedule("every 1 hours")
+  .schedule("0 * * * *")
   .onRun(async (context) => {
     const startTime = performance.now();
     await sendMessageToSlack(`:mega: Resolving bets...`);
-    console.log("This will be run every 1 hours!");
+    console.log("This will be run every 1 hour!");
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
@@ -35,7 +35,7 @@ export const resolveBets = functions.pubsub
             const apikey = whichKey(league);
             const gameId = data.gameId;
             const documentId = data.id;
-            const uid = data.user;
+            const uid = data.uid;
             const betType = data.betType;
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
@@ -177,8 +177,11 @@ export const resolveBets = functions.pubsub
       });
 
     const endTime = performance.now();
+    const timeTakeInExecution = endTime - startTime;
     await sendMessageToSlack(
-      `:checkered_flag: Bet resolutions finished in ${endTime - startTime}ms`
+      `:checkered_flag: Bet resolutions finished in ${timeTakeInExecution.toFixed(
+        1
+      )}ms`
     );
     return true;
 
