@@ -2,14 +2,19 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 const axios = require("axios").default;
 const IncomingWebhook = require("@slack/client").IncomingWebhook;
+const url =
+  "https://hooks.slack.com/services/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";
+const webhook = new IncomingWebhook(url);
 import moment = require("moment-timezone");
 
 var app = admin.initializeApp();
 
 export const resolveBets = functions.pubsub
-  .schedule("every 4 hours")
+  .schedule("every 1 hours")
   .onRun(async (context) => {
-    console.log("This will be run every 4 hours!");
+    const startTime = performance.now();
+    await sendMessageToSlack(`:abacus: Resolving bets...`);
+    console.log("This will be run every 1 hours!");
     let valueUpdateNumber = 0;
     let alreadyUpdateNumber = 0;
 
@@ -33,6 +38,7 @@ export const resolveBets = functions.pubsub
             const betType = data.betType;
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
+            const username = data.username;
             const amountWin = data.betProfit;
             const totalWinAmount = amountWin + amountBet;
 
@@ -120,6 +126,9 @@ export const resolveBets = functions.pubsub
                                   -amountWin
                                 ),
                             });
+                          await sendMessageToSlack(
+                            `:white_check_mark: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                          );
                         } else {
                           await app
                             .firestore()
@@ -137,6 +146,9 @@ export const resolveBets = functions.pubsub
                                   -amountWin
                                 ),
                             });
+                          await sendMessageToSlack(
+                            `:money_with_wings: *${username}* lost their bet for $${amountBet}`
+                          );
                         }
                         valueUpdateNumber++;
                       });
@@ -154,13 +166,21 @@ export const resolveBets = functions.pubsub
       .catch(function (error: any) {
         console.log(error);
       })
-      .then(function () {
+      .then(async function () {
         console.log(`${valueUpdateNumber} value updated!`);
+        await sendMessageToSlack(`${valueUpdateNumber} value updated!`);
         console.log(`${alreadyUpdateNumber} value already updated!`);
+        await sendMessageToSlack(
+          `${alreadyUpdateNumber} value already updated!`
+        );
         functions.logger.info("Function Completed!", { structuredData: true });
       });
 
-    return null;
+    const endTime = performance.now();
+    await sendMessageToSlack(
+      `:checkered_flag: Bet resolutions finished in ${endTime - startTime}ms`
+    );
+    return true;
 
     // Finding point spread sign
     function pointSpreadAssign(pointSpread: any, winTeam: string) {
@@ -270,11 +290,13 @@ export const resetContestDay = functions.pubsub
 
     const documentName = getTodayDate();
 
+    // Fetching user's wallet
     await app
       .firestore()
       .collection("wallets")
       .get()
       .then(async (snapshots) => {
+        // Create today's date document in leaderboard
         await app
           .firestore()
           .collection("leaderboard")
@@ -282,7 +304,9 @@ export const resetContestDay = functions.pubsub
           .set({ isArchived: true })
           .then((_) => {
             const promises: any = [];
-            snapshots.docs.forEach(async (element) => {
+            // Run loop over all user's wallet document
+            snapshots.docs.map(async (element) => {
+              // For every document, save it to today's date document in leaderboard
               const promise = await app
                 .firestore()
                 .collection("leaderboard")
@@ -291,6 +315,7 @@ export const resetContestDay = functions.pubsub
                 .doc(element.id)
                 .set(element.data())
                 .then(async (_) => {
+                  // After saving, reset that specific user wallets
                   await app
                     .firestore()
                     .collection("wallets")
@@ -319,7 +344,6 @@ export const resetContestDay = functions.pubsub
         functions.logger.info("Leaderboard Resolved!", {
           structuredData: true,
         });
-        return null;
       });
 
     return null;
@@ -383,32 +407,30 @@ export interface Quarter {
   HomeScore?: number;
 }
 
-export const sendBetCreateToSlack = functions.firestore
+export const sendBetCreatedToSlack = functions.firestore
   .document("bets/{docId}")
   .onCreate(async (snapshot, context) => {
     const data = snapshot.data();
-    const url =
-      "https://hooks.slack.com/services/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";
-    const webhook = new IncomingWebhook(url);
+
     const teamCity =
       data.betTeam == "away" ? data.awayTeamCity : data.homeTeamCity;
     const teamName =
       data.betTeam == "away" ? data.awayTeamName : data.homeTeamName;
     const msg = `:slot_machine: *${data.username}* placed a bet for $${data.betAmount} ${data.betType} bet on the ${teamCity} ${teamName}`;
 
-    await sendMessage(msg);
+    await sendMessageToSlack(msg);
     return true;
-
-    async function sendMessage(message: any) {
-      await webhook.send(
-        message,
-        function (err: any, header: any, statusCode: any, body: any) {
-          if (err) {
-            console.log("Error:", err);
-          } else {
-            console.log("Received", statusCode, "from Slack");
-          }
-        }
-      );
-    }
   });
+
+async function sendMessageToSlack(message: any) {
+  await webhook.send(
+    message,
+    function (err: any, header: any, statusCode: any, body: any) {
+      if (err) {
+        console.log("Error:", err);
+      } else {
+        console.log("Received", statusCode, "from Slack");
+      }
+    }
+  );
+}
