@@ -13,6 +13,9 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/sportsbook/screens/team_info/team_info.dart';
 import 'package:vegas_lit/sportsbook/widgets/bet_button/bet_button.dart';
 
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
@@ -58,7 +61,6 @@ class MatchupCard extends StatelessWidget {
                 ? '-${state.game.pointSpread.abs()}'
                 : '+${state.game.pointSpread.abs()}';
           }
-
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 8,
@@ -346,7 +348,7 @@ class MatchupCard extends StatelessWidget {
                             ),
                           ),
                           CountdownTimer(
-                            endTime: state.game.dateTime.millisecondsSinceEpoch,
+                            endTime: getESTGameTimeInMS(state.game.dateTime),
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {
                                 return Text(
@@ -457,4 +459,15 @@ class MatchupCard extends StatelessWidget {
         break;
     }
   }
+}
+
+int getESTGameTimeInMS(DateTime time) {
+  tz.initializeTimeZones();
+  final locationNY = tz.getLocation('America/New_York');
+  final nowNY = tz.TZDateTime.now(locationNY);
+  final easternTime = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
+      nowNY.minute, nowNY.second, nowNY.millisecond, nowNY.microsecond);
+  final localTime = DateTime.now().toLocal();
+  final diff = localTime.difference(easternTime);
+  return time.add(diff).millisecondsSinceEpoch;
 }
