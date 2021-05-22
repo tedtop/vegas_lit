@@ -186,7 +186,7 @@ class CloudFirestore {
   Stream<List<Wallet>> fetchRankedUsers() {
     final snapshot = _firestoreData
         .collection('wallets')
-        .where('totalBets', isGreaterThan: 5)
+        .where('totalBets', isGreaterThan: 3)
         // .orderBy('totalProfit', descending: true)
         .limit(100)
         .snapshots();
@@ -241,7 +241,7 @@ class CloudFirestore {
         .collection('leaderboard')
         .doc(day)
         .collection('wallets')
-        .where('totalBets', isGreaterThan: 5)
+        .where('totalBets', isGreaterThan: 3)
         // .orderBy('totalProfit', descending: true)
         .limit(100)
         .get()

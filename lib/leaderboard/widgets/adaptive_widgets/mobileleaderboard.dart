@@ -214,9 +214,9 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
 
   String profitOrLoss({@required int number}) {
     if (number.isNegative) {
-      return 'Total Loss: \$${widget.player.totalProfit.abs()}';
+      return 'Loss: \$${number.abs()}';
     } else {
-      return 'Total Profit: \$${widget.player.totalProfit}';
+      return 'Profit: \$$number';
     }
   }
 }
