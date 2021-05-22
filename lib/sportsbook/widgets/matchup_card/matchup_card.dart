@@ -352,7 +352,7 @@ class MatchupCard extends StatelessWidget {
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {
                                 return Text(
-                                  'In Progress',
+                                  gameData.status,
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
                                     fontSize: 15,

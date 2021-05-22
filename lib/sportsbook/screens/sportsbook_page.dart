@@ -336,7 +336,6 @@ class _SportsBookViewState extends State<SportsBookView> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 120),
                         child: Text(
-                          // ignore: lines_longer_than_80_chars
                           'No odds available for the league you have selected at this time.',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.nunito(

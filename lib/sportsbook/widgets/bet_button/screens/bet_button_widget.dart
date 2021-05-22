@@ -78,6 +78,7 @@ class BetButton extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final betButtonState = context.watch<BetButtonCubit>().state;
+          // if(game)
           switch (betButtonState.status) {
             case BetButtonStatus.unclicked:
               return BetButtonUnclicked();
