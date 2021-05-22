@@ -296,7 +296,7 @@ class _PasswordInput extends StatelessWidget {
 
 String passwordError(PasswordValidationError validationError) {
   if (validationError == PasswordValidationError.invalid) {
-    return 'More than 8 with numbers';
+    return 'Must be a combination of at least 8 letters and numbers';
   } else if (validationError == PasswordValidationError.empty) {
     return 'Required';
   } else {
