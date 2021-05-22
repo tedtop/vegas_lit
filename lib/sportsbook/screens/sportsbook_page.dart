@@ -474,6 +474,24 @@ class _SportsBookViewState extends State<SportsBookView> {
                     ))
           ]),
         ),
+        onHorizontalDragStart: (_) {
+          hideHelp();
+        },
+        onPanStart: (_) {
+          hideHelp();
+        },
+        onVerticalDragDown: (_) {
+          hideHelp();
+        },
+        onDoubleTap: () {
+          hideHelp();
+        },
+        onDoubleTapDown: (_) {
+          hideHelp();
+        },
+        onLongPress: () {
+          hideHelp();
+        },
         onTap: () {
           hideHelp();
         },
