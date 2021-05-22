@@ -87,22 +87,19 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                           BetHistoryRow(
                             text: 'Total Risked',
                             text2:
-                                // ignore: lines_longer_than_80_chars
                                 '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.betAmount).toList())}',
-                            color: Palette.green,
+                            color: Palette.red,
                           ),
                           BetHistoryRow(
                             text: 'Total Profit',
-                            text2:
-                                // ignore: lines_longer_than_80_chars
-                                '\$$totalProfit',
-                            color: Palette.red,
+                            text2: '\$$totalProfit',
+                            color:
+                                totalProfit > 0 ? Palette.green : Palette.red,
                           ),
                           BetHistoryRow(
                             text: 'Win/Loss Ratio',
                             text2:
-                                // ignore: lines_longer_than_80_chars
-                                '${(totalWin / totalLose) > 0 ? totalWin ~/ totalLose : 0}',
+                                '${(totalWin / totalLose) > 0 ? (totalWin / totalLose).toStringAsFixed(3) : 0}',
                             color: Palette.cream,
                           ),
                         ],
@@ -125,7 +122,6 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
                     child: Text(
-                      // ignore: lines_longer_than_80_chars
                       'No bets resolved yet.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(

@@ -75,16 +75,14 @@ class _TabletBetHistoryState extends State<TabletBetHistory> {
                           BetHistoryRow(
                             text: 'Total Risk',
                             text2:
-                                // ignore: lines_longer_than_80_chars
                                 '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.betAmount).toList())}',
-                            color: Palette.green,
+                            color: Palette.red,
                           ),
                           BetHistoryRow(
                             text: 'Total Profit',
-                            text2:
-                                // ignore: lines_longer_than_80_chars
-                                '\$$totalProfit',
-                            color: Palette.red,
+                            text2: '\$$totalProfit',
+                            color:
+                                totalProfit > 0 ? Palette.green : Palette.red,
                           ),
                         ],
                       );
@@ -106,7 +104,6 @@ class _TabletBetHistoryState extends State<TabletBetHistory> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
                     child: Text(
-                      // ignore: lines_longer_than_80_chars
                       'No bets resolved yet.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(
