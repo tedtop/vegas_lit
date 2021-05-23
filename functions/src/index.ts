@@ -419,7 +419,7 @@ export const sendBetCreatedToSlack = functions.firestore
       data.betTeam == "away" ? data.awayTeamCity : data.homeTeamCity;
     const teamName =
       data.betTeam == "away" ? data.awayTeamName : data.homeTeamName;
-    const msg = `:slot_machine: *${data.username}* placed a bet for $${data.betAmount} ${data.betType} bet on the ${teamCity} ${teamName}`;
+    const msg = `:slot_machine: *${data.username}* placed a $${data.betAmount} ${data.betType} bet on the ${teamCity} ${teamName}`;
 
     await sendMessageToSlack(msg);
     return true;
