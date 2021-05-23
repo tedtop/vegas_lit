@@ -94,7 +94,7 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                             text: 'Total Profit',
                             text2: '\$$totalProfit',
                             color:
-                                totalProfit > 0 ? Palette.green : Palette.red,
+                                totalProfit >= 0 ? Palette.green : Palette.red,
                           ),
                           BetHistoryRow(
                             text: 'Win/Loss Ratio',

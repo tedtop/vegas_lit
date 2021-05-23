@@ -213,10 +213,6 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
   }
 
   String profitOrLoss({@required int number}) {
-    if (number.isNegative) {
-      return 'Loss: \$${number.abs()}';
-    } else {
-      return 'Profit: \$$number';
-    }
+    return 'Profit: \$$number';
   }
 }
