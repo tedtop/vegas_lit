@@ -220,6 +220,7 @@ class BetHistorySlip extends StatelessWidget {
     final odds = betHistory.odds.isNegative
         ? betHistory.odds.toString()
         : '+${betHistory.odds}';
+    final pointSpread = betHistory.betPointSpread;
 
     final isWin = betHistory.winningTeam == betHistory.betTeam;
     final betTeam = betHistory.betTeam == 'home'
@@ -245,14 +246,20 @@ class BetHistorySlip extends StatelessWidget {
                 text: TextSpan(
                   style: textStyle,
                   children: [
-                    betTeam != 'away'
+                    betHistory.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: textStyle,
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.cream,
+                            ),
                           )
                         : TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: textStyle.copyWith(color: Palette.green),
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.green,
+                            ),
                           ),
                     TextSpan(text: isWin ? 'WON' : 'LOST'),
                     TextSpan(
@@ -278,23 +285,32 @@ class BetHistorySlip extends StatelessWidget {
                 text: TextSpan(
                   style: textStyle,
                   children: [
-                    TextSpan(
-                      text: isWin
-                          ? '${winTeamByScore.toUpperCase()} '
-                          : '${loseTeamByScore.toUpperCase()} ',
-                      style: textStyle.copyWith(
-                        color: Palette.green,
-                      ),
-                    ),
+                    betHistory.betTeam == 'away'
+                        ? TextSpan(
+                            text: '${betTeam.toUpperCase()} ',
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.cream,
+                            ),
+                          )
+                        : TextSpan(
+                            text: '${betTeam.toUpperCase()} ',
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.green,
+                            ),
+                          ),
                     TextSpan(
                       text:
-                          '${isWin ? 'WON' : 'LOST'} ${betData.awayTeamScore}-${betData.homeTeamScore} ($odds)',
+                          '${isWin ? 'WON' : 'LOST'} ${betData.awayTeamScore}-${betData.homeTeamScore}',
                     ),
                   ],
                 ),
               ),
               Text(
-                isWin ? 'AUTOMATIC WIN' : 'AUTOMATIC LOSS',
+                isWin
+                    ? 'AUTOMATIC WIN $pointSpread ($odds)'
+                    : 'AUTOMATIC LOSS $pointSpread ($odds)',
                 style: textStyle,
               ),
             ],
@@ -307,24 +323,50 @@ class BetHistorySlip extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                'THE COMBINED SCORE WAS ${betData.totalGameScore}',
-                textAlign: TextAlign.center,
-                style: textStyle,
+              RichText(
+                text: TextSpan(
+                  style: textStyle,
+                  children: [
+                    betHistory.betTeam == 'away'
+                        ? TextSpan(
+                            text: '${betTeam.toUpperCase()} ',
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.cream,
+                            ),
+                          )
+                        : TextSpan(
+                            text: '${betTeam.toUpperCase()} ',
+                            style: GoogleFonts.nunito(
+                              fontSize: 14,
+                              color: Palette.green,
+                            ),
+                          ),
+                    TextSpan(text: isWin ? 'WON' : 'LOST'),
+                    TextSpan(
+                        text:
+                            ' ${betData.awayTeamScore}-${betData.homeTeamScore}'),
+                  ],
+                ),
               ),
+              // Text(
+              //   'COMBINED SCORE WAS ${betData.totalGameScore} (${betData.awayTeamScore}-${betData.homeTeamScore})',
+              //   textAlign: TextAlign.center,
+              //   style: textStyle,
+              // ),
               RichText(
                 text: TextSpan(
                   style: textStyle,
                   children: [
                     TextSpan(
                         text: betData.totalGameScore > betData.betOverUnder
-                            ? 'ABOVE YOUR'
-                            : 'BELOW YOUR'),
-                    TextSpan(
-                      text: betData.betTeam == 'away'
-                          ? ' +${betData.betOverUnder} ($odds)'
-                          : ' -${betData.betOverUnder} ($odds)',
-                    ),
+                            ? 'ABOVE YOUR ${betData.betOverUnder} ($odds)'
+                            : 'BELOW YOUR ${betData.betOverUnder} ($odds)'),
+                    // TextSpan(
+                    //   text: betData.betTeam == 'away'
+                    //       ? ' ${betData.betOverUnder} ($odds)'
+                    //       : ' ${betData.betOverUnder} ($odds)',
+                    // ),
                   ],
                 ),
               ),
