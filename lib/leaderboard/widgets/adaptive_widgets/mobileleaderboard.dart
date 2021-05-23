@@ -23,13 +23,13 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-          child: Text(
-            'Current Leaderboard',
-            style: Styles.normalTextBold,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+        //   child: Text(
+        //     'Current Leaderboard',
+        //     style: Styles.normalTextBold,
+        //   ),
+        // ),
         TextBar(
           text: leaderboardState.day,
           textList: leaderboardState.days,
