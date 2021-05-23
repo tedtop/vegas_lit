@@ -172,9 +172,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
             style: Styles.normalTextBold,
           ),
           subtitle: Text(
-            profitOrLoss(
-              number: (widget.player.totalProfit - widget.player.totalLoss),
-            ),
+            'Profit: \$${widget.player.totalProfit}',
             style: Styles.homeTeam,
           ),
           collapsedBackgroundColor: Palette.lightGrey,
@@ -212,7 +210,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
     );
   }
 
-  String profitOrLoss({@required int number}) {
-    return 'Profit: \$$number';
-  }
+  // String profitOrLoss({@required int number}) {
+  //   return 'Profit: \$$number';
+  // }
 }

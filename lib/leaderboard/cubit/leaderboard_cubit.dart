@@ -37,8 +37,8 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
       final userDataList =
           await _userRepository.fetchLeaderboardDaysUserData(day: day)
             ..sort(
-              (b, a) => (a.totalProfit - a.totalLoss).compareTo(
-                (b.totalProfit - b.totalLoss),
+              (b, a) => (a.totalProfit).compareTo(
+                (b.totalProfit),
               ),
             );
       emit(
@@ -58,8 +58,8 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
     _leaderboardSubscription = usersStream.listen(
       (event) {
         event.sort(
-          (b, a) => (a.totalProfit - a.totalLoss).compareTo(
-            (b.totalProfit - b.totalLoss),
+          (b, a) => (a.totalProfit).compareTo(
+            (b.totalProfit),
           ),
         );
 
