@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/admin_vault/cubit/admin_vault_cubit.dart';
+import 'package:vegas_lit/admin_vault/widgets/admin_record_box.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/shared_widgets/app_bar.dart';
 
@@ -28,20 +29,22 @@ class AdminVaultScreen extends StatelessWidget {
         body: BlocBuilder<AdminVaultCubit, AdminVaultState>(
           builder: (context, state) {
             if (state is AdminVaultDataFetched) {
-              final totalData = state.totalData
-                  .where((element) => element.date != 'cumulative')
-                  .toList();
-              return Column(
+              final totalData = state.totalData.reversed.toList();
+              return ListView(
                 children: [
-                  Text(
-                    'ADMIN VAULT',
-                    style: GoogleFonts.nunito(
-                      fontSize: 28,
-                      color: Palette.green,
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Text(
+                      'ADMIN VAULT',
+                      style: GoogleFonts.nunito(
+                        fontSize: 28,
+                        color: Palette.green,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  _buildRecordTable(totalData, state.cumulativeData)
+                  ...totalData.map((data) => AdminRecordBox(
+                        item: data,
+                      ))
                 ],
               );
             } else {
@@ -49,149 +52,5 @@ class AdminVaultScreen extends StatelessWidget {
             }
           },
         ));
-  }
-
-  Widget _buildRecordTable(
-      List<VaultItem> totalData, VaultItem cumulativeData) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        child: Table(
-          columnWidths: {
-            0: const FlexColumnWidth(1.5),
-          },
-          border: TableBorder.all(color: Palette.green),
-          children: [
-            const TableRow(children: [
-              TableCell(
-                child: Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Text(
-                    'Date',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              TableCell(
-                child: Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Text(
-                    'Bets',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              TableCell(
-                child: Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Text(
-                    'Money In',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              TableCell(
-                child: Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Text(
-                    'Money Out',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              TableCell(
-                child: Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Text(
-                    'Profit',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ]),
-            ...totalData.map((item) => TableRow(
-                  children: [
-                    TableCell(
-                      child: Text(
-                        item.date.toString(),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    TableCell(
-                      child: Text(
-                        item.numberOfBets.toString(),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    TableCell(
-                      child: Text(
-                        '\$${item.moneyIn.toString()}',
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    TableCell(
-                      child: Text(
-                        '\$${item.moneyOut.toString()}',
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    TableCell(
-                      child: Text(
-                        '\$${item.totalProfit.toString()}',
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                  ],
-                )),
-            TableRow(children: [
-              const TableCell(
-                child: Text(
-                  'Total : ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TableCell(
-                child: Text(
-                  cumulativeData.numberOfBets.toString(),
-                  textAlign: TextAlign.right,
-                ),
-              ),
-              TableCell(
-                child: Text(
-                  '\$${cumulativeData.moneyIn.toString()}',
-                  textAlign: TextAlign.right,
-                ),
-              ),
-              TableCell(
-                child: Text(
-                  '\$${cumulativeData.moneyOut.toString()}',
-                  textAlign: TextAlign.right,
-                ),
-              ),
-              TableCell(
-                child: Text(
-                  '\$${cumulativeData.totalProfit.toString()}',
-                  textAlign: TextAlign.right,
-                ),
-              ),
-            ])
-          ],
-        ),
-      ),
-    );
   }
 }
