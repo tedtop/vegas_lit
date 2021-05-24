@@ -256,7 +256,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -271,7 +272,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -286,7 +288,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -301,7 +304,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -316,7 +320,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -331,7 +336,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -361,7 +367,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         .then(
           (value) => value
               .where((element) => element.status == 'Scheduled')
-              // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+              .where((element) =>
+                  element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
               .where((element) => element.isClosed == false)
               .toList(),
         );
@@ -412,7 +419,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     //     .then(
     //       (value) => value
     //           .where((element) => element.status == 'Scheduled')
-    //            .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+    //            .where((element) =>element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
     //           .where((element) => element.isClosed == false)
     //           .toList(),
     //     );
@@ -463,7 +470,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         .then(
           (value) => value
               .where((element) => element.status == 'Scheduled')
-              // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+              .where((element) =>
+                  element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
               .where((element) => element.isClosed == false)
               .toList(),
         );
@@ -514,7 +522,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         .then(
           (value) => value
               .where((element) => element.status == 'Scheduled')
-              // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+              .where((element) =>
+                  element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
               .where((element) => element.isClosed == false)
               .toList(),
         );
@@ -565,7 +574,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     //     .then(
     //       (value) => value
     //           .where((element) => element.status == 'Scheduled')
-    //            .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+    //           .where((element) => element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
     //           .where((element) => element.isClosed == false)
     //           .toList(),
     //     );
@@ -616,7 +625,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         .then(
           (value) => value
               .where((element) => element.status == 'Scheduled')
-              // .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+              .where((element) =>
+                  element.dateTime.toUtc().isAfter(fetchTimeEST().toUtc()))
               .where((element) => element.isClosed == false)
               .toList(),
         );
