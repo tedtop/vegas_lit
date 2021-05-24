@@ -100,20 +100,52 @@ class OpenBetsSlip extends StatelessWidget {
                               Expanded(
                                 child: CountdownTimer(
                                   endTime: getESTGameTimeInMS(
-                                    DateTime.parse(openBets.gameDateTime),
+                                    DateTime.parse(openBets.gameStartDateTime),
                                   ),
                                   widgetBuilder:
                                       (_, CurrentRemainingTime time) {
                                     if (time == null) {
-                                      return Center(
-                                        child: Text(
-                                          'In Progress',
-                                          style: GoogleFonts.nunito(
-                                            color: Palette.red,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      return CountdownTimer(
+                                        endTime: getESTGameTimeInMS(
+                                          DateTime.parse(
+                                              openBets.gameEndDateTime),
                                         ),
+                                        widgetBuilder:
+                                            (_, CurrentRemainingTime time) {
+                                          if (time == null) {
+                                            return Center(
+                                              child: Text(
+                                                'Waiting For Update',
+                                                style: GoogleFonts.nunito(
+                                                  color: Palette.red,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            );
+                                          }
+
+                                          final hours = time.hours == null
+                                              ? ''
+                                              : ' ${time.hours}hr';
+                                          final min = time.min == null
+                                              ? ''
+                                              : ' ${time.min}m';
+                                          final sec = time.sec == null
+                                              ? ''
+                                              : ' ${time.sec}s';
+
+                                          return Center(
+                                            child: Text(
+                                              'Starting in$hours$min$sec',
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 14,
+                                                color: Palette.red,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       );
                                     }
 

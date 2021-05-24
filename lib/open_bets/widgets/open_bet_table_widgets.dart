@@ -153,7 +153,7 @@ class OpenBetRow extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 18),
                           child: CountdownTimer(
-                            endTime: DateTime.parse(openBets.gameDateTime)
+                            endTime: DateTime.parse(openBets.gameStartDateTime)
                                 .millisecondsSinceEpoch,
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {

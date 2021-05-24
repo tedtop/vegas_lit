@@ -18,13 +18,14 @@ class BetData extends Equatable {
     @required this.awayTeam,
     @required this.awayTeamScore,
     @required this.homeTeamCity,
+    @required this.gameEndDateTime,
     @required this.awayTeamCity,
     @required this.homeTeamScore,
     @required this.totalGameScore,
     @required this.uid,
     @required this.homeTeamName,
     @required this.awayTeamName,
-    @required this.gameDateTime,
+    @required this.gameStartDateTime,
     @required this.dateTime,
     @required this.gameId,
     @required this.isClosed,
@@ -55,7 +56,8 @@ class BetData extends Equatable {
       totalGameScore: data['totalGameScore'] as int,
       homeTeamName: data['homeTeamName'] as String,
       awayTeamName: data['awayTeamName'] as String,
-      gameDateTime: data['gameDateTime'] as String,
+      gameStartDateTime: data['gameStartDateTime'] as String,
+      gameEndDateTime: data['gameEndDateTime'] as String,
       dateTime: data['dateTime'] as String,
       gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
@@ -83,7 +85,8 @@ class BetData extends Equatable {
   final String awayTeamName;
   final String awayTeam;
   final String uid;
-  final String gameDateTime;
+  final String gameStartDateTime;
+  final String gameEndDateTime;
   final String dateTime;
   final int gameId;
   final String winningTeam;
@@ -111,7 +114,8 @@ class BetData extends Equatable {
       'winningTeam': winningTeam,
       'homeTeamName': homeTeamName,
       'awayTeamName': awayTeamName,
-      'gameDateTime': gameDateTime,
+      'gameEndDateTime': gameEndDateTime,
+      'gameStartDateTime': gameStartDateTime,
       'dateTime': dateTime,
       'homeTeam': homeTeam,
       'awayTeam': awayTeam,
@@ -136,6 +140,7 @@ class BetData extends Equatable {
       betOverUnder,
       winningTeam,
       homeTeam,
+      gameEndDateTime,
       username,
       awayTeam,
       awayTeamScore,
@@ -143,7 +148,7 @@ class BetData extends Equatable {
       totalGameScore,
       homeTeamName,
       awayTeamName,
-      gameDateTime,
+      gameStartDateTime,
       dateTime,
       gameId,
       homeTeamCity,

@@ -8,7 +8,6 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/interstitial/reward_ad.dart';
-import 'package:vegas_lit/open_bets/open_bets.dart';
 import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/shared_widgets/abstract_card.dart';
 import 'bet_slip_page.dart';

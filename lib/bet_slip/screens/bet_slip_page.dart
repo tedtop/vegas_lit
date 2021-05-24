@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/bet_slip/screens/bet_slip_reward_ad.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
-import 'package:vegas_lit/interstitial/reward_ad.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 
 import '../cubit/bet_slip_cubit.dart';

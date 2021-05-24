@@ -86,7 +86,7 @@ class BetHistorySlip extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                                    DateTime.parse(betHistory.gameDateTime)
+                                    DateTime.parse(betHistory.gameStartDateTime)
                                         .toLocal(),
                                   ),
                                   style: GoogleFonts.nunito(
