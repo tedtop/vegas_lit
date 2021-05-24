@@ -17,11 +17,15 @@ class BetHistoryCubit extends Cubit<BetHistoryState> {
 
   final BetsRepository _betsRepository;
   StreamSubscription _betHistorySubscription;
+  DateTime todayDate = DateTime.now();
 
   Future<void> betHistoryOpen({
     @required String currentUserId,
+    DateTime betDateHistory,
   }) async {
-    final openBetsData = _betsRepository.fetchBetHistory(uid: currentUserId);
+    betDateHistory = betDateHistory ?? todayDate;
+    final openBetsData = _betsRepository.fetchBetHistory(
+        uid: currentUserId, betDateTime: betDateHistory);
     await _betHistorySubscription?.cancel();
     _betHistorySubscription = openBetsData.listen(
       (event) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:vegas_lit/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/bet_history/widgets/adaptive_widgets/mobilebethistory.dart';
 import 'package:vegas_lit/bet_history/widgets/adaptive_widgets/tabletbethistory.dart';
 import 'package:vegas_lit/bet_history/widgets/adaptive_widgets/webbethistory.dart';
@@ -10,6 +11,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
 import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
+import 'package:vegas_lit/profile/cubit/profile_cubit.dart';
 
 class BetHistory extends StatelessWidget {
   const BetHistory._({Key key}) : super(key: key);
@@ -22,11 +24,21 @@ class BetHistory extends StatelessWidget {
     );
   }
 
+  // we can alter this later on acc to our need
+  bool _decideWhichDayToEnable(DateTime day) {
+    if ((day.isAfter(DateTime.now().subtract(const Duration(days: 7))) &&
+        day.isBefore(DateTime.now().add(const Duration(days: 0))))) {
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
         final openBetsState = context.watch<OpenBetsCubit>().state;
+        final currentUId = context.watch<ProfileCubit>().state.userData.uid;
         if (openBetsState.status == OpenBetsStatus.opened) {
           final betPlacedLength = openBetsState.openBetsDataList.length;
           final betAmountRisk =
@@ -44,6 +56,29 @@ class BetHistory extends StatelessWidget {
                       style: Styles.pageTitle,
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Select Date'),
+                  IconButton(
+                    onPressed: () async {
+                      final betDateTime = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2022),
+                          selectableDayPredicate: _decideWhichDayToEnable);
+                      if (betDateTime != null) {
+                        await BlocProvider.of<BetHistoryCubit>(context)
+                            .betHistoryOpen(
+                                currentUserId: currentUId,
+                                betDateHistory: betDateTime);
+                      }
+                    },
+                    icon: const Icon(Icons.date_range_outlined),
+                  )
                 ],
               ),
               ScreenTypeLayout(

@@ -62,7 +62,10 @@ class CloudFirestore {
 
   // Bet History Page
 
-  Stream<List<BetData>> fetchBetHistory({@required String uid}) {
+  Stream<List<BetData>> fetchBetHistory({
+    @required String uid,
+    @required DateTime betDateHistory,
+  }) {
     final betHistoryData = _firestoreData
         .collection('bets')
         .where('uid', isEqualTo: uid)
@@ -70,7 +73,12 @@ class CloudFirestore {
         .orderBy('dateTime', descending: true)
         .snapshots()
         .map((event) =>
-            event.docs.map((e) => BetData.fromFirestore(e)).toList());
+            event.docs.map((e) => BetData.fromFirestore(e)).where((element) {
+              print(
+                  '${DateTime.parse(element.dateTime).day} ${betDateHistory.day.toInt()} dateTime');
+              return DateTime.parse(element.dateTime).day ==
+                  betDateHistory.day.toInt();
+            }).toList());
     return betHistoryData;
   }
 

@@ -8,8 +8,11 @@ class BetsRepository {
   Stream<List<BetData>> fetchOpenBets({@required String uid}) =>
       _databaseProvider.fetchOpenBets(uid: uid);
 
-  Stream<List<BetData>> fetchBetHistory({@required String uid}) =>
-      _databaseProvider.fetchBetHistory(uid: uid);
+  Stream<List<BetData>> fetchBetHistory({
+    @required String uid,
+    @required DateTime betDateTime,
+  }) =>
+      _databaseProvider.fetchBetHistory(uid: uid, betDateHistory: betDateTime);
 
   Future<void> saveBet({
     @required String uid,
