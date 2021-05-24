@@ -12,6 +12,7 @@ var app = admin.initializeApp();
 
 export const resolveBets = functions.pubsub
   .schedule("0 * * * *")
+  .timeZone("America/New_York")
   .onRun(async (context) => {
     const startTime = performance.now();
     await sendMessageToSlack(`:mega: Resolving bets...`);
@@ -29,9 +30,12 @@ export const resolveBets = functions.pubsub
           snapshots.docs.map(async (document) => {
             const data = document.data();
 
+            const dateInEST = moment().tz("America/New_York").date;
+
             const dateTime = formatTime(data.gameDateTime);
             const league = data.league.toLowerCase();
             const isClosedFirestore = data.isClosed;
+
             const apikey = whichKey(league);
             const gameId = data.gameId;
             const documentId = data.id;
@@ -40,6 +44,9 @@ export const resolveBets = functions.pubsub
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
             const username = data.username;
+            const betPlacedDateTime = new Date(data.dateTime);
+            const betPlacedDateTimeInFormat =
+              moment(betPlacedDateTime).format("YYYY-MM-DD");
             const amountWin = data.betProfit;
             const totalWinAmount = amountWin + amountBet;
 
@@ -106,51 +113,112 @@ export const resolveBets = functions.pubsub
                         winningTeam: finalWinTeam,
                       })
                       .then(async (_) => {
-                        if (isWin) {
-                          await app
-                            .firestore()
-                            .collection("wallets")
-                            .doc(uid)
-                            .update({
-                              totalOpenBets:
-                                admin.firestore.FieldValue.increment(-1),
-                              totalProfit:
-                                admin.firestore.FieldValue.increment(amountWin),
-                              accountBalance:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                              totalBetsWon:
-                                admin.firestore.FieldValue.increment(1),
-                              potentialWinAmount:
-                                admin.firestore.FieldValue.increment(
-                                  -amountWin
-                                ),
-                            });
-                          await sendMessageToSlack(
-                            `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                          );
+                        if (betPlacedDateTime.getDate < dateInEST) {
+                          if (isWin) {
+                            await app
+                              .firestore()
+                              .collection("leaderboard")
+                              .doc(betPlacedDateTimeInFormat)
+                              .collection("wallets")
+                              .doc(uid)
+                              .update({
+                                totalOpenBets:
+                                  admin.firestore.FieldValue.increment(-1),
+                                totalProfit:
+                                  admin.firestore.FieldValue.increment(
+                                    amountWin
+                                  ),
+                                accountBalance:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                                totalBetsWon:
+                                  admin.firestore.FieldValue.increment(1),
+                                potentialWinAmount:
+                                  admin.firestore.FieldValue.increment(
+                                    -amountWin
+                                  ),
+                              });
+                            await sendMessageToSlack(
+                              `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                            );
+                          } else {
+                            await app
+                              .firestore()
+                              .collection("leaderboard")
+                              .doc(betPlacedDateTimeInFormat)
+                              .collection("wallets")
+                              .doc(uid)
+                              .update({
+                                totalOpenBets:
+                                  admin.firestore.FieldValue.increment(-1),
+                                totalLoss:
+                                  admin.firestore.FieldValue.increment(
+                                    amountBet
+                                  ),
+                                totalBetsLost:
+                                  admin.firestore.FieldValue.increment(1),
+                                potentialWinAmount:
+                                  admin.firestore.FieldValue.increment(
+                                    -amountWin
+                                  ),
+                              });
+                            await sendMessageToSlack(
+                              `:moneybag: *${username}* lost their bet for $${amountBet}`
+                            );
+                          }
                         } else {
-                          await app
-                            .firestore()
-                            .collection("wallets")
-                            .doc(uid)
-                            .update({
-                              totalOpenBets:
-                                admin.firestore.FieldValue.increment(-1),
-                              totalLoss:
-                                admin.firestore.FieldValue.increment(amountBet),
-                              totalBetsLost:
-                                admin.firestore.FieldValue.increment(1),
-                              potentialWinAmount:
-                                admin.firestore.FieldValue.increment(
-                                  -amountWin
-                                ),
-                            });
-                          await sendMessageToSlack(
-                            `:moneybag: *${username}* lost their bet for $${amountBet}`
-                          );
+                          if (isWin) {
+                            await app
+                              .firestore()
+                              .collection("wallets")
+                              .doc(uid)
+                              .update({
+                                totalOpenBets:
+                                  admin.firestore.FieldValue.increment(-1),
+                                totalProfit:
+                                  admin.firestore.FieldValue.increment(
+                                    amountWin
+                                  ),
+                                accountBalance:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                                totalBetsWon:
+                                  admin.firestore.FieldValue.increment(1),
+                                potentialWinAmount:
+                                  admin.firestore.FieldValue.increment(
+                                    -amountWin
+                                  ),
+                              });
+                            await sendMessageToSlack(
+                              `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                            );
+                          } else {
+                            await app
+                              .firestore()
+                              .collection("wallets")
+                              .doc(uid)
+                              .update({
+                                totalOpenBets:
+                                  admin.firestore.FieldValue.increment(-1),
+                                totalLoss:
+                                  admin.firestore.FieldValue.increment(
+                                    amountBet
+                                  ),
+                                totalBetsLost:
+                                  admin.firestore.FieldValue.increment(1),
+                                potentialWinAmount:
+                                  admin.firestore.FieldValue.increment(
+                                    -amountWin
+                                  ),
+                              });
+                            await sendMessageToSlack(
+                              `:moneybag: *${username}* lost their bet for $${amountBet}`
+                            );
+                          }
                         }
+
                         valueUpdateNumber++;
                       });
                   }
