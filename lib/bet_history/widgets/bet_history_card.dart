@@ -226,15 +226,15 @@ class BetHistorySlip extends StatelessWidget {
     final betTeam = betHistory.betTeam == 'home'
         ? betHistory.homeTeamName
         : betHistory.awayTeamName;
-    // final notBetTeam = betHistory.betTeam != 'home'
-    //     ? betHistory.homeTeamName
-    //     : betHistory.awayTeamName;
-    final winTeamByScore = betData.awayTeamScore > betData.homeTeamScore
-        ? betData.awayTeamName
-        : betData.homeTeamName;
-    final loseTeamByScore = betData.awayTeamScore > betData.homeTeamScore
-        ? betData.homeTeamName
-        : betData.awayTeamName;
+    // // final notBetTeam = betHistory.betTeam != 'home'
+    // //     ? betHistory.homeTeamName
+    // //     : betHistory.awayTeamName;
+    // final winTeamByScore = betData.awayTeamScore > betData.homeTeamScore
+    //     ? betData.awayTeamName
+    //     : betData.homeTeamName;
+    // final loseTeamByScore = betData.awayTeamScore > betData.homeTeamScore
+    //     ? betData.homeTeamName
+    //     : betData.awayTeamName;
 
     switch (betData.betType) {
       case 'moneyline':
