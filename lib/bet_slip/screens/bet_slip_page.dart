@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/bet_slip/screens/bet_slip_reward_ad.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/home/widgets/bottombar.dart';
+import 'package:vegas_lit/interstitial/reward_ad.dart';
+import 'package:vegas_lit/open_bets/cubit/open_bets_cubit.dart';
 
 import '../cubit/bet_slip_cubit.dart';
 import '../widgets/bet_slip_card.dart';
@@ -11,6 +14,8 @@ import 'bet_slip_empty.dart';
 class BetSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isBetPlaced =
+        context.read<OpenBetsCubit>().state.openBetsDataList.isNotEmpty;
     return Scaffold(
       body: ListView(children: [
         BlocBuilder<BetSlipCubit, BetSlipState>(
@@ -18,7 +23,9 @@ class BetSlip extends StatelessWidget {
             switch (state.status) {
               case BetSlipStatus.opened:
                 return state.betSlipCardData.isEmpty
-                    ? EmptyBetSlip()
+                    ? isBetPlaced
+                        ? RewardedBetSlip()
+                        : EmptyBetSlip()
                     : BetSlipList();
                 break;
               default:
