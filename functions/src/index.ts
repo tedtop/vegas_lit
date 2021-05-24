@@ -251,7 +251,29 @@ export const resolveBets = functions.pubsub
         1
       )}ms`
     );
+    await sendMessageToSlack(":rocket: Updating leaderboard...");
+
+    await sendLeaderboardToSlack();
+
     return true;
+
+    // Sending top 10 leaderboard users
+    async function sendLeaderboardToSlack() {
+      await app
+        .firestore()
+        .collection("wallets")
+        .orderBy("totalProfit", "desc")
+        .limit(10)
+        .get()
+        .then(async (snapshots) => {
+          var rankNumber = 1;
+
+          for (const docs of snapshots.docs) {
+            await sendMessageToSlack(`${rankNumber}. ${docs.data().username}`);
+            rankNumber++;
+          }
+        });
+    }
 
     // Finding point spread sign
     function pointSpreadAssign(pointSpread: any, winTeam: string) {
