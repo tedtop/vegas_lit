@@ -269,9 +269,8 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                 text: 'PLACE BET',
                                 action: () async {
                                   if (isMinimumVersion) {
-                                    if (!(betButtonState.game.dateTime
-                                        .toUtc()
-                                        .isAfter(fetchTimeEST().toUtc()))) {
+                                    if (betButtonState.game.dateTime
+                                        .isBefore(fetchTimeEST())) {
                                       ScaffoldMessenger.of(context)
                                         ..removeCurrentSnackBar()
                                         ..showSnackBar(
@@ -660,7 +659,9 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
     tz.initializeTimeZones();
     final locationNY = tz.getLocation('America/New_York');
     final nowNY = tz.TZDateTime.now(locationNY);
-    return nowNY;
+    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
+        nowNY.minute, nowNY.second);
+    return dateTimeNY;
   }
 
   String whichBetSystemToSave({@required Bet betType}) {

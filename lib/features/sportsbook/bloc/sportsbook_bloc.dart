@@ -81,29 +81,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       gameNumbers: state.gameNumbers,
       estTimeZone: state.estTimeZone,
     );
-
-    // switch (event.league) {
-    //   case 'NFL':
-    //     yield* _mapGameNFL(gameNumberMap: state.gameNumbers);
-    //     break;
-    //   case 'NBA':
-    //     yield* _mapGameNBA(gameNumberMap: state.gameNumbers);
-    //     break;
-    //   case 'MLB':
-    //     yield* _mapGameMLB(gameNumberMap: state.gameNumbers);
-    //     break;
-    //   case 'NHL':
-    //     yield* _mapGameNHL(gameNumberMap: state.gameNumbers);
-    //     break;
-    //   case 'NCAAF':
-    //     yield* _mapGameNCAAF(gameNumberMap: state.gameNumbers);
-    //     break;
-    //   case 'NCAAB':
-    //     yield* _mapGameNCAAB(gameNumberMap: state.gameNumbers);
-    //     break;
-
-    //   default:
-    // }
   }
 
   DateTime fetchTimeEST() {

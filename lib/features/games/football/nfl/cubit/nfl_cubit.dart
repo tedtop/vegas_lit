@@ -19,6 +19,7 @@ class NflCubit extends Cubit<NflState> {
         super(
           const NflState.initial(),
         );
+  // ignore: unused_field
   final SportsRepository _sportsfeedRepository;
 
   Future<void> fetchNflGames() async {

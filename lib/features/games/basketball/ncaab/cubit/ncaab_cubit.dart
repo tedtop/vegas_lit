@@ -25,8 +25,7 @@ class NcaabCubit extends Cubit<NcaabState> {
     const league = 'NCAAB';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    // final tomorrowEstTimeZone =
-    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+
     List<Game> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -41,22 +40,7 @@ class NcaabCubit extends Cubit<NcaabState> {
               .toList(),
         );
 
-    // if (greeting(dateTime: estTimeZone) == 'evening') {
-    //   final tomorrowGames = await _sportsfeedRepository
-    //       .fetchNCAAB(
-    //         dateTime: tomorrowEstTimeZone,
-    //       )
-    //       .then(
-    //         (value) => value
-    //             .where((element) => element.status == 'Scheduled')
-    //             .where((element) => element.isClosed == false)
-    //             .toList(),
-    //       );
-
-    //   totalGames = todayGames + tomorrowGames;
-    // } else {
     totalGames = todayGames;
-    // }
 
     emit(NcaabState.opened(
       localTimeZone: localTimeZone,

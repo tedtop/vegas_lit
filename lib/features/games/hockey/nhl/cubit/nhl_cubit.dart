@@ -25,8 +25,7 @@ class NhlCubit extends Cubit<NhlState> {
     const league = 'NHL';
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
-    // final tomorrowEstTimeZone =
-    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
+
     List<Game> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -41,22 +40,7 @@ class NhlCubit extends Cubit<NhlState> {
               .toList(),
         );
 
-    // if (greeting(dateTime: estTimeZone) == 'evening') {
-    //   final tomorrowGames = await _sportsfeedRepository
-    //       .fetchNHL(
-    //         dateTime: tomorrowEstTimeZone,
-    //       )
-    //       .then(
-    //         (value) => value
-    //             .where((element) => element.status == 'Scheduled')
-    //             .where((element) => element.isClosed == false)
-    //             .toList(),
-    //       );
-
-    //   totalGames = todayGames + tomorrowGames;
-    // } else {
     totalGames = todayGames;
-    // }
 
     emit(NhlState.opened(
       localTimeZone: localTimeZone,

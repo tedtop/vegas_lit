@@ -99,7 +99,7 @@ class OpenBetsSlip extends StatelessWidget {
                                     if (time == null) {
                                       return Center(
                                         child: Text(
-                                          'Waiting For Update',
+                                          'In Progress',
                                           style: GoogleFonts.nunito(
                                             color: Palette.red,
                                             fontSize: 14,

@@ -19,6 +19,7 @@ class NcaafCubit extends Cubit<NcaafState> {
         super(
           const NcaafState.initial(),
         );
+  // ignore: unused_field
   final SportsRepository _sportsfeedRepository;
 
   Future<void> fetchNcaafGames() async {
