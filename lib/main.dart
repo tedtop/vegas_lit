@@ -1,4 +1,3 @@
-import 'package:api_client/api_client.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import 'app.dart';
+import 'data/repositories/bets_repository.dart';
+import 'data/repositories/sports_repository.dart';
+import 'data/repositories/user_repository.dart';
+import 'features/app.dart';
 import 'observer.dart';
 
 Future<void> main() async {

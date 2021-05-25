@@ -11,8 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  api_client:
-    path: packages/api_client
+
   bloc: ^6.1.1
   bottom_sheet_bar: ^2.0.0
   carousel_slider: ^3.0.0
