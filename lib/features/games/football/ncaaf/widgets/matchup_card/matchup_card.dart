@@ -30,7 +30,7 @@ class MatchupCard extends StatelessWidget {
     return Builder(
       builder: (_) {
         return BlocProvider(
-          create: (context) => MatchupCardCubit()
+          create: (context) => NcaafMatchupCardCubit()
             ..openMatchupCard(
               game: game,
               gameName: gameName,
@@ -44,7 +44,7 @@ class MatchupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MatchupCardCubit, MatchupCardState>(
+    return BlocBuilder<NcaafMatchupCardCubit, NcaafMatchupCardState>(
       builder: (context, state) {
         if (state is MatchupCardOpened) {
           final gameData = state.game;

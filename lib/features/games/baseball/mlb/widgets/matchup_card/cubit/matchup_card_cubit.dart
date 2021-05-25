@@ -5,8 +5,8 @@ import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
 part 'matchup_card_state.dart';
 
-class MatchupCardCubit extends Cubit<MatchupCardState> {
-  MatchupCardCubit() : super(MatchupCardInitial());
+class MlbMatchupCardCubit extends Cubit<MlbMatchupCardState> {
+  MlbMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
     @required Game game,

@@ -1,12 +1,12 @@
 part of 'matchup_card_cubit.dart';
 
-abstract class MatchupCardState {
-  const MatchupCardState();
+abstract class NcaafMatchupCardState {
+  const NcaafMatchupCardState();
 }
 
-class MatchupCardInitial extends MatchupCardState {}
+class MatchupCardInitial extends NcaafMatchupCardState {}
 
-class MatchupCardOpened extends MatchupCardState {
+class MatchupCardOpened extends NcaafMatchupCardState {
   MatchupCardOpened({
     @required this.game,
     @required this.league,

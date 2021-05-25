@@ -12,10 +12,12 @@ class BetSlipCardData extends Equatable {
     @required this.betButtonCubit,
     @required this.toWinAmount,
     @required this.league,
+    @required this.odds,
   });
 
   final String id;
   final Bet betType;
+  final String odds;
   final int betAmount;
   final Cubit betButtonCubit;
   final int toWinAmount;
@@ -26,6 +28,7 @@ class BetSlipCardData extends Equatable {
     bool isRemove,
     Bet betType,
     int betAmount,
+    String odds,
     Cubit betButtonCubit,
     int toWinAmount,
     String league,
@@ -33,6 +36,7 @@ class BetSlipCardData extends Equatable {
     return BetSlipCardData(
       betButtonCubit: betButtonCubit ?? this.betButtonCubit,
       id: id ?? this.id,
+      odds: odds ?? this.odds,
       betType: betType ?? this.betType,
       betAmount: betAmount ?? this.betAmount,
       toWinAmount: toWinAmount ?? this.toWinAmount,
@@ -45,6 +49,7 @@ class BetSlipCardData extends Equatable {
     return [
       id,
       betButtonCubit,
+      odds,
       betType,
       league,
       betAmount,

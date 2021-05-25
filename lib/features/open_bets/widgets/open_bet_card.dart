@@ -4,7 +4,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/features/sportsbook/widgets/matchup_card/matchup_card.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({
@@ -89,14 +89,6 @@ class OpenBetsSlip extends StatelessWidget {
                           // Last Row
                           Row(
                             children: [
-                              // Text(
-                              //   '${openBets.betType == 'moneyline' ? 'M' : openBets.betType == 'pointspread' ? 'P' : 'T'}',
-                              //   style: GoogleFonts.nunito(
-                              //     fontSize: 14,
-                              //     color: Palette.red,
-                              //     fontWeight: FontWeight.bold,
-                              //   ),
-                              // ),
                               Expanded(
                                 child: CountdownTimer(
                                   endTime: getESTGameTimeInMS(
@@ -138,14 +130,6 @@ class OpenBetsSlip extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              // Text(
-                              //   '${openBets.betType == 'moneyline' ? 'M' : openBets.betType == 'pointspread' ? 'P' : 'T'}',
-                              //   style: GoogleFonts.nunito(
-                              //     fontSize: 14,
-                              //     color: Palette.red,
-                              //     fontWeight: FontWeight.bold,
-                              //   ),
-                              // ),
                             ],
                           ),
                         ],
@@ -418,16 +402,6 @@ String whichBetSystem(String betType) {
   if (betType == 'total') {
     return 'TOTAL O/U';
   } else {
-    if (betType == 'MONEYLINE') {
-      return 'MONEYLINE';
-    }
-    if (betType == 'POINT SPREAD') {
-      return 'POINT SPREAD';
-    }
-    if (betType == 'TOTAL SPREAD') {
-      return 'TOTAL O/U';
-    } else {
-      return 'Error';
-    }
+    return 'ERROR';
   }
 }

@@ -11,12 +11,12 @@ import 'package:vegas_lit/features/games/hockey/nhl/models/nhl_team.dart';
 
 part 'bet_button_state.dart';
 
-class BetButtonCubit extends Cubit<BetButtonState> {
-  BetButtonCubit({@required BetsRepository betsRepository})
+class NhlBetButtonCubit extends Cubit<NhlBetButtonState> {
+  NhlBetButtonCubit({@required BetsRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
-          const BetButtonState.loading(),
+          const NhlBetButtonState.loading(),
         );
 
   final BetsRepository _betsRepository;
@@ -57,7 +57,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
         '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-$gameId-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     emit(
-      BetButtonState.unclicked(
+      NhlBetButtonState.unclicked(
         text: text,
         gameId: gameId,
         isClosed: isClosed,
@@ -82,7 +82,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     );
     if (isBetExists) {
       emit(
-        BetButtonState.placed(
+        NhlBetButtonState.placed(
           text: state.text,
           isClosed: state.isClosed,
           gameId: state.gameId,
@@ -101,7 +101,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
       return true;
     } else {
       emit(
-        BetButtonState.clicked(
+        NhlBetButtonState.clicked(
           text: state.text,
           isClosed: state.isClosed,
           uid: state.uid,
@@ -123,7 +123,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
 
   void unclickBetButton() {
     emit(
-      BetButtonState.unclicked(
+      NhlBetButtonState.unclicked(
         text: state.text,
         mainOdds: state.mainOdds,
         game: state.game,
@@ -143,7 +143,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
 
   void confirmBetButton() {
     emit(
-      BetButtonState.done(
+      NhlBetButtonState.done(
         text: state.text,
         game: state.game,
         mainOdds: state.mainOdds,

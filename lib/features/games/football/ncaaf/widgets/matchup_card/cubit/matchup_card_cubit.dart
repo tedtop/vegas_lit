@@ -5,8 +5,8 @@ import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
 
 part 'matchup_card_state.dart';
 
-class MatchupCardCubit extends Cubit<MatchupCardState> {
-  MatchupCardCubit() : super(MatchupCardInitial());
+class NcaafMatchupCardCubit extends Cubit<NcaafMatchupCardState> {
+  NcaafMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
     @required Game game,

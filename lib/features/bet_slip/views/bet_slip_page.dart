@@ -6,7 +6,6 @@ import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/open_bets/open_bets.dart';
 
 import '../cubit/bet_slip_cubit.dart';
-import '../widgets/bet_slip_card.dart';
 import 'bet_slip_empty.dart';
 import 'bet_slip_reward_ad.dart';
 
@@ -21,7 +20,7 @@ class BetSlip extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case BetSlipStatus.opened:
-                return state.betSlipCardData.isEmpty
+                return state.betSlipCard.isEmpty
                     ? isBetPlaced
                         ? RewardedBetSlip()
                         : EmptyBetSlip()
@@ -57,45 +56,6 @@ class BetSlipUpper extends StatelessWidget {
   }
 }
 
-// class BetSlipUpper extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final betSlipState = context.watch<BetSlipCubit>().state;
-//     return Container(
-//       height: 40,
-//       color: Palette.green,
-//       child: Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             const Text('BET SLIP'),
-//             betSlipState.status == BetSlipStatus.opened
-//                 ? Container(
-//                     height: 20,
-//                     width: 20,
-//                     color: betSlipState.games.isEmpty
-//                         ? Palette.darkGrey
-//                         : Palette.cream,
-//                     child: Center(
-//                       child: Text(
-//                         betSlipState.games.length.toString(),
-//                         style: GoogleFonts.nunito(
-//                           color: betSlipState.games.isEmpty
-//                               ? Palette.cream
-//                               : Palette.darkGrey,
-//                         ),
-//                       ),
-//                     ),
-//                   )
-//                 : const SizedBox(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class BetSlipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -106,12 +66,8 @@ class BetSlipList extends StatelessWidget {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: ListView(
-        // padding: EdgeInsets.symmetric(
-        //   horizontal: kIsWeb ? width / 2 : 0,
-        // ),
-
         key: Key(
-          '${betSlipState.betSlipCardData.length}',
+          '${betSlipState.betSlipCard.length}',
         ),
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
@@ -121,11 +77,9 @@ class BetSlipList extends StatelessWidget {
             reverse: true,
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            itemCount: betSlipState.betSlipCardData.length,
+            itemCount: betSlipState.betSlipCard.length,
             itemBuilder: (context, index) {
-              return BetSlipCard.route(
-                betSlipCardData: betSlipState.betSlipCardData[index],
-              );
+              return betSlipState.betSlipCard[index];
             },
           ),
           kIsWeb ? const BottomBar() : const SizedBox(),

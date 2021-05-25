@@ -5,8 +5,8 @@ import 'package:vegas_lit/features/games/hockey/nhl/models/nhl_team.dart';
 
 part 'matchup_card_state.dart';
 
-class MatchupCardCubit extends Cubit<MatchupCardState> {
-  MatchupCardCubit() : super(MatchupCardInitial());
+class NhlMatchupCardCubit extends Cubit<NhlMatchupCardState> {
+  NhlMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
     @required Game game,

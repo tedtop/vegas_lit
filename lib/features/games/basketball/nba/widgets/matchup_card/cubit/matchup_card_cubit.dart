@@ -5,8 +5,8 @@ import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 
 part 'matchup_card_state.dart';
 
-class MatchupCardCubit extends Cubit<MatchupCardState> {
-  MatchupCardCubit() : super(MatchupCardInitial());
+class NbaMatchupCardCubit extends Cubit<NbaMatchupCardState> {
+  NbaMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
     @required Game game,

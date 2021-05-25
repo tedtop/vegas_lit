@@ -94,14 +94,7 @@ class BetButtonUnclicked extends StatelessWidget {
           onPressed: () {
             context.read<BetButtonCubit>().clickBetButton();
             context.read<BetSlipCubit>().addBetSlip(
-                  betSlipCardData: BetSlipCardData(
-                    league: betButtonState.league,
-                    id: betButtonState.uniqueId,
-                    betType: betButtonState.betType,
-                    betAmount: 0,
-                    betButtonCubit: context.read<BetButtonCubit>(),
-                    toWinAmount: 0,
-                  ),
+                  betSlipCard: Container(),
                 );
           },
         ),

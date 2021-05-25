@@ -15,8 +15,8 @@ class BottomNavigation extends StatelessWidget {
         final pageIndex =
             context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
         if (betSlipStatus.status == BetSlipStatus.opened) {
-          final showBadge = betSlipStatus.betSlipCardData.isNotEmpty;
-          final badgeCount = betSlipStatus.betSlipCardData.length;
+          final showBadge = betSlipStatus.betSlipCard.isNotEmpty;
+          final badgeCount = betSlipStatus.betSlipCard.length;
           return BottomNavigationBar(
             selectedLabelStyle: GoogleFonts.nunito(),
             selectedFontSize: 14,

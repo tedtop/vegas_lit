@@ -11,12 +11,12 @@ import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
 part 'bet_button_state.dart';
 
-class BetButtonCubit extends Cubit<BetButtonState> {
-  BetButtonCubit({@required BetsRepository betsRepository})
+class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
+  MlbBetButtonCubit({@required BetsRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
-          const BetButtonState.loading(),
+          const MlbBetButtonState.loading(),
         );
 
   final BetsRepository _betsRepository;
@@ -42,9 +42,6 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     @required String league,
     @required MlbTeam homeTeamData,
   }) {
-    // final todayDateTime = fetchTimeEST();
-    // final todayFormatDate = todayDateTime.millisecondsSinceEpoch;
-    // final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
     final gameStartTimeFormat =
         DateFormat('yyyy-MM-dd-hh-mm').format(game.dateTime);
@@ -57,7 +54,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
         '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-$gameId-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     emit(
-      BetButtonState.unclicked(
+      MlbBetButtonState.unclicked(
         text: text,
         gameId: gameId,
         isClosed: isClosed,
@@ -82,7 +79,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
     );
     if (isBetExists) {
       emit(
-        BetButtonState.placed(
+        MlbBetButtonState.placed(
           text: state.text,
           isClosed: state.isClosed,
           gameId: state.gameId,
@@ -101,7 +98,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
       return true;
     } else {
       emit(
-        BetButtonState.clicked(
+        MlbBetButtonState.clicked(
           text: state.text,
           isClosed: state.isClosed,
           uid: state.uid,
@@ -123,7 +120,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
 
   void unclickBetButton() {
     emit(
-      BetButtonState.unclicked(
+      MlbBetButtonState.unclicked(
         text: state.text,
         mainOdds: state.mainOdds,
         game: state.game,
@@ -143,7 +140,7 @@ class BetButtonCubit extends Cubit<BetButtonState> {
 
   void confirmBetButton() {
     emit(
-      BetButtonState.done(
+      MlbBetButtonState.done(
         text: state.text,
         game: state.game,
         mainOdds: state.mainOdds,

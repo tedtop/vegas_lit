@@ -9,6 +9,7 @@ import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart'
 import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
+import 'package:vegas_lit/features/games/basketball/nba/widgets/bet_slip_card/bet_slip_card.dart';
 
 import '../cubit/bet_button_cubit.dart';
 
@@ -35,7 +36,7 @@ class BetButton extends StatelessWidget {
               authenticationBloc.state?.user?.uid,
         );
         return BlocProvider(
-          create: (_) => BetButtonCubit(
+          create: (_) => NbaBetButtonCubit(
             betsRepository: context.read<BetsRepository>(),
           )..openBetButton(
               gameId: gameId,
@@ -59,7 +60,7 @@ class BetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BetButtonCubit, BetButtonState>(
+    return BlocListener<NbaBetButtonCubit, NbaBetButtonState>(
       listener: (context, state) {
         switch (state.status) {
           case BetButtonStatus.placed:
@@ -78,7 +79,7 @@ class BetButton extends StatelessWidget {
       },
       child: Builder(
         builder: (context) {
-          final betButtonState = context.watch<BetButtonCubit>().state;
+          final betButtonState = context.watch<NbaBetButtonCubit>().state;
           switch (betButtonState.status) {
             case BetButtonStatus.unclicked:
               return BetButtonUnclicked();
@@ -105,7 +106,7 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<BetButtonCubit>().state;
+    final betButtonState = context.watch<NbaBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -132,19 +133,22 @@ class BetButtonUnclicked extends StatelessWidget {
           ),
           onPressed: () async {
             final isBetExist =
-                await context.read<BetButtonCubit>().clickBetButton();
+                await context.read<NbaBetButtonCubit>().clickBetButton();
             isBetExist
                 // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
-                      odds: betButtonState.mainOdds,
-                      betSlipCardData: BetSlipCardData(
-                        league: betButtonState.league,
-                        id: betButtonState.uniqueId,
-                        betType: betButtonState.betType,
-                        betAmount: 100,
-                        betButtonCubit: context.read<BetButtonCubit>(),
-                        toWinAmount: 0,
+                      betSlipCard: NbaBetSlipCard.route(
+                        key: Key(betButtonState.uniqueId),
+                        betSlipCardData: BetSlipCardData(
+                          odds: betButtonState.mainOdds,
+                          league: betButtonState.league,
+                          id: betButtonState.uniqueId,
+                          betType: betButtonState.betType,
+                          betAmount: 100,
+                          betButtonCubit: context.read<NbaBetButtonCubit>(),
+                          toWinAmount: 0,
+                        ),
                       ),
                     );
           },
@@ -157,7 +161,7 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<BetButtonCubit>().state;
+    final betButtonState = context.watch<NbaBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -184,7 +188,7 @@ class BetButtonClicked extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            context.read<BetButtonCubit>().unclickBetButton();
+            context.read<NbaBetButtonCubit>().unclickBetButton();
             context.read<BetSlipCubit>().removeBetSlip(
                   uniqueId: betButtonState.uniqueId,
                 );

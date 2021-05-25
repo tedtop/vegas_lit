@@ -217,7 +217,7 @@ class _SportsBookViewState extends State<SportsBookView> {
                                           width: 42,
                                           child: Center(
                                             child: Text(
-                                              state.betSlipCardData.length
+                                              state.betSlipCard.length
                                                   .toString(),
                                               style: GoogleFonts.nunito(
                                                 color: Palette.darkGrey,

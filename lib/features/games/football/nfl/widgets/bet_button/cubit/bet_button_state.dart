@@ -4,8 +4,8 @@ enum BetButtonStatus { done, error, loading, clicked, unclicked, placed }
 
 enum BetButtonWin { away, home }
 
-class BetButtonState extends Equatable {
-  const BetButtonState._({
+class NflBetButtonState extends Equatable {
+  const NflBetButtonState._({
     this.text,
     this.game,
     this.uniqueId,
@@ -22,9 +22,9 @@ class BetButtonState extends Equatable {
     this.winTeam,
   });
 
-  const BetButtonState.loading() : this._();
+  const NflBetButtonState.loading() : this._();
 
-  const BetButtonState.clicked(
+  const NflBetButtonState.clicked(
       {@required String text,
       @required Game game,
       @required String uniqueId,
@@ -55,7 +55,7 @@ class BetButtonState extends Equatable {
           betType: betType,
         );
 
-  const BetButtonState.unclicked(
+  const NflBetButtonState.unclicked(
       {@required String text,
       @required Game game,
       @required String uniqueId,
@@ -85,7 +85,7 @@ class BetButtonState extends Equatable {
             awayTeamData: awayTeamData,
             betType: betType);
 
-  const BetButtonState.done({
+  const NflBetButtonState.done({
     @required String text,
     @required Game game,
     @required String mainOdds,
@@ -116,7 +116,7 @@ class BetButtonState extends Equatable {
           betType: betType,
         );
 
-  const BetButtonState.placed({
+  const NflBetButtonState.placed({
     @required String text,
     @required Game game,
     @required String mainOdds,

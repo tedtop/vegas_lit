@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_card.dart';
 import 'package:vegas_lit/features/games/football/nfl/widgets/matchup_card/matchup_card.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 
@@ -84,7 +83,7 @@ class DesktopNflScreen extends StatelessWidget {
                               width: 42,
                               child: Center(
                                 child: Text(
-                                  state.betSlipCardData.length.toString(),
+                                  state.betSlipCard.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
                                     fontSize: 18,
@@ -109,7 +108,7 @@ class DesktopNflScreen extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.status) {
                       case BetSlipStatus.opened:
-                        return state.betSlipCardData.isEmpty
+                        return state.betSlipCard.isEmpty
                             ? AbstractCard(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 widgets: [
@@ -139,12 +138,9 @@ class DesktopNflScreen extends StatelessWidget {
                                 reverse: true,
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
-                                itemCount: betSlipState.betSlipCardData.length,
+                                itemCount: betSlipState.betSlipCard.length,
                                 itemBuilder: (context, index) {
-                                  return BetSlipCard.route(
-                                    betSlipCardData:
-                                        betSlipState.betSlipCardData[index],
-                                  );
+                                  return betSlipState.betSlipCard[index];
                                 },
                               );
                         break;
