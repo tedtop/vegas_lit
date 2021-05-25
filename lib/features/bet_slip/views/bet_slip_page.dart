@@ -6,8 +6,8 @@ import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/open_bets/open_bets.dart';
 
 import '../cubit/bet_slip_cubit.dart';
+import 'bet_slip_ad.dart';
 import 'bet_slip_empty.dart';
-import 'bet_slip_reward_ad.dart';
 
 class BetSlip extends StatelessWidget {
   @override

@@ -1,14 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
-import 'package:vegas_lit/features/interstitial/reward_ad.dart';
-import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
+import 'package:vegas_lit/features/interstitial/screens/interstitial_page.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 
 import 'bet_slip_page.dart';
@@ -17,10 +12,6 @@ class RewardedBetSlip extends StatelessWidget {
   RewardedBetSlip();
   @override
   Widget build(BuildContext context) {
-    final currentUid =
-        BlocProvider.of<ProfileCubit>(context).state.userData.uid;
-    final balance =
-        BlocProvider.of<HomeCubit>(context).state.userWallet.accountBalance;
     final size = MediaQuery.of(context).size;
     final buttonWidthHeight = size.width * .22;
 
@@ -65,19 +56,9 @@ class RewardedBetSlip extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      final onRewardCallBack = (
-                        RewardedAd rewardedAd,
-                        RewardItem rewardItem,
-                      ) async {
-                        await UserRepository().rewardForVideoAd(
-                          uid: currentUid,
-                          rewardValue: rewardItem.amount.toInt(),
-                        );
-                      };
-                      RewardAdManager(
-                        balance,
-                        onRewardCallBack,
-                      )..show();
+                      Navigator.of(context).push(
+                        Interstitial.route(),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
