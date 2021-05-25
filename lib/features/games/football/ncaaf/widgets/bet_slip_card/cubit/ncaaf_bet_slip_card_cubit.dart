@@ -13,10 +13,14 @@ class NcaafBetSlipCardCubit extends Cubit<NcaafBetSlipCardState> {
       odds: betSlipCardData.odds,
       betAmount: betSlipCardData.betAmount,
     );
+    final updatedBetSlipCard = betSlipCardData.copyWith(
+      toWinAmount: toWinAmountValue,
+      betAmount: betSlipCardData.betAmount,
+    );
     emit(
       NcaafBetSlipCardState.opened(
         toWinAmount: toWinAmountValue,
-        betSlipCardData: betSlipCardData,
+        betSlipCardData: updatedBetSlipCard,
       ),
     );
   }

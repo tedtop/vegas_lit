@@ -37,15 +37,12 @@ class MlbBetSlipCard extends StatefulWidget {
   }) {
     return Builder(
       builder: (context) {
-        return BlocProvider.value(
-          value: betSlipCardData.betButtonCubit,
-          child: BlocProvider(
-            create: (context) => MlbBetSlipCardCubit()
-              ..openBetSlipCard(
-                betSlipCardData: betSlipCardData,
-              ),
-            child: const MlbBetSlipCard._(),
-          ),
+        return BlocProvider(
+          create: (context) => MlbBetSlipCardCubit()
+            ..openBetSlipCard(
+              betSlipCardData: betSlipCardData,
+            ),
+          child: const MlbBetSlipCard._(),
         );
       },
     );

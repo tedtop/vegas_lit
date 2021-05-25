@@ -34,21 +34,15 @@ class NcaabBetSlipCard extends StatefulWidget {
 
   static Builder route({
     @required BetSlipCardData betSlipCardData,
-    @required Key key,
   }) {
     return Builder(
       builder: (context) {
-        return BlocProvider.value(
-          value: betSlipCardData.betButtonCubit,
-          child: BlocProvider(
-            create: (context) => NcaabBetSlipCardCubit()
-              ..openBetSlipCard(
-                betSlipCardData: betSlipCardData,
-              ),
-            child: NcaabBetSlipCard._(
-              key: key,
+        return BlocProvider(
+          create: (context) => NcaabBetSlipCardCubit()
+            ..openBetSlipCard(
+              betSlipCardData: betSlipCardData,
             ),
-          ),
+          child: const NcaabBetSlipCard._(),
         );
       },
     );
@@ -156,11 +150,12 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                   builder: (_) => MultiBlocProvider(
                                     providers: [
                                       BlocProvider.value(
-                                        value: context.read<BetSlipCubit>(),
-                                      ),
-                                      BlocProvider.value(
                                         value:
                                             context.read<NcaabBetButtonCubit>(),
+                                      ),
+                                      BlocProvider.value(
+                                        value: context
+                                            .read<NcaabBetSlipCardCubit>(),
                                       ),
                                     ],
                                     child: SingleChildScrollView(

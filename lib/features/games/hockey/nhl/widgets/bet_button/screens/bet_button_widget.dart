@@ -138,16 +138,19 @@ class BetButtonUnclicked extends StatelessWidget {
                 // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
-                      betSlipCard: NhlBetSlipCard.route(
+                      betSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
-                        betSlipCardData: BetSlipCardData(
-                          odds: betButtonState.mainOdds,
-                          league: betButtonState.league,
-                          id: betButtonState.uniqueId,
-                          betType: betButtonState.betType,
-                          betAmount: 100,
-                          betButtonCubit: context.read<NhlBetButtonCubit>(),
-                          toWinAmount: 0,
+                        value: context.read<NhlBetButtonCubit>(),
+                        child: NhlBetSlipCard.route(
+                          betSlipCardData: BetSlipCardData(
+                            odds: betButtonState.mainOdds,
+                            league: betButtonState.league,
+                            id: betButtonState.uniqueId,
+                            betType: betButtonState.betType,
+                            betAmount: 100,
+                            betButtonCubit: context.read<NhlBetButtonCubit>(),
+                            toWinAmount: 0,
+                          ),
                         ),
                       ),
                     );
