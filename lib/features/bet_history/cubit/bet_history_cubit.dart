@@ -9,8 +9,9 @@ import 'package:vegas_lit/data/repositories/bets_repository.dart';
 part 'bet_history_state.dart';
 
 class BetHistoryCubit extends Cubit<BetHistoryState> {
-  BetHistoryCubit({@required BetsRepository betsRepository})
-      : assert(betsRepository != null),
+  BetHistoryCubit({
+    @required BetsRepository betsRepository,
+  })  : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
           const BetHistoryState.initial(),
@@ -19,17 +20,14 @@ class BetHistoryCubit extends Cubit<BetHistoryState> {
   final BetsRepository _betsRepository;
   StreamSubscription _betHistorySubscription;
 
-  Future<void> betHistoryOpen({
-    @required String currentUserId,
-  }) async {
-    final openBetsData = _betsRepository.fetchBetHistory(
-      uid: currentUserId,
-    );
+  Future<void> betHistoryOpen({@required String currentUserId}) async {
+    final openBetsListData =
+        _betsRepository.fetchBetHistory(uid: currentUserId);
     await _betHistorySubscription?.cancel();
-    _betHistorySubscription = openBetsData.listen(
+    _betHistorySubscription = openBetsListData.listen(
       (event) {
         emit(
-          BetHistoryState.opened(betHistoryDataList: event),
+          BetHistoryState.opened(betHistoryListData: event),
         );
       },
     );

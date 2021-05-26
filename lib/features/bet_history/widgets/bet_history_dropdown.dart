@@ -3,8 +3,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 
-class TextBar extends StatelessWidget {
-  const TextBar({Key key, this.text}) : super(key: key);
+class BetHistoryDropdown extends StatelessWidget {
+  const BetHistoryDropdown({Key key, @required this.text}) : super(key: key);
 
   final String text;
 
@@ -12,9 +12,7 @@ class TextBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 180,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 6,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       child: Card(
         elevation: 4,
         clipBehavior: Clip.antiAlias,

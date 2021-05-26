@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/bet_history/cubit/bet_history_cubit.dart';
-import 'package:vegas_lit/features/bet_history/views/bet_history_page.dart';
-
-import '../bet_history_card.dart';
-import '../textbar.dart';
+import 'package:vegas_lit/features/bet_history/views/bet_history_card.dart';
+import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_text.dart';
+import 'package:vegas_lit/features/bet_history/widgets/bet_history_functions.dart';
 
 class WebBetHistory extends StatefulWidget {
   WebBetHistory({this.betPlacedLength, this.betAmountRisk});
@@ -23,20 +22,6 @@ class _WebBetHistoryState extends State<WebBetHistory> {
       constraints: const BoxConstraints(maxWidth: 1220),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const TextBar(
-                  text: 'All Bet Types',
-                ),
-                const TextBar(
-                  text: 'All Leagues',
-                ),
-              ],
-            ),
-          ),
           Container(
             constraints: const BoxConstraints(
               maxWidth: 1000,
@@ -58,9 +43,9 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                 ),
                 child: BlocBuilder<BetHistoryCubit, BetHistoryState>(
                   builder: (context, state) {
-                    final totalProfit = state.betHistoryDataList.isEmpty
+                    final totalProfit = state.betHistoryListData.isEmpty
                         ? 0
-                        : state.betHistoryDataList
+                        : state.betHistoryListData
                             .map((e) => e.betProfit)
                             .toList()
                             .reduce((value, element) => value + element)
@@ -69,25 +54,25 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                       case BetHistoryStatus.opened:
                         return Column(
                           children: [
-                            const BetHistoryRow(
-                              text: 'Your Rank',
-                              text2: 'N/A',
+                            const BetHistoryBoardText(
+                              leftText: 'Your Rank',
+                              rightText: 'N/A',
                             ),
-                            BetHistoryRow(
-                              text: 'Total Bets Placed',
-                              text2: (widget.betPlacedLength +
-                                      state.betHistoryDataList.length)
+                            BetHistoryBoardText(
+                              leftText: 'Total Bets Placed',
+                              rightText: (widget.betPlacedLength +
+                                      state.betHistoryListData.length)
                                   .toString(),
                             ),
-                            BetHistoryRow(
-                              text: 'Total Risk',
-                              text2:
-                                  '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryDataList.map((e) => e.betAmount).toList())}',
+                            BetHistoryBoardText(
+                              leftText: 'Total Risk',
+                              rightText:
+                                  '\$${totalRisk(firstList: widget.betAmountRisk, secondList: state.betHistoryListData.map((e) => e.betAmount).toList())}',
                               color: Palette.red,
                             ),
-                            BetHistoryRow(
-                              text: 'Total Profit',
-                              text2: '\$$totalProfit',
+                            BetHistoryBoardText(
+                              leftText: 'Total Profit',
+                              rightText: '\$$totalProfit',
                               color:
                                   totalProfit > 0 ? Palette.green : Palette.red,
                             ),
@@ -109,7 +94,7 @@ class _WebBetHistoryState extends State<WebBetHistory> {
             builder: (context, state) {
               switch (state.status) {
                 case BetHistoryStatus.opened:
-                  if (state.betHistoryDataList.isEmpty) {
+                  if (state.betHistoryListData.isEmpty) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 120),
                       child: Text(
@@ -132,11 +117,12 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                       crossAxisSpacing: 10,
                       crossAxisCount: 2,
                       shrinkWrap: true,
-                      key: Key('${state.betHistoryDataList.length}'),
-                      children: state.betHistoryDataList
+                      key: Key('${state.betHistoryListData.length}'),
+                      children: state.betHistoryListData
                           .map((betData) => Center(
                                 child: FittedBox(
-                                  child: BetHistorySlip(betHistory: betData),
+                                  child:
+                                      BetHistorySlip(betHistoryData: betData),
                                   fit: BoxFit.scaleDown,
                                 ),
                               ))

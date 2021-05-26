@@ -7,15 +7,15 @@ import 'package:vegas_lit/data/models/bet.dart';
 class BetHistorySlip extends StatelessWidget {
   const BetHistorySlip({
     Key key,
-    @required this.betHistory,
-  })  : assert(betHistory != null),
+    @required this.betHistoryData,
+  })  : assert(betHistoryData != null),
         super(key: key);
 
-  final BetData betHistory;
+  final BetData betHistoryData;
 
   @override
   Widget build(BuildContext context) {
-    final isWin = betHistory.winningTeam == betHistory.betTeam;
+    final isWin = betHistoryData.winningTeam == betHistoryData.betTeam;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
       child: Stack(clipBehavior: Clip.none, children: [
@@ -59,34 +59,26 @@ class BetHistorySlip extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text:
-                                    '${betHistory.awayTeamName.toUpperCase()}',
+                                    '${betHistoryData.awayTeamName.toUpperCase()}',
                               ),
                               const TextSpan(text: '  @  '),
                               TextSpan(
                                 text:
-                                    '${betHistory.homeTeamName.toUpperCase()}',
+                                    '${betHistoryData.homeTeamName.toUpperCase()}',
                                 style: GoogleFonts.nunito(color: Palette.green),
                               ),
                             ],
                           ),
                         ),
-                        whichBetText(betData: betHistory),
+                        whichBetText(betData: betHistoryData),
                         // Last Row
                         Row(
                           children: [
-                            // Text(
-                            //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 14,
-                            //     color: Palette.cream,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
                             Expanded(
                               child: Center(
                                 child: Text(
                                   DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                                    betHistory.gameStartDateTime.toLocal(),
+                                    betHistoryData.gameStartDateTime.toLocal(),
                                   ),
                                   style: GoogleFonts.nunito(
                                     fontSize: 12,
@@ -95,14 +87,6 @@ class BetHistorySlip extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // Text(
-                            //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 14,
-                            //     color: Palette.cream,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
                           ],
                         ),
                       ],
@@ -139,7 +123,7 @@ class BetHistorySlip extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$${betHistory.betAmount}',
+                            '\$${betHistoryData.betAmount}',
                             style: GoogleFonts.nunito(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -167,8 +151,8 @@ class BetHistorySlip extends StatelessWidget {
                           ),
                           Text(
                             isWin
-                                ? '\$${betHistory.betProfit}'
-                                : '\$${betHistory.betAmount}',
+                                ? '\$${betHistoryData.betProfit}'
+                                : '\$${betHistoryData.betAmount}',
                             style: GoogleFonts.nunito(
                               fontSize: 24,
                               color: Palette.cream,
@@ -199,7 +183,7 @@ class BetHistorySlip extends StatelessWidget {
             width: 80,
             child: Center(
               child: Text(
-                whichBetSystem(betHistory.betType),
+                betTypeString(betHistoryData.betType),
                 style: GoogleFonts.nunito(
                   fontSize: 10,
                 ),
@@ -216,24 +200,13 @@ class BetHistorySlip extends StatelessWidget {
       fontSize: 14,
       color: Palette.cream,
     );
-    final odds = betHistory.odds.isNegative
-        ? betHistory.odds.toString()
-        : '+${betHistory.odds}';
-    final pointSpread = betHistory.betPointSpread;
+    final odds =
+        betData.odds.isNegative ? betData.odds.toString() : '+${betData.odds}';
+    final pointSpread = betData.betPointSpread;
 
-    final isWin = betHistory.winningTeam == betHistory.betTeam;
-    final betTeam = betHistory.betTeam == 'home'
-        ? betHistory.homeTeamName
-        : betHistory.awayTeamName;
-    // // final notBetTeam = betHistory.betTeam != 'home'
-    // //     ? betHistory.homeTeamName
-    // //     : betHistory.awayTeamName;
-    // final winTeamByScore = betData.awayTeamScore > betData.homeTeamScore
-    //     ? betData.awayTeamName
-    //     : betData.homeTeamName;
-    // final loseTeamByScore = betData.awayTeamScore > betData.homeTeamScore
-    //     ? betData.homeTeamName
-    //     : betData.awayTeamName;
+    final isWin = betData.winningTeam == betData.betTeam;
+    final betTeam =
+        betData.betTeam == 'home' ? betData.homeTeamName : betData.awayTeamName;
 
     switch (betData.betType) {
       case 'moneyline':
@@ -245,7 +218,7 @@ class BetHistorySlip extends StatelessWidget {
                 text: TextSpan(
                   style: textStyle,
                   children: [
-                    betHistory.betTeam == 'away'
+                    betData.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
                             style: GoogleFonts.nunito(
@@ -268,7 +241,7 @@ class BetHistorySlip extends StatelessWidget {
                 ),
               ),
               Text(
-                '${whichBetSystem(betData.betType)}  ($odds)',
+                '${betTypeString(betData.betType)}  ($odds)',
                 style: textStyle,
               ),
             ],
@@ -284,7 +257,7 @@ class BetHistorySlip extends StatelessWidget {
                 text: TextSpan(
                   style: textStyle,
                   children: [
-                    betHistory.betTeam == 'away'
+                    betData.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
                             style: GoogleFonts.nunito(
@@ -326,7 +299,7 @@ class BetHistorySlip extends StatelessWidget {
                 text: TextSpan(
                   style: textStyle,
                   children: [
-                    betHistory.betTeam == 'away'
+                    betData.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
                             style: GoogleFonts.nunito(
@@ -348,11 +321,6 @@ class BetHistorySlip extends StatelessWidget {
                   ],
                 ),
               ),
-              // Text(
-              //   'COMBINED SCORE WAS ${betData.totalGameScore} (${betData.awayTeamScore}-${betData.homeTeamScore})',
-              //   textAlign: TextAlign.center,
-              //   style: textStyle,
-              // ),
               RichText(
                 text: TextSpan(
                   style: textStyle,
@@ -361,11 +329,6 @@ class BetHistorySlip extends StatelessWidget {
                         text: betData.totalGameScore > betData.betOverUnder
                             ? 'ABOVE YOUR ${betData.betOverUnder} ($odds)'
                             : 'BELOW YOUR ${betData.betOverUnder} ($odds)'),
-                    // TextSpan(
-                    //   text: betData.betTeam == 'away'
-                    //       ? ' ${betData.betOverUnder} ($odds)'
-                    //       : ' ${betData.betOverUnder} ($odds)',
-                    // ),
                   ],
                 ),
               ),
@@ -383,7 +346,7 @@ class BetHistorySlip extends StatelessWidget {
     }
   }
 
-  String whichBetSystem(String betType) {
+  String betTypeString(String betType) {
     if (betType == 'moneyline') {
       return 'MONEYLINE';
     }
@@ -393,17 +356,7 @@ class BetHistorySlip extends StatelessWidget {
     if (betType == 'total') {
       return 'TOTAL O/U';
     } else {
-      if (betType == 'MONEYLINE') {
-        return 'MONEYLINE';
-      }
-      if (betType == 'POINT SPREAD') {
-        return 'POINT SPREAD';
-      }
-      if (betType == 'TOTAL SPREAD') {
-        return 'TOTAL O/U';
-      } else {
-        return 'Error';
-      }
+      return 'ERROR';
     }
   }
 }

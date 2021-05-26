@@ -10,8 +10,9 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/bet_history/bet_history.dart';
+
 import 'package:vegas_lit/features/bet_history/cubit/bet_history_cubit.dart';
+import 'package:vegas_lit/features/bet_history/views/bet_history_page.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/bet_slip/views/bet_slip_page.dart';
 import 'package:vegas_lit/features/home/cubit/internet_cubit.dart';
@@ -169,7 +170,7 @@ class _HomePageState extends State<HomePage>
                   BetSlip(),
                   Leaderboard.route(),
                   OpenBets.route(),
-                  BetHistory.route(),
+                  BetHistoryPage.route(),
                 ],
               );
             }

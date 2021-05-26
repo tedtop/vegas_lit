@@ -5,21 +5,21 @@ enum BetHistoryStatus { initial, opened }
 class BetHistoryState extends Equatable {
   const BetHistoryState._({
     this.status = BetHistoryStatus.initial,
-    this.betHistoryDataList = const [],
+    this.betHistoryListData = const [],
   });
 
   const BetHistoryState.initial() : this._();
 
   const BetHistoryState.opened({
-    @required List<BetData> betHistoryDataList,
+    @required List<BetData> betHistoryListData,
   }) : this._(
           status: BetHistoryStatus.opened,
-          betHistoryDataList: betHistoryDataList,
+          betHistoryListData: betHistoryListData,
         );
 
   final BetHistoryStatus status;
-  final List<BetData> betHistoryDataList;
+  final List<BetData> betHistoryListData;
 
   @override
-  List<Object> get props => [status, betHistoryDataList];
+  List<Object> get props => [status, betHistoryListData];
 }
