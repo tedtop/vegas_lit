@@ -5,13 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/features/bet_history/widgets/adaptive_widgets/mobilebethistory.dart';
 import 'package:vegas_lit/features/bet_history/widgets/adaptive_widgets/tabletbethistory.dart';
 import 'package:vegas_lit/features/bet_history/widgets/adaptive_widgets/webbethistory.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
-import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
+// import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
 
 class BetHistory extends StatelessWidget {
   const BetHistory._({Key key}) : super(key: key);
@@ -24,29 +23,29 @@ class BetHistory extends StatelessWidget {
     );
   }
 
-  bool _decideWhichDayToEnable(DateTime day) {
-    if ((day.isAfter(
-          DateTime.now().subtract(
-            const Duration(days: 7),
-          ),
-        ) &&
-        day.isBefore(
-          DateTime.now().add(
-            const Duration(days: 0),
-          ),
-        ))) {
-      return true;
-    }
-    return false;
-  }
+  // bool _decideWhichDayToEnable(DateTime day) {
+  //   if ((day.isAfter(
+  //         DateTime.now().subtract(
+  //           const Duration(days: 7),
+  //         ),
+  //       ) &&
+  //       day.isBefore(
+  //         DateTime.now().add(
+  //           const Duration(days: 0),
+  //         ),
+  //       ))) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
         final openBetsState = context.watch<OpenBetsCubit>().state;
-        final currentUserId =
-            context.watch<ProfileCubit>().state?.userData?.uid;
+        // final currentUserId =
+        //     context.watch<ProfileCubit>().state?.userData?.uid;
         if (openBetsState.status == OpenBetsStatus.opened) {
           final betPlacedLength = openBetsState.openBetsDataList.length;
           final betAmountRisk =
