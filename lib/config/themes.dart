@@ -3,12 +3,21 @@ import 'package:vegas_lit/config/palette.dart';
 
 class Themes {
   static final ThemeData dark = ThemeData(
-    brightness: Brightness.dark,
+    colorScheme: const ColorScheme(
+        primary: Palette.darkGrey,
+        primaryVariant: Palette.lightGrey,
+        secondary: Palette.green,
+        secondaryVariant: Palette.green,
+        surface: Palette.lightGrey,
+        background: Palette.darkGrey,
+        error: Palette.red,
+        onPrimary: Palette.cream,
+        onSecondary: Palette.cream,
+        onSurface: Palette.cream,
+        onBackground: Palette.cream,
+        onError: Palette.cream,
+        brightness: Brightness.dark),
     canvasColor: Palette.darkGrey,
-    accentColor: Palette.green,
-    primaryColor: Palette.darkGrey,
-    primaryColorLight: Palette.lightGrey,
-    primaryColorDark: Palette.darkGrey,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(18.0),

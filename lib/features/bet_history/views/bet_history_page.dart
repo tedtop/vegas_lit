@@ -106,7 +106,9 @@ class BetHistory extends StatelessWidget {
             ],
           );
         } else {
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(
+            color: Palette.cream,
+          );
         }
       },
     );

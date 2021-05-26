@@ -101,7 +101,9 @@ class TabletOpenBets extends StatelessWidget {
 
                 break;
               default:
-                return const CircularProgressIndicator();
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
             }
           },
         ),

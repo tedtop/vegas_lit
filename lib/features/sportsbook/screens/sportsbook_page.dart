@@ -28,7 +28,9 @@ class Sportsbook extends StatelessWidget {
         switch (state.status) {
           case SportsbookStatus.initial:
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
             break;
           default:
@@ -82,6 +84,7 @@ class _SportsBookViewState extends State<SportsBookView> {
               betSlipGames: [],
             );
         },
+        color: Palette.cream,
         child: ListView(
           controller: _scrollController,
           shrinkWrap: true,
@@ -229,7 +232,9 @@ class _SportsBookViewState extends State<SportsBookView> {
                                         );
                                         break;
                                       default:
-                                        return const CircularProgressIndicator();
+                                        return const CircularProgressIndicator(
+                                          color: Palette.cream,
+                                        );
                                         break;
                                     }
                                   },

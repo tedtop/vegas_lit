@@ -66,7 +66,10 @@ class TeamInfoView extends StatelessWidget {
                 final players = state.player;
                 return _buildPlayersList(players);
               } else {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                    child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ));
               }
             },
             listener: (context, state) {})

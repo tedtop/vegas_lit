@@ -259,7 +259,9 @@ class _BetSlipCardState extends State<NflBetSlipCard> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const CircularProgressIndicator(),
+                                  const CircularProgressIndicator(
+                                    color: Palette.cream,
+                                  ),
                                 ],
                               ),
                             ),

@@ -33,7 +33,9 @@ class NcaafScreen extends StatelessWidget {
         switch (state.status) {
           case NcaafStatus.initial:
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
           default:
             if (state.games.isEmpty) {

@@ -95,7 +95,9 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                         );
                         break;
                       default:
-                        return const CircularProgressIndicator();
+                        return const CircularProgressIndicator(
+                          color: Palette.cream,
+                        );
                         break;
                     }
                   },
@@ -143,7 +145,9 @@ class _WebBetHistoryState extends State<WebBetHistory> {
                   );
                   break;
                 default:
-                  return const CircularProgressIndicator();
+                  return const CircularProgressIndicator(
+                    color: Palette.cream,
+                  );
                   break;
               }
             },

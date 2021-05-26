@@ -94,6 +94,9 @@ class _EmailInput extends StatelessWidget {
                 labelText: 'Email',
                 helperText: '',
                 errorText: state.email.invalid ? 'Invalid email' : null,
+                focusedBorder: const UnderlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: Palette.cream)),
               ),
             ),
           ),
@@ -127,6 +130,9 @@ class _PasswordInput extends StatelessWidget {
                 labelText: 'Password',
                 helperText: '',
                 errorText: state.password.invalid ? 'Invalid password' : null,
+                focusedBorder: const UnderlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: Palette.cream)),
               ),
             ),
           ),
@@ -143,7 +149,9 @@ class _LoginButton extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
+            ? const CircularProgressIndicator(
+                color: Palette.cream,
+              )
             : DefaultButton(
                 text: 'LOGIN',
                 action: () {

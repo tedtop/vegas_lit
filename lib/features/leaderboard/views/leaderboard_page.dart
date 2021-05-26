@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
@@ -41,7 +42,9 @@ class Leaderboard extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case LeaderboardStatus.initial:
-                return const CircularProgressIndicator();
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
                 break;
               default:
                 return ScreenTypeLayout(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
 import 'package:vegas_lit/features/interstitial/cubit/ads_cubit.dart';
 
@@ -35,7 +36,9 @@ class Interstitial extends StatelessWidget {
           case AdsStatus.loading:
             return const Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
               ),
             );
             break;

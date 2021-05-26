@@ -89,7 +89,9 @@ class _TabletBetHistoryState extends State<TabletBetHistory> {
                       );
                       break;
                     default:
-                      return const CircularProgressIndicator();
+                      return const CircularProgressIndicator(
+                        color: Palette.cream,
+                      );
                       break;
                   }
                 },
@@ -135,7 +137,9 @@ class _TabletBetHistoryState extends State<TabletBetHistory> {
                 );
                 break;
               default:
-                return const CircularProgressIndicator();
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
                 break;
             }
           },

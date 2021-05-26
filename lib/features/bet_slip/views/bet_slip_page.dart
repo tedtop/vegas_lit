@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/open_bets/open_bets.dart';
@@ -27,7 +28,9 @@ class BetSlip extends StatelessWidget {
                     : BetSlipList();
                 break;
               default:
-                return const CircularProgressIndicator();
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
                 break;
             }
           },

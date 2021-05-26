@@ -106,7 +106,9 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                       );
                       break;
                     default:
-                      return const CircularProgressIndicator();
+                      return const CircularProgressIndicator(
+                        color: Palette.cream,
+                      );
                       break;
                   }
                 },
@@ -145,7 +147,9 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
                 );
                 break;
               default:
-                return const CircularProgressIndicator();
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
                 break;
             }
           },

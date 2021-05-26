@@ -33,7 +33,9 @@ class NhlScreen extends StatelessWidget {
         switch (state.status) {
           case NhlStatus.initial:
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
           default:
             if (state.games.isEmpty) {

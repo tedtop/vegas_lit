@@ -94,7 +94,9 @@ class BetButton extends StatelessWidget {
               return BetButtonDone();
               break;
             default:
-              return const CircularProgressIndicator();
+              return const CircularProgressIndicator(
+                color: Palette.cream,
+              );
               break;
           }
         },

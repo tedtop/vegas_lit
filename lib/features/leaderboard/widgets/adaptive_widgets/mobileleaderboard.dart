@@ -108,7 +108,9 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
               default:
                 return const Padding(
                   padding: EdgeInsets.symmetric(vertical: 120),
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Palette.cream,
+                  ),
                 );
             }
           },

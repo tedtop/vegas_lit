@@ -33,7 +33,9 @@ class NbaScreen extends StatelessWidget {
         switch (state.status) {
           case NbaStatus.initial:
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
           default:
             if (state.games.isEmpty) {

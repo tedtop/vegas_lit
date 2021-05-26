@@ -133,6 +133,9 @@ class _UsernameInput extends StatelessWidget {
                   hintText: 'Username',
                   helperText: '',
                   errorText: usernameError(state.username.error),
+                  focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(color: Palette.cream)),
                 ),
               ),
             ),
@@ -211,6 +214,9 @@ class _EmailInput extends StatelessWidget {
                   hintText: 'Email Address',
                   helperText: '',
                   errorText: emailError(state.email.error),
+                  focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(color: Palette.cream)),
                 ),
               ),
             ),
@@ -288,6 +294,9 @@ class _PasswordInput extends StatelessWidget {
                   hintText: 'Password',
                   helperText: '',
                   errorText: passwordError(state.password.error),
+                  focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(color: Palette.cream)),
                 ),
               ),
             ),
@@ -369,6 +378,9 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   helperText: '',
                   errorText:
                       confirmedPasswordError(state.confirmedPassword.error),
+                  focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(color: Palette.cream)),
                 ),
               ),
             ),
@@ -566,6 +578,9 @@ class _MobileNumberInput extends StatelessWidget {
                   hintText: 'Mobile Number',
                   helperText: '',
                   errorText: mobileNumberError(state.number.error),
+                  focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderSide: BorderSide(color: Palette.cream)),
                 ),
               ),
             ),
@@ -730,7 +745,9 @@ class _SignUpButton extends StatelessWidget {
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
           return state.status.isSubmissionInProgress
-              ? const CircularProgressIndicator()
+              ? const CircularProgressIndicator(
+                  color: Palette.cream,
+                )
               : DefaultButton(
                   text: 'SIGN UP',
                   action: () {
