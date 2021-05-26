@@ -60,7 +60,7 @@ class BetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NcaabBetButtonCubit, NccabBetButtonState>(
+    return BlocListener<NcaabBetButtonCubit, NcaabBetButtonState>(
       listener: (context, state) {
         switch (state.status) {
           case BetButtonStatus.placed:
@@ -149,9 +149,7 @@ class BetButtonUnclicked extends StatelessWidget {
                             league: betButtonState.league,
                             id: betButtonState.uniqueId,
                             betType: betButtonState.betType,
-                            betAmount: 100,
                             betButtonCubit: context.read<NcaabBetButtonCubit>(),
-                            toWinAmount: 0,
                           ),
                         ),
                       ),

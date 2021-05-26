@@ -8,9 +8,7 @@ class BetSlipCardData extends Equatable {
   BetSlipCardData({
     @required this.id,
     @required this.betType,
-    @required this.betAmount,
     @required this.betButtonCubit,
-    @required this.toWinAmount,
     @required this.league,
     @required this.odds,
   });
@@ -18,19 +16,14 @@ class BetSlipCardData extends Equatable {
   final String id;
   final Bet betType;
   final String odds;
-  final int betAmount;
   final Cubit betButtonCubit;
-  final int toWinAmount;
   final String league;
 
   BetSlipCardData copyWith({
     String id,
-    bool isRemove,
     Bet betType,
-    int betAmount,
     String odds,
     Cubit betButtonCubit,
-    int toWinAmount,
     String league,
   }) {
     return BetSlipCardData(
@@ -38,8 +31,6 @@ class BetSlipCardData extends Equatable {
       id: id ?? this.id,
       odds: odds ?? this.odds,
       betType: betType ?? this.betType,
-      betAmount: betAmount ?? this.betAmount,
-      toWinAmount: toWinAmount ?? this.toWinAmount,
       league: league ?? this.league,
     );
   }
@@ -52,8 +43,6 @@ class BetSlipCardData extends Equatable {
       odds,
       betType,
       league,
-      betAmount,
-      toWinAmount,
     ];
   }
 }

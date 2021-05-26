@@ -42,9 +42,6 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
     @required String league,
     @required NbaTeam homeTeamData,
   }) {
-    // final todayDateTime = fetchTimeEST();
-    // final todayFormatDate = todayDateTime.millisecondsSinceEpoch;
-    // final todayFormatDate = DateFormat('yyyy-MM-dd').format(todayDateTime);
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
     final gameStartTimeFormat =
         DateFormat('yyyy-MM-dd-hh-mm').format(game.dateTime);
@@ -56,6 +53,9 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
     final uniqueId =
         '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-$gameId-${gameStartTimeFormat.toUpperCase()}-$uid';
 
+    final toWinAmount =
+        toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
+
     emit(
       NbaBetButtonState.unclicked(
         text: text,
@@ -63,6 +63,8 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
         isClosed: isClosed,
         game: game,
         awayTeamData: awayTeamData,
+        toWinAmount: toWinAmount,
+        betAmount: state.betAmount,
         winTeam: winTeam,
         homeTeamData: homeTeamData,
         uniqueId: uniqueId,
@@ -88,6 +90,8 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
           gameId: state.gameId,
           game: state.game,
           uid: state.uid,
+          toWinAmount: state.toWinAmount,
+          betAmount: state.betAmount,
           winTeam: state.winTeam,
           uniqueId: state.uniqueId,
           spread: state.spread,
@@ -104,6 +108,8 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
         NbaBetButtonState.clicked(
           text: state.text,
           isClosed: state.isClosed,
+          toWinAmount: state.toWinAmount,
+          betAmount: state.betAmount,
           uid: state.uid,
           gameId: state.gameId,
           game: state.game,
@@ -128,6 +134,8 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
         mainOdds: state.mainOdds,
         game: state.game,
         league: state.league,
+        toWinAmount: state.toWinAmount,
+        betAmount: state.betAmount,
         isClosed: state.isClosed,
         gameId: state.gameId,
         uid: state.uid,
@@ -147,6 +155,8 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
         text: state.text,
         game: state.game,
         mainOdds: state.mainOdds,
+        toWinAmount: state.toWinAmount,
+        betAmount: state.betAmount,
         winTeam: state.winTeam,
         uid: state.uid,
         isClosed: state.isClosed,
@@ -159,5 +169,21 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
         betType: state.betType,
       ),
     );
+  }
+
+  void updateBetAmount({@required int toWinAmount, @required int betAmount}) {
+    emit(
+      state.copyWith(betAmount: betAmount, toWinAmount: toWinAmount),
+    );
+  }
+
+  int toWinAmountCalculation({@required String odds, @required int betAmount}) {
+    if (int.parse(odds).isNegative) {
+      final toWinAmount = (100 / int.parse(odds) * betAmount).round().abs();
+      return toWinAmount;
+    } else {
+      final toWinAmount = (int.parse(odds) / 100 * betAmount).round().abs();
+      return toWinAmount;
+    }
   }
 }

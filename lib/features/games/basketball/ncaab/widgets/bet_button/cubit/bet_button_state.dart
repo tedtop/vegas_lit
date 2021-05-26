@@ -4,8 +4,8 @@ enum BetButtonStatus { done, error, loading, clicked, unclicked, placed }
 
 enum BetButtonWin { away, home }
 
-class NccabBetButtonState extends Equatable {
-  const NccabBetButtonState._({
+class NcaabBetButtonState extends Equatable {
+  const NcaabBetButtonState._({
     this.text,
     this.game,
     this.uniqueId,
@@ -14,6 +14,8 @@ class NccabBetButtonState extends Equatable {
     this.betType,
     this.isClosed,
     this.gameId,
+    this.betAmount = 100,
+    this.toWinAmount,
     this.awayTeamData,
     this.spread,
     this.uid,
@@ -22,9 +24,9 @@ class NccabBetButtonState extends Equatable {
     this.winTeam,
   });
 
-  const NccabBetButtonState.loading() : this._();
+  const NcaabBetButtonState.loading() : this._();
 
-  const NccabBetButtonState.clicked(
+  const NcaabBetButtonState.clicked(
       {@required String text,
       @required Game game,
       @required String uniqueId,
@@ -34,6 +36,8 @@ class NccabBetButtonState extends Equatable {
       @required NcaabTeam homeTeamData,
       @required bool isClosed,
       @required int gameId,
+      @required int betAmount,
+      @required int toWinAmount,
       @required String uid,
       @required BetButtonWin winTeam,
       @required String mainOdds,
@@ -48,6 +52,8 @@ class NccabBetButtonState extends Equatable {
           gameId: gameId,
           isClosed: isClosed,
           uid: uid,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
           spread: spread,
           awayTeamData: awayTeamData,
           mainOdds: mainOdds,
@@ -55,7 +61,7 @@ class NccabBetButtonState extends Equatable {
           betType: betType,
         );
 
-  const NccabBetButtonState.unclicked(
+  const NcaabBetButtonState.unclicked(
       {@required String text,
       @required Game game,
       @required String uniqueId,
@@ -64,6 +70,8 @@ class NccabBetButtonState extends Equatable {
       @required int gameId,
       @required double spread,
       @required BetButtonWin winTeam,
+      @required int betAmount,
+      @required int toWinAmount,
       @required String uid,
       @required NcaabTeam awayTeamData,
       @required String league,
@@ -78,6 +86,8 @@ class NccabBetButtonState extends Equatable {
             homeTeamData: homeTeamData,
             uid: uid,
             spread: spread,
+            betAmount: betAmount,
+            toWinAmount: toWinAmount,
             league: league,
             gameId: gameId,
             winTeam: winTeam,
@@ -85,7 +95,7 @@ class NccabBetButtonState extends Equatable {
             awayTeamData: awayTeamData,
             betType: betType);
 
-  const NccabBetButtonState.done({
+  const NcaabBetButtonState.done({
     @required String text,
     @required Game game,
     @required String mainOdds,
@@ -97,6 +107,8 @@ class NccabBetButtonState extends Equatable {
     @required String league,
     @required String uid,
     @required BetButtonWin winTeam,
+    @required int betAmount,
+    @required int toWinAmount,
     @required String uniqueId,
     @required Bet betType,
   }) : this._(
@@ -107,6 +119,8 @@ class NccabBetButtonState extends Equatable {
           uniqueId: uniqueId,
           winTeam: winTeam,
           gameId: gameId,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
           spread: spread,
           isClosed: isClosed,
           uid: uid,
@@ -116,7 +130,7 @@ class NccabBetButtonState extends Equatable {
           betType: betType,
         );
 
-  const NccabBetButtonState.placed({
+  const NcaabBetButtonState.placed({
     @required String text,
     @required Game game,
     @required String mainOdds,
@@ -125,6 +139,8 @@ class NccabBetButtonState extends Equatable {
     @required int gameId,
     @required NcaabTeam homeTeamData,
     @required String uid,
+    @required int betAmount,
+    @required int toWinAmount,
     @required double spread,
     @required String league,
     @required BetButtonWin winTeam,
@@ -139,6 +155,8 @@ class NccabBetButtonState extends Equatable {
           winTeam: winTeam,
           gameId: gameId,
           spread: spread,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
           isClosed: isClosed,
           uid: uid,
           homeTeamData: homeTeamData,
@@ -159,6 +177,8 @@ class NccabBetButtonState extends Equatable {
   final int gameId;
   final String uid;
   final bool isClosed;
+  final int betAmount;
+  final int toWinAmount;
   final NcaabTeam homeTeamData;
   final BetButtonWin winTeam;
 
@@ -170,6 +190,8 @@ class NccabBetButtonState extends Equatable {
         gameId,
         isClosed,
         winTeam,
+        betAmount,
+        toWinAmount,
         spread,
         game,
         uniqueId,
@@ -179,4 +201,42 @@ class NccabBetButtonState extends Equatable {
         awayTeamData,
         homeTeamData
       ];
+
+  NcaabBetButtonState copyWith({
+    BetButtonStatus status,
+    String text,
+    Game game,
+    String uniqueId,
+    Bet betType,
+    String mainOdds,
+    double spread,
+    NcaabTeam awayTeamData,
+    String league,
+    int gameId,
+    String uid,
+    bool isClosed,
+    int betAmount,
+    int toWinAmount,
+    NcaabTeam homeTeamData,
+    BetButtonWin winTeam,
+  }) {
+    return NcaabBetButtonState._(
+      status: status ?? this.status,
+      text: text ?? this.text,
+      game: game ?? this.game,
+      uniqueId: uniqueId ?? this.uniqueId,
+      betType: betType ?? this.betType,
+      mainOdds: mainOdds ?? this.mainOdds,
+      spread: spread ?? this.spread,
+      awayTeamData: awayTeamData ?? this.awayTeamData,
+      league: league ?? this.league,
+      gameId: gameId ?? this.gameId,
+      uid: uid ?? this.uid,
+      isClosed: isClosed ?? this.isClosed,
+      betAmount: betAmount ?? this.betAmount,
+      toWinAmount: toWinAmount ?? this.toWinAmount,
+      homeTeamData: homeTeamData ?? this.homeTeamData,
+      winTeam: winTeam ?? this.winTeam,
+    );
+  }
 }

@@ -26,27 +26,25 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../bet_button/cubit/bet_button_cubit.dart';
 import '../matchup_card/matchup_card.dart';
-import 'cubit/ncaab_bet_slip_card_cubit.dart';
 
 // ignore: must_be_immutable
 class NcaabBetSlipCard extends StatefulWidget {
-  const NcaabBetSlipCard._({Key key}) : super(key: key);
+  const NcaabBetSlipCard._({Key key, @required this.betSlipCardData})
+      : super(key: key);
 
   static Builder route({
     @required BetSlipCardData betSlipCardData,
   }) {
     return Builder(
       builder: (context) {
-        return BlocProvider(
-          create: (context) => NcaabBetSlipCardCubit()
-            ..openBetSlipCard(
-              betSlipCardData: betSlipCardData,
-            ),
-          child: const NcaabBetSlipCard._(),
+        return NcaabBetSlipCard._(
+          betSlipCardData: betSlipCardData,
         );
       },
     );
   }
+
+  final BetSlipCardData betSlipCardData;
 
   @override
   _BetSlipCardState createState() => _BetSlipCardState();
@@ -64,7 +62,6 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
         final betButtonState = context.watch<NcaabBetButtonCubit>().state;
-        final betSlipCardState = context.watch<NcaabBetSlipCardCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
@@ -153,17 +150,11 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                         value:
                                             context.read<NcaabBetButtonCubit>(),
                                       ),
-                                      BlocProvider.value(
-                                        value: context
-                                            .read<NcaabBetSlipCardCubit>(),
-                                      ),
                                     ],
                                     child: SingleChildScrollView(
                                       child: BetAmountPage(
-                                        betAmount: betSlipCardState
-                                            .betSlipCardData.betAmount,
-                                        betSlipCardData:
-                                            betSlipCardState.betSlipCardData,
+                                        betAmount: betButtonState.betAmount,
+                                        betSlipCardData: widget.betSlipCardData,
                                       ),
                                     ),
                                   ),
@@ -191,7 +182,7 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                               bottom: 8.0),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
-                                            '\$${betSlipCardState.betSlipCardData.betAmount}',
+                                            '\$${betButtonState.betAmount}',
                                             style: GoogleFonts.nunito(
                                               color: Palette.green,
                                               fontSize: 18,
@@ -285,18 +276,11 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                           ),
                                         );
                                     } else {
-                                      if (betSlipCardState
-                                                  .betSlipCardData.betAmount !=
-                                              null &&
-                                          betSlipCardState
-                                                  .betSlipCardData.betAmount !=
-                                              0 &&
-                                          betSlipCardState.betSlipCardData
-                                                  .toWinAmount !=
-                                              0) {
+                                      if (betButtonState.betAmount != null &&
+                                          betButtonState.betAmount != 0 &&
+                                          betButtonState.toWinAmount != 0) {
                                         if (balanceAmount -
-                                                betSlipCardState
-                                                    .betSlipCardData.betAmount <
+                                                betButtonState.betAmount <
                                             0) {
                                           ScaffoldMessenger.of(context)
                                             ..removeCurrentSnackBar()
@@ -317,17 +301,16 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                           await context
                                               .read<OpenBetsCubit>()
                                               .updateOpenBets(
-                                                betAmount: betSlipCardState
-                                                    .betSlipCardData.betAmount,
+                                                betAmount:
+                                                    betButtonState.betAmount,
                                                 openBetsData: BetData(
                                                   username: username,
                                                   homeTeamCity: betButtonState
                                                       .homeTeamData.city,
                                                   awayTeamCity: betButtonState
                                                       .awayTeamData.city,
-                                                  betAmount: betSlipCardState
-                                                      .betSlipCardData
-                                                      .betAmount,
+                                                  betAmount:
+                                                      betButtonState.betAmount,
                                                   gameId: betButtonState.gameId,
                                                   isClosed:
                                                       betButtonState.isClosed,
@@ -353,8 +336,7 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                                           .betType),
                                                   odds: int.parse(
                                                       betButtonState.mainOdds),
-                                                  betProfit: betSlipCardState
-                                                      .betSlipCardData
+                                                  betProfit: betButtonState
                                                       .toWinAmount,
                                                   gameStartDateTime:
                                                       betButtonState
@@ -394,26 +376,6 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                                 uniqueId:
                                                     betButtonState.uniqueId,
                                               );
-                                          // if (betPlacedCount % 4 == 0 &&
-                                          //     betPlacedCount != 0) {
-                                          //   final onRewardCallBack = (
-                                          //     RewardedAd rewardedAd,
-                                          //     RewardItem rewardItem,
-                                          //   ) async {
-                                          //     await UserRepository()
-                                          //         .rewardForVideoAd(
-                                          //       uid: currentUserId,
-                                          //       rewardValue:
-                                          //           rewardItem.amount.toInt(),
-                                          //     );
-                                          //   };
-                                          //   final ads = RewardAd(
-                                          //     balanceAmount,
-                                          //     onRewardCallBack,
-                                          //   );
-                                          //   await ads.loadAd();
-                                          //   await ads.play();
-                                          // }
                                         }
                                       }
                                     }
@@ -503,7 +465,7 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                         padding:
                                             const EdgeInsets.only(bottom: 8.0),
                                         child: Text(
-                                          '\$${betSlipCardState.betSlipCardData.toWinAmount}',
+                                          '\$${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
                                             fontSize: 18,
@@ -625,12 +587,6 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(bottom: 5),
-            //   child: CountdownTimer(
-            //     endDateTime: betButtonState.game.dateTime,
-            //   ),
-            // ),
           ],
         );
       },
@@ -816,7 +772,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                             .round()
                             .abs();
 
-                        context.read<NcaabBetSlipCardCubit>().updateBetAmount(
+                        context.read<NcaabBetButtonCubit>().updateBetAmount(
                               toWinAmount: toWinAmount,
                               betAmount: betValues[i],
                             );
@@ -828,7 +784,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 .round()
                                 .abs();
 
-                        context.read<NcaabBetSlipCardCubit>().updateBetAmount(
+                        context.read<NcaabBetButtonCubit>().updateBetAmount(
                               toWinAmount: toWinAmount,
                               betAmount: betValues[i],
                             );

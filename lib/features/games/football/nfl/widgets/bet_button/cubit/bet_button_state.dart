@@ -14,6 +14,8 @@ class NflBetButtonState extends Equatable {
     this.betType,
     this.isClosed,
     this.gameId,
+    this.betAmount = 100,
+    this.toWinAmount,
     this.awayTeamData,
     this.spread,
     this.uid,
@@ -34,6 +36,8 @@ class NflBetButtonState extends Equatable {
       @required NflTeam homeTeamData,
       @required bool isClosed,
       @required int gameId,
+      @required int betAmount,
+      @required int toWinAmount,
       @required String uid,
       @required BetButtonWin winTeam,
       @required String mainOdds,
@@ -48,6 +52,8 @@ class NflBetButtonState extends Equatable {
           gameId: gameId,
           isClosed: isClosed,
           uid: uid,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
           spread: spread,
           awayTeamData: awayTeamData,
           mainOdds: mainOdds,
@@ -64,6 +70,8 @@ class NflBetButtonState extends Equatable {
       @required int gameId,
       @required double spread,
       @required BetButtonWin winTeam,
+      @required int betAmount,
+      @required int toWinAmount,
       @required String uid,
       @required NflTeam awayTeamData,
       @required String league,
@@ -78,6 +86,8 @@ class NflBetButtonState extends Equatable {
             homeTeamData: homeTeamData,
             uid: uid,
             spread: spread,
+            betAmount: betAmount,
+            toWinAmount: toWinAmount,
             league: league,
             gameId: gameId,
             winTeam: winTeam,
@@ -97,6 +107,8 @@ class NflBetButtonState extends Equatable {
     @required String league,
     @required String uid,
     @required BetButtonWin winTeam,
+    @required int betAmount,
+    @required int toWinAmount,
     @required String uniqueId,
     @required Bet betType,
   }) : this._(
@@ -107,6 +119,8 @@ class NflBetButtonState extends Equatable {
           uniqueId: uniqueId,
           winTeam: winTeam,
           gameId: gameId,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
           spread: spread,
           isClosed: isClosed,
           uid: uid,
@@ -125,6 +139,8 @@ class NflBetButtonState extends Equatable {
     @required int gameId,
     @required NflTeam homeTeamData,
     @required String uid,
+    @required int betAmount,
+    @required int toWinAmount,
     @required double spread,
     @required String league,
     @required BetButtonWin winTeam,
@@ -139,6 +155,8 @@ class NflBetButtonState extends Equatable {
           winTeam: winTeam,
           gameId: gameId,
           spread: spread,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
           isClosed: isClosed,
           uid: uid,
           homeTeamData: homeTeamData,
@@ -159,6 +177,8 @@ class NflBetButtonState extends Equatable {
   final int gameId;
   final String uid;
   final bool isClosed;
+  final int betAmount;
+  final int toWinAmount;
   final NflTeam homeTeamData;
   final BetButtonWin winTeam;
 
@@ -170,6 +190,8 @@ class NflBetButtonState extends Equatable {
         gameId,
         isClosed,
         winTeam,
+        betAmount,
+        toWinAmount,
         spread,
         game,
         uniqueId,
@@ -179,4 +201,42 @@ class NflBetButtonState extends Equatable {
         awayTeamData,
         homeTeamData
       ];
+
+  NflBetButtonState copyWith({
+    BetButtonStatus status,
+    String text,
+    Game game,
+    String uniqueId,
+    Bet betType,
+    String mainOdds,
+    double spread,
+    NflTeam awayTeamData,
+    String league,
+    int gameId,
+    String uid,
+    bool isClosed,
+    int betAmount,
+    int toWinAmount,
+    NflTeam homeTeamData,
+    BetButtonWin winTeam,
+  }) {
+    return NflBetButtonState._(
+      status: status ?? this.status,
+      text: text ?? this.text,
+      game: game ?? this.game,
+      uniqueId: uniqueId ?? this.uniqueId,
+      betType: betType ?? this.betType,
+      mainOdds: mainOdds ?? this.mainOdds,
+      spread: spread ?? this.spread,
+      awayTeamData: awayTeamData ?? this.awayTeamData,
+      league: league ?? this.league,
+      gameId: gameId ?? this.gameId,
+      uid: uid ?? this.uid,
+      isClosed: isClosed ?? this.isClosed,
+      betAmount: betAmount ?? this.betAmount,
+      toWinAmount: toWinAmount ?? this.toWinAmount,
+      homeTeamData: homeTeamData ?? this.homeTeamData,
+      winTeam: winTeam ?? this.winTeam,
+    );
+  }
 }
