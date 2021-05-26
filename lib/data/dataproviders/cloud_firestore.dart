@@ -32,6 +32,7 @@ class CloudFirestore {
       potentialWinAmount: 0,
       biggestWinAmount: 0,
       username: userDataMap['username'],
+      totalRewards: 0,
     ).toMap();
     await userReference.set(userDataMap, SetOptions(merge: true));
     await walletReference.set(walletMap, SetOptions(merge: true));
@@ -276,7 +277,7 @@ class CloudFirestore {
     @required int rewardValue,
   }) async {
     await _firestoreData.collection('wallets').doc(uid).update({
-      // 'totalRewards': FieldValue.increment(1),
+      'totalRewards': FieldValue.increment(rewardValue),
       'accountBalance': FieldValue.increment(rewardValue),
     });
   }

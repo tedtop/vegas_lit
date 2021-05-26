@@ -5,22 +5,21 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/bet_history/cubit/bet_history_cubit.dart';
 import 'package:vegas_lit/features/bet_history/views/bet_history_card.dart';
 import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_text.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
+import 'package:vegas_lit/features/bet_history/widgets/bet_history_functions.dart';
 
-class MobileBetHistory extends StatefulWidget {
+class MobileBetHistory extends StatelessWidget {
   MobileBetHistory({this.betPlacedLength, this.betAmountRisk});
   final int betPlacedLength;
   final List<int> betAmountRisk;
-  @override
-  _MobileBetHistoryState createState() => _MobileBetHistoryState();
-}
 
-class _MobileBetHistoryState extends State<MobileBetHistory> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MobileBetHistoryBoard(),
+        MobileBetHistoryBoard(
+          betAmountRisk: betAmountRisk,
+          betPlacedLength: betPlacedLength,
+        ),
         MobileBetHistoryList(),
       ],
     );
@@ -28,12 +27,33 @@ class _MobileBetHistoryState extends State<MobileBetHistory> {
 }
 
 class MobileBetHistoryBoard extends StatelessWidget {
+  const MobileBetHistoryBoard(
+      {Key key, @required this.betPlacedLength, @required this.betAmountRisk})
+      : super(key: key);
+  final int betPlacedLength;
+  final List<int> betAmountRisk;
+
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final userWallet = context
-            .select((HomeCubit homeCubit) => homeCubit.state?.userWallet);
+        final betHistoryDataList = context.select(
+            (BetHistoryCubit betHistoryCubit) =>
+                betHistoryCubit.state?.betHistoryListData);
+        final totalWin = betHistoryDataList
+            .where((element) => element.betTeam == element.winningTeam)
+            .length;
+        final totalLose = betHistoryDataList
+            .where((element) => element.betTeam != element.winningTeam)
+            .length;
+        final totalProfit = betHistoryDataList.isEmpty
+            ? 0
+            : betHistoryDataList
+                .map((e) {
+                  return e.winningTeam == e.betTeam ? e.betProfit : 0;
+                })
+                .toList()
+                .reduce((value, element) => value + element);
         return Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 6,
@@ -58,24 +78,24 @@ class MobileBetHistoryBoard extends StatelessWidget {
                   ),
                   BetHistoryBoardText(
                     leftText: 'Total Bets Placed',
-                    rightText: userWallet.totalBets.toString(),
+                    rightText: (betPlacedLength + betHistoryDataList.length)
+                        .toString(),
                   ),
                   BetHistoryBoardText(
                     leftText: 'Total Risked',
-                    rightText: userWallet.totalRiskedAmount.toString(),
+                    rightText:
+                        '\$${totalRisk(firstList: betAmountRisk, secondList: betHistoryDataList.map((e) => e.betAmount).toList())}',
                     color: Palette.red,
                   ),
                   BetHistoryBoardText(
                     leftText: 'Total Profit',
-                    rightText: '\$${userWallet.totalProfit}',
-                    color: userWallet.totalProfit >= 0
-                        ? Palette.green
-                        : Palette.red,
+                    rightText: '\$$totalProfit',
+                    color: totalProfit >= 0 ? Palette.green : Palette.red,
                   ),
                   BetHistoryBoardText(
                     leftText: 'Win/Loss Ratio',
                     rightText:
-                        '${(userWallet.totalBetsWon / userWallet.totalBetsLost) > 0 ? (userWallet.totalBetsWon / userWallet.totalBetsLost).toStringAsFixed(3) : 0}',
+                        '${(totalWin / totalLose) > 0 ? (totalWin / totalLose).toStringAsFixed(3) : 0}',
                     color: Palette.cream,
                   ),
                 ],

@@ -11,6 +11,7 @@ class Wallet extends Equatable {
     @required this.accountBalance,
     @required this.totalBets,
     @required this.totalBetsWon,
+    @required this.totalRewards,
     @required this.totalBetsLost,
     @required this.totalOpenBets,
     @required this.potentialWinAmount,
@@ -25,6 +26,7 @@ class Wallet extends Equatable {
     return Wallet(
       uid: map['uid'],
       username: map['username'],
+      totalRewards: map['totalRewards'],
       totalLoss: map['totalLoss'],
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],
@@ -46,6 +48,7 @@ class Wallet extends Equatable {
       username: map['username'],
       totalLoss: map['totalLoss'],
       totalProfit: map['totalProfit'],
+      totalRewards: map['totalRewards'],
       accountBalance: map['accountBalance'],
       totalBets: map['totalBets'],
       totalBetsWon: map['totalBetsWon'],
@@ -64,6 +67,7 @@ class Wallet extends Equatable {
   final int accountBalance;
   final int totalBets;
   final int totalBetsWon;
+  final int totalRewards;
   final int totalBetsLost;
   final int totalOpenBets;
   final int totalRiskedAmount;
@@ -76,6 +80,7 @@ class Wallet extends Equatable {
         'totalProfit': totalProfit,
         'totalLoss': totalLoss,
         'accountBalance': accountBalance,
+        'totalRewards': totalRewards,
         'totalBets': totalBets,
         'totalBetsWon': totalBetsWon,
         'totalBetsLost': totalBetsLost,
@@ -93,6 +98,7 @@ class Wallet extends Equatable {
     int accountBalance,
     int totalBets,
     int totalBetsWon,
+    int totalRewards,
     int totalBetsLost,
     int totalOpenBets,
     int potentialWinAmount,
@@ -104,6 +110,7 @@ class Wallet extends Equatable {
       username: username ?? this.username,
       totalProfit: totalProfit ?? this.totalProfit,
       totalLoss: totalLoss ?? this.totalLoss,
+      totalRewards: totalRewards ?? this.totalRewards,
       accountBalance: accountBalance ?? this.accountBalance,
       totalBets: totalBets ?? this.totalBets,
       totalBetsWon: totalBetsWon ?? this.totalBetsWon,
@@ -121,6 +128,7 @@ class Wallet extends Equatable {
       uid,
       username,
       totalProfit,
+      totalRewards,
       totalLoss,
       accountBalance,
       totalBets,
