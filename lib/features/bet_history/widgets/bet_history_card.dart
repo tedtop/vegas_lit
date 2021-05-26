@@ -74,20 +74,11 @@ class BetHistorySlip extends StatelessWidget {
                         // Last Row
                         Row(
                           children: [
-                            // Text(
-                            //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 14,
-                            //     color: Palette.cream,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
                             Expanded(
                               child: Center(
                                 child: Text(
                                   DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                                    DateTime.parse(betHistory.gameStartDateTime)
-                                        .toLocal(),
+                                    betHistory.gameStartDateTime.toLocal(),
                                   ),
                                   style: GoogleFonts.nunito(
                                     fontSize: 12,
@@ -96,14 +87,6 @@ class BetHistorySlip extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // Text(
-                            //   '${betHistory.betType == 'moneyline' ? 'M' : betHistory.betType == 'pointspread' ? 'P' : 'T'}',
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 14,
-                            //     color: Palette.cream,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
                           ],
                         ),
                       ],
@@ -226,15 +209,6 @@ class BetHistorySlip extends StatelessWidget {
     final betTeam = betHistory.betTeam == 'home'
         ? betHistory.homeTeamName
         : betHistory.awayTeamName;
-    // // final notBetTeam = betHistory.betTeam != 'home'
-    // //     ? betHistory.homeTeamName
-    // //     : betHistory.awayTeamName;
-    // final winTeamByScore = betData.awayTeamScore > betData.homeTeamScore
-    //     ? betData.awayTeamName
-    //     : betData.homeTeamName;
-    // final loseTeamByScore = betData.awayTeamScore > betData.homeTeamScore
-    //     ? betData.homeTeamName
-    //     : betData.awayTeamName;
 
     switch (betData.betType) {
       case 'moneyline':
@@ -349,11 +323,6 @@ class BetHistorySlip extends StatelessWidget {
                   ],
                 ),
               ),
-              // Text(
-              //   'COMBINED SCORE WAS ${betData.totalGameScore} (${betData.awayTeamScore}-${betData.homeTeamScore})',
-              //   textAlign: TextAlign.center,
-              //   style: textStyle,
-              // ),
               RichText(
                 text: TextSpan(
                   style: textStyle,
@@ -362,11 +331,6 @@ class BetHistorySlip extends StatelessWidget {
                         text: betData.totalGameScore > betData.betOverUnder
                             ? 'ABOVE YOUR ${betData.betOverUnder} ($odds)'
                             : 'BELOW YOUR ${betData.betOverUnder} ($odds)'),
-                    // TextSpan(
-                    //   text: betData.betTeam == 'away'
-                    //       ? ' ${betData.betOverUnder} ($odds)'
-                    //       : ' ${betData.betOverUnder} ($odds)',
-                    // ),
                   ],
                 ),
               ),
@@ -394,17 +358,7 @@ class BetHistorySlip extends StatelessWidget {
     if (betType == 'total') {
       return 'TOTAL O/U';
     } else {
-      if (betType == 'MONEYLINE') {
-        return 'MONEYLINE';
-      }
-      if (betType == 'POINT SPREAD') {
-        return 'POINT SPREAD';
-      }
-      if (betType == 'TOTAL SPREAD') {
-        return 'TOTAL O/U';
-      } else {
-        return 'Error';
-      }
+      return 'ERROR';
     }
   }
 }

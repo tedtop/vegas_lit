@@ -92,7 +92,7 @@ class OpenBetsSlip extends StatelessWidget {
                               Expanded(
                                 child: CountdownTimer(
                                   endTime: getESTGameTimeInMS(
-                                    DateTime.parse(openBets.gameStartDateTime),
+                                    openBets.gameStartDateTime,
                                   ),
                                   widgetBuilder:
                                       (_, CurrentRemainingTime time) {

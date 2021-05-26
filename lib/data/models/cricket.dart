@@ -28,14 +28,14 @@ class CricketModel {
   String toJson() => json.encode(toMap());
 
   factory CricketModel.fromMap(Map<String, dynamic> json) => CricketModel(
-        success: json["success"],
+        success: json['success'],
         data: List<CricketDatum>.from(
-            json["data"].map((x) => CricketDatum.fromMap(x))),
+            json['data'].map((x) => CricketDatum.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "success": success,
-        "data": List<dynamic>.from(data.map((x) => x.toMap())),
+        'success': success,
+        'data': List<dynamic>.from(data.map((x) => x.toMap())),
       };
 }
 
@@ -87,25 +87,25 @@ class CricketDatum {
   String toJson() => json.encode(toMap());
 
   factory CricketDatum.fromMap(Map<String, dynamic> json) => CricketDatum(
-        id: json["id"],
-        sportKey: json["sport_key"],
-        sportNice: json["sport_nice"],
-        teams: List<String>.from(json["teams"].map((x) => x)),
-        homeTeam: json["home_team"],
-        commenceTime: DateTime.parse(json["commence_time"]),
-        sites: List<Site>.from(json["sites"].map((x) => Site.fromMap(x))),
-        sitesCount: json["sites_count"],
+        id: json['id'],
+        sportKey: json['sport_key'],
+        sportNice: json['sport_nice'],
+        teams: List<String>.from(json['teams'].map((x) => x)),
+        homeTeam: json['home_team'],
+        commenceTime: DateTime.parse(json['commence_time']),
+        sites: List<Site>.from(json['sites'].map((x) => Site.fromMap(x))),
+        sitesCount: json['sites_count'],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "sport_key": sportKey,
-        "sport_nice": sportNice,
-        "teams": List<dynamic>.from(teams.map((x) => x)),
-        "home_team": homeTeam,
-        "commence_time": commenceTime.toIso8601String(),
-        "sites": List<dynamic>.from(sites.map((x) => x.toMap())),
-        "sites_count": sitesCount,
+        'id': id,
+        'sport_key': sportKey,
+        'sport_nice': sportNice,
+        'teams': List<dynamic>.from(teams.map((x) => x)),
+        'home_team': homeTeam,
+        'commence_time': commenceTime.toIso8601String(),
+        'sites': List<dynamic>.from(sites.map((x) => x.toMap())),
+        'sites_count': sitesCount,
       };
 }
 
@@ -140,19 +140,19 @@ class Site {
   String toJson() => json.encode(toMap());
 
   factory Site.fromMap(Map<String, dynamic> json) => Site(
-        siteKey: json["site_key"],
-        siteNice: json["site_nice"],
-        lastUpdate: DateTime.parse(json["last_update"]),
-        odds: Map.from(json["odds"]).map((k, v) =>
+        siteKey: json['site_key'],
+        siteNice: json['site_nice'],
+        lastUpdate: DateTime.parse(json['last_update']),
+        odds: Map.from(json['odds']).map((k, v) =>
             MapEntry<String, List<double>>(
                 k, List<double>.from(v.map((x) => x.toDouble())))),
       );
 
   Map<String, dynamic> toMap() => {
-        "site_key": siteKey,
-        "site_nice": siteNice,
-        "last_update": lastUpdate.toIso8601String(),
-        "odds": Map.from(odds).map((k, v) =>
+        'site_key': siteKey,
+        'site_nice': siteNice,
+        'last_update': lastUpdate.toIso8601String(),
+        'odds': Map.from(odds).map((k, v) =>
             MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
       };
 }
@@ -165,13 +165,13 @@ class Odds {
   Map<String, List<double>> odds;
 
   factory Odds.fromJson(Map<String, dynamic> json) => Odds(
-        odds: Map.from(json["odds"]).map((k, v) =>
+        odds: Map.from(json['odds']).map((k, v) =>
             MapEntry<String, List<double>>(
                 k, List<double>.from(v.map((x) => x.toDouble())))),
       );
 
   Map<String, dynamic> toJson() => {
-        "odds": Map.from(odds).map((k, v) =>
+        'odds': Map.from(odds).map((k, v) =>
             MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
       };
 }

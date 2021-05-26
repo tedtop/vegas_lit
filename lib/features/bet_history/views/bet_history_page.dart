@@ -24,10 +24,17 @@ class BetHistory extends StatelessWidget {
     );
   }
 
-  // we can alter this later on acc to our need
   bool _decideWhichDayToEnable(DateTime day) {
-    if ((day.isAfter(DateTime.now().subtract(const Duration(days: 7))) &&
-        day.isBefore(DateTime.now().add(const Duration(days: 0))))) {
+    if ((day.isAfter(
+          DateTime.now().subtract(
+            const Duration(days: 7),
+          ),
+        ) &&
+        day.isBefore(
+          DateTime.now().add(
+            const Duration(days: 0),
+          ),
+        ))) {
       return true;
     }
     return false;
@@ -38,7 +45,8 @@ class BetHistory extends StatelessWidget {
     return Builder(
       builder: (context) {
         final openBetsState = context.watch<OpenBetsCubit>().state;
-        final currentUId = context.watch<ProfileCubit>().state?.userData?.uid;
+        final currentUserId =
+            context.watch<ProfileCubit>().state?.userData?.uid;
         if (openBetsState.status == OpenBetsStatus.opened) {
           final betPlacedLength = openBetsState.openBetsDataList.length;
           final betAmountRisk =
@@ -61,24 +69,25 @@ class BetHistory extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Select Date'),
-                  IconButton(
-                    onPressed: () async {
-                      final betDateTime = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2022),
-                          selectableDayPredicate: _decideWhichDayToEnable);
-                      if (betDateTime != null) {
-                        await BlocProvider.of<BetHistoryCubit>(context)
-                            .betHistoryOpen(
-                                currentUserId: currentUId,
-                                betDateHistory: betDateTime);
-                      }
-                    },
-                    icon: const Icon(Icons.date_range_outlined),
-                  )
+                  // const Text('Select Date'),
+                  // IconButton(
+                  //   onPressed: () async {
+                  //     final betDateTime = await showDatePicker(
+                  //         context: context,
+                  //         initialDate: DateTime.now(),
+                  //         firstDate: DateTime(2020),
+                  //         lastDate: DateTime(2022),
+                  //         selectableDayPredicate: _decideWhichDayToEnable);
+                  //     if (betDateTime != null) {
+                  //       await BlocProvider.of<BetHistoryCubit>(context)
+                  //           .betHistoryOpen(
+                  //         currentUserId: currentUserId,
+                  //         betDateHistory: betDateTime,
+                  //       );
+                  //     }
+                  //   },
+                  //   icon: const Icon(Icons.date_range_outlined),
+                  // )
                 ],
               ),
               ScreenTypeLayout(

@@ -10,9 +10,10 @@ class BetsRepository {
 
   Stream<List<BetData>> fetchBetHistory({
     @required String uid,
-    @required DateTime betDateTime,
   }) =>
-      _databaseProvider.fetchBetHistory(uid: uid, betDateHistory: betDateTime);
+      _databaseProvider.fetchBetHistory(
+        uid: uid,
+      );
 
   Future<void> saveBet({
     @required String uid,

@@ -18,7 +18,6 @@ class BetData extends Equatable {
     @required this.awayTeam,
     @required this.awayTeamScore,
     @required this.homeTeamCity,
-    @required this.gameEndDateTime,
     @required this.awayTeamCity,
     @required this.homeTeamScore,
     @required this.totalGameScore,
@@ -56,9 +55,8 @@ class BetData extends Equatable {
       totalGameScore: data['totalGameScore'] as int,
       homeTeamName: data['homeTeamName'] as String,
       awayTeamName: data['awayTeamName'] as String,
-      gameStartDateTime: data['gameStartDateTime'] as String,
-      gameEndDateTime: data['gameEndDateTime'] as String,
-      dateTime: data['dateTime'] as String,
+      gameStartDateTime: data['gameStartDateTime'] as DateTime,
+      dateTime: data['dateTime'] as DateTime,
       gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
       league: data['league'] as String,
@@ -85,9 +83,8 @@ class BetData extends Equatable {
   final String awayTeamName;
   final String awayTeam;
   final String uid;
-  final String gameStartDateTime;
-  final String gameEndDateTime;
-  final String dateTime;
+  final DateTime gameStartDateTime;
+  final DateTime dateTime;
   final int gameId;
   final String winningTeam;
   final bool isClosed;
@@ -114,7 +111,6 @@ class BetData extends Equatable {
       'winningTeam': winningTeam,
       'homeTeamName': homeTeamName,
       'awayTeamName': awayTeamName,
-      'gameEndDateTime': gameEndDateTime,
       'gameStartDateTime': gameStartDateTime,
       'dateTime': dateTime,
       'homeTeam': homeTeam,
@@ -140,7 +136,6 @@ class BetData extends Equatable {
       betOverUnder,
       winningTeam,
       homeTeam,
-      gameEndDateTime,
       username,
       awayTeam,
       awayTeamScore,
