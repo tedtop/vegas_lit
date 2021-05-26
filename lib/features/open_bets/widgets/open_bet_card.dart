@@ -244,12 +244,17 @@ Widget whichBetText({@required BetData betData}) {
   final odds = betData?.odds?.isNegative ?? 0.isNegative
       ? betData.odds.toString()
       : '+${betData.odds}';
-  final pointSpread = betData?.betPointSpread?.isNegative ?? 0.isNegative
-      ? betData.betPointSpread.toString()
-      : '+${betData.betPointSpread}';
+  final isPointSpreadNegative =
+      betData?.betPointSpread?.isNegative ?? 0.isNegative;
   final overUnder = betData.betTeam == 'away'
-      ? '+${betData.betOverUnder}'
-      : '-${betData.betOverUnder}';
+      ? '${betData.betOverUnder}'
+      : '${betData.betOverUnder}';
+  final awayTeamPointSpread = isPointSpreadNegative
+      ? betData?.betPointSpread?.abs()
+      : -betData?.betPointSpread?.abs();
+  final homeTeamPointSpread = isPointSpreadNegative
+      ? -betData?.betPointSpread?.abs()
+      : betData?.betPointSpread?.abs();
   switch (betData.betType) {
     case 'moneyline':
       return Column(
@@ -282,68 +287,60 @@ Widget whichBetText({@required BetData betData}) {
       );
       break;
     case 'pointspread':
-      if (!betData.betPointSpread.isNegative) {
+      if (betData.betTeam == 'away') {
         return Column(
           children: [
-            betData.betTeam == 'away'
-                ? Text(
-                    '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
-                    style: textStyle,
-                  )
-                : RichText(
-                    text: TextSpan(
-                      style: textStyle,
-                      children: [
-                        TextSpan(
-                          text: '${betData.homeTeamName.toUpperCase()}',
-                          style: textStyle.copyWith(
-                            color: Palette.green,
-                          ),
-                        ),
-                        TextSpan(text: ' TO WIN  ($odds)'),
-                      ],
-                    ),
-                  ),
+            Text(
+              '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
+              style: textStyle,
+            ),
             const SizedBox(
               height: 4,
             ),
-            Text(
-              'OR LOSE BY LESS THAN $pointSpread POINTS',
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: textStyle,
-            ),
+            awayTeamPointSpread.isNegative
+                ? Text(
+                    'BY MORE THAN ${awayTeamPointSpread.abs()} POINTS',
+                    style: textStyle,
+                  )
+                : Text(
+                    'OR LOSE BY LESS THAN ${awayTeamPointSpread.abs()} POINTS',
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: textStyle,
+                  ),
           ],
         );
       } else {
         return Column(
           children: [
-            betData.betTeam == 'away'
-                ? RichText(
-                    text: TextSpan(
-                      style: textStyle,
-                      children: [
-                        TextSpan(
-                          text: '${betData.homeTeamName.toUpperCase()} ',
-                          style: textStyle.copyWith(
-                            color: Palette.green,
-                          ),
-                        ),
-                        TextSpan(text: 'TO WIN ($odds)'),
-                      ],
+            RichText(
+              text: TextSpan(
+                style: textStyle,
+                children: [
+                  TextSpan(
+                    text: '${betData.homeTeamName.toUpperCase()} ',
+                    style: textStyle.copyWith(
+                      color: Palette.green,
                     ),
-                  )
-                : Text(
-                    '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
-                    style: textStyle,
                   ),
+                  TextSpan(text: 'TO WIN ($odds)'),
+                ],
+              ),
+            ),
             const SizedBox(
               height: 4,
             ),
-            Text(
-              'BY MORE THAN $pointSpread POINTS',
-              style: textStyle,
-            ),
+            homeTeamPointSpread.isNegative
+                ? Text(
+                    'BY MORE THAN ${homeTeamPointSpread.abs()} POINTS',
+                    style: textStyle,
+                  )
+                : Text(
+                    'OR LOSE BY LESS THAN ${homeTeamPointSpread.abs()} POINTS',
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: textStyle,
+                  ),
           ],
         );
       }

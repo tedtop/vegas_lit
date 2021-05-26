@@ -202,11 +202,24 @@ class BetHistorySlip extends StatelessWidget {
     );
     final odds =
         betData.odds.isNegative ? betData.odds.toString() : '+${betData.odds}';
-    final pointSpread = betData.betPointSpread;
 
     final isWin = betData.winningTeam == betData.betTeam;
     final betTeam =
         betData.betTeam == 'home' ? betData.homeTeamName : betData.awayTeamName;
+
+    final isPointSpreadNegative =
+        betData?.betPointSpread?.isNegative ?? 0.isNegative;
+
+    final overUnder = betData.betTeam == 'away'
+        ? '+${betData.betOverUnder}'
+        : '-${betData.betOverUnder}';
+
+    final awayTeamPointSpread = isPointSpreadNegative
+        ? '+${betData?.betPointSpread?.abs()}'
+        : '-${betData?.betPointSpread?.abs()}';
+    final homeTeamPointSpread = isPointSpreadNegative
+        ? '-${betData?.betPointSpread?.abs()}'
+        : '+${betData?.betPointSpread?.abs()}';
 
     switch (betData.betType) {
       case 'moneyline':
@@ -279,12 +292,19 @@ class BetHistorySlip extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                isWin
-                    ? 'AUTOMATIC WIN $pointSpread ($odds)'
-                    : 'AUTOMATIC LOSS $pointSpread ($odds)',
-                style: textStyle,
-              ),
+              betData.betTeam == 'away'
+                  ? Text(
+                      isWin
+                          ? 'AUTOMATIC WIN $awayTeamPointSpread ($odds)'
+                          : 'AUTOMATIC LOSS $awayTeamPointSpread ($odds)',
+                      style: textStyle,
+                    )
+                  : Text(
+                      isWin
+                          ? 'AUTOMATIC WIN $homeTeamPointSpread ($odds)'
+                          : 'AUTOMATIC LOSS $homeTeamPointSpread ($odds)',
+                      style: textStyle,
+                    ),
             ],
           ),
         );
@@ -327,8 +347,8 @@ class BetHistorySlip extends StatelessWidget {
                   children: [
                     TextSpan(
                         text: betData.totalGameScore > betData.betOverUnder
-                            ? 'ABOVE YOUR ${betData.betOverUnder} ($odds)'
-                            : 'BELOW YOUR ${betData.betOverUnder} ($odds)'),
+                            ? 'ABOVE YOUR $overUnder ($odds)'
+                            : 'BELOW YOUR $overUnder ($odds)'),
                   ],
                 ),
               ),
