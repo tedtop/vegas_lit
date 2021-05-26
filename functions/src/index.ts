@@ -30,8 +30,6 @@ export const resolveBets = functions.pubsub
           snapshots.docs.map(async (document) => {
             const data = document.data();
 
-            const dateInEST = moment().tz("America/New_York").date;
-
             const dateTime = formatTime(data.gameDateTime);
             const league = data.league.toLowerCase();
             const isClosedFirestore = data.isClosed;
@@ -44,9 +42,7 @@ export const resolveBets = functions.pubsub
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
             const username = data.username;
-            const betPlacedDateTime = new Date(data.dateTime);
-            const betPlacedDateTimeInFormat =
-              moment(betPlacedDateTime).format("YYYY-MM-DD");
+
             const amountWin = data.betProfit;
             const totalWinAmount = amountWin + amountBet;
 
@@ -113,110 +109,50 @@ export const resolveBets = functions.pubsub
                         winningTeam: finalWinTeam,
                       })
                       .then(async (_) => {
-                        if (betPlacedDateTime.getDate < dateInEST) {
-                          if (isWin) {
-                            await app
-                              .firestore()
-                              .collection("leaderboard")
-                              .doc(betPlacedDateTimeInFormat)
-                              .collection("wallets")
-                              .doc(uid)
-                              .update({
-                                totalOpenBets:
-                                  admin.firestore.FieldValue.increment(-1),
-                                totalProfit:
-                                  admin.firestore.FieldValue.increment(
-                                    amountWin
-                                  ),
-                                accountBalance:
-                                  admin.firestore.FieldValue.increment(
-                                    totalWinAmount
-                                  ),
-                                totalBetsWon:
-                                  admin.firestore.FieldValue.increment(1),
-                                potentialWinAmount:
-                                  admin.firestore.FieldValue.increment(
-                                    -amountWin
-                                  ),
-                              });
-                            await sendMessageToSlack(
-                              `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                            );
-                          } else {
-                            await app
-                              .firestore()
-                              .collection("leaderboard")
-                              .doc(betPlacedDateTimeInFormat)
-                              .collection("wallets")
-                              .doc(uid)
-                              .update({
-                                totalOpenBets:
-                                  admin.firestore.FieldValue.increment(-1),
-                                totalLoss:
-                                  admin.firestore.FieldValue.increment(
-                                    amountBet
-                                  ),
-                                totalBetsLost:
-                                  admin.firestore.FieldValue.increment(1),
-                                potentialWinAmount:
-                                  admin.firestore.FieldValue.increment(
-                                    -amountWin
-                                  ),
-                              });
-                            await sendMessageToSlack(
-                              `:moneybag: *${username}* lost their bet for $${amountBet}`
-                            );
-                          }
+                        if (isWin) {
+                          await app
+                            .firestore()
+                            .collection("wallets")
+                            .doc(uid)
+                            .update({
+                              totalOpenBets:
+                                admin.firestore.FieldValue.increment(-1),
+                              totalProfit:
+                                admin.firestore.FieldValue.increment(amountWin),
+                              accountBalance:
+                                admin.firestore.FieldValue.increment(
+                                  totalWinAmount
+                                ),
+                              totalBetsWon:
+                                admin.firestore.FieldValue.increment(1),
+                              potentialWinAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountWin
+                                ),
+                            });
+                          await sendMessageToSlack(
+                            `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                          );
                         } else {
-                          if (isWin) {
-                            await app
-                              .firestore()
-                              .collection("wallets")
-                              .doc(uid)
-                              .update({
-                                totalOpenBets:
-                                  admin.firestore.FieldValue.increment(-1),
-                                totalProfit:
-                                  admin.firestore.FieldValue.increment(
-                                    amountWin
-                                  ),
-                                accountBalance:
-                                  admin.firestore.FieldValue.increment(
-                                    totalWinAmount
-                                  ),
-                                totalBetsWon:
-                                  admin.firestore.FieldValue.increment(1),
-                                potentialWinAmount:
-                                  admin.firestore.FieldValue.increment(
-                                    -amountWin
-                                  ),
-                              });
-                            await sendMessageToSlack(
-                              `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                            );
-                          } else {
-                            await app
-                              .firestore()
-                              .collection("wallets")
-                              .doc(uid)
-                              .update({
-                                totalOpenBets:
-                                  admin.firestore.FieldValue.increment(-1),
-                                totalLoss:
-                                  admin.firestore.FieldValue.increment(
-                                    amountBet
-                                  ),
-                                totalBetsLost:
-                                  admin.firestore.FieldValue.increment(1),
-                                potentialWinAmount:
-                                  admin.firestore.FieldValue.increment(
-                                    -amountWin
-                                  ),
-                              });
-                            await sendMessageToSlack(
-                              `:moneybag: *${username}* lost their bet for $${amountBet}`
-                            );
-                          }
+                          await app
+                            .firestore()
+                            .collection("wallets")
+                            .doc(uid)
+                            .update({
+                              totalOpenBets:
+                                admin.firestore.FieldValue.increment(-1),
+                              totalLoss:
+                                admin.firestore.FieldValue.increment(amountBet),
+                              totalBetsLost:
+                                admin.firestore.FieldValue.increment(1),
+                              potentialWinAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountWin
+                                ),
+                            });
+                          await sendMessageToSlack(
+                            `:moneybag: *${username}* lost their bet for $${amountBet}`
+                          );
                         }
 
                         valueUpdateNumber++;
@@ -375,13 +311,87 @@ export const resolveBets = functions.pubsub
     }
   });
 
-export const resetContestDay = functions.pubsub
-  .schedule("59 23 * * *")
+// export const resetContestDay = functions.pubsub
+//   .schedule("59 23 * * *")
+//   .timeZone("America/New_York")
+//   .onRun(async (context) => {
+//     console.log("This function will be run everyday at 11:58 PM!");
+
+//     const documentName = getTodayDate();
+
+//     // Fetching user's wallet
+//     await app
+//       .firestore()
+//       .collection("wallets")
+//       .get()
+//       .then(async (snapshots) => {
+//         // Create today's date document in leaderboard
+//         await app
+//           .firestore()
+//           .collection("leaderboard")
+//           .doc(documentName)
+//           .set({ isArchived: true })
+//           .then((_) => {
+//             const promises: any = [];
+//             // Run loop over all user's wallet document
+//             snapshots.docs.map(async (element) => {
+//               // For every document, save it to today's date document in leaderboard
+//               const promise = await app
+//                 .firestore()
+//                 .collection("leaderboard")
+//                 .doc(documentName)
+//                 .collection("wallets")
+//                 .doc(element.id)
+//                 .set(element.data())
+//                 .then(async (_) => {
+//                   // After saving, reset that specific user wallets
+//                   await app
+//                     .firestore()
+//                     .collection("wallets")
+//                     .doc(element.id)
+//                     .update({
+//                       totalProfit: 0,
+//                       accountBalance: 1000,
+//                       totalBetsWon: 0,
+//                       totalBetsLost: 0,
+//                       totalLoss: 0,
+//                       totalBets: 0,
+//                       totalOpenBets: 0,
+//                       totalRiskedAmount: 0,
+//                       potentialWinAmount: 0,
+//                     });
+//                 });
+//               promises.push(promise);
+//             });
+//             return Promise.all(promises);
+//           });
+//       })
+//       .catch(function (error: any) {
+//         console.log(error);
+//       })
+//       .then(() => {
+//         functions.logger.info("Leaderboard Resolved!", {
+//           structuredData: true,
+//         });
+//       });
+
+//     return null;
+
+//     function getTodayDate(): string {
+//       let today = new Date();
+//       const walletsDayFormat = "YYYY-MM-DD";
+//       const todayFormat = moment(today).format(walletsDayFormat);
+//       return todayFormat;
+//     }
+//   });
+
+export const resetContestWeek = functions.pubsub
+  .schedule("58 23 * * 6")
   .timeZone("America/New_York")
   .onRun(async (context) => {
-    console.log("This function will be run everyday at 11:58 PM!");
+    console.log("This function will be run every saturday at 11:58 PM!");
 
-    const documentName = getTodayDate();
+    const documentName = getCurrentWeek();
 
     // Fetching user's wallet
     await app
@@ -393,6 +403,8 @@ export const resetContestDay = functions.pubsub
         await app
           .firestore()
           .collection("leaderboard")
+          .doc("global")
+          .collection("weeks")
           .doc(documentName)
           .set({ isArchived: true })
           .then((_) => {
@@ -403,6 +415,8 @@ export const resetContestDay = functions.pubsub
               const promise = await app
                 .firestore()
                 .collection("leaderboard")
+                .doc("global")
+                .collection("weeks")
                 .doc(documentName)
                 .collection("wallets")
                 .doc(element.id)
@@ -420,6 +434,7 @@ export const resetContestDay = functions.pubsub
                       totalBetsLost: 0,
                       totalLoss: 0,
                       totalBets: 0,
+                      totalRewards: 0,
                       totalOpenBets: 0,
                       totalRiskedAmount: 0,
                       potentialWinAmount: 0,
@@ -441,11 +456,12 @@ export const resetContestDay = functions.pubsub
 
     return null;
 
-    function getTodayDate(): string {
+    function getCurrentWeek(): string {
       let today = new Date();
-      const walletsDayFormat = "YYYY-MM-DD";
-      const todayFormat = moment(today).format(walletsDayFormat);
-      return todayFormat;
+      const walletsDayFormat = "W-YYYY";
+      const weekFormat = moment(today).format(walletsDayFormat);
+
+      return weekFormat;
     }
   });
 
