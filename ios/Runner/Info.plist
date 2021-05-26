@@ -63,5 +63,7 @@
 				<string>cstr6suwn9.skadnetwork</string>
 			</dict>
 		</array>
+		<key>UIStatusBarHidden</key>
+		<true/>
 	</dict>
 </plist>
