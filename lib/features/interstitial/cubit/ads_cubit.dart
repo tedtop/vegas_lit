@@ -87,10 +87,10 @@ class AdsCubit extends Cubit<AdsState> {
             onUserEarnedReward:
                 (RewardedAd rewardedAd, RewardItem rewardItem) async {
               // ignore: avoid_print
-              print(rewardItem.amount);
+              print('Reward Amount ${rewardItem.amount}');
               await _userRepository.rewardForVideoAd(
                 uid: currentUser.uid,
-                rewardValue: rewardItem.amount.toInt(),
+                rewardValue: 100,
               );
             },
           );
