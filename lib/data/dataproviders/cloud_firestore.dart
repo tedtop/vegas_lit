@@ -237,21 +237,27 @@ class CloudFirestore {
   }
 
   Future<List<String>> fetchLeaderboardDays() async {
-    final days = await _firestoreData.collection('leaderboard').get().then(
+    final days = await _firestoreData
+        .collection('leaderboard')
+        .doc('global')
+        .collection('weeks')
+        .get()
+        .then(
           (value) => value.docs.map((e) => e.id).toList(),
         );
     return days;
   }
 
   Future<List<Wallet>> fetchLeaderboardDaysUserData(
-      {@required String day}) async {
+      {@required String week}) async {
     final userWalletList = await _firestoreData
         .collection('leaderboard')
-        .doc(day)
+        .doc('global')
+        .collection('weeks')
+        .doc(week)
         .collection('wallets')
         .where('totalBets', isGreaterThan: 3)
-        // .orderBy('totalProfit', descending: true)
-        .limit(100)
+        .limit(50)
         .get()
         .then(
           (value) => value.docs

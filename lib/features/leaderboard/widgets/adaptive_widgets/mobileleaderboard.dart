@@ -24,30 +24,13 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-        //   child: Text(
-        //     'Current Leaderboard',
-        //     style: Styles.normalTextBold,
-        //   ),
-        // ),
         TextBar(
           text: leaderboardState.day,
           textList: leaderboardState.days,
           onPress: (String value) {
-            context.read<LeaderboardCubit>().changeWeek(day: value);
+            context.read<LeaderboardCubit>().changeWeek(week: value);
           },
         ),
-        // const TextBar(
-        //   text: 'All Leagues',
-        //   textList: ['All Leagues'],
-        //   onPress: print,
-        // ),
-        // const TextBar(
-        //   text: 'All Bet Types',
-        //   textList: ['All Bet Types'],
-        //   onPress: print,
-        // ),
         const SizedBox(
           height: 10,
         ),

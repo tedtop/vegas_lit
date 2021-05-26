@@ -7,7 +7,7 @@ class LeaderboardState extends Equatable {
     this.rankedUserList = const [],
     this.status = LeaderboardStatus.initial,
     this.days,
-    this.day = 'Today',
+    this.day = 'Current Week',
   });
 
   const LeaderboardState.initial() : this._();

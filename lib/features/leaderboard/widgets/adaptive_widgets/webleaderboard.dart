@@ -39,19 +39,9 @@ class _WebLeaderboardState extends State<WebLeaderboard> {
                   text: leaderboardState.day,
                   textList: leaderboardState.days,
                   onPress: (String value) {
-                    context.read<LeaderboardCubit>().changeWeek(day: value);
+                    context.read<LeaderboardCubit>().changeWeek(week: value);
                   },
                 ),
-                // const TextBar(
-                //   text: 'All Leagues',
-                //   textList: ['All Leagues'],
-                //   onPress: print,
-                // ),
-                // const TextBar(
-                //   text: 'All Bet Types',
-                //   textList: ['All Bet Types'],
-                //   onPress: print,
-                // ),
               ],
             ),
           ),

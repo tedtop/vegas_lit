@@ -22,9 +22,8 @@ class TextBar extends StatelessWidget {
         horizontal: 6,
       ),
       height: 40,
-      width: 190,
+      width: 220,
       child: Card(
-        // elevation: 1,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
@@ -34,7 +33,6 @@ class TextBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
           ),
-          //height: 40,
           width: double.infinity,
           child: Center(
             child: DropdownButton<String>(
@@ -56,23 +54,26 @@ class TextBar extends StatelessWidget {
               items: textList.isNotEmpty == true
                   ? textList.map<DropdownMenuItem<String>>(
                       (String weekValue) {
-                        dynamic dateFormat;
-                        if (weekValue != 'Today') {
+                        String weekFormat;
+                        if (weekValue != 'Current Week') {
                           final formatValue = weekValue.split('-');
 
-                          final dateTime = DateTime(
-                            int.parse(formatValue[0]),
-                            int.parse(formatValue[1]),
-                            int.parse(formatValue[2]),
-                          );
-                          dateFormat = DateFormat('MMMM c, y').format(dateTime);
+                          weekFormat =
+                              'Week ${formatValue[0]}, ${formatValue[1]}';
+
+                          // final dateTime = DateTime(
+                          //   int.parse(formatValue[0]),
+                          //   int.parse(formatValue[1]),
+                          //   int.parse(formatValue[2]),
+                          // );
+                          // dateFormat = DateFormat('MMMM c, y').format(dateTime);
                         } else {
-                          dateFormat = weekValue;
+                          weekFormat = weekValue;
                         }
                         return DropdownMenuItem<String>(
-                          value: weekValue,
+                          value: weekFormat,
                           child: Text(
-                            dateFormat.toString(),
+                            weekFormat.toString(),
                             textAlign: TextAlign.left,
                             style: GoogleFonts.nunito(
                               fontSize: 18,

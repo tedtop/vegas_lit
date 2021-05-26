@@ -67,8 +67,8 @@ class UserRepository {
   Future<List<String>> fetchLeaderboardDays() =>
       _databaseProvider.fetchLeaderboardDays();
 
-  Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String day}) =>
-      _databaseProvider.fetchLeaderboardDaysUserData(day: day);
+  Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String week}) =>
+      _databaseProvider.fetchLeaderboardDaysUserData(week: week);
 
   Future<String> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();
