@@ -241,9 +241,10 @@ Widget whichBetText({@required BetData betData}) {
     fontSize: 14,
     color: Palette.cream,
   );
-  final odds =
-      betData.odds.isNegative ? betData.odds.toString() : '+${betData.odds}';
-  final pointSpread = betData.betPointSpread.isNegative
+  final odds = betData?.odds?.isNegative ?? 0.isNegative
+      ? betData.odds.toString()
+      : '+${betData.odds}';
+  final pointSpread = betData?.betPointSpread?.isNegative ?? 0.isNegative
       ? betData.betPointSpread.toString()
       : '+${betData.betPointSpread}';
   final overUnder = betData.betTeam == 'away'
