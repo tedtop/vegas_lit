@@ -14,6 +14,7 @@ class SportsAPI {
 
   final Dio _dio;
 
+  // MLB
   Future<List<Game>> fetchMLB({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -34,6 +35,7 @@ class SportsAPI {
     }
   }
 
+  // NBA
   Future<List<Game>> fetchNBA({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nba;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -54,6 +56,7 @@ class SportsAPI {
     }
   }
 
+  // NCAAB
   Future<List<Game>> fetchNCAAB({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -76,6 +79,7 @@ class SportsAPI {
     }
   }
 
+  // NCAAF
   Future<List<Game>> fetchNCAAF({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -98,6 +102,7 @@ class SportsAPI {
     }
   }
 
+  // NFL
   Future<List<Game>> fetchNFL({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -118,6 +123,7 @@ class SportsAPI {
     }
   }
 
+  // NHL
   Future<List<Game>> fetchNHL({@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
     final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
@@ -156,6 +162,7 @@ class SportsAPI {
   //   }
   // }
 
+  // GOLF
   Future<List<GolfTournament>> fetchGolfTournaments({
     DateTime dateTimeEastern,
   }) async {

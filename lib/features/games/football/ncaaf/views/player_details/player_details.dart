@@ -52,7 +52,8 @@ class PlayerDetailsPage extends StatelessWidget {
                   return Column(
                     children: [
                       _playerBadge(size, playerDetails),
-                      _playerStats(playerDetails),
+                      _playerDescription(playerDetails),
+                      //_playerStats(playerDetails),
                       _playerInjury(playerDetails)
                     ],
                   );
@@ -113,6 +114,93 @@ class PlayerDetailsPage extends StatelessWidget {
     );
   }
 
+  Widget _playerDescription(PlayerDetails playerDetails) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              width: 95,
+              child: Center(
+                child: Text(
+                  'HEIGHT',
+                  style: Styles.normalText
+                      .copyWith(color: Palette.green, fontSize: 25),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+              width: 95,
+              child: Center(
+                child: Text(
+                  '${playerDetails.height ~/ 10}\'${playerDetails.height % 10}',
+                  style: Styles.normalText
+                      .copyWith(color: Palette.green, fontSize: 34),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              width: 105,
+              child: Center(
+                child: Text(
+                  'WEIGHT',
+                  style: Styles.normalText
+                      .copyWith(color: Palette.cream, fontSize: 25),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+              width: 105,
+              child: Center(
+                child: Text(
+                  '${playerDetails.weight}',
+                  style: Styles.normalText
+                      .copyWith(color: Palette.cream, fontSize: 34),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              width: 105,
+              child: Center(
+                child: Text(
+                  'SEASON',
+                  style: Styles.normalText
+                      .copyWith(color: Palette.red, fontSize: 25),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+              width: 105,
+              child: Center(
+                child: Text(
+                  //NOT SURE
+                  '${playerDetails.experience}',
+                  style: Styles.normalText
+                      .copyWith(color: Palette.red, fontSize: 34),
+                ),
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
   Widget _playerStats(PlayerDetails playerDetails) {
     //CHANGE REAL DATA HERE
     final tableStats = {
@@ -123,90 +211,6 @@ class PlayerDetailsPage extends StatelessWidget {
     };
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  width: 95,
-                  child: Center(
-                    child: Text(
-                      'HEIGHT',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 25),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  width: 95,
-                  child: Center(
-                    child: Text(
-                      '${playerDetails.height ~/ 10}\'${playerDetails.height % 10}',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 34),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  width: 105,
-                  child: Center(
-                    child: Text(
-                      'WEIGHT',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 25),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  width: 105,
-                  child: Center(
-                    child: Text(
-                      '${playerDetails.weight}',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 34),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  width: 105,
-                  child: Center(
-                    child: Text(
-                      'SEASON',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 25),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  width: 105,
-                  child: Center(
-                    child: Text(
-                      //NOT SURE
-                      '${playerDetails.experience}',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 34),
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
         Container(
           width: 380,
           decoration: BoxDecoration(

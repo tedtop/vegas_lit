@@ -59,8 +59,8 @@ class TeamInfoView extends StatelessWidget {
         ),
         _teamBadge(size),
         const SizedBox(height: 12),
-        _teamStats(),
-        const SizedBox(height: 12),
+        // _teamStats(),
+        // const SizedBox(height: 12),
         BlocConsumer<TeamInfoCubit, TeamInfoState>(
             builder: (context, state) {
               if (state is TeamInfoOpened) {
