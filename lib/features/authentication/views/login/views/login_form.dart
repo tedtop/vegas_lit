@@ -80,6 +80,7 @@ class _EmailInput extends StatelessWidget {
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
+              cursorColor: Palette.cream,
               key: const Key('loginForm_emailInput_textField'),
               onChanged: (email) =>
                   context.read<LoginCubit>().emailChanged(email),
@@ -118,6 +119,7 @@ class _PasswordInput extends StatelessWidget {
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
+              cursorColor: Palette.cream,
               key: const Key('loginForm_passwordInput_textField'),
               onChanged: (password) =>
                   context.read<LoginCubit>().passwordChanged(password),
