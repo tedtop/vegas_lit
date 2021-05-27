@@ -59,10 +59,10 @@ class SignUpForm extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 4, bottom: 5),
-                  child: _MobileNumberInput(),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 4, bottom: 5),
+                //   child: _MobileNumberInput(),
+                // ),
                 // _AgeCheck(),
                 _AgreementCheck(),
                 _SignUpButton(),
@@ -309,7 +309,7 @@ class _PasswordInput extends StatelessWidget {
 
 String passwordError(PasswordValidationError validationError) {
   if (validationError == PasswordValidationError.invalid) {
-    return 'Must be a combination of at least 8 letters and numbers';
+    return 'Must be a combination of at least 6 letters and numbers';
   } else if (validationError == PasswordValidationError.empty) {
     return 'Required';
   } else {
@@ -517,89 +517,89 @@ class _StateInput extends StatelessWidget {
   }
 }
 
-class _MobileNumberInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.number != current.number,
-      builder: (context, state) {
-        return Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Mobile Number',
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                autocorrect: false,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  // MaskedInputFormater('(###) ###-####'),
-                ],
-                onChanged: (mobileNumber) =>
-                    context.read<SignUpCubit>().numberChanged(mobileNumber),
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                ),
-                key: const Key('signUpForm_mobileNumberInput_textField'),
-                cursorColor: Palette.cream,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 2.5,
-                    horizontal: 8,
-                  ),
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                    color: Palette.cream,
-                  ),
-                  errorStyle: const TextStyle(
-                    fontSize: 10,
-                    // height: 0.3,
-                  ),
-                  filled: true,
-                  fillColor: Palette.lightGrey,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
-                  ),
-                  isDense: true,
-                  hintText: 'Mobile Number',
-                  helperText: '',
-                  errorText: mobileNumberError(state.number.error),
-                  focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      borderSide: BorderSide(color: Palette.cream)),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
+// class _MobileNumberInput extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(
+//       buildWhen: (previous, current) => previous.number != current.number,
+//       builder: (context, state) {
+//         return Row(
+//           children: [
+//             Expanded(
+//               child: Padding(
+//                 padding: const EdgeInsets.only(bottom: 20),
+//                 child: Text(
+//                   'Mobile Number',
+//                   style: GoogleFonts.nunito(
+//                     fontSize: 18,
+//                     fontWeight: FontWeight.w200,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               child: TextField(
+//                 autocorrect: false,
+//                 inputFormatters: [
+//                   FilteringTextInputFormatter.digitsOnly,
+//                   // MaskedInputFormater('(###) ###-####'),
+//                 ],
+//                 onChanged: (mobileNumber) =>
+//                     context.read<SignUpCubit>().numberChanged(mobileNumber),
+//                 style: GoogleFonts.nunito(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.w300,
+//                 ),
+//                 key: const Key('signUpForm_mobileNumberInput_textField'),
+//                 cursorColor: Palette.cream,
+//                 keyboardType: TextInputType.phone,
+//                 decoration: InputDecoration(
+//                   contentPadding: const EdgeInsets.symmetric(
+//                     vertical: 2.5,
+//                     horizontal: 8,
+//                   ),
+//                   hintStyle: GoogleFonts.nunito(
+//                     fontSize: 18,
+//                     fontWeight: FontWeight.w300,
+//                     color: Palette.cream,
+//                   ),
+//                   errorStyle: const TextStyle(
+//                     fontSize: 10,
+//                     // height: 0.3,
+//                   ),
+//                   filled: true,
+//                   fillColor: Palette.lightGrey,
+//                   border: const OutlineInputBorder(
+//                     borderRadius: BorderRadius.all(
+//                       Radius.circular(4),
+//                     ),
+//                   ),
+//                   isDense: true,
+//                   hintText: 'Mobile Number',
+//                   helperText: '',
+//                   errorText: mobileNumberError(state.number.error),
+//                   focusedBorder: const OutlineInputBorder(
+//                       borderRadius: BorderRadius.all(Radius.circular(4)),
+//                       borderSide: BorderSide(color: Palette.cream)),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
-String mobileNumberError(PhoneNumberValidationError validationError) {
-  if (validationError == PhoneNumberValidationError.invalid) {
-    return 'Invalid mobile number';
-  } else if (validationError == PhoneNumberValidationError.empty) {
-    return 'Required';
-  } else {
-    return null;
-  }
-}
+// String mobileNumberError(PhoneNumberValidationError validationError) {
+//   if (validationError == PhoneNumberValidationError.invalid) {
+//     return 'Invalid mobile number';
+//   } else if (validationError == PhoneNumberValidationError.empty) {
+//     return 'Required';
+//   } else {
+//     return null;
+//   }
+// }
 
 // class _AgeCheck extends StatelessWidget {
 //   @override

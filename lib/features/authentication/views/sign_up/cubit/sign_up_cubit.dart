@@ -25,7 +25,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           state.americanState,
-          state.number,
+          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -43,7 +43,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           state.americanState,
-          state.number,
+          // state.number,
           agreement,
           state.username,
         ]),
@@ -62,7 +62,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           password,
           state.confirmedPassword,
           state.americanState,
-          state.number,
+          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -83,7 +83,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           confirmedPassword,
           state.americanState,
-          state.number,
+          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -109,7 +109,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           state.americanState,
-          state.number,
+          // state.number,
           state.agreement,
           username,
         ]),
@@ -117,23 +117,23 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  void numberChanged(String value) {
-    final number = PhoneNumber.dirty(value);
-    emit(
-      state.copyWith(
-        numberValue: value,
-        status: Formz.validate([
-          state.email,
-          state.password,
-          state.confirmedPassword,
-          state.americanState,
-          number,
-          state.agreement,
-          state.username,
-        ]),
-      ),
-    );
-  }
+  // void numberChanged(String value) {
+  //   final number = PhoneNumber.dirty(value);
+  //   emit(
+  //     state.copyWith(
+  //       numberValue: value,
+  //       status: Formz.validate([
+  //         state.email,
+  //         state.password,
+  //         state.confirmedPassword,
+  //         state.americanState,
+  //         number,
+  //         state.agreement,
+  //         state.username,
+  //       ]),
+  //     ),
+  //   );
+  // }
 
   void americanStateChanged(String value) {
     final americanState = AmericanState.dirty(value);
@@ -145,7 +145,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           americanState,
-          state.number,
+          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -167,7 +167,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
     final username =
         Username.dirty(usernameValidationError, state.usernameValue);
-    final number = PhoneNumber.dirty(state.numberValue);
+    // final number = PhoneNumber.dirty(state.numberValue);
     final americanState = AmericanState.dirty(state.americanStateValue);
 
     emit(
@@ -177,7 +177,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
         confirmedPassword: confirmedPassword,
         username: username,
-        number: number,
+        // number: number,
         americanState: americanState,
         status: Formz.validate(
           [
@@ -185,7 +185,7 @@ class SignUpCubit extends Cubit<SignUpState> {
             password,
             confirmedPassword,
             americanState,
-            number,
+            // number,
             agreement,
             username,
           ],
@@ -207,7 +207,6 @@ class SignUpCubit extends Cubit<SignUpState> {
         userDataMap: UserData(
           location: state.americanState.value,
           email: state.email.value,
-          phone: int.parse(state.number.value),
           uid: currentUser.uid,
           username: state.username.value,
         ).toMap(),

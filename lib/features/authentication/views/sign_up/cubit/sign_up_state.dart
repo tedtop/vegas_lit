@@ -7,7 +7,7 @@ class SignUpState extends Equatable {
     this.confirmedPassword = const ConfirmedPassword.pure(),
     this.status = FormzStatus.pure,
     this.americanState = const AmericanState.pure(),
-    this.number = const PhoneNumber.pure(),
+    // this.number = const PhoneNumber.pure(),
     this.agreement = const Agreement.pure(),
     this.username = const Username.pure(),
     this.emailValue = '',
@@ -15,7 +15,7 @@ class SignUpState extends Equatable {
     this.confirmedPasswordValue = '',
     this.usernameValue = '',
     this.americanStateValue = '',
-    this.numberValue = '',
+    // this.numberValue = '',
     this.agreementValue = false,
   });
 
@@ -29,8 +29,8 @@ class SignUpState extends Equatable {
   final String usernameValue;
   final AmericanState americanState;
   final String americanStateValue;
-  final PhoneNumber number;
-  final String numberValue;
+  // final PhoneNumber number;
+  // final String numberValue;
   final Agreement agreement;
   final bool agreementValue;
 
@@ -43,7 +43,7 @@ class SignUpState extends Equatable {
         confirmedPasswordValue,
         usernameValue,
         americanStateValue,
-        numberValue,
+        // numberValue,
         agreementValue,
         email,
         password,
@@ -51,7 +51,7 @@ class SignUpState extends Equatable {
         confirmedPassword,
         status,
         americanState,
-        number,
+        // number,
         username
       ];
 
@@ -66,8 +66,8 @@ class SignUpState extends Equatable {
     String usernameValue,
     AmericanState americanState,
     String americanStateValue,
-    PhoneNumber number,
-    String numberValue,
+    // PhoneNumber number,
+    // String numberValue,
     Agreement agreement,
     bool agreementValue,
     FormzStatus status,
@@ -84,8 +84,8 @@ class SignUpState extends Equatable {
       usernameValue: usernameValue ?? this.usernameValue,
       americanState: americanState ?? this.americanState,
       americanStateValue: americanStateValue ?? this.americanStateValue,
-      number: number ?? this.number,
-      numberValue: numberValue ?? this.numberValue,
+      // number: number ?? this.number,
+      // numberValue: numberValue ?? this.numberValue,
       agreement: agreement ?? this.agreement,
       agreementValue: agreementValue ?? this.agreementValue,
       status: status ?? this.status,

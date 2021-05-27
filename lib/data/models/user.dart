@@ -7,7 +7,7 @@ class UserData extends Equatable {
     @required this.uid,
     @required this.username,
     @required this.email,
-    @required this.phone,
+    // @required this.phone,
     @required this.location,
     this.isAdmin,
   });
@@ -19,7 +19,7 @@ class UserData extends Equatable {
       uid: data['uid'] as String,
       email: data['email'] as String,
       username: data['username'] as String,
-      phone: data['phone'] as int,
+      // phone: data['phone'] as int,
       location: data['location'] as String,
     );
   }
@@ -28,7 +28,7 @@ class UserData extends Equatable {
     return {
       'email': email,
       'username': username,
-      'phone': phone,
+      // 'phone': phone,
       'location': location,
       'uid': uid,
       'isAdmin': false,
@@ -38,7 +38,7 @@ class UserData extends Equatable {
   final String uid;
   final String username;
   final String email;
-  final int phone;
+  // final int phone;
   final String location;
   final bool isAdmin;
 
@@ -48,7 +48,7 @@ class UserData extends Equatable {
       uid,
       username,
       email,
-      phone,
+      // phone,
       location,
       isAdmin,
     ];

@@ -56,7 +56,7 @@ class Profile extends StatelessWidget {
                             _UsernameInput(),
                             _EmailInput(),
                             _StateInput(),
-                            _MobileNumberInput(),
+                            // _MobileNumberInput(),
                             // _EditButton(),
                           ],
                         );
@@ -326,68 +326,68 @@ class _StateInput extends StatelessWidget {
   }
 }
 
-class _MobileNumberInput extends StatelessWidget {
-  final TextEditingController textInputController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    final number = context.watch<ProfileCubit>().state.userData.phone;
-    textInputController.text = number.toString();
-    return Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              'Mobile Number',
-              style: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: TextField(
-            autocorrect: false,
-            inputFormatters: [MaskedInputFormater('(###) ###-####')],
-            onChanged: print,
-            controller: textInputController,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
-            key: const Key('signUpForm_mobileNumberInput_textField'),
-            cursorColor: Palette.cream,
-            keyboardType: TextInputType.phone,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 6,
-                horizontal: 8,
-              ),
-              hintStyle: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-                color: Palette.cream,
-              ),
-              filled: true,
-              fillColor: Palette.darkGrey,
+// class _MobileNumberInput extends StatelessWidget {
+//   final TextEditingController textInputController = TextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     final number = context.watch<ProfileCubit>().state.userData.phone;
+//     textInputController.text = number.toString();
+//     return Row(
+//       children: [
+//         Expanded(
+//           child: Padding(
+//             padding: const EdgeInsets.only(bottom: 20),
+//             child: Text(
+//               'Mobile Number',
+//               style: GoogleFonts.nunito(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w300,
+//               ),
+//             ),
+//           ),
+//         ),
+//         Expanded(
+//           child: TextField(
+//             autocorrect: false,
+//             inputFormatters: [MaskedInputFormater('(###) ###-####')],
+//             onChanged: print,
+//             controller: textInputController,
+//             style: GoogleFonts.nunito(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w300,
+//             ),
+//             key: const Key('signUpForm_mobileNumberInput_textField'),
+//             cursorColor: Palette.cream,
+//             keyboardType: TextInputType.phone,
+//             decoration: InputDecoration(
+//               contentPadding: const EdgeInsets.symmetric(
+//                 vertical: 6,
+//                 horizontal: 8,
+//               ),
+//               hintStyle: GoogleFonts.nunito(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w300,
+//                 color: Palette.cream,
+//               ),
+//               filled: true,
+//               fillColor: Palette.darkGrey,
 
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(4),
-                ),
-              ),
-              isDense: true,
-              hintText: 'Mobile Number',
-              helperText: '',
-              // errorText: state.number.invalid ? 'Wrong Mobile Number' : null,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//               border: const OutlineInputBorder(
+//                 borderRadius: BorderRadius.all(
+//                   Radius.circular(4),
+//                 ),
+//               ),
+//               isDense: true,
+//               hintText: 'Mobile Number',
+//               helperText: '',
+//               // errorText: state.number.invalid ? 'Wrong Mobile Number' : null,
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 // class _EditButton extends StatelessWidget {
 //   @override
