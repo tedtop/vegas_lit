@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:vegas_lit/data/models/user.dart';
+import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
 
 import '../../../authentication.dart';
@@ -9,11 +10,17 @@ import '../../../authentication.dart';
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit(this._authenticationRepository)
-      : assert(_authenticationRepository != null),
+  SignUpCubit({
+    @required UserRepository userRepository,
+    @required AuthenticationBloc authenticationBloc,
+  })  : assert(userRepository != null),
+        assert(authenticationBloc != null),
+        _authenticationBloc = authenticationBloc,
+        _userRepository = userRepository,
         super(const SignUpState());
 
-  final UserRepository _authenticationRepository;
+  final UserRepository _userRepository;
+  final AuthenticationBloc _authenticationBloc;
 
   void emailChanged(String value) {
     final email = Email.dirty(value);
@@ -96,7 +103,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       const Duration(seconds: 1),
     );
     final isUsernameExist =
-        await _authenticationRepository.isUsernameExist(username: value);
+        await _userRepository.isUsernameExist(username: value);
     final usernameValidationError =
         isUsernameExist ? UsernameValidationError.exist : null;
     final username = Username.dirty(usernameValidationError, value);
@@ -154,8 +161,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> signUpFormSubmitted() async {
-    final isUsernameExist = await _authenticationRepository.isUsernameExist(
-        username: state.usernameValue);
+    final isUsernameExist =
+        await _userRepository.isUsernameExist(username: state.usernameValue);
     final usernameValidationError =
         isUsernameExist ? UsernameValidationError.exist : null;
     final email = Email.dirty(state.emailValue);
@@ -197,12 +204,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     try {
-      await _authenticationRepository.signUp(
+      await _userRepository.signUp(
         email: state.email.value,
         password: state.password.value,
       );
-      final currentUser = await _authenticationRepository.getCurrentUser();
-      await _authenticationRepository.saveUserDetails(
+      final currentUser = await _userRepository.getCurrentUser();
+      await _userRepository.saveUserDetails(
         uid: currentUser.uid,
         userDataMap: UserData(
           location: state.americanState.value,
@@ -211,6 +218,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           username: state.username.value,
         ).toMap(),
       );
+      _authenticationBloc.add(CheckProfileComplete(currentUser));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 
 import '../cubit/login_cubit.dart';
 import 'login_form.dart';
@@ -23,7 +24,8 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: BlocProvider<LoginCubit>(
           create: (_) => LoginCubit(
-            context.read<UserRepository>(),
+            userRepository: context.read<UserRepository>(),
+            authenticationBloc: context.watch<AuthenticationBloc>(),
           ),
           child: LoginForm(),
         ),

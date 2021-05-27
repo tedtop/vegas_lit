@@ -35,7 +35,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   Widget build(BuildContext context) {
     final currentUserId = context.select(
       (AuthenticationBloc authenticationBloc) =>
-          authenticationBloc.state.user?.uid,
+          authenticationBloc.state?.user?.uid,
     );
     final isAdmin = context.select((ProfileCubit profileCubit) =>
         profileCubit.state.userData?.isAdmin ?? false);

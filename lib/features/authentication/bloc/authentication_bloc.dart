@@ -40,6 +40,7 @@ class AuthenticationBloc
           CheckProfileComplete(event.user),
         );
       } else {
+        _userSubscription?.pause();
         yield const AuthenticationState.unauthenticated();
       }
     } else if (event is CheckProfileComplete) {
@@ -62,14 +63,11 @@ class AuthenticationBloc
   Stream<AuthenticationState> _checkProfileComplete(
       CheckProfileComplete event) async* {
     yield const AuthenticationState.splashscreen();
-    final isUserExist =
-        await _userRepository.isProfileComplete(uid: event.user.uid);
-    if (isUserExist) {
-      yield AuthenticationState.authenticated(event.user);
-    } else {
-      add(
-        CheckProfileComplete(event.user),
-      );
-    }
+    _userSubscription?.resume();
+    // final isUserExist =
+    //     await _userRepository.isProfileComplete(uid: event.user.uid);
+    // if (isUserExist) {
+    yield AuthenticationState.authenticated(event.user);
+    // }
   }
 }

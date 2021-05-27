@@ -1,19 +1,25 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
+
 import '../../../authentication.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._authenticationRepository)
-      : assert(_authenticationRepository != null),
-        super(
-          const LoginState(),
-        );
+  LoginCubit({
+    @required UserRepository userRepository,
+    @required AuthenticationBloc authenticationBloc,
+  })  : assert(userRepository != null),
+        assert(authenticationBloc != null),
+        _authenticationBloc = authenticationBloc,
+        _userRepository = userRepository,
+        super(const LoginState());
 
-  final UserRepository _authenticationRepository;
+  final UserRepository _userRepository;
+  final AuthenticationBloc _authenticationBloc;
 
   void emailChanged(String value) {
     final email = Email.dirty(value);
@@ -51,10 +57,12 @@ class LoginCubit extends Cubit<LoginState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      await _authenticationRepository.logInWithEmailAndPassword(
+      await _userRepository.logInWithEmailAndPassword(
         email: state.email.value,
         password: state.password.value,
       );
+      final currentUser = await _userRepository.getCurrentUser();
+      _authenticationBloc.add(CheckProfileComplete(currentUser));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
@@ -62,6 +70,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> resetPassword({String email}) async {
-    await _authenticationRepository.resetPasswordEmail(email: email);
+    await _userRepository.resetPasswordEmail(email: email);
   }
 }
