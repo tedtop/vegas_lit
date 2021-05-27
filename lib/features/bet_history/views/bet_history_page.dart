@@ -23,52 +23,54 @@ class BetHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final openBetsState = context.watch<OpenBetsCubit>().state;
+    return Scaffold(
+      body: Builder(
+        builder: (context) {
+          final openBetsState = context.watch<OpenBetsCubit>().state;
 
-        if (openBetsState.status == OpenBetsStatus.opened) {
-          final betPlacedLength = openBetsState.openBetsDataList.length;
-          final betAmountRisk =
-              openBetsState.openBetsDataList.map((e) => e.betAmount).toList();
+          if (openBetsState.status == OpenBetsStatus.opened) {
+            final betPlacedLength = openBetsState.openBetsDataList.length;
+            final betAmountRisk =
+                openBetsState.openBetsDataList.map((e) => e.betAmount).toList();
 
-          return ListView(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'BET HISTORY',
-                      style: Styles.pageTitle,
+            return ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'BET HISTORY',
+                        style: Styles.pageTitle,
+                      ),
                     ),
+                  ],
+                ),
+                ScreenTypeLayout(
+                  mobile: MobileBetHistory(
+                    betPlacedLength: betPlacedLength,
+                    betAmountRisk: betAmountRisk,
                   ),
-                ],
-              ),
-              ScreenTypeLayout(
-                mobile: MobileBetHistory(
-                  betPlacedLength: betPlacedLength,
-                  betAmountRisk: betAmountRisk,
+                  tablet: TabletBetHistory(
+                    betAmountRisk: betAmountRisk,
+                    betPlacedLength: betPlacedLength,
+                  ),
+                  desktop: WebBetHistory(
+                    betAmountRisk: betAmountRisk,
+                    betPlacedLength: betPlacedLength,
+                  ),
                 ),
-                tablet: TabletBetHistory(
-                  betAmountRisk: betAmountRisk,
-                  betPlacedLength: betPlacedLength,
-                ),
-                desktop: WebBetHistory(
-                  betAmountRisk: betAmountRisk,
-                  betPlacedLength: betPlacedLength,
-                ),
-              ),
-              kIsWeb ? const BottomBar() : const SizedBox(),
-            ],
-          );
-        } else {
-          return const CircularProgressIndicator(
-            color: Palette.cream,
-          );
-        }
-      },
+                kIsWeb ? const BottomBar() : const SizedBox(),
+              ],
+            );
+          } else {
+            return const CircularProgressIndicator(
+              color: Palette.cream,
+            );
+          }
+        },
+      ),
     );
   }
 }
