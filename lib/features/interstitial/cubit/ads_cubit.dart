@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
@@ -56,9 +59,12 @@ class AdsCubit extends Cubit<AdsState> {
   }
 
   Future<void> openRewardedAd() async {
+    final rewardedAdID = Platform.isIOS
+        ? 'ca-app-pub-8972894064340370/3118061623'
+        : 'ca-app-pub-8972894064340370/1258556174';
     final currentUser = await _userRepository.getCurrentUser();
     await RewardedAd.loadWithAdManagerAdRequest(
-      adUnitId: RewardedAd.testAdUnitId,
+      adUnitId: kDebugMode ? RewardedAd.testAdUnitId : rewardedAdID,
       adManagerRequest: const AdManagerAdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd rewardedAd) async {

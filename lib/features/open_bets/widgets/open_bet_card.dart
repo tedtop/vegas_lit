@@ -250,11 +250,11 @@ Widget whichBetText({@required BetData betData}) {
       ? '${betData.betOverUnder}'
       : '${betData.betOverUnder}';
   final awayTeamPointSpread = isPointSpreadNegative
-      ? betData?.betPointSpread?.abs()
-      : -betData?.betPointSpread?.abs();
+      ? betData?.betPointSpread?.abs() ?? 0
+      : -betData?.betPointSpread?.abs() ?? 0;
   final homeTeamPointSpread = isPointSpreadNegative
-      ? -betData?.betPointSpread?.abs()
-      : betData?.betPointSpread?.abs();
+      ? -betData?.betPointSpread?.abs() ?? 0
+      : betData?.betPointSpread?.abs() ?? 0;
   switch (betData.betType) {
     case 'moneyline':
       return Column(

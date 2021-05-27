@@ -146,7 +146,7 @@ class _SportsBookViewState extends State<SportsBookView> {
                             'NHL',
                             'NCAAF',
                             'NCAAB',
-                            'GOLF',
+                            // 'GOLF',
                             // 'CRICKET'
                           ].map<DropdownMenuItem<String>>(
                             (String value) {

@@ -215,11 +215,11 @@ class BetHistorySlip extends StatelessWidget {
         : '-${betData.betOverUnder}';
 
     final awayTeamPointSpread = isPointSpreadNegative
-        ? '+${betData?.betPointSpread?.abs()}'
-        : '-${betData?.betPointSpread?.abs()}';
+        ? '+${betData?.betPointSpread?.abs() ?? 0}'
+        : '-${betData?.betPointSpread?.abs() ?? 0}';
     final homeTeamPointSpread = isPointSpreadNegative
-        ? '-${betData?.betPointSpread?.abs()}'
-        : '+${betData?.betPointSpread?.abs()}';
+        ? '-${betData?.betPointSpread?.abs() ?? 0}'
+        : '+${betData?.betPointSpread?.abs() ?? 0}';
 
     switch (betData.betType) {
       case 'moneyline':

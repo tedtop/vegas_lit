@@ -157,9 +157,18 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
             '${widget.rank}. ${widget.player.username}',
             style: Styles.normalTextBold,
           ),
-          subtitle: Text(
-            'Profit: \$${widget.player.totalProfit}',
-            style: Styles.homeTeam,
+          subtitle: Row(
+            children: [
+              Text(
+                'Profit: \$${widget.player.totalProfit}',
+                style: Styles.homeTeam,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                'Balance: \$${widget.player.accountBalance}',
+                style: Styles.awayTeam,
+              ),
+            ],
           ),
           collapsedBackgroundColor: Palette.lightGrey,
           backgroundColor: Palette.darkGrey,
