@@ -384,7 +384,7 @@ export const resolveBets = functions.pubsub
 //   });
 
 export const resetContestWeek = functions.pubsub
-  .schedule("58 23 * * 6")
+  .schedule("58 23 * * 3")
   .timeZone("America/New_York")
   .onRun(async (context) => {
     console.log("This function will be run every saturday at 11:58 PM!");

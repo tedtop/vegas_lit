@@ -271,7 +271,7 @@ class _BetSlipCardState extends State<MlbBetSlipCard> {
                                             duration:
                                                 Duration(milliseconds: 1000),
                                             content: Text(
-                                              'The game has already startedss',
+                                              'The game has already started',
                                             ),
                                           ),
                                         );

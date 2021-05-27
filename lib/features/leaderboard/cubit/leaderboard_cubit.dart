@@ -35,17 +35,18 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
       emit(
         LeaderboardState.loading(days: state.days, day: week),
       );
-      final userDataList = await _userRepository.fetchLeaderboardDaysUserData(
-          week: week)
-        ..sort(
-          (b, a) {
-            final profitCompare = (a.totalProfit).compareTo((b.totalProfit));
-            if (profitCompare == 0) {
-              return (a.totalBets).compareTo((b.totalBets));
-            }
-            return profitCompare;
-          },
-        );
+      final userDataList =
+          await _userRepository.fetchLeaderboardDaysUserData(week: week)
+            ..sort(
+              (b, a) {
+                final profitCompare =
+                    (a.accountBalance).compareTo((b.accountBalance));
+                if (profitCompare == 0) {
+                  return (a.totalBets).compareTo((b.totalBets));
+                }
+                return profitCompare;
+              },
+            );
       emit(
         LeaderboardState.weekChanged(
           rankedUserList: userDataList,
@@ -64,7 +65,8 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
       (event) {
         event.sort(
           (b, a) {
-            final profitCompare = (a.totalProfit).compareTo((b.totalProfit));
+            final profitCompare =
+                (a.accountBalance).compareTo((b.accountBalance));
             if (profitCompare == 0) {
               return (a.totalBets).compareTo((b.totalBets));
             }

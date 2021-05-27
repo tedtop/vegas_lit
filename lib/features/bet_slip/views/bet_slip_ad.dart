@@ -47,7 +47,7 @@ class RewardedBetSlip extends StatelessWidget {
                         '1. Click the button',
                       ),
                       textPoints(
-                        '2. Watch an Ad',
+                        '2. Watch a video',
                       ),
                       textPoints(
                         '3. Earn \$100 of Vegas Bucks!',
@@ -74,7 +74,13 @@ class RewardedBetSlip extends StatelessWidget {
                       ),
                       width: buttonWidthHeight,
                       height: buttonWidthHeight,
-                      child: const Center(child: Text('Button')),
+                      child: Center(
+                          child: Text(
+                        'Watch Video',
+                        style: GoogleFonts.nunito(
+                          color: Palette.cream,
+                        ),
+                      )),
                     ),
                   )
                 ],

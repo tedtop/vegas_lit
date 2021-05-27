@@ -137,12 +137,12 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        child: ExpansionTile(
-          onExpansionChanged: (isExpanded) {
-            setState(() {
-              expanded = isExpanded;
-            });
-          },
+        child: ListTile(
+          // onExpansionChanged: (isExpanded) {
+          //   setState(() {
+          //     expanded = isExpanded;
+          //   });
+          // },
           leading: CircleAvatar(
             backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
             child: Text(
@@ -153,44 +153,74 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
               ),
             ),
           ),
-          title: Text(
-            '${widget.rank}. ${widget.player.username}',
-            style: Styles.normalTextBold,
-          ),
-          subtitle: Text(
-            'Profit: \$${widget.player.totalProfit}',
-            style: Styles.homeTeam,
-          ),
-          collapsedBackgroundColor: Palette.lightGrey,
-          backgroundColor: Palette.darkGrey,
-          children: [
-            Container(
-              width: 380,
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${widget.player.totalBetsWon} out of ${widget.player.totalBets} Correct Bets!',
-                    style: Styles.awayTeam,
-                  ),
-                  Text(
-                    'Total Lost Bets: ${widget.player.totalBetsLost}',
-                    style: Styles.awayTeam,
-                  ),
-                  Text(
-                    'Open Bets: ${widget.player.totalOpenBets}',
-                    style: Styles.awayTeam,
-                  ),
-                  Text(
-                    'Account Balance: \$${widget.player.accountBalance}',
-                    style: Styles.awayTeam,
-                  )
-                ],
+
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${widget.rank}. ${widget.player.username}',
+                style: Styles.normalTextBold,
               ),
-            )
-          ],
+              Text(
+                '\$${widget.player.accountBalance}',
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  color:
+                      //  (widget.player.totalProfit - widget.player.totalLoss)
+                      //         .isNegative
+                      //     ? Palette.red
+                      //     :
+                      Palette.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Open Bets: ${widget.player.totalOpenBets}/${widget.player.totalBets}',
+                style: Styles.awayTeam,
+              ),
+              Text(
+                'W/L: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(1)}%',
+                style: Styles.awayTeam,
+              ),
+            ],
+          ),
+          tileColor: Palette.lightGrey,
+
+          // collapsedBackgroundColor: Palette.lightGrey,
+          // backgroundColor: Palette.darkGrey,
+          // children: [
+          //   Container(
+          //     width: 380,
+          //     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text(
+          //           '${widget.player.totalBetsWon} out of ${widget.player.totalBets} Correct Bets!',
+          //           style: Styles.awayTeam,
+          //         ),
+          //         Text(
+          //           'Total Lost Bets: ${widget.player.totalBetsLost}',
+          //           style: Styles.awayTeam,
+          //         ),
+          //         Text(
+          //           'Open Bets: ${widget.player.totalOpenBets}',
+          //           style: Styles.awayTeam,
+          //         ),
+          //         Text(
+          //           'Account Balance: \$${widget.player.accountBalance}',
+          //           style: Styles.awayTeam,
+          //         )
+          //       ],
+          //     ),
+          //   )
+          // ],
         ),
       ),
     );

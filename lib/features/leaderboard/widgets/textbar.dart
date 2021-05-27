@@ -71,7 +71,7 @@ class TextBar extends StatelessWidget {
                           weekFormat = weekValue;
                         }
                         return DropdownMenuItem<String>(
-                          value: weekFormat,
+                          value: weekValue,
                           child: Text(
                             weekFormat.toString(),
                             textAlign: TextAlign.left,
