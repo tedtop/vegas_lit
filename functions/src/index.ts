@@ -33,7 +33,6 @@ export const resolveBets = functions.pubsub
             const dateTime = formatTime(data.gameDateTime);
             const league = data.league.toLowerCase();
             const isClosedFirestore = data.isClosed;
-
             const apikey = whichKey(league);
             const gameId = data.gameId;
             const documentId = data.id;
@@ -42,7 +41,6 @@ export const resolveBets = functions.pubsub
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
             const username = data.username;
-
             const amountWin = data.betProfit;
             const totalWinAmount = amountWin + amountBet;
 
@@ -283,7 +281,7 @@ export const resolveBets = functions.pubsub
     }
 
     // Format given date in specific format
-    function formatTime(dateTime: string): string {
+    function formatTime(dateTime: Date): string {
       const d = new Date(dateTime);
       const myDatetimeFormat = "yyyy-MMM-DD";
       return moment(d).format(myDatetimeFormat);
