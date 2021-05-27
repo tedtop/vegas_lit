@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/data/models/wallet.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 
@@ -98,17 +101,48 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
             }
           },
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PageNumberView(pages: 0),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Last Updated: ',
+                style: Styles.matchupTime,
+              ),
+              Text(
+                DateFormat('E, MMMM, c, y @ hh:00 a').format(
+                  fetchTimeEST(),
+                ),
+                style: Styles.matchupTime,
+              ),
+              Text(
+                ' EST',
+                style: Styles.matchupTime,
+              ),
+            ],
+          ),
         )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: PageNumberView(pages: 0),
+        //     ),
+        //   ],
+        // )
       ],
     );
+  }
+
+  DateTime fetchTimeEST() {
+    tz.initializeTimeZones();
+    final locationNY = tz.getLocation('America/New_York');
+    final nowNY = tz.TZDateTime.now(locationNY);
+    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
+        nowNY.minute, nowNY.second);
+    return dateTimeNY;
   }
 }
 

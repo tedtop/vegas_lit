@@ -13,14 +13,13 @@ class RewardedBetSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final buttonWidthHeight = size.width * .22;
+    final buttonWidthHeight = size.width * .30;
 
     return SingleChildScrollView(
       child: Column(
         children: [
           BetSlipUpper(),
           AbstractCard(
-            crossAxisAlignment: CrossAxisAlignment.start,
             widgets: [
               Text(
                 'Your bets are placed!',
@@ -32,58 +31,62 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textPoints(
-                        'Need more funds to bet?',
-                      ),
-                      textPoints(
-                        '1. Click the button',
-                      ),
-                      textPoints(
-                        '2. Watch a video',
-                      ),
-                      textPoints(
-                        '3. Earn \$100 of Vegas Bucks!',
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        Interstitial.route(),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Palette.green,
-                        borderRadius: BorderRadius.circular(buttonWidthHeight),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.25),
-                            offset: const Offset(0, 4),
-                            blurRadius: 4,
-                          )
-                        ],
-                      ),
-                      width: buttonWidthHeight,
-                      height: buttonWidthHeight,
-                      child: Center(
-                          child: Text(
-                        'Watch Video',
-                        style: GoogleFonts.nunito(
-                          color: Palette.cream,
-                        ),
-                      )),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Column(
+                  children: [
+                    textPoints(
+                      'Need more funds to bet?',
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          Interstitial.route(),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Palette.green,
+                          borderRadius:
+                              BorderRadius.circular(buttonWidthHeight),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(.25),
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                            )
+                          ],
+                        ),
+                        width: buttonWidthHeight,
+                        height: buttonWidthHeight,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Watch',
+                                style: GoogleFonts.nunito(
+                                  color: Palette.cream,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                'Video',
+                                style: GoogleFonts.nunito(
+                                  color: Palette.cream,
+                                  fontSize: 20,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -103,9 +106,6 @@ class RewardedBetSlip extends StatelessWidget {
             fontWeight: FontWeight.w200,
             color: Palette.cream,
           ),
-        ),
-        const SizedBox(
-          height: 8,
         ),
       ],
     );
