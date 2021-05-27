@@ -456,10 +456,12 @@ export const resetContestWeek = functions.pubsub
 
     function getCurrentWeek(): string {
       let today = new Date();
-      const walletsDayFormat = "W-YYYY";
+      const weekNextFormat = moment(today).format("w");
+      const nextWeekFormatInteger = Number.parseInt(weekNextFormat) + 1;
+      const walletsDayFormat = "YYYY-w";
       const weekFormat = moment(today).format(walletsDayFormat);
-
-      return weekFormat;
+      const fullData = `${weekFormat}-${nextWeekFormatInteger}`;
+      return fullData;
     }
   });
 
