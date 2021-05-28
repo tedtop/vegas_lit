@@ -7,6 +7,7 @@ const url =
 const webhook = new IncomingWebhook(url);
 import moment = require("moment-timezone");
 const performance = require("perf_hooks").performance;
+import Timestamp = admin.firestore.Timestamp;
 
 var app = admin.initializeApp();
 
@@ -30,7 +31,7 @@ export const resolveBets = functions.pubsub
           snapshots.docs.map(async (document) => {
             const data = document.data();
 
-            const dateTime = formatTime(data.gameDateTime);
+            const dateTime = formatTime(data.gameStartDateTime);
             const league = data.league.toLowerCase();
             const isClosedFirestore = data.isClosed;
             const apikey = whichKey(league);
@@ -281,10 +282,10 @@ export const resolveBets = functions.pubsub
     }
 
     // Format given date in specific format
-    function formatTime(dateTime: Date): string {
-      const d = new Date(dateTime);
+    function formatTime(dateTime: Timestamp): string {
+      const timestampToDate = dateTime.toDate();
       const myDatetimeFormat = "yyyy-MMM-DD";
-      return moment(d).format(myDatetimeFormat);
+      return moment(timestampToDate).format(myDatetimeFormat);
     }
 
     // Key checking for specific game
