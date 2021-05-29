@@ -341,7 +341,8 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                                                       .toWinAmount,
                                                   gameStartDateTime:
                                                       betButtonState
-                                                          .game.dateTime,
+                                                          .game.dateTime
+                                                          .toString(),
                                                   awayTeamScore: betButtonState
                                                       .game.awayTeamScore,
                                                   homeTeamScore: betButtonState
@@ -352,7 +353,8 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                                                               BetButtonWin.home
                                                           ? 'home'
                                                           : 'away',
-                                                  dateTime: fetchTimeEST(),
+                                                  dateTime:
+                                                      fetchTimeEST().toString(),
                                                 ).toMap(),
                                                 currentUserId: currentUserId,
                                               );

@@ -55,8 +55,8 @@ class BetData extends Equatable {
       totalGameScore: data['totalGameScore'] as int,
       homeTeamName: data['homeTeamName'] as String,
       awayTeamName: data['awayTeamName'] as String,
-      gameStartDateTime: data['gameStartDateTime'].toDate(),
-      dateTime: data['dateTime'].toDate(),
+      gameStartDateTime: data['gameStartDateTime'] as String,
+      dateTime: data['dateTime'] as String,
       gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
       league: data['league'] as String,
@@ -83,8 +83,8 @@ class BetData extends Equatable {
   final String awayTeamName;
   final String awayTeam;
   final String uid;
-  final DateTime gameStartDateTime;
-  final DateTime dateTime;
+  final String gameStartDateTime;
+  final String dateTime;
   final int gameId;
   final String winningTeam;
   final bool isClosed;
