@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/home/home.dart';
@@ -55,11 +54,7 @@ class _MobileOpenBetsDescription extends StatelessWidget {
       ),
       child: RichText(
         text: TextSpan(
-          style: GoogleFonts.nunito(
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
-            color: Palette.cream,
-          ),
+          style: Styles.openBetsNormalText,
           children: <TextSpan>[
             const TextSpan(
               text:
@@ -68,10 +63,7 @@ class _MobileOpenBetsDescription extends StatelessWidget {
             ),
             TextSpan(
                 text: ' BET HISTORY ',
-                style: GoogleFonts.nunito(
-                  color: Palette.green,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Styles.openBetsTextButton,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     context.read<HomeCubit>().homeChange(4);
@@ -155,11 +147,7 @@ class _MobileOpenBetsContentEmpty extends StatelessWidget {
         // ignore: lines_longer_than_80_chars
         'No bets placed. \nPlace some bets to show them here.',
         textAlign: TextAlign.center,
-        style: GoogleFonts.nunito(
-          color: Palette.cream,
-          fontSize: 18,
-          fontWeight: FontWeight.w300,
-        ),
+        style: Styles.openBetsEmpty,
       ),
     );
   }

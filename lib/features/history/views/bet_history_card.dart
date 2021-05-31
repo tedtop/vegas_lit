@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/bet.dart';
 
 class BetHistorySlip extends StatelessWidget {
@@ -117,17 +118,13 @@ class BetHistorySlip extends StatelessWidget {
                         children: [
                           Text(
                             'you bet',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                            style: Styles.betHistoryDescription.copyWith(
                               color: isWin ? Palette.green : Palette.red,
                             ),
                           ),
                           Text(
                             '\$${betHistoryData.betAmount}',
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                            style: Styles.betHistoryAmount.copyWith(
                               color: isWin ? Palette.green : Palette.red,
                             ),
                           ),
@@ -144,22 +141,13 @@ class BetHistorySlip extends StatelessWidget {
                         children: [
                           Text(
                             '${isWin ? 'and won' : 'you lost'}',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.cream,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Styles.betHistoryDescription,
                           ),
                           Text(
-                            isWin
-                                ? '\$${betHistoryData.betProfit}'
-                                : '\$${betHistoryData.betAmount}',
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              color: Palette.cream,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                              isWin
+                                  ? '\$${betHistoryData.betProfit}'
+                                  : '\$${betHistoryData.betAmount}',
+                              style: Styles.betHistoryAmount),
                         ],
                       ),
                     ),
@@ -197,10 +185,6 @@ class BetHistorySlip extends StatelessWidget {
   }
 
   Widget whichBetText({@required BetData betData}) {
-    final textStyle = GoogleFonts.nunito(
-      fontSize: 14,
-      color: Palette.cream,
-    );
     final odds =
         betData.odds.isNegative ? betData.odds.toString() : '+${betData.odds}';
 
@@ -230,22 +214,16 @@ class BetHistorySlip extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  style: textStyle,
+                  style: Styles.betHistoryCardNormal,
                   children: [
                     betData.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.cream,
-                            ),
+                            style: Styles.betHistoryTeamAway,
                           )
                         : TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.green,
-                            ),
+                            style: Styles.betHistoryTeamNotAway,
                           ),
                     TextSpan(text: isWin ? 'WON' : 'LOST'),
                     TextSpan(
@@ -256,7 +234,7 @@ class BetHistorySlip extends StatelessWidget {
               ),
               Text(
                 '${betTypeString(betData.betType)}  ($odds)',
-                style: textStyle,
+                style: Styles.betHistoryCardNormal,
               ),
             ],
           ),
@@ -269,22 +247,16 @@ class BetHistorySlip extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  style: textStyle,
+                  style: Styles.betHistoryCardNormal,
                   children: [
                     betData.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.cream,
-                            ),
+                            style: Styles.betHistoryTeamAway,
                           )
                         : TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.green,
-                            ),
+                            style: Styles.betHistoryTeamNotAway,
                           ),
                     TextSpan(
                       text:
@@ -298,13 +270,13 @@ class BetHistorySlip extends StatelessWidget {
                       isWin
                           ? 'AUTOMATIC WIN $awayTeamPointSpread ($odds)'
                           : 'AUTOMATIC LOSS $awayTeamPointSpread ($odds)',
-                      style: textStyle,
+                      style: Styles.betHistoryCardNormal,
                     )
                   : Text(
                       isWin
                           ? 'AUTOMATIC WIN $homeTeamPointSpread ($odds)'
                           : 'AUTOMATIC LOSS $homeTeamPointSpread ($odds)',
-                      style: textStyle,
+                      style: Styles.betHistoryCardNormal,
                     ),
             ],
           ),
@@ -318,22 +290,16 @@ class BetHistorySlip extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  style: textStyle,
+                  style: Styles.betHistoryCardNormal,
                   children: [
                     betData.betTeam == 'away'
                         ? TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.cream,
-                            ),
+                            style: Styles.betHistoryTeamAway,
                           )
                         : TextSpan(
                             text: '${betTeam.toUpperCase()} ',
-                            style: GoogleFonts.nunito(
-                              fontSize: 14,
-                              color: Palette.green,
-                            ),
+                            style: Styles.betHistoryTeamNotAway,
                           ),
                     TextSpan(text: isWin ? 'WON' : 'LOST'),
                     TextSpan(
@@ -344,7 +310,7 @@ class BetHistorySlip extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                  style: textStyle,
+                  style: Styles.betHistoryCardNormal,
                   children: [
                     TextSpan(
                         text: betData.totalGameScore > betData.betOverUnder
@@ -361,7 +327,7 @@ class BetHistorySlip extends StatelessWidget {
         return Center(
           child: Text(
             'NO DATA FOUND',
-            style: textStyle,
+            style: Styles.betHistoryCardNormal,
           ),
         );
     }

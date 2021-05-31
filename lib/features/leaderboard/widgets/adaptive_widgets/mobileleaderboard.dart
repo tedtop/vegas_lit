@@ -176,10 +176,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
             backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
             child: Text(
               widget.player.username.substring(0, 1).toUpperCase(),
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                color: Palette.cream,
-              ),
+              style: Styles.leaderboardUsername,
             ),
           ),
           title: Row(

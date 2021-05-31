@@ -57,11 +57,7 @@ class _DesktopOpenBetsDescription extends StatelessWidget {
       ),
       child: RichText(
         text: TextSpan(
-          style: GoogleFonts.nunito(
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
-            color: Palette.cream,
-          ),
+          style: Styles.openBetsNormalText,
           children: <TextSpan>[
             const TextSpan(
               text:
@@ -70,10 +66,7 @@ class _DesktopOpenBetsDescription extends StatelessWidget {
             ),
             TextSpan(
                 text: ' BET HISTORY ',
-                style: GoogleFonts.nunito(
-                  color: Palette.green,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Styles.openBetsTextButton,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     context.read<HomeCubit>().homeChange(4);
@@ -343,10 +336,7 @@ class _DekstopOpenBetsTableRow extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           '${openBets.homeTeamName.toUpperCase()}',
-                                          style: GoogleFonts.nunito(
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: Styles.openBetsTextButton,
                                         ),
                                       ),
                                     ),
@@ -377,34 +367,20 @@ class _DekstopOpenBetsTableRow extends StatelessWidget {
                                 horizontal: 10, vertical: 18),
                             child: Text(
                                 '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.cream,
-                                )),
+                                style: Styles.openBetsNormalText),
                           );
                         case 'Risking':
                           return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 18),
-                            child: Text('\$${openBets.betAmount}',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.cream,
-                                )),
-                          );
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 18),
+                              child: Text('\$${openBets.betAmount}',
+                                  style: Styles.openBetsNormalText));
                         case 'To Win':
                           return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 18),
-                            child: Text('\$${openBets.betProfit}',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.cream,
-                                )),
-                          );
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 18),
+                              child: Text('\$${openBets.betProfit}',
+                                  style: Styles.openBetsNormalText));
                         case 'Time Remaining':
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -417,10 +393,7 @@ class _DekstopOpenBetsTableRow extends StatelessWidget {
                                 if (time == null) {
                                   return Text(
                                     'In Progress',
-                                    style: GoogleFonts.nunito(
-                                      color: Palette.red,
-                                      fontSize: 15,
-                                    ),
+                                    style: Styles.openBetsDesktopTime,
                                   );
                                 }
 
@@ -431,13 +404,8 @@ class _DekstopOpenBetsTableRow extends StatelessWidget {
                                 final sec =
                                     time.sec == null ? '' : '${time.sec}s';
 
-                                return Text(
-                                  'Starting in $hours $min $sec',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 15,
-                                    color: Palette.red,
-                                  ),
-                                );
+                                return Text('Starting in $hours $min $sec',
+                                    style: Styles.openBetsDesktopTime);
                               },
                             ),
                           );

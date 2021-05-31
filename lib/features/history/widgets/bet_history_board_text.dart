@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 
 class BetHistoryBoardText extends StatelessWidget {
   const BetHistoryBoardText({
@@ -25,11 +26,7 @@ class BetHistoryBoardText extends StatelessWidget {
             flex: 2,
             child: Text(
               leftText,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-                color: Palette.cream,
-              ),
+              style: Styles.betHistoryNormal,
             ),
           ),
           Expanded(

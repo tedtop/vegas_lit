@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/views/sign_up/views/sign_up_page.dart';
 import 'package:vegas_lit/features/shared_widgets/auth_logo.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
@@ -80,26 +81,23 @@ class _EmailInput extends StatelessWidget {
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
-              cursorColor: Palette.cream,
-              key: const Key('loginForm_emailInput_textField'),
-              onChanged: (email) =>
-                  context.read<LoginCubit>().emailChanged(email),
-              keyboardType: TextInputType.emailAddress,
-              style: GoogleFonts.nunito(color: Palette.cream),
-              decoration: InputDecoration(
-                labelStyle: GoogleFonts.nunito(color: Palette.cream),
-                prefixIcon: const Icon(
-                  LineAwesomeIcons.user,
-                  color: Palette.cream,
-                ),
-                labelText: 'Email',
-                helperText: '',
-                errorText: state.email.invalid ? 'Invalid email' : null,
-                focusedBorder: const UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(color: Palette.cream)),
-              ),
-            ),
+                cursorColor: Palette.cream,
+                key: const Key('loginForm_emailInput_textField'),
+                onChanged: (email) =>
+                    context.read<LoginCubit>().emailChanged(email),
+                keyboardType: TextInputType.emailAddress,
+                style: GoogleFonts.nunito(color: Palette.cream),
+                decoration: InputDecoration(
+                  labelStyle: GoogleFonts.nunito(color: Palette.cream),
+                  prefixIcon: const Icon(
+                    LineAwesomeIcons.user,
+                    color: Palette.cream,
+                  ),
+                  labelText: 'Email',
+                  helperText: '',
+                  errorText: state.email.invalid ? 'Invalid email' : null,
+                  focusedBorder: Styles.logInInputFocusedBorder,
+                )),
           ),
         );
       },
@@ -119,24 +117,21 @@ class _PasswordInput extends StatelessWidget {
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
-              cursorColor: Palette.cream,
-              key: const Key('loginForm_passwordInput_textField'),
-              onChanged: (password) =>
-                  context.read<LoginCubit>().passwordChanged(password),
-              obscureText: true,
-              style: GoogleFonts.nunito(color: Palette.cream),
-              decoration: InputDecoration(
-                labelStyle: GoogleFonts.nunito(color: Palette.cream),
-                prefixIcon:
-                    const Icon(LineAwesomeIcons.lock, color: Palette.cream),
-                labelText: 'Password',
-                helperText: '',
-                errorText: state.password.invalid ? 'Invalid password' : null,
-                focusedBorder: const UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(color: Palette.cream)),
-              ),
-            ),
+                cursorColor: Palette.cream,
+                key: const Key('loginForm_passwordInput_textField'),
+                onChanged: (password) =>
+                    context.read<LoginCubit>().passwordChanged(password),
+                obscureText: true,
+                style: GoogleFonts.nunito(color: Palette.cream),
+                decoration: InputDecoration(
+                  labelStyle: GoogleFonts.nunito(color: Palette.cream),
+                  prefixIcon:
+                      const Icon(LineAwesomeIcons.lock, color: Palette.cream),
+                  labelText: 'Password',
+                  helperText: '',
+                  errorText: state.password.invalid ? 'Invalid password' : null,
+                  focusedBorder: Styles.logInInputFocusedBorder,
+                )),
           ),
         );
       },
@@ -173,11 +168,7 @@ class _ResetPassword extends StatelessWidget {
       children: [
         Text(
           'Forgot Password?',
-          style: GoogleFonts.nunito(
-            fontWeight: FontWeight.w300,
-            fontSize: 18,
-            color: Palette.cream,
-          ),
+          style: Styles.authNormalText,
         ),
         TextButton(
           key: const Key('loginForm_resetPassword_flatButton'),
@@ -195,11 +186,7 @@ class _ResetPassword extends StatelessWidget {
           },
           child: Text(
             'Reset',
-            style: GoogleFonts.nunito(
-              color: Palette.green,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+            style: Styles.authButtonText,
           ),
         ),
       ],
@@ -215,22 +202,14 @@ class _LinkToSignup extends StatelessWidget {
       children: [
         Text(
           "Don't have an account yet? ",
-          style: GoogleFonts.nunito(
-            fontWeight: FontWeight.w300,
-            fontSize: 18,
-            color: Palette.cream,
-          ),
+          style: Styles.authNormalText,
         ),
         TextButton(
           key: const Key('loginForm_createAccount_flatButton'),
           onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
           child: Text(
             'Sign Up',
-            style: GoogleFonts.nunito(
-              color: Palette.green,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
+            style: Styles.authButtonText,
           ),
         ),
       ],
@@ -261,14 +240,10 @@ class __ResetPageState extends State<_ResetPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          const Text(
+          Text(
             'Reset Password',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 26.0,
-              color: Palette.cream,
-              fontWeight: FontWeight.w300,
-            ),
+            style: Styles.authNormalText.copyWith(fontSize: 26),
           ),
           const SizedBox(height: 20),
           TextField(
@@ -281,11 +256,7 @@ class __ResetPageState extends State<_ResetPage> {
               hintText: 'Enter your email',
               border: InputBorder.none,
               isDense: true,
-              hintStyle: GoogleFonts.nunito(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-                color: Palette.cream,
-              ),
+              hintStyle: Styles.signUpFieldHint,
             ),
             keyboardType: TextInputType.emailAddress,
             onChanged: (newText) {

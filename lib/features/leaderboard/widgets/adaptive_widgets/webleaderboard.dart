@@ -143,80 +143,70 @@ class LeaderboardColumns extends StatelessWidget {
             width: 60,
             child: Text(
               'Rank',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               'Player',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               'Profit',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 150,
             child: Text(
               'Account Balance',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 95,
             child: Text(
               '# of Bets',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 140,
             child: Text(
               '# of Correct Bets',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 110,
             child: Text(
               'Open Bets',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 145,
             child: Text(
               'Potential Winnings',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               'Biggest Win',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               'Last Week\'s Rank',
-              style: Styles.normalTextBold
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopField,
             ),
           ),
         ],
@@ -243,80 +233,70 @@ class WebLeaderboardItem extends StatelessWidget {
             width: 60,
             child: Text(
               '$rank',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               '${player.username}',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               '\$${player.totalProfit}',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 150,
             child: Text(
               '\$${player.accountBalance}',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 95,
             child: Text(
               '${player.totalBets}',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 140,
             child: Text(
               '${player.totalBetsWon}',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 110,
             child: Text(
               '\$${player.totalOpenBets}',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 145,
             child: Text(
               'N/A',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               'N/A',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
               'N/A',
-              style: Styles.normalText
-                  .copyWith(color: Palette.cream, fontSize: 14),
+              style: Styles.leaderboardDesktopItem,
             ),
           ),
         ],

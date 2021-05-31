@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 
 class BetHistoryDropdown extends StatelessWidget {
   const BetHistoryDropdown({Key key, @required this.text}) : super(key: key);
@@ -52,11 +53,7 @@ class BetHistoryDropdown extends StatelessWidget {
                     child: Text(
                       text,
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.cream,
-                      ),
+                      style: Styles.betHistoryDropdown,
                     ),
                   );
                 },

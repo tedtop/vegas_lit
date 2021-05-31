@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/interstitial/screens/interstitial_page.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
@@ -23,10 +24,7 @@ class RewardedBetSlip extends StatelessWidget {
             widgets: [
               Text(
                 'Your bets are placed!',
-                style: GoogleFonts.nunito(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Palette.cream),
+                style: Styles.betSlipBoxLargeText,
               ),
               const SizedBox(
                 height: 20,
@@ -101,11 +99,7 @@ class RewardedBetSlip extends StatelessWidget {
       children: [
         Text(
           text,
-          style: GoogleFonts.nunito(
-            fontSize: 18,
-            fontWeight: FontWeight.w200,
-            color: Palette.cream,
-          ),
+          style: Styles.betSlipBoxNormalText,
         ),
       ],
     );

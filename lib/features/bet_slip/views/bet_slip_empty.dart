@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 import 'bet_slip_page.dart';
@@ -18,10 +17,7 @@ class EmptyBetSlip extends StatelessWidget {
             widgets: [
               Text(
                 'Your Bet List is\ncurrently Empty.',
-                style: GoogleFonts.nunito(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Palette.cream),
+                style: Styles.betSlipBoxLargeText,
               ),
               const SizedBox(
                 height: 20,
@@ -49,11 +45,7 @@ class EmptyBetSlip extends StatelessWidget {
       children: [
         Text(
           text,
-          style: GoogleFonts.nunito(
-            fontSize: 18,
-            fontWeight: FontWeight.w200,
-            color: Palette.cream,
-          ),
+          style: Styles.betSlipBoxNormalText,
         ),
         const SizedBox(
           height: 8,

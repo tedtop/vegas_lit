@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/models/confirmed_password.dart';
 import 'package:vegas_lit/features/authentication/models/email.dart';
 import 'package:vegas_lit/features/authentication/models/password.dart';
@@ -90,20 +91,14 @@ class _UsernameInput extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
                   'Username',
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                  ),
+                  style: Styles.signUpFieldDescription,
                 ),
               ),
             ),
             Expanded(
               child: TextField(
                 cursorColor: Palette.cream,
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: Styles.signUpFieldText,
                 key: const Key('signUpForm_usernameInput_textField'),
                 onChanged: (username) =>
                     context.read<SignUpCubit>().usernameChanged(username),
@@ -112,29 +107,16 @@ class _UsernameInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                    color: Palette.cream,
-                  ),
-                  errorStyle: const TextStyle(
-                    fontSize: 10,
-                    // height: 0.3,
-                  ),
+                  hintStyle: Styles.signUpFieldHint,
+                  errorStyle: Styles.authFieldError,
                   filled: true,
                   fillColor: Palette.lightGrey,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
-                  ),
+                  border: Styles.signUpInputFieldBorder,
                   isDense: true,
                   hintText: 'Username',
                   helperText: '',
                   errorText: usernameError(state.username.error),
-                  focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      borderSide: BorderSide(color: Palette.cream)),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
                 ),
               ),
             ),
@@ -170,20 +152,14 @@ class _EmailInput extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
                   'Email Address',
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                  ),
+                  style: Styles.signUpFieldDescription,
                 ),
               ),
             ),
             Expanded(
               child: TextField(
                 cursorColor: Palette.cream,
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: Styles.signUpFieldText,
                 key: const Key('signUpForm_emailInput_textField'),
                 onChanged: (email) =>
                     context.read<SignUpCubit>().emailChanged(email),
@@ -193,29 +169,16 @@ class _EmailInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                    color: Palette.cream,
-                  ),
+                  hintStyle: Styles.signUpFieldHint,
                   filled: true,
                   fillColor: Palette.lightGrey,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
-                  ),
-                  errorStyle: const TextStyle(
-                    fontSize: 10,
-                    // height: 0.3,
-                  ),
+                  border: Styles.signUpInputFieldBorder,
+                  errorStyle: Styles.authFieldError,
                   isDense: true,
                   hintText: 'Email Address',
                   helperText: '',
                   errorText: emailError(state.email.error),
-                  focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      borderSide: BorderSide(color: Palette.cream)),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
                 ),
               ),
             ),
@@ -249,19 +212,13 @@ class _PasswordInput extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
                   'Password',
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                  ),
+                  style: Styles.signUpFieldDescription,
                 ),
               ),
             ),
             Expanded(
               child: TextField(
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: Styles.signUpFieldText,
                 key: const Key('signUpForm_passwordInput_textField'),
                 onChanged: (password) =>
                     context.read<SignUpCubit>().passwordChanged(password),
@@ -272,30 +229,17 @@ class _PasswordInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
-                  errorStyle: const TextStyle(
-                    fontSize: 10,
-                    // height: 0.3,
-                  ),
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                    color: Palette.cream,
-                  ),
+                  errorStyle: Styles.authFieldError,
+                  hintStyle: Styles.signUpFieldHint,
                   filled: true,
                   fillColor: Palette.lightGrey,
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
-                  ),
+                  border: Styles.signUpInputFieldBorder,
                   isDense: true,
                   errorMaxLines: 3,
                   hintText: 'Password',
                   helperText: '',
                   errorText: passwordError(state.password.error),
-                  focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      borderSide: BorderSide(color: Palette.cream)),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
                 ),
               ),
             ),
@@ -331,19 +275,13 @@ class _ConfirmPasswordInput extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
                   'Verify Password',
-                  style: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                  ),
+                  style: Styles.signUpFieldDescription,
                 ),
               ),
             ),
             Expanded(
               child: TextField(
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: Styles.signUpFieldText,
                 key: const Key('signUpForm_confirmedPasswordInput_textField'),
                 onChanged: (confirmPassword) => context
                     .read<SignUpCubit>()
@@ -355,20 +293,9 @@ class _ConfirmPasswordInput extends StatelessWidget {
                     vertical: 2.5,
                     horizontal: 8,
                   ),
-                  errorStyle: const TextStyle(
-                    fontSize: 10,
-                    // height: 0.3,
-                  ),
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                    color: Palette.cream,
-                  ),
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
-                  ),
+                  errorStyle: Styles.authFieldError,
+                  hintStyle: Styles.signUpFieldHint,
+                  border: Styles.signUpInputFieldBorder,
                   errorMaxLines: 3,
                   filled: true,
                   fillColor: Palette.lightGrey,
@@ -377,9 +304,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
                   helperText: '',
                   errorText:
                       confirmedPasswordError(state.confirmedPassword.error),
-                  focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      borderSide: BorderSide(color: Palette.cream)),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
                 ),
               ),
             ),
@@ -468,10 +393,7 @@ class _StateInput extends StatelessWidget {
             Expanded(
               child: Text(
                 'State',
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w200,
-                ),
+                style: Styles.signUpFieldDescription,
               ),
             ),
             Expanded(
@@ -497,11 +419,8 @@ class _StateInput extends StatelessWidget {
                       state.americanState.invalid
                           ? Text(
                               'Required',
-                              style: GoogleFonts.nunito(
-                                color: Colors.red,
-                                fontSize: 10,
-                                // height: 0.3,
-                              ),
+                              style: Styles.authFieldError
+                                  .copyWith(color: Palette.red),
                             )
                           : Container(),
                     ],
@@ -682,8 +601,7 @@ class _AgreementCheck extends StatelessWidget {
                             .agreementClicked(!state.agreementValue),
                         child: RichText(
                           text: TextSpan(
-                            style: GoogleFonts.nunito(
-                                fontSize: 11, color: Palette.cream),
+                            style: Styles.signUpAgreement,
                             children: <TextSpan>[
                               TextSpan(
                                 text:
@@ -719,10 +637,7 @@ class _AgreementCheck extends StatelessWidget {
                   state.agreement.invalid
                       ? Text(
                           'Required',
-                          style: GoogleFonts.nunito(
-                            color: Colors.red,
-                            fontSize: 10,
-                          ),
+                          style: Styles.authFieldError.copyWith(color: Palette.red),
                         )
                       : Container(),
                 ],
@@ -769,21 +684,14 @@ class _ExistingAccountSignIn extends StatelessWidget {
         children: [
           Text(
             'Already have an account?',
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
+            style: Styles.authNormalText,
           ),
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
               'Log In',
-              style: GoogleFonts.nunito(
-                color: Palette.green,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
+              style: Styles.authButtonText,
             ),
           ),
         ],

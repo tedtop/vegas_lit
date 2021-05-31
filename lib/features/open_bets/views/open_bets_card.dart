@@ -4,6 +4,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
 
@@ -59,11 +60,7 @@ class OpenBetsSlip extends StatelessWidget {
                           ),
                           RichText(
                             text: TextSpan(
-                              style: GoogleFonts.nunito(
-                                fontWeight: FontWeight.normal,
-                                color: Palette.cream,
-                                fontSize: 14,
-                              ),
+                              style: Styles.openBetsCardNormal,
                               children: [
                                 TextSpan(
                                   text:
@@ -104,11 +101,7 @@ class OpenBetsSlip extends StatelessWidget {
                                           'Started at ${DateFormat('hh:mm a').format(
                                             startTime,
                                           )} EST',
-                                          style: GoogleFonts.nunito(
-                                            color: Palette.red,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: Styles.openBetsCardTime,
                                         ),
                                       );
                                     }
@@ -124,11 +117,7 @@ class OpenBetsSlip extends StatelessWidget {
                                     return Center(
                                       child: Text(
                                         'Starting in$hours$min$sec',
-                                        style: GoogleFonts.nunito(
-                                          fontSize: 14,
-                                          color: Palette.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        style: Styles.openBetsCardTime,
                                       ),
                                     );
                                   },
@@ -161,20 +150,9 @@ class OpenBetsSlip extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Text(
-                              'you bet',
-                              style: GoogleFonts.nunito(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '\$${openBets.betAmount}',
-                              style: GoogleFonts.nunito(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            Text('you bet', style: Styles.openBetsCardBetText),
+                            Text('\$${openBets.betAmount}',
+                                style: Styles.openBetsCardBetMoney),
                           ],
                         ),
                       ),
@@ -188,19 +166,14 @@ class OpenBetsSlip extends StatelessWidget {
                           children: [
                             Text(
                               'to win',
-                              style: GoogleFonts.nunito(
-                                fontSize: 14,
+                              style: Styles.openBetsCardBetText.copyWith(
                                 color: Palette.darkGrey,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               '\$${openBets.betProfit}',
-                              style: GoogleFonts.nunito(
-                                fontSize: 24,
-                                color: Palette.darkGrey,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Styles.openBetsCardBetMoney
+                                  .copyWith(color: Palette.darkGrey),
                             ),
                           ],
                         ),
@@ -241,10 +214,6 @@ class OpenBetsSlip extends StatelessWidget {
 }
 
 Widget whichBetText({@required BetData betData}) {
-  final textStyle = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-  );
   final odds = betData?.odds?.isNegative ?? 0.isNegative
       ? betData.odds.toString()
       : '+${betData.odds}';
@@ -265,23 +234,24 @@ Widget whichBetText({@required BetData betData}) {
         children: [
           Text(
             '${whichBetSystem(betData.betType)}  ($odds)',
-            style: textStyle,
+            style: Styles.openBetsCardNormal,
           ),
           const SizedBox(
             height: 4,
           ),
           RichText(
             text: TextSpan(
-              style: textStyle,
+              style: Styles.openBetsCardNormal,
               children: [
                 betData.betTeam == 'away'
                     ? TextSpan(
                         text: '${betData.awayTeamName.toUpperCase()} ',
-                        style: textStyle,
+                        style: Styles.openBetsCardNormal,
                       )
                     : TextSpan(
                         text: '${betData.homeTeamName.toUpperCase()} ',
-                        style: textStyle.copyWith(color: Palette.green),
+                        style: Styles.openBetsCardNormal
+                            .copyWith(color: Palette.green),
                       ),
                 const TextSpan(text: 'TO WIN'),
               ],
@@ -296,7 +266,7 @@ Widget whichBetText({@required BetData betData}) {
           children: [
             Text(
               '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
-              style: textStyle,
+              style: Styles.openBetsCardNormal,
             ),
             const SizedBox(
               height: 4,
@@ -304,13 +274,13 @@ Widget whichBetText({@required BetData betData}) {
             awayTeamPointSpread.isNegative
                 ? Text(
                     'BY MORE THAN ${awayTeamPointSpread.abs()} POINTS',
-                    style: textStyle,
+                    style: Styles.openBetsCardNormal,
                   )
                 : Text(
                     'OR LOSE BY LESS THAN ${awayTeamPointSpread.abs()} POINTS',
                     maxLines: 1,
                     textAlign: TextAlign.center,
-                    style: textStyle,
+                    style: Styles.openBetsCardNormal,
                   ),
           ],
         );
@@ -319,11 +289,11 @@ Widget whichBetText({@required BetData betData}) {
           children: [
             RichText(
               text: TextSpan(
-                style: textStyle,
+                style: Styles.openBetsCardNormal,
                 children: [
                   TextSpan(
                     text: '${betData.homeTeamName.toUpperCase()} ',
-                    style: textStyle.copyWith(
+                    style: Styles.openBetsCardNormal.copyWith(
                       color: Palette.green,
                     ),
                   ),
@@ -337,13 +307,13 @@ Widget whichBetText({@required BetData betData}) {
             homeTeamPointSpread.isNegative
                 ? Text(
                     'BY MORE THAN ${homeTeamPointSpread.abs()} POINTS',
-                    style: textStyle,
+                    style: Styles.openBetsCardNormal,
                   )
                 : Text(
                     'OR LOSE BY LESS THAN ${homeTeamPointSpread.abs()} POINTS',
                     maxLines: 1,
                     textAlign: TextAlign.center,
-                    style: textStyle,
+                    style: Styles.openBetsCardNormal,
                   ),
           ],
         );
@@ -355,14 +325,14 @@ Widget whichBetText({@required BetData betData}) {
           children: [
             Text(
               'YOU BET THE COMBINED SCORE',
-              style: textStyle,
+              style: Styles.openBetsCardNormal,
             ),
             const SizedBox(
               height: 4,
             ),
             Text(
               'WILL BE ABOVE $overUnder @ ($odds)',
-              style: textStyle,
+              style: Styles.openBetsCardNormal,
             )
           ],
         );
@@ -371,14 +341,14 @@ Widget whichBetText({@required BetData betData}) {
           children: [
             Text(
               'YOU BET THE COMBINED SCORE',
-              style: textStyle,
+              style: Styles.openBetsCardNormal,
             ),
             const SizedBox(
               height: 4,
             ),
             Text(
               'WILL BE BELOW $overUnder @ ($odds)',
-              style: textStyle,
+              style: Styles.openBetsCardNormal,
             )
           ],
         );
@@ -388,7 +358,7 @@ Widget whichBetText({@required BetData betData}) {
       return Center(
         child: Text(
           'NO DATA FOUND',
-          style: textStyle,
+          style: Styles.openBetsCardNormal,
         ),
       );
   }
