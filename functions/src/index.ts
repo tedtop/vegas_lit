@@ -7,7 +7,6 @@ const url =
 const webhook = new IncomingWebhook(url);
 import moment = require("moment-timezone");
 const performance = require("perf_hooks").performance;
-import Timestamp = admin.firestore.Timestamp;
 
 var app = admin.initializeApp();
 
@@ -282,10 +281,10 @@ export const resolveBets = functions.pubsub
     }
 
     // Format given date in specific format
-    function formatTime(dateTime: Timestamp): string {
-      const timestampToDate = dateTime.toDate();
+    function formatTime(dateTime: string): string {
+      const date = Date.parse(dateTime);
       const myDatetimeFormat = "yyyy-MMM-DD";
-      return moment(timestampToDate).format(myDatetimeFormat);
+      return moment(date).format(myDatetimeFormat);
     }
 
     // Key checking for specific game
