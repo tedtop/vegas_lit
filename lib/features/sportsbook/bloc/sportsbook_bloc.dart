@@ -68,7 +68,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     );
 
     yield SportsbookState.opened(
-      league: state.league,
+      league: event.league,
       gameNumbers: gameNumberMap,
       estTimeZone: estTimeZone,
     );

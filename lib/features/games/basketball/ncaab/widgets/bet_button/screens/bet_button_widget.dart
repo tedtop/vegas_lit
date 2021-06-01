@@ -9,7 +9,7 @@ import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart'
 import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_slip_card/bet_slip_card.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_button/screens/bet_slip_card.dart';
 
 import '../cubit/bet_button_cubit.dart';
 

@@ -24,12 +24,12 @@ import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../bet_button/cubit/bet_button_cubit.dart';
-import '../matchup_card/matchup_card.dart';
+import '../cubit/bet_button_cubit.dart';
+import '../../matchup_card/matchup_card.dart';
 
 // ignore: must_be_immutable
-class NhlBetSlipCard extends StatefulWidget {
-  const NhlBetSlipCard._({Key key, @required this.betSlipCardData})
+class NflBetSlipCard extends StatefulWidget {
+  const NflBetSlipCard._({Key key, @required this.betSlipCardData})
       : super(key: key);
 
   static Builder route({
@@ -37,7 +37,7 @@ class NhlBetSlipCard extends StatefulWidget {
   }) {
     return Builder(
       builder: (context) {
-        return NhlBetSlipCard._(
+        return NflBetSlipCard._(
           betSlipCardData: betSlipCardData,
         );
       },
@@ -50,7 +50,7 @@ class NhlBetSlipCard extends StatefulWidget {
   _BetSlipCardState createState() => _BetSlipCardState();
 }
 
-class _BetSlipCardState extends State<NhlBetSlipCard> {
+class _BetSlipCardState extends State<NflBetSlipCard> {
   final _formKey = GlobalKey<FormState>();
 
   bool isBetPlaced = true;
@@ -61,7 +61,8 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState = context.watch<NhlBetButtonCubit>().state;
+        final betButtonState = context.watch<NflBetButtonCubit>().state;
+
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
@@ -148,7 +149,7 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                                     providers: [
                                       BlocProvider.value(
                                         value:
-                                            context.read<NhlBetButtonCubit>(),
+                                            context.read<NflBetButtonCubit>(),
                                       ),
                                     ],
                                     child: SingleChildScrollView(
@@ -370,7 +371,7 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                                             );
 
                                           context
-                                              .read<NhlBetButtonCubit>()
+                                              .read<NflBetButtonCubit>()
                                               .confirmBetButton();
                                           context
                                               .read<BetSlipCubit>()
@@ -402,9 +403,6 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 18,
-                  // ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 190),
                     child: Text(
@@ -531,7 +529,7 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                             text: 'CANCEL',
                             action: () {
                               context
-                                  .read<NhlBetButtonCubit>()
+                                  .read<NflBetButtonCubit>()
                                   .unclickBetButton();
                               context.read<BetSlipCubit>().removeBetSlip(
                                     uniqueId: betButtonState.uniqueId,
@@ -661,7 +659,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<NhlBetButtonCubit>().state;
+    final betButtonState = context.watch<NflBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Container(
@@ -774,7 +772,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                             .round()
                             .abs();
 
-                        context.read<NhlBetButtonCubit>().updateBetAmount(
+                        context.read<NflBetButtonCubit>().updateBetAmount(
                               toWinAmount: toWinAmount,
                               betAmount: betValues[i],
                             );
@@ -786,7 +784,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 .round()
                                 .abs();
 
-                        context.read<NhlBetButtonCubit>().updateBetAmount(
+                        context.read<NflBetButtonCubit>().updateBetAmount(
                               toWinAmount: toWinAmount,
                               betAmount: betValues[i],
                             );

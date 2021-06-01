@@ -24,8 +24,8 @@ import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../bet_button/cubit/bet_button_cubit.dart';
-import '../matchup_card/matchup_card.dart';
+import '../cubit/bet_button_cubit.dart';
+import '../../matchup_card/matchup_card.dart';
 
 // ignore: must_be_immutable
 class NbaBetSlipCard extends StatefulWidget {
