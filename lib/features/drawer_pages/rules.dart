@@ -104,6 +104,7 @@ class Rules extends StatelessWidget {
   final _rulesUrl = 'https://vegaslit.web.app/rules.html';
   void _launchRules() async => await canLaunch(_rulesUrl)
       ? await launch(_rulesUrl)
+      // ignore: only_throw_errors
       : throw 'Could not launch $_rulesUrl';
 }
 

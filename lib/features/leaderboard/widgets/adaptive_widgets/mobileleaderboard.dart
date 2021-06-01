@@ -9,7 +9,6 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/data/models/wallet.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 
-import '../pagenumberview.dart';
 import '../textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {

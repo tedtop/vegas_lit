@@ -21,11 +21,11 @@ class VaultItem {
       date: documentSnapshot.id,
     );
   }
-  final moneyIn;
-  final moneyOut;
-  final totalProfit;
-  final numberOfBets;
-  var date;
+  final int moneyIn;
+  final int moneyOut;
+  final int totalProfit;
+  final int numberOfBets;
+  final String date;
 
   Map<String, dynamic> toMap() {
     return {

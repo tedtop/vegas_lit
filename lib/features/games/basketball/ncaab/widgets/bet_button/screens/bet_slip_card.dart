@@ -9,6 +9,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -21,11 +23,9 @@ import 'package:vegas_lit/features/home/home.dart';
 import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
-import '../cubit/bet_button_cubit.dart';
 import '../../matchup_card/matchup_card.dart';
+import '../cubit/bet_button_cubit.dart';
 
 // ignore: must_be_immutable
 class NcaabBetSlipCard extends StatefulWidget {

@@ -10,6 +10,17 @@ class CricketModel {
     this.data,
   });
 
+  factory CricketModel.fromJson(String str) =>
+      CricketModel.fromMap(json.decode(str));
+
+  factory CricketModel.fromMap(Map<String, dynamic> json) => CricketModel(
+        success: json['success'],
+        data: List<CricketDatum>.from(
+            json['data'].map((x) => CricketDatum.fromMap(x))),
+      );
+
+  String toJson() => json.encode(toMap());
+
   final bool success;
   final List<CricketDatum> data;
 
@@ -20,17 +31,6 @@ class CricketModel {
       CricketModel(
         success: success ?? this.success,
         data: data ?? this.data,
-      );
-
-  factory CricketModel.fromJson(String str) =>
-      CricketModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory CricketModel.fromMap(Map<String, dynamic> json) => CricketModel(
-        success: json['success'],
-        data: List<CricketDatum>.from(
-            json['data'].map((x) => CricketDatum.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -50,6 +50,20 @@ class CricketDatum {
     this.sites,
     this.sitesCount,
   });
+
+  factory CricketDatum.fromJson(String str) =>
+      CricketDatum.fromMap(json.decode(str));
+
+  factory CricketDatum.fromMap(Map<String, dynamic> json) => CricketDatum(
+        id: json['id'],
+        sportKey: json['sport_key'],
+        sportNice: json['sport_nice'],
+        teams: List<String>.from(json['teams'].map((x) => x)),
+        homeTeam: json['home_team'],
+        commenceTime: DateTime.parse(json['commence_time']),
+        sites: List<Site>.from(json['sites'].map((x) => Site.fromMap(x))),
+        sitesCount: json['sites_count'],
+      );
 
   final String id;
   final String sportKey;
@@ -81,21 +95,7 @@ class CricketDatum {
         sitesCount: sitesCount ?? this.sitesCount,
       );
 
-  factory CricketDatum.fromJson(String str) =>
-      CricketDatum.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
-
-  factory CricketDatum.fromMap(Map<String, dynamic> json) => CricketDatum(
-        id: json['id'],
-        sportKey: json['sport_key'],
-        sportNice: json['sport_nice'],
-        teams: List<String>.from(json['teams'].map((x) => x)),
-        homeTeam: json['home_team'],
-        commenceTime: DateTime.parse(json['commence_time']),
-        sites: List<Site>.from(json['sites'].map((x) => Site.fromMap(x))),
-        sitesCount: json['sites_count'],
-      );
 
   Map<String, dynamic> toMap() => {
         'id': id,
@@ -117,6 +117,17 @@ class Site {
     this.odds,
   });
 
+  factory Site.fromJson(String str) => Site.fromMap(json.decode(str));
+
+  factory Site.fromMap(Map<String, dynamic> json) => Site(
+        siteKey: json['site_key'],
+        siteNice: json['site_nice'],
+        lastUpdate: DateTime.parse(json['last_update']),
+        odds: Map.from(json['odds']).map((k, v) =>
+            MapEntry<String, List<double>>(
+                k, List<double>.from(v.map((x) => x.toDouble())))),
+      );
+
   final String siteKey;
   final String siteNice;
   final DateTime lastUpdate;
@@ -135,18 +146,7 @@ class Site {
         odds: odds ?? this.odds,
       );
 
-  factory Site.fromJson(String str) => Site.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
-
-  factory Site.fromMap(Map<String, dynamic> json) => Site(
-        siteKey: json['site_key'],
-        siteNice: json['site_nice'],
-        lastUpdate: DateTime.parse(json['last_update']),
-        odds: Map.from(json['odds']).map((k, v) =>
-            MapEntry<String, List<double>>(
-                k, List<double>.from(v.map((x) => x.toDouble())))),
-      );
 
   Map<String, dynamic> toMap() => {
         'site_key': siteKey,
@@ -162,13 +162,13 @@ class Odds {
     this.odds,
   });
 
-  Map<String, List<double>> odds;
-
   factory Odds.fromJson(Map<String, dynamic> json) => Odds(
         odds: Map.from(json['odds']).map((k, v) =>
             MapEntry<String, List<double>>(
                 k, List<double>.from(v.map((x) => x.toDouble())))),
       );
+
+  Map<String, List<double>> odds;
 
   Map<String, dynamic> toJson() => {
         'odds': Map.from(odds).map((k, v) =>

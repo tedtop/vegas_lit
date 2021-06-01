@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:uuid/uuid.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/cricket.dart';
 import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/features/sportsbook/models/team.dart';
 
 part 'cricket_bet_button_state.dart';
 
@@ -15,31 +14,31 @@ class BetButtonCubit extends Cubit<BetButtonState> {
           const BetButtonState.loading(),
         );
 
-  void openBetButton(
-      {@required String text,
-      @required Bet betType,
-      @required String mainOdds,
-      @required int gameId,
-      @required bool isClosed,
-      @required awayTeamData,
-      @required String league,
-      @required homeTeamData,
-      @required CricketDatum game}) {
-    final uniqueId = const Uuid().v1();
-    emit(
-      BetButtonState.unclicked(
-        text: text,
-        gameId: gameId,
-        isClosed: isClosed,
-        awayTeamData: awayTeamData,
-        homeTeamData: homeTeamData,
-        uniqueId: uniqueId,
-        league: league,
-        betType: betType,
-        mainOdds: mainOdds,
-      ),
-    );
-  }
+  // void openBetButton(
+  //     {@required String text,
+  //     @required Bet betType,
+  //     @required String mainOdds,
+  //     @required int gameId,
+  //     @required bool isClosed,
+  //     @required awayTeamData,
+  //     @required String league,
+  //     @required homeTeamData,
+  //     @required CricketDatum game}) {
+  //   final uniqueId = const Uuid().v1();
+  //   emit(
+  //     BetButtonState.unclicked(
+  //       text: text,
+  //       gameId: gameId,
+  //       isClosed: isClosed,
+  //       awayTeamData: awayTeamData,
+  //       homeTeamData: homeTeamData,
+  //       uniqueId: uniqueId,
+  //       league: league,
+  //       betType: betType,
+  //       mainOdds: mainOdds,
+  //     ),
+  //   );
+  // }
 
   void clickBetButton() {
     emit(
