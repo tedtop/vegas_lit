@@ -1,6 +1,13 @@
 part of 'bet_button_cubit.dart';
 
-enum BetButtonStatus { done, error, loading, clicked, unclicked, placed }
+enum BetButtonStatus {
+  loading,
+  clicked,
+  unclicked,
+  placing,
+  placed,
+  alreadyPlaced
+}
 
 enum BetButtonWin { away, home }
 
@@ -12,8 +19,6 @@ class MlbBetButtonState extends Equatable {
     this.mainOdds,
     this.status = BetButtonStatus.loading,
     this.betType,
-    this.isClosed,
-    this.gameId,
     this.betAmount = 100,
     this.toWinAmount,
     this.awayTeamData,
@@ -26,31 +31,58 @@ class MlbBetButtonState extends Equatable {
 
   const MlbBetButtonState.loading() : this._();
 
-  const MlbBetButtonState.clicked(
-      {@required String text,
-      @required Game game,
-      @required String uniqueId,
-      @required String league,
-      @required double spread,
-      @required MlbTeam awayTeamData,
-      @required MlbTeam homeTeamData,
-      @required bool isClosed,
-      @required int gameId,
-      @required int betAmount,
-      @required int toWinAmount,
-      @required String uid,
-      @required BetButtonWin winTeam,
-      @required String mainOdds,
-      @required Bet betType})
-      : this._(
+  const MlbBetButtonState.placing({
+    @required String text,
+    @required Game game,
+    @required String uniqueId,
+    @required String league,
+    @required double spread,
+    @required MlbTeam awayTeamData,
+    @required MlbTeam homeTeamData,
+    @required int betAmount,
+    @required int toWinAmount,
+    @required String uid,
+    @required BetButtonWin winTeam,
+    @required String mainOdds,
+    @required Bet betType,
+  }) : this._(
+          status: BetButtonStatus.placing,
+          text: text,
+          game: game,
+          uniqueId: uniqueId,
+          winTeam: winTeam,
+          homeTeamData: homeTeamData,
+          uid: uid,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
+          spread: spread,
+          awayTeamData: awayTeamData,
+          mainOdds: mainOdds,
+          league: league,
+          betType: betType,
+        );
+
+  const MlbBetButtonState.clicked({
+    @required String text,
+    @required Game game,
+    @required String uniqueId,
+    @required String league,
+    @required double spread,
+    @required MlbTeam awayTeamData,
+    @required MlbTeam homeTeamData,
+    @required int betAmount,
+    @required int toWinAmount,
+    @required String uid,
+    @required BetButtonWin winTeam,
+    @required String mainOdds,
+    @required Bet betType,
+  }) : this._(
           status: BetButtonStatus.clicked,
           text: text,
           game: game,
           uniqueId: uniqueId,
           winTeam: winTeam,
           homeTeamData: homeTeamData,
-          gameId: gameId,
-          isClosed: isClosed,
           uid: uid,
           betAmount: betAmount,
           toWinAmount: toWinAmount,
@@ -66,8 +98,6 @@ class MlbBetButtonState extends Equatable {
       @required Game game,
       @required String uniqueId,
       @required String mainOdds,
-      @required bool isClosed,
-      @required int gameId,
       @required double spread,
       @required BetButtonWin winTeam,
       @required int betAmount,
@@ -89,61 +119,22 @@ class MlbBetButtonState extends Equatable {
             betAmount: betAmount,
             toWinAmount: toWinAmount,
             league: league,
-            gameId: gameId,
             winTeam: winTeam,
-            isClosed: isClosed,
             awayTeamData: awayTeamData,
             betType: betType);
-
-  const MlbBetButtonState.done({
-    @required String text,
-    @required Game game,
-    @required String mainOdds,
-    @required MlbTeam awayTeamData,
-    @required bool isClosed,
-    @required int gameId,
-    @required MlbTeam homeTeamData,
-    @required double spread,
-    @required String league,
-    @required String uid,
-    @required BetButtonWin winTeam,
-    @required int betAmount,
-    @required int toWinAmount,
-    @required String uniqueId,
-    @required Bet betType,
-  }) : this._(
-          status: BetButtonStatus.done,
-          text: text,
-          game: game,
-          league: league,
-          uniqueId: uniqueId,
-          winTeam: winTeam,
-          gameId: gameId,
-          betAmount: betAmount,
-          toWinAmount: toWinAmount,
-          spread: spread,
-          isClosed: isClosed,
-          uid: uid,
-          homeTeamData: homeTeamData,
-          awayTeamData: awayTeamData,
-          mainOdds: mainOdds,
-          betType: betType,
-        );
 
   const MlbBetButtonState.placed({
     @required String text,
     @required Game game,
     @required String mainOdds,
     @required MlbTeam awayTeamData,
-    @required bool isClosed,
-    @required int gameId,
     @required MlbTeam homeTeamData,
-    @required String uid,
-    @required int betAmount,
-    @required int toWinAmount,
     @required double spread,
     @required String league,
+    @required String uid,
     @required BetButtonWin winTeam,
+    @required int betAmount,
+    @required int toWinAmount,
     @required String uniqueId,
     @required Bet betType,
   }) : this._(
@@ -153,11 +144,40 @@ class MlbBetButtonState extends Equatable {
           league: league,
           uniqueId: uniqueId,
           winTeam: winTeam,
-          gameId: gameId,
+          betAmount: betAmount,
+          toWinAmount: toWinAmount,
+          spread: spread,
+          uid: uid,
+          homeTeamData: homeTeamData,
+          awayTeamData: awayTeamData,
+          mainOdds: mainOdds,
+          betType: betType,
+        );
+
+  const MlbBetButtonState.alreadyPlaced({
+    @required String text,
+    @required Game game,
+    @required String mainOdds,
+    @required MlbTeam awayTeamData,
+    @required MlbTeam homeTeamData,
+    @required String uid,
+    @required int betAmount,
+    @required int toWinAmount,
+    @required double spread,
+    @required String league,
+    @required BetButtonWin winTeam,
+    @required String uniqueId,
+    @required Bet betType,
+  }) : this._(
+          status: BetButtonStatus.alreadyPlaced,
+          text: text,
+          game: game,
+          league: league,
+          uniqueId: uniqueId,
+          winTeam: winTeam,
           spread: spread,
           betAmount: betAmount,
           toWinAmount: toWinAmount,
-          isClosed: isClosed,
           uid: uid,
           homeTeamData: homeTeamData,
           awayTeamData: awayTeamData,
@@ -174,9 +194,7 @@ class MlbBetButtonState extends Equatable {
   final double spread;
   final MlbTeam awayTeamData;
   final String league;
-  final int gameId;
   final String uid;
-  final bool isClosed;
   final int betAmount;
   final int toWinAmount;
   final MlbTeam homeTeamData;
@@ -187,8 +205,6 @@ class MlbBetButtonState extends Equatable {
         status,
         text,
         league,
-        gameId,
-        isClosed,
         winTeam,
         betAmount,
         toWinAmount,
@@ -212,9 +228,7 @@ class MlbBetButtonState extends Equatable {
     double spread,
     MlbTeam awayTeamData,
     String league,
-    int gameId,
     String uid,
-    bool isClosed,
     int betAmount,
     int toWinAmount,
     MlbTeam homeTeamData,
@@ -230,9 +244,7 @@ class MlbBetButtonState extends Equatable {
       spread: spread ?? this.spread,
       awayTeamData: awayTeamData ?? this.awayTeamData,
       league: league ?? this.league,
-      gameId: gameId ?? this.gameId,
       uid: uid ?? this.uid,
-      isClosed: isClosed ?? this.isClosed,
       betAmount: betAmount ?? this.betAmount,
       toWinAmount: toWinAmount ?? this.toWinAmount,
       homeTeamData: homeTeamData ?? this.homeTeamData,

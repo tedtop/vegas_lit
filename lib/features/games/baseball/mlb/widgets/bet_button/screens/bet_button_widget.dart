@@ -24,10 +24,8 @@ class BetButton extends StatelessWidget {
     @required MlbTeam awayTeamData,
     @required String league,
     @required MlbTeam homeTeamData,
-    @required int gameId,
     @required double spread,
     @required BetButtonWin winTeam,
-    @required bool isClosed,
   }) {
     return Builder(
       builder: (context) {
@@ -39,8 +37,6 @@ class BetButton extends StatelessWidget {
           create: (_) => MlbBetButtonCubit(
             betsRepository: context.read<BetsRepository>(),
           )..openBetButton(
-              gameId: gameId,
-              isClosed: isClosed,
               uid: currentUserId,
               text: text,
               spread: spread,
@@ -87,11 +83,16 @@ class BetButton extends StatelessWidget {
             case BetButtonStatus.clicked:
               return BetButtonClicked();
               break;
-            case BetButtonStatus.done:
-              return BetButtonDone();
-              break;
             case BetButtonStatus.placed:
               return BetButtonDone();
+              break;
+            case BetButtonStatus.alreadyPlaced:
+              return BetButtonDone();
+              break;
+            case BetButtonStatus.placing:
+              return const CircularProgressIndicator(
+                color: Palette.green,
+              );
               break;
             default:
               return const CircularProgressIndicator(
