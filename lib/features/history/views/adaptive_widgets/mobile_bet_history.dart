@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
-import 'package:vegas_lit/features/bet_history/views/bet_history_card.dart';
-import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_text.dart';
+import 'package:vegas_lit/features/history/cubit/history_cubit.dart';
+import 'package:vegas_lit/features/history/views/bet_history_card.dart';
+import 'package:vegas_lit/features/history/widgets/bet_history_board_text.dart';
 import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 class MobileHistory extends StatelessWidget {
@@ -97,9 +97,9 @@ class _MobileHistoryContent extends StatelessWidget {
         );
       case HistoryStatus.success:
         if (bets.isEmpty) {
-          return const _HistoryEmpty();
+          return const _MobileHistoryEmpty();
         }
-        return const _HistoryList();
+        return const _MobileHistoryList();
       case HistoryStatus.failure:
         return const Center(
           child: Text('Some Error Occured'),
@@ -110,8 +110,8 @@ class _MobileHistoryContent extends StatelessWidget {
   }
 }
 
-class _HistoryList extends StatelessWidget {
-  const _HistoryList({Key key}) : super(key: key);
+class _MobileHistoryList extends StatelessWidget {
+  const _MobileHistoryList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +130,8 @@ class _HistoryList extends StatelessWidget {
   }
 }
 
-class _HistoryEmpty extends StatelessWidget {
-  const _HistoryEmpty({Key key}) : super(key: key);
+class _MobileHistoryEmpty extends StatelessWidget {
+  const _MobileHistoryEmpty({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

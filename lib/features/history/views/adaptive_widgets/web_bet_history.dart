@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
-import 'package:vegas_lit/features/bet_history/views/bet_history_card.dart';
-import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_text.dart';
+import 'package:vegas_lit/features/history/cubit/history_cubit.dart';
+import 'package:vegas_lit/features/history/views/bet_history_card.dart';
+import 'package:vegas_lit/features/history/widgets/bet_history_board_text.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 class WebHistory extends StatelessWidget {

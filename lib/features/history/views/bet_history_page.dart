@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
-import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
-import 'package:vegas_lit/features/bet_history/views/adaptive_widgets/mobile_bet_history.dart';
-import 'package:vegas_lit/features/bet_history/views/adaptive_widgets/tablet_bet_history.dart';
-import 'package:vegas_lit/features/bet_history/views/adaptive_widgets/web_bet_history.dart';
+import 'package:vegas_lit/features/history/cubit/history_cubit.dart';
+import 'package:vegas_lit/features/history/views/adaptive_widgets/mobile_bet_history.dart';
+import 'package:vegas_lit/features/history/views/adaptive_widgets/tablet_bet_history.dart';
+import 'package:vegas_lit/features/history/views/adaptive_widgets/web_bet_history.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
 
 class History extends StatelessWidget {

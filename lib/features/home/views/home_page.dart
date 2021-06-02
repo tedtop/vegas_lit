@@ -11,7 +11,7 @@ import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
 
-import 'package:vegas_lit/features/bet_history/views/bet_history_page.dart';
+import 'package:vegas_lit/features/history/views/bet_history_page.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/bet_slip/views/bet_slip_page.dart';
 import 'package:vegas_lit/features/home/cubit/internet_cubit.dart';
