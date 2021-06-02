@@ -26,18 +26,7 @@ class Leaderboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'LEADERBOARD',
-                style: Styles.pageTitle,
-              ),
-            ),
-          ],
-        ),
+        const _LeaderboardTopHeading(),
         BlocBuilder<LeaderboardCubit, LeaderboardState>(
           builder: (context, state) {
             switch (state.status) {
@@ -63,6 +52,26 @@ class Leaderboard extends StatelessWidget {
           },
         ),
         kIsWeb ? const BottomBar() : const SizedBox(),
+      ],
+    );
+  }
+}
+
+class _LeaderboardTopHeading extends StatelessWidget {
+  const _LeaderboardTopHeading({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'LEADERBOARD',
+            style: Styles.pageTitle,
+          ),
+        ),
       ],
     );
   }
