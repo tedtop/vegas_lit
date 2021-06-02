@@ -5,9 +5,11 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
 class PrivacyPolicy extends StatelessWidget {
+  const PrivacyPolicy._({Key key}) : super(key: key);
+
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => PrivacyPolicy(),
+      builder: (_) => const PrivacyPolicy._(),
       settings: const RouteSettings(name: 'PrivacyPolicy'),
     );
   }
@@ -28,29 +30,50 @@ class PrivacyPolicy extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'PRIVACY POLICY',
-                style: Styles.pageTitle,
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 120),
-            child: Text(
-              // ignore: lines_longer_than_80_chars
-              'WORK IN PROGRESS\n Come Back Later.',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 22,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
+          const _PrivacyPolicyHeader(),
+          const _PrivacyPolicyContent(),
         ],
+      ),
+    );
+  }
+}
+
+class _PrivacyPolicyHeader extends StatelessWidget {
+  const _PrivacyPolicyHeader({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'PRIVACY POLICY',
+          style: Styles.pageTitle,
+        ),
+      ],
+    );
+  }
+}
+
+class _PrivacyPolicyContent extends StatelessWidget {
+  const _PrivacyPolicyContent({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 120),
+      child: Text(
+        'WORK IN PROGRESS\n Come Back Later.',
+        textAlign: TextAlign.center,
+        style: GoogleFonts.nunito(
+          color: Palette.cream,
+          fontSize: 22,
+          fontWeight: FontWeight.w300,
+        ),
       ),
     );
   }

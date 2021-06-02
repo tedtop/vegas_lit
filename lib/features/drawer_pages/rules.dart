@@ -6,9 +6,11 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
 class Rules extends StatelessWidget {
+  const Rules._({Key key}) : super(key: key);
+
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => Rules(),
+      builder: (_) => const Rules._(),
       settings: const RouteSettings(name: 'Rules'),
     );
   }
@@ -67,7 +69,7 @@ class Rules extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              RulesList(),
+              _RulesList(),
               const SizedBox(
                 height: 20,
               ),
@@ -80,16 +82,17 @@ class Rules extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                    text: 'For more details please read the ',
-                    style: Styles.normalText,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Complete Contest Rules.',
-                          style: Styles.greenText
-                              .copyWith(decoration: TextDecoration.underline),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = _launchRules)
-                    ]),
+                  text: 'For more details please read the ',
+                  style: Styles.normalText,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Complete Contest Rules.',
+                      style: Styles.greenText
+                          .copyWith(decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()..onTap = _launchRules,
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -101,15 +104,14 @@ class Rules extends StatelessWidget {
     );
   }
 
-  final _rulesUrl = 'https://vegaslit.web.app/rules.html';
-  void _launchRules() async => await canLaunch(_rulesUrl)
-      ? await launch(_rulesUrl)
-      // ignore: only_throw_errors
-      : throw 'Could not launch $_rulesUrl';
+  final _rulesURL = 'https://vegaslit.web.app/rules.html';
+  void _launchRules() async => await canLaunch(_rulesURL)
+      ? await launch(_rulesURL)
+      : throw LaunchWebsiteFailure();
 }
 
-class RulesList extends StatelessWidget {
-  final List<String> texts = [
+class _RulesList extends StatelessWidget {
+  final List<String> rules = [
     'Players get \$1000 every Thursday at 3AM PST when the weekly game starts. Each weekly game ends the following Wednesday night at midnight PST.',
     'Once you register, you\'ll get \$1000 in virtual currency to play with each week. You can easily see how you did on each bet and also track how much you\'re making over time.',
     'Players can only participate in the contest with a single Vegas Lit account. ',
@@ -126,21 +128,29 @@ class RulesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final widgetList = <Widget>[];
     var counter = 0;
-    for (final text in texts) {
+    for (final rule in rules) {
       counter++;
       widgetList
-        ..add(OrderedListItem(counter, text))
-        ..add(const SizedBox(height: 5.0));
+        ..add(
+          _OrderedListItem(index: counter, rule: rule),
+        )
+        ..add(
+          const SizedBox(height: 5.0),
+        );
     }
-
     return Column(children: widgetList);
   }
 }
 
-class OrderedListItem extends StatelessWidget {
-  OrderedListItem(this.counter, this.text);
-  final int counter;
-  final String text;
+class _OrderedListItem extends StatelessWidget {
+  const _OrderedListItem({
+    Key key,
+    @required this.index,
+    @required this.rule,
+  }) : super(key: key);
+
+  final int index;
+  final String rule;
 
   @override
   Widget build(BuildContext context) {
@@ -148,12 +158,12 @@ class OrderedListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          '$counter. ',
+          '$index. ',
           style: const TextStyle(color: Palette.cream),
         ),
         Expanded(
           child: Text(
-            text,
+            rule,
             style: const TextStyle(color: Palette.cream),
           ),
         ),
@@ -161,3 +171,5 @@ class OrderedListItem extends StatelessWidget {
     );
   }
 }
+
+class LaunchWebsiteFailure implements Exception {}

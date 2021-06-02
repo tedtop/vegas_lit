@@ -5,9 +5,11 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 
 class TermsOfService extends StatelessWidget {
+  const TermsOfService._({Key key}) : super(key: key);
+
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => TermsOfService(),
+      builder: (_) => const TermsOfService._(),
       settings: const RouteSettings(name: 'TermsOfService'),
     );
   }
@@ -28,29 +30,51 @@ class TermsOfService extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'TERMS OF SERVICE',
-                style: Styles.pageTitle,
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 120),
-            child: Text(
-              // ignore: lines_longer_than_80_chars
-              'WORK IN PROGRESS\n Come Back Later.',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.nunito(
-                color: Palette.cream,
-                fontSize: 22,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
+          const _TermsOfServiceHeading(),
+          const _TermsOfServiceContent(),
         ],
+      ),
+    );
+  }
+}
+
+class _TermsOfServiceHeading extends StatelessWidget {
+  const _TermsOfServiceHeading({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'TERMS OF SERVICE',
+          style: Styles.pageTitle,
+        ),
+      ],
+    );
+  }
+}
+
+class _TermsOfServiceContent extends StatelessWidget {
+  const _TermsOfServiceContent({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 120),
+      child: Text(
+        // ignore: lines_longer_than_80_chars
+        'WORK IN PROGRESS\n Come Back Later.',
+        textAlign: TextAlign.center,
+        style: GoogleFonts.nunito(
+          color: Palette.cream,
+          fontSize: 22,
+          fontWeight: FontWeight.w300,
+        ),
       ),
     );
   }
