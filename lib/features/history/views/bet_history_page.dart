@@ -30,7 +30,7 @@ class History extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const _HistoryTopHeading(),
+        const _HistoryHeading(),
         ScreenTypeLayout(
           mobile: MobileHistory(),
           tablet: TabletHistory(),
@@ -42,8 +42,8 @@ class History extends StatelessWidget {
   }
 }
 
-class _HistoryTopHeading extends StatelessWidget {
-  const _HistoryTopHeading({Key key}) : super(key: key);
+class _HistoryHeading extends StatelessWidget {
+  const _HistoryHeading({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

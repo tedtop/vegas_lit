@@ -179,6 +179,18 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
     );
   }
 
+  Future<void> updateOpenBets({
+    @required String currentUserId,
+    @required Map openBetsData,
+    @required int betAmount,
+  }) async {
+    await _betsRepository.saveBet(
+      uid: currentUserId,
+      openBetsDataMap: openBetsData,
+      cutBalance: betAmount,
+    );
+  }
+
   void updateBetAmount({@required int toWinAmount, @required int betAmount}) {
     emit(
       state.copyWith(betAmount: betAmount, toWinAmount: toWinAmount),

@@ -20,7 +20,6 @@ import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
@@ -299,7 +298,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                             isBetPlaced = false;
                                           });
                                           await context
-                                              .read<OpenBetsCubit>()
+                                              .read<NbaBetButtonCubit>()
                                               .updateOpenBets(
                                                 betAmount:
                                                     betButtonState.betAmount,

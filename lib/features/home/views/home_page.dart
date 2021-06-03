@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
 
@@ -15,10 +14,12 @@ import 'package:vegas_lit/features/history/views/bet_history_page.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/bet_slip/views/bet_slip_page.dart';
 import 'package:vegas_lit/features/home/cubit/internet_cubit.dart';
+import 'package:vegas_lit/features/home/widgets/bottom_navigation.dart';
+import 'package:vegas_lit/features/home/widgets/home_drawer.dart';
 import 'package:vegas_lit/features/home/widgets/topnavbar.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
-import 'package:vegas_lit/features/open_bets/open_bets.dart';
+import 'package:vegas_lit/features/open_bets/views/open_bets_page.dart';
 import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/sportsbook_page.dart';
 import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
@@ -54,13 +55,6 @@ class HomePage extends StatefulWidget {
                   SportsbookOpen(
                     league: 'MLB',
                   ),
-                ),
-            ),
-            BlocProvider<OpenBetsCubit>(
-              create: (context) => OpenBetsCubit(
-                betsRepository: context.read<BetsRepository>(),
-              )..openBetsOpen(
-                  currentUserId: currentUserId,
                 ),
             ),
             BlocProvider<VersionCubit>(
@@ -153,7 +147,7 @@ class _HomePageState extends State<HomePage>
                   Sportsbook(),
                   BetSlip(),
                   Leaderboard.route(),
-                  OpenBets.route(),
+                  OpenBets.route(uid: widget.currentUserId),
                   History.route(uid: widget.currentUserId),
                 ],
               );

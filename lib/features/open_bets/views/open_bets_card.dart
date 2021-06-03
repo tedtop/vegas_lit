@@ -21,7 +21,6 @@ class OpenBetsSlip extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(10, 20, 10, 2),
       child: Stack(
         clipBehavior: Clip.none,
-        // alignment: Alignment.topCenter,
         children: [
           Container(
             width: 390,
