@@ -3,6 +3,7 @@ class Images {
   static const String placeholderImage = 'assets/images/default_profile.png';
   static const String profileImage = 'assets/images/profile_image.png';
   static const String betHistoryLogo = 'assets/images/bet_history_logo.png';
+  static const String allSportsBackground = 'assets/images/all_sports_bg.png';
 
   static const String betTypesHelpOverlay = 'assets/overlays/bet_types.png';
   static const String sportTypesHelpOverlay = 'assets/overlays/sports_type.png';
