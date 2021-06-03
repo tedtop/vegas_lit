@@ -63,8 +63,8 @@ class Profile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _PicWithName(),
-                                _UserDetails(),
-                                _Signout()
+                                const _UserDetails(),
+                                const _Signout()
                               ],
                             ),
                           ),

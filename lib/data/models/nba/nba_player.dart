@@ -55,60 +55,60 @@ class NbaPlayer {
   factory NbaPlayer.fromJson(String str) => NbaPlayer.fromMap(json.decode(str));
 
   factory NbaPlayer.fromMap(Map<String, dynamic> json) => NbaPlayer(
-        playerId: json['PlayerID'] ?? null,
-        sportsDataId: json['SportsDataID'] ?? null,
+        playerId: json['PlayerID'],
+        sportsDataId: json['SportsDataID'],
         status:
             json['Status'] == null ? null : statusValues.map[json['Status']],
-        teamId: json['TeamID'] ?? null,
+        teamId: json['TeamID'],
         team: json['Team'] == null ? null : teamValues.map[json['Team']],
-        jersey: json['Jersey'] ?? null,
+        jersey: json['Jersey'],
         positionCategory: json['PositionCategory'] == null
             ? null
             : positionCategoryValues.map[json['PositionCategory']],
-        position: json['Position'] ?? null,
-        firstName: json['FirstName'] ?? null,
-        lastName: json['LastName'] ?? null,
-        height: json['Height'] ?? null,
-        weight: json['Weight'] ?? null,
+        position: json['Position'],
+        firstName: json['FirstName'],
+        lastName: json['LastName'],
+        height: json['Height'],
+        weight: json['Weight'],
         birthDate: json['BirthDate'] == null
             ? null
             : DateTime.parse(json['BirthDate']),
-        birthCity: json['BirthCity'] ?? null,
-        birthState: json['BirthState'] ?? null,
+        birthCity: json['BirthCity'],
+        birthState: json['BirthState'],
         birthCountry: json['BirthCountry'] == null
             ? null
             : birthCountryValues.map[json['BirthCountry']],
-        highSchool: json['HighSchool'] ?? null,
-        college: json['College'] ?? null,
-        salary: json['Salary'] ?? null,
-        photoUrl: json['PhotoUrl'] ?? null,
-        experience: json['Experience'] ?? null,
-        sportRadarPlayerId: json['SportRadarPlayerID'] ?? null,
-        rotoworldPlayerId: json['RotoworldPlayerID'] ?? null,
-        rotoWirePlayerId: json['RotoWirePlayerID'] ?? null,
-        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'] ?? null,
-        statsPlayerId: json['StatsPlayerID'] ?? null,
-        sportsDirectPlayerId: json['SportsDirectPlayerID'] ?? null,
-        xmlTeamPlayerId: json['XmlTeamPlayerID'] ?? null,
+        highSchool: json['HighSchool'],
+        college: json['College'],
+        salary: json['Salary'],
+        photoUrl: json['PhotoUrl'],
+        experience: json['Experience'],
+        sportRadarPlayerId: json['SportRadarPlayerID'],
+        rotoworldPlayerId: json['RotoworldPlayerID'],
+        rotoWirePlayerId: json['RotoWirePlayerID'],
+        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'],
+        statsPlayerId: json['StatsPlayerID'],
+        sportsDirectPlayerId: json['SportsDirectPlayerID'],
+        xmlTeamPlayerId: json['XmlTeamPlayerID'],
         injuryStatus: json['InjuryStatus'],
         injuryBodyPart: json['InjuryBodyPart'],
         injuryStartDate: json['InjuryStartDate'],
         injuryNotes: json['InjuryNotes'],
-        fanDuelPlayerId: json['FanDuelPlayerID'] ?? null,
-        draftKingsPlayerId: json['DraftKingsPlayerID'] ?? null,
-        yahooPlayerId: json['YahooPlayerID'] ?? null,
-        fanDuelName: json['FanDuelName'] ?? null,
-        draftKingsName: json['DraftKingsName'] ?? null,
-        yahooName: json['YahooName'] ?? null,
-        depthChartPosition: json['DepthChartPosition'] ?? null,
-        depthChartOrder: json['DepthChartOrder'] ?? null,
-        globalTeamId: json['GlobalTeamID'] ?? null,
-        fantasyDraftName: json['FantasyDraftName'] ?? null,
-        fantasyDraftPlayerId: json['FantasyDraftPlayerID'] ?? null,
-        usaTodayPlayerId: json['UsaTodayPlayerID'] ?? null,
-        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'] ?? null,
+        fanDuelPlayerId: json['FanDuelPlayerID'],
+        draftKingsPlayerId: json['DraftKingsPlayerID'],
+        yahooPlayerId: json['YahooPlayerID'],
+        fanDuelName: json['FanDuelName'],
+        draftKingsName: json['DraftKingsName'],
+        yahooName: json['YahooName'],
+        depthChartPosition: json['DepthChartPosition'],
+        depthChartOrder: json['DepthChartOrder'],
+        globalTeamId: json['GlobalTeamID'],
+        fantasyDraftName: json['FantasyDraftName'],
+        fantasyDraftPlayerId: json['FantasyDraftPlayerID'],
+        usaTodayPlayerId: json['UsaTodayPlayerID'],
+        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'],
         usaTodayHeadshotNoBackgroundUrl:
-            json['UsaTodayHeadshotNoBackgroundUrl'] ?? null,
+            json['UsaTodayHeadshotNoBackgroundUrl'],
         usaTodayHeadshotUpdated: json['UsaTodayHeadshotUpdated'] == null
             ? null
             : DateTime.parse(json['UsaTodayHeadshotUpdated']),
@@ -116,7 +116,7 @@ class NbaPlayer {
             json['UsaTodayHeadshotNoBackgroundUpdated'] == null
                 ? null
                 : DateTime.parse(json['UsaTodayHeadshotNoBackgroundUpdated']),
-        nbaDotComPlayerId: json['NbaDotComPlayerID'] ?? null,
+        nbaDotComPlayerId: json['NbaDotComPlayerID'],
       );
 
   final int playerId;
@@ -278,57 +278,56 @@ class NbaPlayer {
 
   String toJson() => json.encode(toMap());
   Map<String, dynamic> toMap() => {
-        'PlayerID': playerId ?? null,
-        'SportsDataID': sportsDataId ?? null,
+        'PlayerID': playerId,
+        'SportsDataID': sportsDataId,
         'Status': status == null ? null : statusValues.reverse[status],
-        'TeamID': teamId ?? null,
+        'TeamID': teamId,
         'Team': team == null ? null : teamValues.reverse[team],
-        'Jersey': jersey ?? null,
+        'Jersey': jersey,
         'PositionCategory': positionCategory == null
             ? null
             : positionCategoryValues.reverse[positionCategory],
-        'Position': position ?? null,
-        'FirstName': firstName ?? null,
-        'LastName': lastName ?? null,
-        'Height': height ?? null,
-        'Weight': weight ?? null,
+        'Position': position,
+        'FirstName': firstName,
+        'LastName': lastName,
+        'Height': height,
+        'Weight': weight,
         'BirthDate': birthDate == null ? null : birthDate.toIso8601String(),
-        'BirthCity': birthCity ?? null,
-        'BirthState': birthState ?? null,
+        'BirthCity': birthCity,
+        'BirthState': birthState,
         'BirthCountry': birthCountry == null
             ? null
             : birthCountryValues.reverse[birthCountry],
-        'HighSchool': highSchool ?? null,
-        'College': college ?? null,
-        'Salary': salary ?? null,
-        'PhotoUrl': photoUrl ?? null,
-        'Experience': experience ?? null,
-        'SportRadarPlayerID': sportRadarPlayerId ?? null,
-        'RotoworldPlayerID': rotoworldPlayerId ?? null,
-        'RotoWirePlayerID': rotoWirePlayerId ?? null,
-        'FantasyAlarmPlayerID': fantasyAlarmPlayerId ?? null,
-        'StatsPlayerID': statsPlayerId ?? null,
-        'SportsDirectPlayerID': sportsDirectPlayerId ?? null,
-        'XmlTeamPlayerID': xmlTeamPlayerId ?? null,
+        'HighSchool': highSchool,
+        'College': college,
+        'Salary': salary,
+        'PhotoUrl': photoUrl,
+        'Experience': experience,
+        'SportRadarPlayerID': sportRadarPlayerId,
+        'RotoworldPlayerID': rotoworldPlayerId,
+        'RotoWirePlayerID': rotoWirePlayerId,
+        'FantasyAlarmPlayerID': fantasyAlarmPlayerId,
+        'StatsPlayerID': statsPlayerId,
+        'SportsDirectPlayerID': sportsDirectPlayerId,
+        'XmlTeamPlayerID': xmlTeamPlayerId,
         'InjuryStatus': injuryStatus,
         'InjuryBodyPart': injuryBodyPart,
         'InjuryStartDate': injuryStartDate,
         'InjuryNotes': injuryNotes,
-        'FanDuelPlayerID': fanDuelPlayerId ?? null,
-        'DraftKingsPlayerID': draftKingsPlayerId ?? null,
-        'YahooPlayerID': yahooPlayerId ?? null,
-        'FanDuelName': fanDuelName ?? null,
-        'DraftKingsName': draftKingsName ?? null,
-        'YahooName': yahooName ?? null,
-        'DepthChartPosition': depthChartPosition ?? null,
-        'DepthChartOrder': depthChartOrder ?? null,
-        'GlobalTeamID': globalTeamId ?? null,
-        'FantasyDraftName': fantasyDraftName ?? null,
-        'FantasyDraftPlayerID': fantasyDraftPlayerId ?? null,
-        'UsaTodayPlayerID': usaTodayPlayerId ?? null,
-        'UsaTodayHeadshotUrl': usaTodayHeadshotUrl ?? null,
-        'UsaTodayHeadshotNoBackgroundUrl':
-            usaTodayHeadshotNoBackgroundUrl ?? null,
+        'FanDuelPlayerID': fanDuelPlayerId,
+        'DraftKingsPlayerID': draftKingsPlayerId,
+        'YahooPlayerID': yahooPlayerId,
+        'FanDuelName': fanDuelName,
+        'DraftKingsName': draftKingsName,
+        'YahooName': yahooName,
+        'DepthChartPosition': depthChartPosition,
+        'DepthChartOrder': depthChartOrder,
+        'GlobalTeamID': globalTeamId,
+        'FantasyDraftName': fantasyDraftName,
+        'FantasyDraftPlayerID': fantasyDraftPlayerId,
+        'UsaTodayPlayerID': usaTodayPlayerId,
+        'UsaTodayHeadshotUrl': usaTodayHeadshotUrl,
+        'UsaTodayHeadshotNoBackgroundUrl': usaTodayHeadshotNoBackgroundUrl,
         'UsaTodayHeadshotUpdated': usaTodayHeadshotUpdated == null
             ? null
             : usaTodayHeadshotUpdated.toIso8601String(),
@@ -336,16 +335,16 @@ class NbaPlayer {
             usaTodayHeadshotNoBackgroundUpdated == null
                 ? null
                 : usaTodayHeadshotNoBackgroundUpdated.toIso8601String(),
-        'NbaDotComPlayerID': nbaDotComPlayerId ?? null,
+        'NbaDotComPlayerID': nbaDotComPlayerId,
       };
 }
 
-enum BirthCountry { USA, GERMANY, LITHUANIA }
+enum BirthCountry { usa, germany, lithuania }
 
 final birthCountryValues = EnumValues({
-  'Germany': BirthCountry.GERMANY,
-  'Lithuania': BirthCountry.LITHUANIA,
-  'USA': BirthCountry.USA
+  'Germany': BirthCountry.germany,
+  'Lithuania': BirthCountry.lithuania,
+  'USA': BirthCountry.usa
 });
 
 enum PositionCategory { F, G, C }
@@ -356,24 +355,22 @@ final positionCategoryValues = EnumValues({
   'G': PositionCategory.G
 });
 
-enum Status { ACTIVE }
+enum Status { active }
 
-final statusValues = EnumValues({'Active': Status.ACTIVE});
+final statusValues = EnumValues({'Active': Status.active});
 
-enum Team { ORL }
+enum Team { orl }
 
-final teamValues = EnumValues({'ORL': Team.ORL});
+final teamValues = EnumValues({'ORL': Team.orl});
 
 class EnumValues<T> {
+  EnumValues(this.map);
+
   Map<String, T> map;
   Map<T, String> reverseMap;
 
-  EnumValues(this.map);
-
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }

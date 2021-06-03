@@ -15,6 +15,6 @@ class TeamInfoCubit extends Cubit<TeamInfoState> {
     );
 
     emit(TeamInfoOpened(
-        players.where((element) => element.status == 'Active').toList()));
+        players.where((element) => element.status == Status.active).toList()));
   }
 }
