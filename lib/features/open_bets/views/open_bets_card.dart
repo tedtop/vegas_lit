@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
@@ -96,9 +97,13 @@ class OpenBetsSlip extends StatelessWidget {
                                   widgetBuilder:
                                       (_, CurrentRemainingTime time) {
                                     if (time == null) {
+                                      final startTime = DateTime.parse(
+                                          openBets.gameStartDateTime);
                                       return Center(
                                         child: Text(
-                                          'In Progress',
+                                          '${DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                                            startTime,
+                                          )}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.red,
                                             fontSize: 14,
