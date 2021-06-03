@@ -159,17 +159,18 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 380,
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Palette.cream,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 380,
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Palette.cream,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          color: Palette.lightGrey,
         ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
