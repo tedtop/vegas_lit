@@ -59,7 +59,7 @@ class BetButton extends StatelessWidget {
     return BlocListener<MlbBetButtonCubit, MlbBetButtonState>(
       listener: (context, state) {
         switch (state.status) {
-          case BetButtonStatus.placed:
+          case BetButtonStatus.alreadyPlaced:
             return ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(

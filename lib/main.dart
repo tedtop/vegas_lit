@@ -17,13 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) await MobileAds.instance.initialize();
   await Firebase.initializeApp();
-  await Future.delayed(
-    const Duration(seconds: 1),
-    () {
-      // ignore: avoid_print
-      print('Launch screen stopped for 1 seconds');
-    },
-  );
+
   if (!kIsWeb) {
     if (kDebugMode) {
       Bloc.observer = SimpleBlocObserver();
