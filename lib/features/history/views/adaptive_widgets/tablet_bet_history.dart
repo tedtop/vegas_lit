@@ -93,7 +93,7 @@ class _TabletHistoryContent extends StatelessWidget {
           child: Text('Some Error Occured'),
         );
       default:
-        return Container();
+        return const SizedBox();
     }
   }
 }
