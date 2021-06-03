@@ -33,7 +33,7 @@ class MlbBetButtonState extends Equatable {
 
   const MlbBetButtonState.placing({
     @required String text,
-    @required Game game,
+    @required MlbGame game,
     @required String uniqueId,
     @required String league,
     @required double spread,
@@ -64,7 +64,7 @@ class MlbBetButtonState extends Equatable {
 
   const MlbBetButtonState.clicked({
     @required String text,
-    @required Game game,
+    @required MlbGame game,
     @required String uniqueId,
     @required String league,
     @required double spread,
@@ -95,7 +95,7 @@ class MlbBetButtonState extends Equatable {
 
   const MlbBetButtonState.unclicked(
       {@required String text,
-      @required Game game,
+      @required MlbGame game,
       @required String uniqueId,
       @required String mainOdds,
       @required double spread,
@@ -125,7 +125,7 @@ class MlbBetButtonState extends Equatable {
 
   const MlbBetButtonState.placed({
     @required String text,
-    @required Game game,
+    @required MlbGame game,
     @required String mainOdds,
     @required MlbTeam awayTeamData,
     @required MlbTeam homeTeamData,
@@ -156,7 +156,7 @@ class MlbBetButtonState extends Equatable {
 
   const MlbBetButtonState.alreadyPlaced({
     @required String text,
-    @required Game game,
+    @required MlbGame game,
     @required String mainOdds,
     @required MlbTeam awayTeamData,
     @required MlbTeam homeTeamData,
@@ -187,7 +187,7 @@ class MlbBetButtonState extends Equatable {
 
   final BetButtonStatus status;
   final String text;
-  final Game game;
+  final MlbGame game;
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
@@ -221,7 +221,7 @@ class MlbBetButtonState extends Equatable {
   MlbBetButtonState copyWith({
     BetButtonStatus status,
     String text,
-    Game game,
+    MlbGame game,
     String uniqueId,
     Bet betType,
     String mainOdds,

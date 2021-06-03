@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/models/nhl_team.dart';
 
 part 'matchup_card_state.dart';
@@ -9,7 +9,7 @@ class NhlMatchupCardCubit extends Cubit<NhlMatchupCardState> {
   NhlMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
-    @required Game game,
+    @required NhlGame game,
     @required dynamic parsedTeamData,
     @required String gameName,
   }) async {

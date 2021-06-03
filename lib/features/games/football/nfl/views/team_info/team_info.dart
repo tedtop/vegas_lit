@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/player.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_player.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 import 'package:vegas_lit/features/games/football/nfl/views/player_details/player_details.dart';
@@ -58,8 +58,8 @@ class TeamInfoView extends StatelessWidget {
         ),
         _teamBadge(size),
         const SizedBox(height: 12),
-        // _teamStats(),
-        // const SizedBox(height: 12),
+        //_teamStats(),
+        //const SizedBox(height: 12),
         BlocConsumer<TeamInfoCubit, TeamInfoState>(
             builder: (context, state) {
               if (state is TeamInfoOpened) {
@@ -77,7 +77,7 @@ class TeamInfoView extends StatelessWidget {
     );
   }
 
-  Widget _buildPlayersList(List<Player> players) {
+  Widget _buildPlayersList(List<NflPlayer> players) {
     final teamColor = int.parse('0xA6${teamData.primaryColor}'.toString());
     return ListView.separated(
       shrinkWrap: true,
@@ -90,7 +90,8 @@ class TeamInfoView extends StatelessWidget {
                   context,
                   PlayerDetailsPage.route(
                       gameName: gameName,
-                      playerId: players[index].playerID.toString()));
+                      playerId: players[index].playerId.toString(),
+                      playerDetails: players[index]));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -188,326 +189,326 @@ class TeamInfoView extends StatelessWidget {
     );
   }
 
-  Widget _teamStats() {
-    //CHANGE REAL DATA HERE
-    final tableStats = {
-      'FIELD GOALS': [2937, 6953, 52.6],
-      'TWO POINTERS': [2937, 6953, 52.6],
-      'THREE POINTERS': [2937, 6953, 52.6],
-      'FREE THROWS': [2937, 6953, 52.6]
-    };
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              width: 80,
-              child: Center(
-                child: Text(
-                  'WON',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.green, fontSize: 28),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              width: 100,
-              child: Center(
-                child: Text(
-                  'GAMES',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.cream, fontSize: 28),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              width: 110,
-              child: Center(
-                child: Text(
-                  'LOSSES',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.red, fontSize: 28),
-                ),
-              ),
-            )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-              width: 80,
-              child: Center(
-                child: Text(
-                  '45',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.green, fontSize: 34),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-              width: 100,
-              child: Center(
-                child: Text(
-                  '65',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.cream, fontSize: 34),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-              width: 110,
-              child: Center(
-                child: Text(
-                  '12',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.red, fontSize: 34),
-                ),
-              ),
-            )
-          ],
-        ),
-        Container(
-          width: 380,
-          decoration: BoxDecoration(
-            color: Palette.lightGrey,
-            border: Border.all(
-              color: Palette.cream,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                      width: 60,
-                      child: Text(
-                        'MADE',
-                        style: Styles.normalText.copyWith(fontSize: 13),
-                        textAlign: TextAlign.center,
-                      )),
-                  SizedBox(
-                      width: 80,
-                      child: Text(
-                        'ATTEMPTED',
-                        style: Styles.normalText.copyWith(fontSize: 13),
-                        textAlign: TextAlign.center,
-                      )),
-                  SizedBox(
-                      width: 90,
-                      child: Text(
-                        'PERCENTAGE',
-                        style: Styles.normalText.copyWith(fontSize: 13),
-                        textAlign: TextAlign.center,
-                      ))
-                ],
-              ),
-              ...tableStats.keys
-                  .map(
-                    (fieldName) => Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          fieldName,
-                          style: Styles.normalText.copyWith(fontSize: 13),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                            width: 60,
-                            child: Text(
-                              tableStats[fieldName][0].toString(),
-                              style:
-                                  Styles.greenTextBold.copyWith(fontSize: 13),
-                              textAlign: TextAlign.center,
-                            )),
-                        SizedBox(
-                            width: 80,
-                            child: Text(
-                              tableStats[fieldName][1].toString(),
-                              style: Styles.greenTextBold
-                                  .copyWith(fontSize: 13, color: Palette.red),
-                              textAlign: TextAlign.center,
-                            )),
-                        SizedBox(
-                            width: 90,
-                            child: Text(
-                              tableStats[fieldName][2].toString(),
-                              style:
-                                  Styles.normalTextBold.copyWith(fontSize: 13),
-                              textAlign: TextAlign.center,
-                            ))
-                      ],
-                    ),
-                  )
-                  .toList(),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'REBOUNDS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '45',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'ASSISTS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  width: 90,
-                  child: Center(
-                    child: Text(
-                      '45',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'BLOCKED',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '65',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'STEALS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '65',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'TURNOVERS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '12',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 135,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'PERSONAL FOULS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 140,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '12',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 20),
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
-      ],
-    );
-  }
+  // Widget _teamStats() {
+  //   //CHANGE REAL DATA HERE
+  //   final tableStats = {
+  //     'FIELD GOALS': [2937, 6953, 52.6],
+  //     'TWO POINTERS': [2937, 6953, 52.6],
+  //     'THREE POINTERS': [2937, 6953, 52.6],
+  //     'FREE THROWS': [2937, 6953, 52.6]
+  //   };
+  //   return Column(
+  //     children: [
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             margin: const EdgeInsets.symmetric(horizontal: 8),
+  //             width: 80,
+  //             child: Center(
+  //               child: Text(
+  //                 'WON',
+  //                 style: Styles.normalText
+  //                     .copyWith(color: Palette.green, fontSize: 28),
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: const EdgeInsets.symmetric(horizontal: 8),
+  //             width: 100,
+  //             child: Center(
+  //               child: Text(
+  //                 'GAMES',
+  //                 style: Styles.normalText
+  //                     .copyWith(color: Palette.cream, fontSize: 28),
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: const EdgeInsets.symmetric(horizontal: 8),
+  //             width: 110,
+  //             child: Center(
+  //               child: Text(
+  //                 'LOSSES',
+  //                 style: Styles.normalText
+  //                     .copyWith(color: Palette.red, fontSize: 28),
+  //               ),
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Container(
+  //             margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //             width: 80,
+  //             child: Center(
+  //               child: Text(
+  //                 '45',
+  //                 style: Styles.normalText
+  //                     .copyWith(color: Palette.green, fontSize: 34),
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //             width: 100,
+  //             child: Center(
+  //               child: Text(
+  //                 '65',
+  //                 style: Styles.normalText
+  //                     .copyWith(color: Palette.cream, fontSize: 34),
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //             width: 110,
+  //             child: Center(
+  //               child: Text(
+  //                 '12',
+  //                 style: Styles.normalText
+  //                     .copyWith(color: Palette.red, fontSize: 34),
+  //               ),
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //       Container(
+  //         width: 380,
+  //         decoration: BoxDecoration(
+  //           color: Palette.lightGrey,
+  //           border: Border.all(
+  //             color: Palette.cream,
+  //           ),
+  //           borderRadius: BorderRadius.circular(8),
+  //         ),
+  //         padding: const EdgeInsets.all(8),
+  //         child: Column(
+  //           children: [
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                     width: 60,
+  //                     child: Text(
+  //                       'MADE',
+  //                       style: Styles.normalText.copyWith(fontSize: 13),
+  //                       textAlign: TextAlign.center,
+  //                     )),
+  //                 SizedBox(
+  //                     width: 80,
+  //                     child: Text(
+  //                       'ATTEMPTED',
+  //                       style: Styles.normalText.copyWith(fontSize: 13),
+  //                       textAlign: TextAlign.center,
+  //                     )),
+  //                 SizedBox(
+  //                     width: 90,
+  //                     child: Text(
+  //                       'PERCENTAGE',
+  //                       style: Styles.normalText.copyWith(fontSize: 13),
+  //                       textAlign: TextAlign.center,
+  //                     ))
+  //               ],
+  //             ),
+  //             ...tableStats.keys
+  //                 .map(
+  //                   (fieldName) => Row(
+  //                     mainAxisAlignment: MainAxisAlignment.end,
+  //                     children: [
+  //                       Text(
+  //                         fieldName,
+  //                         style: Styles.normalText.copyWith(fontSize: 13),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 10,
+  //                       ),
+  //                       SizedBox(
+  //                           width: 60,
+  //                           child: Text(
+  //                             tableStats[fieldName][0].toString(),
+  //                             style:
+  //                                 Styles.greenTextBold.copyWith(fontSize: 13),
+  //                             textAlign: TextAlign.center,
+  //                           )),
+  //                       SizedBox(
+  //                           width: 80,
+  //                           child: Text(
+  //                             tableStats[fieldName][1].toString(),
+  //                             style: Styles.greenTextBold
+  //                                 .copyWith(fontSize: 13, color: Palette.red),
+  //                             textAlign: TextAlign.center,
+  //                           )),
+  //                       SizedBox(
+  //                           width: 90,
+  //                           child: Text(
+  //                             tableStats[fieldName][2].toString(),
+  //                             style:
+  //                                 Styles.normalTextBold.copyWith(fontSize: 13),
+  //                             textAlign: TextAlign.center,
+  //                           ))
+  //                     ],
+  //                   ),
+  //                 )
+  //                 .toList(),
+  //           ],
+  //         ),
+  //       ),
+  //       const SizedBox(
+  //         height: 15,
+  //       ),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Column(
+  //             children: [
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'REBOUNDS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '45',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'ASSISTS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 width: 90,
+  //                 child: Center(
+  //                   child: Text(
+  //                     '45',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           Column(
+  //             children: [
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'BLOCKED',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '65',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'STEALS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '65',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           Column(
+  //             children: [
+  //               Container(
+  //                 width: 100,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'TURNOVERS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 100,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '12',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 135,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'PERSONAL FOULS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 140,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '12',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               )
+  //             ],
+  //           )
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 }

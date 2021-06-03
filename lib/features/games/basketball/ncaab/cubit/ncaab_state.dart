@@ -19,7 +19,7 @@ class NcaabState extends Equatable {
   const NcaabState.initial() : this._();
 
   const NcaabState.opened({
-    @required List<Game> games,
+    @required List<NcaabGame> games,
     @required String league,
     // @required Map gameNumbers,
     @required dynamic parsedTeamData,
@@ -49,7 +49,7 @@ class NcaabState extends Equatable {
   //         status: SportsbookStatus.loading,
   //       );
 
-  final List<Game> games;
+  final List<NcaabGame> games;
   final String league;
   // final Map gameNumbers;
   final dynamic parsedTeamData;

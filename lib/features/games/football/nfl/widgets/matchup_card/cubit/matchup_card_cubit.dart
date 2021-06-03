@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
 import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
 part 'matchup_card_state.dart';
@@ -9,7 +9,7 @@ class NflMatchupCardCubit extends Cubit<NflMatchupCardState> {
   NflMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
-    @required Game game,
+    @required NflGame game,
     @required dynamic parsedTeamData,
     @required String gameName,
   }) async {

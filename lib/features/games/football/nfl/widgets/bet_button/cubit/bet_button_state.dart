@@ -28,7 +28,7 @@ class NflBetButtonState extends Equatable {
 
   const NflBetButtonState.clicked(
       {@required String text,
-      @required Game game,
+      @required NflGame game,
       @required String uniqueId,
       @required String league,
       @required double spread,
@@ -63,7 +63,7 @@ class NflBetButtonState extends Equatable {
 
   const NflBetButtonState.unclicked(
       {@required String text,
-      @required Game game,
+      @required NflGame game,
       @required String uniqueId,
       @required String mainOdds,
       @required bool isClosed,
@@ -97,7 +97,7 @@ class NflBetButtonState extends Equatable {
 
   const NflBetButtonState.done({
     @required String text,
-    @required Game game,
+    @required NflGame game,
     @required String mainOdds,
     @required NflTeam awayTeamData,
     @required bool isClosed,
@@ -132,7 +132,7 @@ class NflBetButtonState extends Equatable {
 
   const NflBetButtonState.placed({
     @required String text,
-    @required Game game,
+    @required NflGame game,
     @required String mainOdds,
     @required NflTeam awayTeamData,
     @required bool isClosed,
@@ -167,7 +167,7 @@ class NflBetButtonState extends Equatable {
 
   final BetButtonStatus status;
   final String text;
-  final Game game;
+  final NflGame game;
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
@@ -205,7 +205,7 @@ class NflBetButtonState extends Equatable {
   NflBetButtonState copyWith({
     BetButtonStatus status,
     String text,
-    Game game,
+    NflGame game,
     String uniqueId,
     Bet betType,
     String mainOdds,

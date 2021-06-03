@@ -14,7 +14,7 @@ class MatchupCardOpened extends NhlMatchupCardState {
     @required this.homeTeamData,
   });
 
-  final Game game;
+  final NhlGame game;
   final String league;
   final NhlTeam awayTeamData;
   final NhlTeam homeTeamData;

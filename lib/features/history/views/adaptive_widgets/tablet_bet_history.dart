@@ -92,6 +92,8 @@ class _TabletHistoryContent extends StatelessWidget {
         return const Center(
           child: Text('Some Error Occured'),
         );
+      default:
+        return Container();
     }
   }
 }

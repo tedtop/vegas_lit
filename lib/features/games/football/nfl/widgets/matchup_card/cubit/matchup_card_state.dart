@@ -14,7 +14,7 @@ class MatchupCardOpened extends NflMatchupCardState {
     @required this.homeTeamData,
   });
 
-  final Game game;
+  final NflGame game;
   final String league;
   final NflTeam awayTeamData;
   final NflTeam homeTeamData;

@@ -14,7 +14,7 @@ class MatchupCardOpened extends NcaafMatchupCardState {
     @required this.homeTeamData,
   });
 
-  final Game game;
+  final NcaafGame game;
   final String league;
   final NcaafTeam awayTeamData;
   final NcaafTeam homeTeamData;

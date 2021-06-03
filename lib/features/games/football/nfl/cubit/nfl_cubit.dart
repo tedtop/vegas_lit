@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vegas_lit/data/models/game.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 
 part 'nfl_state.dart';

@@ -14,7 +14,7 @@ class MatchupCardOpened extends NbaMatchupCardState {
     @required this.homeTeamData,
   });
 
-  final Game game;
+  final NbaGame game;
   final String league;
   final NbaTeam awayTeamData;
   final NbaTeam homeTeamData;

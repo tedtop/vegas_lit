@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
@@ -26,7 +26,7 @@ class NhlCubit extends Cubit<NhlState> {
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
 
-    List<Game> totalGames;
+    List<NhlGame> totalGames;
 
     final todayGames = await _sportsfeedRepository
         .fetchNHL(

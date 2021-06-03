@@ -19,7 +19,7 @@ class NflState extends Equatable {
   const NflState.initial() : this._();
 
   const NflState.opened({
-    @required List<Game> games,
+    @required List<NflGame> games,
     @required String league,
     // @required Map gameNumbers,
     @required dynamic parsedTeamData,
@@ -49,7 +49,7 @@ class NflState extends Equatable {
   //         status: SportsbookStatus.loading,
   //       );
 
-  final List<Game> games;
+  final List<NflGame> games;
   final String league;
   // final Map gameNumbers;
   final dynamic parsedTeamData;

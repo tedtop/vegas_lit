@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/games/basketball/ncaab/widgets/matchup_card/matchup_card.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 
 class DesktopNcaabScreen extends StatelessWidget {
   DesktopNcaabScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<Game> games;
+  final List<NcaabGame> games;
   final String gameName;
   final dynamic parsedTeamData;
   @override

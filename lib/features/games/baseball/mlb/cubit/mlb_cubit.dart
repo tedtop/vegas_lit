@@ -7,8 +7,8 @@ import 'package:meta/meta.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/data/models/mlb/mlb_game.dart';
 
-import 'package:vegas_lit/data/models/game.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 
 part 'mlb_state.dart';
@@ -26,7 +26,7 @@ class MlbCubit extends Cubit<MlbState> {
   Future<void> fetchMlbGames() async {
     const league = 'MLB';
     final estTimeZone = fetchTimeEST();
-    List<Game> totalGames;
+    List<MlbGame> totalGames;
 
     final todayGames = await _sportsfeedRepository
         .fetchMLB(

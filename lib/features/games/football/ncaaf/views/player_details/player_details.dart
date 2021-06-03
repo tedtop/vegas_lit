@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/player_details.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_player.dart';
 import 'package:vegas_lit/features/shared_widgets/app_bar.dart';
 
-import 'cubit/player_details_cubit.dart';
-
 class PlayerDetailsPage extends StatelessWidget {
-  PlayerDetailsPage({this.playerId, this.gameName});
+  PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
   final String playerId;
   final String gameName;
+  final NcaafPlayer playerDetails;
 
-  static Route route({@required String playerId, @required String gameName}) {
+  static Route route(
+      {@required String playerId,
+      @required String gameName,
+      @required NcaafPlayer playerDetails}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'PlayerDetails'),
-      builder: (context) => BlocProvider<PlayerDetailsCubit>(
-        create: (_) => PlayerDetailsCubit(
-            sportsRepository: SportsRepository(), gameName: gameName)
-          ..fetchPlayerDetails(playerID: playerId),
-        child: PlayerDetailsPage(playerId: playerId, gameName: gameName),
-      ),
+      builder: (context) =>
+          // BlocProvider<PlayerDetailsCubit>(
+          //   create: (_) => PlayerDetailsCubit(
+          //       sportsRepository: SportsRepository(), gameName: gameName)
+          //     ..fetchPlayerDetails(playerID: playerId),
+          //   child:
+          PlayerDetailsPage(
+              playerId: playerId,
+              gameName: gameName,
+              playerDetails: playerDetails),
+      //),
     );
   }
 
@@ -44,33 +49,17 @@ class PlayerDetailsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          BlocConsumer<PlayerDetailsCubit, PlayerDetailsState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is PlayerDetailsFetched) {
-                  final playerDetails = state.playerDetails;
-                  return Column(
-                    children: [
-                      _playerBadge(size, playerDetails),
-                      _playerDescription(playerDetails),
-                      //_playerStats(playerDetails),
-                      _playerInjury(playerDetails)
-                    ],
-                  );
-                } else {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  ));
-                }
-              }),
+          _playerBadge(size, playerDetails),
+          _playerDescription(playerDetails),
+          //_playerStats(playerDetails),
+          _playerInjury(playerDetails)
           //_buildProfileWidget(size),
         ],
       ),
     );
   }
 
-  Widget _playerBadge(Size size, PlayerDetails playerDetails) {
+  Widget _playerBadge(Size size, NcaafPlayer playerDetails) {
     return SizedBox(
       width: size.width,
       height: 130,
@@ -97,6 +86,8 @@ class PlayerDetailsPage extends StatelessWidget {
             children: [
               Text(
                 '${playerDetails.firstName} ${playerDetails.lastName}',
+                maxLines: 2,
+                softWrap: true,
                 style: Styles.largeTextBold.copyWith(fontSize: 30),
               ),
               Text(
@@ -114,7 +105,7 @@ class PlayerDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _playerDescription(PlayerDetails playerDetails) {
+  Widget _playerDescription(NcaafPlayer playerDetails) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -201,254 +192,254 @@ class PlayerDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _playerStats(PlayerDetails playerDetails) {
-    //CHANGE REAL DATA HERE
-    final tableStats = {
-      'FIELD GOALS': [2937, 6953, 52.6],
-      'TWO POINTERS': [2937, 6953, 52.6],
-      'THREE POINTERS': [2937, 6953, 52.6],
-      'FREE THROWS': [2937, 6953, 52.6]
-    };
-    return Column(
-      children: [
-        Container(
-          width: 380,
-          decoration: BoxDecoration(
-            color: Palette.lightGrey,
-            border: Border.all(
-              color: Palette.cream,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                      width: 60,
-                      child: Text(
-                        'MADE',
-                        style: Styles.normalText.copyWith(fontSize: 13),
-                        textAlign: TextAlign.center,
-                      )),
-                  SizedBox(
-                      width: 80,
-                      child: Text(
-                        'ATTEMPTED',
-                        style: Styles.normalText.copyWith(fontSize: 13),
-                        textAlign: TextAlign.center,
-                      )),
-                  SizedBox(
-                      width: 90,
-                      child: Text(
-                        'PERCENTAGE',
-                        style: Styles.normalText.copyWith(fontSize: 13),
-                        textAlign: TextAlign.center,
-                      ))
-                ],
-              ),
-              ...tableStats.keys
-                  .map(
-                    (fieldName) => Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          fieldName,
-                          style: Styles.normalText.copyWith(fontSize: 13),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                            width: 60,
-                            child: Text(
-                              tableStats[fieldName][0].toString(),
-                              style:
-                                  Styles.greenTextBold.copyWith(fontSize: 13),
-                              textAlign: TextAlign.center,
-                            )),
-                        SizedBox(
-                            width: 80,
-                            child: Text(
-                              tableStats[fieldName][1].toString(),
-                              style: Styles.greenTextBold
-                                  .copyWith(fontSize: 13, color: Palette.red),
-                              textAlign: TextAlign.center,
-                            )),
-                        SizedBox(
-                            width: 90,
-                            child: Text(
-                              tableStats[fieldName][2].toString(),
-                              style:
-                                  Styles.normalTextBold.copyWith(fontSize: 13),
-                              textAlign: TextAlign.center,
-                            ))
-                      ],
-                    ),
-                  )
-                  .toList(),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'REBOUNDS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '45',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'ASSISTS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  width: 90,
-                  child: Center(
-                    child: Text(
-                      '45',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.green, fontSize: 20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'BLOCKED',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '65',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'STEALS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 90,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '65',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.cream, fontSize: 20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'TURNOVERS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '12',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 135,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Text(
-                      'PERSONAL FOULS',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 140,
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  child: Center(
-                    child: Text(
-                      '12',
-                      style: Styles.normalText
-                          .copyWith(color: Palette.red, fontSize: 20),
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
-      ],
-    );
-  }
+  // Widget _playerStats(NcaafPlayer playerDetails) {
+  //   //CHANGE REAL DATA HERE
+  //   final tableStats = {
+  //     'FIELD GOALS': [2937, 6953, 52.6],
+  //     'TWO POINTERS': [2937, 6953, 52.6],
+  //     'THREE POINTERS': [2937, 6953, 52.6],
+  //     'FREE THROWS': [2937, 6953, 52.6]
+  //   };
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         width: 380,
+  //         decoration: BoxDecoration(
+  //           color: Palette.lightGrey,
+  //           border: Border.all(
+  //             color: Palette.cream,
+  //           ),
+  //           borderRadius: BorderRadius.circular(8),
+  //         ),
+  //         padding: const EdgeInsets.all(8),
+  //         child: Column(
+  //           children: [
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                     width: 60,
+  //                     child: Text(
+  //                       'MADE',
+  //                       style: Styles.normalText.copyWith(fontSize: 13),
+  //                       textAlign: TextAlign.center,
+  //                     )),
+  //                 SizedBox(
+  //                     width: 80,
+  //                     child: Text(
+  //                       'ATTEMPTED',
+  //                       style: Styles.normalText.copyWith(fontSize: 13),
+  //                       textAlign: TextAlign.center,
+  //                     )),
+  //                 SizedBox(
+  //                     width: 90,
+  //                     child: Text(
+  //                       'PERCENTAGE',
+  //                       style: Styles.normalText.copyWith(fontSize: 13),
+  //                       textAlign: TextAlign.center,
+  //                     ))
+  //               ],
+  //             ),
+  //             ...tableStats.keys
+  //                 .map(
+  //                   (fieldName) => Row(
+  //                     mainAxisAlignment: MainAxisAlignment.end,
+  //                     children: [
+  //                       Text(
+  //                         fieldName,
+  //                         style: Styles.normalText.copyWith(fontSize: 13),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 10,
+  //                       ),
+  //                       SizedBox(
+  //                           width: 60,
+  //                           child: Text(
+  //                             tableStats[fieldName][0].toString(),
+  //                             style:
+  //                                 Styles.greenTextBold.copyWith(fontSize: 13),
+  //                             textAlign: TextAlign.center,
+  //                           )),
+  //                       SizedBox(
+  //                           width: 80,
+  //                           child: Text(
+  //                             tableStats[fieldName][1].toString(),
+  //                             style: Styles.greenTextBold
+  //                                 .copyWith(fontSize: 13, color: Palette.red),
+  //                             textAlign: TextAlign.center,
+  //                           )),
+  //                       SizedBox(
+  //                           width: 90,
+  //                           child: Text(
+  //                             tableStats[fieldName][2].toString(),
+  //                             style:
+  //                                 Styles.normalTextBold.copyWith(fontSize: 13),
+  //                             textAlign: TextAlign.center,
+  //                           ))
+  //                     ],
+  //                   ),
+  //                 )
+  //                 .toList(),
+  //           ],
+  //         ),
+  //       ),
+  //       const SizedBox(
+  //         height: 15,
+  //       ),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Column(
+  //             children: [
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'REBOUNDS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '45',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'ASSISTS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 width: 90,
+  //                 child: Center(
+  //                   child: Text(
+  //                     '45',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.green, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           Column(
+  //             children: [
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'BLOCKED',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '65',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'STEALS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 90,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '65',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.cream, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           Column(
+  //             children: [
+  //               Container(
+  //                 width: 100,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'TURNOVERS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 100,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '12',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 135,
+  //                 margin: const EdgeInsets.symmetric(horizontal: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     'PERSONAL FOULS',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 15),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 width: 140,
+  //                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+  //                 child: Center(
+  //                   child: Text(
+  //                     '12',
+  //                     style: Styles.normalText
+  //                         .copyWith(color: Palette.red, fontSize: 20),
+  //                   ),
+  //                 ),
+  //               )
+  //             ],
+  //           )
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget _playerInjury(PlayerDetails playerDetails) {
+  Widget _playerInjury(NcaafPlayer playerDetails) {
     return Container(
       width: 380,
       decoration: BoxDecoration(

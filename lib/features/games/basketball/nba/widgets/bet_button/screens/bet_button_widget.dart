@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/nba/nba_game.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
 import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
@@ -18,7 +18,7 @@ class BetButton extends StatelessWidget {
 
   static Builder route({
     @required String text,
-    @required Game game,
+    @required NbaGame game,
     @required Bet betType,
     @required String mainOdds,
     @required NbaTeam awayTeamData,

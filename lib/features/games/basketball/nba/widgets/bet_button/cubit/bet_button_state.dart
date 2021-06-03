@@ -28,7 +28,7 @@ class NbaBetButtonState extends Equatable {
 
   const NbaBetButtonState.clicked(
       {@required String text,
-      @required Game game,
+      @required NbaGame game,
       @required String uniqueId,
       @required String league,
       @required double spread,
@@ -63,7 +63,7 @@ class NbaBetButtonState extends Equatable {
 
   const NbaBetButtonState.unclicked(
       {@required String text,
-      @required Game game,
+      @required NbaGame game,
       @required String uniqueId,
       @required String mainOdds,
       @required bool isClosed,
@@ -97,7 +97,7 @@ class NbaBetButtonState extends Equatable {
 
   const NbaBetButtonState.done({
     @required String text,
-    @required Game game,
+    @required NbaGame game,
     @required String mainOdds,
     @required NbaTeam awayTeamData,
     @required bool isClosed,
@@ -132,7 +132,7 @@ class NbaBetButtonState extends Equatable {
 
   const NbaBetButtonState.placed({
     @required String text,
-    @required Game game,
+    @required NbaGame game,
     @required String mainOdds,
     @required NbaTeam awayTeamData,
     @required bool isClosed,
@@ -167,7 +167,7 @@ class NbaBetButtonState extends Equatable {
 
   final BetButtonStatus status;
   final String text;
-  final Game game;
+  final NbaGame game;
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
@@ -205,7 +205,7 @@ class NbaBetButtonState extends Equatable {
   NbaBetButtonState copyWith({
     BetButtonStatus status,
     String text,
-    Game game,
+    NbaGame game,
     String uniqueId,
     Bet betType,
     String mainOdds,

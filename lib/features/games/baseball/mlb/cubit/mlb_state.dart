@@ -17,7 +17,7 @@ class MlbState extends Equatable {
   const MlbState.initial() : this._();
 
   const MlbState.opened({
-    @required List<Game> games,
+    @required List<MlbGame> games,
     @required String league,
     @required dynamic parsedTeamData,
     @required DateTime estTimeZone,
@@ -29,7 +29,7 @@ class MlbState extends Equatable {
           status: MlbStatus.opened,
         );
 
-  final List<Game> games;
+  final List<MlbGame> games;
   final String league;
   final dynamic parsedTeamData;
   final DateTime estTimeZone;

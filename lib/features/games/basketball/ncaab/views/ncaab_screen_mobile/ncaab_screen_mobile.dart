@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
 import 'package:vegas_lit/features/games/basketball/ncaab/widgets/matchup_card/matchup_card.dart';
 
 class MobileNcaabScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class MobileNcaabScreen extends StatelessWidget {
     @required this.games,
     @required this.parsedTeamData,
   });
-  final List<Game> games;
+  final List<NcaabGame> games;
   final String gameName;
   final dynamic parsedTeamData;
   @override

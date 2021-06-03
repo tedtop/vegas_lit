@@ -11,5 +11,5 @@ class TeamInfoInitial extends TeamInfoState {}
 
 class TeamInfoOpened extends TeamInfoState {
   TeamInfoOpened(this.player);
-  final List<Player> player;
+  final List<NflPlayer> player;
 }

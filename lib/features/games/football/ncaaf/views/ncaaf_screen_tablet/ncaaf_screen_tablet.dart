@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_game.dart';
 import 'package:vegas_lit/features/games/football/ncaaf/widgets/matchup_card/matchup_card.dart';
 
 class TabletNcaafScreen extends StatelessWidget {
   TabletNcaafScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<Game> games;
+  final List<NcaafGame> games;
   final String gameName;
   final dynamic parsedTeamData;
   @override

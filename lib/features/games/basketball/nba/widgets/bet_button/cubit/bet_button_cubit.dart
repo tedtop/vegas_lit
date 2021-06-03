@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/nba/nba_game.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +30,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
 
   void openBetButton({
     @required String text,
-    @required Game game,
+    @required NbaGame game,
     @required Bet betType,
     @required String uid,
     @required String mainOdds,

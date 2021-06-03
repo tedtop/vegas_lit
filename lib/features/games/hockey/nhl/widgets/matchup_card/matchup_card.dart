@@ -9,10 +9,10 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/game.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/views/team_info/team_info.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/bet_button/bet_button.dart';
 
@@ -23,7 +23,7 @@ class MatchupCard extends StatelessWidget {
   final String gameName;
 
   static Builder route({
-    @required Game game,
+    @required NhlGame game,
     @required String gameName,
     @required dynamic parsedTeamData,
   }) {

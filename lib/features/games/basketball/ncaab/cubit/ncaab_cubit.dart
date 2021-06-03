@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vegas_lit/data/models/game.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
@@ -26,7 +26,7 @@ class NcaabCubit extends Cubit<NcaabState> {
     final localTimeZone = DateTime.now();
     final estTimeZone = fetchTimeEST();
 
-    List<Game> totalGames;
+    List<NcaabGame> totalGames;
 
     final todayGames = await _sportsfeedRepository
         .fetchNCAAB(
