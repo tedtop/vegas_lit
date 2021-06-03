@@ -20,16 +20,18 @@ class History extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const _HistoryHeading(),
-        ScreenTypeLayout(
-          mobile: MobileHistory(),
-          tablet: TabletHistory(),
-          desktop: WebHistory(),
-        ),
-        kIsWeb ? const BottomBar() : const SizedBox(),
-      ],
+    return Scaffold(
+      body: ListView(
+        children: [
+          const _HistoryHeading(),
+          ScreenTypeLayout(
+            mobile: MobileHistory(),
+            tablet: TabletHistory(),
+            desktop: WebHistory(),
+          ),
+          kIsWeb ? const BottomBar() : const SizedBox(),
+        ],
+      ),
     );
   }
 }

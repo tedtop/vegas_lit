@@ -101,9 +101,9 @@ class OpenBetsSlip extends StatelessWidget {
                                           openBets.gameStartDateTime);
                                       return Center(
                                         child: Text(
-                                          '${DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
+                                          'Started at ${DateFormat('hh:mm a').format(
                                             startTime,
-                                          )}',
+                                          )} EST',
                                           style: GoogleFonts.nunito(
                                             color: Palette.red,
                                             fontSize: 14,

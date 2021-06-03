@@ -62,13 +62,12 @@ class _MobileHistoryBoard extends StatelessWidget {
                       ),
                       BetHistoryBoardText(
                         leftText: 'Total Risked',
-                        rightText:
-                            state.userWallet.totalRiskedAmount.toString(),
+                        rightText: '\$${state.userWallet.totalRiskedAmount}',
                         color: Palette.red,
                       ),
                       BetHistoryBoardText(
                         leftText: 'Total Profit',
-                        rightText: state.userWallet.totalProfit.toString(),
+                        rightText: '\$${state.userWallet.totalProfit}',
                         color: state.userWallet.totalProfit >= 0
                             ? Palette.green
                             : Palette.red,
