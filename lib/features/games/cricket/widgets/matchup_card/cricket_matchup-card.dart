@@ -1,14 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/cricket.dart';
-import 'package:vegas_lit/features/games/cricket/widgets/bet_button/cricket_bet_button.dart';
 
 import 'cubit/cricket_matchup_card_cubit.dart';
 
@@ -92,31 +89,31 @@ class CricketMatchupCard extends StatelessWidget {
                                   const SizedBox(height: 5),
                                   Column(
                                     children: [
-                                      gameData.sites[0].odds == null
-                                          ? Container()
-                                          : BetButton.route(
-                                              mainOdds: (state.homeTeamData.title
-                                                          .compareTo(state
-                                                              .awayTeamData
-                                                              .title) ==
-                                                      -1)
-                                                  ? gameData.sites[0].odds['h2h'][1]
-                                                      .toString()
-                                                  : gameData
-                                                      .sites[0].odds['h2h'][0]
-                                                      .toString(),
-                                              betType: Bet.ml,
-                                              awayTeamData: state.awayTeamData,
-                                              homeTeamData: state.homeTeamData,
-                                              text: (state.homeTeamData.title.compareTo(state.awayTeamData.title) == -1)
-                                                  ? gameData
-                                                      .sites[0].odds['h2h'][1]
-                                                      .toString()
-                                                  : gameData
-                                                      .sites[0].odds['h2h'][0]
-                                                      .toString(),
-                                              game: state.game,
-                                              league: state.league),
+                                      // gameData.sites[0].odds == null
+                                      //     ? Container()
+                                      //     : BetButton.route(
+                                      //         mainOdds: (state.homeTeamData.title
+                                      //                     .compareTo(state
+                                      //                         .awayTeamData
+                                      //                         .title) ==
+                                      //                 -1)
+                                      //             ? gameData.sites[0].odds['h2h'][1]
+                                      //                 .toString()
+                                      //             : gameData
+                                      //                 .sites[0].odds['h2h'][0]
+                                      //                 .toString(),
+                                      //         betType: Bet.ml,
+                                      //         awayTeamData: state.awayTeamData,
+                                      //         homeTeamData: state.homeTeamData,
+                                      //         text: (state.homeTeamData.title.compareTo(state.awayTeamData.title) == -1)
+                                      //             ? gameData
+                                      //                 .sites[0].odds['h2h'][1]
+                                      //                 .toString()
+                                      //             : gameData
+                                      //                 .sites[0].odds['h2h'][0]
+                                      //                 .toString(),
+                                      //         game: state.game,
+                                      // league: state.league),
                                       //     gameData.pointSpreadAwayTeamMoneyLine ==
                                       //             null
                                       //         ? Container()
@@ -190,38 +187,38 @@ class CricketMatchupCard extends StatelessWidget {
                                   const SizedBox(height: 5),
                                   Column(
                                     children: [
-                                      gameData.sites[0].odds == null
-                                          ? Container()
-                                          : BetButton.route(
-                                              mainOdds: (state
-                                                          .homeTeamData.title
-                                                          .compareTo(state
-                                                              .awayTeamData
-                                                              .title) ==
-                                                      -1)
-                                                  ? gameData
-                                                      .sites[0].odds['h2h'][0]
-                                                      .toString()
-                                                  : gameData
-                                                      .sites[0].odds['h2h'][1]
-                                                      .toString(),
-                                              betType: Bet.ml,
-                                              awayTeamData: state.awayTeamData,
-                                              homeTeamData: state.homeTeamData,
-                                              text: (state.homeTeamData.title
-                                                          .compareTo(state
-                                                              .awayTeamData
-                                                              .title) ==
-                                                      -1)
-                                                  ? gameData
-                                                      .sites[0].odds['h2h'][0]
-                                                      .toString()
-                                                  : gameData
-                                                      .sites[0].odds['h2h'][1]
-                                                      .toString(),
-                                              game: state.game,
-                                              league: state.league,
-                                            ),
+                                      // gameData.sites[0].odds == null
+                                      //     ? Container()
+                                      //     : BetButton.route(
+                                      //         mainOdds: (state
+                                      //                     .homeTeamData.title
+                                      //                     .compareTo(state
+                                      //                         .awayTeamData
+                                      //                         .title) ==
+                                      //                 -1)
+                                      //             ? gameData
+                                      //                 .sites[0].odds['h2h'][0]
+                                      //                 .toString()
+                                      //             : gameData
+                                      //                 .sites[0].odds['h2h'][1]
+                                      //                 .toString(),
+                                      //         betType: Bet.ml,
+                                      //         awayTeamData: state.awayTeamData,
+                                      //         homeTeamData: state.homeTeamData,
+                                      //         text: (state.homeTeamData.title
+                                      //                     .compareTo(state
+                                      //                         .awayTeamData
+                                      //                         .title) ==
+                                      //                 -1)
+                                      //             ? gameData
+                                      //                 .sites[0].odds['h2h'][0]
+                                      //                 .toString()
+                                      //             : gameData
+                                      //                 .sites[0].odds['h2h'][1]
+                                      //                 .toString(),
+                                      //         game: state.game,
+                                      //         league: state.league,
+                                      //       ),
                                       //     gameData.homeTeamMoneyLine == null
                                       //         ? Container()
                                       //         : BetButton.route(

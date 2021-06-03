@@ -71,7 +71,6 @@ class BetHistorySlip extends StatelessWidget {
                           ),
                         ),
                         whichBetText(betData: betHistoryData),
-                        // Last Row
                         Row(
                           children: [
                             Expanded(

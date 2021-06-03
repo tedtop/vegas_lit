@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/home/widgets/bottombar.dart';
-import 'package:vegas_lit/features/open_bets/open_bets.dart';
+import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
 
 import '../cubit/bet_slip_cubit.dart';
 import 'bet_slip_ad.dart';
@@ -13,8 +13,7 @@ import 'bet_slip_empty.dart';
 class BetSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isBetPlaced =
-        context.read<OpenBetsCubit>().state.openBetsDataList.isNotEmpty;
+    final isBetPlaced = context.read<OpenBetsCubit>().state.bets.isNotEmpty;
     return Scaffold(
       body: ListView(children: [
         BlocBuilder<BetSlipCubit, BetSlipState>(

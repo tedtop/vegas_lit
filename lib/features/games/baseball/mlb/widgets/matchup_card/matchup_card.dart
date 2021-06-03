@@ -131,8 +131,6 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
                                                 mainOdds: gameData
                                                     .awayTeamMoneyLine
                                                     .toString(),
@@ -154,8 +152,6 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
                                                 mainOdds: gameData
                                                     .pointSpreadAwayTeamMoneyLine
                                                     .toString(),
@@ -177,8 +173,6 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
                                                 league: whichGame(
                                                   gameName: state.league,
                                                 ),
@@ -262,8 +256,6 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.home,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
                                                 league: whichGame(
                                                   gameName: state.league,
                                                 ),
@@ -284,11 +276,9 @@ class MatchupCard extends StatelessWidget {
                                                 null
                                             ? Container()
                                             : BetButton.route(
-                                                gameId: gameData.gameId,
                                                 winTeam: BetButtonWin.home,
                                                 spread: double.parse(
                                                     homeTeamPointSpread),
-                                                isClosed: gameData.isClosed,
                                                 league: whichGame(
                                                   gameName: state.league,
                                                 ),
@@ -307,9 +297,7 @@ class MatchupCard extends StatelessWidget {
                                         gameData.underPayout == null
                                             ? Container()
                                             : BetButton.route(
-                                                gameId: gameData.gameId,
                                                 winTeam: BetButtonWin.home,
-                                                isClosed: gameData.isClosed,
                                                 league: whichGame(
                                                   gameName: state.league,
                                                 ),
@@ -376,31 +364,6 @@ class MatchupCard extends StatelessWidget {
                               );
                             },
                           ),
-                          // CountdownTimer(
-                          //   endDateTime: state.game.dateTime,
-                          // ),
-                          // kDebugMode
-                          //     ? Row(
-                          //         mainAxisAlignment: MainAxisAlignment.center,
-                          //         children: [
-                          //           Text(
-                          //             'Status: ${gameData.status}',
-                          //             style: Styles.matchupTime,
-                          //           ),
-                          //         ],
-                          //       )
-                          //     : Container(),
-                          // kDebugMode
-                          //     ? Row(
-                          //         mainAxisAlignment: MainAxisAlignment.center,
-                          //         children: [
-                          //           Text(
-                          //             'IsClosed: ${gameData.isClosed}',
-                          //             style: Styles.matchupTime,
-                          //           ),
-                          //         ],
-                          //       )
-                          //     : Container(),
                         ],
                       ),
                     ),

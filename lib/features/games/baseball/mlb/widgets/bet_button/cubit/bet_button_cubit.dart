@@ -28,20 +28,18 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
     return nowNY;
   }
 
-  void openBetButton({
+  Future<void> openBetButton({
     @required String text,
     @required Game game,
     @required Bet betType,
     @required String uid,
     @required String mainOdds,
-    @required int gameId,
-    @required bool isClosed,
     @required BetButtonWin winTeam,
     @required double spread,
     @required MlbTeam awayTeamData,
     @required String league,
     @required MlbTeam homeTeamData,
-  }) {
+  }) async {
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
     final gameStartTimeFormat =
         DateFormat('yyyy-MM-dd-hh-mm').format(game.dateTime);
@@ -51,7 +49,7 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-$gameId-${gameStartTimeFormat.toUpperCase()}-$uid';
+        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     final toWinAmount =
         toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
@@ -59,8 +57,6 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
     emit(
       MlbBetButtonState.unclicked(
         text: text,
-        gameId: gameId,
-        isClosed: isClosed,
         game: game,
         toWinAmount: toWinAmount,
         betAmount: state.betAmount,
@@ -84,10 +80,8 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
     );
     if (isBetExists) {
       emit(
-        MlbBetButtonState.placed(
+        MlbBetButtonState.alreadyPlaced(
           text: state.text,
-          isClosed: state.isClosed,
-          gameId: state.gameId,
           game: state.game,
           toWinAmount: state.toWinAmount,
           betAmount: state.betAmount,
@@ -107,9 +101,7 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
       emit(
         MlbBetButtonState.clicked(
           text: state.text,
-          isClosed: state.isClosed,
           uid: state.uid,
-          gameId: state.gameId,
           game: state.game,
           winTeam: state.winTeam,
           uniqueId: state.uniqueId,
@@ -134,10 +126,8 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
         mainOdds: state.mainOdds,
         game: state.game,
         league: state.league,
-        isClosed: state.isClosed,
         toWinAmount: state.toWinAmount,
         betAmount: state.betAmount,
-        gameId: state.gameId,
         uid: state.uid,
         winTeam: state.winTeam,
         awayTeamData: state.awayTeamData,
@@ -151,7 +141,7 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
 
   void confirmBetButton() {
     emit(
-      MlbBetButtonState.done(
+      MlbBetButtonState.placed(
         text: state.text,
         game: state.game,
         toWinAmount: state.toWinAmount,
@@ -159,8 +149,6 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
         mainOdds: state.mainOdds,
         winTeam: state.winTeam,
         uid: state.uid,
-        isClosed: state.isClosed,
-        gameId: state.gameId,
         league: state.league,
         awayTeamData: state.awayTeamData,
         homeTeamData: state.homeTeamData,
@@ -168,6 +156,38 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
         uniqueId: state.uniqueId,
         betType: state.betType,
       ),
+    );
+  }
+
+  void placingBet() {
+    emit(
+      MlbBetButtonState.placing(
+        text: state.text,
+        game: state.game,
+        toWinAmount: state.toWinAmount,
+        betAmount: state.betAmount,
+        mainOdds: state.mainOdds,
+        winTeam: state.winTeam,
+        uid: state.uid,
+        league: state.league,
+        awayTeamData: state.awayTeamData,
+        homeTeamData: state.homeTeamData,
+        spread: state.spread,
+        uniqueId: state.uniqueId,
+        betType: state.betType,
+      ),
+    );
+  }
+
+  Future<void> updateOpenBets({
+    @required String currentUserId,
+    @required Map openBetsData,
+    @required int betAmount,
+  }) async {
+    await _betsRepository.saveBet(
+      uid: currentUserId,
+      openBetsDataMap: openBetsData,
+      cutBalance: betAmount,
     );
   }
 

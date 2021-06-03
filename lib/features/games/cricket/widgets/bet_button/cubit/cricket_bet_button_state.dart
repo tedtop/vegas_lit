@@ -101,11 +101,11 @@ class BetButtonState extends Equatable {
   final String uniqueId;
   final Bet betType;
   final String mainOdds;
-  final awayTeamData;
+  final Team awayTeamData;
   final String league;
   final int gameId;
   final bool isClosed;
-  final homeTeamData;
+  final Team homeTeamData;
 
   @override
   List<Object> get props => [

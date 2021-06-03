@@ -9,7 +9,6 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/data/models/wallet.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 
-import '../pagenumberview.dart';
 import '../textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {
@@ -172,11 +171,6 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: ListTile(
-          // onExpansionChanged: (isExpanded) {
-          //   setState(() {
-          //     expanded = isExpanded;
-          //   });
-          // },
           leading: CircleAvatar(
             backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
             child: Text(
@@ -187,7 +181,6 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
               ),
             ),
           ),
-
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -196,15 +189,10 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '\$${widget.player.accountBalance}',
+                '\$${widget.player.accountBalance + widget.player.totalRiskedAmount}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
-                  color:
-                      //  (widget.player.totalProfit - widget.player.totalLoss)
-                      //         .isNegative
-                      //     ? Palette.red
-                      //     :
-                      Palette.green,
+                  color: Palette.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -214,53 +202,18 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Open Bets: ${widget.player.totalOpenBets}/${widget.player.totalBets}',
+                'W/L/O/T: ${widget.player.totalBetsWon}/${widget.player.totalBetsLost}/${widget.player.totalOpenBets}/${widget.player.totalBets}',
                 style: Styles.awayTeam,
               ),
               Text(
-                'W/L: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(1)}%',
+                'W/L: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
                 style: Styles.awayTeam,
               ),
             ],
           ),
           tileColor: Palette.lightGrey,
-
-          // collapsedBackgroundColor: Palette.lightGrey,
-          // backgroundColor: Palette.darkGrey,
-          // children: [
-          //   Container(
-          //     width: 380,
-          //     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           '${widget.player.totalBetsWon} out of ${widget.player.totalBets} Correct Bets!',
-          //           style: Styles.awayTeam,
-          //         ),
-          //         Text(
-          //           'Total Lost Bets: ${widget.player.totalBetsLost}',
-          //           style: Styles.awayTeam,
-          //         ),
-          //         Text(
-          //           'Open Bets: ${widget.player.totalOpenBets}',
-          //           style: Styles.awayTeam,
-          //         ),
-          //         Text(
-          //           'Account Balance: \$${widget.player.accountBalance}',
-          //           style: Styles.awayTeam,
-          //         )
-          //       ],
-          //     ),
-          //   )
-          // ],
         ),
       ),
     );
   }
-
-  // String profitOrLoss({@required int number}) {
-  //   return 'Profit: \$$number';
-  // }
 }

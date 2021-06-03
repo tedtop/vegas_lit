@@ -9,6 +9,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -18,19 +20,15 @@ import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
 import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/open_bets/open_bets.dart';
 import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
-import '../cubit/bet_button_cubit.dart';
 import '../../matchup_card/matchup_card.dart';
+import '../cubit/bet_button_cubit.dart';
 
 // ignore: must_be_immutable
-class MlbBetSlipCard extends StatefulWidget {
-  const MlbBetSlipCard._({Key key, @required this.betSlipCardData})
-      : super(key: key);
+class MlbBetSlipCard extends StatelessWidget {
+  MlbBetSlipCard._({Key key, @required this.betSlipCardData}) : super(key: key);
 
   static Builder route({
     @required BetSlipCardData betSlipCardData,
@@ -46,14 +44,7 @@ class MlbBetSlipCard extends StatefulWidget {
 
   final BetSlipCardData betSlipCardData;
 
-  @override
-  _BetSlipCardState createState() => _BetSlipCardState();
-}
-
-class _BetSlipCardState extends State<MlbBetSlipCard> {
   final _formKey = GlobalKey<FormState>();
-
-  bool isBetPlaced = true;
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +145,7 @@ class _BetSlipCardState extends State<MlbBetSlipCard> {
                                     child: SingleChildScrollView(
                                       child: BetAmountPage(
                                         betAmount: betButtonState.betAmount,
-                                        betSlipCardData: widget.betSlipCardData,
+                                        betSlipCardData: betSlipCardData,
                                       ),
                                     ),
                                   ),
@@ -243,7 +234,10 @@ class _BetSlipCardState extends State<MlbBetSlipCard> {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Visibility(
-                            visible: isBetPlaced,
+                            visible:
+                                betButtonState.status == BetButtonStatus.placing
+                                    ? false
+                                    : true,
                             replacement: Padding(
                               padding:
                                   const EdgeInsets.only(top: 20, bottom: 6.5),
@@ -295,11 +289,11 @@ class _BetSlipCardState extends State<MlbBetSlipCard> {
                                               ),
                                             );
                                         } else {
-                                          setState(() {
-                                            isBetPlaced = false;
-                                          });
+                                          context
+                                              .read<MlbBetButtonCubit>()
+                                              .placingBet();
                                           await context
-                                              .read<OpenBetsCubit>()
+                                              .read<MlbBetButtonCubit>()
                                               .updateOpenBets(
                                                 betAmount:
                                                     betButtonState.betAmount,
@@ -311,9 +305,10 @@ class _BetSlipCardState extends State<MlbBetSlipCard> {
                                                       .awayTeamData.city,
                                                   betAmount:
                                                       betButtonState.betAmount,
-                                                  gameId: betButtonState.gameId,
-                                                  isClosed:
-                                                      betButtonState.isClosed,
+                                                  gameId: betButtonState
+                                                      .game.gameId,
+                                                  isClosed: betButtonState
+                                                      .game.isClosed,
                                                   homeTeam: betButtonState
                                                       .game.homeTeam,
                                                   awayTeam: betButtonState

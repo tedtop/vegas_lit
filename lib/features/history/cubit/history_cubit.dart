@@ -6,37 +6,37 @@ import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 
-part 'open_bets_state.dart';
+part 'history_state.dart';
 
-class OpenBetsCubit extends Cubit<OpenBetsState> {
-  OpenBetsCubit({
+class HistoryCubit extends Cubit<HistoryState> {
+  HistoryCubit({
     @required BetsRepository betsRepository,
   })  : assert(betsRepository != null),
         _betsRepository = betsRepository,
-        super(const OpenBetsState());
+        super(const HistoryState());
 
   final BetsRepository _betsRepository;
   StreamSubscription _betsSubscription;
 
   Future<void> fetchAllBets({@required String uid}) async {
-    emit(OpenBetsState(
-      status: OpenBetsStatus.loading,
+    emit(HistoryState(
+      status: HistoryStatus.loading,
       bets: state.bets,
     ));
     try {
-      final openBetsData = _betsRepository.fetchOpenBets(uid: uid);
+      final betsStream = _betsRepository.fetchBetHistory(uid: uid);
       await _betsSubscription?.cancel();
-      _betsSubscription = openBetsData.listen(
+      _betsSubscription = betsStream.listen(
         (bets) {
-          emit(OpenBetsState(
-            status: OpenBetsStatus.success,
+          emit(HistoryState(
+            status: HistoryStatus.success,
             bets: bets,
           ));
         },
       );
     } on Exception {
-      emit(OpenBetsState(
-        status: OpenBetsStatus.failure,
+      emit(HistoryState(
+        status: HistoryStatus.failure,
         bets: state.bets,
       ));
     }

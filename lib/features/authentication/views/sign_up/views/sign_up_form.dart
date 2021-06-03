@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/authentication/models/confirmed_password.dart';
 import 'package:vegas_lit/features/authentication/models/email.dart';
-import 'package:vegas_lit/features/authentication/models/number.dart';
 import 'package:vegas_lit/features/authentication/models/password.dart';
 import 'package:vegas_lit/features/authentication/models/username.dart';
 import 'package:vegas_lit/features/shared_widgets/auth_logo.dart';

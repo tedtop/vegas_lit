@@ -7,19 +7,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
 
-import 'package:vegas_lit/features/bet_history/cubit/bet_history_cubit.dart';
-import 'package:vegas_lit/features/bet_history/views/bet_history_page.dart';
+import 'package:vegas_lit/features/history/views/bet_history_page.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/bet_slip/views/bet_slip_page.dart';
 import 'package:vegas_lit/features/home/cubit/internet_cubit.dart';
+import 'package:vegas_lit/features/home/widgets/bottom_navigation.dart';
+import 'package:vegas_lit/features/home/widgets/home_drawer.dart';
 import 'package:vegas_lit/features/home/widgets/topnavbar.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
-import 'package:vegas_lit/features/open_bets/open_bets.dart';
+import 'package:vegas_lit/features/open_bets/views/open_bets_page.dart';
 import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/sportsbook_page.dart';
 import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
@@ -28,9 +28,11 @@ import '../cubit/version_cubit.dart';
 import '../home.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage._({@required this.observer, Key key}) : super(key: key);
+  const HomePage._({@required this.observer, this.currentUserId, Key key})
+      : super(key: key);
 
   final FirebaseAnalyticsObserver observer;
+  final String currentUserId;
 
   static Route route({
     @required FirebaseAnalyticsObserver observer,
@@ -55,24 +57,10 @@ class HomePage extends StatefulWidget {
                   ),
                 ),
             ),
-            BlocProvider<OpenBetsCubit>(
-              create: (context) => OpenBetsCubit(
-                betsRepository: context.read<BetsRepository>(),
-              )..openBetsOpen(
-                  currentUserId: currentUserId,
-                ),
-            ),
             BlocProvider<VersionCubit>(
               create: (context) => VersionCubit(
                 userRepository: context.read<UserRepository>(),
               )..checkMinimumVersion(),
-            ),
-            BlocProvider<BetHistoryCubit>(
-              create: (context) => BetHistoryCubit(
-                betsRepository: context.read<BetsRepository>(),
-              )..betHistoryOpen(
-                  currentUserId: currentUserId,
-                ),
             ),
             BlocProvider<LeaderboardCubit>(
               create: (context) => LeaderboardCubit(
@@ -105,16 +93,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin, RouteAware {
-  @override
-  void initState() {
-    super.initState();
-    // if (kIsWeb != true) {
-    //   final newVersion = NewVersion();
-    //   // ignore: cascade_invocations
-    //   newVersion.showAlertIfNecessary(context: context);
-    // }
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -169,8 +147,8 @@ class _HomePageState extends State<HomePage>
                   Sportsbook(),
                   BetSlip(),
                   Leaderboard.route(),
-                  OpenBets.route(),
-                  BetHistoryPage.route(),
+                  OpenBets.route(uid: widget.currentUserId),
+                  History.route(uid: widget.currentUserId),
                 ],
               );
             }
