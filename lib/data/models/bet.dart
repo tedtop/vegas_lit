@@ -14,6 +14,8 @@ class BetData extends Equatable {
     @required this.betPointSpread,
     @required this.betOverUnder,
     @required this.username,
+    @required this.dataProvider,
+    @required this.clientVersion,
     @required this.homeTeam,
     @required this.awayTeam,
     @required this.awayTeamScore,
@@ -48,6 +50,8 @@ class BetData extends Equatable {
       betTeam: data['betTeam'] as String,
       winningTeamName: data['winningTeamName'] as String,
       username: data['username'] as String,
+      dataProvider: data['dataProvider'] as String,
+      clientVersion: data['clientVersion'] as String,
       betPointSpread: data['betPointSpread'] as double,
       betOverUnder: data['betOverUnder'] as double,
       awayTeamScore: data['awayTeamScore'] as int,
@@ -84,6 +88,8 @@ class BetData extends Equatable {
   final String awayTeam;
   final String uid;
   final String gameStartDateTime;
+  final String clientVersion;
+  final String dataProvider;
   final String dateTime;
   final int gameId;
   final String winningTeam;
@@ -107,6 +113,8 @@ class BetData extends Equatable {
       'username': username,
       'homeTeamCity': homeTeamCity,
       'awayTeamCity': awayTeamCity,
+      'clientVersion': clientVersion,
+      'dataProvider': dataProvider,
       'totalGameScore': totalGameScore,
       'winningTeam': winningTeam,
       'homeTeamName': homeTeamName,
@@ -141,6 +149,8 @@ class BetData extends Equatable {
       awayTeamScore,
       homeTeamScore,
       totalGameScore,
+      clientVersion,
+      dataProvider,
       homeTeamName,
       awayTeamName,
       gameStartDateTime,

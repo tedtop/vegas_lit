@@ -9,6 +9,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/config/enum.dart';
@@ -304,6 +305,9 @@ class _BetSlipCardState extends State<NflBetSlipCard> {
                                                 betAmount:
                                                     betButtonState.betAmount,
                                                 openBetsData: BetData(
+                                                  clientVersion:
+                                                      await _getAppVersion(),
+                                                  dataProvider: 'sportsdata.io',
                                                   username: username,
                                                   homeTeamCity: betButtonState
                                                       .homeTeamData.city,
@@ -613,6 +617,11 @@ class _BetSlipCardState extends State<NflBetSlipCard> {
     final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
         nowNY.minute, nowNY.second);
     return dateTimeNY;
+  }
+
+  Future<String> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
   }
 
   String whichBetSystemToSave({@required Bet betType}) {

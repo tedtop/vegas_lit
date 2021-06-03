@@ -9,6 +9,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:vegas_lit/config/enum.dart';
@@ -349,6 +350,9 @@ class MlbBetSlipCard extends StatelessWidget {
                                                           : 'away',
                                                   dateTime:
                                                       fetchTimeEST().toString(),
+                                                  clientVersion:
+                                                      await _getAppVersion(),
+                                                  dataProvider: 'sportsdata.io',
                                                 ).toMap(),
                                                 currentUserId: currentUserId,
                                               );
@@ -585,6 +589,11 @@ class MlbBetSlipCard extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<String> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
   }
 
   String whichBetSystem({@required Bet betType}) {

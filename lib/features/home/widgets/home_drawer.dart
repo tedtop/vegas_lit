@@ -201,12 +201,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
   void _launchTermsAndConditions() async =>
       await canLaunch(_termsAndConditionsUrl)
           ? await launch(_termsAndConditionsUrl)
-          : throw 'Could not launch $_termsAndConditionsUrl';
+          : throw TermsAndConditionsUrlFailure();
 
   final _privacyPolicyUrl = 'https://vegaslit.web.app/privacy.html';
   void _launchPrivacyPolicy() async => await canLaunch(_privacyPolicyUrl)
       ? await launch(_privacyPolicyUrl)
-      : throw 'Could not launch $_privacyPolicyUrl';
+      : throw PrivacyPolicyFailure();
 
   void _getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -222,3 +222,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     queryParameters: {'subject': 'Question about Vegas Lit app'},
   );
 }
+
+class TermsAndConditionsUrlFailure implements Exception {}
+
+class PrivacyPolicyFailure implements Exception {}
