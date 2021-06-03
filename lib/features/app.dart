@@ -97,7 +97,7 @@ class _AppViewState extends State<AppView> {
                       HomePage.route(
                         observer: observer,
                         connectivity: Connectivity(),
-                        currentUserId: state.user.uid,
+                        uid: state.user.uid,
                       ),
                       (route) => false,
                     );

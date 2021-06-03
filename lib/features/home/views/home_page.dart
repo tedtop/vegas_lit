@@ -7,8 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/data/repositories/user_repository.dart';
+import 'package:vegas_lit/features/history/cubit/history_cubit.dart';
 
 import 'package:vegas_lit/features/history/views/bet_history_page.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
@@ -19,6 +21,7 @@ import 'package:vegas_lit/features/home/widgets/home_drawer.dart';
 import 'package:vegas_lit/features/home/widgets/topnavbar.dart';
 import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
+import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
 import 'package:vegas_lit/features/open_bets/views/open_bets_page.dart';
 import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/sportsbook_page.dart';
@@ -37,7 +40,7 @@ class HomePage extends StatefulWidget {
   static Route route({
     @required FirebaseAnalyticsObserver observer,
     @required Connectivity connectivity,
-    @required String currentUserId,
+    @required String uid,
   }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'HomePage'),
@@ -47,7 +50,7 @@ class HomePage extends StatefulWidget {
             BlocProvider<ProfileCubit>(
                 create: (context) =>
                     ProfileCubit(userRepository: context.read<UserRepository>())
-                      ..openProfile(currentUserId: currentUserId)),
+                      ..openProfile(currentUserId: uid)),
             BlocProvider<SportsbookBloc>(
               create: (_) => SportsbookBloc(
                 sportsfeedRepository: context.read<SportsRepository>(),
@@ -67,6 +70,16 @@ class HomePage extends StatefulWidget {
                 userRepository: context.read<UserRepository>(),
               )..openLeaderboard(),
             ),
+            BlocProvider<OpenBetsCubit>(
+              create: (context) => OpenBetsCubit(
+                betsRepository: context.read<BetsRepository>(),
+              )..fetchAllBets(uid: uid),
+            ),
+            BlocProvider<HistoryCubit>(
+              create: (context) => HistoryCubit(
+                betsRepository: context.read<BetsRepository>(),
+              )..fetchAllBets(uid: uid),
+            ),
             BlocProvider<BetSlipCubit>(
               create: (_) => BetSlipCubit()
                 ..openBetSlip(
@@ -76,7 +89,7 @@ class HomePage extends StatefulWidget {
             BlocProvider<HomeCubit>(
               create: (_) => HomeCubit(
                 userRepository: context.read<UserRepository>(),
-              )..openHome(uid: currentUserId),
+              )..openHome(uid: uid),
             ),
           ],
           child: HomePage._(
