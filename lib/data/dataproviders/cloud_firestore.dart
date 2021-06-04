@@ -159,21 +159,28 @@ class CloudFirestoreClient {
   Stream<List<VaultItem>> fetchAllDataDateWise() {
     final vaultSnapshot = _firebaseFirestore
         .collection('vault')
+        .doc('regular')
+        .collection('daily')
         .limit(10)
         .snapshots()
-        .map((event) => event.docs
-            .map((element) => VaultItem.fromFirestore(element))
-            .toList());
+        .map(
+          (event) => event.docs
+              .map(
+                (element) => VaultItem.fromFirestore(element),
+              )
+              .toList(),
+        );
     return vaultSnapshot;
   }
 
   Future<VaultItem> fetchCumulativeAdminVaultData() {
-    final cumulativeData = _firebaseFirestore
-        .collection('vault')
-        .doc('cumulative')
-        .snapshots()
-        .map((event) => VaultItem.fromFirestore(event))
-        .first;
+    final cumulativeData =
+        _firebaseFirestore.collection('vault').doc('cumulative').get().then(
+              (value) => VaultItem.fromFirestore(
+                value,
+              ),
+            );
+
     return cumulativeData;
   }
 
