@@ -1,15 +1,15 @@
 import 'package:formz/formz.dart';
+import 'package:regexpattern/regexpattern.dart';
 
-enum UsernameValidationError { invalid, empty, exist }
+enum UsernameValidationError { invalid, empty, exist, characters }
 
 class Username extends FormzInput<String, UsernameValidationError> {
   const Username.pure({this.externalError}) : super.pure('username12');
   const Username.dirty(this.externalError, [String value = ''])
       : super.dirty(value);
 
-  // static final RegExp _usernameRegExp = RegExp(
-  //   r'^[a-zA-Z0-9]+$',
-  // );
+  // static final RegExp _usernameRegExp =
+  //     RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
 
   final UsernameValidationError externalError;
 
@@ -17,12 +17,10 @@ class Username extends FormzInput<String, UsernameValidationError> {
   UsernameValidationError validator(String value) {
     if (externalError != null) {
       return externalError;
-    }
-    //  else if (_usernameRegExp.hasMatch(value)) {
-    //   return null;
-    // }
-    else if (value.length <= 15 && value.length >= 5) {
+    } else if (value.isUsername()) {
       return null;
+    } else if (value.length >= 10 && value.length <= 3) {
+      return UsernameValidationError.characters;
     } else if (value.isEmpty) {
       return UsernameValidationError.empty;
     } else {

@@ -298,7 +298,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                               .updateOpenBets(
                                                 betAmount:
                                                     betButtonState.betAmount,
-                                                openBetsData: BetData(
+                                                betsData: BetData(
                                                   username: username,
                                                   homeTeamCity: betButtonState
                                                       .homeTeamData.city,
@@ -353,7 +353,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                                   clientVersion:
                                                       await _getAppVersion(),
                                                   dataProvider: 'sportsdata.io',
-                                                ).toMap(),
+                                                ),
                                                 currentUserId: currentUserId,
                                               );
 
