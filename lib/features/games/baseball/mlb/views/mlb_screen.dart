@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:vegas_lit/config/styles.dart';
+
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
 import '../cubit/mlb_cubit.dart';
-
 import 'mlb_screen_desktop/mlb_screen_desktop.dart';
 import 'mlb_screen_mobile/mlb_screen_mobile.dart';
 import 'mlb_screen_tablet/mlb_screen_tablet.dart';
@@ -54,11 +55,7 @@ class MlbScreen extends StatelessWidget {
               );
             } else {
               return ScreenTypeLayout(
-                breakpoints: const ScreenBreakpoints(
-                  desktop: 1000,
-                  tablet: 600,
-                  watch: 80,
-                ),
+                breakpoints: Styles.screenBreakpoints,
                 mobile: MobileMlbScreen(
                   games: state.games,
                   gameName: state.league,

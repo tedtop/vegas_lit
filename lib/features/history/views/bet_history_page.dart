@@ -26,6 +26,7 @@ class History extends StatelessWidget {
         children: [
           const _HistoryHeading(),
           ScreenTypeLayout(
+            breakpoints: Styles.screenBreakpoints,
             mobile: MobileHistory(),
             tablet: TabletHistory(),
             desktop: WebHistory(),

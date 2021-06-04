@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
 import 'palette.dart';
 
 class Styles {
+  static const ScreenBreakpoints screenBreakpoints = ScreenBreakpoints(
+    desktop: 1000,
+    tablet: 600,
+    watch: 80,
+  );
   static const double normalElevation = 4.0;
 
   static final ShapeBorder smallRadius = RoundedRectangleBorder(

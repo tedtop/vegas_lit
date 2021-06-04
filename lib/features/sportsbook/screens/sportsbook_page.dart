@@ -2,8 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:intl/intl.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -17,7 +18,6 @@ import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../../home/widgets/bottombar.dart';
-
 import '../bloc/sportsbook_bloc.dart';
 
 class Sportsbook extends StatelessWidget {
@@ -97,156 +97,83 @@ class _SportsBookViewState extends State<SportsBookView> {
               textAlign: TextAlign.center,
               style: Styles.pageTitle,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Card(
-                      elevation: 4,
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Container(
-                        color: Palette.green,
-                        padding: const EdgeInsets.all(8.0),
-                        height: 40,
-                        width: double.infinity,
-                        child: DropdownButton<String>(
-                          key: _key2,
-                          dropdownColor: Palette.green,
-                          isDense: true,
-                          value: '${widget.league}',
-                          icon: const Icon(
-                            Icons.arrow_circle_down,
-                            color: Palette.cream,
-                          ),
-                          iconSize: 25,
-                          isExpanded: true,
-                          underline: Container(
-                            height: 0,
-                          ),
-                          style: GoogleFonts.nunito(
-                            fontSize: 18,
-                          ),
-                          onChanged: (String newValue) {
-                            if (newValue != widget.league) {
-                              context.read<SportsbookBloc>().add(
-                                    SportsbookLeagueChange(league: newValue),
-                                  );
-                              context.read<BetSlipCubit>().openBetSlip(
-                                betSlipGames: [],
-                              );
-                            }
-                          },
-                          items: <String>[
-                            'NFL',
-                            'NBA',
-                            'MLB',
-                            'NHL',
-                            'NCAAF',
-                            'NCAAB',
-                            // 'GOLF',
-                            // 'CRICKET'
-                          ].map<DropdownMenuItem<String>>(
-                            (String value) {
-                              String length;
-                              widget.gameNumberList.forEach(
-                                (key, newValue) {
-                                  if (key == 'NFL' ||
-                                      key == 'NCAAF' ||
-                                      key == 'GOLF') {
-                                    length = '$newValue';
-                                  } else {
-                                    if (key == value) {
-                                      length = '$newValue Games';
-                                    }
-                                  }
-                                },
-                              );
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: value == widget.league
-                                    ? Text('$value ($length)',
-                                        textAlign: TextAlign.left,
-                                        style: GoogleFonts.nunito(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Palette.cream,
-                                        ))
-                                    : Text(
-                                        '$value ($length)',
-                                        textAlign: TextAlign.left,
-                                        style: GoogleFonts.nunito(
-                                          color: Palette.cream,
-                                        ),
-                                      ),
-                              );
-                            },
-                          ).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  kIsWeb
-                      ? const SizedBox()
-                      : Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              context.read<HomeCubit>().homeChange(1);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  'BET SLIP',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Palette.cream,
+            ScreenTypeLayout(
+              mobile: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(flex: 2, child: _selectGameDropdown()),
+                    kIsWeb
+                        ? const SizedBox()
+                        : Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<HomeCubit>().homeChange(1);
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'BET SLIP',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.cream,
+                                    ),
                                   ),
-                                ),
-                                BlocBuilder<BetSlipCubit, BetSlipState>(
-                                  builder: (context, state) {
-                                    switch (state.status) {
-                                      case BetSlipStatus.opened:
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: Palette.cream,
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
-                                          height: 40,
-                                          width: 42,
-                                          child: Center(
-                                            child: Text(
-                                              state.betSlipCard.length
-                                                  .toString(),
-                                              style: GoogleFonts.nunito(
-                                                color: Palette.darkGrey,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
+                                  BlocBuilder<BetSlipCubit, BetSlipState>(
+                                    builder: (context, state) {
+                                      switch (state.status) {
+                                        case BetSlipStatus.opened:
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color: Palette.cream,
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            height: 40,
+                                            width: 42,
+                                            child: Center(
+                                              child: Text(
+                                                state.betSlipCard.length
+                                                    .toString(),
+                                                style: GoogleFonts.nunito(
+                                                  color: Palette.darkGrey,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                        break;
-                                      default:
-                                        return const CircularProgressIndicator(
-                                          color: Palette.cream,
-                                        );
-                                        break;
-                                    }
-                                  },
-                                ),
-                              ],
+                                          );
+                                          break;
+                                        default:
+                                          return const CircularProgressIndicator(
+                                            color: Palette.cream,
+                                          );
+                                          break;
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                ],
+                  ],
+                ),
               ),
+              tablet: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  constraints: const BoxConstraints(maxWidth: 500),
+                  width: 500,
+                  child: _selectGameDropdown()),
+              desktop: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  constraints: const BoxConstraints(
+                    maxWidth: 600,
+                  ),
+                  width: 600,
+                  child: _selectGameDropdown()),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
@@ -332,6 +259,90 @@ class _SportsBookViewState extends State<SportsBookView> {
     );
   }
 
+  Widget _selectGameDropdown() => Card(
+        elevation: 4,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Container(
+          color: Palette.green,
+          padding: const EdgeInsets.all(8.0),
+          height: 40,
+          //width: double.infinity,
+          child: DropdownButton<String>(
+            key: _key2,
+            dropdownColor: Palette.green,
+            isDense: true,
+            value: '${widget.league}',
+            icon: const Icon(
+              Icons.arrow_circle_down,
+              color: Palette.cream,
+            ),
+            iconSize: 25,
+            isExpanded: true,
+            underline: Container(
+              height: 0,
+            ),
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+            ),
+            onChanged: (String newValue) {
+              if (newValue != widget.league) {
+                context.read<SportsbookBloc>().add(
+                      SportsbookLeagueChange(league: newValue),
+                    );
+                context.read<BetSlipCubit>().openBetSlip(
+                  betSlipGames: [],
+                );
+              }
+            },
+            items: <String>[
+              'NFL',
+              'NBA',
+              'MLB',
+              'NHL',
+              'NCAAF',
+              'NCAAB',
+              // 'GOLF',
+              // 'CRICKET'
+            ].map<DropdownMenuItem<String>>(
+              (String value) {
+                String length;
+                widget.gameNumberList.forEach(
+                  (key, newValue) {
+                    if (key == 'NFL' || key == 'NCAAF' || key == 'GOLF') {
+                      length = '$newValue';
+                    } else {
+                      if (key == value) {
+                        length = '$newValue Games';
+                      }
+                    }
+                  },
+                );
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: value == widget.league
+                      ? Text('$value ($length)',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Palette.cream,
+                          ))
+                      : Text(
+                          '$value ($length)',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.nunito(
+                            color: Palette.cream,
+                          ),
+                        ),
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      );
   Future<void> showHelp(
       {BuildContext context, GlobalKey key1, GlobalKey key2}) async {
     _overlayEntry = _createOverlayEntry(

@@ -11,7 +11,6 @@ import '../bet_history_card.dart';
 class WebHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final wallet = context.select((HomeCubit cubit) => cubit.state.userWallet);
     return Container(
       constraints: const BoxConstraints(maxWidth: 1220),
       child: Column(
@@ -25,55 +24,54 @@ class WebHistory extends StatelessWidget {
               vertical: 8,
             ),
             child: Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              color: Palette.lightGrey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                  vertical: 15,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: BlocBuilder<HistoryCubit, HistoryState>(
-                  builder: (context, state) {
-                    switch (state.status) {
-                      case HistoryStatus.success:
-                        return Column(
-                          children: [
-                            const BetHistoryBoardText(
-                              leftText: 'Your Rank',
-                              rightText: 'N/A',
-                            ),
-                            BetHistoryBoardText(
-                              leftText: 'Total Bets Placed',
-                              rightText: wallet.totalBets.toString(),
-                            ),
-                            BetHistoryBoardText(
-                              leftText: 'Total Risk',
-                              rightText: wallet.totalRiskedAmount.toString(),
-                              color: Palette.red,
-                            ),
-                            BetHistoryBoardText(
-                              leftText: 'Total Profit',
-                              rightText: wallet.totalProfit.toString(),
-                              color: wallet.totalProfit > 0
-                                  ? Palette.green
-                                  : Palette.red,
-                            ),
-                          ],
-                        );
-                        break;
-                      default:
-                        return const CircularProgressIndicator(
-                          color: Palette.cream,
-                        );
-                        break;
-                    }
-                  },
-                ),
-              ),
-            ),
+                color: Palette.lightGrey,
+                child: Builder(builder: (context) {
+                  final state = context.watch<HomeCubit>().state;
+                  switch (state.status) {
+                    case HomeStatus.initial:
+                      return const CircularProgressIndicator(
+                        color: Palette.cream,
+                      );
+                      break;
+                    default:
+                      return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 25,
+                            vertical: 15,
+                          ),
+                          child: Column(
+                            children: [
+                              const BetHistoryBoardText(
+                                leftText: 'Your Rank',
+                                rightText: 'N/A',
+                              ),
+                              BetHistoryBoardText(
+                                leftText: 'Total Bets Placed',
+                                rightText:
+                                    state.userWallet.totalBets.toString(),
+                              ),
+                              BetHistoryBoardText(
+                                leftText: 'Total Risk',
+                                rightText: state.userWallet.totalRiskedAmount
+                                    .toString(),
+                                color: Palette.red,
+                              ),
+                              BetHistoryBoardText(
+                                leftText: 'Total Profit',
+                                rightText:
+                                    state.userWallet.totalProfit.toString(),
+                                color: state.userWallet.totalProfit > 0
+                                    ? Palette.green
+                                    : Palette.red,
+                              ),
+                            ],
+                          ));
+                  }
+                })),
           ),
           BlocBuilder<HistoryCubit, HistoryState>(
             builder: (context, state) {

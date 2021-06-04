@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
+
 import '../../../data/models/user.dart';
 import '../../../data/models/wallet.dart';
 import '../../../data/repositories/user_repository.dart';

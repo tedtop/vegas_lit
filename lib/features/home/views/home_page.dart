@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage>
         appBar: kIsWeb
             ? webViewAppBar(width, balanceAmount, pageIndex)
             : mobileViewAppBar(balanceAmount),
-        drawer: kIsWeb && width > 870 ? null : HomeDrawer(),
+        drawer: HomeDrawer(),
         body: BlocBuilder<InternetCubit, InternetState>(
           builder: (context, state) {
             if (state is InternetDisconnected) {
@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage>
     return AppBar(
       iconTheme: const IconThemeData(color: Palette.cream),
       toolbarHeight: 80.0,
-      title: width > 870
+      title: width > 1000
           ? Row(
               children: [
                 Image.asset(

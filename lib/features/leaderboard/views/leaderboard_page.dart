@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:responsive_builder/responsive_builder.dart';
+
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../home/widgets/bottombar.dart';
@@ -37,6 +37,7 @@ class Leaderboard extends StatelessWidget {
                 break;
               default:
                 return ScreenTypeLayout(
+                  breakpoints: Styles.screenBreakpoints,
                   desktop: WebLeaderboard(
                     players: state.rankedUserList,
                   ),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -76,13 +76,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                     ),
                     ListTile(
-                      title: Text('BET SLIP', style: Styles.normalTextBold),
-                      onTap: () {
-                        context.read<HomeCubit>().homeChange(1);
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
                       title: Text('OPEN BETS', style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(3);
@@ -124,60 +117,55 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
 
           //..................................................................//
-          kIsWeb
-              ? const SizedBox()
-              : Column(
-                  children: [
-                    const Divider(
-                      color: Palette.cream,
-                    ),
-                    //..................................................................//
-                    ListTile(
-                      title: Text('RULES', style: Styles.normalText),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          Rules.route(),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: Text('FAQ', style: Styles.normalText),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          FAQ.route(),
-                        );
-                      },
-                    ),
-                    ListTile(
-                        title:
-                            Text('TERMS OF SERVICE', style: Styles.normalText),
-                        onTap: _launchTermsAndConditions
-                        //() {
 
-                        // Navigator.of(context).push(
-                        //   TermsOfService.route(),
-                        // );
-                        //},
-                        ),
-                    ListTile(
-                        title: Text('PRIVACY POLICY', style: Styles.normalText),
-                        onTap: _launchPrivacyPolicy
-                        // () {
-                        //   Navigator.of(context).push(
-                        //     PrivacyPolicy.route(),
-                        //   );
-                        // },
-                        ),
-                    ListTile(
-                      title: Text('CONTACT US', style: Styles.normalText),
-                      onTap: () {
-                        launch(
-                          _emailLaunchUri.toString(),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+          const Divider(
+            color: Palette.cream,
+          ),
+          //..................................................................//
+          ListTile(
+            title: Text('RULES', style: Styles.normalText),
+            onTap: () {
+              Navigator.of(context).push(
+                Rules.route(),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('FAQ', style: Styles.normalText),
+            onTap: () {
+              Navigator.of(context).push(
+                FAQ.route(),
+              );
+            },
+          ),
+          ListTile(
+              title: Text('TERMS OF SERVICE', style: Styles.normalText),
+              onTap: _launchTermsAndConditions
+              //() {
+
+              // Navigator.of(context).push(
+              //   TermsOfService.route(),
+              // );
+              //},
+              ),
+          ListTile(
+              title: Text('PRIVACY POLICY', style: Styles.normalText),
+              onTap: _launchPrivacyPolicy
+              // () {
+              //   Navigator.of(context).push(
+              //     PrivacyPolicy.route(),
+              //   );
+              // },
+              ),
+          ListTile(
+            title: Text('CONTACT US', style: Styles.normalText),
+            onTap: () {
+              launch(
+                _emailLaunchUri.toString(),
+              );
+            },
+          ),
+
           //..................................................................//
           Builder(
             builder: (context) {

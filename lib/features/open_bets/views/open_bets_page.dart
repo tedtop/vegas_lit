@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import '../../home/widgets/bottombar.dart';
+import 'package:vegas_lit/config/styles.dart';
 
+import '../../home/widgets/bottombar.dart';
 import 'adaptive_views/desktop_open_bets.dart';
 import 'adaptive_views/mobile_open_bets.dart';
 import 'adaptive_views/tablet_open_bets.dart';
@@ -24,6 +25,7 @@ class OpenBets extends StatelessWidget {
       body: ListView(
         children: [
           ScreenTypeLayout(
+            breakpoints: Styles.screenBreakpoints,
             mobile: MobileOpenBets(),
             tablet: TabletOpenBets(),
             desktop: DesktopOpenBets(),
