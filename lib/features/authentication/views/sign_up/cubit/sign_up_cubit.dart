@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/dataproviders/firebase_auth.dart';
 
 import '../../../../../data/models/user.dart';
 import '../../../../../data/repositories/user_repository.dart';
@@ -31,7 +32,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           state.americanState,
-          // state.number,
           agreement,
           state.username,
         ]),
@@ -49,7 +49,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           americanState,
-          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -70,7 +69,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           confirmedPassword,
           state.americanState,
-          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -88,7 +86,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           state.americanState,
-          // state.number,
           state.agreement,
           state.username,
         ]),
@@ -107,31 +104,12 @@ class SignUpCubit extends Cubit<SignUpState> {
           password,
           state.confirmedPassword,
           state.americanState,
-          // state.number,
           state.agreement,
           state.username,
         ]),
       ),
     );
   }
-
-  // void numberChanged(String value) {
-  //   final number = PhoneNumber.dirty(value);
-  //   emit(
-  //     state.copyWith(
-  //       numberValue: value,
-  //       status: Formz.validate([
-  //         state.email,
-  //         state.password,
-  //         state.confirmedPassword,
-  //         state.americanState,
-  //         number,
-  //         state.agreement,
-  //         state.username,
-  //       ]),
-  //     ),
-  //   );
-  // }
 
   Future<void> signUpFormSubmitted() async {
     final isUsernameExist =
@@ -147,7 +125,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
     final username =
         Username.dirty(usernameValidationError, state.usernameValue);
-    // final number = PhoneNumber.dirty(state.numberValue);
+
     final americanState = AmericanState.dirty(state.americanStateValue);
 
     emit(
@@ -157,7 +135,6 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
         confirmedPassword: confirmedPassword,
         username: username,
-        // number: number,
         americanState: americanState,
         status: Formz.validate(
           [
@@ -165,7 +142,6 @@ class SignUpCubit extends Cubit<SignUpState> {
             password,
             confirmedPassword,
             americanState,
-            // number,
             agreement,
             username,
           ],
@@ -193,8 +169,13 @@ class SignUpCubit extends Cubit<SignUpState> {
       );
       _authenticationBloc.add(CheckProfileComplete(currentUser));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } on Exception {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    } on SignUpFailure catch (e) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionFailure,
+          signUpErrorMessage: e.errorMessage,
+        ),
+      );
     }
   }
 
@@ -216,7 +197,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           state.password,
           state.confirmedPassword,
           state.americanState,
-          // state.number,
           state.agreement,
           username,
         ]),

@@ -37,8 +37,41 @@ class FirebaseAuthentication {
       if (!credential.user.emailVerified) {
         await credential.user.sendEmailVerification();
       }
-    } on Exception {
-      throw SignUpFailure();
+    } on FirebaseAuthException catch (error) {
+      String errorMessage;
+      switch (error.code) {
+        case 'ERROR_EMAIL_ALREADY_IN_USE':
+        case 'account-exists-with-different-credential':
+        case 'email-already-in-use':
+          errorMessage = 'Email already used. Go to login page.';
+          break;
+        case 'ERROR_WRONG_PASSWORD':
+        case 'wrong-password':
+          errorMessage = 'Wrong email/password combination.';
+          break;
+        case 'ERROR_USER_NOT_FOUND':
+        case 'user-not-found':
+          errorMessage = 'No user found with this email.';
+          break;
+        case 'ERROR_USER_DISABLED':
+        case 'user-disabled':
+          errorMessage = 'User disabled.';
+          break;
+        case 'ERROR_TOO_MANY_REQUESTS':
+        case 'operation-not-allowed':
+          errorMessage = 'Too many requests to log into this account.';
+          break;
+        case 'ERROR_INVALID_EMAIL':
+        case 'invalid-email':
+          errorMessage = 'Email address is invalid.';
+          break;
+        default:
+          errorMessage = 'Sign Up failed. Please try again.';
+          break;
+      }
+      throw SignUpFailure(
+        errorMessage: errorMessage,
+      );
     }
   }
 
@@ -56,18 +89,56 @@ class FirebaseAuthentication {
         email: email,
         password: password,
       );
-    } on Exception {
-      throw LogInWithEmailAndPasswordFailure();
+    } on FirebaseAuthException catch (error) {
+      String errorMessage;
+      switch (error.code) {
+        case 'ERROR_EMAIL_ALREADY_IN_USE':
+        case 'account-exists-with-different-credential':
+        case 'email-already-in-use':
+          errorMessage = 'Email already used. Go to login page.';
+          break;
+        case 'ERROR_WRONG_PASSWORD':
+        case 'wrong-password':
+          errorMessage = 'Wrong email/password combination.';
+          break;
+        case 'ERROR_USER_NOT_FOUND':
+        case 'user-not-found':
+          errorMessage = 'No user found with this email.';
+          break;
+        case 'ERROR_USER_DISABLED':
+        case 'user-disabled':
+          errorMessage = 'User disabled.';
+          break;
+        case 'ERROR_TOO_MANY_REQUESTS':
+        case 'operation-not-allowed':
+          errorMessage = 'Too many requests to log into this account.';
+          break;
+        case 'ERROR_INVALID_EMAIL':
+        case 'invalid-email':
+          errorMessage = 'Email address is invalid.';
+          break;
+        default:
+          errorMessage = 'Login failed. Please try again.';
+          break;
+      }
+      throw LogInWithEmailAndPasswordFailure(
+        errorMessage: errorMessage,
+      );
     }
   }
 
   Future<void> resetPasswordEmail({
     @required String email,
   }) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } on Exception {
-      throw ResetPasswordEmailFailure();
+    final signInList = await _firebaseAuth.fetchSignInMethodsForEmail(email);
+    if (signInList.isEmpty) {
+      throw ResetPasswordEmailNotExists();
+    } else {
+      try {
+        await _firebaseAuth.sendPasswordResetEmail(email: email);
+      } on Exception {
+        throw ResetPasswordEmailFailure();
+      }
     }
   }
 
@@ -85,8 +156,16 @@ class FirebaseAuthentication {
 
 class LogOutFailure implements Exception {}
 
-class SignUpFailure implements Exception {}
+class SignUpFailure implements Exception {
+  SignUpFailure({@required this.errorMessage});
+  final String errorMessage;
+}
+
+class ResetPasswordEmailNotExists implements Exception {}
 
 class ResetPasswordEmailFailure implements Exception {}
 
-class LogInWithEmailAndPasswordFailure implements Exception {}
+class LogInWithEmailAndPasswordFailure implements Exception {
+  LogInWithEmailAndPasswordFailure({@required this.errorMessage});
+  final String errorMessage;
+}

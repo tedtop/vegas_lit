@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/dataproviders/firebase_auth.dart';
 import '../../../../../data/repositories/user_repository.dart';
 
 import '../../../authentication.dart';
@@ -64,8 +65,12 @@ class LoginCubit extends Cubit<LoginState> {
       final currentUser = await _userRepository.getCurrentUser();
       _authenticationBloc.add(CheckProfileComplete(currentUser));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } on Exception {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    } on LogInWithEmailAndPasswordFailure catch (e) {
+      emit(
+        state.copyWith(
+            status: FormzStatus.submissionFailure,
+            loginErrorMessage: e.errorMessage),
+      );
     }
   }
 

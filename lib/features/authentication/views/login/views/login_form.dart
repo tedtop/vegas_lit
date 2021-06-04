@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/data/dataproviders/firebase_auth.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
@@ -24,9 +27,9 @@ class LoginForm extends StatelessWidget {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                const SnackBar(
+                SnackBar(
                   content: Text(
-                    'Authentication Error',
+                    state.loginErrorMessage,
                   ),
                 ),
               );
@@ -81,6 +84,9 @@ class _EmailInput extends StatelessWidget {
           child: Theme(
             data: Theme.of(context).copyWith(accentColor: Colors.white),
             child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                ],
                 cursorColor: Palette.cream,
                 key: const Key('loginForm_emailInput_textField'),
                 onChanged: (email) =>
@@ -253,6 +259,11 @@ class __ResetPageState extends State<_ResetPage> {
             ),
             const SizedBox(height: 20),
             TextField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(
+                  RegExp(r'\s'),
+                ),
+              ],
               style: GoogleFonts.nunito(
                 fontSize: 18,
                 fontWeight: FontWeight.w300,
@@ -289,12 +300,30 @@ class __ResetPageState extends State<_ResetPage> {
                       setState(() {
                         isEmailValid = null;
                       });
-
-                      await context
-                          .read<LoginCubit>()
-                          .resetPassword(email: email);
-                      FocusScope.of(context).unfocus();
-                      Navigator.pop(context);
+                      try {
+                        await context
+                            .read<LoginCubit>()
+                            .resetPassword(email: email);
+                        FocusScope.of(context).unfocus();
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Reset Password link sent to your Email.',
+                              ),
+                            ),
+                          );
+                      } on ResetPasswordEmailFailure {
+                        setState(() {
+                          isEmailValid = 'Some error occured. Try again later.';
+                        });
+                      } on ResetPasswordEmailNotExists {
+                        setState(() {
+                          isEmailValid = 'Email not exists.';
+                        });
+                      }
                     } else {
                       setState(() {
                         isEmailValid = 'Enter Correct Email!';

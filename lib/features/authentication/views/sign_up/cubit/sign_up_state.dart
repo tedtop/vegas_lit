@@ -7,7 +7,6 @@ class SignUpState extends Equatable {
     this.confirmedPassword = const ConfirmedPassword.pure(),
     this.status = FormzStatus.pure,
     this.americanState = const AmericanState.pure(),
-    // this.number = const PhoneNumber.pure(),
     this.agreement = const Agreement.pure(),
     this.username = const Username.pure(),
     this.emailValue = '',
@@ -15,8 +14,8 @@ class SignUpState extends Equatable {
     this.confirmedPasswordValue = '',
     this.usernameValue = '',
     this.americanStateValue = '',
-    // this.numberValue = '',
     this.agreementValue = false,
+    this.signUpErrorMessage,
   });
 
   final Email email;
@@ -29,11 +28,9 @@ class SignUpState extends Equatable {
   final String usernameValue;
   final AmericanState americanState;
   final String americanStateValue;
-  // final PhoneNumber number;
-  // final String numberValue;
   final Agreement agreement;
   final bool agreementValue;
-
+  final String signUpErrorMessage;
   final FormzStatus status;
 
   @override
@@ -43,15 +40,14 @@ class SignUpState extends Equatable {
         confirmedPasswordValue,
         usernameValue,
         americanStateValue,
-        // numberValue,
         agreementValue,
         email,
         password,
         agreement,
+        signUpErrorMessage,
         confirmedPassword,
         status,
         americanState,
-        // number,
         username
       ];
 
@@ -66,11 +62,10 @@ class SignUpState extends Equatable {
     String usernameValue,
     AmericanState americanState,
     String americanStateValue,
-    // PhoneNumber number,
-    // String numberValue,
     Agreement agreement,
     bool agreementValue,
     FormzStatus status,
+    String signUpErrorMessage,
   }) {
     return SignUpState(
       email: email ?? this.email,
@@ -84,11 +79,10 @@ class SignUpState extends Equatable {
       usernameValue: usernameValue ?? this.usernameValue,
       americanState: americanState ?? this.americanState,
       americanStateValue: americanStateValue ?? this.americanStateValue,
-      // number: number ?? this.number,
-      // numberValue: numberValue ?? this.numberValue,
       agreement: agreement ?? this.agreement,
       agreementValue: agreementValue ?? this.agreementValue,
       status: status ?? this.status,
+      signUpErrorMessage: signUpErrorMessage ?? this.signUpErrorMessage,
     );
   }
 }
