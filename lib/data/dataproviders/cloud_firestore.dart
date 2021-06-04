@@ -118,6 +118,7 @@ class CloudFirestoreClient {
           'accountBalance': FieldValue.increment(-cutBalance),
           'potentialWinAmount': FieldValue.increment(betsData.betProfit),
           'totalRiskedAmount': FieldValue.increment(betsData.betAmount),
+          'riskedAmount': FieldValue.increment(betsData.betAmount),
         },
       );
     await saveBetsWrite.commit();
