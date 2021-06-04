@@ -274,6 +274,9 @@ class _EmailInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                ],
                 cursorColor: Palette.cream,
                 style: Styles.signUpFieldText,
                 key: const Key('signUpForm_emailInput_textField'),
