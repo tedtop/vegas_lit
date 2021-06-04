@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/drawer_pages/faq.dart';
-import 'package:vegas_lit/features/drawer_pages/privacy_policy.dart';
-import 'package:vegas_lit/features/drawer_pages/rules.dart';
-import 'package:vegas_lit/features/drawer_pages/terms.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../drawer_pages/faq.dart';
+import '../../drawer_pages/privacy_policy.dart';
+import '../../drawer_pages/rules.dart';
+import '../../drawer_pages/terms.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({

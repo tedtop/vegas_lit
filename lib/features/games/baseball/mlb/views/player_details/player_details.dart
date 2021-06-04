@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_player.dart';
-import 'package:vegas_lit/features/shared_widgets/app_bar.dart';
+import '../../../../../../config/palette.dart';
+import '../../../../../../config/styles.dart';
+import '../../../../../../data/models/mlb/mlb_player.dart';
+import '../../../../../shared_widgets/app_bar.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
   PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});

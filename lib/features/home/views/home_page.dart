@@ -5,28 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/history/cubit/history_cubit.dart';
 
-import 'package:vegas_lit/features/history/views/bet_history_page.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/home/cubit/internet_cubit.dart';
-import 'package:vegas_lit/features/home/widgets/bottom_navigation.dart';
-import 'package:vegas_lit/features/home/widgets/home_drawer.dart';
-import 'package:vegas_lit/features/home/widgets/topnavbar.dart';
-import 'package:vegas_lit/features/leaderboard/leaderboard.dart';
-import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
-import 'package:vegas_lit/features/open_bets/views/open_bets_page.dart';
-import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
-import 'package:vegas_lit/features/sportsbook/screens/sportsbook_page.dart';
-import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
-
+import '../../../config/assets.dart';
+import '../../../config/palette.dart';
+import '../../../data/repositories/bets_repository.dart';
+import '../../../data/repositories/sports_repository.dart';
+import '../../../data/repositories/user_repository.dart';
+import '../../bet_slip/bet_slip.dart';
+import '../../history/cubit/history_cubit.dart';
+import '../../history/views/bet_history_page.dart';
+import '../../leaderboard/leaderboard.dart';
+import '../../open_bets/cubit/open_bets_cubit.dart';
+import '../../open_bets/views/open_bets_page.dart';
+import '../../profile/cubit/profile_cubit.dart';
+import '../../sportsbook/screens/sportsbook_page.dart';
+import '../../sportsbook/sportsbook.dart';
+import '../cubit/internet_cubit.dart';
 import '../cubit/version_cubit.dart';
 import '../home.dart';
+import '../widgets/bottom_navigation.dart';
+import '../widgets/home_drawer.dart';
+import '../widgets/topnavbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage._({@required this.observer, this.currentUserId, Key key})

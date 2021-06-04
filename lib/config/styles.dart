@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
+import 'palette.dart';
 
 class Styles {
   static const double normalElevation = 4.0;

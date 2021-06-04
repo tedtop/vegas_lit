@@ -3,10 +3,10 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../../data/models/bet.dart';
+import '../../games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
 
 class OpenBetsSlip extends StatelessWidget {
   const OpenBetsSlip({

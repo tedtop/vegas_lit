@@ -5,17 +5,15 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
-import 'package:vegas_lit/config/enum.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/views/team_info/team_info.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_button/bet_button.dart';
 
+import '../../../../../../config/enum.dart';
+import '../../../../../../config/palette.dart';
+import '../../../../../../config/styles.dart';
+import '../../../../../../data/models/ncaab/ncaab_game.dart';
+import '../../views/team_info/team_info.dart';
+import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {

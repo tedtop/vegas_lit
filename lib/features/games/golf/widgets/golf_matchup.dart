@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/golf.dart';
-import 'package:vegas_lit/features/games/golf/cubit/golf_cubit.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/golf.dart';
+import '../cubit/golf_cubit.dart';
 
 import 'textbar.dart';
 

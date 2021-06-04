@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/home/widgets/bottombar.dart';
-import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
+import '../../../config/styles.dart';
+import '../../home/widgets/bottombar.dart';
+import '../../shared_widgets/abstract_card.dart';
 import 'bet_slip_page.dart';
 
 class EmptyBetSlip extends StatelessWidget {

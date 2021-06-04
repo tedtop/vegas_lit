@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
-import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
-import 'package:vegas_lit/features/open_bets/views/open_bets_card.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../home/cubit/home_cubit.dart';
+import '../../cubit/open_bets_cubit.dart';
+import '../open_bets_card.dart';
 
 class TabletOpenBets extends StatelessWidget {
   @override

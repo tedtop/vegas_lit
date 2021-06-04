@@ -3,20 +3,20 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-import 'package:vegas_lit/config/api.dart';
-import 'package:vegas_lit/data/models/golf.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_game.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_player.dart';
-import 'package:vegas_lit/data/models/nba/nba_game.dart';
-import 'package:vegas_lit/data/models/nba/nba_player.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_player.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_game.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_player.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_player.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_player.dart';
+import '../../config/api.dart';
+import '../models/golf.dart';
+import '../models/mlb/mlb_game.dart';
+import '../models/mlb/mlb_player.dart';
+import '../models/nba/nba_game.dart';
+import '../models/nba/nba_player.dart';
+import '../models/ncaab/ncaab_game.dart';
+import '../models/ncaab/ncaab_player.dart';
+import '../models/ncaaf/ncaaf_game.dart';
+import '../models/ncaaf/ncaaf_player.dart';
+import '../models/nfl/nfl_game.dart';
+import '../models/nfl/nfl_player.dart';
+import '../models/nhl/nhl_game.dart';
+import '../models/nhl/nhl_player.dart';
 
 class SportsAPI {
   SportsAPI({Dio dio}) : _dio = dio ?? Dio();

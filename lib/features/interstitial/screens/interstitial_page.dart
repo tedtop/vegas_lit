@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/interstitial/cubit/ads_cubit.dart';
+import '../../../config/palette.dart';
+import '../../../data/repositories/user_repository.dart';
+import '../cubit/ads_cubit.dart';
 
 class Interstitial extends StatelessWidget {
   const Interstitial._({Key key}) : super(key: key);

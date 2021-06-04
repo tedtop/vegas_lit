@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/dataproviders/cloud_firestore.dart';
-import 'package:vegas_lit/data/dataproviders/firebase_auth.dart';
-import 'package:vegas_lit/data/models/user.dart';
-import 'package:vegas_lit/data/models/vault_data.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
+import '../dataproviders/cloud_firestore.dart';
+import '../dataproviders/firebase_auth.dart';
+import '../models/user.dart';
+import '../models/vault_data.dart';
+import '../models/wallet.dart';
 
 class UserRepository {
   final _authenticationProvider = FirebaseAuthentication();

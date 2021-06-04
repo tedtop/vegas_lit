@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
+import '../../config/palette.dart';
+import '../../config/styles.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({

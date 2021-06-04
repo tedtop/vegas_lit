@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_player.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import '../../../../../../../data/models/nhl/nhl_player.dart';
+import '../../../../../../../data/repositories/sports_repository.dart';
 
 part 'team_info_state.dart';
 

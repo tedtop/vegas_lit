@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+
+import '../../../../../data/models/nhl/nhl_game.dart';
+import '../../../../../data/repositories/sports_repository.dart';
 
 part 'nhl_state.dart';
 

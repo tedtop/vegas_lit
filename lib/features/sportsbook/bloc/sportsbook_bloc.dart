@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import '../../../data/repositories/sports_repository.dart';
 
 part 'sportsbook_event.dart';
 part 'sportsbook_state.dart';

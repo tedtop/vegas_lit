@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/golf.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/golf.dart';
 import '../golf_page.dart';
 
 class GolfDetailView extends StatefulWidget {

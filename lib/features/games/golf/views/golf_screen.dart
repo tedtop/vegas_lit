@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/features/games/golf/cubit/golf_cubit.dart';
-import 'package:vegas_lit/features/games/golf/widgets/golf_matchup.dart';
-import 'package:vegas_lit/features/games/golf/widgets/golf_tour.dart';
-import 'package:vegas_lit/features/games/golf/widgets/golf_tour_detail.dart';
+import '../../../../config/palette.dart';
+import '../../../../data/repositories/sports_repository.dart';
+import '../cubit/golf_cubit.dart';
+import '../widgets/golf_matchup.dart';
+import '../widgets/golf_tour.dart';
+import '../widgets/golf_tour_detail.dart';
 
 class GolfScreen extends StatelessWidget {
   const GolfScreen._({Key key}) : super(key: key);

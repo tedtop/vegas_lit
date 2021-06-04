@@ -1,18 +1,18 @@
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/dataproviders/sportsdata_api.dart';
-import 'package:vegas_lit/data/models/golf.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_game.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_player.dart';
-import 'package:vegas_lit/data/models/nba/nba_game.dart';
-import 'package:vegas_lit/data/models/nba/nba_player.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_player.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_game.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_player.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_player.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_player.dart';
+import '../dataproviders/sportsdata_api.dart';
+import '../models/golf.dart';
+import '../models/mlb/mlb_game.dart';
+import '../models/mlb/mlb_player.dart';
+import '../models/nba/nba_game.dart';
+import '../models/nba/nba_player.dart';
+import '../models/ncaab/ncaab_game.dart';
+import '../models/ncaab/ncaab_player.dart';
+import '../models/ncaaf/ncaaf_game.dart';
+import '../models/ncaaf/ncaaf_player.dart';
+import '../models/nfl/nfl_game.dart';
+import '../models/nfl/nfl_player.dart';
+import '../models/nhl/nhl_game.dart';
+import '../models/nhl/nhl_player.dart';
 
 class SportsRepository {
   final _sportsProvider = SportsAPI();

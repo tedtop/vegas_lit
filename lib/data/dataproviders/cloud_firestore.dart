@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meta/meta.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/data/models/vault_data.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
+import 'package:meta/meta.dart';
 
+import '../models/bet.dart';
 import '../models/user.dart';
+import '../models/vault_data.dart';
+import '../models/wallet.dart';
 
 class CloudFirestoreClient {
   CloudFirestoreClient({FirebaseFirestore firebaseFirestore})

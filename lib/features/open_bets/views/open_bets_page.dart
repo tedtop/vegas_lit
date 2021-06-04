@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/features/home/widgets/bottombar.dart';
+import '../../home/widgets/bottombar.dart';
 
 import 'adaptive_views/desktop_open_bets.dart';
 import 'adaptive_views/mobile_open_bets.dart';

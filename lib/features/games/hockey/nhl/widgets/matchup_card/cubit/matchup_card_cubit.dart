@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/models/nhl_team.dart';
+import '../../../../../../../data/models/nhl/nhl_game.dart';
+import '../../../models/nhl_team.dart';
 
 part 'matchup_card_state.dart';
 

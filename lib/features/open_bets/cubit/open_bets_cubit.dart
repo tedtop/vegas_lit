@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
+import '../../../data/models/bet.dart';
+import '../../../data/repositories/bets_repository.dart';
 
 part 'open_bets_state.dart';
 

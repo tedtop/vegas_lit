@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:vegas_lit/data/models/golf.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import '../../../../data/models/golf.dart';
+import '../../../../data/repositories/sports_repository.dart';
 
 part 'golf_state.dart';
 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/admin_vault/cubit/admin_vault_cubit.dart';
-import 'package:vegas_lit/features/admin_vault/widgets/admin_record_box.dart';
-import 'package:vegas_lit/features/shared_widgets/app_bar.dart';
+
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../../data/repositories/user_repository.dart';
+import '../../shared_widgets/app_bar.dart';
+import '../cubit/admin_vault_cubit.dart';
+import '../widgets/admin_record_box.dart';
 
 class AdminVaultScreen extends StatelessWidget {
   AdminVaultScreen._();

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/cubit/nhl_cubit.dart';
+import '../../../../../config/palette.dart';
+import '../../../../../data/repositories/sports_repository.dart';
+import '../cubit/nhl_cubit.dart';
 
 import 'nhl_screen_desktop/nhl_screen_desktop.dart';
 import 'nhl_screen_mobile/nhl_screen_mobile.dart';

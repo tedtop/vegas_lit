@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
+import '../../../../../data/repositories/user_repository.dart';
+import '../../../bloc/authentication_bloc.dart';
 
 import '../sign_up.dart';
 

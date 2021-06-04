@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import '../../../data/repositories/user_repository.dart';
 
 part 'version_state.dart';
 

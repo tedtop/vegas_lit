@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/vault_data.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../../data/models/vault_data.dart';
 
 class AdminRecordBox extends StatelessWidget {
   AdminRecordBox({this.item});

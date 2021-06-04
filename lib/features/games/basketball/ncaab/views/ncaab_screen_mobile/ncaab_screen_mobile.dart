@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/matchup_card/matchup_card.dart';
+import '../../../../../../data/models/ncaab/ncaab_game.dart';
+import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNcaabScreen extends StatelessWidget {
   MobileNcaabScreen({

@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import '../../../../../data/models/nfl/nfl_game.dart';
+import '../../../../../data/repositories/sports_repository.dart';
 
 part 'nfl_state.dart';
 

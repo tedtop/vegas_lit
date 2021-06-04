@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/wallet.dart';
+import '../../cubit/leaderboard_cubit.dart';
 import '../pagenumberview.dart';
 import '../textbar.dart';
 

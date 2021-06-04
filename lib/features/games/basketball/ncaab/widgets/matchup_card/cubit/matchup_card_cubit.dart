@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_game.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
+import '../../../../../../../data/models/ncaab/ncaab_game.dart';
+import '../../../models/ncaab_team.dart';
 
 part 'matchup_card_state.dart';
 

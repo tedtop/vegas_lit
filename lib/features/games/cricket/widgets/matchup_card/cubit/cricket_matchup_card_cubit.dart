@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/cricket.dart';
-import 'package:vegas_lit/features/games/cricket/models/cricket_team.dart';
+import '../../../../../../data/models/cricket.dart';
+import '../../../models/cricket_team.dart';
 part 'cricket_matchup_card_state.dart';
 
 class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {

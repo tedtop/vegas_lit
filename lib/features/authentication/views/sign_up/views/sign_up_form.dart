@@ -4,17 +4,62 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/authentication/models/confirmed_password.dart';
-import 'package:vegas_lit/features/authentication/models/email.dart';
-import 'package:vegas_lit/features/authentication/models/password.dart';
-import 'package:vegas_lit/features/authentication/models/username.dart';
-import 'package:vegas_lit/features/shared_widgets/auth_logo.dart';
-import 'package:vegas_lit/features/shared_widgets/default_button.dart';
-import 'package:vegas_lit/features/shared_widgets/dropdown.dart';
 
+import '../../../../../config/palette.dart';
+import '../../../../../config/styles.dart';
+import '../../../../shared_widgets/auth_logo.dart';
+import '../../../../shared_widgets/default_button.dart';
+import '../../../../shared_widgets/dropdown.dart';
+import '../../../models/confirmed_password.dart';
+import '../../../models/email.dart';
+import '../../../models/password.dart';
+import '../../../models/username.dart';
 import '../sign_up.dart';
+
+String confirmedPasswordError(
+    ConfirmedPasswordValidationError validationError) {
+  if (validationError == ConfirmedPasswordValidationError.invalid) {
+    return 'Passwords do not match';
+  } else if (validationError == ConfirmedPasswordValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
+  }
+}
+
+String emailError(EmailValidationError validationError) {
+  if (validationError == EmailValidationError.invalid) {
+    return 'Invalid email address';
+  } else if (validationError == EmailValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
+  }
+}
+
+String passwordError(PasswordValidationError validationError) {
+  if (validationError == PasswordValidationError.invalid) {
+    return 'Must be a combination of at least 6 letters and numbers';
+  } else if (validationError == PasswordValidationError.empty) {
+    return 'Required';
+  } else {
+    return null;
+  }
+}
+
+String usernameError(UsernameValidationError validationError) {
+  if (validationError == UsernameValidationError.invalid) {
+    return 'Invalid Format';
+  } else if (validationError == UsernameValidationError.empty) {
+    return 'Required';
+  } else if (validationError == UsernameValidationError.exist) {
+    return 'Username already exists';
+  } else if (validationError == UsernameValidationError.characters) {
+    return 'Username should be 3-10 chars';
+  } else {
+    return null;
+  }
+}
 
 class SignUpForm extends StatelessWidget {
   @override
@@ -78,190 +123,80 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
-class _UsernameInput extends StatelessWidget {
+class _AgreementCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
-        return Row(
+        return Column(
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Username',
-                  style: Styles.signUpFieldDescription,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  fillColor: MaterialStateProperty.all(Palette.green),
+                  value: state.agreementValue,
+                  onChanged: (value) =>
+                      context.read<SignUpCubit>().agreementClicked(value),
                 ),
-              ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => context
+                            .read<SignUpCubit>()
+                            .agreementClicked(!state.agreementValue),
+                        child: RichText(
+                          text: TextSpan(
+                            style: Styles.signUpAgreement,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    'I certify that I am at least 18 years of age and the use of this platform and service and participation in the contest is legal in the jurisdiction where I reside',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 14,
+                                ),
+                              ),
+                              // TextSpan(
+                              //   text: 'here',
+                              //   style: GoogleFonts.nunito(
+                              //     fontSize: 14,
+                              //     color: Palette.green,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    width: 40,
+                  ),
+                  state.agreement.invalid
+                      ? Text(
+                          'Required',
+                          style: Styles.authFieldError
+                              .copyWith(color: Palette.red),
+                        )
+                      : Container(),
                 ],
-                cursorColor: Palette.cream,
-                style: Styles.signUpFieldText,
-                key: const Key('signUpForm_usernameInput_textField'),
-                onChanged: (username) =>
-                    context.read<SignUpCubit>().usernameChanged(username),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 2.5,
-                    horizontal: 8,
-                  ),
-                  hintStyle: Styles.signUpFieldHint,
-                  errorStyle: Styles.authFieldError,
-                  filled: true,
-                  fillColor: Palette.lightGrey,
-                  border: Styles.signUpInputFieldBorder,
-                  isDense: true,
-                  hintText: 'Username',
-                  helperText: '',
-                  errorText: usernameError(state.username.error),
-                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
-                ),
               ),
             ),
           ],
         );
       },
     );
-  }
-}
-
-String usernameError(UsernameValidationError validationError) {
-  if (validationError == UsernameValidationError.invalid) {
-    return 'Invalid Format';
-  } else if (validationError == UsernameValidationError.empty) {
-    return 'Required';
-  } else if (validationError == UsernameValidationError.exist) {
-    return 'Username already exists';
-  } else if (validationError == UsernameValidationError.characters) {
-    return 'Username should be 3-10 chars';
-  } else {
-    return null;
-  }
-}
-
-class _EmailInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.email != current.email,
-      builder: (context, state) {
-        return Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Email Address',
-                  style: Styles.signUpFieldDescription,
-                ),
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                cursorColor: Palette.cream,
-                style: Styles.signUpFieldText,
-                key: const Key('signUpForm_emailInput_textField'),
-                onChanged: (email) =>
-                    context.read<SignUpCubit>().emailChanged(email),
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 2.5,
-                    horizontal: 8,
-                  ),
-                  hintStyle: Styles.signUpFieldHint,
-                  filled: true,
-                  fillColor: Palette.lightGrey,
-                  border: Styles.signUpInputFieldBorder,
-                  errorStyle: Styles.authFieldError,
-                  isDense: true,
-                  hintText: 'Email Address',
-                  helperText: '',
-                  errorText: emailError(state.email.error),
-                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-String emailError(EmailValidationError validationError) {
-  if (validationError == EmailValidationError.invalid) {
-    return 'Invalid email address';
-  } else if (validationError == EmailValidationError.empty) {
-    return 'Required';
-  } else {
-    return null;
-  }
-}
-
-class _PasswordInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) {
-        return Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Password',
-                  style: Styles.signUpFieldDescription,
-                ),
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                style: Styles.signUpFieldText,
-                key: const Key('signUpForm_passwordInput_textField'),
-                onChanged: (password) =>
-                    context.read<SignUpCubit>().passwordChanged(password),
-                obscureText: true,
-                cursorColor: Palette.cream,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 2.5,
-                    horizontal: 8,
-                  ),
-                  errorStyle: Styles.authFieldError,
-                  hintStyle: Styles.signUpFieldHint,
-                  filled: true,
-                  fillColor: Palette.lightGrey,
-                  border: Styles.signUpInputFieldBorder,
-                  isDense: true,
-                  errorMaxLines: 3,
-                  hintText: 'Password',
-                  helperText: '',
-                  errorText: passwordError(state.password.error),
-                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-String passwordError(PasswordValidationError validationError) {
-  if (validationError == PasswordValidationError.invalid) {
-    return 'Must be a combination of at least 6 letters and numbers';
-  } else if (validationError == PasswordValidationError.empty) {
-    return 'Required';
-  } else {
-    return null;
   }
 }
 
@@ -320,117 +255,124 @@ class _ConfirmPasswordInput extends StatelessWidget {
   }
 }
 
-String confirmedPasswordError(
-    ConfirmedPasswordValidationError validationError) {
-  if (validationError == ConfirmedPasswordValidationError.invalid) {
-    return 'Passwords do not match';
-  } else if (validationError == ConfirmedPasswordValidationError.empty) {
-    return 'Required';
-  } else {
-    return null;
-  }
-}
-
-class _StateInput extends StatelessWidget {
-  final stateList = [
-    'International',
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'District Of Columbia',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming'
-  ];
-
+class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) =>
-          previous.americanState != current.americanState,
+      buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return Row(
           children: [
             Expanded(
-              child: Text(
-                'State',
-                style: Styles.signUpFieldDescription,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'Email Address',
+                  style: Styles.signUpFieldDescription,
+                ),
               ),
             ),
             Expanded(
-              child: Column(
-                children: [
-                  DropDown(
-                    isExpanded: true,
-                    showUnderline: true,
-                    items: stateList,
-                    hint: Text(
-                      'State',
-                      style: GoogleFonts.nunito(),
-                    ),
-                    onChanged: (String value) =>
-                        context.read<SignUpCubit>().americanStateChanged(value),
+              child: TextField(
+                cursorColor: Palette.cream,
+                style: Styles.signUpFieldText,
+                key: const Key('signUpForm_emailInput_textField'),
+                onChanged: (email) =>
+                    context.read<SignUpCubit>().emailChanged(email),
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 2.5,
+                    horizontal: 8,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      state.americanState.invalid
-                          ? Text(
-                              'Required',
-                              style: Styles.authFieldError
-                                  .copyWith(color: Palette.red),
-                            )
-                          : Container(),
-                    ],
+                  hintStyle: Styles.signUpFieldHint,
+                  filled: true,
+                  fillColor: Palette.lightGrey,
+                  border: Styles.signUpInputFieldBorder,
+                  errorStyle: Styles.authFieldError,
+                  isDense: true,
+                  hintText: 'Email Address',
+                  helperText: '',
+                  errorText: emailError(state.email.error),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _ExistingAccountSignIn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Already have an account?',
+            style: Styles.authNormalText,
+          ),
+          TextButton(
+            key: const Key('loginForm_createAccount_flatButton'),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'Log In',
+              style: Styles.authButtonText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PasswordInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) => previous.password != current.password,
+      builder: (context, state) {
+        return Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'Password',
+                  style: Styles.signUpFieldDescription,
+                ),
+              ),
+            ),
+            Expanded(
+              child: TextField(
+                style: Styles.signUpFieldText,
+                key: const Key('signUpForm_passwordInput_textField'),
+                onChanged: (password) =>
+                    context.read<SignUpCubit>().passwordChanged(password),
+                obscureText: true,
+                cursorColor: Palette.cream,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 2.5,
+                    horizontal: 8,
                   ),
-                ],
+                  errorStyle: Styles.authFieldError,
+                  hintStyle: Styles.signUpFieldHint,
+                  filled: true,
+                  fillColor: Palette.lightGrey,
+                  border: Styles.signUpInputFieldBorder,
+                  isDense: true,
+                  errorMaxLines: 3,
+                  hintText: 'Password',
+                  helperText: '',
+                  errorText: passwordError(state.password.error),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                ),
               ),
             ),
           ],
@@ -579,83 +521,6 @@ class _StateInput extends StatelessWidget {
 //   }
 // }
 
-class _AgreementCheck extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      builder: (context, state) {
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  fillColor: MaterialStateProperty.all(Palette.green),
-                  value: state.agreementValue,
-                  onChanged: (value) =>
-                      context.read<SignUpCubit>().agreementClicked(value),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () => context
-                            .read<SignUpCubit>()
-                            .agreementClicked(!state.agreementValue),
-                        child: RichText(
-                          text: TextSpan(
-                            style: Styles.signUpAgreement,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text:
-                                    'I certify that I am at least 18 years of age and the use of this platform and service and participation in the contest is legal in the jurisdiction where I reside',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 14,
-                                ),
-                              ),
-                              // TextSpan(
-                              //   text: 'here',
-                              //   style: GoogleFonts.nunito(
-                              //     fontSize: 14,
-                              //     color: Palette.green,
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  state.agreement.invalid
-                      ? Text(
-                          'Required',
-                          style: Styles.authFieldError
-                              .copyWith(color: Palette.red),
-                        )
-                      : Container(),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -680,28 +545,163 @@ class _SignUpButton extends StatelessWidget {
   }
 }
 
-class _ExistingAccountSignIn extends StatelessWidget {
+class _StateInput extends StatelessWidget {
+  final stateList = [
+    'International',
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'District Of Columbia',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming'
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Already have an account?',
-            style: Styles.authNormalText,
-          ),
-          TextButton(
-            key: const Key('loginForm_createAccount_flatButton'),
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'Log In',
-              style: Styles.authButtonText,
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) =>
+          previous.americanState != current.americanState,
+      builder: (context, state) {
+        return Row(
+          children: [
+            Expanded(
+              child: Text(
+                'State',
+                style: Styles.signUpFieldDescription,
+              ),
             ),
-          ),
-        ],
-      ),
+            Expanded(
+              child: Column(
+                children: [
+                  DropDown(
+                    isExpanded: true,
+                    showUnderline: true,
+                    items: stateList,
+                    hint: Text(
+                      'State',
+                      style: GoogleFonts.nunito(),
+                    ),
+                    onChanged: (String value) =>
+                        context.read<SignUpCubit>().americanStateChanged(value),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      state.americanState.invalid
+                          ? Text(
+                              'Required',
+                              style: Styles.authFieldError
+                                  .copyWith(color: Palette.red),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _UsernameInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      buildWhen: (previous, current) => previous.username != current.username,
+      builder: (context, state) {
+        return Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'Username',
+                  style: Styles.signUpFieldDescription,
+                ),
+              ),
+            ),
+            Expanded(
+              child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                ],
+                cursorColor: Palette.cream,
+                style: Styles.signUpFieldText,
+                key: const Key('signUpForm_usernameInput_textField'),
+                onChanged: (username) =>
+                    context.read<SignUpCubit>().usernameChanged(username),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 2.5,
+                    horizontal: 8,
+                  ),
+                  hintStyle: Styles.signUpFieldHint,
+                  errorStyle: Styles.authFieldError,
+                  filled: true,
+                  fillColor: Palette.lightGrey,
+                  border: Styles.signUpInputFieldBorder,
+                  isDense: true,
+                  hintText: 'Username',
+                  helperText: '',
+                  errorText: usernameError(state.username.error),
+                  focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

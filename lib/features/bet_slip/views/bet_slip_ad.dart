@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/home/widgets/bottombar.dart';
-import 'package:vegas_lit/features/interstitial/screens/interstitial_page.dart';
-import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../home/widgets/bottombar.dart';
+import '../../interstitial/screens/interstitial_page.dart';
+import '../../shared_widgets/abstract_card.dart';
 
 import 'bet_slip_page.dart';
 

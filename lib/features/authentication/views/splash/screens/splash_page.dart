@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/assets.dart';
+import '../../../../../config/assets.dart';
 
 class SplashPage extends StatelessWidget {
   static Route route() {

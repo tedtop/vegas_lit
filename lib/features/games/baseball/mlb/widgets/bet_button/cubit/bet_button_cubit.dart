@@ -1,14 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/config/enum.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_game.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
-import 'package:intl/intl.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
+
+import '../../../../../../../config/enum.dart';
+import '../../../../../../../data/models/bet.dart';
+import '../../../../../../../data/models/mlb/mlb_game.dart';
+import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../models/mlb_team.dart';
 
 part 'bet_button_state.dart';
 

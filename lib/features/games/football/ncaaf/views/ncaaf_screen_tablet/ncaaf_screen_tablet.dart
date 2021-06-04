@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_game.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/matchup_card/matchup_card.dart';
+import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
+import '../../widgets/matchup_card/matchup_card.dart';
 
 class TabletNcaafScreen extends StatelessWidget {
   TabletNcaafScreen({this.gameName, this.games, this.parsedTeamData});

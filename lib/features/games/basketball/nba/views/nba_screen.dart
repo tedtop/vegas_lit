@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import '../../../../../config/palette.dart';
+import '../../../../../data/repositories/sports_repository.dart';
 
 import '../nba_page.dart';
 import 'nba_screen_desktop/nba_screen_desktop.dart';

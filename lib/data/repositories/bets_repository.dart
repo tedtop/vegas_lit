@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/dataproviders/cloud_firestore.dart';
-import 'package:vegas_lit/data/models/bet.dart';
+import '../dataproviders/cloud_firestore.dart';
+import '../models/bet.dart';
 
 class BetsRepository {
   final _databaseProvider = CloudFirestoreClient();

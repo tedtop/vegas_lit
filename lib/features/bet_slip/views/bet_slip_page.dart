@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/home/widgets/bottombar.dart';
-import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../home/widgets/bottombar.dart';
+import '../../open_bets/cubit/open_bets_cubit.dart';
 
 import '../cubit/bet_slip_cubit.dart';
 import 'bet_slip_ad.dart';

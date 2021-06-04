@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/matchup_card/matchup_card.dart';
+import '../../../../../../data/models/nhl/nhl_game.dart';
+import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNhlScreen extends StatelessWidget {
   MobileNhlScreen({

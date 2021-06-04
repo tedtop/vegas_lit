@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/enum.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/nba/nba_game.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
-import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
-import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/bet_button/screens/bet_slip_card.dart';
 
+import '../../../../../../../config/enum.dart';
+import '../../../../../../../config/palette.dart';
+import '../../../../../../../data/models/nba/nba_game.dart';
+import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../authentication/bloc/authentication_bloc.dart';
+import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
+import '../../../../../../bet_slip/models/bet_slip_card.dart';
+import '../../../models/nba_team.dart';
 import '../cubit/bet_button_cubit.dart';
+import 'bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);

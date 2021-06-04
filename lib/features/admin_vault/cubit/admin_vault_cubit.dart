@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:vegas_lit/data/models/vault_data.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import '../../../data/models/vault_data.dart';
+import '../../../data/repositories/user_repository.dart';
 
 part 'admin_vault_state.dart';
 

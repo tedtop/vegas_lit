@@ -4,12 +4,12 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/authentication/views/sign_up/views/sign_up_page.dart';
-import 'package:vegas_lit/features/shared_widgets/auth_logo.dart';
-import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
+import '../../../../../config/palette.dart';
+import '../../../../../config/styles.dart';
+import '../../../../shared_widgets/auth_logo.dart';
+import '../../../../shared_widgets/default_button.dart';
+import '../../sign_up/views/sign_up_page.dart';
 import '../login.dart';
 
 class LoginForm extends StatelessWidget {

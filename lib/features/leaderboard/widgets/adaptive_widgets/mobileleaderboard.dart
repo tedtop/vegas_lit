@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/features/leaderboard/cubit/leaderboard_cubit.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/wallet.dart';
+import '../../cubit/leaderboard_cubit.dart';
 import '../textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {

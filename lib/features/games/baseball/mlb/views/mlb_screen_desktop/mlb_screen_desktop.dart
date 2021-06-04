@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_game.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
-import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../../config/palette.dart';
+import '../../../../../../data/models/mlb/mlb_game.dart';
+import '../../../../../bet_slip/bet_slip.dart';
+import '../../../../../shared_widgets/abstract_card.dart';
+import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopMlbScreen extends StatelessWidget {
   DesktopMlbScreen({this.gameName, this.games, this.parsedTeamData});

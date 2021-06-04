@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/mlb_page.dart';
-import 'package:vegas_lit/features/games/basketball/nba/nba_page.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/views/ncaab_screen.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/views/ncaaf_screen.dart';
-import 'package:vegas_lit/features/games/football/nfl/views/nfl_screen.dart';
-import 'package:vegas_lit/features/games/golf/golf_page.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/views/nhl_screen.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
-import 'package:vegas_lit/features/home/widgets/bottombar.dart';
+import '../../../config/assets.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../bet_slip/cubit/bet_slip_cubit.dart';
+import '../../games/baseball/mlb/mlb_page.dart';
+import '../../games/basketball/nba/nba_page.dart';
+import '../../games/basketball/ncaab/views/ncaab_screen.dart';
+import '../../games/football/ncaaf/views/ncaaf_screen.dart';
+import '../../games/football/nfl/views/nfl_screen.dart';
+import '../../games/golf/golf_page.dart';
+import '../../games/hockey/nhl/views/nhl_screen.dart';
+import '../../home/cubit/home_cubit.dart';
+import '../../home/widgets/bottombar.dart';
 
 import '../bloc/sportsbook_bloc.dart';
 

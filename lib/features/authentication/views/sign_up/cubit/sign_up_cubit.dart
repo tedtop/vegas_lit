@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:vegas_lit/data/models/user.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
 
+import '../../../../../data/models/user.dart';
+import '../../../../../data/repositories/user_repository.dart';
 import '../../../authentication.dart';
 
 part 'sign_up_state.dart';
@@ -18,27 +18,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         _authenticationBloc = authenticationBloc,
         _userRepository = userRepository,
         super(const SignUpState());
-
   final UserRepository _userRepository;
   final AuthenticationBloc _authenticationBloc;
-
-  void emailChanged(String value) {
-    final email = Email.dirty(value);
-    emit(
-      state.copyWith(
-        emailValue: value,
-        status: Formz.validate([
-          email,
-          state.password,
-          state.confirmedPassword,
-          state.americanState,
-          // state.number,
-          state.agreement,
-          state.username,
-        ]),
-      ),
-    );
-  }
 
   void agreementClicked(bool value) {
     final agreement = Agreement.dirty(value);
@@ -58,17 +39,16 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  void passwordChanged(String value) {
-    final password = Password.dirty(value);
-
+  void americanStateChanged(String value) {
+    final americanState = AmericanState.dirty(value);
     emit(
       state.copyWith(
-        passwordValue: value,
+        americanStateValue: value,
         status: Formz.validate([
           state.email,
-          password,
+          state.password,
           state.confirmedPassword,
-          state.americanState,
+          americanState,
           // state.number,
           state.agreement,
           state.username,
@@ -98,27 +78,38 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  Future<void> usernameChanged(String value) async {
-    await Future.delayed(
-      const Duration(seconds: 1),
-    );
-    final isUsernameExist =
-        await _userRepository.isUsernameExist(username: value);
-    final usernameValidationError =
-        isUsernameExist ? UsernameValidationError.exist : null;
-    final username = Username.dirty(usernameValidationError, value);
+  void emailChanged(String value) {
+    final email = Email.dirty(value);
     emit(
       state.copyWith(
-        usernameValue: value,
-        username: username,
+        emailValue: value,
         status: Formz.validate([
-          state.email,
+          email,
           state.password,
           state.confirmedPassword,
           state.americanState,
           // state.number,
           state.agreement,
-          username,
+          state.username,
+        ]),
+      ),
+    );
+  }
+
+  void passwordChanged(String value) {
+    final password = Password.dirty(value);
+
+    emit(
+      state.copyWith(
+        passwordValue: value,
+        status: Formz.validate([
+          state.email,
+          password,
+          state.confirmedPassword,
+          state.americanState,
+          // state.number,
+          state.agreement,
+          state.username,
         ]),
       ),
     );
@@ -141,24 +132,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   //     ),
   //   );
   // }
-
-  void americanStateChanged(String value) {
-    final americanState = AmericanState.dirty(value);
-    emit(
-      state.copyWith(
-        americanStateValue: value,
-        status: Formz.validate([
-          state.email,
-          state.password,
-          state.confirmedPassword,
-          americanState,
-          // state.number,
-          state.agreement,
-          state.username,
-        ]),
-      ),
-    );
-  }
 
   Future<void> signUpFormSubmitted() async {
     final isUsernameExist =
@@ -223,5 +196,31 @@ class SignUpCubit extends Cubit<SignUpState> {
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
+  }
+
+  Future<void> usernameChanged(String value) async {
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    final isUsernameExist =
+        await _userRepository.isUsernameExist(username: value);
+    final usernameValidationError =
+        isUsernameExist ? UsernameValidationError.exist : null;
+    final username = Username.dirty(usernameValidationError, value);
+    emit(
+      state.copyWith(
+        usernameValue: value,
+        username: username,
+        status: Formz.validate([
+          state.email,
+          state.password,
+          state.confirmedPassword,
+          state.americanState,
+          // state.number,
+          state.agreement,
+          username,
+        ]),
+      ),
+    );
   }
 }

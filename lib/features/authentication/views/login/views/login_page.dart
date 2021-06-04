@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/authentication/authentication.dart';
+import '../../../../../data/repositories/user_repository.dart';
+import '../../../authentication.dart';
 
 import '../cubit/login_cubit.dart';
 import 'login_form.dart';

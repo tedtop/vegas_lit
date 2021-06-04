@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_game.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/matchup_card/matchup_card.dart';
+import '../../../../../../config/palette.dart';
+import '../../../../../../data/models/nhl/nhl_game.dart';
+import '../../../../../bet_slip/bet_slip.dart';
+import '../../../../../shared_widgets/abstract_card.dart';
+import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNhlScreen extends StatelessWidget {
   DesktopNhlScreen({this.gameName, this.games, this.parsedTeamData});

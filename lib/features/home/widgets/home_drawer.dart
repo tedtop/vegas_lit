@@ -5,15 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/admin_vault/admin_vault_page.dart';
-import 'package:vegas_lit/features/authentication/authentication.dart';
-import 'package:vegas_lit/features/drawer_pages/faq.dart';
-import 'package:vegas_lit/features/drawer_pages/rules.dart';
-import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
-import 'package:vegas_lit/features/profile/views/profile_page.dart';
+import '../../../config/assets.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../admin_vault/admin_vault_page.dart';
+import '../../authentication/authentication.dart';
+import '../../drawer_pages/faq.dart';
+import '../../drawer_pages/rules.dart';
+import '../../profile/cubit/profile_cubit.dart';
+import '../../profile/views/profile_page.dart';
 import '../cubit/home_cubit.dart';
 
 class HomeDrawer extends StatefulWidget {

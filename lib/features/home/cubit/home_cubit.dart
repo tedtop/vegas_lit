@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/user.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import '../../../data/models/user.dart';
+import '../../../data/models/wallet.dart';
+import '../../../data/repositories/user_repository.dart';
 
 part 'home_state.dart';
 

@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/bet.dart';
+import '../../../home/home.dart';
+import '../../cubit/open_bets_cubit.dart';
 
 import '../open_bets_card.dart';
 

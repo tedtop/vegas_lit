@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import '../../../../../data/repositories/user_repository.dart';
 
 import '../../../authentication.dart';
 

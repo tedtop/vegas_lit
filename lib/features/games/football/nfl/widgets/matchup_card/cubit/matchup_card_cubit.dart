@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
-import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
+import '../../../../../../../data/models/nfl/nfl_game.dart';
+import '../../../models/nfl_team.dart';
 
 part 'matchup_card_state.dart';
 

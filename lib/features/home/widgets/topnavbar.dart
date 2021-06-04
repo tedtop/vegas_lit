@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
+import '../../../config/palette.dart';
+import '../../bet_slip/bet_slip.dart';
 
 import '../home.dart';
 

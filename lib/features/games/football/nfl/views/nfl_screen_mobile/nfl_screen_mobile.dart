@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
-import 'package:vegas_lit/features/games/football/nfl/widgets/matchup_card/matchup_card.dart';
+import '../../../../../../data/models/nfl/nfl_game.dart';
+import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNflScreen extends StatelessWidget {
   MobileNflScreen({
