@@ -8,7 +8,7 @@ import 'package:vegas_lit/data/models/wallet.dart';
 
 class UserRepository {
   final _authenticationProvider = FirebaseAuthentication();
-  final _databaseProvider = CloudFirestore();
+  final _databaseProvider = CloudFirestoreClient();
 
   Future<void> signUp({
     @required String email,
@@ -38,11 +38,11 @@ class UserRepository {
       _authenticationProvider.resetPasswordEmail(email: email);
 
   Future<void> saveUserDetails({
-    @required Map userDataMap,
+    @required UserData userData,
     @required String uid,
   }) =>
       _databaseProvider.saveUserDetails(
-        userDataMap: userDataMap,
+        user: userData,
         uid: uid,
       );
 

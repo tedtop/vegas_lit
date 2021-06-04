@@ -211,12 +211,12 @@ class SignUpCubit extends Cubit<SignUpState> {
       final currentUser = await _userRepository.getCurrentUser();
       await _userRepository.saveUserDetails(
         uid: currentUser.uid,
-        userDataMap: UserData(
+        userData: UserData(
           location: state.americanState.value,
           email: state.email.value,
           uid: currentUser.uid,
           username: state.username.value,
-        ).toMap(),
+        ),
       );
       _authenticationBloc.add(CheckProfileComplete(currentUser));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));

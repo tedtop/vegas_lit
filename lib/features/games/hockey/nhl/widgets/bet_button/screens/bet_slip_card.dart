@@ -303,7 +303,7 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                                               .updateOpenBets(
                                                 betAmount:
                                                     betButtonState.betAmount,
-                                                openBetsData: BetData(
+                                                betsData: BetData(
                                                   clientVersion:
                                                       await _getAppVersion(),
                                                   dataProvider: 'sportsdata.io',
@@ -357,7 +357,7 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                                                           : 'away',
                                                   dateTime:
                                                       fetchTimeEST().toString(),
-                                                ).toMap(),
+                                                ),
                                                 currentUserId: currentUserId,
                                               );
 

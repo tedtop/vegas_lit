@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_game.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:intl/intl.dart';
@@ -181,12 +182,12 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
 
   Future<void> updateOpenBets({
     @required String currentUserId,
-    @required Map openBetsData,
+    @required BetData betsData,
     @required int betAmount,
   }) async {
     await _betsRepository.saveBet(
       uid: currentUserId,
-      openBetsDataMap: openBetsData,
+      betsData: betsData,
       cutBalance: betAmount,
     );
   }

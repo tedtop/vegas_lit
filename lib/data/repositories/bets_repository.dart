@@ -3,7 +3,7 @@ import 'package:vegas_lit/data/dataproviders/cloud_firestore.dart';
 import 'package:vegas_lit/data/models/bet.dart';
 
 class BetsRepository {
-  final _databaseProvider = CloudFirestore();
+  final _databaseProvider = CloudFirestoreClient();
 
   Stream<List<BetData>> fetchOpenBets({@required String uid}) =>
       _databaseProvider.fetchOpenBets(uid: uid);
@@ -17,12 +17,12 @@ class BetsRepository {
 
   Future<void> saveBet({
     @required String uid,
-    @required Map openBetsDataMap,
+    @required BetData betsData,
     @required int cutBalance,
   }) =>
-      _databaseProvider.saveBet(
+      _databaseProvider.saveBets(
         uid: uid,
-        betDataMap: openBetsDataMap,
+        betsData: betsData,
         cutBalance: cutBalance,
       );
 

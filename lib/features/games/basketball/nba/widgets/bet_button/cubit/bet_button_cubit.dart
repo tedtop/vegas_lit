@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/data/models/nba/nba_game.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
@@ -173,12 +174,12 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
 
   Future<void> updateOpenBets({
     @required String currentUserId,
-    @required Map openBetsData,
+    @required BetData betsData,
     @required int betAmount,
   }) async {
     await _betsRepository.saveBet(
       uid: currentUserId,
-      openBetsDataMap: openBetsData,
+      betsData: betsData,
       cutBalance: betAmount,
     );
   }
