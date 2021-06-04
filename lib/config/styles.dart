@@ -248,6 +248,26 @@ class Styles {
   );
 
   /// --> PROFILE
+  static final profileUsernameLetter = GoogleFonts.nunito(
+    fontSize: 60,
+    fontWeight: FontWeight.bold,
+  );
+  static final profileUsername = GoogleFonts.nunito(
+      fontSize: 24, fontWeight: FontWeight.bold, color: Palette.cream);
+  static final profileFieldDescription = GoogleFonts.nunito(
+    fontSize: 14,
+    color: Palette.green,
+    shadows: <Shadow>[
+      Shadow(
+        offset: const Offset(0, 2.0),
+        blurRadius: 2.0,
+        color: const Color(0xFF000000).withOpacity(0.25),
+      ),
+    ],
+  );
+  static final profileFieldValue =
+      GoogleFonts.nunito(fontSize: 20, color: Palette.cream);
+
   /// --> SHARED WIDGETS
   ///
 }

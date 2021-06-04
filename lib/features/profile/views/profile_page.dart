@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -117,10 +116,7 @@ class _PicWithName extends StatelessWidget {
                 border: Border.all(color: Palette.cream)),
             child: Text(
               username.substring(0, 1).toUpperCase(),
-              style: GoogleFonts.nunito(
-                fontSize: 60,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Styles.profileUsernameLetter,
             ),
           ),
         ),
@@ -131,10 +127,7 @@ class _PicWithName extends StatelessWidget {
             children: [
               Text(
                 username,
-                style: GoogleFonts.nunito(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Palette.cream),
+                style: Styles.profileUsername,
               ),
             ],
           ),
@@ -163,21 +156,11 @@ class _UserDetails extends StatelessWidget {
           child: RichText(
             text: TextSpan(
               text: 'State\n',
-              style: GoogleFonts.nunito(
-                fontSize: 14,
-                color: Palette.green,
-                shadows: <Shadow>[
-                  Shadow(
-                    offset: const Offset(0, 2.0),
-                    blurRadius: 2.0,
-                    color: const Color(0xFF000000).withOpacity(0.25),
-                  ),
-                ],
-              ),
+              style: Styles.profileFieldDescription,
               children: [
                 TextSpan(
                   text: state,
-                  style: GoogleFonts.nunito(fontSize: 20, color: Palette.cream),
+                  style: Styles.profileFieldValue,
                 )
               ],
             ),
@@ -188,21 +171,11 @@ class _UserDetails extends StatelessWidget {
           child: RichText(
             text: TextSpan(
               text: 'Email\n',
-              style: GoogleFonts.nunito(
-                fontSize: 14,
-                color: Palette.green,
-                shadows: <Shadow>[
-                  Shadow(
-                    offset: const Offset(0, 2.0),
-                    blurRadius: 2.0,
-                    color: const Color(0xFF000000).withOpacity(0.25),
-                  ),
-                ],
-              ),
+              style: Styles.profileFieldDescription,
               children: [
                 TextSpan(
                   text: email,
-                  style: GoogleFonts.nunito(fontSize: 20, color: Palette.cream),
+                  style: Styles.profileFieldValue,
                 )
               ],
             ),
