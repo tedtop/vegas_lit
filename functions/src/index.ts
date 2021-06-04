@@ -121,7 +121,7 @@ export const resolveBets = functions.pubsub
                                 admin.firestore.FieldValue.increment(
                                   totalWinAmount
                                 ),
-                              riskedAmount:
+                              pendingRiskedAmount:
                                 admin.firestore.FieldValue.increment(
                                   -amountBet
                                 ),
@@ -151,7 +151,7 @@ export const resolveBets = functions.pubsub
                                 admin.firestore.FieldValue.increment(
                                   -amountWin
                                 ),
-                              riskedAmount:
+                              pendingRiskedAmount:
                                 admin.firestore.FieldValue.increment(
                                   -amountBet
                                 ),
@@ -441,7 +441,7 @@ export const resetContestWeek = functions.pubsub
                       totalLoss: 0,
                       totalBets: 0,
                       rank: 0,
-                      riskedAmount: 0,
+                      pendingRiskedAmount: 0,
                       totalRewards: 0,
                       totalOpenBets: 0,
                       totalRiskedAmount: 0,

@@ -187,7 +187,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '\$${widget.player.accountBalance + widget.player.riskedAmount}',
+                '\$${widget.player.accountBalance + widget.player.pendingRiskedAmount}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,

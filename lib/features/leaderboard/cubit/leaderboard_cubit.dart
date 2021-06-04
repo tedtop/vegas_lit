@@ -39,8 +39,8 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
           await _userRepository.fetchLeaderboardDaysUserData(week: week)
             ..sort(
               (b, a) {
-                final profitCompare = (a.accountBalance + a.riskedAmount)
-                    .compareTo((b.accountBalance + b.riskedAmount));
+                final profitCompare = (a.accountBalance + a.pendingRiskedAmount)
+                    .compareTo((b.accountBalance + b.pendingRiskedAmount));
                 if (profitCompare == 0) {
                   return (a.totalBets).compareTo((b.totalBets));
                 }
@@ -65,8 +65,8 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
       (event) {
         event.sort(
           (b, a) {
-            final profitCompare = (a.accountBalance + a.riskedAmount)
-                .compareTo((b.accountBalance + b.riskedAmount));
+            final profitCompare = (a.accountBalance + a.pendingRiskedAmount)
+                .compareTo((b.accountBalance + b.pendingRiskedAmount));
             if (profitCompare == 0) {
               return (a.totalBets).compareTo((b.totalBets));
             }

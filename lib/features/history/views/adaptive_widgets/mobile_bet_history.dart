@@ -60,7 +60,7 @@ class _MobileHistoryBoard extends StatelessWidget {
                       BetHistoryBoardText(
                         leftText: 'Winnings',
                         rightText:
-                            '\$${state.userWallet.totalRiskedAmount + state.userWallet.totalProfit - state.userWallet.totalLoss - state.userWallet.riskedAmount}',
+                            '\$${state.userWallet.totalRiskedAmount + state.userWallet.totalProfit - state.userWallet.totalLoss - state.userWallet.pendingRiskedAmount}',
                         color: Palette.cream,
                       ),
                       BetHistoryBoardText(

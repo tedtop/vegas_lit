@@ -15,7 +15,7 @@ class Wallet extends Equatable {
     @required this.totalBetsLost,
     @required this.totalOpenBets,
     @required this.potentialWinAmount,
-    @required this.riskedAmount,
+    @required this.pendingRiskedAmount,
     @required this.rank,
     @required this.biggestWinAmount,
     @required this.totalRiskedAmount,
@@ -34,7 +34,7 @@ class Wallet extends Equatable {
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],
       totalBets: map['totalBets'],
-      riskedAmount: map['riskedAmount'],
+      pendingRiskedAmount: map['pendingRiskedAmount'],
       totalBetsWon: map['totalBetsWon'],
       totalBetsLost: map['totalBetsLost'],
       totalOpenBets: map['totalOpenBets'],
@@ -54,7 +54,7 @@ class Wallet extends Equatable {
       totalProfit: map['totalProfit'],
       totalRewards: map['totalRewards'],
       accountBalance: map['accountBalance'],
-      riskedAmount: map['riskedAmount'],
+      pendingRiskedAmount: map['pendingRiskedAmount'],
       rank: map['rank'],
       totalBets: map['totalBets'],
       totalBetsWon: map['totalBetsWon'],
@@ -79,7 +79,7 @@ class Wallet extends Equatable {
   final int totalRiskedAmount;
   final int potentialWinAmount;
   final int biggestWinAmount;
-  final int riskedAmount;
+  final int pendingRiskedAmount;
   final int rank;
 
   Map<String, dynamic> toMap() => {
@@ -92,7 +92,7 @@ class Wallet extends Equatable {
         'totalBets': totalBets,
         'totalBetsWon': totalBetsWon,
         'totalBetsLost': totalBetsLost,
-        'riskedAmount': riskedAmount,
+        'pendingRiskedAmount': pendingRiskedAmount,
         'rank': rank,
         'totalOpenBets': totalOpenBets,
         'potentialWinAmount': potentialWinAmount,
@@ -114,7 +114,7 @@ class Wallet extends Equatable {
     int potentialWinAmount,
     int biggestWinAmount,
     int totalRiskedAmount,
-    int riskedAmount,
+    int pendingRiskedAmount,
     int rank,
   }) {
     return Wallet(
@@ -131,7 +131,7 @@ class Wallet extends Equatable {
       potentialWinAmount: potentialWinAmount ?? this.potentialWinAmount,
       biggestWinAmount: biggestWinAmount ?? this.biggestWinAmount,
       totalRiskedAmount: totalRiskedAmount ?? this.totalRiskedAmount,
-      riskedAmount: riskedAmount ?? this.riskedAmount,
+      pendingRiskedAmount: pendingRiskedAmount ?? this.pendingRiskedAmount,
       rank: rank ?? this.rank,
     );
   }
@@ -148,7 +148,7 @@ class Wallet extends Equatable {
       totalBets,
       rank,
       totalBetsWon,
-      riskedAmount,
+      pendingRiskedAmount,
       totalBetsLost,
       totalOpenBets,
       totalRiskedAmount,

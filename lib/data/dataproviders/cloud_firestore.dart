@@ -37,7 +37,7 @@ class CloudFirestoreClient {
       biggestWinAmount: 0,
       username: user.username,
       totalRewards: 0,
-      riskedAmount: 0,
+      pendingRiskedAmount: 0,
     );
     userDetailsWriteBatch
       ..set(userReference, user.toMap(), SetOptions(merge: true))
@@ -118,7 +118,7 @@ class CloudFirestoreClient {
           'accountBalance': FieldValue.increment(-cutBalance),
           'potentialWinAmount': FieldValue.increment(betsData.betProfit),
           'totalRiskedAmount': FieldValue.increment(betsData.betAmount),
-          'riskedAmount': FieldValue.increment(betsData.betAmount),
+          'pendingRiskedAmount': FieldValue.increment(betsData.betAmount),
         },
       );
     await saveBetsWrite.commit();
