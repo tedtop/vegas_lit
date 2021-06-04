@@ -36,20 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  bottom_sheet_bar:
-    dependency: "direct main"
-    description:
-      name: bottom_sheet_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
-  cached_network_image:
-    dependency: transitive
-    description:
-      name: cached_network_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -71,13 +57,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  circular_profile_avatar:
-    dependency: "direct main"
-    description:
-      name: circular_profile_avatar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1-nullsafety"
   clock:
     dependency: transitive
     description:
@@ -148,27 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
-  custom_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: custom_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.1"
   dio:
     dependency: "direct main"
     description:
@@ -300,20 +258,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.3"
-  flutter_blurhash:
-    dependency: transitive
-    description:
-      name: flutter_blurhash
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.6.0"
-  flutter_cache_manager:
-    dependency: transitive
-    description:
-      name: flutter_cache_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
   flutter_countdown_timer:
     dependency: "direct main"
     description:
@@ -335,13 +279,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0"
-  flutter_multi_formatter:
-    dependency: "direct main"
-    description:
-      name: flutter_multi_formatter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.6"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -408,13 +345,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.2"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.15.0"
   http:
     dependency: transitive
     description:
@@ -436,13 +366,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  infinite_listview:
-    dependency: transitive
-    description:
-      name: infinite_listview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   intl:
     dependency: "direct main"
     description:
@@ -464,13 +387,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  linked_scroll_controller:
-    dependency: transitive
-    description:
-      name: linked_scroll_controller
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   matcher:
     dependency: transitive
     description:
@@ -478,13 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.10"
-  measure_size:
-    dependency: transitive
-    description:
-      name: measure_size
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   meta:
     dependency: "direct dev"
     description:
@@ -499,20 +408,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  numberpicker:
-    dependency: "direct main"
-    description:
-      name: numberpicker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  octo_image:
-    dependency: transitive
-    description:
-      name: octo_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0+1"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -577,7 +472,7 @@ packages:
     source: hosted
     version: "0.2.1"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -639,27 +534,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  pluto_filtered_list:
-    dependency: transitive
-    description:
-      name: pluto_filtered_list
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
-  pluto_grid:
-    dependency: "direct main"
-    description:
-      name: pluto_grid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
-  pluto_inside:
-    dependency: transitive
-    description:
-      name: pluto_inside
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   process:
     dependency: transitive
     description:
@@ -695,13 +569,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.1"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.26.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -714,20 +581,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
-  sqflite:
-    dependency: transitive
-    description:
-      name: sqflite
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0+3"
-  sqflite_common:
-    dependency: transitive
-    description:
-      name: sqflite_common
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0+2"
   stack_trace:
     dependency: transitive
     description:
@@ -749,27 +602,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  syncfusion_flutter_core:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "18.4.49"
-  syncfusion_flutter_datagrid:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_datagrid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "18.4.49-beta"
-  synchronized:
-    dependency: transitive
-    description:
-      name: synchronized
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   term_glyph:
     dependency: transitive
     description:
@@ -798,13 +630,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-  universal_html:
-    dependency: "direct main"
-    description:
-      name: universal_html
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.8"
   universal_io:
     dependency: transitive
     description:
@@ -854,13 +679,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  uuid:
-    dependency: "direct main"
-    description:
-      name: uuid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -905,4 +723,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.13.0 <3.0.0"
-  flutter: ">=1.24.0-10.2.pre"
+  flutter: ">=1.24.0-7.0"
