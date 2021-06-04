@@ -93,7 +93,7 @@ class _EmailInput extends StatelessWidget {
                     LineAwesomeIcons.user,
                     color: Palette.cream,
                   ),
-                  labelText: 'Email',
+                  labelText: 'Email Address',
                   helperText: '',
                   errorText: state.email.invalid ? 'Invalid email' : null,
                   focusedBorder: Styles.logInInputFocusedBorder,

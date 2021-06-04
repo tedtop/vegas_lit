@@ -97,6 +97,9 @@ class _UsernameInput extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                ],
                 cursorColor: Palette.cream,
                 style: Styles.signUpFieldText,
                 key: const Key('signUpForm_usernameInput_textField'),
@@ -129,11 +132,13 @@ class _UsernameInput extends StatelessWidget {
 
 String usernameError(UsernameValidationError validationError) {
   if (validationError == UsernameValidationError.invalid) {
-    return 'Username should be 5-15 chars';
+    return 'Invalid Format';
   } else if (validationError == UsernameValidationError.empty) {
     return 'Required';
   } else if (validationError == UsernameValidationError.exist) {
     return 'Username already exists';
+  } else if (validationError == UsernameValidationError.characters) {
+    return 'Username should be 3-10 chars';
   } else {
     return null;
   }
@@ -637,7 +642,8 @@ class _AgreementCheck extends StatelessWidget {
                   state.agreement.invalid
                       ? Text(
                           'Required',
-                          style: Styles.authFieldError.copyWith(color: Palette.red),
+                          style: Styles.authFieldError
+                              .copyWith(color: Palette.red),
                         )
                       : Container(),
                 ],
