@@ -30,6 +30,7 @@ class CloudFirestoreClient {
       totalOpenBets: 0,
       totalRiskedAmount: 0,
       totalProfit: 0,
+      rank: 0,
       totalBetsWon: 0,
       uid: uid,
       potentialWinAmount: 0,

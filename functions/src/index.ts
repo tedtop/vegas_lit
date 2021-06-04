@@ -121,6 +121,10 @@ export const resolveBets = functions.pubsub
                                 admin.firestore.FieldValue.increment(
                                   totalWinAmount
                                 ),
+                              riskedAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
                               totalBetsWon:
                                 admin.firestore.FieldValue.increment(1),
                               potentialWinAmount:
@@ -146,6 +150,10 @@ export const resolveBets = functions.pubsub
                               potentialWinAmount:
                                 admin.firestore.FieldValue.increment(
                                   -amountWin
+                                ),
+                              riskedAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountBet
                                 ),
                             });
                           await sendMessageToSlack(
@@ -432,6 +440,8 @@ export const resetContestWeek = functions.pubsub
                       totalBetsLost: 0,
                       totalLoss: 0,
                       totalBets: 0,
+                      rank: 0,
+                      riskedAmount: 0,
                       totalRewards: 0,
                       totalOpenBets: 0,
                       totalRiskedAmount: 0,

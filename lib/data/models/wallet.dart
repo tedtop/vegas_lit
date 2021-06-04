@@ -16,6 +16,7 @@ class Wallet extends Equatable {
     @required this.totalOpenBets,
     @required this.potentialWinAmount,
     @required this.riskedAmount,
+    @required this.rank,
     @required this.biggestWinAmount,
     @required this.totalRiskedAmount,
   });
@@ -29,6 +30,7 @@ class Wallet extends Equatable {
       username: map['username'],
       totalRewards: map['totalRewards'],
       totalLoss: map['totalLoss'],
+      rank: map['rank'],
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],
       totalBets: map['totalBets'],
@@ -53,6 +55,7 @@ class Wallet extends Equatable {
       totalRewards: map['totalRewards'],
       accountBalance: map['accountBalance'],
       riskedAmount: map['riskedAmount'],
+      rank: map['rank'],
       totalBets: map['totalBets'],
       totalBetsWon: map['totalBetsWon'],
       totalBetsLost: map['totalBetsLost'],
@@ -77,6 +80,7 @@ class Wallet extends Equatable {
   final int potentialWinAmount;
   final int biggestWinAmount;
   final int riskedAmount;
+  final int rank;
 
   Map<String, dynamic> toMap() => {
         'uid': uid,
@@ -89,6 +93,7 @@ class Wallet extends Equatable {
         'totalBetsWon': totalBetsWon,
         'totalBetsLost': totalBetsLost,
         'riskedAmount': riskedAmount,
+        'rank': rank,
         'totalOpenBets': totalOpenBets,
         'potentialWinAmount': potentialWinAmount,
         'biggestWinAmount': biggestWinAmount,
@@ -110,6 +115,7 @@ class Wallet extends Equatable {
     int biggestWinAmount,
     int totalRiskedAmount,
     int riskedAmount,
+    int rank,
   }) {
     return Wallet(
       uid: uid ?? this.uid,
@@ -126,6 +132,7 @@ class Wallet extends Equatable {
       biggestWinAmount: biggestWinAmount ?? this.biggestWinAmount,
       totalRiskedAmount: totalRiskedAmount ?? this.totalRiskedAmount,
       riskedAmount: riskedAmount ?? this.riskedAmount,
+      rank: rank ?? this.rank,
     );
   }
 
@@ -139,6 +146,7 @@ class Wallet extends Equatable {
       totalLoss,
       accountBalance,
       totalBets,
+      rank,
       totalBetsWon,
       riskedAmount,
       totalBetsLost,
