@@ -23,6 +23,10 @@ class Themes {
         elevation: MaterialStateProperty.all(18.0),
       ),
     ),
+    textSelectionTheme: const TextSelectionThemeData(
+        selectionHandleColor: Palette.cream,
+        selectionColor: Palette.cream,
+        cursorColor: Palette.cream),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     appBarTheme: const AppBarTheme(
       color: Palette.darkGrey,

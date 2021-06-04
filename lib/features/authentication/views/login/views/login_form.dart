@@ -232,87 +232,94 @@ class __ResetPageState extends State<_ResetPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
-        color: Palette.lightGrey,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            'Reset Password',
-            textAlign: TextAlign.center,
-            style: Styles.authNormalText.copyWith(fontSize: 26),
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
+    return Padding(
+      padding: EdgeInsets.only(
+          top: 8.0,
+          left: 8.0,
+          right: 8.0,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 8.0),
+      child: Container(
+        padding: const EdgeInsets.all(20.0),
+        decoration: const BoxDecoration(
+          color: Palette.lightGrey,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Reset Password',
+              textAlign: TextAlign.center,
+              style: Styles.authNormalText.copyWith(fontSize: 26),
             ),
-            decoration: InputDecoration(
-              errorText: isEmailValid,
-              hintText: 'Enter your email',
-              border: InputBorder.none,
-              isDense: true,
-              hintStyle: Styles.signUpFieldHint,
-            ),
-            keyboardType: TextInputType.emailAddress,
-            onChanged: (newText) {
-              setState(() {
-                email = newText;
-              });
-            },
-          ),
-          const SizedBox(height: 20),
-          TextButton(
-            child: Text(
-              'Done',
+            const SizedBox(height: 20),
+            TextField(
               style: GoogleFonts.nunito(
-                color: Palette.cream,
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
               ),
+              decoration: InputDecoration(
+                errorText: isEmailValid,
+                hintText: 'Enter your email',
+                border: InputBorder.none,
+                isDense: true,
+                hintStyle: Styles.signUpFieldHint,
+              ),
+              keyboardType: TextInputType.emailAddress,
+              onChanged: (newText) {
+                setState(() {
+                  email = newText;
+                });
+              },
             ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Palette.green),
-            ),
-            onPressed: () async {
-              if (email != null) {
-                if (email.isNotEmpty) {
-                  if (emailValid.hasMatch(email)) {
-                    setState(() {
-                      isEmailValid = null;
-                    });
+            const SizedBox(height: 20),
+            TextButton(
+              child: Text(
+                'Done',
+                style: GoogleFonts.nunito(
+                  color: Palette.cream,
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Palette.green),
+              ),
+              onPressed: () async {
+                if (email != null) {
+                  if (email.isNotEmpty) {
+                    if (emailValid.hasMatch(email)) {
+                      setState(() {
+                        isEmailValid = null;
+                      });
 
-                    await context
-                        .read<LoginCubit>()
-                        .resetPassword(email: email);
-                    FocusScope.of(context).unfocus();
-                    Navigator.pop(context);
+                      await context
+                          .read<LoginCubit>()
+                          .resetPassword(email: email);
+                      FocusScope.of(context).unfocus();
+                      Navigator.pop(context);
+                    } else {
+                      setState(() {
+                        isEmailValid = 'Enter Correct Email!';
+                      });
+                    }
                   } else {
+                    // ignore: avoid_print
+                    print('Don\'t leave the field blank.');
+
                     setState(() {
-                      isEmailValid = 'Enter Correct Email!';
+                      isEmailValid = 'Don\'t leave the field blank.';
                     });
                   }
                 } else {
                   // ignore: avoid_print
-                  print('Don\'t leave the field blank.');
+                  print('Type Something in the Field!');
 
                   setState(() {
-                    isEmailValid = 'Don\'t leave the field blank.';
+                    isEmailValid = 'Type Something in the Field!';
                   });
                 }
-              } else {
-                // ignore: avoid_print
-                print('Type Something in the Field!');
-
-                setState(() {
-                  isEmailValid = 'Type Something in the Field!';
-                });
-              }
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
