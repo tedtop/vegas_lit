@@ -15,6 +15,7 @@ class Wallet extends Equatable {
     @required this.totalBetsLost,
     @required this.totalOpenBets,
     @required this.potentialWinAmount,
+    @required this.riskedAmount,
     @required this.biggestWinAmount,
     @required this.totalRiskedAmount,
   });
@@ -31,6 +32,7 @@ class Wallet extends Equatable {
       totalProfit: map['totalProfit'],
       accountBalance: map['accountBalance'],
       totalBets: map['totalBets'],
+      riskedAmount: map['riskedAmount'],
       totalBetsWon: map['totalBetsWon'],
       totalBetsLost: map['totalBetsLost'],
       totalOpenBets: map['totalOpenBets'],
@@ -50,6 +52,7 @@ class Wallet extends Equatable {
       totalProfit: map['totalProfit'],
       totalRewards: map['totalRewards'],
       accountBalance: map['accountBalance'],
+      riskedAmount: map['riskedAmount'],
       totalBets: map['totalBets'],
       totalBetsWon: map['totalBetsWon'],
       totalBetsLost: map['totalBetsLost'],
@@ -73,6 +76,7 @@ class Wallet extends Equatable {
   final int totalRiskedAmount;
   final int potentialWinAmount;
   final int biggestWinAmount;
+  final int riskedAmount;
 
   Map<String, dynamic> toMap() => {
         'uid': uid,
@@ -84,6 +88,7 @@ class Wallet extends Equatable {
         'totalBets': totalBets,
         'totalBetsWon': totalBetsWon,
         'totalBetsLost': totalBetsLost,
+        'riskedAmount': riskedAmount,
         'totalOpenBets': totalOpenBets,
         'potentialWinAmount': potentialWinAmount,
         'biggestWinAmount': biggestWinAmount,
@@ -104,6 +109,7 @@ class Wallet extends Equatable {
     int potentialWinAmount,
     int biggestWinAmount,
     int totalRiskedAmount,
+    int riskedAmount,
   }) {
     return Wallet(
       uid: uid ?? this.uid,
@@ -119,6 +125,7 @@ class Wallet extends Equatable {
       potentialWinAmount: potentialWinAmount ?? this.potentialWinAmount,
       biggestWinAmount: biggestWinAmount ?? this.biggestWinAmount,
       totalRiskedAmount: totalRiskedAmount ?? this.totalRiskedAmount,
+      riskedAmount: riskedAmount ?? this.riskedAmount,
     );
   }
 
@@ -133,6 +140,7 @@ class Wallet extends Equatable {
       accountBalance,
       totalBets,
       totalBetsWon,
+      riskedAmount,
       totalBetsLost,
       totalOpenBets,
       totalRiskedAmount,

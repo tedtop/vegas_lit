@@ -36,6 +36,7 @@ class CloudFirestoreClient {
       biggestWinAmount: 0,
       username: user.username,
       totalRewards: 0,
+      riskedAmount: 0,
     );
     userDetailsWriteBatch
       ..set(userReference, user.toMap(), SetOptions(merge: true))

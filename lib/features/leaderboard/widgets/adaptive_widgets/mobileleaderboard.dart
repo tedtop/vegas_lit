@@ -187,7 +187,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '\$${widget.player.accountBalance + widget.player.totalRiskedAmount}',
+                '\$${widget.player.accountBalance + widget.player.riskedAmount}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,
@@ -204,7 +204,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
                 style: Styles.awayTeam,
               ),
               Text(
-                'W/L: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
+                'Wins: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
                 style: Styles.awayTeam,
               ),
             ],

@@ -31,8 +31,10 @@ class Leaderboard extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case LeaderboardStatus.initial:
-                return const CircularProgressIndicator(
-                  color: Palette.cream,
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Palette.cream,
+                  ),
                 );
                 break;
               default:
