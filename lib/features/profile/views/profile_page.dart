@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
 
-import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/repositories/user_repository.dart';
-import '../../authentication/authentication.dart';
 import '../../shared_widgets/app_bar.dart';
 import '../cubit/profile_cubit.dart';
 
@@ -32,55 +32,45 @@ class Profile extends StatelessWidget {
       appBar: AppBarWidget(),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                'MY PROFILE',
-                textAlign: TextAlign.center,
-                style: Styles.pageTitle,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              BlocBuilder<ProfileCubit, ProfileState>(
-                builder: (context, state) {
-                  switch (state.status) {
-                    case ProfileStatus.opened:
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          width: 380,
-                          decoration: BoxDecoration(
-                            color: Palette.lightGrey,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Palette.cream),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _PicWithName(),
-                                const _UserDetails(),
-                                const _Signout()
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-
-                      break;
-                    default:
-                      return const CircularProgressIndicator(
-                        color: Palette.cream,
-                      );
-                      break;
-                  }
-                },
-              ),
-            ],
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  'MY PROFILE',
+                  textAlign: TextAlign.center,
+                  style: Styles.pageTitle,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    switch (state.status) {
+                      case ProfileStatus.opened:
+                        return AbstractCard(
+                          padding: const EdgeInsets.fromLTRB(28, 33, 22, 40),
+                          widgets: [
+                            _AvatarInput(),
+                            const SizedBox(height: 30),
+                            _UsernameInput(),
+                            _EmailInput(),
+                            _StateInput(),
+                            // _MobileNumberInput(),
+                            // _EditButton(),
+                          ],
+                        );
+                        break;
+                      default:
+                        return const CircularProgressIndicator(
+                          color: Palette.cream,
+                        );
+                        break;
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -88,49 +78,150 @@ class Profile extends StatelessWidget {
   }
 }
 
-class _PicWithName extends StatelessWidget {
+class _AvatarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final username = context.watch<ProfileCubit>().state.userData.username;
-    return Stack(
-      //fit: StackFit.expand,
-      alignment: Alignment.bottomLeft,
-      children: [
-        Container(
-          width: 380,
-          height: 200,
-          padding: const EdgeInsets.only(bottom: 60),
-          child: Image.asset(
-            Images.allSportsBackground,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 30),
+    return ClipPath(
+      child: Center(
+        child: ClipOval(
           child: Container(
             alignment: Alignment.center,
+            color: Palette.darkGrey,
             height: 100.0,
             width: 100.0,
-            decoration: BoxDecoration(
-                color: Palette.darkGrey,
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: Palette.cream)),
             child: Text(
               username.substring(0, 1).toUpperCase(),
-              style: Styles.profileUsernameLetter,
+              style: GoogleFonts.nunito(
+                fontSize: 60,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(left: 160),
-          height: 50,
-          child: Column(
-            children: [
-              Text(
-                username,
-                style: Styles.profileUsername,
+      ),
+    );
+  }
+}
+
+class _UsernameInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        final username = context.watch<ProfileCubit>().state.userData.username;
+        textInputController.text = username;
+        return Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'Username',
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
               ),
-            ],
+            ),
+            Expanded(
+              child: TextField(
+                controller: textInputController,
+                cursorColor: Palette.cream,
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300,
+                ),
+                key: const Key('signUpForm_usernameInput_textField'),
+                onChanged: print,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 6,
+                    horizontal: 8,
+                  ),
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                    color: Palette.cream,
+                  ),
+                  filled: true,
+                  fillColor: Palette.darkGrey,
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
+                  ),
+                  isDense: true,
+                  hintText: 'Username',
+                  helperText: '',
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _EmailInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    final email = context.watch<ProfileCubit>().state.userData.email;
+    textInputController.text = email;
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Text(
+              'Email Address',
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: TextField(
+            controller: textInputController,
+            cursorColor: Palette.cream,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+            ),
+            key: const Key('signUpForm_emailInput_textField'),
+            onChanged: print,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 6,
+                horizontal: 8,
+              ),
+              filled: true,
+              fillColor: Palette.darkGrey,
+              hintStyle: GoogleFonts.nunito(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                color: Palette.cream,
+              ),
+
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(4),
+                ),
+              ),
+              errorStyle: GoogleFonts.nunito(fontSize: 10),
+              isDense: true,
+              hintText: 'Email Address',
+              helperText: '',
+              // errorText: state.email.invalid ? 'Write Correct E-mail' : '',
+            ),
           ),
         ),
       ],
@@ -138,85 +229,181 @@ class _PicWithName extends StatelessWidget {
   }
 }
 
-class _UserDetails extends StatelessWidget {
-  const _UserDetails({Key key}) : super(key: key);
+// ignore: must_be_immutable
+class _StateInput extends StatelessWidget {
+  final TextEditingController textInputController = TextEditingController();
+
+  GlobalKey _dropdownButtonKey;
+
+  void openDropdown() {
+    GestureDetector detector;
+    void searchForGestureDetector(BuildContext element) {
+      element.visitChildElements((element) {
+        if (element.widget != null && element.widget is GestureDetector) {
+          detector = element.widget;
+          return false;
+        } else {
+          searchForGestureDetector(element);
+        }
+
+        return true;
+      });
+    }
+
+    searchForGestureDetector(_dropdownButtonKey.currentContext);
+    assert(detector != null);
+
+    detector.onTap();
+  }
 
   @override
   Widget build(BuildContext context) {
     final state = context.watch<ProfileCubit>().state.userData.location;
-    final email = context.watch<ProfileCubit>().state.userData.email;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    textInputController.text = state;
+    return Row(
       children: [
-        const SizedBox(
-          height: 30,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-          child: RichText(
-            text: TextSpan(
-              text: 'State\n',
-              style: Styles.profileFieldDescription,
-              children: [
-                TextSpan(
-                  text: state,
-                  style: Styles.profileFieldValue,
-                )
-              ],
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Text(
+              'State',
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+              ),
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-          child: RichText(
-            text: TextSpan(
-              text: 'Email\n',
-              style: Styles.profileFieldDescription,
-              children: [
-                TextSpan(
-                  text: email,
-                  style: Styles.profileFieldValue,
-                )
-              ],
-            ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  width: 80,
+                  child: TextField(
+                    controller: textInputController,
+                    onChanged: print,
+                    style: GoogleFonts.nunito(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                    ),
+                    cursorColor: Palette.cream,
+                    key: const Key('signUpForm_stateInput_textField'),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      suffixIconConstraints:
+                          const BoxConstraints(maxHeight: 10, maxWidth: 25),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 8,
+                      ),
+                      filled: true,
+                      fillColor: Palette.darkGrey,
+                      hintStyle: GoogleFonts.nunito(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        color: Palette.cream,
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4),
+                          bottomLeft: Radius.circular(4),
+                        ),
+                      ),
+                      isDense: true,
+                      hintText: 'State',
+                      helperText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        const SizedBox(
-          height: 30,
         ),
       ],
     );
   }
 }
 
-class _Signout extends StatelessWidget {
-  const _Signout({Key key}) : super(key: key);
+// class _MobileNumberInput extends StatelessWidget {
+//   final TextEditingController textInputController = TextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     final number = context.watch<ProfileCubit>().state.userData.phone;
+//     textInputController.text = number.toString();
+//     return Row(
+//       children: [
+//         Expanded(
+//           child: Padding(
+//             padding: const EdgeInsets.only(bottom: 20),
+//             child: Text(
+//               'Mobile Number',
+//               style: GoogleFonts.nunito(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w300,
+//               ),
+//             ),
+//           ),
+//         ),
+//         Expanded(
+//           child: TextField(
+//             autocorrect: false,
+//             inputFormatters: [MaskedInputFormater('(###) ###-####')],
+//             onChanged: print,
+//             controller: textInputController,
+//             style: GoogleFonts.nunito(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w300,
+//             ),
+//             key: const Key('signUpForm_mobileNumberInput_textField'),
+//             cursorColor: Palette.cream,
+//             keyboardType: TextInputType.phone,
+//             decoration: InputDecoration(
+//               contentPadding: const EdgeInsets.symmetric(
+//                 vertical: 6,
+//                 horizontal: 8,
+//               ),
+//               hintStyle: GoogleFonts.nunito(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w300,
+//                 color: Palette.cream,
+//               ),
+//               filled: true,
+//               fillColor: Palette.darkGrey,
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          ElevatedButton(
-            style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0.4),
-                backgroundColor: MaterialStateProperty.all(Palette.red)),
-            child: Text(
-              'Sign out',
-              style: Styles.normalTextBold,
-            ),
-            onPressed: () {
-              context
-                  .read<AuthenticationBloc>()
-                  .add(AuthenticationLogoutRequested());
-            },
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-        ],
-      ),
-    );
-  }
-}
+//               border: const OutlineInputBorder(
+//                 borderRadius: BorderRadius.all(
+//                   Radius.circular(4),
+//                 ),
+//               ),
+//               isDense: true,
+//               hintText: 'Mobile Number',
+//               helperText: '',
+//               // errorText: state.number.invalid ? 'Wrong Mobile Number' : null,
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+// class _EditButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         const Expanded(
+//           child: SizedBox(),
+//         ),
+//         Expanded(
+//           child: DefaultButton(
+//             action: () {},
+//             text: 'EDIT',
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
