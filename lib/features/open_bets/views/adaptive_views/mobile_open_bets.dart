@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../home/home.dart';
@@ -120,14 +121,17 @@ class _MobileOpenBetsContentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bets = context.select((OpenBetsCubit cubit) => cubit.state.bets);
+    // final bets = context.select((OpenBetsCubit cubit) => cubit.state.bets);
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
       itemCount: bets.length,
       itemBuilder: (context, index) {
-        return OpenBetsSlip(
-          openBets: bets[index],
+        return Center(
+          child: OpenBetsSlip(
+            openBets: bets[index],
+          ),
         );
       },
     );

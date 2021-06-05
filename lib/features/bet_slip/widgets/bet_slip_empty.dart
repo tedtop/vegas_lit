@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import '../../../config/styles.dart';
-import '../../home/widgets/bottombar.dart';
 import '../../shared_widgets/abstract_card.dart';
-import 'bet_slip_page.dart';
 
 class EmptyBetSlip extends StatelessWidget {
   @override
@@ -11,7 +9,7 @@ class EmptyBetSlip extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          BetSlipUpper(),
+          //BetSlipUpper(),
           AbstractCard(
             crossAxisAlignment: CrossAxisAlignment.start,
             widgets: [
@@ -34,7 +32,6 @@ class EmptyBetSlip extends StatelessWidget {
               ),
             ],
           ),
-          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );

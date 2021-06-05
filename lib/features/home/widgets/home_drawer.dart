@@ -33,6 +33,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final currentUserId = context.select(
       (AuthenticationBloc authenticationBloc) =>
           authenticationBloc.state?.user?.uid,
@@ -75,6 +76,16 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         Navigator.of(context).pop();
                       },
                     ),
+                    width > 1000
+                        ? const SizedBox()
+                        : ListTile(
+                            title:
+                                Text('BET SLIP', style: Styles.normalTextBold),
+                            onTap: () {
+                              context.read<HomeCubit>().homeChange(1);
+                              Navigator.of(context).pop();
+                            },
+                          ),
                     ListTile(
                       title: Text('OPEN BETS', style: Styles.normalTextBold),
                       onTap: () {

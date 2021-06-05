@@ -1,13 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../home/widgets/bottombar.dart';
 import '../../interstitial/screens/interstitial_page.dart';
 import '../../shared_widgets/abstract_card.dart';
-
-import 'bet_slip_page.dart';
 
 class RewardedBetSlip extends StatelessWidget {
   RewardedBetSlip();
@@ -19,7 +18,7 @@ class RewardedBetSlip extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          BetSlipUpper(),
+          //BetSlipUpper(),
           AbstractCard(
             widgets: [
               Text(

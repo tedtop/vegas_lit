@@ -27,10 +27,10 @@ class Sportsbook extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case SportsbookStatus.initial:
-            return Scaffold(
+            return const Scaffold(
               body: Padding(
-                padding: const EdgeInsets.all(50),
-                child: const Center(
+                padding: EdgeInsets.all(50),
+                child: Center(
                   child: CircularProgressIndicator(
                     color: Palette.cream,
                   ),
@@ -238,7 +238,8 @@ class _SportsBookViewState extends State<SportsBookView> {
           ],
         ),
       ),
-      floatingActionButton: widget.gameNumberList[widget.league] == '0' ||
+      floatingActionButton: kIsWeb ||
+              widget.gameNumberList[widget.league] == '0' ||
               widget.gameNumberList[widget.league] == 'OFF-SEASON'
           ? Container()
           : FloatingActionButton(

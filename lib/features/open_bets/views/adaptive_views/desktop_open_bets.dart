@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/bet.dart';
+import '../../../games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
 import '../../../home/home.dart';
 import '../../cubit/open_bets_cubit.dart';
-
 import '../open_bets_card.dart';
 
 class DesktopOpenBets extends StatelessWidget {
@@ -386,26 +388,37 @@ class _DekstopOpenBetsTableRow extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 18),
                             child: CountdownTimer(
-                              endTime:
-                                  DateTime.parse(openBets.gameStartDateTime)
-                                      .millisecondsSinceEpoch,
+                              endTime: getESTGameTimeInMS(
+                                DateTime.parse(openBets.gameStartDateTime),
+                              ),
                               widgetBuilder: (_, CurrentRemainingTime time) {
                                 if (time == null) {
-                                  return Text(
-                                    'In Progress',
-                                    style: Styles.openBetsDesktopTime,
+                                  final startTime = DateTime.parse(
+                                      openBets.gameStartDateTime);
+                                  return Center(
+                                    child: Text(
+                                      'Started at ${DateFormat('hh:mm a').format(
+                                        startTime,
+                                      )} EST',
+                                      style: Styles.openBetsCardTime,
+                                    ),
                                   );
                                 }
 
-                                final hours =
-                                    time.hours == null ? '' : '${time.hours}hr';
+                                final hours = time.hours == null
+                                    ? ''
+                                    : ' ${time.hours}hr';
                                 final min =
-                                    time.min == null ? '' : '${time.min}m';
+                                    time.min == null ? '' : ' ${time.min}m';
                                 final sec =
-                                    time.sec == null ? '' : '${time.sec}s';
+                                    time.sec == null ? '' : ' ${time.sec}s';
 
-                                return Text('Starting in $hours $min $sec',
-                                    style: Styles.openBetsDesktopTime);
+                                return Center(
+                                  child: Text(
+                                    'Starting in$hours$min$sec',
+                                    style: Styles.openBetsCardTime,
+                                  ),
+                                );
                               },
                             ),
                           );
