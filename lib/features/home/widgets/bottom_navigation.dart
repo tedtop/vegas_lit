@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
+
 import '../../../config/palette.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../cubit/home_cubit.dart';
@@ -12,11 +14,15 @@ class BottomNavigation extends StatelessWidget {
     return Builder(
       builder: (context) {
         final betSlipStatus = context.watch<BetSlipCubit>().state;
+        final openBetsStatus = context.watch<OpenBetsCubit>().state;
         final pageIndex =
             context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
-        if (betSlipStatus.status == BetSlipStatus.opened) {
-          final showBadge = betSlipStatus.betSlipCard.isNotEmpty;
-          final badgeCount = betSlipStatus.betSlipCard.length;
+        if (betSlipStatus.status == BetSlipStatus.opened &&
+            openBetsStatus.status == OpenBetsStatus.success) {
+          final showBetSlipBadge = betSlipStatus.betSlipCard.isNotEmpty;
+          final showOpenBetsBadge = openBetsStatus.bets.isNotEmpty;
+          final betSlipBadgeCount = betSlipStatus.betSlipCard.length;
+          final openBetsBadgeCount = openBetsStatus.bets.length;
           return BottomNavigationBar(
             selectedLabelStyle: GoogleFonts.nunito(),
             selectedFontSize: 14,
@@ -40,7 +46,7 @@ class BottomNavigation extends StatelessWidget {
                       const Icon(Feather.file_plus),
                       Positioned(
                         right: 0,
-                        child: showBadge
+                        child: showBetSlipBadge
                             ? Container(
                                 padding: const EdgeInsets.all(1),
                                 decoration: BoxDecoration(
@@ -52,7 +58,7 @@ class BottomNavigation extends StatelessWidget {
                                   minHeight: 14,
                                 ),
                                 child: Text(
-                                  '$badgeCount',
+                                  '$betSlipBadgeCount',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
@@ -67,8 +73,37 @@ class BottomNavigation extends StatelessWidget {
                   label: 'Bet Slip'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.emoji_events), label: 'Leaders'),
-              const BottomNavigationBarItem(
-                  icon: Icon(Feather.file_text), label: 'Open Bets'),
+              BottomNavigationBarItem(
+                  icon: Stack(
+                    children: <Widget>[
+                      const Icon(Feather.file_text),
+                      Positioned(
+                        right: 0,
+                        child: showOpenBetsBadge
+                            ? Container(
+                                padding: const EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                constraints: const BoxConstraints(
+                                  minWidth: 14,
+                                  minHeight: 14,
+                                ),
+                                child: Text(
+                                  '$openBetsBadgeCount',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            : Container(),
+                      )
+                    ],
+                  ),
+                  label: 'Open Bets'),
               const BottomNavigationBarItem(
                   icon: Icon(Feather.calendar), label: 'History'),
             ],

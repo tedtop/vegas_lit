@@ -27,10 +27,13 @@ class Sportsbook extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case SportsbookStatus.initial:
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(
-                  color: Palette.cream,
+            return Scaffold(
+              body: Padding(
+                padding: const EdgeInsets.all(50),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    color: Palette.cream,
+                  ),
                 ),
               ),
             );
@@ -148,8 +151,10 @@ class _SportsBookViewState extends State<SportsBookView> {
                                           );
                                           break;
                                         default:
-                                          return const CircularProgressIndicator(
-                                            color: Palette.cream,
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              color: Palette.cream,
+                                            ),
                                           );
                                           break;
                                       }

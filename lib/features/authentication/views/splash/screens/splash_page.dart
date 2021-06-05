@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../config/assets.dart';
 
 class SplashPage extends StatelessWidget {
@@ -13,7 +14,13 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset(Images.topLogo),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 350),
+          child: Image.asset(
+            Images.topLogo,
+            fit: BoxFit.contain,
+          ),
+        ),
       ),
     );
   }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
-
 import '../nba_page.dart';
 import 'nba_screen_desktop/nba_screen_desktop.dart';
 import 'nba_screen_mobile/nba_screen_mobile.dart';
@@ -32,9 +32,12 @@ class NbaScreen extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case NbaStatus.initial:
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Palette.cream,
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 120),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
               ),
             );
           default:

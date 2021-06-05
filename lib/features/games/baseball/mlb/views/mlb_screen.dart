@@ -33,9 +33,12 @@ class MlbScreen extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case MlbStatus.initial:
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Palette.cream,
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 120),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
               ),
             );
           default:

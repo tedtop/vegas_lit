@@ -159,58 +159,55 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        width: 380,
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Palette.cream,
-          ),
-          borderRadius: BorderRadius.circular(12),
-          color: Palette.lightGrey,
+    return Container(
+      width: 380,
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Palette.cream,
         ),
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
-            child: Text(
-              widget.player.username.substring(0, 1).toUpperCase(),
-              style: Styles.leaderboardUsername,
+        borderRadius: BorderRadius.circular(12),
+        color: Palette.lightGrey,
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
+          child: Text(
+            widget.player.username.substring(0, 1).toUpperCase(),
+            style: Styles.leaderboardUsername,
+          ),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${widget.rank}. ${widget.player.username}',
+              style: Styles.normalTextBold,
             ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${widget.rank}. ${widget.player.username}',
-                style: Styles.normalTextBold,
+            Text(
+              '\$${widget.player.accountBalance + widget.player.pendingRiskedAmount}',
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                color: Palette.green,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                '\$${widget.player.accountBalance + widget.player.pendingRiskedAmount}',
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  color: Palette.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'W/L/O/T: ${widget.player.totalBetsWon}/${widget.player.totalBetsLost}/${widget.player.totalOpenBets}/${widget.player.totalBets}',
-                style: Styles.awayTeam,
-              ),
-              Text(
-                'Wins: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
-                style: Styles.awayTeam,
-              ),
-            ],
-          ),
-          tileColor: Palette.lightGrey,
+            ),
+          ],
         ),
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'W/L/O/T: ${widget.player.totalBetsWon}/${widget.player.totalBetsLost}/${widget.player.totalOpenBets}/${widget.player.totalBets}',
+              style: Styles.awayTeam,
+            ),
+            Text(
+              'Wins: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
+              style: Styles.awayTeam,
+            ),
+          ],
+        ),
+        tileColor: Palette.lightGrey,
       ),
     );
   }

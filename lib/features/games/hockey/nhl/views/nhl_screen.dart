@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
 import '../cubit/nhl_cubit.dart';
-
 import 'nhl_screen_desktop/nhl_screen_desktop.dart';
 import 'nhl_screen_mobile/nhl_screen_mobile.dart';
 import 'nhl_screen_tablet/nhl_screen_tablet.dart';
@@ -32,9 +32,12 @@ class NhlScreen extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case NhlStatus.initial:
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Palette.cream,
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 120),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
               ),
             );
           default:

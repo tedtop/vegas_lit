@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
 import '../cubit/ncaab_cubit.dart';
-
 import 'ncaab_screen_desktop/ncaab_screen_desktop.dart';
 import 'ncaab_screen_mobile/ncaab_screen_mobile.dart';
 import 'ncaab_screen_tablet/ncaab_screen_tablet.dart';
@@ -32,9 +32,12 @@ class NcaabScreen extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case NcaabStatus.initial:
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Palette.cream,
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 120),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
               ),
             );
           default:
