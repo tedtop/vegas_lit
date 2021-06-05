@@ -212,7 +212,8 @@ class CloudFirestoreClient {
   Stream<List<Wallet>> fetchRankedUsers() {
     final snapshot = _firebaseFirestore
         .collection('wallets')
-        .where('totalBets', isGreaterThanOrEqualTo: 5)
+        // .where('totalBets', isGreaterThanOrEqualTo: 5)
+        .where('rank', isNotEqualTo: 0)
         .limit(100)
         .snapshots();
     final userWalletList = snapshot.map(
@@ -273,8 +274,9 @@ class CloudFirestoreClient {
         .collection('weeks')
         .doc(week)
         .collection('wallets')
-        .where('totalBets', isGreaterThan: 3)
-        .limit(50)
+        // .where('totalBets', isGreaterThanOrEqualTo: 5)
+        .where('rank', isNotEqualTo: 0)
+        .limit(100)
         .get()
         .then(
           (value) => value.docs

@@ -181,7 +181,7 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${widget.rank}. ${widget.player.username}',
+              '${widget.player.rank}. ${widget.player.username}',
               style: Styles.normalTextBold,
             ),
             Text(

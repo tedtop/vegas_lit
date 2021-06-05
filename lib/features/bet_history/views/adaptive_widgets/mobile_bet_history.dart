@@ -53,9 +53,10 @@ class _MobileHistoryBoard extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      const BetHistoryBoardText(
+                      BetHistoryBoardText(
                         leftText: 'Your Rank',
-                        rightText: 'N/A',
+                        rightText:
+                            '${state.userWallet.rank == 0 ? 'N/A' : state.userWallet.rank.ordinalNumber}',
                       ),
                       BetHistoryBoardText(
                         leftText: 'Winnings',
@@ -165,5 +166,23 @@ class _MobileHistoryEmpty extends StatelessWidget {
         style: Styles.betHistoryNormal,
       ),
     );
+  }
+}
+
+extension on int {
+  String get ordinalNumber {
+    if (this >= 11 && this <= 13) {
+      return '${this}th';
+    }
+    switch (this % 10) {
+      case 1:
+        return '${this}st';
+      case 2:
+        return '${this}nd';
+      case 3:
+        return '${this}rd';
+      default:
+        return '${this}th';
+    }
   }
 }
