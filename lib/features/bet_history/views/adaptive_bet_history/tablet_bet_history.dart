@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../home/home.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_items.dart';
 import '../../widgets/bet_history_card.dart';
@@ -28,14 +27,17 @@ class _TabletHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<HomeCubit>().state;
+        final state = context.watch<HistoryCubit>().state;
         switch (state.status) {
-          case HomeStatus.initial:
+          case HistoryStatus.initial:
+            return const SizedBox();
+            break;
+          case HistoryStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
             break;
-          default:
+          case HistoryStatus.success:
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 6,
@@ -98,6 +100,15 @@ class _TabletHistoryBoard extends StatelessWidget {
                 ),
               ),
             );
+
+            break;
+          case HistoryStatus.failure:
+            return const Center(
+              child: Text('Some error occured.'),
+            );
+            break;
+          default:
+            return const SizedBox();
             break;
         }
       },

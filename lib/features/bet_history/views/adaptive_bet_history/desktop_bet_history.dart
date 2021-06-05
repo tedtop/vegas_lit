@@ -6,7 +6,6 @@ import 'package:vegas_lit/features/open_bets/views/open_bets_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../home/home.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_items.dart';
 
@@ -33,14 +32,17 @@ class _DesktopHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<HomeCubit>().state;
+        final state = context.watch<HistoryCubit>().state;
         switch (state.status) {
-          case HomeStatus.initial:
+          case HistoryStatus.initial:
+            return const SizedBox();
+            break;
+          case HistoryStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
             break;
-          default:
+          case HistoryStatus.success:
             return Container(
               constraints: const BoxConstraints(maxWidth: 1220),
               margin: const EdgeInsets.all(10),
@@ -108,6 +110,15 @@ class _DesktopHistoryBoard extends StatelessWidget {
                 ],
               ),
             );
+            break;
+          case HistoryStatus.failure:
+            return const Center(
+              child: Text('Some error occured.'),
+            );
+            break;
+          default:
+            return const SizedBox();
+            break;
         }
       },
     );

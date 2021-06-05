@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/features/bet_history/bet_history.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -159,6 +161,8 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUserUid =
+        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
     return Container(
       width: 380,
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
@@ -170,12 +174,24 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
         color: Palette.lightGrey,
       ),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
-          child: Text(
-            widget.player.username.substring(0, 1).toUpperCase(),
-            style: Styles.leaderboardUsername,
+        leading: GestureDetector(
+          child: CircleAvatar(
+            backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
+            child: Text(
+              widget.player.username.substring(0, 1).toUpperCase(),
+              style: Styles.leaderboardUsername,
+            ),
           ),
+          onTap: () {
+            currentUserUid == widget.player.uid
+                ? context.read<HomeCubit>().homeChange(4)
+                : Navigator.of(context).push(
+                    History.navigation(
+                      uid: widget.player.uid,
+                      homeCubit: context.read<HomeCubit>(),
+                    ),
+                  );
+          },
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
