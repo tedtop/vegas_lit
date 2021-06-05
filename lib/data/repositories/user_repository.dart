@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import '../dataproviders/cloud_firestore.dart';
-import '../dataproviders/firebase_auth.dart';
+
 import '../models/user.dart';
 import '../models/vault_data.dart';
 import '../models/wallet.dart';
+import '../providers/cloud_firestore.dart';
+import '../providers/firebase_auth.dart';
 
 class UserRepository {
   final _authenticationProvider = FirebaseAuthentication();

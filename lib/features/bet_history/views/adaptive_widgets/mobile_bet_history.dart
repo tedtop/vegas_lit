@@ -64,24 +64,24 @@ class _MobileHistoryBoard extends StatelessWidget {
                         color: Palette.cream,
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Won/Lost/Open/Total',
-                        rightText:
-                            '${state.userWallet.totalBetsWon}/${state.userWallet.totalBetsLost}/${state.userWallet.totalOpenBets}/${state.userWallet.totalBets}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Wins/Total Ratio',
+                        leftText: 'Winning Bets',
                         rightText:
                             '${((state.userWallet.totalBetsWon / state.userWallet.totalBets).isNaN ? 0 : (state.userWallet.totalBetsWon / state.userWallet.totalBets) * 100).toStringAsFixed(0)}%',
                         color: Palette.cream,
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Total Risked',
-                        rightText: '\$${state.userWallet.totalRiskedAmount}',
+                        leftText: 'Rewards',
+                        rightText: '\$${state.userWallet.totalRewards}',
                         color: Palette.cream,
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Total Rewards',
-                        rightText: '\$${state.userWallet.totalRewards}',
+                        leftText: 'Won/Lost/Open/Total',
+                        rightText:
+                            '${state.userWallet.totalBetsWon}/${state.userWallet.totalBetsLost}/${state.userWallet.totalOpenBets}/${state.userWallet.totalBets}',
+                      ),
+                      BetHistoryBoardText(
+                        leftText: 'Total Risked',
+                        rightText: '\$${state.userWallet.totalRiskedAmount}',
                         color: Palette.cream,
                       ),
                       BetHistoryBoardText(

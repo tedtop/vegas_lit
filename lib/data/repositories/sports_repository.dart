@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import '../dataproviders/sportsdata_api.dart';
+
 import '../models/golf.dart';
 import '../models/mlb/mlb_game.dart';
 import '../models/mlb/mlb_player.dart';
@@ -13,6 +13,7 @@ import '../models/nfl/nfl_game.dart';
 import '../models/nfl/nfl_player.dart';
 import '../models/nhl/nhl_game.dart';
 import '../models/nhl/nhl_player.dart';
+import '../providers/sportsdata_api.dart';
 
 class SportsRepository {
   final _sportsProvider = SportsAPI();
