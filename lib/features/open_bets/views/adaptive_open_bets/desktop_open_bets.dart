@@ -200,7 +200,7 @@ class _DesktopOpenBetsTable extends StatelessWidget {
                   ),
                   Column(
                     children: bets
-                        .map((entry) => _DekstopOpenBetsTableRow(
+                        .map((entry) => _DesktopOpenBetsTableRow(
                               openBets: entry,
                             ))
                         .toList(),
@@ -257,8 +257,8 @@ class _OpenBetsTableHeading extends StatelessWidget {
   }
 }
 
-class _DekstopOpenBetsTableRow extends StatelessWidget {
-  const _DekstopOpenBetsTableRow({Key key, @required this.openBets})
+class _DesktopOpenBetsTableRow extends StatelessWidget {
+  const _DesktopOpenBetsTableRow({Key key, @required this.openBets})
       : assert(openBets != null),
         super(key: key);
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 
@@ -40,6 +41,42 @@ class BetHistoryBoardText extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class DesktopBetHistoryBoardItem extends StatelessWidget {
+  const DesktopBetHistoryBoardItem(
+      {Key key, this.topText, this.bottomText, this.color = Palette.cream})
+      : super(key: key);
+  final String topText, bottomText;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
+      decoration: BoxDecoration(
+          color: Palette.darkGrey,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                offset: const Offset(0, 4.0),
+                blurRadius: 0.4,
+                color: Palette.darkGrey.withAlpha(80))
+          ]),
+      child: Column(
+        children: [
+          Text(
+            topText,
+            style: Styles.pageTitle.copyWith(color: color),
+          ),
+          Text(
+            bottomText,
+            style: Styles.normalTextBold,
+          )
         ],
       ),
     );

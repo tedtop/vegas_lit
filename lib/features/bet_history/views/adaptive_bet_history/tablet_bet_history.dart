@@ -3,25 +3,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../home/cubit/home_cubit.dart';
+import '../../../home/home.dart';
 import '../../cubit/history_cubit.dart';
-import '../../widgets/bet_history_board_text.dart';
-import '../bet_history_card.dart';
+import '../../widgets/bet_history_board_items.dart';
+import '../../widgets/bet_history_card.dart';
 
-class MobileHistory extends StatelessWidget {
+class TabletBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _MobileHistoryBoard(),
-        const _MobileHistoryContent(),
+        const _TabletHistoryHeading(),
+        const _TabletHistoryBoard(),
+        const _TabletHistoryContent(),
       ],
     );
   }
 }
 
-class _MobileHistoryBoard extends StatelessWidget {
-  const _MobileHistoryBoard({Key key}) : super(key: key);
+class _TabletHistoryBoard extends StatelessWidget {
+  const _TabletHistoryBoard({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +105,8 @@ class _MobileHistoryBoard extends StatelessWidget {
   }
 }
 
-class _MobileHistoryContent extends StatelessWidget {
-  const _MobileHistoryContent({Key key}) : super(key: key);
+class _TabletHistoryContent extends StatelessWidget {
+  const _TabletHistoryContent({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +121,9 @@ class _MobileHistoryContent extends StatelessWidget {
         );
       case HistoryStatus.success:
         if (bets.isEmpty) {
-          return const _MobileHistoryEmpty();
+          return const _TabletHistoryEmpty();
         }
-        return const _MobileHistoryList();
+        return const _TabletHistoryList();
       case HistoryStatus.failure:
         return const Center(
           child: Text('Some Error Occured'),
@@ -133,28 +134,39 @@ class _MobileHistoryContent extends StatelessWidget {
   }
 }
 
-class _MobileHistoryList extends StatelessWidget {
-  const _MobileHistoryList({Key key}) : super(key: key);
+class _TabletHistoryList extends StatelessWidget {
+  const _TabletHistoryList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final bets = context.select((HistoryCubit cubit) => cubit.state.bets);
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      key: Key('${bets.length}'),
-      itemCount: bets.length,
-      itemBuilder: (context, index) {
-        return BetHistorySlip(
-          betHistoryData: bets[index],
-        );
-      },
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 1200),
+      child: GridView.count(
+        primary: true,
+        childAspectRatio: 2.5,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        key: Key('${bets.length}'),
+        children: bets
+            .map(
+              (betData) => FittedBox(
+                child: BetHistorySlip(betHistoryData: betData),
+                fit: BoxFit.scaleDown,
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
 
-class _MobileHistoryEmpty extends StatelessWidget {
-  const _MobileHistoryEmpty({Key key}) : super(key: key);
+class _TabletHistoryEmpty extends StatelessWidget {
+  const _TabletHistoryEmpty({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +177,26 @@ class _MobileHistoryEmpty extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
       ),
+    );
+  }
+}
+
+class _TabletHistoryHeading extends StatelessWidget {
+  const _TabletHistoryHeading({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'BET HISTORY',
+            style: Styles.pageTitle,
+          ),
+        ),
+      ],
     );
   }
 }
