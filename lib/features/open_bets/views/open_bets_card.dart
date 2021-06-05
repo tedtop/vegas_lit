@@ -3,6 +3,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/models/bet.dart';
@@ -224,9 +225,13 @@ Widget whichBetText({@required BetData betData}) {
       : '${betData.betOverUnder}';
   final awayTeamPointSpread = isPointSpreadNegative
       ? betData?.betPointSpread?.abs() ?? 0
-      : -betData?.betPointSpread?.abs() ?? 0;
+      : betData?.betPointSpread != null
+          ? -betData?.betPointSpread?.abs()
+          : 0;
   final homeTeamPointSpread = isPointSpreadNegative
-      ? -betData?.betPointSpread?.abs() ?? 0
+      ? betData?.betPointSpread != null
+          ? -betData?.betPointSpread?.abs()
+          : 0
       : betData?.betPointSpread?.abs() ?? 0;
   switch (betData.betType) {
     case 'moneyline':
