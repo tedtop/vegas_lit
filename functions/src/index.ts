@@ -553,3 +553,31 @@ async function sendMessageToSlack(message: any) {
     }
   );
 }
+
+export const rankLeaderboard = functions.pubsub
+  .schedule("2 * * * *")
+  .timeZone("America/New_York")
+  .onRun(async (context) => {
+    await app
+      .firestore()
+      .collection("wallets")
+      .get()
+      .then(async function (snapshots) {
+        let rankNumber = 1;
+        const sortedList = snapshots.docs.sort((a, b) =>
+          a.data().accountBalance + a.data().pendingRiskedAmount >
+          b.data().accountBalance + b.data().pendingRiskedAmount
+            ? -1
+            : 1
+        );
+        await Promise.all(
+          sortedList.map(async (document) => {
+            await document.ref.update({ rank: rankNumber });
+            rankNumber++;
+          })
+        );
+      })
+      .catch(function (error: any) {
+        console.log(error);
+      });
+  });
