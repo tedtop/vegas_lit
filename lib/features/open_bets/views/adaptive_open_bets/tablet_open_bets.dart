@@ -50,30 +50,32 @@ class _TabletOpenBetsDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
+        horizontal: 30.0,
         vertical: 4,
       ),
-      child: RichText(
-        text: TextSpan(
-          style: Styles.openBetsNormalText,
-          children: <TextSpan>[
-            const TextSpan(
-              text:
-                  // ignore: lines_longer_than_80_chars
-                  'Bets shown here cannot be modified and are awaiting the outcome of the event. Once bets have been closed they will appear in your',
-            ),
-            TextSpan(
-              text: ' BET HISTORY ',
-              style: Styles.openBetsTextButton,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  context.read<HomeCubit>().homeChange(4);
-                },
-            ),
-            const TextSpan(
-              text: 'page.',
-            ),
-          ],
+      child: Center(
+        child: RichText(
+          text: TextSpan(
+            style: Styles.openBetsNormalText,
+            children: <TextSpan>[
+              const TextSpan(
+                text:
+                    // ignore: lines_longer_than_80_chars
+                    'Bets shown here cannot be modified and are awaiting the outcome of the event. Once bets have been closed they will appear in your',
+              ),
+              TextSpan(
+                text: ' BET HISTORY ',
+                style: Styles.openBetsTextButton,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    context.read<HomeCubit>().homeChange(4);
+                  },
+              ),
+              const TextSpan(
+                text: 'page.',
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -35,8 +35,11 @@ class _TabletHistoryBoard extends StatelessWidget {
             return const SizedBox();
             break;
           case HistoryStatus.loading:
-            return const CircularProgressIndicator(
-              color: Palette.cream,
+            return const Padding(
+              padding: EdgeInsets.all(20),
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
             break;
           case HistoryStatus.success:
@@ -129,8 +132,11 @@ class _TabletHistoryContent extends StatelessWidget {
       case HistoryStatus.initial:
         return const SizedBox();
       case HistoryStatus.loading:
-        return const CircularProgressIndicator(
-          color: Palette.cream,
+        return const Padding(
+          padding: EdgeInsets.all(20),
+          child: CircularProgressIndicator(
+            color: Palette.cream,
+          ),
         );
       case HistoryStatus.success:
         if (bets.isEmpty) {
@@ -153,25 +159,23 @@ class _TabletHistoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bets = context.select((HistoryCubit cubit) => cubit.state.bets);
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 1200),
-      child: GridView.count(
-        primary: true,
-        childAspectRatio: 2.5,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        key: Key('${bets.length}'),
-        children: bets
-            .map(
-              (betData) => FittedBox(
-                child: BetHistorySlip(betHistoryData: betData),
-                fit: BoxFit.scaleDown,
-              ),
-            )
-            .toList(),
-      ),
+    return GridView.count(
+      primary: true,
+      childAspectRatio: 2.5,
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      key: Key('${bets.length}'),
+      children: bets
+          .map(
+            (betData) => FittedBox(
+              child: BetHistorySlip(betHistoryData: betData),
+              fit: BoxFit.scaleDown,
+            ),
+          )
+          .toList(),
     );
   }
 }

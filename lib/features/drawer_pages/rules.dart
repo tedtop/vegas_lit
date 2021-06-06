@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../config/assets.dart';
 import '../../config/palette.dart';
 import '../../config/styles.dart';
@@ -30,10 +31,11 @@ class Rules extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 25,
           ),
+          constraints: const BoxConstraints(maxWidth: 1200),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
