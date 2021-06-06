@@ -12,14 +12,21 @@ import '../../widgets/bet_history_card.dart';
 class MobileBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const _MobileHistoryHeading(),
-        const _MobileHistoryBoard(),
-        const _MobileHistoryContent(),
-        const BottomBar()
-      ],
-    );
+    final state = context.watch<HistoryCubit>().state;
+    return state.status == HistoryStatus.loading
+        ? const Center(
+            child: CircularProgressIndicator(
+              color: Palette.cream,
+            ),
+          )
+        : Column(
+            children: [
+              const _MobileHistoryHeading(),
+              const _MobileHistoryBoard(),
+              const _MobileHistoryContent(),
+              const BottomBar()
+            ],
+          );
   }
 }
 

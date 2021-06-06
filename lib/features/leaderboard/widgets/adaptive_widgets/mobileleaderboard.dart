@@ -174,24 +174,22 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
         color: Palette.lightGrey,
       ),
       child: ListTile(
-        leading: GestureDetector(
-          child: CircleAvatar(
-            backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
-            child: Text(
-              widget.player.username.substring(0, 1).toUpperCase(),
-              style: Styles.leaderboardUsername,
-            ),
+        onTap: () {
+          currentUserUid == widget.player.uid
+              ? context.read<HomeCubit>().homeChange(4)
+              : Navigator.of(context).push(
+                  History.navigation(
+                    uid: widget.player.uid,
+                    homeCubit: context.read<HomeCubit>(),
+                  ),
+                );
+        },
+        leading: CircleAvatar(
+          backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
+          child: Text(
+            widget.player.username.substring(0, 1).toUpperCase(),
+            style: Styles.leaderboardUsername,
           ),
-          onTap: () {
-            currentUserUid == widget.player.uid
-                ? context.read<HomeCubit>().homeChange(4)
-                : Navigator.of(context).push(
-                    History.navigation(
-                      uid: widget.player.uid,
-                      homeCubit: context.read<HomeCubit>(),
-                    ),
-                  );
-          },
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
