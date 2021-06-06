@@ -28,8 +28,9 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: adaptiveAppBar(),
+      appBar: adaptiveAppBar(width: width),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Center(

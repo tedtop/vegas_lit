@@ -8,8 +8,10 @@ import 'adaptive_app_bar/tablet_app_bar.dart';
 AppBar adaptiveAppBar({double width, int balanceAmount, int pageIndex}) {
   final deviceSize = ResponsiveSizingConfig.instance.breakpoints;
   return width >= deviceSize.desktop
-      ? desktopAppBar()
+      ? desktopAppBar(balanceAmount: balanceAmount, pageIndex: pageIndex)
       : width >= deviceSize.tablet
           ? tabletAppBar()
-          : mobileAppBar(balanceAmount: balanceAmount, pageIndex: pageIndex);
+          : mobileAppBar(
+              balanceAmount: balanceAmount,
+            );
 }

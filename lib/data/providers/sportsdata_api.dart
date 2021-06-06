@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -241,7 +242,7 @@ class SportsAPI {
   }
 
   Future<List<NhlPlayer>> fetchNHLPlayers({@required String teamKey}) async {
-    const leagueData = ConstantSportsDataAPI.nba;
+    const leagueData = ConstantSportsDataAPI.nhl;
 
     final response = await _dio.get(
         'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');

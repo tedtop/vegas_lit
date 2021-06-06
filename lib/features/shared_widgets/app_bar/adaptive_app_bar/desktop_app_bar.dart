@@ -18,27 +18,41 @@ AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
             fit: BoxFit.contain,
             height: 80,
           ),
-          DesktopAppBarItem(
-            title: 'Sportsbook',
-            index: 0,
-          ),
-          // InteractiveNavItem(
-          //   title: 'Bet Slip',
-          //   index: 1,
-          //   isSelected: pageIndex == 1,
-          // ),
-          DesktopAppBarItem(
-            title: 'Leaderboard',
-            index: 2,
-          ),
-          DesktopAppBarItem(
-            title: 'Open Bets',
-            index: 3,
-          ),
-          DesktopAppBarItem(
-            title: 'History',
-            index: 4,
-          )
+          pageIndex != null
+              ? Row(
+                  children: [
+                    DesktopAppBarItem(
+                      title: 'Sportsbook',
+                      index: 0,
+                      width: 130,
+                      isSelected: pageIndex == 0,
+                    ),
+                    // InteractiveNavItem(
+                    //   title: 'Bet Slip',
+                    //   index: 1,
+                    //   isSelected: pageIndex == 1,
+                    // ),
+                    DesktopAppBarItem(
+                      title: 'Leaderboard',
+                      index: 2,
+                      width: 135,
+                      isSelected: pageIndex == 2,
+                    ),
+                    DesktopAppBarItem(
+                      title: 'Open Bets',
+                      index: 3,
+                      width: 115,
+                      isSelected: pageIndex == 3,
+                    ),
+                    DesktopAppBarItem(
+                      title: 'History',
+                      index: 4,
+                      width: 90,
+                      isSelected: pageIndex == 4,
+                    )
+                  ],
+                )
+              : const SizedBox(),
         ],
       ));
 }
@@ -48,10 +62,13 @@ class DesktopAppBarItem extends StatefulWidget {
     Key key,
     this.title,
     this.index,
+    this.isSelected,
+    this.width,
   }) : super(key: key);
   final String title;
   final int index;
-
+  final double width;
+  final bool isSelected;
   @override
   _DesktopAppBarItemState createState() => _DesktopAppBarItemState();
 }
@@ -61,11 +78,8 @@ class _DesktopAppBarItemState extends State<DesktopAppBarItem> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex = context.select(
-      (HomeCubit homeCubit) => homeCubit.state.pageIndex,
-    );
-    final _isSelected = selectedIndex == widget.index;
-    return Padding(
+    return Container(
+      width: widget.width,
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -74,20 +88,23 @@ class _DesktopAppBarItemState extends State<DesktopAppBarItem> {
             create: (context) => BetSlipCubit(),
             child: InkWell(
               onHover: (value) {
-                _isHovering = value;
+                setState(() {
+                  _isHovering = value;
+                });
               },
+              hoverColor: Colors.transparent,
               onTap: () => context.read<HomeCubit>().homeChange(widget.index),
               child: Text(
                 widget.title,
-                style: _isHovering || _isSelected
+                style: _isHovering || widget.isSelected
                     ? GoogleFonts.nunito(
                         fontSize: 18,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         color: Palette.cream,
                       )
                     : GoogleFonts.nunito(
                         fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w600,
                         color: Palette.cream),
               ),
             ),
@@ -97,7 +114,7 @@ class _DesktopAppBarItemState extends State<DesktopAppBarItem> {
             maintainAnimation: true,
             maintainState: true,
             maintainSize: true,
-            visible: _isHovering || _isSelected,
+            visible: widget.isSelected,
             child: Container(
               height: 2,
               width: 40,
