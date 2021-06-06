@@ -172,6 +172,21 @@ class Styles {
     fontWeight: FontWeight.bold,
     color: Palette.cream,
   );
+  static final betHistoryDesktopItem = GoogleFonts.nunito(
+    fontSize: 14,
+    color: Palette.cream,
+    fontWeight: FontWeight.normal,
+  );
+  static final betHistoryDesktopField = GoogleFonts.nunito(
+    fontSize: 14,
+    color: Palette.cream,
+    fontWeight: FontWeight.bold,
+  );
+  static final betHistoryDesktopTime = GoogleFonts.nunito(
+    color: Palette.green,
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+  );
 
   /// --> BET SLIP
   static final betSlipBoxNormalText = GoogleFonts.nunito(
@@ -240,18 +255,18 @@ class Styles {
     fontWeight: FontWeight.bold,
   );
   static final openBetsDesktopField = GoogleFonts.nunito(
-    fontSize: 16,
-    fontWeight: FontWeight.w300,
-    color: Palette.cream,
-  );
-  static final openBetsDesktopItem = GoogleFonts.nunito(
-    fontSize: 16,
+    fontSize: 14,
     color: Palette.cream,
     fontWeight: FontWeight.bold,
   );
+  static final openBetsDesktopItem = GoogleFonts.nunito(
+    fontSize: 14,
+    color: Palette.cream,
+    fontWeight: FontWeight.normal,
+  );
   static final openBetsDesktopTime = GoogleFonts.nunito(
     color: Palette.red,
-    fontSize: 15,
+    fontSize: 14,
   );
 
   /// --> PROFILE

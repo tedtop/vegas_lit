@@ -275,13 +275,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                child: Text(
-                  entry,
-                  style: Styles.normalTextBold.copyWith(
-                    color: Palette.cream,
-                    fontSize: 16,
-                  ),
-                ),
+                child: Text(entry, style: Styles.betHistoryDesktopField),
                 width: tableHeadingsWithWidth[entry].toDouble(),
               ),
             )
@@ -331,14 +325,14 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                                   '${DateFormat('dd-MMM-yyyy').format(startTime)} at ${DateFormat('hh:mm a').format(
                                     startTime,
                                   )} EST',
-                                  style: Styles.openBetsNormalText),
+                                  style: Styles.betHistoryDesktopTime),
                             );
                           case 'League':
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text('${bet.league.toUpperCase()}',
-                                  style: Styles.openBetsNormalText),
+                                  style: Styles.betHistoryDesktopItem),
                             );
                           case 'Game':
                             return Padding(
@@ -346,7 +340,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                                   horizontal: 10, vertical: 18),
                               child: Text(
                                   '${bet.awayTeamName.toUpperCase()} @ ${bet.homeTeamName.toUpperCase()}',
-                                  style: Styles.openBetsNormalText),
+                                  style: Styles.betHistoryDesktopItem),
                             );
                           case 'Bet':
                             return Padding(
@@ -354,14 +348,14 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                                   horizontal: 10, vertical: 18),
                               child: Text(
                                   '${whichBetSystem(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
-                                  style: Styles.openBetsNormalText),
+                                  style: Styles.betHistoryDesktopItem),
                             );
                           case 'Risked':
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 18),
                                 child: Text('\$${bet.betAmount}',
-                                    style: Styles.openBetsNormalText));
+                                    style: Styles.betHistoryDesktopItem));
                           case 'Result':
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -370,7 +364,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                                     isWin
                                         ? '\$${bet.betProfit}'
                                         : '-\$${bet.betAmount}',
-                                    style: Styles.openBetsNormalText));
+                                    style: Styles.betHistoryDesktopItem));
                           default:
                             return const SizedBox();
                         }

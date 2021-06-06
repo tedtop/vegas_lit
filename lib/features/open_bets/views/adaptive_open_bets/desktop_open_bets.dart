@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/index.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
@@ -243,13 +242,7 @@ class _OpenBetsTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                child: Text(
-                  entry,
-                  style: Styles.normalTextBold.copyWith(
-                    color: Palette.cream,
-                    fontSize: 16,
-                  ),
-                ),
+                child: Text(entry, style: Styles.openBetsDesktopField),
                 width: tableHeadingsWithWidth[entry].toDouble(),
               ),
             )
@@ -320,9 +313,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           '${openBets.awayTeamName.toUpperCase()}',
-                                          style: GoogleFonts.nunito(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: Styles.openBetsDesktopItem,
                                         ),
                                       ),
                                     ),
@@ -340,7 +331,8 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           '${openBets.homeTeamName.toUpperCase()}',
-                                          style: Styles.openBetsTextButton,
+                                          style: Styles.openBetsDesktopItem
+                                              .copyWith(color: Palette.green),
                                         ),
                                       ),
                                     ),
@@ -371,20 +363,20 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                 horizontal: 10, vertical: 18),
                             child: Text(
                                 '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
-                                style: Styles.openBetsNormalText),
+                                style: Styles.openBetsDesktopItem),
                           );
                         case 'Risking':
                           return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text('\$${openBets.betAmount}',
-                                  style: Styles.openBetsNormalText));
+                                  style: Styles.openBetsDesktopItem));
                         case 'To Win':
                           return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text('\$${openBets.betProfit}',
-                                  style: Styles.openBetsNormalText));
+                                  style: Styles.openBetsDesktopItem));
                         case 'Time Remaining':
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -402,7 +394,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                       'Started at ${DateFormat('hh:mm a').format(
                                         startTime,
                                       )} EST',
-                                      style: Styles.openBetsCardTime,
+                                      style: Styles.openBetsDesktopTime,
                                     ),
                                   );
                                 }
@@ -418,7 +410,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                 return Center(
                                   child: Text(
                                     'Starting in$hours$min$sec',
-                                    style: Styles.openBetsCardTime,
+                                    style: Styles.openBetsDesktopTime,
                                   ),
                                 );
                               },
