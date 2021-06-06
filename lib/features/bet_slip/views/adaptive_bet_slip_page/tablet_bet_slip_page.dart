@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
-import '../../../../../config/palette.dart';
-import '../../../../../config/styles.dart';
-import '../../../../open_bets/cubit/open_bets_cubit.dart';
-import '../../../bet_slip.dart';
-import '../../../widgets/bet_slip_ad.dart';
-import '../../../widgets/bet_slip_empty.dart';
-import '../../../widgets/bet_slip_list.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../open_bets/cubit/open_bets_cubit.dart';
+import '../../bet_slip.dart';
+import '../../widgets/bet_slip_ad.dart';
+import '../../widgets/bet_slip_empty.dart';
+import '../../widgets/bet_slip_list.dart';
 
 class TabletBetSlipPage extends StatelessWidget {
   const TabletBetSlipPage({Key key}) : super(key: key);
@@ -23,11 +24,16 @@ class TabletBetSlipPage extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case BetSlipStatus.opened:
-                return state.betSlipCard.isEmpty
-                    ? isBetPlaced && !kIsWeb
-                        ? RewardedBetSlip()
-                        : EmptyBetSlip()
-                    : BetSlipList();
+                return Column(
+                  children: [
+                    state.betSlipCard.isEmpty
+                        ? isBetPlaced && !kIsWeb
+                            ? RewardedBetSlip()
+                            : EmptyBetSlip()
+                        : BetSlipList(),
+                    const BottomBar()
+                  ],
+                );
                 break;
               default:
                 return const CircularProgressIndicator(

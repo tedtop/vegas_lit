@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/features/open_bets/views/open_bets_card.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -18,7 +19,8 @@ class DesktopBetHistory extends StatelessWidget {
         children: [
           const _DesktopHistoryHeading(),
           const _DesktopHistoryBoard(),
-          const _DesktopHistoryContent()
+          const _DesktopHistoryContent(),
+          const BottomBar()
         ],
       ),
     );

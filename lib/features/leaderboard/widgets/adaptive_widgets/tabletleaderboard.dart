@@ -5,7 +5,6 @@ import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../pagenumberview.dart';
 import '../textbar.dart';
 
 class TabletLeaderboard extends StatefulWidget {
@@ -68,15 +67,15 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
                 .toList(),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PageNumberView(pages: 15),
-            ),
-          ],
-        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: PageNumberView(pages: 15),
+        //     ),
+        //   ],
+        // )
       ],
     );
   }

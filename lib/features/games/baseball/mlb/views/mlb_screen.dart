@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
@@ -43,37 +44,47 @@ class MlbScreen extends StatelessWidget {
             );
           default:
             if (state.games.isEmpty) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 120),
-                child: Text(
-                  // ignore: lines_longer_than_80_chars
-                  'No odds available for the league you have selected at this time.',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.nunito(
-                    color: Palette.cream,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w300,
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 120),
+                    child: Text(
+                      // ignore: lines_longer_than_80_chars
+                      'No odds available for the league you have selected at this time.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
-                ),
+                  const BottomBar()
+                ],
               );
             } else {
-              return ScreenTypeLayout(
-                breakpoints: Styles.screenBreakpoints,
-                mobile: MobileMlbScreen(
-                  games: state.games,
-                  gameName: state.league,
-                  parsedTeamData: state.parsedTeamData,
-                ),
-                tablet: TabletMlbScreen(
-                  parsedTeamData: state.parsedTeamData,
-                  games: state.games,
-                  gameName: state.league,
-                ),
-                desktop: DesktopMlbScreen(
-                  parsedTeamData: state.parsedTeamData,
-                  games: state.games,
-                  gameName: state.league,
-                ),
+              return Column(
+                children: [
+                  ScreenTypeLayout(
+                    breakpoints: Styles.screenBreakpoints,
+                    mobile: MobileMlbScreen(
+                      games: state.games,
+                      gameName: state.league,
+                      parsedTeamData: state.parsedTeamData,
+                    ),
+                    tablet: TabletMlbScreen(
+                      parsedTeamData: state.parsedTeamData,
+                      games: state.games,
+                      gameName: state.league,
+                    ),
+                    desktop: DesktopMlbScreen(
+                      parsedTeamData: state.parsedTeamData,
+                      games: state.games,
+                      gameName: state.league,
+                    ),
+                  ),
+                  const BottomBar()
+                ],
               );
             }
         }

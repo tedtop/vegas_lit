@@ -5,7 +5,6 @@ import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../pagenumberview.dart';
 import '../textbar.dart';
 
 class WebLeaderboard extends StatefulWidget {
@@ -111,18 +110,18 @@ class _WebLeaderboardState extends State<WebLeaderboard> {
             ],
           ),
         ),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 1200),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: PageNumberView(pages: 15),
-              ),
-            ],
-          ),
-        )
+        // Container(
+        //   constraints: const BoxConstraints(maxWidth: 1200),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: [
+        //       Padding(
+        //         padding: const EdgeInsets.all(20.0),
+        //         child: PageNumberView(pages: 15),
+        //       ),
+        //     ],
+        //   ),
+        // )
       ],
     );
   }

@@ -276,5 +276,13 @@ class Styles {
       GoogleFonts.nunito(fontSize: 20, color: Palette.cream);
 
   /// --> SHARED WIDGETS
+  /// // --> BOTTOM BAR
+  static final bottomBarHeading = GoogleFonts.nunito(
+      fontSize: 18, color: Palette.green, fontWeight: FontWeight.w600);
+  static final bottomBarType = GoogleFonts.nunito(
+      fontSize: 16, color: Palette.cream, fontWeight: FontWeight.w700);
+  static final bottomBarNormal = GoogleFonts.nunito(
+      fontSize: 16, color: Palette.cream, fontWeight: FontWeight.w500);
+
   ///
 }

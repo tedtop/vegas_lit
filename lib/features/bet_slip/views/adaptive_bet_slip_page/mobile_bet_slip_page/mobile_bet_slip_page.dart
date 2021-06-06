@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
@@ -23,11 +24,16 @@ class MobileBetSlipPage extends StatelessWidget {
           builder: (context, state) {
             switch (state.status) {
               case BetSlipStatus.opened:
-                return state.betSlipCard.isEmpty
-                    ? isBetPlaced && !kIsWeb
-                        ? RewardedBetSlip()
-                        : EmptyBetSlip()
-                    : BetSlipList();
+                return Column(
+                  children: [
+                    state.betSlipCard.isEmpty
+                        ? isBetPlaced && !kIsWeb
+                            ? RewardedBetSlip()
+                            : EmptyBetSlip()
+                        : BetSlipList(),
+                    const BottomBar()
+                  ],
+                );
                 break;
               default:
                 return const CircularProgressIndicator(

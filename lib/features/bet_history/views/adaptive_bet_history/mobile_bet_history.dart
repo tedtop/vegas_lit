@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -16,6 +17,7 @@ class MobileBetHistory extends StatelessWidget {
         const _MobileHistoryHeading(),
         const _MobileHistoryBoard(),
         const _MobileHistoryContent(),
+        const BottomBar()
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -16,6 +17,7 @@ class MobileOpenBets extends StatelessWidget {
         const _MobileOpenBetsHeading(),
         const _MobileOpenBetsDescription(),
         const _MobileOpenBetsContent(),
+        const BottomBar()
       ],
     );
   }
