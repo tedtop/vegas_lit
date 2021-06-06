@@ -5,7 +5,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
-import '../../home/widgets/bottombar.dart';
 import '../cubit/leaderboard_cubit.dart';
 import '../widgets/adaptive_widgets/mobileleaderboard.dart';
 import '../widgets/adaptive_widgets/tabletleaderboard.dart';
@@ -54,7 +53,6 @@ class Leaderboard extends StatelessWidget {
             }
           },
         ),
-        kIsWeb ? const BottomBar() : const SizedBox(),
       ],
     );
   }

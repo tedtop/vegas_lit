@@ -17,7 +17,6 @@ import '../../games/football/nfl/views/nfl_screen.dart';
 import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
 import '../../home/cubit/home_cubit.dart';
-import '../../home/widgets/bottombar.dart';
 import '../bloc/sportsbook_bloc.dart';
 
 class Sportsbook extends StatelessWidget {
@@ -234,7 +233,6 @@ class _SportsBookViewState extends State<SportsBookView> {
                 }
               },
             ),
-            kIsWeb ? const BottomBar() : const SizedBox(),
           ],
         ),
       ),

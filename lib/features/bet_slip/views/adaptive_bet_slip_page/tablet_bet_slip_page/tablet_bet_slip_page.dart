@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
-import '../../../../home/widgets/bottombar.dart';
 import '../../../../open_bets/cubit/open_bets_cubit.dart';
 import '../../../bet_slip.dart';
 import '../../../widgets/bet_slip_ad.dart';
@@ -38,7 +37,6 @@ class TabletBetSlipPage extends StatelessWidget {
             }
           },
         ),
-        kIsWeb ? const BottomBar() : const SizedBox(),
       ]),
     );
   }

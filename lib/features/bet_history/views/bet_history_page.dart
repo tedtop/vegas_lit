@@ -10,7 +10,6 @@ import 'package:vegas_lit/features/bet_history/bet_history.dart';
 import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../config/styles.dart';
-import '../../home/widgets/bottombar.dart';
 import 'adaptive_bet_history/desktop_bet_history.dart';
 import 'adaptive_bet_history/mobile_bet_history.dart';
 import 'adaptive_bet_history/tablet_bet_history.dart';
@@ -66,7 +65,6 @@ class History extends StatelessWidget {
             tablet: TabletBetHistory(),
             desktop: DesktopBetHistory(),
           ),
-          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );

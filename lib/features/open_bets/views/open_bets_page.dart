@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/styles.dart';
 
-import '../../home/widgets/bottombar.dart';
 import 'adaptive_open_bets/desktop_open_bets.dart';
 import 'adaptive_open_bets/mobile_open_bets.dart';
 import 'adaptive_open_bets/tablet_open_bets.dart';
@@ -30,7 +29,6 @@ class OpenBets extends StatelessWidget {
             tablet: TabletOpenBets(),
             desktop: DesktopOpenBets(),
           ),
-          kIsWeb ? const BottomBar() : const SizedBox(),
         ],
       ),
     );
