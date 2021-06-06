@@ -591,3 +591,61 @@ export const rankLeaderboard = functions.pubsub
         console.log(error);
       });
   });
+
+// exports.temporaryLeaderboard = functions.https.onRequest(async (req, res) => {
+//   const documentName = getCurrentWeek();
+
+//   // Fetching user's wallet
+//   await app
+//     .firestore()
+//     .collection("wallets")
+//     .get()
+//     .then(async (snapshots) => {
+//       // Create today's date document in leaderboard
+//       await app
+//         .firestore()
+//         .collection("leaderboard")
+//         .doc("global")
+//         .collection("weeks")
+//         .doc(documentName)
+//         .set({ isArchived: true })
+//         .then((_) => {
+//           const promises: any = [];
+//           // Run loop over all user's wallet document
+//           snapshots.docs.map(async (element) => {
+//             // For every document, save it to today's date document in leaderboard
+//             const promise = await app
+//               .firestore()
+//               .collection("leaderboard")
+//               .doc("global")
+//               .collection("weeks")
+//               .doc(documentName)
+//               .collection("wallets")
+//               .doc(element.id)
+//               .set(element.data());
+//             promises.push(promise);
+//           });
+//           return Promise.all(promises);
+//         });
+//     })
+//     .catch(function (error: any) {
+//       console.log(error);
+//     })
+//     .then(() => {
+//       functions.logger.info("Leaderboard Resolved!", {
+//         structuredData: true,
+//       });
+//     });
+
+//   res.send("Done");
+
+//   function getCurrentWeek(): string {
+//     let today = new Date();
+//     const weekNextFormat = moment(today).format("w");
+//     const nextWeekFormatInteger = Number.parseInt(weekNextFormat) + 1;
+//     const walletsDayFormat = "YYYY-w";
+//     const weekFormat = moment(today).format(walletsDayFormat);
+//     const fullData = `${weekFormat}-${nextWeekFormatInteger}`;
+//     return fullData;
+//   }
+// });
