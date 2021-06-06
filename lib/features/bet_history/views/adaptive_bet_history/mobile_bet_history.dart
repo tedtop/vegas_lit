@@ -107,14 +107,14 @@ class _MobileHistoryBoardContent extends StatelessWidget {
                 color: Palette.cream,
               ),
               BetHistoryBoardText(
-                leftText: 'Rewards',
-                rightText: '\$${userWallet.totalRewards}',
-                color: Palette.cream,
-              ),
-              BetHistoryBoardText(
                 leftText: 'Won/Lost/Open/Total',
                 rightText:
                     '${userWallet.totalBetsWon}/${userWallet.totalBetsLost}/${userWallet.totalOpenBets}/${userWallet.totalBets}',
+              ),
+              BetHistoryBoardText(
+                leftText: 'Rewards',
+                rightText: '\$${userWallet.totalRewards}',
+                color: Palette.cream,
               ),
               BetHistoryBoardText(
                 leftText: 'Total Risked',

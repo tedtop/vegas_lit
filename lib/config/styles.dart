@@ -210,6 +210,7 @@ class Styles {
   static final leaderboardUsername = GoogleFonts.nunito(
     fontWeight: FontWeight.bold,
     color: Palette.cream,
+    fontSize: 20,
   );
   static final leaderboardDesktopItem = GoogleFonts.nunito(
     fontSize: 14,

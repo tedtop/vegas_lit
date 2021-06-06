@@ -147,17 +147,10 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
   }
 }
 
-class MobileLeaderboardTile extends StatefulWidget {
+class MobileLeaderboardTile extends StatelessWidget {
   MobileLeaderboardTile({@required this.player, @required this.rank});
   final Wallet player;
   final int rank;
-
-  @override
-  _MobileLeaderboardTileState createState() => _MobileLeaderboardTileState();
-}
-
-class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
-  bool expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -173,55 +166,61 @@ class _MobileLeaderboardTileState extends State<MobileLeaderboardTile> {
         borderRadius: BorderRadius.circular(12),
         color: Palette.lightGrey,
       ),
-      child: ListTile(
-        onTap: () {
-          currentUserUid == widget.player.uid
-              ? context.read<HomeCubit>().homeChange(4)
-              : Navigator.of(context).push(
-                  History.navigation(
-                    uid: widget.player.uid,
-                    homeCubit: context.read<HomeCubit>(),
-                  ),
-                );
-        },
-        leading: CircleAvatar(
-          backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
-          child: Text(
-            widget.player.username.substring(0, 1).toUpperCase(),
-            style: Styles.leaderboardUsername,
+      child: Material(
+        borderRadius: BorderRadius.circular(12),
+        clipBehavior: Clip.antiAlias,
+        child: ListTile(
+          // enableFeedback: true,
+          onTap: () {
+            currentUserUid == player.uid
+                ? context.read<HomeCubit>().homeChange(4)
+                : Navigator.of(context).push(
+                    History.navigation(
+                      uid: player.uid,
+                      homeCubit: context.read<HomeCubit>(),
+                    ),
+                  );
+          },
+          leading: CircleAvatar(
+            radius: 25,
+            backgroundColor: Palette.darkGrey,
+            child: Text(
+              player.username.substring(0, 1).toUpperCase(),
+              style: Styles.leaderboardUsername,
+            ),
           ),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '${widget.player.rank}. ${widget.player.username}',
-              style: Styles.normalTextBold,
-            ),
-            Text(
-              '\$${widget.player.accountBalance + widget.player.pendingRiskedAmount}',
-              style: GoogleFonts.nunito(
-                fontSize: 18,
-                color: Palette.green,
-                fontWeight: FontWeight.bold,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${player.rank}. ${player.username}',
+                style: Styles.normalTextBold,
               ),
-            ),
-          ],
+              Text(
+                '\$${player.accountBalance + player.pendingRiskedAmount}',
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  color: Palette.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
+                style: Styles.awayTeam,
+              ),
+              Text(
+                'Wins: ${((player.totalBetsWon / player.totalBets) * 100).toStringAsFixed(0)}%',
+                style: Styles.awayTeam,
+              ),
+            ],
+          ),
+          tileColor: Palette.lightGrey,
         ),
-        subtitle: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'W/L/O/T: ${widget.player.totalBetsWon}/${widget.player.totalBetsLost}/${widget.player.totalOpenBets}/${widget.player.totalBets}',
-              style: Styles.awayTeam,
-            ),
-            Text(
-              'Wins: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
-              style: Styles.awayTeam,
-            ),
-          ],
-        ),
-        tileColor: Palette.lightGrey,
       ),
     );
   }
