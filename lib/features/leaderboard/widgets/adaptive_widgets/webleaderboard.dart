@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/bet_history/bet_history.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -220,85 +222,99 @@ class WebLeaderboardItem extends StatelessWidget {
   final int rank;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      color: Palette.lightGrey,
-      child: Row(
-        children: [
-          const SizedBox(
-            width: 20,
-          ),
-          SizedBox(
-            width: 60,
-            child: Text(
-              '$rank',
-              style: Styles.leaderboardDesktopItem,
+    final currentUserUid =
+        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+    return InkWell(
+      onTap: () {
+        currentUserUid == player.uid
+            ? context.read<HomeCubit>().homeChange(4)
+            : Navigator.of(context).push(
+                History.navigation(
+                  uid: player.uid,
+                  homeCubit: context.read<HomeCubit>(),
+                ),
+              );
+      },
+      child: Container(
+        height: 50,
+        color: Palette.lightGrey,
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 20,
             ),
-          ),
-          SizedBox(
-            width: 120,
-            child: Text(
-              '${player.username}',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 60,
+              child: Text(
+                '$rank',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 120,
-            child: Text(
-              '\$${player.totalProfit}',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 120,
+              child: Text(
+                '${player.username}',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 150,
-            child: Text(
-              '\$${player.accountBalance}',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 120,
+              child: Text(
+                '\$${player.totalProfit}',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 95,
-            child: Text(
-              '${player.totalBets}',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 150,
+              child: Text(
+                '\$${player.accountBalance}',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 140,
-            child: Text(
-              '${player.totalBetsWon}',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 95,
+              child: Text(
+                '${player.totalBets}',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 110,
-            child: Text(
-              '\$${player.totalOpenBets}',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 140,
+              child: Text(
+                '${player.totalBetsWon}',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 145,
-            child: Text(
-              'N/A',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 110,
+              child: Text(
+                '\$${player.totalOpenBets}',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 120,
-            child: Text(
-              'N/A',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 145,
+              child: Text(
+                'N/A',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 120,
-            child: Text(
-              'N/A',
-              style: Styles.leaderboardDesktopItem,
+            SizedBox(
+              width: 120,
+              child: Text(
+                'N/A',
+                style: Styles.leaderboardDesktopItem,
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              width: 120,
+              child: Text(
+                'N/A',
+                style: Styles.leaderboardDesktopItem,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

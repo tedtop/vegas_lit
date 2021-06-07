@@ -9,7 +9,6 @@ import 'package:vegas_lit/data/repositories/user_repository.dart';
 import 'package:vegas_lit/features/bet_history/bet_history.dart';
 import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
-import '../../../config/styles.dart';
 import 'adaptive_bet_history/desktop_bet_history.dart';
 import 'adaptive_bet_history/mobile_bet_history.dart';
 import 'adaptive_bet_history/tablet_bet_history.dart';
@@ -60,7 +59,6 @@ class History extends StatelessWidget {
       body: ListView(
         children: [
           ScreenTypeLayout(
-            breakpoints: Styles.screenBreakpoints,
             mobile: MobileBetHistory(),
             tablet: TabletBetHistory(),
             desktop: DesktopBetHistory(),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../../config/palette.dart';
@@ -66,7 +65,6 @@ class MlbScreen extends StatelessWidget {
               return Column(
                 children: [
                   ScreenTypeLayout(
-                    breakpoints: Styles.screenBreakpoints,
                     mobile: MobileMlbScreen(
                       games: state.games,
                       gameName: state.league,

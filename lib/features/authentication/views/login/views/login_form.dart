@@ -380,13 +380,8 @@ class _VersionNumberState extends State<VersionNumber> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return Text(
-          'Version: $versionString ($buildNumber)',
-          style: GoogleFonts.nunito(
-            color: Palette.cream,
-            fontSize: 10,
-          ),
-        );
+        return Text('Version: $versionString ($buildNumber)',
+            style: Styles.versionText);
       },
     );
   }

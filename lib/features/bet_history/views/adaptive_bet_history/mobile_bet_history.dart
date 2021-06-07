@@ -112,7 +112,7 @@ class _MobileHistoryBoardContent extends StatelessWidget {
                     '${userWallet.totalBetsWon}/${userWallet.totalBetsLost}/${userWallet.totalOpenBets}/${userWallet.totalBets}',
               ),
               BetHistoryBoardText(
-                leftText: 'Rewards',
+                leftText: 'Ad Rewards',
                 rightText: '\$${userWallet.totalRewards}',
                 color: Palette.cream,
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/models/wallet.dart';
 import 'package:vegas_lit/features/open_bets/views/open_bets_card.dart';
 import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
@@ -45,73 +46,7 @@ class _DesktopHistoryBoard extends StatelessWidget {
             );
             break;
           case HistoryStatus.success:
-            return Container(
-              constraints: const BoxConstraints(maxWidth: 1220),
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Palette.lightGrey,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        blurRadius: 0.4,
-                        offset: const Offset(0, 4.0),
-                        color: Palette.lightGrey.withAlpha(80))
-                  ]),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Your Rank',
-                        topText:
-                            '${state.userWallet.rank == 0 ? 'N/A' : state.userWallet.rank.ordinalNumber}',
-                      ),
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Total Bets',
-                        topText: '\$${state.userWallet.totalBets}',
-                      ),
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Total Risked',
-                        topText: '\$${state.userWallet.totalRiskedAmount}',
-                      ),
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Total Profit',
-                        topText: '\$${state.userWallet.totalProfit}',
-                        color: state.userWallet.totalProfit >= 0
-                            ? Palette.green
-                            : Palette.red,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Winnings',
-                        topText:
-                            '\$${state.userWallet.totalRiskedAmount + state.userWallet.totalProfit - state.userWallet.totalLoss - state.userWallet.pendingRiskedAmount}',
-                      ),
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Winning Bets',
-                        topText:
-                            '${((state.userWallet.totalBetsWon / state.userWallet.totalBets).isNaN ? 0 : (state.userWallet.totalBetsWon / state.userWallet.totalBets) * 100).toStringAsFixed(0)}%',
-                      ),
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Rewards',
-                        topText: '\$${state.userWallet.totalRewards}',
-                      ),
-                      DesktopBetHistoryBoardItem(
-                        bottomText: 'Won/Lost/Open/Total',
-                        topText:
-                            '${state.userWallet.totalBetsWon}/${state.userWallet.totalBetsLost}/${state.userWallet.totalOpenBets}/${state.userWallet.totalBets}',
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            );
+            return _DesktopHistoryBoardContent(wallet: state.userWallet);
             break;
           case HistoryStatus.failure:
             return const Center(
@@ -123,6 +58,80 @@ class _DesktopHistoryBoard extends StatelessWidget {
             break;
         }
       },
+    );
+  }
+}
+
+class _DesktopHistoryBoardContent extends StatelessWidget {
+  const _DesktopHistoryBoardContent({Key key, this.wallet}) : super(key: key);
+
+  final Wallet wallet;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 1220),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: Palette.lightGrey,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                blurRadius: 0.4,
+                offset: const Offset(0, 4.0),
+                color: Palette.lightGrey.withAlpha(80))
+          ]),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Your Rank',
+                topText:
+                    '${wallet.rank == 0 ? 'N/A' : wallet.rank.ordinalNumber}',
+              ),
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Total Bets',
+                topText: '\$${wallet.totalBets}',
+              ),
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Total Risked',
+                topText: '\$${wallet.totalRiskedAmount}',
+              ),
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Total Profit',
+                topText: '\$${wallet.totalProfit}',
+                color: wallet.totalProfit >= 0 ? Palette.green : Palette.red,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Winnings',
+                topText:
+                    '\$${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
+              ),
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Winning Bets',
+                topText:
+                    '${((wallet.totalBetsWon / wallet.totalBets).isNaN ? 0 : (wallet.totalBetsWon / wallet.totalBets) * 100).toStringAsFixed(0)}%',
+              ),
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Ad Rewards',
+                topText: '\$${wallet.totalRewards}',
+              ),
+              DesktopBetHistoryBoardItem(
+                bottomText: 'Won/Lost/Open/Total',
+                topText:
+                    '${wallet.totalBetsWon}/${wallet.totalBetsLost}/${wallet.totalOpenBets}/${wallet.totalBets}',
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

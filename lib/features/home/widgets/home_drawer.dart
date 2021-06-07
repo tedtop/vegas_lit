@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -183,10 +182,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               return ListTile(
                 title: Text(
                   'Version: $versionString ($buildNumber)',
-                  style: GoogleFonts.nunito(
-                    color: Palette.cream,
-                    fontSize: 10,
-                  ),
+                  style: Styles.versionText,
                 ),
               );
             },

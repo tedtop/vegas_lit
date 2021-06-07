@@ -84,17 +84,10 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
   }
 }
 
-class TabletLeaderboardTile extends StatefulWidget {
+class TabletLeaderboardTile extends StatelessWidget {
   TabletLeaderboardTile({@required this.player, @required this.rank});
   final Wallet player;
   final int rank;
-
-  @override
-  _TabletLeaderboardTileState createState() => _TabletLeaderboardTileState();
-}
-
-class _TabletLeaderboardTileState extends State<TabletLeaderboardTile> {
-  bool expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -110,36 +103,38 @@ class _TabletLeaderboardTileState extends State<TabletLeaderboardTile> {
         borderRadius: BorderRadius.circular(12),
         color: Palette.lightGrey,
       ),
-      child: Center(
+      child: Material(
+        borderRadius: BorderRadius.circular(12),
+        clipBehavior: Clip.antiAlias,
         child: ListTile(
-          leading: GestureDetector(
-            child: CircleAvatar(
-              backgroundColor: expanded ? Palette.lightGrey : Palette.darkGrey,
-              child: Text(
-                widget.player.username.substring(0, 1).toUpperCase(),
-                style: Styles.leaderboardUsername,
-              ),
+          // enableFeedback: true,
+          onTap: () {
+            currentUserUid == player.uid
+                ? context.read<HomeCubit>().homeChange(4)
+                : Navigator.of(context).push(
+                    History.navigation(
+                      uid: player.uid,
+                      homeCubit: context.read<HomeCubit>(),
+                    ),
+                  );
+          },
+          leading: CircleAvatar(
+            radius: 25,
+            backgroundColor: Palette.darkGrey,
+            child: Text(
+              player.username.substring(0, 1).toUpperCase(),
+              style: Styles.leaderboardUsername,
             ),
-            onTap: () {
-              currentUserUid == widget.player.uid
-                  ? context.read<HomeCubit>().homeChange(4)
-                  : Navigator.of(context).push(
-                      History.navigation(
-                        uid: widget.player.uid,
-                        homeCubit: context.read<HomeCubit>(),
-                      ),
-                    );
-            },
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${widget.player.rank}. ${widget.player.username}',
+                '${player.rank}. ${player.username}',
                 style: Styles.normalTextBold,
               ),
               Text(
-                '\$${widget.player.accountBalance + widget.player.pendingRiskedAmount}',
+                '\$${player.accountBalance + player.pendingRiskedAmount}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,
@@ -152,11 +147,11 @@ class _TabletLeaderboardTileState extends State<TabletLeaderboardTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'W/L/O/T: ${widget.player.totalBetsWon}/${widget.player.totalBetsLost}/${widget.player.totalOpenBets}/${widget.player.totalBets}',
+                'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
                 style: Styles.awayTeam,
               ),
               Text(
-                'Wins: ${((widget.player.totalBetsWon / widget.player.totalBets) * 100).toStringAsFixed(0)}%',
+                'Wins: ${((player.totalBetsWon / player.totalBets) * 100).toStringAsFixed(0)}%',
                 style: Styles.awayTeam,
               ),
             ],
@@ -166,53 +161,4 @@ class _TabletLeaderboardTileState extends State<TabletLeaderboardTile> {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //     width: 240,
-  //     height: 100,
-  //     margin: const EdgeInsets.symmetric(vertical: 4),
-  //     decoration: BoxDecoration(
-  //       color: Palette.lightGrey,
-  //       border: Border.all(
-  //         color: Palette.cream,
-  //       ),
-  //       borderRadius: BorderRadius.circular(12),
-  //     ),
-  //     child: ClipRRect(
-  //       borderRadius: BorderRadius.circular(12),
-  //       child: FittedBox(
-  //         fit: BoxFit.scaleDown,
-  //         child: Padding(
-  //           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //           child: Column(
-  //             children: [
-  //               Text(
-  //                 '${widget.rank}. ${widget.player.username}',
-  //                 style: Styles.normalTextBold,
-  //               ),
-  //               Text(
-  //                 'Total Profit: \$${widget.player.totalProfit}',
-  //                 style: Styles.homeTeam,
-  //               ),
-  //               Text(
-  //                 '${widget.player.totalBetsWon} out of ${widget.player.totalBets} Correct Bets!',
-  //                 style: Styles.awayTeam,
-  //               ),
-  //               // Text(
-  //               //   'Biggest win: \$${player.biggestWin}',
-  //               //   style: Styles.awayTeam,
-  //               // ),
-  //               Text(
-  //                 'Account Balance: \$${widget.player.accountBalance}',
-  //                 style: Styles.awayTeam,
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
 }

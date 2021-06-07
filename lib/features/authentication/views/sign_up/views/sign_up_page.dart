@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/config/styles.dart';
 
 import '../../../../../data/repositories/user_repository.dart';
 import '../../../bloc/authentication_bloc.dart';
@@ -29,7 +28,6 @@ class SignUpPage extends StatelessWidget {
                   authenticationBloc: context.read<AuthenticationBloc>(),
                 ),
             child: ScreenTypeLayout(
-              breakpoints: Styles.screenBreakpoints,
               desktop: Center(
                 child: SizedBox(
                   width: 500,

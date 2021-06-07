@@ -41,7 +41,6 @@ class Leaderboard extends StatelessWidget {
                 return Column(
                   children: [
                     ScreenTypeLayout(
-                      breakpoints: Styles.screenBreakpoints,
                       desktop: WebLeaderboard(
                         players: state.rankedUserList,
                       ),

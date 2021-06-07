@@ -79,7 +79,7 @@ class _TabletHistoryBoard extends StatelessWidget {
                         color: Palette.cream,
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Rewards',
+                        leftText: 'Ad Rewards',
                         rightText: '\$${state.userWallet.totalRewards}',
                         color: Palette.cream,
                       ),
