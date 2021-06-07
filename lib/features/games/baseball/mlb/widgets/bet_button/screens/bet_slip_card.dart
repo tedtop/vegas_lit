@@ -299,6 +299,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                                 betAmount:
                                                     betButtonState.betAmount,
                                                 betsData: BetData(
+                                                  stillOpen: false,
                                                   username: username,
                                                   homeTeamCity: betButtonState
                                                       .homeTeamData.city,

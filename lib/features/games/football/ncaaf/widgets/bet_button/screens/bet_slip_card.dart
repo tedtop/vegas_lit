@@ -305,6 +305,7 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                                                 betAmount:
                                                     betButtonState.betAmount,
                                                 betsData: BetData(
+                                                  stillOpen: false,
                                                   clientVersion:
                                                       await _getAppVersion(),
                                                   dataProvider: 'sportsdata.io',
