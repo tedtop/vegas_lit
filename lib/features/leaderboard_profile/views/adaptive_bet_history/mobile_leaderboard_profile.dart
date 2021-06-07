@@ -4,20 +4,23 @@ import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../cubit/history_cubit.dart';
-import '../../widgets/bet_history_board_items.dart';
-import '../../widgets/bet_history_card.dart';
+import '../../cubit/leaderboard_profile_cubit.dart';
+import '../../widgets/leaderboard_profile_board_items.dart';
+import '../../widgets/leaderboard_profile_card.dart';
 
-class MobileBetHistory extends StatelessWidget {
+class MobileLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<HistoryCubit>().state;
-    return state.status == HistoryStatus.loading
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Palette.cream,
+    final state = context.watch<LeaderboardProfileCubit>().state;
+    return state.status == LeaderboardProfileStatus.loading
+        ? const Padding(
+          padding:  EdgeInsets.only(top:160),
+          child:  Center(
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             ),
-          )
+        )
         : Column(
             children: [
               const _MobileHistoryHeading(),
@@ -36,20 +39,20 @@ class _MobileHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<HistoryCubit>().state;
+        final state = context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
-          case HistoryStatus.initial:
+          case LeaderboardProfileStatus.initial:
             return const SizedBox();
             break;
-          case HistoryStatus.loading:
+          case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
             break;
-          case HistoryStatus.success:
+          case LeaderboardProfileStatus.success:
             return const _MobileHistoryBoardContent();
             break;
-          case HistoryStatus.failure:
+          case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some Error Occured'),
             );
@@ -69,7 +72,7 @@ class _MobileHistoryBoardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userWallet =
-        context.select((HistoryCubit cubit) => cubit.state.userWallet);
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.userWallet);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 6,
@@ -88,39 +91,39 @@ class _MobileHistoryBoardContent extends StatelessWidget {
           ),
           child: Column(
             children: [
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Your Rank',
                 rightText:
                     '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
               ),
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Winnings',
                 rightText:
                     '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
                 color: Palette.cream,
               ),
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Winning Bets',
                 rightText:
                     '${((userWallet.totalBetsWon / userWallet.totalBets).isNaN ? 0 : (userWallet.totalBetsWon / userWallet.totalBets) * 100).toStringAsFixed(0)}%',
                 color: Palette.cream,
               ),
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Won/Lost/Open/Total',
                 rightText:
                     '${userWallet.totalBetsWon}/${userWallet.totalBetsLost}/${userWallet.totalOpenBets}/${userWallet.totalBets}',
               ),
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Ad Rewards',
                 rightText: '\$${userWallet.totalRewards}',
                 color: Palette.cream,
               ),
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Total Risked',
                 rightText: '\$${userWallet.totalRiskedAmount}',
                 color: Palette.cream,
               ),
-              BetHistoryBoardText(
+              LeaderboardProfileHistoryBoardText(
                 leftText: 'Total Profit',
                 rightText: '\$${userWallet.totalProfit}',
                 color:
@@ -139,24 +142,24 @@ class _MobileHistoryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select((HistoryCubit cubit) => cubit.state.status);
-    final bets = context.select((HistoryCubit cubit) => cubit.state.bets);
+    final status = context.select((LeaderboardProfileCubit cubit) => cubit.state.status);
+    final bets = context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
     switch (status) {
-      case HistoryStatus.initial:
+      case LeaderboardProfileStatus.initial:
         return const SizedBox();
-      case HistoryStatus.loading:
+      case LeaderboardProfileStatus.loading:
         return const Padding(
           padding: EdgeInsets.only(top: 25),
           child: CircularProgressIndicator(
             color: Palette.cream,
           ),
         );
-      case HistoryStatus.success:
+      case LeaderboardProfileStatus.success:
         if (bets.isEmpty) {
           return const _MobileHistoryEmpty();
         }
         return const _MobileHistoryList();
-      case HistoryStatus.failure:
+      case LeaderboardProfileStatus.failure:
         return const Center(
           child: Text('Some Error Occured'),
         );
@@ -171,7 +174,7 @@ class _MobileHistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bets = context.select((HistoryCubit cubit) => cubit.state.bets);
+    final bets = context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -179,7 +182,7 @@ class _MobileHistoryList extends StatelessWidget {
       itemCount: bets.length,
       itemBuilder: (context, index) {
         return Center(
-          child: BetHistorySlip(
+          child: LeaderboardProfileHistorySlip(
             betHistoryData: bets[index],
           ),
         );
@@ -209,17 +212,16 @@ class _MobileHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final betHistoryState = context.select((HistoryCubit cubit) => cubit.state);
-    
+    final betHistoryState = context.select((LeaderboardProfileCubit cubit) => cubit.state);
 
-    return betHistoryState.status == HistoryStatus.success
+    return betHistoryState.status == LeaderboardProfileStatus.success
         ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                        'BET HISTORY',
+                        '${betHistoryState.userWallet.username}',
                         style: Styles.pageTitle,
                       ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/bet_history/bet_history.dart';
 import 'package:vegas_lit/features/home/home.dart';
+import 'package:vegas_lit/features/leaderboard_profile/leaderboard_profile.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -229,7 +229,7 @@ class WebLeaderboardItem extends StatelessWidget {
         currentUserUid == player.uid
             ? context.read<HomeCubit>().homeChange(4)
             : Navigator.of(context).push(
-                History.navigation(
+                LeaderboardProfile.navigation(
                   uid: player.uid,
                   homeCubit: context.read<HomeCubit>(),
                 ),

@@ -8,19 +8,22 @@ import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../cubit/history_cubit.dart';
-import '../../widgets/bet_history_board_items.dart';
+import '../../cubit/leaderboard_profile_cubit.dart';
+import '../../widgets/leaderboard_profile_board_items.dart';
 
-class DesktopBetHistory extends StatelessWidget {
+class DesktopLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<HistoryCubit>().state;
-    return state.status == HistoryStatus.loading
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Palette.cream,
+    final state = context.watch<LeaderboardProfileCubit>().state;
+    return state.status == LeaderboardProfileStatus.loading
+        ? const Padding(
+          padding:  EdgeInsets.only(top:160),
+          child:  Center(
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             ),
-          )
+        )
         : Container(
       constraints: const BoxConstraints(maxWidth: 1220),
       child: Column(
@@ -42,20 +45,20 @@ class _DesktopHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<HistoryCubit>().state;
+        final state = context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
-          case HistoryStatus.initial:
+          case LeaderboardProfileStatus.initial:
             return const SizedBox();
             break;
-          case HistoryStatus.loading:
+          case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
             break;
-          case HistoryStatus.success:
+          case LeaderboardProfileStatus.success:
             return _DesktopHistoryBoardContent(wallet: state.userWallet);
             break;
-          case HistoryStatus.failure:
+          case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some error occured.'),
             );
@@ -148,10 +151,10 @@ class _DesktopHistoryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HistoryCubit, HistoryState>(
+    return BlocBuilder<LeaderboardProfileCubit, LeaderboardProfileState>(
       builder: (context, state) {
         switch (state.status) {
-          case HistoryStatus.success:
+          case LeaderboardProfileStatus.success:
             if (state.bets.isEmpty) {
               return const _DesktopBetHistoryTableEmpty();
             } else {
@@ -160,15 +163,15 @@ class _DesktopHistoryContent extends StatelessWidget {
               );
             }
             break;
-          case HistoryStatus.initial:
+          case LeaderboardProfileStatus.initial:
             return const SizedBox();
             break;
-          case HistoryStatus.loading:
+          case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
             break;
-          case HistoryStatus.failure:
+          case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some Error Occured'),
             );
@@ -260,18 +263,22 @@ class _DesktopHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'BET HISTORY',
-            style: Styles.pageTitle,
-          ),
-        ),
-      ],
-    );
+   final betHistoryState = context.select((LeaderboardProfileCubit cubit) => cubit.state);
+
+    return betHistoryState.status == LeaderboardProfileStatus.success
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                        '${betHistoryState.userWallet.username}',
+                        style: Styles.pageTitle,
+                      ),
+              ),
+            ],
+          )
+        : const SizedBox();
   }
 }
 
