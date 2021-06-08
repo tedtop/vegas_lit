@@ -47,6 +47,10 @@ class UserRepository {
         uid: uid,
       );
 
+  Future<void> updateUserAvatar(
+          {@required String avatarUrl, @required String uid}) =>
+      _databaseProvider.updateUserAvatar(avatarUrl: avatarUrl, uid: uid);
+
   Future<bool> isProfileComplete({@required String uid}) =>
       _databaseProvider.isProfileComplete(uid: uid);
 

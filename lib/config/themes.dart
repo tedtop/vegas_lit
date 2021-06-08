@@ -3,6 +3,10 @@ import 'palette.dart';
 
 class Themes {
   static final ThemeData dark = ThemeData(
+    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+    }),
     colorScheme: const ColorScheme(
         primary: Palette.darkGrey,
         primaryVariant: Palette.lightGrey,

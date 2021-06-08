@@ -55,6 +55,15 @@ class CloudFirestoreClient {
     return isProfileComplete;
   }
 
+  Future<void> updateUserAvatar(
+      {@required String avatarUrl, @required String uid}) async {
+    final userReference = _firebaseFirestore.collection('users').doc(uid);
+    final avatarData = {
+      'avatarUrl': avatarUrl,
+    };
+    await userReference.set(avatarData, SetOptions(merge: true));
+  }
+
   // Open Bets Page
 
   Stream<List<BetData>> fetchOpenBets({@required String uid}) {

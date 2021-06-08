@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/profile/widgets/avatar/profile_avatar.dart';
 import 'package:vegas_lit/features/shared_widgets/app_bar/app_bar.dart';
 import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
@@ -85,25 +86,10 @@ class _AvatarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final username = context.watch<ProfileCubit>().state.userData.username;
-    return ClipPath(
-      child: Center(
-        child: ClipOval(
-          child: Container(
-            alignment: Alignment.center,
-            color: Palette.darkGrey,
-            height: 100.0,
-            width: 100.0,
-            child: Text(
-              username.substring(0, 1).toUpperCase(),
-              style: GoogleFonts.nunito(
-                fontSize: 60,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+    final currentUserId = context.watch<ProfileCubit>().state.userData.uid;
+    final avatarUrl = context.watch<ProfileCubit>().state.userData.avatarUrl;
+    return ProfileAvatar.route(
+        avatarUrl: avatarUrl, username: username, currentUserId: currentUserId);
   }
 }
 

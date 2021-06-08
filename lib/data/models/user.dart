@@ -3,25 +3,26 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class UserData extends Equatable {
-  const UserData({
-    @required this.uid,
-    @required this.username,
-    @required this.email,
-    // @required this.phone,
-    @required this.location,
-    this.isAdmin,
-  });
+  const UserData(
+      {@required this.uid,
+      @required this.username,
+      @required this.email,
+      // @required this.phone,
+      @required this.location,
+      this.isAdmin,
+      this.avatarUrl});
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
     return UserData(
-      isAdmin: data['isAdmin'] ?? false,
-      uid: data['uid'] as String,
-      email: data['email'] as String,
-      username: data['username'] as String,
-      // phone: data['phone'] as int,
-      location: data['location'] as String,
-    );
+        isAdmin: data['isAdmin'] ?? false,
+        uid: data['uid'] as String,
+        email: data['email'] as String,
+        username: data['username'] as String,
+        // phone: data['phone'] as int,
+        location: data['location'] as String,
+        avatarUrl:
+            data['avatarUrl'] != null ? data['avatarUrl'] as String : null);
   }
 
   Map<String, dynamic> toMap() {
@@ -32,6 +33,7 @@ class UserData extends Equatable {
       'location': location,
       'uid': uid,
       'isAdmin': false,
+      'avatarUrl': avatarUrl
     };
   }
 
@@ -41,6 +43,7 @@ class UserData extends Equatable {
   // final int phone;
   final String location;
   final bool isAdmin;
+  final String avatarUrl;
 
   @override
   List<Object> get props {
@@ -51,6 +54,7 @@ class UserData extends Equatable {
       // phone,
       location,
       isAdmin,
+      avatarUrl
     ];
   }
 }
