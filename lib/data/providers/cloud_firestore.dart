@@ -297,12 +297,12 @@ class CloudFirestoreClient {
     return userWalletList;
   }
 
-  Future<String> fetchMinimumVersion() async {
-    final minimumVersion = await _firebaseFirestore
+  Stream<String> fetchMinimumVersion() {
+    final minimumVersion = _firebaseFirestore
         .collection('constants')
         .doc('version')
-        .get()
-        .then(
+        .snapshots()
+        .map(
           (value) => value.data()['minimumVersion'] as String,
         );
 

@@ -75,7 +75,7 @@ class UserRepository {
   Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String week}) =>
       _databaseProvider.fetchLeaderboardDaysUserData(week: week);
 
-  Future<String> fetchMinimumVersion() =>
+  Stream<String> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();
 
   Stream<List<VaultItem>> fetchAllDataDateWise() =>

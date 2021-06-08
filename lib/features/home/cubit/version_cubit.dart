@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -13,18 +15,25 @@ class VersionCubit extends Cubit<VersionState> {
         super(const VersionState.initial());
 
   final UserRepository _userRepository;
+  StreamSubscription _versionSubscription;
 
   Future<void> checkMinimumVersion() async {
-    final minimumVersion = await _userRepository.fetchMinimumVersion();
     final currentVersion = await _getAppVersion();
     final currentVersionNumber = int.parse(currentVersion.split('.').join(''));
-    final minimumVersionNumber = int.parse(minimumVersion.split('.').join(''));
-    final isUsingMinimumVersion = currentVersionNumber >= minimumVersionNumber;
-    emit(
-      VersionState.fetched(
-        minimumVersion: minimumVersion,
-        isMinimumVersion: isUsingMinimumVersion,
-      ),
+    final minimumVersion = _userRepository.fetchMinimumVersion();
+    await _versionSubscription?.cancel();
+    _versionSubscription = minimumVersion.listen(
+      (event) {
+        final minimumVersionNumber = int.parse(event.split('.').join(''));
+        final isUsingMinimumVersion =
+            currentVersionNumber >= minimumVersionNumber;
+        emit(
+          VersionState.fetched(
+            minimumVersion: event,
+            isMinimumVersion: isUsingMinimumVersion,
+          ),
+        );
+      },
     );
   }
 
@@ -32,5 +41,11 @@ class VersionCubit extends Cubit<VersionState> {
     final packageInfo = await PackageInfo.fromPlatform();
     final versionString = packageInfo.version;
     return versionString;
+  }
+
+  @override
+  Future<void> close() async {
+    await _versionSubscription?.cancel();
+    return super.close();
   }
 }
