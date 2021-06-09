@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/features/open_bets/views/open_bets_card.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/bet.dart';
+import '../../../../data/models/wallet.dart';
+import '../../../open_bets/views/open_bets_card.dart';
+import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/leaderboard_profile_cubit.dart';
 import '../../widgets/leaderboard_profile_board_items.dart';
 
@@ -17,24 +17,24 @@ class DesktopLeaderboardProfile extends StatelessWidget {
     final state = context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
-          padding:  EdgeInsets.only(top:160),
-          child:  Center(
+            padding: EdgeInsets.only(top: 160),
+            child: Center(
               child: CircularProgressIndicator(
                 color: Palette.cream,
               ),
             ),
-        )
+          )
         : Container(
-      constraints: const BoxConstraints(maxWidth: 1220),
-      child: Column(
-        children: [
-          const _DesktopHistoryHeading(),
-          const _DesktopHistoryBoard(),
-          const _DesktopHistoryContent(),
-          const BottomBar()
-        ],
-      ),
-    );
+            constraints: const BoxConstraints(maxWidth: 1220),
+            child: Column(
+              children: [
+                const _DesktopHistoryHeading(),
+                const _DesktopHistoryBoard(),
+                const _DesktopHistoryContent(),
+                const BottomBar()
+              ],
+            ),
+          );
   }
 }
 
@@ -97,7 +97,7 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DesktopBetHistoryBoardItem(
-                bottomText: 'Your Rank',
+                bottomText: 'Player Rank',
                 topText:
                     '${wallet.rank == 0 ? 'N/A' : wallet.rank.ordinalNumber}',
               ),
@@ -263,7 +263,8 @@ class _DesktopHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final betHistoryState = context.select((LeaderboardProfileCubit cubit) => cubit.state);
+    final betHistoryState =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state);
 
     return betHistoryState.status == LeaderboardProfileStatus.success
         ? Row(
@@ -272,9 +273,9 @@ class _DesktopHistoryHeading extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                        '${betHistoryState.userWallet.username}',
-                        style: Styles.pageTitle,
-                      ),
+                  '${betHistoryState.userWallet.username}',
+                  style: Styles.pageTitle,
+                ),
               ),
             ],
           )

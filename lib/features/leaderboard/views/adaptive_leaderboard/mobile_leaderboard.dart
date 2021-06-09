@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/leaderboard_profile/leaderboard_profile.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
+import '../../../home/home.dart';
+import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../textbar.dart';
+import '../../widgets/textbar.dart';
 
 class MobileLeaderboard extends StatefulWidget {
   MobileLeaderboard({@required this.players});

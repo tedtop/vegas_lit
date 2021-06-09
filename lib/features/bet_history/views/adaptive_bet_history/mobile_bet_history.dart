@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_items.dart';
 import '../../widgets/bet_history_card.dart';
@@ -210,7 +210,6 @@ class _MobileHistoryHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betHistoryState = context.select((HistoryCubit cubit) => cubit.state);
-    
 
     return betHistoryState.status == HistoryStatus.success
         ? Row(
@@ -219,9 +218,9 @@ class _MobileHistoryHeading extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                        'BET HISTORY',
-                        style: Styles.pageTitle,
-                      ),
+                  'BET HISTORY',
+                  style: Styles.pageTitle,
+                ),
               ),
             ],
           )

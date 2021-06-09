@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/profile/widgets/avatar/profile_avatar.dart';
-import 'package:vegas_lit/features/shared_widgets/app_bar/app_bar.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../shared_widgets/abstract_card.dart';
+import '../../shared_widgets/app_bar/app_bar.dart';
+import '../../shared_widgets/bottom_bar.dart';
 import '../cubit/profile_cubit.dart';
+import '../widgets/avatar/profile_avatar.dart';
 
 class Profile extends StatelessWidget {
   const Profile._({Key key}) : super(key: key);

@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
 
 import '../../../data/models/bet.dart';
+import '../../../data/models/wallet.dart';
 import '../../../data/repositories/bets_repository.dart';
+import '../../../data/repositories/user_repository.dart';
 
 part 'leaderboard_profile_state.dart';
 

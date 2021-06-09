@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/leaderboard_profile/leaderboard_profile.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
+import '../../../home/home.dart';
+import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../textbar.dart';
+import '../../widgets/textbar.dart';
 
 class TabletLeaderboard extends StatefulWidget {
   TabletLeaderboard({this.players});
@@ -59,7 +59,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
             shrinkWrap: true,
-            childAspectRatio: 3.5,
+            childAspectRatio: 3.7,
             children: widget.players
                 .asMap()
                 .entries
@@ -101,62 +101,63 @@ class TabletLeaderboardTile extends StatelessWidget {
           color: Palette.cream,
         ),
         borderRadius: BorderRadius.circular(12),
-        color: Palette.lightGrey,
       ),
       child: Material(
         borderRadius: BorderRadius.circular(12),
         clipBehavior: Clip.antiAlias,
-        child: ListTile(
-          // enableFeedback: true,
-          onTap: () {
-            currentUserUid == player.uid
-                ? context.read<HomeCubit>().homeChange(4)
-                : Navigator.of(context).push(
-                    LeaderboardProfile.navigation(
-                      uid: player.uid,
-                      homeCubit: context.read<HomeCubit>(),
-                    ),
-                  );
-          },
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: Palette.darkGrey,
-            child: Text(
-              player.username.substring(0, 1).toUpperCase(),
-              style: Styles.leaderboardUsername,
+        color: Palette.lightGrey,
+        child: Center(
+          child: ListTile(
+            // enableFeedback: true,
+            onTap: () {
+              currentUserUid == player.uid
+                  ? context.read<HomeCubit>().homeChange(4)
+                  : Navigator.of(context).push(
+                      LeaderboardProfile.navigation(
+                        uid: player.uid,
+                        homeCubit: context.read<HomeCubit>(),
+                      ),
+                    );
+            },
+            leading: CircleAvatar(
+              radius: 25,
+              backgroundColor: Palette.darkGrey,
+              child: Text(
+                player.username.substring(0, 1).toUpperCase(),
+                style: Styles.leaderboardUsername,
+              ),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${player.rank}. ${player.username}',
+                  style: Styles.normalTextBold,
+                ),
+                Text(
+                  '\$${player.accountBalance + player.pendingRiskedAmount}',
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    color: Palette.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
+                  style: Styles.awayTeam,
+                ),
+                Text(
+                  'Wins: ${((player.totalBetsWon / player.totalBets) * 100).toStringAsFixed(0)}%',
+                  style: Styles.awayTeam,
+                ),
+              ],
             ),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${player.rank}. ${player.username}',
-                style: Styles.normalTextBold,
-              ),
-              Text(
-                '\$${player.accountBalance + player.pendingRiskedAmount}',
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  color: Palette.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
-                style: Styles.awayTeam,
-              ),
-              Text(
-                'Wins: ${((player.totalBetsWon / player.totalBets) * 100).toStringAsFixed(0)}%',
-                style: Styles.awayTeam,
-              ),
-            ],
-          ),
-          tileColor: Palette.lightGrey,
         ),
       ),
     );

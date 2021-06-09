@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
+import '../../shared_widgets/bottom_bar.dart';
 import '../cubit/leaderboard_cubit.dart';
-import '../widgets/adaptive_widgets/mobileleaderboard.dart';
-import '../widgets/adaptive_widgets/tabletleaderboard.dart';
-import '../widgets/adaptive_widgets/webleaderboard.dart';
+import 'adaptive_leaderboard/desktop_leaderboard.dart';
+import 'adaptive_leaderboard/mobile_leaderboard.dart';
+import 'adaptive_leaderboard/tablet_leaderboard.dart';
 
 class Leaderboard extends StatelessWidget {
   const Leaderboard._({Key key}) : super(key: key);
@@ -41,7 +41,7 @@ class Leaderboard extends StatelessWidget {
                 return Column(
                   children: [
                     ScreenTypeLayout(
-                      desktop: WebLeaderboard(
+                      desktop: DesktopLeaderboard(
                         players: state.rankedUserList,
                       ),
                       tablet: TabletLeaderboard(

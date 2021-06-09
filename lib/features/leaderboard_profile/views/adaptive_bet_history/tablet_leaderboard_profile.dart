@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/leaderboard_profile_cubit.dart';
 import '../../widgets/leaderboard_profile_board_items.dart';
 import '../../widgets/leaderboard_profile_card.dart';
@@ -14,21 +14,21 @@ class TabletLeaderboardProfile extends StatelessWidget {
     final state = context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
-          padding:  EdgeInsets.only(top:160),
-          child:  Center(
+            padding: EdgeInsets.only(top: 160),
+            child: Center(
               child: CircularProgressIndicator(
                 color: Palette.cream,
               ),
             ),
-        )
+          )
         : Column(
-      children: [
-        const _TabletHistoryHeading(),
-        const _TabletHistoryBoard(),
-        const _TabletHistoryContent(),
-        const BottomBar()
-      ],
-    );
+            children: [
+              const _TabletHistoryHeading(),
+              const _TabletHistoryBoard(),
+              const _TabletHistoryContent(),
+              const BottomBar()
+            ],
+          );
   }
 }
 
@@ -72,7 +72,7 @@ class _TabletHistoryBoard extends StatelessWidget {
                   child: Column(
                     children: [
                       LeaderboardProfileHistoryBoardText(
-                        leftText: 'Your Rank',
+                        leftText: 'Player Rank',
                         rightText:
                             '${state.userWallet.rank == 0 ? 'N/A' : state.userWallet.rank.ordinalNumber}',
                       ),
@@ -136,8 +136,10 @@ class _TabletHistoryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select((LeaderboardProfileCubit cubit) => cubit.state.status);
-    final bets = context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
+    final status =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.status);
+    final bets =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
     switch (status) {
       case LeaderboardProfileStatus.initial:
         return const SizedBox();
@@ -168,7 +170,8 @@ class _TabletHistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bets = context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
+    final bets =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
     return GridView.count(
       primary: true,
       childAspectRatio: 2.5,
@@ -213,7 +216,8 @@ class _TabletHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final betHistoryState = context.select((LeaderboardProfileCubit cubit) => cubit.state);
+    final betHistoryState =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state);
 
     return betHistoryState.status == LeaderboardProfileStatus.success
         ? Row(
@@ -222,9 +226,9 @@ class _TabletHistoryHeading extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                        '${betHistoryState.userWallet.username}',
-                        style: Styles.pageTitle,
-                      ),
+                  '${betHistoryState.userWallet.username}',
+                  style: Styles.pageTitle,
+                ),
               ),
             ],
           )

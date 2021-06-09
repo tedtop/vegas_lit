@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vegas_lit/features/shared_widgets/app_bar/app_bar.dart';
 
 import '../../../config/assets.dart';
 import '../../../data/repositories/bets_repository.dart';
@@ -17,6 +16,7 @@ import '../../leaderboard/leaderboard.dart';
 import '../../open_bets/cubit/open_bets_cubit.dart';
 import '../../open_bets/views/open_bets_page.dart';
 import '../../profile/cubit/profile_cubit.dart';
+import '../../shared_widgets/app_bar/app_bar.dart';
 import '../../sportsbook/screens/sportsbook_page.dart';
 import '../../sportsbook/sportsbook.dart';
 import '../cubit/internet_cubit.dart';

@@ -1,8 +1,9 @@
 import 'dart:io';
-import 'package:meta/meta.dart';
-import 'package:path/path.dart';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
+import 'package:path/path.dart';
 
 class CloudStorageClient {
   CloudStorageClient({FirebaseStorage firebaseFirestore})

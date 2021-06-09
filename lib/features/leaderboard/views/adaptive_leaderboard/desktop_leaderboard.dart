@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/leaderboard_profile/leaderboard_profile.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
+import '../../../home/home.dart';
+import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../textbar.dart';
+import '../../widgets/textbar.dart';
 
-class WebLeaderboard extends StatefulWidget {
-  WebLeaderboard({this.players});
+class DesktopLeaderboard extends StatefulWidget {
+  DesktopLeaderboard({this.players});
   final List<Wallet> players;
   @override
-  _WebLeaderboardState createState() => _WebLeaderboardState();
+  _DesktopLeaderboardState createState() => _DesktopLeaderboardState();
 }
 
-class _WebLeaderboardState extends State<WebLeaderboard> {
+class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
   @override
   Widget build(BuildContext context) {
     final leaderboardState = context.watch<LeaderboardCubit>().state;

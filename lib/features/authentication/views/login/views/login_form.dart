@@ -5,10 +5,10 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/data/providers/firebase_auth.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
+import '../../../../../data/providers/firebase_auth.dart';
 import '../../../../shared_widgets/auth_logo.dart';
 import '../../../../shared_widgets/default_button.dart';
 import '../../sign_up/views/sign_up_page.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_items.dart';
 import '../../widgets/bet_history_card.dart';
@@ -19,13 +19,13 @@ class TabletBetHistory extends StatelessWidget {
             ),
           )
         : Column(
-      children: [
-        const _TabletHistoryHeading(),
-        const _TabletHistoryBoard(),
-        const _TabletHistoryContent(),
-        const BottomBar()
-      ],
-    );
+            children: [
+              const _TabletHistoryHeading(),
+              const _TabletHistoryBoard(),
+              const _TabletHistoryContent(),
+              const BottomBar()
+            ],
+          );
   }
 }
 

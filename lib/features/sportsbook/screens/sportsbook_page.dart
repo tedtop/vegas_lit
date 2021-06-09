@@ -78,189 +78,194 @@ class _SportsBookViewState extends State<SportsBookView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          context.read<SportsbookBloc>().add(
-                SportsbookOpen(league: widget.league),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            context.read<SportsbookBloc>().add(
+                  SportsbookOpen(league: widget.league),
+                );
+            context.read<BetSlipCubit>()
+              ..openBetSlip(
+                betSlipGames: [],
               );
-          context.read<BetSlipCubit>()
-            ..openBetSlip(
-              betSlipGames: [],
-            );
-        },
-        color: Palette.cream,
-        child: ListView(
-          controller: _scrollController,
-          shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
-          children: [
-            Text(
-              'SPORTSBOOK',
-              textAlign: TextAlign.center,
-              style: Styles.pageTitle,
-            ),
-            ScreenTypeLayout(
-              mobile: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 2, child: _selectGameDropdown()),
-                    kIsWeb
-                        ? const SizedBox()
-                        : Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                context.read<HomeCubit>().homeChange(1);
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'BET SLIP',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.cream,
+          },
+          color: Palette.cream,
+          child: ListView(
+            controller: _scrollController,
+            shrinkWrap: true,
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              Text(
+                'SPORTSBOOK',
+                textAlign: TextAlign.center,
+                style: Styles.pageTitle,
+              ),
+              ScreenTypeLayout(
+                mobile: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(flex: 2, child: _selectGameDropdown()),
+                      kIsWeb
+                          ? const SizedBox()
+                          : Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.read<HomeCubit>().homeChange(1);
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'BET SLIP',
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.cream,
+                                      ),
                                     ),
-                                  ),
-                                  BlocBuilder<BetSlipCubit, BetSlipState>(
-                                    builder: (context, state) {
-                                      switch (state.status) {
-                                        case BetSlipStatus.opened:
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              color: Palette.cream,
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                            height: 40,
-                                            width: 42,
-                                            child: Center(
-                                              child: Text(
-                                                state.betSlipCard.length
-                                                    .toString(),
-                                                style: GoogleFonts.nunito(
-                                                  color: Palette.darkGrey,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
+                                    BlocBuilder<BetSlipCubit, BetSlipState>(
+                                      builder: (context, state) {
+                                        switch (state.status) {
+                                          case BetSlipStatus.opened:
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                color: Palette.cream,
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                              height: 40,
+                                              width: 42,
+                                              child: Center(
+                                                child: Text(
+                                                  state.betSlipCard.length
+                                                      .toString(),
+                                                  style: GoogleFonts.nunito(
+                                                    color: Palette.darkGrey,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                          break;
-                                        default:
-                                          return const Center(
-                                            child: CircularProgressIndicator(
-                                              color: Palette.cream,
-                                            ),
-                                          );
-                                          break;
-                                      }
-                                    },
-                                  ),
-                                ],
+                                            );
+                                            break;
+                                          default:
+                                            return const Center(
+                                              child: CircularProgressIndicator(
+                                                color: Palette.cream,
+                                              ),
+                                            );
+                                            break;
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                    ],
+                  ),
+                ),
+                tablet: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    constraints: const BoxConstraints(maxWidth: 500),
+                    width: 500,
+                    child: _selectGameDropdown()),
+                desktop: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    constraints: const BoxConstraints(
+                      maxWidth: 600,
+                    ),
+                    width: 600,
+                    child: _selectGameDropdown()),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'All games are based on Eastern Standard Time',
+                      style: Styles.matchupTime,
+                    ),
                   ],
                 ),
               ),
-              tablet: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  width: 500,
-                  child: _selectGameDropdown()),
-              desktop: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  constraints: const BoxConstraints(
-                    maxWidth: 600,
-                  ),
-                  width: 600,
-                  child: _selectGameDropdown()),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'All games are based on Eastern Standard Time',
-                    style: Styles.matchupTime,
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Eastern Time: ${formatDate(widget.estTimeZone)}',
+                      style: Styles.matchupTime,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Eastern Time: ${formatDate(widget.estTimeZone)}',
-                    style: Styles.matchupTime,
-                  ),
-                ],
+              Builder(
+                builder: (context) {
+                  switch (widget.league) {
+                    case 'NFL':
+                      return NflScreen.route();
+                      break;
+                    case 'NBA':
+                      return NbaScreen.route();
+                      break;
+                    case 'NHL':
+                      return NhlScreen.route();
+                      break;
+                    case 'NCAAF':
+                      return NcaafScreen.route();
+                      break;
+                    case 'NCAAB':
+                      return NcaabScreen.route();
+                      break;
+                    case 'GOLF':
+                      return GolfScreen.route();
+                      break;
+                    case 'MLB':
+                      return MlbScreen.route();
+                      break;
+                    default:
+                      return Container();
+                      break;
+                  }
+                },
               ),
-            ),
-            Builder(
-              builder: (context) {
-                switch (widget.league) {
-                  case 'NFL':
-                    return NflScreen.route();
-                    break;
-                  case 'NBA':
-                    return NbaScreen.route();
-                    break;
-                  case 'NHL':
-                    return NhlScreen.route();
-                    break;
-                  case 'NCAAF':
-                    return NcaafScreen.route();
-                    break;
-                  case 'NCAAB':
-                    return NcaabScreen.route();
-                    break;
-                  case 'GOLF':
-                    return GolfScreen.route();
-                    break;
-                  case 'MLB':
-                    return MlbScreen.route();
-                    break;
-                  default:
-                    return Container();
-                    break;
-                }
-              },
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: kIsWeb ||
-              widget.gameNumberList[widget.league] == '0' ||
-              widget.gameNumberList[widget.league] == 'OFF-SEASON'
-          ? Container()
-          : FloatingActionButton(
-              child: const Icon(
-                Icons.help_outlined,
-                size: 40,
-                color: Palette.cream,
-              ),
-              onPressed: () async {
-                await _scrollController.animateTo(
-                  _scrollController.initialScrollOffset,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.linear,
-                );
+        floatingActionButton: ResponsiveBuilder(
+          builder: (context, sizeInfo) {
+            if (sizeInfo.isMobile &&
+                !kIsWeb &&
+                !(widget.gameNumberList[widget.league] == '0') &&
+                !(widget.gameNumberList[widget.league] == 'OFF-SEASON')) {
+              return FloatingActionButton(
+                child: const Icon(
+                  Icons.help_outlined,
+                  size: 40,
+                  color: Palette.cream,
+                ),
+                onPressed: () async {
+                  await _scrollController.animateTo(
+                    _scrollController.initialScrollOffset,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  );
 
-                await Future.delayed(
-                  const Duration(milliseconds: 300),
-                );
+                  await Future.delayed(
+                    const Duration(milliseconds: 300),
+                  );
 
-                await showHelp(context: context, key1: _key1, key2: _key2);
-              },
-            ),
-    );
+                  await showHelp(context: context, key1: _key1, key2: _key2);
+                },
+              );
+            }
+            return const SizedBox();
+          },
+        ));
   }
 
   Widget _selectGameDropdown() => Card(

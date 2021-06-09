@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_empty.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_list.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../bet_slip.dart';
+import '../../../widgets/bet_slip_empty.dart';
+import '../../../widgets/bet_slip_list.dart';
 
 class DesktopBetSlipPage extends StatelessWidget {
   const DesktopBetSlipPage({Key key}) : super(key: key);

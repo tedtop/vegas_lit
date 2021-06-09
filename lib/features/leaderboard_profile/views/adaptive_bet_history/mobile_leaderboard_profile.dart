@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/leaderboard_profile_cubit.dart';
 import '../../widgets/leaderboard_profile_board_items.dart';
 import '../../widgets/leaderboard_profile_card.dart';
@@ -14,13 +14,13 @@ class MobileLeaderboardProfile extends StatelessWidget {
     final state = context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
-          padding:  EdgeInsets.only(top:160),
-          child:  Center(
+            padding: EdgeInsets.only(top: 160),
+            child: Center(
               child: CircularProgressIndicator(
                 color: Palette.cream,
               ),
             ),
-        )
+          )
         : Column(
             children: [
               const _MobileHistoryHeading(),
@@ -71,8 +71,8 @@ class _MobileHistoryBoardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userWallet =
-        context.select((LeaderboardProfileCubit cubit) => cubit.state.userWallet);
+    final userWallet = context
+        .select((LeaderboardProfileCubit cubit) => cubit.state.userWallet);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 6,
@@ -92,7 +92,7 @@ class _MobileHistoryBoardContent extends StatelessWidget {
           child: Column(
             children: [
               LeaderboardProfileHistoryBoardText(
-                leftText: 'Your Rank',
+                leftText: 'Player Rank',
                 rightText:
                     '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
               ),
@@ -142,8 +142,10 @@ class _MobileHistoryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select((LeaderboardProfileCubit cubit) => cubit.state.status);
-    final bets = context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
+    final status =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.status);
+    final bets =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
     switch (status) {
       case LeaderboardProfileStatus.initial:
         return const SizedBox();
@@ -174,7 +176,8 @@ class _MobileHistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bets = context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
+    final bets =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state.bets);
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -212,7 +215,8 @@ class _MobileHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final betHistoryState = context.select((LeaderboardProfileCubit cubit) => cubit.state);
+    final betHistoryState =
+        context.select((LeaderboardProfileCubit cubit) => cubit.state);
 
     return betHistoryState.status == LeaderboardProfileStatus.success
         ? Row(
@@ -221,9 +225,9 @@ class _MobileHistoryHeading extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                        '${betHistoryState.userWallet.username}',
-                        style: Styles.pageTitle,
-                      ),
+                  '${betHistoryState.userWallet.username}',
+                  style: Styles.pageTitle,
+                ),
               ),
             ],
           )

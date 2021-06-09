@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/open_bets/cubit/open_bets_cubit.dart';
 
 import '../../../config/palette.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
+import '../../open_bets/cubit/open_bets_cubit.dart';
 import '../cubit/home_cubit.dart';
 
 class BottomNavigation extends StatelessWidget {

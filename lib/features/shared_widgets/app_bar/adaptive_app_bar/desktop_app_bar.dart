@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
+import '../../../bet_slip/bet_slip.dart';
+import '../../../home/home.dart';
 
 AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
   return AppBar(

@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/providers/firebase_storage.dart';
+
+import '../providers/firebase_storage.dart';
 
 class StorageRepository {
   final _storageClient = CloudStorageClient();

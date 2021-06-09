@@ -5,9 +5,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:vegas_lit/config/paths.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+
+import '../../../../../config/paths.dart';
+import '../../../../../data/repositories/storage_repository.dart';
+import '../../../../../data/repositories/user_repository.dart';
 
 part 'profileavatar_state.dart';
 
