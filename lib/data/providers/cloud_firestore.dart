@@ -71,7 +71,7 @@ class CloudFirestoreClient {
         .collection('bets')
         .where('uid', isEqualTo: uid)
         .where('isClosed', isEqualTo: false)
-        .orderBy('dateTime', descending: true)
+        .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
           (event) => event.docs
@@ -92,7 +92,7 @@ class CloudFirestoreClient {
         .collection('bets')
         .where('uid', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
-        .orderBy('dateTime', descending: true)
+        .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
           (event) => event.docs
