@@ -85,11 +85,7 @@ class Profile extends StatelessWidget {
 class _AvatarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final username = context.watch<ProfileCubit>().state.userData.username;
-    final currentUserId = context.watch<ProfileCubit>().state.userData.uid;
-    final avatarUrl = context.watch<ProfileCubit>().state.userData.avatarUrl;
-    return ProfileAvatar.route(
-        avatarUrl: avatarUrl, username: username, currentUserId: currentUserId);
+    return ProfileAvatar.route();
   }
 }
 

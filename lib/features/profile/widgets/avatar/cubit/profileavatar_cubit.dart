@@ -13,31 +13,45 @@ import '../../../../../data/repositories/user_repository.dart';
 part 'profileavatar_state.dart';
 
 class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
-  ProfileAvatarCubit(
-      {@required UserRepository userRepository, @required String uid})
-      : assert(userRepository != null && uid != null),
+  ProfileAvatarCubit({
+    @required UserRepository userRepository,
+    @required StorageRepository storageRepository,
+  })  : assert(userRepository != null),
+        assert(storageRepository != null),
         _userRepository = userRepository,
-        _uid = uid,
+        _storageRepository = storageRepository,
         super(
-          const ProfileAvatarState.none(),
+          const ProfileAvatarState(),
         );
 
   final UserRepository _userRepository;
-  final String _uid;
+  final StorageRepository _storageRepository;
 
-  Future<void> pickAvatar({@required String currentUserId}) async {
+  Future<void> pickAvatar({@required String uid}) async {
     final avatarPickedFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (avatarPickedFile == null) {
-      emit(const ProfileAvatarState.none());
-      return;
+      emit(
+        const ProfileAvatarState(status: ProfileAvatarStatus.initial),
+      );
+    } else {
+      final avatarImageFile = File(avatarPickedFile.path);
+      emit(
+        const ProfileAvatarState(status: ProfileAvatarStatus.loading),
+      );
+      try {
+        final avatarUrl = await _storageRepository.uploadFile(
+          file: avatarImageFile,
+          path: Paths.profilePicturePath,
+        );
+        await _userRepository.updateUserAvatar(
+          avatarUrl: avatarUrl,
+          uid: uid,
+        );
+      } catch (e) {
+        const ProfileAvatarState(status: ProfileAvatarStatus.failure);
+      }
+      emit(const ProfileAvatarState(status: ProfileAvatarStatus.success));
     }
-    final avatarImageFile = File(avatarPickedFile.path);
-    emit(const ProfileAvatarState.updating());
-    final avatarUrl = await StorageRepository()
-        .uploadFile(file: avatarImageFile, path: Paths.profilePicturePath);
-    await _userRepository.updateUserAvatar(avatarUrl: avatarUrl, uid: _uid);
-    emit(const ProfileAvatarState.none());
-    //print('state is none now');
   }
 }
