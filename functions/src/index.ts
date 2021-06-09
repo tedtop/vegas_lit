@@ -107,58 +107,268 @@ export const resolveBets = functions.pubsub
                         winningTeam: finalWinTeam,
                       })
                       .then(async (_) => {
-                        if (isWin) {
-                          await app
-                            .firestore()
-                            .collection("wallets")
-                            .doc(uid)
-                            .update({
-                              totalOpenBets:
-                                admin.firestore.FieldValue.increment(-1),
-                              totalProfit:
-                                admin.firestore.FieldValue.increment(amountWin),
-                              accountBalance:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                              pendingRiskedAmount:
-                                admin.firestore.FieldValue.increment(
-                                  -amountBet
-                                ),
-                              totalBetsWon:
-                                admin.firestore.FieldValue.increment(1),
-                              potentialWinAmount:
-                                admin.firestore.FieldValue.increment(
-                                  -amountWin
-                                ),
-                            });
-                          await sendMessageToSlack(
-                            `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                          );
+                        const betPlacedDateWeekDay = moment(dateTime)
+                          .tz("America/New_York")
+                          .weekday();
+
+                        const nowWeekDay = moment()
+                          .tz("America/New_York")
+                          .weekday();
+
+                        if (betPlacedDateWeekDay <= 3) {
+                          if (nowWeekDay >= 4) {
+                            const documentName = getCurrentWeek();
+                            if (isWin) {
+                              await app
+                                .firestore()
+                                .collection("leaderboard")
+                                .doc("global")
+                                .collection("weeks")
+                                .doc(documentName)
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalProfit:
+                                    admin.firestore.FieldValue.increment(
+                                      amountWin
+                                    ),
+                                  accountBalance:
+                                    admin.firestore.FieldValue.increment(
+                                      totalWinAmount
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                  totalBetsWon:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                              );
+                            } else {
+                              await app
+                                .firestore()
+                                .collection("leaderboard")
+                                .doc("global")
+                                .collection("weeks")
+                                .doc(documentName)
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalLoss:
+                                    admin.firestore.FieldValue.increment(
+                                      amountBet
+                                    ),
+                                  totalBetsLost:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:moneybag: *${username}* lost their bet for $${amountBet}`
+                              );
+                            }
+                          } else {
+                            if (isWin) {
+                              await app
+                                .firestore()
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalProfit:
+                                    admin.firestore.FieldValue.increment(
+                                      amountWin
+                                    ),
+                                  accountBalance:
+                                    admin.firestore.FieldValue.increment(
+                                      totalWinAmount
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                  totalBetsWon:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                              );
+                            } else {
+                              await app
+                                .firestore()
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalLoss:
+                                    admin.firestore.FieldValue.increment(
+                                      amountBet
+                                    ),
+                                  totalBetsLost:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:moneybag: *${username}* lost their bet for $${amountBet}`
+                              );
+                            }
+                          }
                         } else {
-                          await app
-                            .firestore()
-                            .collection("wallets")
-                            .doc(uid)
-                            .update({
-                              totalOpenBets:
-                                admin.firestore.FieldValue.increment(-1),
-                              totalLoss:
-                                admin.firestore.FieldValue.increment(amountBet),
-                              totalBetsLost:
-                                admin.firestore.FieldValue.increment(1),
-                              potentialWinAmount:
-                                admin.firestore.FieldValue.increment(
-                                  -amountWin
-                                ),
-                              pendingRiskedAmount:
-                                admin.firestore.FieldValue.increment(
-                                  -amountBet
-                                ),
-                            });
-                          await sendMessageToSlack(
-                            `:moneybag: *${username}* lost their bet for $${amountBet}`
-                          );
+                          if (nowWeekDay >= 4) {
+                            if (isWin) {
+                              await app
+                                .firestore()
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalProfit:
+                                    admin.firestore.FieldValue.increment(
+                                      amountWin
+                                    ),
+                                  accountBalance:
+                                    admin.firestore.FieldValue.increment(
+                                      totalWinAmount
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                  totalBetsWon:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                              );
+                            } else {
+                              await app
+                                .firestore()
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalLoss:
+                                    admin.firestore.FieldValue.increment(
+                                      amountBet
+                                    ),
+                                  totalBetsLost:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:moneybag: *${username}* lost their bet for $${amountBet}`
+                              );
+                            }
+                          } else {
+                            const documentName = getCurrentWeek();
+                            if (isWin) {
+                              await app
+                                .firestore()
+                                .collection("leaderboard")
+                                .doc("global")
+                                .collection("weeks")
+                                .doc(documentName)
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalProfit:
+                                    admin.firestore.FieldValue.increment(
+                                      amountWin
+                                    ),
+                                  accountBalance:
+                                    admin.firestore.FieldValue.increment(
+                                      totalWinAmount
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                  totalBetsWon:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                              );
+                            } else {
+                              await app
+                                .firestore()
+                                .collection("leaderboard")
+                                .doc("global")
+                                .collection("weeks")
+                                .doc(documentName)
+                                .collection("wallets")
+                                .doc(uid)
+                                .update({
+                                  totalOpenBets:
+                                    admin.firestore.FieldValue.increment(-1),
+                                  totalLoss:
+                                    admin.firestore.FieldValue.increment(
+                                      amountBet
+                                    ),
+                                  totalBetsLost:
+                                    admin.firestore.FieldValue.increment(1),
+                                  potentialWinAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountWin
+                                    ),
+                                  pendingRiskedAmount:
+                                    admin.firestore.FieldValue.increment(
+                                      -amountBet
+                                    ),
+                                });
+                              await sendMessageToSlack(
+                                `:moneybag: *${username}* lost their bet for $${amountBet}`
+                              );
+                            }
+                          }
                         }
 
                         valueUpdateNumber++;
@@ -216,6 +426,16 @@ export const resolveBets = functions.pubsub
     //       }
     //     });
     // }
+
+    function getCurrentWeek(): string {
+      let today = new Date();
+      const weekNextFormat = moment(today).format("w");
+      const nextWeekFormatInteger = Number.parseInt(weekNextFormat) + 1;
+      const walletsDayFormat = "YYYY-w";
+      const weekFormat = moment(today).format(walletsDayFormat);
+      const fullData = `${weekFormat}-${nextWeekFormatInteger}`;
+      return fullData;
+    }
 
     // Finding point spread sign
     function pointSpreadAssign(pointSpread: any, winTeam: string) {
@@ -648,4 +868,33 @@ export const rankLeaderboard = functions.pubsub
 //     const fullData = `${weekFormat}-${nextWeekFormatInteger}`;
 //     return fullData;
 //   }
+// });
+
+// exports.WeekChangeCheck = functions.https.onRequest(async (req, res) => {
+//   var cool = isPreviousWeek("2021-06-04");
+//   console.log(cool);
+
+//   function isPreviousWeek(betPlacedTime: string): string {
+//     const betPlacedDateWeekDay = moment(betPlacedTime)
+//       .tz("America/New_York")
+//       .weekday();
+
+//     const nowWeekDay = moment().tz("America/New_York").weekday();
+
+//     if (betPlacedDateWeekDay <= 3) {
+//       if (nowWeekDay >= 4) {
+//         return "leaderboard";
+//       } else {
+//         return "wallets";
+//       }
+//     } else {
+//       if (nowWeekDay >= 4) {
+//         return "wallets";
+//       } else {
+//         return "leaderboard";
+//       }
+//     }
+//   }
+
+//   res.send("Done");
 // });
