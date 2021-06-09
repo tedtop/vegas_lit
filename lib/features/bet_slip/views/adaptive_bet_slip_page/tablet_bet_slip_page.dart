@@ -27,7 +27,7 @@ class TabletBetSlipPage extends StatelessWidget {
                 return Column(
                   children: [
                     state.betSlipCard.isEmpty
-                        ? isBetPlaced && !kIsWeb
+                        ? (isBetPlaced && !kIsWeb)
                             ? RewardedBetSlip()
                             : EmptyBetSlip()
                         : BetSlipList(),

@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../config/palette.dart';
-import '../../../../../config/styles.dart';
-import '../../../../open_bets/cubit/open_bets_cubit.dart';
-import '../../../../shared_widgets/bottom_bar.dart';
-import '../../../bet_slip.dart';
-import '../../../widgets/bet_slip_ad.dart';
-import '../../../widgets/bet_slip_empty.dart';
-import '../../../widgets/bet_slip_list.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../open_bets/cubit/open_bets_cubit.dart';
+import '../../../shared_widgets/bottom_bar.dart';
+import '../../bet_slip.dart';
+import '../../widgets/bet_slip_ad.dart';
+import '../../widgets/bet_slip_empty.dart';
+import '../../widgets/bet_slip_list.dart';
 
 class MobileBetSlipPage extends StatelessWidget {
   const MobileBetSlipPage({Key key}) : super(key: key);
@@ -27,7 +27,7 @@ class MobileBetSlipPage extends StatelessWidget {
                 return Column(
                   children: [
                     state.betSlipCard.isEmpty
-                        ? isBetPlaced && !kIsWeb
+                        ? (isBetPlaced && !kIsWeb)
                             ? RewardedBetSlip()
                             : EmptyBetSlip()
                         : BetSlipList(),

@@ -51,25 +51,29 @@ class BetHistorySlip extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        RichText(
-                          text: TextSpan(
-                            style: GoogleFonts.nunito(
-                              fontWeight: FontWeight.normal,
-                              color: Palette.cream,
-                              fontSize: 14,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: RichText(
+                            text: TextSpan(
+                              style: GoogleFonts.nunito(
+                                fontWeight: FontWeight.normal,
+                                color: Palette.cream,
+                                fontSize: 14,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      '${betHistoryData.awayTeamName.toUpperCase()}',
+                                ),
+                                const TextSpan(text: '  @  '),
+                                TextSpan(
+                                  text:
+                                      '${betHistoryData.homeTeamName.toUpperCase()}',
+                                  style:
+                                      GoogleFonts.nunito(color: Palette.green),
+                                ),
+                              ],
                             ),
-                            children: [
-                              TextSpan(
-                                text:
-                                    '${betHistoryData.awayTeamName.toUpperCase()}',
-                              ),
-                              const TextSpan(text: '  @  '),
-                              TextSpan(
-                                text:
-                                    '${betHistoryData.homeTeamName.toUpperCase()}',
-                                style: GoogleFonts.nunito(color: Palette.green),
-                              ),
-                            ],
                           ),
                         ),
                         whichBetText(betData: betHistoryData),
@@ -210,117 +214,126 @@ class BetHistorySlip extends StatelessWidget {
     switch (betData.betType) {
       case 'moneyline':
         return Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: Styles.betHistoryCardNormal,
-                  children: [
-                    betData.betTeam == 'away'
-                        ? TextSpan(
-                            text: '${betTeam.toUpperCase()} ',
-                            style: Styles.betHistoryTeamAway,
-                          )
-                        : TextSpan(
-                            text: '${betTeam.toUpperCase()} ',
-                            style: Styles.betHistoryTeamNotAway,
-                          ),
-                    TextSpan(text: isWin ? 'WON' : 'LOST'),
-                    TextSpan(
-                        text:
-                            ' ${betData.awayTeamScore}-${betData.homeTeamScore}'),
-                  ],
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: Styles.betHistoryCardNormal,
+                    children: [
+                      betData.betTeam == 'away'
+                          ? TextSpan(
+                              text: '${betTeam.toUpperCase()} ',
+                              style: Styles.betHistoryTeamAway,
+                            )
+                          : TextSpan(
+                              text: '${betTeam.toUpperCase()} ',
+                              style: Styles.betHistoryTeamNotAway,
+                            ),
+                      TextSpan(text: isWin ? 'WON' : 'LOST'),
+                      TextSpan(
+                          text:
+                              ' ${betData.awayTeamScore}-${betData.homeTeamScore}'),
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                '${betTypeString(betData.betType)}  ($odds)',
-                style: Styles.betHistoryCardNormal,
-              ),
-            ],
+                Text(
+                  '${betTypeString(betData.betType)}  ($odds)',
+                  style: Styles.betHistoryCardNormal,
+                ),
+              ],
+            ),
           ),
         );
         break;
       case 'pointspread':
         return Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: Styles.betHistoryCardNormal,
-                  children: [
-                    betData.betTeam == 'away'
-                        ? TextSpan(
-                            text: '${betTeam.toUpperCase()} ',
-                            style: Styles.betHistoryTeamAway,
-                          )
-                        : TextSpan(
-                            text: '${betTeam.toUpperCase()} ',
-                            style: Styles.betHistoryTeamNotAway,
-                          ),
-                    TextSpan(
-                      text:
-                          '${isWin ? 'WON' : 'LOST'} ${betData.awayTeamScore}-${betData.homeTeamScore}',
-                    ),
-                  ],
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: Styles.betHistoryCardNormal,
+                    children: [
+                      betData.betTeam == 'away'
+                          ? TextSpan(
+                              text: '${betTeam.toUpperCase()} ',
+                              style: Styles.betHistoryTeamAway,
+                            )
+                          : TextSpan(
+                              text: '${betTeam.toUpperCase()} ',
+                              style: Styles.betHistoryTeamNotAway,
+                            ),
+                      TextSpan(
+                        text:
+                            '${isWin ? 'WON' : 'LOST'} ${betData.awayTeamScore}-${betData.homeTeamScore}',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              betData.betTeam == 'away'
-                  ? Text(
-                      isWin
-                          ? 'AUTOMATIC WIN $awayTeamPointSpread ($odds)'
-                          : 'AUTOMATIC LOSS $awayTeamPointSpread ($odds)',
-                      style: Styles.betHistoryCardNormal,
-                    )
-                  : Text(
-                      isWin
-                          ? 'AUTOMATIC WIN $homeTeamPointSpread ($odds)'
-                          : 'AUTOMATIC LOSS $homeTeamPointSpread ($odds)',
-                      style: Styles.betHistoryCardNormal,
-                    ),
-            ],
+                betData.betTeam == 'away'
+                    ? Text(
+                        isWin
+                            ? 'AUTOMATIC WIN $awayTeamPointSpread ($odds)'
+                            : 'AUTOMATIC LOSS $awayTeamPointSpread ($odds)',
+                        style: Styles.betHistoryCardNormal,
+                      )
+                    : Text(
+                        isWin
+                            ? 'AUTOMATIC WIN $homeTeamPointSpread ($odds)'
+                            : 'AUTOMATIC LOSS $homeTeamPointSpread ($odds)',
+                        style: Styles.betHistoryCardNormal,
+                      ),
+              ],
+            ),
           ),
         );
 
         break;
       case 'total':
         return Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: Styles.betHistoryCardNormal,
-                  children: [
-                    betData.betTeam == 'away'
-                        ? TextSpan(
-                            text: '${betTeam.toUpperCase()} ',
-                            style: Styles.betHistoryTeamAway,
-                          )
-                        : TextSpan(
-                            text: '${betTeam.toUpperCase()} ',
-                            style: Styles.betHistoryTeamNotAway,
-                          ),
-                    TextSpan(text: isWin ? 'WON' : 'LOST'),
-                    TextSpan(
-                        text:
-                            ' ${betData.awayTeamScore}-${betData.homeTeamScore}'),
-                  ],
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: Styles.betHistoryCardNormal,
+                    children: [
+                      betData.betTeam == 'away'
+                          ? TextSpan(
+                              text: '${betTeam.toUpperCase()} ',
+                              style: Styles.betHistoryTeamAway,
+                            )
+                          : TextSpan(
+                              text: '${betTeam.toUpperCase()} ',
+                              style: Styles.betHistoryTeamNotAway,
+                            ),
+                      TextSpan(text: isWin ? 'WON' : 'LOST'),
+                      TextSpan(
+                          text:
+                              ' ${betData.awayTeamScore}-${betData.homeTeamScore}'),
+                    ],
+                  ),
                 ),
-              ),
-              RichText(
-                text: TextSpan(
-                  style: Styles.betHistoryCardNormal,
-                  children: [
-                    TextSpan(
-                        text: betData.totalGameScore > betData.betOverUnder
-                            ? 'ABOVE YOUR $overUnder ($odds)'
-                            : 'BELOW YOUR $overUnder ($odds)'),
-                  ],
+                RichText(
+                  text: TextSpan(
+                    style: Styles.betHistoryCardNormal,
+                    children: [
+                      TextSpan(
+                          text: betData.totalGameScore > betData.betOverUnder
+                              ? 'ABOVE YOUR $overUnder ($odds)'
+                              : 'BELOW YOUR $overUnder ($odds)'),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
         break;
