@@ -16,7 +16,7 @@ class TabletBetSlipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isBetPlaced = context.read<OpenBetsCubit>().state.bets.isNotEmpty;
+    final isBetPlaced = context.watch<OpenBetsCubit>().state.bets.isNotEmpty;
     return Scaffold(
       body: ListView(children: [
         const TabletBetSlipUpper(),
