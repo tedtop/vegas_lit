@@ -114,7 +114,8 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
-  int selectedIndex = 0;
+  final PageController _pageController = PageController();
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -126,14 +127,13 @@ class _HomePageState extends State<HomePage>
           : homeCubit.state.userWallet.accountBalance,
     );
     final width = MediaQuery.of(context).size.width;
-
     return BlocListener<HomeCubit, HomeState>(
       listenWhen: (previous, current) =>
           previous.pageIndex != current.pageIndex,
       listener: (context, state) {
         if (state.status == HomeStatus.changed) {
-          selectedIndex = state.pageIndex;
-
+          _pageController.jumpToPage(state.pageIndex);
+          selectedIndex = _pageController.page.toInt();
           _sendCurrentTabToAnalytics();
         }
       },
@@ -149,8 +149,8 @@ class _HomePageState extends State<HomePage>
                 child: SvgPicture.asset(SVG.networkError),
               );
             } else {
-              return IndexedStack(
-                index: pageIndex,
+              return PageView(
+                controller: _pageController,
                 children: [
                   Sportsbook(),
                   BetSlip(),
