@@ -68,15 +68,20 @@ class SportsBookView extends StatefulWidget {
   _SportsBookViewState createState() => _SportsBookViewState();
 }
 
-class _SportsBookViewState extends State<SportsBookView> {
+class _SportsBookViewState extends State<SportsBookView>
+    with AutomaticKeepAliveClientMixin {
   final GlobalKey _key1 = GlobalKey();
 
   final GlobalKey _key2 = GlobalKey();
+
+  @override
+  bool get wantKeepAlive => true;
 
   final ScrollController _scrollController = ScrollController();
   OverlayEntry _overlayEntry;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         body: RefreshIndicator(
           onRefresh: () async {
