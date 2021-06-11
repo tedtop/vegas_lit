@@ -23,7 +23,7 @@ class MobileBetHistory extends StatelessWidget {
         : Column(
             children: [
               const _MobileHistoryHeading(),
-              const _MobileHistoryDropdown(),
+              // const _MobileHistoryDropdown(),
               const _MobileHistoryBoard(),
               const _MobileHistoryContent(),
               const BottomBar()
