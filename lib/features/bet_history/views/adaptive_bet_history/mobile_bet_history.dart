@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -21,6 +23,7 @@ class MobileBetHistory extends StatelessWidget {
         : Column(
             children: [
               const _MobileHistoryHeading(),
+              const _MobileHistoryDropdown(),
               const _MobileHistoryBoard(),
               const _MobileHistoryContent(),
               const BottomBar()
@@ -199,6 +202,79 @@ class _MobileHistoryEmpty extends StatelessWidget {
         'No bets resolved yet.',
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
+      ),
+    );
+  }
+}
+
+class _MobileHistoryDropdown extends StatelessWidget {
+  const _MobileHistoryDropdown({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final weeks = context.select((HistoryCubit cubit) => cubit.state.weeks);
+    final week = context.select((HistoryCubit cubit) => cubit.state.week);
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 6,
+      ),
+      height: 40,
+      width: 220,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Container(
+          color: Palette.green,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          child: Center(
+            child: DropdownButton<String>(
+              dropdownColor: Palette.green,
+              isDense: true,
+              value: week,
+              icon: const Icon(
+                FontAwesome.angle_down,
+                color: Palette.cream,
+              ),
+              isExpanded: true,
+              underline: Container(
+                height: 0,
+              ),
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+              ),
+              onChanged: (week) =>
+                  context.read<HistoryCubit>().changeWeek(week: week),
+              items: weeks.isNotEmpty == true
+                  ? weeks.map<DropdownMenuItem<String>>(
+                      (String weekValue) {
+                        String weekFormat;
+                        if (weekValue != 'Current Week') {
+                          final formatValue = weekValue.split('-');
+
+                          weekFormat =
+                              'Week ${formatValue[1]}, ${formatValue[0]}';
+                        } else {
+                          weekFormat = weekValue;
+                        }
+                        return DropdownMenuItem<String>(
+                          value: weekValue,
+                          child: Text(
+                            weekFormat.toString(),
+                            textAlign: TextAlign.left,
+                            style: Styles.leaderboardDropdown,
+                          ),
+                        );
+                      },
+                    ).toList()
+                  : const [],
+            ),
+          ),
+        ),
       ),
     );
   }
