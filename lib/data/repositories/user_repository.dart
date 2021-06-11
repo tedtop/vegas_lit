@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/bet.dart';
 
 import '../models/user.dart';
 import '../models/vault_data.dart';
@@ -69,11 +70,15 @@ class UserRepository {
   Stream<List<Wallet>> fetchRankedUsers() =>
       _databaseProvider.fetchRankedUsers();
 
-  Future<List<String>> fetchLeaderboardDays() =>
-      _databaseProvider.fetchLeaderboardDays();
+  Stream<List<String>> fetchLeaderboardWeeks() =>
+      _databaseProvider.fetchLeaderboardWeeks();
 
   Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String week}) =>
       _databaseProvider.fetchLeaderboardDaysUserData(week: week);
+
+  Future<List<BetData>> fetchBetHistoryByWeek(
+          {@required String week, @required String uid}) =>
+      _databaseProvider.fetchBetHistoryByWeek(week: week, uid: uid);
 
   Stream<String> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();

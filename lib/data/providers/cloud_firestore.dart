@@ -104,6 +104,26 @@ class CloudFirestoreClient {
     return betHistoryData;
   }
 
+  Future<List<BetData>> fetchBetHistoryByWeek({
+    @required String uid,
+    @required String week,
+  }) {
+    final betHistoryData = _firebaseFirestore
+        .collection('bets')
+        .where('uid', isEqualTo: uid)
+        .where('isClosed', isEqualTo: true)
+        .orderBy('gameStartDateTime', descending: true)
+        .get()
+        .then(
+          (event) => event.docs
+              .map(
+                (e) => BetData.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return betHistoryData;
+  }
+
   // Bet Slip Page
 
   Future<void> saveBets({
@@ -263,13 +283,13 @@ class CloudFirestoreClient {
     return isUsernameExist;
   }
 
-  Future<List<String>> fetchLeaderboardDays() async {
-    final days = await _firebaseFirestore
+  Stream<List<String>> fetchLeaderboardWeeks() {
+    final days = _firebaseFirestore
         .collection('leaderboard')
         .doc('global')
         .collection('weeks')
-        .get()
-        .then(
+        .snapshots()
+        .map(
           (value) => value.docs.map((e) => e.id).toList(),
         );
     return days;

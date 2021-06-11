@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../data/models/wallet.dart';
 import '../../../data/repositories/user_repository.dart';
 
@@ -21,16 +22,34 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
 
   Future<void> openLeaderboard() async {
     final currentWeek = <String>['Current Week'];
-    final weeks = await _userRepository.fetchLeaderboardDays();
-    weeks.sort((a, b) => b.compareTo(a));
-    final totalWeek = currentWeek + weeks;
-
-    await userDataValue(totalWeek: totalWeek);
+    final weeksStream = _userRepository.fetchLeaderboardWeeks();
+    final usersStream = _userRepository.fetchRankedUsers();
+    await _leaderboardSubscription?.cancel();
+    _leaderboardSubscription = Rx.combineLatest2(
+      weeksStream,
+      usersStream,
+      (List<String> weeks, List<Wallet> users) {
+        weeks.sort((a, b) => b.compareTo(a));
+        final totalWeek = currentWeek + weeks;
+        users.sort(
+          (a, b) => (a.rank).compareTo(b.rank),
+        );
+        emit(
+          LeaderboardState.opened(
+            rankedUserList: users,
+            days: totalWeek,
+          ),
+        );
+      },
+    ).listen(
+      // ignore: avoid_print
+      print,
+    );
   }
 
   Future<void> changeWeek({@required String week}) async {
     if (week == 'Current Week') {
-      await userDataValue(totalWeek: state.days);
+      await openLeaderboard();
     } else {
       emit(
         LeaderboardState.loading(days: state.days, day: week),
@@ -48,26 +67,6 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
         ),
       );
     }
-  }
-
-  Future<void> userDataValue({List<String> totalWeek}) async {
-    final usersStream = _userRepository.fetchRankedUsers();
-
-    await _leaderboardSubscription?.cancel();
-    _leaderboardSubscription = usersStream.listen(
-      (event) {
-        event.sort(
-          (a, b) => (a.rank).compareTo(b.rank),
-        );
-
-        emit(
-          LeaderboardState.opened(
-            rankedUserList: event,
-            days: totalWeek,
-          ),
-        );
-      },
-    );
   }
 
   @override
