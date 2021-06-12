@@ -28,7 +28,7 @@ class TabletBetSlipPage extends StatelessWidget {
                   children: [
                     state.betSlipCard.isEmpty
                         ? (isBetPlaced && !kIsWeb)
-                            ? RewardedBetSlip()
+                            ? RewardedBetSlip.route()
                             : EmptyBetSlip()
                         : BetSlipList(),
                     const BottomBar()

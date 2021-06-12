@@ -14,12 +14,15 @@ class AdsCubit extends Cubit<AdsState> {
       : assert(userRepository != null),
         _userRepository = userRepository,
         super(
-          const AdsState.loading(),
+          const AdsState.initial(),
         );
 
   final UserRepository _userRepository;
 
   Future<void> openInterstitialAd() async {
+    emit(
+      const AdsState.loading(),
+    );
     await InterstitialAd.load(
       adUnitId: InterstitialAd.testAdUnitId,
       request: const AdRequest(),
@@ -46,19 +49,25 @@ class AdsCubit extends Cubit<AdsState> {
                 print('$ad impression occurred.'),
           );
           await interstitialAd.show();
+          emit(
+            const AdsState.success(),
+          );
         },
         onAdFailedToLoad: (LoadAdError error) {
           // ignore: avoid_print
           print('InterstitialAd failed to load: $error');
+          emit(
+            const AdsState.failure(),
+          );
         },
       ),
-    );
-    emit(
-      const AdsState.completed(),
     );
   }
 
   Future<void> openRewardedAd() async {
+    emit(
+      const AdsState.loading(),
+    );
     final rewardedAdID = Platform.isIOS
         ? 'ca-app-pub-8972894064340370/3118061623'
         : 'ca-app-pub-8972894064340370/1258556174';
@@ -100,15 +109,18 @@ class AdsCubit extends Cubit<AdsState> {
               );
             },
           );
+          emit(
+            const AdsState.success(),
+          );
         },
         onAdFailedToLoad: (LoadAdError error) {
           // ignore: avoid_print
           print('RewardedAd failed to load: $error');
+          emit(
+            const AdsState.failure(),
+          );
         },
       ),
-    );
-    emit(
-      const AdsState.completed(),
     );
   }
 }
