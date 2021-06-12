@@ -16,6 +16,7 @@ class AdsState extends Equatable {
   const AdsState.failure() : this._(status: AdsStatus.failure);
 
   final AdsStatus status;
+
   @override
   List<Object> get props => [status];
 }
