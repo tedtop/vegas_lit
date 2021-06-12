@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -112,9 +111,8 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
                 style: Styles.matchupTime,
               ),
               Text(
-                DateFormat('E, MMMM, c, y @ hh:00 a').format(
-                  fetchTimeEST(),
-                ),
+                DateFormat('E, MMMM, c, y @ hh:00 a')
+                    .format(ESTDateTime.fetchTimeEST()),
                 style: Styles.matchupTime,
               ),
               Text(
@@ -135,15 +133,6 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
         // )
       ],
     );
-  }
-
-  DateTime fetchTimeEST() {
-    tz.initializeTimeZones();
-    final locationNY = tz.getLocation('America/New_York');
-    final nowNY = tz.TZDateTime.now(locationNY);
-    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-        nowNY.minute, nowNY.second);
-    return dateTimeNY;
   }
 }
 

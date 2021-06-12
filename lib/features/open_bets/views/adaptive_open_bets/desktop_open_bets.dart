@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/bet.dart';
-import '../../../games/baseball/mlb/widgets/matchup_card/matchup_card.dart';
 import '../../../home/home.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
@@ -382,7 +382,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 18),
                             child: CountdownTimer(
-                              endTime: getESTGameTimeInMS(
+                              endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
                                 DateTime.parse(openBets.gameStartDateTime),
                               ),
                               widgetBuilder: (_, CurrentRemainingTime time) {
