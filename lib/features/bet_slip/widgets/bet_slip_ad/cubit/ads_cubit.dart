@@ -49,9 +49,6 @@ class AdsCubit extends Cubit<AdsState> {
                 print('$ad impression occurred.'),
           );
           await interstitialAd.show();
-          emit(
-            const AdsState.success(),
-          );
         },
         onAdFailedToLoad: (LoadAdError error) {
           // ignore: avoid_print
@@ -88,6 +85,9 @@ class AdsCubit extends Cubit<AdsState> {
               // ignore: avoid_print
               print('$ad onAdDismissedFullScreenContent.');
               ad.dispose();
+              emit(
+                const AdsState.success(),
+              );
             },
             onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
               // ignore: avoid_print
@@ -108,9 +108,6 @@ class AdsCubit extends Cubit<AdsState> {
                 rewardValue: 100,
               );
             },
-          );
-          emit(
-            const AdsState.success(),
           );
         },
         onAdFailedToLoad: (LoadAdError error) {
