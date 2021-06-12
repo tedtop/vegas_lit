@@ -351,7 +351,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                                       ESTDateTime.fetchTimeEST()
                                                           .toString(),
                                                   week:
-                                                      BetDataUtility.getBetWeek,
+                                                      ESTDateTime.weekStringVL,
                                                   clientVersion:
                                                       await _getAppVersion(),
                                                   dataProvider: 'sportsdata.io',

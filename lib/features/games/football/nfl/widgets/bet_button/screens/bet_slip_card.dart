@@ -359,7 +359,7 @@ class _BetSlipCardState extends State<NflBetSlipCard> {
                                                       ESTDateTime.fetchTimeEST()
                                                           .toString(),
                                                   week:
-                                                      BetDataUtility.getBetWeek,
+                                                      ESTDateTime.weekStringVL,
                                                 ),
                                                 currentUserId: currentUserId,
                                               );

@@ -1,6 +1,6 @@
+import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/data/models/bet.dart';
 
 extension ESTDateTime on DateTime {
   static DateTime fetchTimeEST() {
@@ -23,44 +23,37 @@ extension ESTDateTime on DateTime {
     return time.add(diff).millisecondsSinceEpoch;
   }
 
-  bool get isLeapYear {
-    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+  /// Don't pass anything in parameter if weeknumber of the year is needed keeping thursday as the week's start
+  static int weekNumberVL(int startDay) {
+    final firstDayOfThatYear =
+        DateTime(ESTDateTime.fetchTimeEST().year, 1, 1).weekday;
+    final firstDayOfEveryWeek = startDay ?? DateTime.thursday;
+    final firstWeekLength = firstDayOfThatYear < firstDayOfEveryWeek
+        ? (firstDayOfEveryWeek - firstDayOfThatYear)
+        : (firstDayOfEveryWeek - firstDayOfThatYear + 7);
+    final yearNumberNow =
+        int.parse(DateFormat('D').format(ESTDateTime.fetchTimeEST()));
+    final weekNumberNow = yearNumberNow <= firstWeekLength
+        ? 1
+        : (((yearNumberNow - firstWeekLength) / 7).ceil() + 1);
+    return weekNumberNow;
   }
 
-  int get ordinalDate {
-    const offsets = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    return offsets[month - 1] + day + (isLeapYear && month > 2 ? 1 : 0);
-  }
-
-  int get weekOfYear {
-    final woy = ((ordinalDate - weekday + 10) ~/ 7);
-    if (woy == 0) {
-      return DateTime(year - 1, 12, 28).weekOfYear;
-    }
-    if (woy == 53 &&
-        DateTime(year, 1, 1).weekday != DateTime.thursday &&
-        DateTime(year, 12, 31).weekday != DateTime.thursday) {
-      return 1;
-    }
-    return woy;
-  }
-}
-
-extension BetDataUtility on BetData {
   // ignore: missing_return
-  static String get getBetWeek {
+  static String get weekStringVL {
     final time = ESTDateTime.fetchTimeEST();
+    final weekNumber = ESTDateTime.weekNumberVL(DateTime.monday);
     switch (time.weekday) {
       case DateTime.monday:
       case DateTime.tuesday:
       case DateTime.wednesday:
-        return '${time.year}-${time.weekOfYear - 1}-${time.weekOfYear}';
+        return '${time.year}-${weekNumber - 1}-$weekNumber';
         break;
       case DateTime.thursday:
       case DateTime.friday:
       case DateTime.saturday:
       case DateTime.sunday:
-        return '${time.year}-${time.weekOfYear}-${time.weekOfYear + 1}';
+        return '${time.year}-$weekNumber-${weekNumber + 1}';
         break;
     }
   }
