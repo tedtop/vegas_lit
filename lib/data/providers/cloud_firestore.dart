@@ -23,22 +23,22 @@ class CloudFirestoreClient {
     final userReference = _firebaseFirestore.collection('users').doc(uid);
     final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
     final wallet = Wallet(
-      accountBalance: 1000,
-      totalBets: 0,
-      totalBetsLost: 0,
-      totalLoss: 0,
-      totalOpenBets: 0,
-      totalRiskedAmount: 0,
-      totalProfit: 0,
-      rank: 0,
-      totalBetsWon: 0,
-      uid: uid,
-      potentialWinAmount: 0,
-      biggestWinAmount: 0,
-      username: user.username,
-      totalRewards: 0,
-      pendingRiskedAmount: 0,
-    );
+        accountBalance: 1000,
+        totalBets: 0,
+        totalBetsLost: 0,
+        totalLoss: 0,
+        totalOpenBets: 0,
+        totalRiskedAmount: 0,
+        totalProfit: 0,
+        rank: 0,
+        totalBetsWon: 0,
+        uid: uid,
+        potentialWinAmount: 0,
+        biggestWinAmount: 0,
+        username: user.username,
+        totalRewards: 0,
+        pendingRiskedAmount: 0,
+        avatarUrl: user.avatarUrl);
     userDetailsWriteBatch
       ..set(userReference, user.toMap(), SetOptions(merge: true))
       ..set(walletReference, wallet.toMap(), SetOptions(merge: true));
@@ -57,11 +57,16 @@ class CloudFirestoreClient {
 
   Future<void> updateUserAvatar(
       {@required String avatarUrl, @required String uid}) async {
+    final userAvatarUpdateBatch = _firebaseFirestore.batch();
     final userReference = _firebaseFirestore.collection('users').doc(uid);
+    final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
     final avatarData = {
       'avatarUrl': avatarUrl,
     };
-    await userReference.set(avatarData, SetOptions(merge: true));
+    userAvatarUpdateBatch
+      ..set(userReference, avatarData, SetOptions(merge: true))
+      ..set(walletReference, avatarData, SetOptions(merge: true));
+    await userAvatarUpdateBatch.commit();
   }
 
   // Open Bets Page

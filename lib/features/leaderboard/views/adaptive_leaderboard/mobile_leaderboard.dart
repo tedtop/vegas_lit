@@ -170,14 +170,42 @@ class MobileLeaderboardTile extends StatelessWidget {
                     ),
                   );
           },
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: Palette.darkGrey,
-            child: Text(
-              player.username.substring(0, 1).toUpperCase(),
-              style: Styles.leaderboardUsername,
-            ),
-          ),
+          leading: player.avatarUrl != null
+              ? CircleAvatar(
+                  radius: 25,
+                  child: ClipOval(
+                    child: Image.network(player.avatarUrl, fit: BoxFit.cover,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                          color: Palette.cream,
+                        ),
+                      );
+                    }),
+                  ),
+                )
+              : CircleAvatar(
+                  radius: 25,
+                  child: ClipOval(
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: Palette.darkGrey,
+                      height: 50.0,
+                      width: 50.0,
+                      child: Text(player.username.substring(0, 1).toUpperCase(),
+                          style: Styles.leaderboardUsername),
+                    ),
+                  ),
+                ),
+
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
