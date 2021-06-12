@@ -10,8 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/config/extensions.dart';
+
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
@@ -23,8 +23,6 @@ import '../../../../../../home/cubit/version_cubit.dart';
 import '../../../../../../home/home.dart';
 import '../../../../../../shared_widgets/abstract_card.dart';
 import '../../../../../../shared_widgets/default_button.dart';
-
-import '../../matchup_card/matchup_card.dart';
 import '../cubit/bet_button_cubit.dart';
 
 // ignore: must_be_immutable
@@ -258,7 +256,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                 action: () async {
                                   if (isMinimumVersion) {
                                     if (betButtonState.game.dateTime
-                                        .isBefore(fetchTimeEST())) {
+                                        .isBefore(ESTDateTime.fetchTimeEST())) {
                                       ScaffoldMessenger.of(context)
                                         ..removeCurrentSnackBar()
                                         ..showSnackBar(
@@ -350,7 +348,10 @@ class MlbBetSlipCard extends StatelessWidget {
                                                           ? 'home'
                                                           : 'away',
                                                   dateTime:
-                                                      fetchTimeEST().toString(),
+                                                      ESTDateTime.fetchTimeEST()
+                                                          .toString(),
+                                                  week:
+                                                      ESTDateTime.weekStringVL,
                                                   clientVersion:
                                                       await _getAppVersion(),
                                                   dataProvider: 'sportsdata.io',
@@ -559,7 +560,8 @@ class MlbBetSlipCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: CountdownTimer(
-                  endTime: getESTGameTimeInMS(betButtonState.game.dateTime),
+                  endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+                      betButtonState.game.dateTime),
                   widgetBuilder: (_, CurrentRemainingTime time) {
                     if (time == null) {
                       return Text(
@@ -609,15 +611,6 @@ class MlbBetSlipCard extends StatelessWidget {
     } else {
       return 'Error';
     }
-  }
-
-  DateTime fetchTimeEST() {
-    tz.initializeTimeZones();
-    final locationNY = tz.getLocation('America/New_York');
-    final nowNY = tz.TZDateTime.now(locationNY);
-    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-        nowNY.minute, nowNY.second);
-    return dateTimeNY;
   }
 
   String whichBetSystemToSave({@required Bet betType}) {

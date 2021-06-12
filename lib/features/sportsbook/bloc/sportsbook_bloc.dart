@@ -4,9 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import '../../../data/repositories/sports_repository.dart';
 
 part 'sportsbook_event.dart';
@@ -50,7 +49,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
     final gameNumberMap = <String, String>{};
 
-    final estTimeZone = fetchTimeEST();
+    final estTimeZone = ESTDateTime.fetchTimeEST();
 
     await Future.wait(
       list.map(
@@ -81,15 +80,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       gameNumbers: state.gameNumbers,
       estTimeZone: state.estTimeZone,
     );
-  }
-
-  DateTime fetchTimeEST() {
-    tz.initializeTimeZones();
-    final locationNY = tz.getLocation('America/New_York');
-    final nowNY = tz.TZDateTime.now(locationNY);
-    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-        nowNY.minute, nowNY.second);
-    return dateTimeNY;
   }
 
   // ignore: missing_return
@@ -130,7 +120,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -145,7 +136,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -160,7 +152,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -175,7 +168,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -190,7 +184,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .length;
           },
@@ -205,7 +200,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           (value) {
             return value
                 .where((element) => element.status == 'Scheduled')
-                .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+                .where((element) =>
+                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .length;
           },

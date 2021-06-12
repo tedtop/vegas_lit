@@ -150,6 +150,7 @@ class _HomePageState extends State<HomePage>
               );
             } else {
               return PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 children: [
                   Sportsbook(),

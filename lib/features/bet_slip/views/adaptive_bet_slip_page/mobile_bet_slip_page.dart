@@ -27,11 +27,9 @@ class MobileBetSlipPage extends StatelessWidget {
                 return Column(
                   children: [
                     state.betSlipCard.isEmpty
-                        ?
-                        // isBetPlaced
-                        //     ? RewardedBetSlip()
-                        //     :
-                        EmptyBetSlip()
+                        ? isBetPlaced
+                            ? RewardedBetSlip.route()
+                            : EmptyBetSlip()
                         : BetSlipList(),
                     const BottomBar()
                   ],

@@ -29,6 +29,7 @@ class BetData extends Equatable {
     @required this.awayTeamName,
     @required this.gameStartDateTime,
     @required this.dateTime,
+    @required this.week,
     @required this.gameId,
     @required this.isClosed,
     @required this.league,
@@ -63,6 +64,7 @@ class BetData extends Equatable {
       awayTeamName: data['awayTeamName'] as String,
       gameStartDateTime: data['gameStartDateTime'] as String,
       dateTime: data['dateTime'] as String,
+      week: data['week'] as String,
       gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
       league: data['league'] as String,
@@ -94,6 +96,7 @@ class BetData extends Equatable {
   final String clientVersion;
   final String dataProvider;
   final String dateTime;
+  final String week;
   final int gameId;
   final String winningTeam;
   final bool isClosed;
@@ -125,6 +128,7 @@ class BetData extends Equatable {
       'awayTeamName': awayTeamName,
       'gameStartDateTime': gameStartDateTime,
       'dateTime': dateTime,
+      'week': week,
       'homeTeam': homeTeam,
       'awayTeam': awayTeam,
       'gameId': gameId,
@@ -160,6 +164,7 @@ class BetData extends Equatable {
       awayTeamName,
       gameStartDateTime,
       dateTime,
+      week,
       gameId,
       homeTeamCity,
       awayTeamCity,

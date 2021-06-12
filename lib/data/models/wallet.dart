@@ -3,67 +3,67 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class Wallet extends Equatable {
-  Wallet({
-    @required this.uid,
-    @required this.username,
-    @required this.totalProfit,
-    @required this.totalLoss,
-    @required this.accountBalance,
-    @required this.totalBets,
-    @required this.totalBetsWon,
-    @required this.totalRewards,
-    @required this.totalBetsLost,
-    @required this.totalOpenBets,
-    @required this.potentialWinAmount,
-    @required this.pendingRiskedAmount,
-    @required this.rank,
-    @required this.biggestWinAmount,
-    @required this.totalRiskedAmount,
-  });
+  Wallet(
+      {@required this.uid,
+      @required this.username,
+      @required this.totalProfit,
+      @required this.totalLoss,
+      @required this.accountBalance,
+      @required this.totalBets,
+      @required this.totalBetsWon,
+      @required this.totalRewards,
+      @required this.totalBetsLost,
+      @required this.totalOpenBets,
+      @required this.potentialWinAmount,
+      @required this.pendingRiskedAmount,
+      @required this.rank,
+      @required this.biggestWinAmount,
+      @required this.totalRiskedAmount,
+      @required this.avatarUrl});
 
   factory Wallet.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
     final map = snapshot.data();
 
     return Wallet(
-      uid: map['uid'],
-      username: map['username'],
-      totalRewards: map['totalRewards'],
-      totalLoss: map['totalLoss'],
-      rank: map['rank'],
-      totalProfit: map['totalProfit'],
-      accountBalance: map['accountBalance'],
-      totalBets: map['totalBets'],
-      pendingRiskedAmount: map['pendingRiskedAmount'],
-      totalBetsWon: map['totalBetsWon'],
-      totalBetsLost: map['totalBetsLost'],
-      totalOpenBets: map['totalOpenBets'],
-      potentialWinAmount: map['potentialWinAmount'],
-      biggestWinAmount: map['biggestWinAmount'],
-      totalRiskedAmount: map['totalRiskedAmount'],
-    );
+        uid: map['uid'],
+        username: map['username'],
+        totalRewards: map['totalRewards'],
+        totalLoss: map['totalLoss'],
+        rank: map['rank'],
+        totalProfit: map['totalProfit'],
+        accountBalance: map['accountBalance'],
+        totalBets: map['totalBets'],
+        pendingRiskedAmount: map['pendingRiskedAmount'],
+        totalBetsWon: map['totalBetsWon'],
+        totalBetsLost: map['totalBetsLost'],
+        totalOpenBets: map['totalOpenBets'],
+        potentialWinAmount: map['potentialWinAmount'],
+        biggestWinAmount: map['biggestWinAmount'],
+        totalRiskedAmount: map['totalRiskedAmount'],
+        avatarUrl: map['avatarUrl']);
   }
 
   factory Wallet.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
     return Wallet(
-      uid: map['uid'],
-      username: map['username'],
-      totalLoss: map['totalLoss'],
-      totalProfit: map['totalProfit'],
-      totalRewards: map['totalRewards'],
-      accountBalance: map['accountBalance'],
-      pendingRiskedAmount: map['pendingRiskedAmount'],
-      rank: map['rank'],
-      totalBets: map['totalBets'],
-      totalBetsWon: map['totalBetsWon'],
-      totalBetsLost: map['totalBetsLost'],
-      totalOpenBets: map['totalOpenBets'],
-      potentialWinAmount: map['potentialWinAmount'],
-      biggestWinAmount: map['biggestWinAmount'],
-      totalRiskedAmount: map['totalRiskedAmount'],
-    );
+        uid: map['uid'],
+        username: map['username'],
+        totalLoss: map['totalLoss'],
+        totalProfit: map['totalProfit'],
+        totalRewards: map['totalRewards'],
+        accountBalance: map['accountBalance'],
+        pendingRiskedAmount: map['pendingRiskedAmount'],
+        rank: map['rank'],
+        totalBets: map['totalBets'],
+        totalBetsWon: map['totalBetsWon'],
+        totalBetsLost: map['totalBetsLost'],
+        totalOpenBets: map['totalOpenBets'],
+        potentialWinAmount: map['potentialWinAmount'],
+        biggestWinAmount: map['biggestWinAmount'],
+        totalRiskedAmount: map['totalRiskedAmount'],
+        avatarUrl: map['avatarUrl']);
   }
 
   final String uid;
@@ -81,6 +81,7 @@ class Wallet extends Equatable {
   final int biggestWinAmount;
   final int pendingRiskedAmount;
   final int rank;
+  final String avatarUrl;
 
   Map<String, dynamic> toMap() => {
         'uid': uid,
@@ -98,42 +99,43 @@ class Wallet extends Equatable {
         'potentialWinAmount': potentialWinAmount,
         'biggestWinAmount': biggestWinAmount,
         'totalRiskedAmount': totalRiskedAmount,
+        'avatarUrl': avatarUrl
       };
 
-  Wallet copyWith({
-    String uid,
-    String username,
-    int totalProfit,
-    int totalLoss,
-    int accountBalance,
-    int totalBets,
-    int totalBetsWon,
-    int totalRewards,
-    int totalBetsLost,
-    int totalOpenBets,
-    int potentialWinAmount,
-    int biggestWinAmount,
-    int totalRiskedAmount,
-    int pendingRiskedAmount,
-    int rank,
-  }) {
+  Wallet copyWith(
+      {String uid,
+      String username,
+      int totalProfit,
+      int totalLoss,
+      int accountBalance,
+      int totalBets,
+      int totalBetsWon,
+      int totalRewards,
+      int totalBetsLost,
+      int totalOpenBets,
+      int potentialWinAmount,
+      int biggestWinAmount,
+      int totalRiskedAmount,
+      int pendingRiskedAmount,
+      int rank,
+      String avatarUrl}) {
     return Wallet(
-      uid: uid ?? this.uid,
-      username: username ?? this.username,
-      totalProfit: totalProfit ?? this.totalProfit,
-      totalLoss: totalLoss ?? this.totalLoss,
-      totalRewards: totalRewards ?? this.totalRewards,
-      accountBalance: accountBalance ?? this.accountBalance,
-      totalBets: totalBets ?? this.totalBets,
-      totalBetsWon: totalBetsWon ?? this.totalBetsWon,
-      totalBetsLost: totalBetsLost ?? this.totalBetsLost,
-      totalOpenBets: totalOpenBets ?? this.totalOpenBets,
-      potentialWinAmount: potentialWinAmount ?? this.potentialWinAmount,
-      biggestWinAmount: biggestWinAmount ?? this.biggestWinAmount,
-      totalRiskedAmount: totalRiskedAmount ?? this.totalRiskedAmount,
-      pendingRiskedAmount: pendingRiskedAmount ?? this.pendingRiskedAmount,
-      rank: rank ?? this.rank,
-    );
+        uid: uid ?? this.uid,
+        username: username ?? this.username,
+        totalProfit: totalProfit ?? this.totalProfit,
+        totalLoss: totalLoss ?? this.totalLoss,
+        totalRewards: totalRewards ?? this.totalRewards,
+        accountBalance: accountBalance ?? this.accountBalance,
+        totalBets: totalBets ?? this.totalBets,
+        totalBetsWon: totalBetsWon ?? this.totalBetsWon,
+        totalBetsLost: totalBetsLost ?? this.totalBetsLost,
+        totalOpenBets: totalOpenBets ?? this.totalOpenBets,
+        potentialWinAmount: potentialWinAmount ?? this.potentialWinAmount,
+        biggestWinAmount: biggestWinAmount ?? this.biggestWinAmount,
+        totalRiskedAmount: totalRiskedAmount ?? this.totalRiskedAmount,
+        pendingRiskedAmount: pendingRiskedAmount ?? this.pendingRiskedAmount,
+        rank: rank ?? this.rank,
+        avatarUrl: avatarUrl ?? this.avatarUrl);
   }
 
   @override
@@ -154,6 +156,7 @@ class Wallet extends Equatable {
       totalRiskedAmount,
       potentialWinAmount,
       biggestWinAmount,
+      avatarUrl
     ];
   }
 }

@@ -4,11 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import '../../../../../data/models/mlb/mlb_game.dart';
-
 import '../../../../../data/repositories/sports_repository.dart';
 
 part 'mlb_state.dart';
@@ -25,7 +23,7 @@ class MlbCubit extends Cubit<MlbState> {
 
   Future<void> fetchMlbGames() async {
     const league = 'MLB';
-    final estTimeZone = fetchTimeEST();
+    final estTimeZone = ESTDateTime.fetchTimeEST();
     List<MlbGame> totalGames;
 
     final todayGames = await _sportsfeedRepository
@@ -35,7 +33,8 @@ class MlbCubit extends Cubit<MlbState> {
         .then(
           (value) => value
               .where((element) => element.status == 'Scheduled')
-              .where((element) => element.dateTime.isAfter(fetchTimeEST()))
+              .where((element) =>
+                  element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.isClosed == false)
               .toList(),
         );
@@ -56,13 +55,4 @@ dynamic getMLBParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/mlb.json');
   final parsedTeamData = await json.decode(jsonData);
   return parsedTeamData;
-}
-
-DateTime fetchTimeEST() {
-  tz.initializeTimeZones();
-  final locationNY = tz.getLocation('America/New_York');
-  final nowNY = tz.TZDateTime.now(locationNY);
-  final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-      nowNY.minute, nowNY.second);
-  return dateTimeNY;
 }

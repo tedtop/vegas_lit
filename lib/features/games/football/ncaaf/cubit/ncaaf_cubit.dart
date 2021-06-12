@@ -4,8 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../../data/models/ncaaf/ncaaf_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';
@@ -25,7 +24,7 @@ class NcaafCubit extends Cubit<NcaafState> {
   Future<void> fetchNcaafGames() async {
     const league = 'NCAAF';
     final localTimeZone = DateTime.now();
-    final estTimeZone = fetchTimeEST();
+    final estTimeZone = ESTDateTime.fetchTimeEST();
     // final tomorrowEstTimeZone =
     //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
     // List<Game> totalGames;
@@ -73,13 +72,4 @@ dynamic getNcaafParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/mlb.json');
   final parsedTeamData = await json.decode(jsonData);
   return parsedTeamData;
-}
-
-DateTime fetchTimeEST() {
-  tz.initializeTimeZones();
-  final locationNY = tz.getLocation('America/New_York');
-  final nowNY = tz.TZDateTime.now(locationNY);
-  final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-      nowNY.minute, nowNY.second);
-  return dateTimeNY;
 }

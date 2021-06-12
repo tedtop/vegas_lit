@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:vegas_lit/config/extensions.dart';
+
 import '../../../../data/models/golf.dart';
 import '../../../../data/repositories/sports_repository.dart';
 
@@ -19,7 +19,7 @@ class GolfCubit extends Cubit<GolfState> {
 
   Future<void> fetchTournaments() async {
     emit(GolfInitial());
-    final estTimeZone = fetchTimeEST();
+    final estTimeZone = ESTDateTime.fetchTimeEST();
     List<GolfTournament> tournaments;
     tournaments = await _sportsfeedRepository.fetchGolfTournaments(
         dateTimeEastern: estTimeZone);
@@ -45,11 +45,4 @@ class GolfCubit extends Cubit<GolfState> {
         venue: tournament.venue,
         location: tournament.location));
   }
-}
-
-DateTime fetchTimeEST() {
-  tz.initializeTimeZones();
-  final locationNY = tz.getLocation('America/New_York');
-  final nowNY = tz.TZDateTime.now(locationNY);
-  return nowNY;
 }

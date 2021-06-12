@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../data/models/bet.dart';
@@ -22,13 +20,6 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
         );
 
   final BetsRepository _betsRepository;
-
-  DateTime fetchTimeEST() {
-    tz.initializeTimeZones();
-    final locationNY = tz.getLocation('America/New_York');
-    final nowNY = tz.TZDateTime.now(locationNY);
-    return nowNY;
-  }
 
   void openBetButton({
     @required String text,

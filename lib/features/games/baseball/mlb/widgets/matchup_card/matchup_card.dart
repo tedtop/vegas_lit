@@ -5,8 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/palette.dart';
@@ -334,7 +333,8 @@ class MatchupCard extends StatelessWidget {
                             ),
                           ),
                           CountdownTimer(
-                            endTime: getESTGameTimeInMS(state.game.dateTime),
+                            endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+                                state.game.dateTime),
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {
                                 return Text(
@@ -420,15 +420,4 @@ class MatchupCard extends StatelessWidget {
         break;
     }
   }
-}
-
-int getESTGameTimeInMS(DateTime time) {
-  tz.initializeTimeZones();
-  final locationNY = tz.getLocation('America/New_York');
-  final nowNY = tz.TZDateTime.now(locationNY);
-  final easternTime = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-      nowNY.minute, nowNY.second, nowNY.millisecond, nowNY.microsecond);
-  final localTime = DateTime.now().toLocal();
-  final diff = localTime.difference(easternTime);
-  return time.add(diff).millisecondsSinceEpoch;
 }
