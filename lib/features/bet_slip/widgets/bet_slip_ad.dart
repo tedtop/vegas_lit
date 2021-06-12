@@ -6,7 +6,6 @@ import 'package:vegas_lit/features/interstitial/cubit/ads_cubit.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
-import '../../interstitial/screens/interstitial_page.dart';
 import '../../shared_widgets/abstract_card.dart';
 
 class RewardedBetSlip extends StatelessWidget {
