@@ -29,37 +29,39 @@ export const resetContestWeek = functions.pubsub
             const promises: any = [];
             // Run loop over all user's wallet document
             snapshots.docs.map(async (element) => {
+              const batch = admin.firestore().batch();
+
               // For every document, save it to today's date document in leaderboard
-              const promise = await admin
+              const leaderboardWeekRef = admin
                 .firestore()
                 .collection("leaderboard")
                 .doc("global")
                 .collection("weeks")
                 .doc(documentName)
                 .collection("wallets")
-                .doc(element.id)
-                .set(element.data())
-                .then(async (_) => {
-                  // After saving, reset that specific user wallet
-                  await admin
-                    .firestore()
-                    .collection("wallets")
-                    .doc(element.id)
-                    .update({
-                      totalProfit: 0,
-                      accountBalance: 1000,
-                      totalBetsWon: 0,
-                      totalBetsLost: 0,
-                      totalLoss: 0,
-                      totalBets: 0,
-                      rank: 0,
-                      pendingRiskedAmount: 0,
-                      totalRewards: 0,
-                      totalOpenBets: 0,
-                      totalRiskedAmount: 0,
-                      potentialWinAmount: 0,
-                    });
-                });
+                .doc(element.id);
+              batch.set(leaderboardWeekRef, element.data());
+              // After saving, reset that specific user wallet
+              const userWalletRef = admin
+                .firestore()
+                .collection("wallets")
+                .doc(element.id);
+              batch.update(userWalletRef, {
+                totalProfit: 0,
+                accountBalance: 1000,
+                totalBetsWon: 0,
+                totalBetsLost: 0,
+                totalLoss: 0,
+                totalBets: 0,
+                rank: 0,
+                pendingRiskedAmount: 0,
+                totalRewards: 0,
+                totalOpenBets: 0,
+                totalRiskedAmount: 0,
+                potentialWinAmount: 0,
+              });
+              const promise = await batch.commit();
+
               promises.push(promise);
             });
             return Promise.all(promises);
@@ -77,13 +79,21 @@ export const resetContestWeek = functions.pubsub
     return null;
 
     function getCurrentWeek(): string {
-      let today = new Date();
-      const weekNextFormat = moment(today).format("w");
-      const nextWeekFormatInteger = Number.parseInt(weekNextFormat) + 1;
-      const walletsDayFormat = "YYYY-w";
-      const weekFormat = moment(today).format(walletsDayFormat);
-      const fullData = `${weekFormat}-${nextWeekFormatInteger}`;
-      return fullData;
+      const currentDate = moment().tz("America/New_York");
+      if (currentDate.day() <= 3) {
+        const todayWeekNumber = currentDate.format("w");
+        const todayWeekFormat = currentDate.format("YYYY-w");
+        const nextWeekFormatInteger = Number.parseInt(todayWeekNumber) + 1;
+        const leaderboardWeekName = `${todayWeekFormat}-${nextWeekFormatInteger}`;
+        return leaderboardWeekName;
+      } else {
+        const todayWeekNumber = currentDate.format("w");
+        const todayWeekFormat = currentDate.format("YYYY");
+        const nextWeekFormatFirst = Number.parseInt(todayWeekNumber) + 1;
+        const nextWeekFormatSecond = nextWeekFormatFirst + 1;
+        const leaderboardWeekName = `${todayWeekFormat}-${nextWeekFormatFirst}-${nextWeekFormatSecond}`;
+        return leaderboardWeekName;
+      }
     }
   });
 
