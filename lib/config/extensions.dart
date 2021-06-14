@@ -23,11 +23,11 @@ extension ESTDateTime on DateTime {
     return time.add(diff).millisecondsSinceEpoch;
   }
 
-  /// Don't pass anything in parameter if weeknumber of the year is needed keeping thursday as the week's start
-  static int weekNumberVL(int startDay) {
+  // Don't pass anything in parameter if weeknumber of the year is needed keeping thursday as the week's start
+  static int get weekNumberVL {
     final firstDayOfThatYear =
         DateTime(ESTDateTime.fetchTimeEST().year, 1, 1).weekday;
-    final firstDayOfEveryWeek = startDay ?? DateTime.thursday;
+    const firstDayOfEveryWeek = DateTime.sunday;
     final firstWeekLength = firstDayOfThatYear < firstDayOfEveryWeek
         ? (firstDayOfEveryWeek - firstDayOfThatYear)
         : (firstDayOfEveryWeek - firstDayOfThatYear + 7);
@@ -42,8 +42,9 @@ extension ESTDateTime on DateTime {
   // ignore: missing_return
   static String get weekStringVL {
     final time = ESTDateTime.fetchTimeEST();
-    final weekNumber = ESTDateTime.weekNumberVL(DateTime.monday);
+    final weekNumber = ESTDateTime.weekNumberVL;
     switch (time.weekday) {
+      case DateTime.sunday:
       case DateTime.monday:
       case DateTime.tuesday:
       case DateTime.wednesday:
@@ -52,7 +53,6 @@ extension ESTDateTime on DateTime {
       case DateTime.thursday:
       case DateTime.friday:
       case DateTime.saturday:
-      case DateTime.sunday:
         return '${time.year}-$weekNumber-${weekNumber + 1}';
         break;
     }

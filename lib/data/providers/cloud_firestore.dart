@@ -117,6 +117,7 @@ class CloudFirestoreClient {
         .collection('bets')
         .where('uid', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
+        .where('week', isEqualTo: week)
         .orderBy('gameStartDateTime', descending: true)
         .get()
         .then(
