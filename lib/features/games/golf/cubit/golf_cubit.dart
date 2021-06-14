@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
 
-import '../../../../data/models/golf.dart';
+import '../../../../data/models/golf/golf.dart';
 import '../../../../data/repositories/sports_repository.dart';
 
 part 'golf_state.dart';

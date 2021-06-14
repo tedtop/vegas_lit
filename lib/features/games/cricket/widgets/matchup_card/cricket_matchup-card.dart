@@ -5,8 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
-import '../../../../../data/models/cricket.dart';
-
+import '../../../../../data/models/cricket/cricket.dart';
 import 'cubit/cricket_matchup_card_cubit.dart';
 
 class CricketMatchupCard extends StatelessWidget {

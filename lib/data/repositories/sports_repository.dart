@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../models/golf.dart';
+import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
 import '../models/mlb/mlb_player.dart';
 import '../models/nba/nba_game.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../../data/models/golf.dart';
+import '../../../../data/models/golf/golf.dart';
 import '../cubit/golf_cubit.dart';
-
 import 'textbar.dart';
 
 class GolfMatchup extends StatefulWidget {
