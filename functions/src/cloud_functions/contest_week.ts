@@ -82,16 +82,17 @@ export const resetContestWeek = functions.pubsub
       const currentDate = moment().tz("America/New_York");
       if (currentDate.day() <= 3) {
         const todayWeekNumber = currentDate.format("w");
-        const todayWeekFormat = currentDate.format("YYYY-w");
-        const nextWeekFormatInteger = Number.parseInt(todayWeekNumber) + 1;
-        const leaderboardWeekName = `${todayWeekFormat}-${nextWeekFormatInteger}`;
+        const todayWeekFormat = currentDate.format("YYYY");
+        const weekFormatFirst = Number.parseInt(todayWeekNumber) - 1;
+        const weekFormatSecond = Number.parseInt(todayWeekNumber);
+        const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
         return leaderboardWeekName;
       } else {
         const todayWeekNumber = currentDate.format("w");
         const todayWeekFormat = currentDate.format("YYYY");
-        const nextWeekFormatFirst = Number.parseInt(todayWeekNumber) + 1;
-        const nextWeekFormatSecond = nextWeekFormatFirst + 1;
-        const leaderboardWeekName = `${todayWeekFormat}-${nextWeekFormatFirst}-${nextWeekFormatSecond}`;
+        const weekFormatFirst = Number.parseInt(todayWeekNumber);
+        const weekFormatSecond = Number.parseInt(todayWeekNumber) + 1;
+        const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
         return leaderboardWeekName;
       }
     }
