@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,14 +121,38 @@ class TabletLeaderboardTile extends StatelessWidget {
                       ),
                     );
             },
-            leading: CircleAvatar(
-              radius: 25,
-              backgroundColor: Palette.darkGrey,
-              child: Text(
-                player.username.substring(0, 1).toUpperCase(),
-                style: Styles.leaderboardUsername,
-              ),
-            ),
+            leading: player.avatarUrl != null && !kIsWeb
+                ? CircleAvatar(
+                    radius: 25,
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: player.avatarUrl,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: Palette.cream,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    ),
+                  )
+                : CircleAvatar(
+                    radius: 25,
+                    child: ClipOval(
+                      child: Container(
+                        alignment: Alignment.center,
+                        color: Palette.darkGrey,
+                        height: 50.0,
+                        width: 50.0,
+                        child: Text(
+                            player.username.substring(0, 1).toUpperCase(),
+                            style: Styles.leaderboardUsername),
+                      ),
+                    ),
+                  ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

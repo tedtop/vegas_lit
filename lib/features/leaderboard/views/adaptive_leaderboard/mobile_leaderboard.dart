@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -171,7 +172,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                     ),
                   );
           },
-          leading: player.avatarUrl != null
+          leading: player.avatarUrl != null && !kIsWeb
               ? CircleAvatar(
                   radius: 25,
                   child: ClipOval(

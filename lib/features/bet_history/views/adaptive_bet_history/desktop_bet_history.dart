@@ -16,9 +16,12 @@ class DesktopBetHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<HistoryCubit>().state;
     return state.status == HistoryStatus.loading
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Palette.cream,
+        ? const Padding(
+            padding: EdgeInsets.only(top: 160),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             ),
           )
         : Container(
@@ -48,8 +51,10 @@ class _DesktopHistoryBoard extends StatelessWidget {
             return const SizedBox();
             break;
           case HistoryStatus.loading:
-            return const CircularProgressIndicator(
-              color: Palette.cream,
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
             break;
           case HistoryStatus.success:
@@ -164,8 +169,10 @@ class _DesktopHistoryContent extends StatelessWidget {
             return const SizedBox();
             break;
           case HistoryStatus.loading:
-            return const CircularProgressIndicator(
-              color: Palette.cream,
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             );
             break;
           case HistoryStatus.failure:

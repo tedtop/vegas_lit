@@ -13,9 +13,12 @@ class TabletBetHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<HistoryCubit>().state;
     return state.status == HistoryStatus.loading
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Palette.cream,
+        ? const Padding(
+            padding: EdgeInsets.only(top: 160),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Palette.cream,
+              ),
             ),
           )
         : Column(
