@@ -91,46 +91,56 @@ class RewardedBetSlip extends StatelessWidget {
                                   );
                                   break;
                                 default:
-                                  return InkWell(
-                                    onTap: () {
-                                      context.read<AdsCubit>().openRewardedAd();
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Palette.green,
-                                        borderRadius: BorderRadius.circular(
-                                            buttonWidthHeight),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(.25),
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 4,
-                                          )
-                                        ],
-                                      ),
-                                      width: buttonWidthHeight,
-                                      height: buttonWidthHeight,
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Watch',
-                                              style: GoogleFonts.nunito(
-                                                color: Palette.cream,
-                                                fontSize: 20,
-                                              ),
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          buttonWidthHeight),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(.25),
+                                          offset: const Offset(0, 4),
+                                          blurRadius: 4,
+                                        )
+                                      ],
+                                    ),
+                                    width: buttonWidthHeight,
+                                    height: buttonWidthHeight,
+                                    clipBehavior: Clip.antiAlias,
+                                    child: Material(
+                                      child: InkWell(
+                                        //customBorder: const CircleBorder(),
+                                        // borderRadius: BorderRadius.circular(
+                                        //     buttonWidthHeight),
+                                        splashColor: Palette.cream,
+                                        onTap: () {
+                                          context
+                                              .read<AdsCubit>()
+                                              .openRewardedAd();
+                                        },
+                                        child: Ink(
+                                          color: Palette.green,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Watch',
+                                                  style: GoogleFonts.nunito(
+                                                    color: Palette.cream,
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Video',
+                                                  style: GoogleFonts.nunito(
+                                                    color: Palette.cream,
+                                                    fontSize: 20,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                            Text(
-                                              'Video',
-                                              style: GoogleFonts.nunito(
-                                                color: Palette.cream,
-                                                fontSize: 20,
-                                              ),
-                                            )
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
