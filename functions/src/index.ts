@@ -7,7 +7,7 @@ import * as contestWeek from "./cloud_functions/contest_week";
 
 admin.initializeApp();
 
-export const sendBetCreatedToSlack= slack.sendBetCreatedToSlack;
-export const resolveBets= bets.resolveBets;
+export const sendBetCreatedToSlack = slack.sendBetCreatedToSlack;
+export const resolveBets = bets.resolveBets;
 export const rankLeaderboard = leaderboard.rankLeaderboard;
 export const resetContestWeek = contestWeek.resetContestWeek;

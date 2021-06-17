@@ -10,11 +10,13 @@ export const resolveBets = functions.pubsub
   .schedule("0 * * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
+
+    // Send slack notification and start timer
     const startTime = performance.now();
     await sendMessageToSlack(`:mega: Resolving bets...`);
-    console.log("This will be run every 1 hour!");
-    let valueUpdateNumber = 0;
-    let alreadyUpdateNumber = 0;
+    
+    let betsResolved = 0;
+    let betsRemainOpen = 0;
 
     await admin
       .firestore()
@@ -196,10 +198,10 @@ export const resolveBets = functions.pubsub
                       }
                     }
                     await batch.commit();
-                    valueUpdateNumber++;
+                    betsResolved++;
                   }
                 } else {
-                  alreadyUpdateNumber++;
+                  betsRemainOpen++;
                 }
               })
               .catch(function (error: any) {
@@ -212,12 +214,9 @@ export const resolveBets = functions.pubsub
         console.log(error);
       })
       .then(async function () {
-        console.log(`${valueUpdateNumber} value updated!`);
-        console.log(`${alreadyUpdateNumber} value already updated!`);
         await sendMessageToSlack(
-          `:white_check_mark: ${valueUpdateNumber} bets resolved, ${alreadyUpdateNumber} bets remain open`
+          `:white_check_mark: ${betsResolved} bets resolved, ${betsRemainOpen} bets remain open`
         );
-        functions.logger.info("Function Completed!", { structuredData: true });
       });
 
     const endTime = performance.now();
