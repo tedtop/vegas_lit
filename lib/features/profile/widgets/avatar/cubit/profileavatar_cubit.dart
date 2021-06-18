@@ -28,8 +28,8 @@ class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
   final StorageRepository _storageRepository;
 
   Future<void> pickAvatar({@required String uid}) async {
-    final avatarPickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
+    final avatarPickedFile = await ImagePicker()
+        .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile == null) {
       emit(
         const ProfileAvatarState(status: ProfileAvatarStatus.initial),
