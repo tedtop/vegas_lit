@@ -36,7 +36,7 @@ export const resolveBets = functions.pubsub
             const documentId = data.id;
             const uid = data.uid;
             const betType = data.betType;
-            const week = data.week;
+            const week = getCurrentWeekByDate(data.gameStartDateTime);
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
             const username = data.username;
@@ -254,6 +254,26 @@ export const resolveBets = functions.pubsub
     // Get current week in format
     function getCurrentWeek(): string {
       const currentDate = moment().tz("America/New_York");
+      if (currentDate.day() <= 3) {
+        const todayWeekNumber = currentDate.format("w");
+        const todayWeekFormat = currentDate.format("YYYY");
+        const weekFormatFirst = Number.parseInt(todayWeekNumber) - 1;
+        const weekFormatSecond = Number.parseInt(todayWeekNumber);
+        const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
+        return leaderboardWeekName;
+      } else {
+        const todayWeekNumber = currentDate.format("w");
+        const todayWeekFormat = currentDate.format("YYYY");
+        const weekFormatFirst = Number.parseInt(todayWeekNumber);
+        const weekFormatSecond = Number.parseInt(todayWeekNumber) + 1;
+        const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
+        return leaderboardWeekName;
+      }
+    }
+
+    // Get current week in format
+    function getCurrentWeekByDate(date: Date): string {
+      const currentDate = moment(date);
       if (currentDate.day() <= 3) {
         const todayWeekNumber = currentDate.format("w");
         const todayWeekFormat = currentDate.format("YYYY");
