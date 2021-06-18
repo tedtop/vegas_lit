@@ -35,6 +35,42 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
+  void changeUsername({
+    @required String username,
+  }) {
+    final editedUserData = state.userData.copyWith(username: username);
+    emit(
+      ProfileState.opened(userData: editedUserData),
+    );
+  }
+
+  void changeEmail({
+    @required String email,
+  }) {
+    final editedUserData = state.userData.copyWith(email: email);
+    emit(
+      ProfileState.opened(userData: editedUserData),
+    );
+  }
+
+  void changeLocation({
+    @required String location,
+  }) {
+    final editedUserData = state.userData.copyWith(location: location);
+    emit(
+      ProfileState.opened(userData: editedUserData),
+    );
+  }
+
+  Future<void> updateProfile(
+      {@required String currentUserId, @required UserData user}) async {
+    emit(
+      const ProfileState.loading(),
+    );
+    // print(state.userData);
+    await _userRepository.updateUserDetails(user: user, uid: currentUserId);
+  }
+
   @override
   Future<void> close() async {
     await _userDataSubscription?.cancel();

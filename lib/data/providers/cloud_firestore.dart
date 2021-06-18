@@ -45,6 +45,18 @@ class CloudFirestoreClient {
     await userDetailsWriteBatch.commit();
   }
 
+  Future<void> updateUserDetails(
+      {@required UserData user, @required String uid}) async {
+    final userDetailsUpdateBatch = _firebaseFirestore.batch();
+    final userReference = _firebaseFirestore.collection('users').doc(uid);
+    final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
+    final walletData = {'username': user.username};
+    userDetailsUpdateBatch
+      ..set(userReference, user.toMap(), SetOptions(merge: true))
+      ..set(walletReference, walletData, SetOptions(merge: true));
+    await userDetailsUpdateBatch.commit();
+  }
+
   Future<bool> isProfileComplete({@required String uid}) async {
     final snapshot =
         await _firebaseFirestore.collection('users').doc(uid).get();

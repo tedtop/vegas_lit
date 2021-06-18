@@ -59,10 +59,26 @@ class ProfileAvatar extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final username = context.watch<ProfileCubit>().state.userData.username;
-        final currentUserId = context.watch<ProfileCubit>().state.userData.uid;
+        final username = context.watch<ProfileCubit>().state.userData?.username;
+        final currentUserId = context.watch<ProfileCubit>().state.userData?.uid;
         final avatarUrl =
-            context.watch<ProfileCubit>().state.userData.avatarUrl;
+            context.watch<ProfileCubit>().state.userData?.avatarUrl;
+        if (username == null)
+          return CircleAvatar(
+            radius: 50,
+            child: ClipOval(
+              child: Container(
+                alignment: Alignment.center,
+                color: Palette.darkGrey,
+                height: 100.0,
+                width: 100.0,
+                child: const Center(
+                    child: CircularProgressIndicator(
+                  color: Palette.cream,
+                )),
+              ),
+            ),
+          );
         switch (state.status) {
           case ProfileAvatarStatus.loading:
             return CircleAvatar(
@@ -83,48 +99,78 @@ class ProfileAvatar extends StatelessWidget {
             break;
 
           default:
-            return InkWell(
-              onTap: () {
-                context
-                    .read<ProfileAvatarCubit>()
-                    .pickAvatar(uid: currentUserId);
-              },
-              child: avatarUrl != null
-                  ? CircleAvatar(
-                      radius: 50,
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: avatarUrl,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                            color: Palette.cream,
+            return Stack(
+              children: [
+                avatarUrl != null
+                    ? CircleAvatar(
+                        radius: 50,
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: avatarUrl,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              color: Palette.cream,
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
                         ),
-                      ),
-                    )
-                  : CircleAvatar(
-                      radius: 50,
-                      child: ClipOval(
-                        child: Container(
-                          alignment: Alignment.center,
-                          color: Palette.darkGrey,
-                          height: 100.0,
-                          width: 100.0,
-                          child: Text(
-                            username.substring(0, 1).toUpperCase(),
-                            style: GoogleFonts.nunito(
-                              fontSize: 60,
-                              fontWeight: FontWeight.bold,
+                      )
+                    : CircleAvatar(
+                        radius: 50,
+                        child: ClipOval(
+                          child: Container(
+                            alignment: Alignment.center,
+                            color: Palette.darkGrey,
+                            height: 100.0,
+                            width: 100.0,
+                            child: Text(
+                              username.substring(0, 1).toUpperCase(),
+                              style: GoogleFonts.nunito(
+                                fontSize: 60,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                Positioned(
+                    bottom: 5,
+                    right: 0,
+                    child: InkWell(
+                      onTap: () {
+                        context
+                            .read<ProfileAvatarCubit>()
+                            .pickAvatar(uid: currentUserId);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Palette.darkGrey,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Palette.cream)),
+                        padding: const EdgeInsets.all(3),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.edit,
+                              color: Palette.cream,
+                              size: 12,
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            Text(
+                              'Edit',
+                              style: GoogleFonts.nunito(fontSize: 12),
+                            )
+                          ],
+                        ),
+                      ),
+                    ))
+              ],
             );
             break;
         }
