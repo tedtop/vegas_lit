@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/authentication/views/sign_up/sign_up.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 import 'package:vegas_lit/features/shared_widgets/dropdown.dart';
 
@@ -16,9 +15,11 @@ import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';
 
 class Profile extends StatelessWidget {
-  const Profile._({Key key, @required this.currentUserId}) : super(key: key);
+  Profile._({Key key, @required this.currentUserId}) : super(key: key);
 
   final String currentUserId;
+  final Key usernameKey = UniqueKey();
+  final Key emailKey = UniqueKey();
 
   static Route route({@required String currentUserId}) {
     return MaterialPageRoute<void>(
@@ -60,8 +61,12 @@ class Profile extends StatelessWidget {
                   widgets: [
                     _AvatarInput(),
                     const SizedBox(height: 30),
-                    _UsernameInput(),
-                    _EmailInput(),
+                    _UsernameInput(
+                      key: usernameKey,
+                    ),
+                    _EmailInput(
+                      key: emailKey,
+                    ),
                     _StateInput(),
                     // _MobileNumberInput(),
                     _EditButton(
@@ -86,71 +91,15 @@ class _AvatarInput extends StatelessWidget {
   }
 }
 
-// class _UsernameInput extends StatelessWidget {
-//   _UsernameInput({@required this.username})
-//       : textInputController = TextEditingController(text: username);
-//   final TextEditingController textInputController;
-//   final String username;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       children: [
-//         Expanded(
-//           child: Padding(
-//             padding: const EdgeInsets.only(bottom: 20),
-//             child: Text(
-//               'Username',
-//               style: Styles.signUpFieldDescription,
-//             ),
-//           ),
-//         ),
-//         Expanded(
-//           child: TextField(
-//             inputFormatters: [
-//               FilteringTextInputFormatter.deny(RegExp(r'\s')),
-//             ],
-//             controller: textInputController,
-//             cursorColor: Palette.cream,
-//             style: GoogleFonts.nunito(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w300,
-//             ),
-//             key: const Key('profile_usernameInput_textField'),
-//             onChanged: print,
-//             onSubmitted: (changedUsername) => context
-//                 .read<ProfileCubit>()
-//                 .changeUsername(username: changedUsername),
-//             decoration: InputDecoration(
-//               contentPadding: const EdgeInsets.symmetric(
-//                 vertical: 6,
-//                 horizontal: 8,
-//               ),
-//               hintStyle: GoogleFonts.nunito(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.w300,
-//                 color: Palette.cream,
-//               ),
-//               filled: true,
-//               fillColor: Palette.darkGrey,
-//               border: const OutlineInputBorder(
-//                 borderRadius: BorderRadius.all(
-//                   Radius.circular(4),
-//                 ),
-//               ),
-//               isDense: true,
-//               hintText: 'Username',
-//               helperText: '',
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 class _UsernameInput extends StatelessWidget {
+  _UsernameInput({Key key}) : super(key: key);
+
+  final usernameFieldKey = const Key('UsernameField');
+
   @override
   Widget build(BuildContext context) {
+    final username =
+        context.watch<ProfileCubit>().state.userData?.username ?? '';
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
@@ -174,17 +123,15 @@ class _UsernameInput extends StatelessWidget {
                         color: Palette.cream,
                       ),
                     )
-                  : TextField(
-                      controller:
-                          TextEditingController(text: state.userData.username),
+                  : TextFormField(
+                      initialValue: username,
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(RegExp(r'\s')),
                       ],
                       cursorColor: Palette.cream,
                       style: Styles.signUpFieldText,
-                      key: const Key('signUpForm_usernameInput_textField'),
-                      onChanged: print,
-                      onSubmitted: (changedUsername) => context
+                      key: usernameFieldKey,
+                      onChanged: (changedUsername) => context
                           .read<ProfileCubit>()
                           .changeUsername(username: changedUsername),
                       decoration: InputDecoration(
@@ -212,72 +159,15 @@ class _UsernameInput extends StatelessWidget {
   }
 }
 
-// class _EmailInput extends StatelessWidget {
-//   _EmailInput({@required this.email})
-//       : textInputController = TextEditingController(text: email);
-//   final TextEditingController textInputController;
-//   final String email;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       children: [
-//         Expanded(
-//           child: Padding(
-//             padding: const EdgeInsets.only(bottom: 20),
-//             child: Text(
-//               'Email Address',
-//               style: Styles.signUpFieldDescription,
-//             ),
-//           ),
-//         ),
-//         Expanded(
-//           child: TextField(
-//             controller: textInputController,
-//             cursorColor: Palette.cream,
-//             style: GoogleFonts.nunito(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w300,
-//             ),
-//             //key: const Key('signUpForm_emailInput_textField'),
-//             onChanged: print,
-//             onSubmitted: (changedEmail) =>
-//                 context.read<ProfileCubit>().changeEmail(email: changedEmail),
-//             keyboardType: TextInputType.emailAddress,
-//             decoration: InputDecoration(
-//               contentPadding: const EdgeInsets.symmetric(
-//                 vertical: 6,
-//                 horizontal: 8,
-//               ),
-//               filled: true,
-//               fillColor: Palette.darkGrey,
-//               hintStyle: GoogleFonts.nunito(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.w300,
-//                 color: Palette.cream,
-//               ),
-
-//               border: const OutlineInputBorder(
-//                 borderRadius: BorderRadius.all(
-//                   Radius.circular(4),
-//                 ),
-//               ),
-//               errorStyle: GoogleFonts.nunito(fontSize: 10),
-//               isDense: true,
-//               hintText: 'Email Address',
-//               helperText: '',
-//               // errorText: state.email.invalid ? 'Write Correct E-mail' : '',
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 class _EmailInput extends StatelessWidget {
+  const _EmailInput({Key key}) : super(key: key);
+
+  final emailFieldKey = const Key('EmailField');
+
   @override
   Widget build(BuildContext context) {
+    final email = context.watch<ProfileCubit>().state.userData?.email ?? '';
+
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
@@ -301,17 +191,15 @@ class _EmailInput extends StatelessWidget {
                         color: Palette.cream,
                       ),
                     )
-                  : TextField(
-                      controller:
-                          TextEditingController(text: state.userData.email),
+                  : TextFormField(
+                      initialValue: email,
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(RegExp(r'\s')),
                       ],
                       cursorColor: Palette.cream,
                       style: Styles.signUpFieldText,
-                      key: const Key('signUpForm_emailInput_textField'),
-                      onChanged: print,
-                      onSubmitted: (changedEmail) => context
+                      key: emailFieldKey,
+                      onChanged: (changedEmail) => context
                           .read<ProfileCubit>()
                           .changeEmail(email: changedEmail),
                       keyboardType: TextInputType.emailAddress,
