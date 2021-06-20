@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../data/models/bet.dart';
 import '../../../data/models/wallet.dart';
@@ -35,15 +36,15 @@ class HistoryCubit extends Cubit<HistoryState> {
     ));
     try {
       final walletStream = _userRepository.fetchWalletData(uid: uid);
-      final betsStream = _betsRepository.fetchBetHistory(uid: uid);
+      // final betsStream = _betsRepository.fetchBetHistory(uid: uid);
+      final betDataList = await _userRepository.fetchBetHistoryByWeek(
+          week: ESTDateTime.weekStringVL, uid: state.uid);
       final weeksStream = _userRepository.fetchLeaderboardWeeks();
       await _betHistorySubscription?.cancel();
-      _betHistorySubscription = Rx.combineLatest3(
-        betsStream,
+      _betHistorySubscription = Rx.combineLatest2(
         walletStream,
         weeksStream,
         (
-          List<BetData> bets,
           Wallet wallet,
           List<String> weeks,
         ) {
@@ -51,7 +52,7 @@ class HistoryCubit extends Cubit<HistoryState> {
           final totalWeeks = currentWeek + weeks;
           emit(HistoryState(
             status: HistoryStatus.success,
-            bets: bets,
+            bets: betDataList,
             userWallet: wallet,
             weeks: totalWeeks,
             uid: uid,
