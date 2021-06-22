@@ -73,6 +73,10 @@ class UserRepository {
   Stream<Wallet> fetchWalletData({@required String uid}) =>
       _databaseProvider.fetchUserWallet(uid: uid);
 
+  Future<Wallet> fetchUserWalletByWeek(
+          {@required String uid, @required String week}) =>
+      _databaseProvider.fetchUserWalletByWeek(uid: uid, week: week);
+
   Future<bool> isUsernameExist({@required String username}) =>
       _databaseProvider.isUsernameExist(username: username);
 

@@ -8,22 +8,17 @@ import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../data/models/bet.dart';
 import '../../../data/models/wallet.dart';
-import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 
 part 'history_state.dart';
 
 class HistoryCubit extends Cubit<HistoryState> {
   HistoryCubit({
-    @required BetsRepository betsRepository,
     @required UserRepository userRepository,
-  })  : assert(betsRepository != null),
-        assert(userRepository != null),
-        _betsRepository = betsRepository,
+  })  : assert(userRepository != null),
         _userRepository = userRepository,
         super(const HistoryState());
 
-  final BetsRepository _betsRepository;
   final UserRepository _userRepository;
   StreamSubscription _betHistorySubscription;
 
@@ -36,7 +31,6 @@ class HistoryCubit extends Cubit<HistoryState> {
     ));
     try {
       final walletStream = _userRepository.fetchWalletData(uid: uid);
-      // final betsStream = _betsRepository.fetchBetHistory(uid: uid);
       final betDataList = await _userRepository.fetchBetHistoryByWeek(
           week: ESTDateTime.weekStringVL, uid: state.uid);
       final weeksStream = _userRepository.fetchLeaderboardWeeks();
@@ -84,13 +78,15 @@ class HistoryCubit extends Cubit<HistoryState> {
           userWallet: state.userWallet,
         ),
       );
+      final walletData = await _userRepository.fetchUserWalletByWeek(
+          uid: state.uid, week: state.week);
       final betDataList = await _userRepository.fetchBetHistoryByWeek(
           week: week, uid: state.uid);
       emit(HistoryState(
         status: HistoryStatus.success,
         bets: betDataList,
         week: week,
-        userWallet: state.userWallet,
+        userWallet: walletData,
         weeks: state.weeks,
         uid: state.uid,
       ));

@@ -142,6 +142,24 @@ class CloudFirestoreClient {
     return betHistoryData;
   }
 
+  Future<Wallet> fetchUserWalletByWeek({
+    @required String uid,
+    @required String week,
+  }) {
+    final snapshot = _firebaseFirestore
+        .collection('leaderboard')
+        .doc('global')
+        .collection('weeks')
+        .doc(week)
+        .collection('wallets')
+        .doc(uid)
+        .get()
+        .then(
+          (event) => Wallet.fromFirestore(event),
+        );
+    return snapshot;
+  }
+
   // Bet Slip Page
 
   Future<void> saveBets({
