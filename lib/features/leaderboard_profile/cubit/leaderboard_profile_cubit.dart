@@ -26,32 +26,46 @@ class LeaderboardProfileCubit extends Cubit<LeaderboardProfileState> {
   final UserRepository _userRepository;
   StreamSubscription _betHistorySubscription;
 
-  Future<void> fetchAllBets({@required String uid}) async {
+  Future<void> fetchAllBets(
+      {@required String uid, @required String week}) async {
     emit(LeaderboardProfileState(
       status: LeaderboardProfileStatus.loading,
       bets: state.bets,
     ));
+
     try {
-      final walletStream = _userRepository.fetchWalletData(uid: uid);
-      final betsStream = _betsRepository.fetchBetHistory(uid: uid);
-      await _betHistorySubscription?.cancel();
-      _betHistorySubscription = Rx.combineLatest2(
-        betsStream,
-        walletStream,
-        (
-          List<BetData> bets,
-          Wallet wallet,
-        ) {
-          emit(LeaderboardProfileState(
-            status: LeaderboardProfileStatus.success,
-            bets: bets,
-            userWallet: wallet,
-          ));
-        },
-      ).listen(
-        // ignore: avoid_print
-        print,
-      );
+      if (week == 'Current Week') {
+        final walletStream = _userRepository.fetchWalletData(uid: uid);
+        final betsStream = _betsRepository.fetchBetHistory(uid: uid);
+        await _betHistorySubscription?.cancel();
+        _betHistorySubscription = Rx.combineLatest2(
+          betsStream,
+          walletStream,
+          (
+            List<BetData> bets,
+            Wallet wallet,
+          ) {
+            emit(LeaderboardProfileState(
+              status: LeaderboardProfileStatus.success,
+              bets: bets,
+              userWallet: wallet,
+            ));
+          },
+        ).listen(
+          // ignore: avoid_print
+          print,
+        );
+      } else {
+        final wallet =
+            await _userRepository.fetchUserWalletByWeek(uid: uid, week: week);
+        final bets =
+            await _userRepository.fetchBetHistoryByWeek(uid: uid, week: week);
+        emit(LeaderboardProfileState(
+          status: LeaderboardProfileStatus.success,
+          bets: bets,
+          userWallet: wallet,
+        ));
+      }
     } on Exception {
       emit(LeaderboardProfileState(
         status: LeaderboardProfileStatus.failure,
