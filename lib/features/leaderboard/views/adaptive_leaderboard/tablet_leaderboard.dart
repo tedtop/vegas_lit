@@ -126,20 +126,10 @@ class TabletLeaderboardTile extends StatelessWidget {
             leading: player.avatarUrl != null && !kIsWeb
                 ? CircleAvatar(
                     radius: 25,
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: player.avatarUrl,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                CircularProgressIndicator(
-                          value: downloadProgress.progress,
-                          color: Palette.cream,
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    ),
+                    backgroundImage: CachedNetworkImageProvider(
+                        player.avatarUrl,
+                        imageRenderMethodForWeb:
+                            ImageRenderMethodForWeb.HttpGet),
                   )
                 : CircleAvatar(
                     radius: 25,

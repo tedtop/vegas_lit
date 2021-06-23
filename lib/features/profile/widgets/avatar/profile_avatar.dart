@@ -104,20 +104,9 @@ class ProfileAvatar extends StatelessWidget {
                 avatarUrl != null
                     ? CircleAvatar(
                         radius: 50,
-                        child: ClipOval(
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: avatarUrl,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                              value: downloadProgress.progress,
-                              color: Palette.cream,
-                            ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ),
+                        backgroundImage: CachedNetworkImageProvider(avatarUrl,
+                            imageRenderMethodForWeb:
+                                ImageRenderMethodForWeb.HttpGet),
                       )
                     : CircleAvatar(
                         radius: 50,

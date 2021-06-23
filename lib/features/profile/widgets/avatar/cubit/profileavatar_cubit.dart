@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../config/paths.dart';
 import '../../../../../data/repositories/storage_repository.dart';
 import '../../../../../data/repositories/user_repository.dart';
 
@@ -42,7 +41,7 @@ class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
       try {
         final avatarUrl = await _storageRepository.uploadFile(
           file: avatarImageFile,
-          path: Paths.profilePicturePath,
+          path: uid,
         );
         await _userRepository.updateUserAvatar(
           avatarUrl: avatarUrl,
