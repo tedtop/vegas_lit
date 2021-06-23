@@ -343,17 +343,18 @@ Widget whichBetYouBet({@required BetData betData}) {
             betData.betTeam == 'home'
                 ? (isPointSpreadNegative
                     ? TextSpan(
-                        text: 'WIN BY +${betData?.betPointSpread?.ceil() ?? 0}')
+                        text:
+                            'WIN BY +${betData?.betPointSpread?.ceil()?.abs() ?? 0}')
                     : TextSpan(
                         text:
-                            'NOT LOSE BY -${betData?.betPointSpread?.ceil() ?? 0}'))
+                            'NOT LOSE BY -${betData?.betPointSpread?.ceil()?.abs() ?? 0}'))
                 : (isPointSpreadNegative
                     ? TextSpan(
                         text:
-                            'NOT LOSE BY -${betData?.betPointSpread?.ceil() ?? 0}')
+                            'NOT LOSE BY -${betData?.betPointSpread?.ceil()?.abs() ?? 0}')
                     : TextSpan(
                         text:
-                            'WIN BY +${betData?.betPointSpread?.ceil() ?? 0}'))
+                            'WIN BY +${betData?.betPointSpread?.ceil()?.abs() ?? 0}'))
           ]));
     case 'total':
       return RichText(
