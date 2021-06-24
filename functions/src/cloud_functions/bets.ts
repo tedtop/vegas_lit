@@ -10,11 +10,10 @@ export const resolveBets = functions.pubsub
   .schedule("0 * * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
-
     // Send slack notification and start timer
     const startTime = performance.now();
     await sendMessageToSlack(`:mega: Resolving bets...`);
-    
+
     let betsResolved = 0;
     let betsRemainOpen = 0;
 
@@ -214,6 +213,39 @@ export const resolveBets = functions.pubsub
         console.log(error);
       })
       .then(async function () {
+        // Rank Leaderboard after resolving bets
+        await admin
+          .firestore()
+          .collection("wallets")
+          .where("totalBets", ">=", 5)
+          .get()
+          .then(async function (snapshots) {
+            let rankNumber = 1;
+            const documents = snapshots.docs.sort((a, b) => {
+              const firstData = a.data();
+              const secondData = b.data();
+              if (
+                firstData.accountBalance + firstData.pendingRiskedAmount >
+                secondData.accountBalance + secondData.pendingRiskedAmount
+              )
+                return -1;
+              if (
+                firstData.accountBalance + firstData.pendingRiskedAmount <
+                secondData.accountBalance + secondData.pendingRiskedAmount
+              )
+                return 1;
+              if (firstData.totalBets > secondData.totalBets) return -1;
+              if (firstData.totalBets < secondData.totalBets) return 1;
+              return 0;
+            });
+            for (const document of documents) {
+              await document.ref.update({ rank: rankNumber });
+              rankNumber++;
+            }
+          })
+          .catch(function (error: any) {
+            console.log(error);
+          });
         await sendMessageToSlack(
           `:white_check_mark: ${betsResolved} bets resolved, ${betsRemainOpen} bets remain open`
         );
