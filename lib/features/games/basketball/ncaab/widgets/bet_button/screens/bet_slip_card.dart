@@ -302,6 +302,8 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                                 betAmount:
                                                     betButtonState.betAmount,
                                                 betsData: BetData(
+                                                  status: betButtonState
+                                                      .game.status,
                                                   stillOpen: false,
                                                   clientVersion:
                                                       await _getAppVersion(),
