@@ -213,7 +213,11 @@ export const resolveBets = functions.pubsub
         console.log(error);
       })
       .then(async function () {
+        await sendMessageToSlack(
+          `:white_check_mark: ${betsResolved} bets resolved, ${betsRemainOpen} bets remain open`
+        );
         // Rank Leaderboard after resolving bets
+        await sendMessageToSlack(":rocket: Updating leaderboard...");
         await admin
           .firestore()
           .collection("wallets")
@@ -246,9 +250,6 @@ export const resolveBets = functions.pubsub
           .catch(function (error: any) {
             console.log(error);
           });
-        await sendMessageToSlack(
-          `:white_check_mark: ${betsResolved} bets resolved, ${betsRemainOpen} bets remain open`
-        );
       });
 
     const endTime = performance.now();
@@ -258,7 +259,6 @@ export const resolveBets = functions.pubsub
         1
       )}ms`
     );
-    await sendMessageToSlack(":rocket: Updating leaderboard...");
 
     await sendLeaderboardToSlack();
 
