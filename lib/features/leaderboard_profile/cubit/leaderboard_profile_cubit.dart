@@ -8,7 +8,6 @@ import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../data/models/bet.dart';
 import '../../../data/models/wallet.dart';
-import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 
 part 'leaderboard_profile_state.dart';

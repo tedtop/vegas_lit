@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../config/palette.dart';
-import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../cubit/leaderboard_profile_cubit.dart';

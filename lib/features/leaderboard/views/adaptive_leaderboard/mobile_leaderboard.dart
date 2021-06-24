@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/features/bet_history/bet_history.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -164,15 +165,18 @@ class MobileLeaderboardTile extends StatelessWidget {
         child: ListTile(
           // enableFeedback: true,
           onTap: () {
-            currentUserUid == player.uid
-                ? context.read<HomeCubit>().homeChange(4)
-                : Navigator.of(context).push(
-                    LeaderboardProfile.navigation(
-                      uid: player.uid,
-                      homeCubit: context.read<HomeCubit>(),
-                      week: week,
-                    ),
-                  );
+            if (currentUserUid == player.uid) {
+              context.read<HistoryCubit>().changeWeek(week: week);
+              context.read<HomeCubit>().homeChange(4);
+            } else {
+              Navigator.of(context).push(
+                LeaderboardProfile.navigation(
+                  uid: player.uid,
+                  homeCubit: context.read<HomeCubit>(),
+                  week: week,
+                ),
+              );
+            }
           },
           leading: player.avatarUrl != null && !kIsWeb
               ? CircleAvatar(
