@@ -31,8 +31,9 @@ class HistoryCubit extends Cubit<HistoryState> {
     ));
     try {
       final walletStream = _userRepository.fetchWalletData(uid: uid);
-      final betDataList = await _userRepository.fetchBetHistoryByWeek(
-          week: ESTDateTime.weekStringVL, uid: state.uid);
+      final betDataList = await _userRepository
+          .fetchBetHistoryByWeek(week: ESTDateTime.weekStringVL, uid: state.uid)
+          .first;
       final weeksStream = _userRepository.fetchLeaderboardWeeks();
       await _betHistorySubscription?.cancel();
       _betHistorySubscription = Rx.combineLatest2(
@@ -80,8 +81,9 @@ class HistoryCubit extends Cubit<HistoryState> {
       );
       final walletData = await _userRepository.fetchUserWalletByWeek(
           uid: state.uid, week: state.week);
-      final betDataList = await _userRepository.fetchBetHistoryByWeek(
-          week: week, uid: state.uid);
+      final betDataList = await _userRepository
+          .fetchBetHistoryByWeek(week: week, uid: state.uid)
+          .first;
       emit(HistoryState(
         status: HistoryStatus.success,
         bets: betDataList,

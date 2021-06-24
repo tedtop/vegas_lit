@@ -89,7 +89,7 @@ class UserRepository {
   Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String week}) =>
       _databaseProvider.fetchLeaderboardDaysUserData(week: week);
 
-  Future<List<BetData>> fetchBetHistoryByWeek(
+  Stream<List<BetData>> fetchBetHistoryByWeek(
           {@required String week, @required String uid}) =>
       _databaseProvider.fetchBetHistoryByWeek(week: week, uid: uid);
 

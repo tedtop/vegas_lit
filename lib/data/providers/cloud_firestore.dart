@@ -102,26 +102,7 @@ class CloudFirestoreClient {
 
   // Bet History Page
 
-  Stream<List<BetData>> fetchBetHistory({
-    @required String uid,
-  }) {
-    final betHistoryData = _firebaseFirestore
-        .collection('bets')
-        .where('uid', isEqualTo: uid)
-        .where('isClosed', isEqualTo: true)
-        .orderBy('gameStartDateTime', descending: true)
-        .snapshots()
-        .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
-        );
-    return betHistoryData;
-  }
-
-  Future<List<BetData>> fetchBetHistoryByWeek({
+  Stream<List<BetData>> fetchBetHistoryByWeek({
     @required String uid,
     @required String week,
   }) {
@@ -131,8 +112,8 @@ class CloudFirestoreClient {
         .where('isClosed', isEqualTo: true)
         .where('week', isEqualTo: week)
         .orderBy('gameStartDateTime', descending: true)
-        .get()
-        .then(
+        .snapshots()
+        .map(
           (event) => event.docs
               .map(
                 (e) => BetData.fromFirestore(e),

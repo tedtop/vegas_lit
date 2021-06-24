@@ -34,7 +34,6 @@ class LeaderboardProfile extends StatelessWidget {
         value: homeCubit,
         child: BlocProvider<LeaderboardProfileCubit>(
           create: (context) => LeaderboardProfileCubit(
-            betsRepository: context.read<BetsRepository>(),
             userRepository: context.read<UserRepository>(),
           )..fetchAllBets(uid: uid, week: week),
           child: Scaffold(

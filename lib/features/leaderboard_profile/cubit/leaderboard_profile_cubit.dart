@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../data/models/bet.dart';
 import '../../../data/models/wallet.dart';
@@ -14,15 +15,11 @@ part 'leaderboard_profile_state.dart';
 
 class LeaderboardProfileCubit extends Cubit<LeaderboardProfileState> {
   LeaderboardProfileCubit({
-    @required BetsRepository betsRepository,
     @required UserRepository userRepository,
-  })  : assert(betsRepository != null),
-        assert(userRepository != null),
-        _betsRepository = betsRepository,
+  })  : assert(userRepository != null),
         _userRepository = userRepository,
         super(const LeaderboardProfileState());
 
-  final BetsRepository _betsRepository;
   final UserRepository _userRepository;
   StreamSubscription _betHistorySubscription;
 
@@ -36,7 +33,10 @@ class LeaderboardProfileCubit extends Cubit<LeaderboardProfileState> {
     try {
       if (week == 'Current Week') {
         final walletStream = _userRepository.fetchWalletData(uid: uid);
-        final betsStream = _betsRepository.fetchBetHistory(uid: uid);
+        final betsStream = _userRepository.fetchBetHistoryByWeek(
+          uid: uid,
+          week: ESTDateTime.weekStringVL,
+        );
         await _betHistorySubscription?.cancel();
         _betHistorySubscription = Rx.combineLatest2(
           betsStream,
@@ -58,8 +58,9 @@ class LeaderboardProfileCubit extends Cubit<LeaderboardProfileState> {
       } else {
         final wallet =
             await _userRepository.fetchUserWalletByWeek(uid: uid, week: week);
-        final bets =
-            await _userRepository.fetchBetHistoryByWeek(uid: uid, week: week);
+        final bets = await _userRepository
+            .fetchBetHistoryByWeek(uid: uid, week: week)
+            .first;
         emit(LeaderboardProfileState(
           status: LeaderboardProfileStatus.success,
           bets: bets,
