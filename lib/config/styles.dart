@@ -239,15 +239,20 @@ class Styles {
     fontSize: 14,
     color: Palette.cream,
   );
-  static final openBetsCardTime = GoogleFonts.nunito(
-      fontSize: 12, color: Palette.darkGrey, fontWeight: FontWeight.w600);
 
+  static final openBetsCardTime = GoogleFonts.nunito(
+    color: Palette.red,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
   static final openBetsCardBetText = GoogleFonts.nunito(
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
   );
   static final openBetsCardBetMoney = GoogleFonts.nunito(
-      fontSize: 18, fontWeight: FontWeight.bold, color: Palette.cream);
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
 
   static final openBetsDesktopField = GoogleFonts.nunito(
     fontSize: 14,
