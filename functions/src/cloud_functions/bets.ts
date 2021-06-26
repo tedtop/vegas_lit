@@ -331,27 +331,27 @@ export const resolveBets = functions.pubsub
       )}ms`
     );
 
-    await sendLeaderboardToSlack();
+    // await sendLeaderboardToSlack();
 
     return true;
 
-    // Sending top 5 leaderboard players
-    async function sendLeaderboardToSlack() {
-      await admin
-        .firestore()
-        .collection("wallets")
-        .orderBy("rank", "desc")
-        .limit(5)
-        .get()
-        .then(async (snapshots) => {
-          var rankNumber = 1;
+    // // Sending top 5 leaderboard players
+    // async function sendLeaderboardToSlack() {
+    //   await admin
+    //     .firestore()
+    //     .collection("wallets")
+    //     .orderBy("rank", "desc")
+    //     .limit(5)
+    //     .get()
+    //     .then(async (snapshots) => {
+    //       var rankNumber = 1;
 
-          for (const docs of snapshots.docs) {
-            await sendMessageToSlack(`${rankNumber}. ${docs.data().username}`);
-            rankNumber++;
-          }
-        });
-    }
+    //       for (const docs of snapshots.docs) {
+    //         await sendMessageToSlack(`${rankNumber}. ${docs.data().username}`);
+    //         rankNumber++;
+    //       }
+    //     });
+    // }
 
     // Get current week in format
     function getCurrentWeek(): string {
