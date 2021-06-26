@@ -229,13 +229,21 @@ export const resolveBets = functions.pubsub
               const firstData = a.data();
               const secondData = b.data();
               if (
-                firstData.accountBalance + firstData.pendingRiskedAmount >
-                secondData.accountBalance + secondData.pendingRiskedAmount
+                firstData.accountBalance +
+                  firstData.pendingRiskedAmount -
+                  firstData.totalRewards >
+                secondData.accountBalance +
+                  secondData.pendingRiskedAmount -
+                  secondData.totalRewards
               )
                 return -1;
               if (
-                firstData.accountBalance + firstData.pendingRiskedAmount <
-                secondData.accountBalance + secondData.pendingRiskedAmount
+                firstData.accountBalance +
+                  firstData.pendingRiskedAmount -
+                  firstData.totalRewards <
+                secondData.accountBalance +
+                  secondData.pendingRiskedAmount -
+                  secondData.totalRewards
               )
                 return 1;
               if (firstData.totalBets > secondData.totalBets) return -1;
