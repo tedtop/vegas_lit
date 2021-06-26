@@ -27,7 +27,7 @@ class OpenBetsSlip extends StatelessWidget {
         children: [
           Container(
             width: 390,
-            height: 110,
+            height: 124,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Palette.cream,
@@ -57,7 +57,7 @@ class OpenBetsSlip extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(
-                            height: 4,
+                            height: 3,
                           ),
                           RichText(
                             text: TextSpan(
@@ -66,24 +66,42 @@ class OpenBetsSlip extends StatelessWidget {
                                 TextSpan(
                                   text:
                                       '${openBets.awayTeamName.toUpperCase()}',
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 14,
+                                    color: Palette.cream,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const TextSpan(text: '  @  '),
+                                TextSpan(
+                                  text: '  @  ',
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.cream,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 TextSpan(
                                   text:
                                       '${openBets.homeTeamName.toUpperCase()}',
-                                  style:
-                                      GoogleFonts.nunito(color: Palette.green),
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.green,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                           const SizedBox(
-                            height: 4,
+                            height: 3,
                           ),
                           whichBetText(betData: openBets),
                           const SizedBox(
-                            height: 6,
+                            height: 3,
                           ),
+                          Text(
+                            'Max Payout \$${openBets.betAmount + openBets.betProfit}',
+                            style: Styles.openBetsCardNormal,
+                          ),
+
                           // Last Row
                           Row(
                             children: [
@@ -146,13 +164,15 @@ class OpenBetsSlip extends StatelessWidget {
                     children: [
                       Container(
                         width: 90,
-                        height: 54,
+                        height: 61,
                         decoration: const BoxDecoration(
                           color: Palette.green,
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('you bet', style: Styles.openBetsCardBetText),
+                            Text('ticket cost',
+                                style: Styles.openBetsCardBetText),
                             Text('\$${openBets.betAmount}',
                                 style: Styles.openBetsCardBetMoney),
                           ],
@@ -160,22 +180,23 @@ class OpenBetsSlip extends StatelessWidget {
                       ),
                       Container(
                         width: 90,
-                        height: 54,
+                        height: 61,
                         decoration: const BoxDecoration(
                           color: Palette.cream,
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'to win',
+                              'max win',
                               style: Styles.openBetsCardBetText.copyWith(
-                                color: Palette.darkGrey,
+                                color: Palette.green,
                               ),
                             ),
                             Text(
                               '\$${openBets.betProfit}',
                               style: Styles.openBetsCardBetMoney
-                                  .copyWith(color: Palette.darkGrey),
+                                  .copyWith(color: Palette.green),
                             ),
                           ],
                         ),
@@ -222,8 +243,8 @@ Widget whichBetText({@required BetData betData}) {
   final isPointSpreadNegative =
       betData?.betPointSpread?.isNegative ?? 0.isNegative;
   final overUnder = betData.betTeam == 'away'
-      ? '${betData.betOverUnder}'
-      : '${betData.betOverUnder}';
+      ? '+${betData.betOverUnder}'
+      : '-${betData.betOverUnder}';
   final awayTeamPointSpread = isPointSpreadNegative
       ? betData?.betPointSpread?.abs() ?? 0
       : betData?.betPointSpread != null
@@ -238,13 +259,6 @@ Widget whichBetText({@required BetData betData}) {
     case 'moneyline':
       return Column(
         children: [
-          Text(
-            '${whichBetSystem(betData.betType)}  ($odds)',
-            style: Styles.openBetsCardNormal,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
           RichText(
             text: TextSpan(
               style: Styles.openBetsCardNormal,
@@ -262,7 +276,14 @@ Widget whichBetText({@required BetData betData}) {
                 const TextSpan(text: 'TO WIN'),
               ],
             ),
-          )
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Text(
+            '(ML) ${whichBetSystem(betData.betType)}  ($odds)',
+            style: Styles.openBetsCardNormal,
+          ),
         ],
       );
       break;
@@ -270,24 +291,32 @@ Widget whichBetText({@required BetData betData}) {
       if (betData.betTeam == 'away') {
         return Column(
           children: [
-            Text(
-              '${betData.awayTeamName.toUpperCase()} TO WIN ($odds)',
-              style: Styles.openBetsCardNormal,
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${betData.awayTeamName.toUpperCase()} ',
+                    style: Styles.openBetsCardNormal,
+                  ),
+                  awayTeamPointSpread.isNegative
+                      ? TextSpan(
+                          text: '(-${awayTeamPointSpread.abs()})',
+                          style: Styles.openBetsCardNormal,
+                        )
+                      : TextSpan(
+                          text: '(+${awayTeamPointSpread.abs()})',
+                          style: Styles.openBetsCardNormal,
+                        ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 4,
             ),
-            awayTeamPointSpread.isNegative
-                ? Text(
-                    'BY MORE THAN ${awayTeamPointSpread.abs()} POINTS',
-                    style: Styles.openBetsCardNormal,
-                  )
-                : Text(
-                    'OR LOSE BY LESS THAN ${awayTeamPointSpread.abs()} POINTS',
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: Styles.openBetsCardNormal,
-                  ),
+            Text(
+              '(PTS) POINT SPREAD ($odds)',
+              style: Styles.openBetsCardNormal,
+            )
           ],
         );
       } else {
@@ -303,24 +332,25 @@ Widget whichBetText({@required BetData betData}) {
                       color: Palette.green,
                     ),
                   ),
-                  TextSpan(text: 'TO WIN ($odds)'),
+                  homeTeamPointSpread.isNegative
+                      ? TextSpan(
+                          text: '(-${homeTeamPointSpread.abs()})',
+                          style: Styles.openBetsCardNormal,
+                        )
+                      : TextSpan(
+                          text: '(+${homeTeamPointSpread.abs()})',
+                          style: Styles.openBetsCardNormal,
+                        ),
                 ],
               ),
             ),
             const SizedBox(
               height: 4,
             ),
-            homeTeamPointSpread.isNegative
-                ? Text(
-                    'BY MORE THAN ${homeTeamPointSpread.abs()} POINTS',
-                    style: Styles.openBetsCardNormal,
-                  )
-                : Text(
-                    'OR LOSE BY LESS THAN ${homeTeamPointSpread.abs()} POINTS',
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: Styles.openBetsCardNormal,
-                  ),
+            Text(
+              '(PTS) POINT SPREAD ($odds)',
+              style: Styles.openBetsCardNormal,
+            )
           ],
         );
       }
@@ -330,14 +360,14 @@ Widget whichBetText({@required BetData betData}) {
         return Column(
           children: [
             Text(
-              'YOU BET THE COMBINED SCORE',
+              '${betData.awayTeamName.toUpperCase()} OVER ($overUnder)',
               style: Styles.openBetsCardNormal,
             ),
             const SizedBox(
               height: 4,
             ),
             Text(
-              'WILL BE ABOVE $overUnder @ ($odds)',
+              '(TOT) TOTAL O/U ($odds)',
               style: Styles.openBetsCardNormal,
             )
           ],
@@ -345,15 +375,27 @@ Widget whichBetText({@required BetData betData}) {
       } else {
         return Column(
           children: [
-            Text(
-              'YOU BET THE COMBINED SCORE',
-              style: Styles.openBetsCardNormal,
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${betData.homeTeamName.toUpperCase()}',
+                    style: Styles.openBetsCardNormal.copyWith(
+                      color: Palette.green,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' UNDER ($overUnder)',
+                    style: Styles.openBetsCardNormal,
+                  )
+                ],
+              ),
             ),
             const SizedBox(
               height: 4,
             ),
             Text(
-              'WILL BE BELOW $overUnder @ ($odds)',
+              '(TOT) TOTAL O/U ($odds)',
               style: Styles.openBetsCardNormal,
             )
           ],
