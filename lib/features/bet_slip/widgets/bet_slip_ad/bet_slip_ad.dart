@@ -64,9 +64,9 @@ class RewardedBetSlip extends StatelessWidget {
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(
                                     const SnackBar(
-                                      duration: Duration(milliseconds: 1000),
+                                      duration: Duration(milliseconds: 2000),
                                       content: Text(
-                                        'Success. 100\$ added to your account.',
+                                        'You just earned another \$100 to play with!',
                                       ),
                                     ),
                                   );
@@ -75,9 +75,9 @@ class RewardedBetSlip extends StatelessWidget {
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(
                                     const SnackBar(
-                                      duration: Duration(milliseconds: 1000),
+                                      duration: Duration(milliseconds: 2000),
                                       content: Text(
-                                        'Error',
+                                        'There was an error displaying the ad',
                                       ),
                                     ),
                                   );

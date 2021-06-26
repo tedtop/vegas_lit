@@ -40,16 +40,62 @@
               "client_type": 3
             },
             {
-              "client_id": "629095888262-sk7n074ouh7ccv80uoskkktae0gnp8h5.apps.googleusercontent.com",
+              "client_id": "629095888262-9sfasthq5jdo2p0dlgih5vfo1rroco48.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.vegasLit.sportsbook"
+                "bundle_id": "com.vegaslit.sportsbook.f2p",
+                "app_store_id": "1573992633"
               }
             }
           ]
         }
       },
       "admob_app_id": "ca-app-pub-8972894064340370~6831182174"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629095888262:android:17a22e2268bc4c1c752807",
+        "android_client_info": {
+          "package_name": "com.vegaslit.sportsbook.f2p"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629095888262-hdgjb2go1qqpmth00nh0ubj7jtlal4br.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vegaslit.sportsbook.f2p",
+            "certificate_hash": "74904b3d14564a2509dcf362f17b65729f50efbf"
+          }
+        },
+        {
+          "client_id": "629095888262-qiq47tj3hjeu48thbldbll9v1e6l2vu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOXj7WGSBTNe7otBUruWp5o9LUkWPQrhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629095888262-qiq47tj3hjeu48thbldbll9v1e6l2vu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629095888262-9sfasthq5jdo2p0dlgih5vfo1rroco48.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vegaslit.sportsbook.f2p",
+                "app_store_id": "1573992633"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
