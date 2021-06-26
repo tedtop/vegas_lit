@@ -141,6 +141,7 @@ class BetHistorySlip extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: isWin ? Palette.green : Palette.red),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'ticket cost',
@@ -162,6 +163,7 @@ class BetHistorySlip extends StatelessWidget {
                         height: 61,
                         decoration: const BoxDecoration(color: Palette.cream),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               '${isWin ? 'you won' : 'you lost'}',
