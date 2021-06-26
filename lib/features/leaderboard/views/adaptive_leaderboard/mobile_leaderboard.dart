@@ -223,7 +223,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 style: Styles.awayTeam,
               ),
               Text(
-                'Wins: ${((player.totalBetsWon / player.totalBets) * 100).toStringAsFixed(0)}%',
+                'Wins: ${((player.totalBetsWon / player.totalBetsWon + player.totalBetsLost) * 100).toStringAsFixed(0)}%',
                 style: Styles.awayTeam,
               ),
             ],
