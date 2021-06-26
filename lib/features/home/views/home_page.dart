@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
 
 import '../../../config/assets.dart';
 import '../../../data/repositories/bets_repository.dart';
@@ -136,33 +137,40 @@ class _HomePageState extends State<HomePage>
           _sendCurrentTabToAnalytics();
         }
       },
-      child: Scaffold(
-        // backgroundColor: Palette.lightGrey,
-        appBar: adaptiveAppBar(
-            width: width, balanceAmount: balanceAmount, pageIndex: pageIndex),
-        drawer: HomeDrawer(),
-        body: BlocBuilder<InternetCubit, InternetState>(
-          builder: (context, state) {
-            if (state is InternetDisconnected) {
-              return Center(
-                child: SvgPicture.asset(SVG.networkError),
-              );
-            } else {
-              return PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                children: [
-                  Sportsbook(),
-                  BetSlip(),
-                  Leaderboard.route(),
-                  OpenBets.route(uid: widget.currentUserId),
-                  History.route(uid: widget.currentUserId),
-                ],
-              );
-            }
-          },
-        ),
-        bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
+      child: Stack(
+        children: [
+          Scaffold(
+            // backgroundColor: Palette.lightGrey,
+            appBar: adaptiveAppBar(
+                width: width,
+                balanceAmount: balanceAmount,
+                pageIndex: pageIndex),
+            drawer: HomeDrawer(),
+            body: BlocBuilder<InternetCubit, InternetState>(
+              builder: (context, state) {
+                if (state is InternetDisconnected) {
+                  return Center(
+                    child: SvgPicture.asset(SVG.networkError),
+                  );
+                } else {
+                  return PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: _pageController,
+                    children: [
+                      Sportsbook(),
+                      BetSlip(),
+                      Leaderboard.route(),
+                      OpenBets.route(uid: widget.currentUserId),
+                      History.route(uid: widget.currentUserId),
+                    ],
+                  );
+                }
+              },
+            ),
+            bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
+          ),
+          const HelpOverlayView()
+        ],
       ),
     );
   }
