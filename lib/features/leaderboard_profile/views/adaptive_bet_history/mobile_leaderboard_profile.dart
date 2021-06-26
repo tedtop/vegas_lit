@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -73,66 +75,103 @@ class _MobileHistoryBoardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final userWallet = context
         .select((LeaderboardProfileCubit cubit) => cubit.state.userWallet);
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 6,
-        vertical: 8,
-      ),
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        color: Palette.lightGrey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 8,
-          ),
-          child: Column(
-            children: [
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Player Rank',
-                rightText:
-                    '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
+    return Row(
+      children: [
+        SizedBox(
+          width: 140,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Winnings',
-                rightText:
-                    '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
-                color: Palette.cream,
+              color: Palette.lightGrey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 8,
+                ),
+                child: Column(
+                  children: [
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Rank',
+                      rightText:
+                          '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Won',
+                      rightText: '${userWallet.totalBetsWon}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Lost',
+                      rightText: '${userWallet.totalBetsLost}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Open',
+                      rightText: '${userWallet.totalOpenBets}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Total',
+                      rightText: '${userWallet.totalBets}',
+                    ),
+                  ],
+                ),
               ),
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Winning Bets',
-                rightText:
-                    '${((userWallet.totalBetsWon / userWallet.totalBets).isNaN ? 0 : (userWallet.totalBetsWon / userWallet.totalBets) * 100).toStringAsFixed(0)}%',
-                color: Palette.cream,
-              ),
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Won/Lost/Open/Total',
-                rightText:
-                    '${userWallet.totalBetsWon}/${userWallet.totalBetsLost}/${userWallet.totalOpenBets}/${userWallet.totalBets}',
-              ),
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Ad Rewards',
-                rightText: '\$${userWallet.totalRewards}',
-                color: Palette.cream,
-              ),
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Total Risked',
-                rightText: '\$${userWallet.totalRiskedAmount}',
-                color: Palette.cream,
-              ),
-              LeaderboardProfileHistoryBoardText(
-                leftText: 'Total Profit',
-                rightText: '\$${userWallet.totalProfit}',
-                color:
-                    userWallet.totalProfit >= 0 ? Palette.green : Palette.red,
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              color: Palette.lightGrey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 8,
+                ),
+                child: Column(
+                  children: [
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Total Bet',
+                      rightText: '\$${userWallet.totalRiskedAmount}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Total Won',
+                      rightText:
+                          '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
+                    ),
+                    // LeaderboardProfileHistoryBoardText(
+                    //   leftText: 'Biggest Win',
+                    //   rightText: '\$${userWallet.biggestWinAmount}',
+                    // ),
+
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Ad Rewards',
+                      rightText: '\$${userWallet.totalRewards}',
+                    ),
+                    //  Should replace with biggest win
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Total Profit',
+                      rightText: '\$${userWallet.totalProfit}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
+                      leftText: 'Balance',
+                      rightText: '\$${userWallet.accountBalance}',
+                      color: Palette.green,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -217,21 +256,63 @@ class _MobileHistoryHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     final betHistoryState =
         context.select((LeaderboardProfileCubit cubit) => cubit.state);
-
-    return betHistoryState.status == LeaderboardProfileStatus.success
-        ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  '${betHistoryState.userWallet.username}',
-                  style: Styles.pageTitle,
-                ),
-              ),
-            ],
-          )
-        : const SizedBox();
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          color: Palette.lightGrey,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            betHistoryState.userWallet.avatarUrl != null
+                ? CircleAvatar(
+                    radius: 50,
+                    backgroundImage: CachedNetworkImageProvider(
+                        betHistoryState.userWallet.avatarUrl,
+                        imageRenderMethodForWeb:
+                            ImageRenderMethodForWeb.HttpGet),
+                  )
+                : CircleAvatar(
+                    radius: 50,
+                    child: ClipOval(
+                      child: Container(
+                        alignment: Alignment.center,
+                        color: Palette.darkGrey,
+                        height: 100.0,
+                        width: 100.0,
+                        child: Text(
+                          betHistoryState.userWallet.username
+                              .substring(0, 1)
+                              .toUpperCase(),
+                          style: GoogleFonts.nunito(
+                            fontSize: 60,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+            betHistoryState.status == LeaderboardProfileStatus.success
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '${betHistoryState.userWallet.username}',
+                          style: Styles.pageTitle,
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ),
+    );
   }
 }
 

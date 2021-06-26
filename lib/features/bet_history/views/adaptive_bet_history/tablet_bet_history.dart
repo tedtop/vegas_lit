@@ -53,11 +53,37 @@ class _TabletHistoryBoard extends StatelessWidget {
             );
             break;
           case HistoryStatus.success:
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6,
-                vertical: 8,
-              ),
+            return const _TabletBetHistoryBoardContent();
+            break;
+          case HistoryStatus.failure:
+            return const Center(
+              child: Text('Some error occured.'),
+            );
+            break;
+          default:
+            return const SizedBox();
+            break;
+        }
+      },
+    );
+  }
+}
+
+class _TabletBetHistoryBoardContent extends StatelessWidget {
+  const _TabletBetHistoryBoardContent({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final userWallet =
+        context.select((HistoryCubit cubit) => cubit.state.userWallet);
+    return Container(
+      constraints: const BoxConstraints(minWidth: 380, maxWidth: 600),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 140,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Card(
                 clipBehavior: Clip.antiAlias,
                 shape: RoundedRectangleBorder(
@@ -72,61 +98,84 @@ class _TabletHistoryBoard extends StatelessWidget {
                   child: Column(
                     children: [
                       BetHistoryBoardText(
-                        leftText: 'Your Rank',
+                        leftText: 'Rank',
                         rightText:
-                            '${state.userWallet.rank == 0 ? 'N/A' : state.userWallet.rank.ordinalNumber}',
+                            '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Winnings',
-                        rightText:
-                            '\$${state.userWallet.totalRiskedAmount + state.userWallet.totalProfit - state.userWallet.totalLoss - state.userWallet.pendingRiskedAmount}',
-                        color: Palette.cream,
+                        leftText: 'Won',
+                        rightText: '${userWallet.totalBetsWon}',
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Winning Bets',
-                        rightText:
-                            '${((state.userWallet.totalBetsWon / state.userWallet.totalBets).isNaN ? 0 : (state.userWallet.totalBetsWon / state.userWallet.totalBets) * 100).toStringAsFixed(0)}%',
-                        color: Palette.cream,
+                        leftText: 'Lost',
+                        rightText: '${userWallet.totalBetsLost}',
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Ad Rewards',
-                        rightText: '\$${state.userWallet.totalRewards}',
-                        color: Palette.cream,
+                        leftText: 'Open',
+                        rightText: '${userWallet.totalOpenBets}',
                       ),
                       BetHistoryBoardText(
-                        leftText: 'Won/Lost/Open/Total',
-                        rightText:
-                            '${state.userWallet.totalBetsWon}/${state.userWallet.totalBetsLost}/${state.userWallet.totalOpenBets}/${state.userWallet.totalBets}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Total Risked',
-                        rightText: '\$${state.userWallet.totalRiskedAmount}',
-                        color: Palette.cream,
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Total Profit',
-                        rightText: '\$${state.userWallet.totalProfit}',
-                        color: state.userWallet.totalProfit >= 0
-                            ? Palette.green
-                            : Palette.red,
+                        leftText: 'Total',
+                        rightText: '${userWallet.totalBets}',
                       ),
                     ],
                   ),
                 ),
               ),
-            );
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                color: Palette.lightGrey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 8,
+                  ),
+                  child: Column(
+                    children: [
+                      BetHistoryBoardText(
+                        leftText: 'Total Bet',
+                        rightText: '\$${userWallet.totalRiskedAmount}',
+                      ),
+                      BetHistoryBoardText(
+                        leftText: 'Total Won',
+                        rightText:
+                            '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
+                      ),
+                      // BetHistoryBoardText(
+                      //   leftText: 'Biggest Win',
+                      //   rightText: '\$${userWallet.biggestWinAmount}',
+                      // ),
 
-            break;
-          case HistoryStatus.failure:
-            return const Center(
-              child: Text('Some error occured.'),
-            );
-            break;
-          default:
-            return const SizedBox();
-            break;
-        }
-      },
+                      BetHistoryBoardText(
+                        leftText: 'Ad Rewards',
+                        rightText: '\$${userWallet.totalRewards}',
+                      ),
+                      //  Should replace with biggest win
+                      BetHistoryBoardText(
+                        leftText: 'Total Profit',
+                        rightText: '\$${userWallet.totalProfit}',
+                      ),
+                      BetHistoryBoardText(
+                        leftText: 'Balance',
+                        rightText: '\$${userWallet.accountBalance}',
+                        color: Palette.green,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
