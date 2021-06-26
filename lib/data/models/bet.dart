@@ -15,6 +15,7 @@ class BetData extends Equatable {
     @required this.betOverUnder,
     @required this.stillOpen,
     @required this.username,
+    @required this.status,
     @required this.dataProvider,
     @required this.clientVersion,
     @required this.homeTeam,
@@ -55,8 +56,8 @@ class BetData extends Equatable {
       username: data['username'] as String,
       dataProvider: data['dataProvider'] as String,
       clientVersion: data['clientVersion'] as String,
-      betPointSpread: data['betPointSpread'] as double,
-      betOverUnder: data['betOverUnder'] as double,
+      betPointSpread: double.tryParse(data['betPointSpread'].toString()),
+      betOverUnder: double.tryParse(data['betOverUnder'].toString()),
       awayTeamScore: data['awayTeamScore'] as int,
       homeTeamScore: data['homeTeamScore'] as int,
       totalGameScore: data['totalGameScore'] as int,
@@ -65,6 +66,7 @@ class BetData extends Equatable {
       gameStartDateTime: data['gameStartDateTime'] as String,
       dateTime: data['dateTime'] as String,
       week: data['week'] as String,
+      status: data['status'] as String,
       gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
       league: data['league'] as String,
@@ -101,6 +103,7 @@ class BetData extends Equatable {
   final String winningTeam;
   final bool isClosed;
   final String league;
+  final String status;
   final int odds;
 
   Map<String, dynamic> toMap() {
@@ -122,6 +125,7 @@ class BetData extends Equatable {
       'clientVersion': clientVersion,
       'stillOpen': stillOpen,
       'dataProvider': dataProvider,
+      'status': status,
       'totalGameScore': totalGameScore,
       'winningTeam': winningTeam,
       'homeTeamName': homeTeamName,
@@ -146,6 +150,7 @@ class BetData extends Equatable {
       uid,
       betProfit,
       betType,
+      status,
       stillOpen,
       betTeam,
       winningTeamName,

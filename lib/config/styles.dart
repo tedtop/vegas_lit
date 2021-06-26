@@ -239,6 +239,7 @@ class Styles {
     fontSize: 14,
     color: Palette.cream,
   );
+
   static final openBetsCardTime = GoogleFonts.nunito(
     color: Palette.red,
     fontSize: 14,
@@ -252,6 +253,7 @@ class Styles {
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
+
   static final openBetsDesktopField = GoogleFonts.nunito(
     fontSize: 14,
     color: Palette.cream,

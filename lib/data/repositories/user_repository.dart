@@ -48,6 +48,15 @@ class UserRepository {
         uid: uid,
       );
 
+  Future<void> updateUserDetails({
+    @required UserData user,
+    @required String uid,
+  }) =>
+      _databaseProvider.updateUserDetails(
+        user: user,
+        uid: uid,
+      );
+
   Future<void> updateUserAvatar(
           {@required String avatarUrl, @required String uid}) =>
       _databaseProvider.updateUserAvatar(avatarUrl: avatarUrl, uid: uid);
@@ -64,6 +73,10 @@ class UserRepository {
   Stream<Wallet> fetchWalletData({@required String uid}) =>
       _databaseProvider.fetchUserWallet(uid: uid);
 
+  Future<Wallet> fetchUserWalletByWeek(
+          {@required String uid, @required String week}) =>
+      _databaseProvider.fetchUserWalletByWeek(uid: uid, week: week);
+
   Future<bool> isUsernameExist({@required String username}) =>
       _databaseProvider.isUsernameExist(username: username);
 
@@ -76,7 +89,7 @@ class UserRepository {
   Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String week}) =>
       _databaseProvider.fetchLeaderboardDaysUserData(week: week);
 
-  Future<List<BetData>> fetchBetHistoryByWeek(
+  Stream<List<BetData>> fetchBetHistoryByWeek(
           {@required String week, @required String uid}) =>
       _databaseProvider.fetchBetHistoryByWeek(week: week, uid: uid);
 

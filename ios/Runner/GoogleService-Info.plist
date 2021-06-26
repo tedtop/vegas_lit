@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>629095888262-sk7n074ouh7ccv80uoskkktae0gnp8h5.apps.googleusercontent.com</string>
+	<string>629095888262-9sfasthq5jdo2p0dlgih5vfo1rroco48.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.629095888262-sk7n074ouh7ccv80uoskkktae0gnp8h5</string>
+	<string>com.googleusercontent.apps.629095888262-9sfasthq5jdo2p0dlgih5vfo1rroco48</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>629095888262-3k1cun59s027kiplch26m4hvrdis0b7v.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.vegasLit.sportsbook</string>
+	<string>com.vegaslit.sportsbook.f2p</string>
 	<key>PROJECT_ID</key>
 	<string>vegaslit</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,10 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:629095888262:ios:7940a806f278dbbc752807</string>
+	<string>1:629095888262:ios:d2c5169def41f32c752807</string>
 	<key>DATABASE_URL</key>
 	<string>https://vegaslit.firebaseio.com</string>
-	<key>ADMOB_APP_ID</key>
-	<string>ca-app-pub-8972894064340370~4396590528</string>
 </dict>
 </plist>

@@ -10,11 +10,12 @@ export const resolveBets = functions.pubsub
   .schedule("0 * * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
+    // Send slack notification and start timer
     const startTime = performance.now();
     await sendMessageToSlack(`:mega: Resolving bets...`);
-    console.log("This will be run every 1 hour!");
-    let valueUpdateNumber = 0;
-    let alreadyUpdateNumber = 0;
+
+    let betsResolved = 0;
+    let betsRemainOpen = 0;
 
     await admin
       .firestore()
@@ -36,7 +37,7 @@ export const resolveBets = functions.pubsub
             const documentId = data.id;
             const uid = data.uid;
             const betType = data.betType;
-            const week = data.week;
+            const week = getCurrentWeekByDate(data.gameStartDateTime);
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
             const username = data.username;
@@ -196,10 +197,10 @@ export const resolveBets = functions.pubsub
                       }
                     }
                     await batch.commit();
-                    valueUpdateNumber++;
+                    betsResolved++;
                   }
                 } else {
-                  alreadyUpdateNumber++;
+                  betsRemainOpen++;
                 }
               })
               .catch(function (error: any) {
@@ -212,12 +213,51 @@ export const resolveBets = functions.pubsub
         console.log(error);
       })
       .then(async function () {
-        console.log(`${valueUpdateNumber} value updated!`);
-        console.log(`${alreadyUpdateNumber} value already updated!`);
         await sendMessageToSlack(
-          `:white_check_mark: ${valueUpdateNumber} bets resolved, ${alreadyUpdateNumber} bets remain open`
+          `:white_check_mark: ${betsResolved} bets resolved, ${betsRemainOpen} bets remain open`
         );
-        functions.logger.info("Function Completed!", { structuredData: true });
+        // Rank Leaderboard after resolving bets
+        await sendMessageToSlack(":rocket: Updating leaderboard...");
+        await admin
+          .firestore()
+          .collection("wallets")
+          .where("totalBets", ">=", 5)
+          .get()
+          .then(async function (snapshots) {
+            let rankNumber = 1;
+            const documents = snapshots.docs.sort((a, b) => {
+              const firstData = a.data();
+              const secondData = b.data();
+              if (
+                firstData.accountBalance +
+                  firstData.pendingRiskedAmount -
+                  firstData.totalRewards >
+                secondData.accountBalance +
+                  secondData.pendingRiskedAmount -
+                  secondData.totalRewards
+              )
+                return -1;
+              if (
+                firstData.accountBalance +
+                  firstData.pendingRiskedAmount -
+                  firstData.totalRewards <
+                secondData.accountBalance +
+                  secondData.pendingRiskedAmount -
+                  secondData.totalRewards
+              )
+                return 1;
+              if (firstData.totalBets > secondData.totalBets) return -1;
+              if (firstData.totalBets < secondData.totalBets) return 1;
+              return 0;
+            });
+            for (const document of documents) {
+              await document.ref.update({ rank: rankNumber });
+              rankNumber++;
+            }
+          })
+          .catch(function (error: any) {
+            console.log(error);
+          });
       });
 
     const endTime = performance.now();
@@ -227,7 +267,6 @@ export const resolveBets = functions.pubsub
         1
       )}ms`
     );
-    await sendMessageToSlack(":rocket: Updating leaderboard...");
 
     await sendLeaderboardToSlack();
 
@@ -254,6 +293,26 @@ export const resolveBets = functions.pubsub
     // Get current week in format
     function getCurrentWeek(): string {
       const currentDate = moment().tz("America/New_York");
+      if (currentDate.day() <= 3) {
+        const todayWeekNumber = currentDate.format("w");
+        const todayWeekFormat = currentDate.format("YYYY");
+        const weekFormatFirst = Number.parseInt(todayWeekNumber) - 1;
+        const weekFormatSecond = Number.parseInt(todayWeekNumber);
+        const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
+        return leaderboardWeekName;
+      } else {
+        const todayWeekNumber = currentDate.format("w");
+        const todayWeekFormat = currentDate.format("YYYY");
+        const weekFormatFirst = Number.parseInt(todayWeekNumber);
+        const weekFormatSecond = Number.parseInt(todayWeekNumber) + 1;
+        const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
+        return leaderboardWeekName;
+      }
+    }
+
+    // Get current week in format
+    function getCurrentWeekByDate(date: Date): string {
+      const currentDate = moment(date);
       if (currentDate.day() <= 3) {
         const todayWeekNumber = currentDate.format("w");
         const todayWeekFormat = currentDate.format("YYYY");

@@ -57,4 +57,22 @@ class UserData extends Equatable {
       avatarUrl
     ];
   }
+
+  UserData copyWith({
+    String uid,
+    String username,
+    String email,
+    String location,
+    bool isAdmin,
+    String avatarUrl,
+  }) {
+    return UserData(
+      uid: uid ?? this.uid,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      location: location ?? this.location,
+      isAdmin: isAdmin ?? this.isAdmin,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+    );
+  }
 }

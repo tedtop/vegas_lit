@@ -33,24 +33,6 @@ class SignUpState extends Equatable {
   final String signUpErrorMessage;
   final FormzStatus status;
 
-  @override
-  List<Object> get props => [
-        emailValue,
-        passwordValue,
-        confirmedPasswordValue,
-        usernameValue,
-        americanStateValue,
-        agreementValue,
-        email,
-        password,
-        agreement,
-        signUpErrorMessage,
-        confirmedPassword,
-        status,
-        americanState,
-        username
-      ];
-
   SignUpState copyWith({
     Email email,
     String emailValue,
@@ -85,4 +67,22 @@ class SignUpState extends Equatable {
       signUpErrorMessage: signUpErrorMessage ?? this.signUpErrorMessage,
     );
   }
+
+  @override
+  List<Object> get props => [
+        emailValue,
+        passwordValue,
+        confirmedPasswordValue,
+        usernameValue,
+        americanStateValue,
+        agreementValue,
+        email,
+        password,
+        agreement,
+        signUpErrorMessage,
+        confirmedPassword,
+        status,
+        americanState,
+        username
+      ];
 }

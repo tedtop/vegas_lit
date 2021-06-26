@@ -224,6 +224,7 @@ class WebLeaderboardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUserUid =
         context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+    final week = context.watch<LeaderboardCubit>().state.day;
     return InkWell(
       onTap: () {
         currentUserUid == player.uid
@@ -232,6 +233,7 @@ class WebLeaderboardItem extends StatelessWidget {
                 LeaderboardProfile.navigation(
                   uid: player.uid,
                   homeCubit: context.read<HomeCubit>(),
+                  week: week,
                 ),
               );
       },

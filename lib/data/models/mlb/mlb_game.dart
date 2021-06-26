@@ -65,10 +65,12 @@ class MlbGame {
         quarter: json['Quarter'],
         timeRemainingMinutes: json['TimeRemainingMinutes'],
         timeRemainingSeconds: json['TimeRemainingSeconds'],
-        pointSpread:
-            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
-        overUnder:
-            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
+        pointSpread: json['PointSpread'] == null
+            ? null
+            : double.tryParse(json['PointSpread'].toString()),
+        overUnder: json['OverUnder'] == null
+            ? null
+            : double.tryParse(json['OverUnder'].toString()),
         awayTeamMoneyLine: json['AwayTeamMoneyLine'] ?? 100,
         homeTeamMoneyLine: json['HomeTeamMoneyLine'] ?? -100,
         globalGameId: json['GlobalGameID'],

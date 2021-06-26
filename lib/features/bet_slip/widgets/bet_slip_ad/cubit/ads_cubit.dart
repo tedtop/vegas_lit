@@ -70,7 +70,12 @@ class AdsCubit extends Cubit<AdsState> {
         : 'ca-app-pub-8972894064340370/1258556174';
     final currentUser = await _userRepository.getCurrentUser();
     await RewardedAd.loadWithAdManagerAdRequest(
-      adUnitId: kDebugMode ? RewardedAd.testAdUnitId : rewardedAdID,
+      // adUnitId: kDebugMode
+      //     ? RewardedAd.testAdUnitId
+      //     : Platform.isIOS
+      //         ? RewardedAd.testAdUnitId
+      //         : rewardedAdID,
+      adUnitId: RewardedAd.testAdUnitId,
       adManagerRequest: const AdManagerAdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd rewardedAd) async {

@@ -315,6 +315,8 @@ class MlbBetSlipCard extends StatelessWidget {
                                                       .game.awayTeam,
                                                   winningTeam: null,
                                                   winningTeamName: null,
+                                                  status: betButtonState
+                                                      .game.status,
                                                   league: betButtonState.league,
                                                   betOverUnder: betButtonState
                                                       .game.overUnder,

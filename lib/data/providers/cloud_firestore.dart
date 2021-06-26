@@ -45,6 +45,18 @@ class CloudFirestoreClient {
     await userDetailsWriteBatch.commit();
   }
 
+  Future<void> updateUserDetails(
+      {@required UserData user, @required String uid}) async {
+    final userDetailsUpdateBatch = _firebaseFirestore.batch();
+    final userReference = _firebaseFirestore.collection('users').doc(uid);
+    final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
+    final walletData = {'username': user.username};
+    userDetailsUpdateBatch
+      ..set(userReference, user.toMap(), SetOptions(merge: true))
+      ..set(walletReference, walletData, SetOptions(merge: true));
+    await userDetailsUpdateBatch.commit();
+  }
+
   Future<bool> isProfileComplete({@required String uid}) async {
     final snapshot =
         await _firebaseFirestore.collection('users').doc(uid).get();
@@ -90,13 +102,15 @@ class CloudFirestoreClient {
 
   // Bet History Page
 
-  Stream<List<BetData>> fetchBetHistory({
+  Stream<List<BetData>> fetchBetHistoryByWeek({
     @required String uid,
+    @required String week,
   }) {
     final betHistoryData = _firebaseFirestore
         .collection('bets')
         .where('uid', isEqualTo: uid)
         .where('isClosed', isEqualTo: true)
+        .where('week', isEqualTo: week)
         .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
@@ -109,25 +123,22 @@ class CloudFirestoreClient {
     return betHistoryData;
   }
 
-  Future<List<BetData>> fetchBetHistoryByWeek({
+  Future<Wallet> fetchUserWalletByWeek({
     @required String uid,
     @required String week,
   }) {
-    final betHistoryData = _firebaseFirestore
-        .collection('bets')
-        .where('uid', isEqualTo: uid)
-        .where('isClosed', isEqualTo: true)
-        .where('week', isEqualTo: week)
-        .orderBy('gameStartDateTime', descending: true)
+    final snapshot = _firebaseFirestore
+        .collection('leaderboard')
+        .doc('global')
+        .collection('weeks')
+        .doc(week)
+        .collection('wallets')
+        .doc(uid)
         .get()
         .then(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
+          (event) => Wallet.fromFirestore(event),
         );
-    return betHistoryData;
+    return snapshot;
   }
 
   // Bet Slip Page

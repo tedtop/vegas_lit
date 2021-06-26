@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../config/paths.dart';
 import '../../../../../data/repositories/storage_repository.dart';
 import '../../../../../data/repositories/user_repository.dart';
 
@@ -28,8 +27,8 @@ class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
   final StorageRepository _storageRepository;
 
   Future<void> pickAvatar({@required String uid}) async {
-    final avatarPickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
+    final avatarPickedFile = await ImagePicker()
+        .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile == null) {
       emit(
         const ProfileAvatarState(status: ProfileAvatarStatus.initial),
@@ -42,7 +41,7 @@ class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
       try {
         final avatarUrl = await _storageRepository.uploadFile(
           file: avatarImageFile,
-          path: Paths.profilePicturePath,
+          path: uid,
         );
         await _userRepository.updateUserAvatar(
           avatarUrl: avatarUrl,

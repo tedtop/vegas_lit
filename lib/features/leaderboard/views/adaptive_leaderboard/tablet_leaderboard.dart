@@ -95,6 +95,7 @@ class TabletLeaderboardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUserUid =
         context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+    final week = context.watch<LeaderboardCubit>().state.day;
     return Container(
       width: 380,
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
@@ -118,26 +119,17 @@ class TabletLeaderboardTile extends StatelessWidget {
                       LeaderboardProfile.navigation(
                         uid: player.uid,
                         homeCubit: context.read<HomeCubit>(),
+                        week: week,
                       ),
                     );
             },
             leading: player.avatarUrl != null && !kIsWeb
                 ? CircleAvatar(
                     radius: 25,
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: player.avatarUrl,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                CircularProgressIndicator(
-                          value: downloadProgress.progress,
-                          color: Palette.cream,
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    ),
+                    backgroundImage: CachedNetworkImageProvider(
+                        player.avatarUrl,
+                        imageRenderMethodForWeb:
+                            ImageRenderMethodForWeb.HttpGet),
                   )
                 : CircleAvatar(
                     radius: 25,

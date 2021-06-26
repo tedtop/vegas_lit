@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/features/bet_history/bet_history.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -147,6 +148,7 @@ class MobileLeaderboardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUserUid =
         context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+    final week = context.watch<LeaderboardCubit>().state.day;
     return Container(
       width: 380,
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
@@ -163,32 +165,24 @@ class MobileLeaderboardTile extends StatelessWidget {
         child: ListTile(
           // enableFeedback: true,
           onTap: () {
-            currentUserUid == player.uid
-                ? context.read<HomeCubit>().homeChange(4)
-                : Navigator.of(context).push(
-                    LeaderboardProfile.navigation(
-                      uid: player.uid,
-                      homeCubit: context.read<HomeCubit>(),
-                    ),
-                  );
+            if (currentUserUid == player.uid) {
+              context.read<HistoryCubit>().changeWeek(week: week);
+              context.read<HomeCubit>().homeChange(4);
+            } else {
+              Navigator.of(context).push(
+                LeaderboardProfile.navigation(
+                  uid: player.uid,
+                  homeCubit: context.read<HomeCubit>(),
+                  week: week,
+                ),
+              );
+            }
           },
           leading: player.avatarUrl != null && !kIsWeb
               ? CircleAvatar(
                   radius: 25,
-                  child: ClipOval(
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: player.avatarUrl,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                        value: downloadProgress.progress,
-                        color: Palette.cream,
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                  ),
+                  backgroundImage: CachedNetworkImageProvider(player.avatarUrl,
+                      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet),
                 )
               : CircleAvatar(
                   radius: 25,
@@ -212,7 +206,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '\$${player.accountBalance + player.pendingRiskedAmount}',
+                '\$${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,

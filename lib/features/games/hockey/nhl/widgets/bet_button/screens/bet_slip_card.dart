@@ -303,6 +303,8 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                                                     betButtonState.betAmount,
                                                 betsData: BetData(
                                                   stillOpen: false,
+                                                  status: betButtonState
+                                                      .game.status,
                                                   clientVersion:
                                                       await _getAppVersion(),
                                                   dataProvider: 'sportsdata.io',

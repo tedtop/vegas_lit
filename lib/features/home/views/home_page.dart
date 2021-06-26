@@ -72,7 +72,6 @@ class HomePage extends StatefulWidget {
             ),
             BlocProvider<HistoryCubit>(
               create: (context) => HistoryCubit(
-                betsRepository: context.read<BetsRepository>(),
                 userRepository: context.read<UserRepository>(),
               )..fetchAllBets(uid: uid),
             ),
