@@ -63,7 +63,7 @@ class PlayerDetailsPage extends StatelessWidget {
   Widget _playerBadge(Size size, NbaPlayer playerDetails) {
     return SizedBox(
       width: size.width,
-      height: 130,
+      height: 150,
       child: Row(
         children: [
           const SizedBox(width: 12),
@@ -81,25 +81,27 @@ class PlayerDetailsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 24),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${playerDetails.firstName} ${playerDetails.lastName}',
-                maxLines: 2,
-                softWrap: true,
-                style: Styles.largeTextBold.copyWith(fontSize: 30),
-              ),
-              Text(
-                '#${playerDetails.jersey} ${playerDetails.position} ${playerDetails.team}',
-                style: Styles.largeTextBold.copyWith(fontSize: 20),
-              ),
-              Text(
-                '${playerDetails.birthState.toString().toUpperCase()} STATE',
-                style: Styles.normalText.copyWith(fontSize: 16),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${playerDetails.firstName} ${playerDetails.lastName}',
+                  maxLines: 3,
+                  softWrap: true,
+                  style: Styles.largeTextBold.copyWith(fontSize: 30),
+                ),
+                Text(
+                  '#${playerDetails.jersey} ${playerDetails.position} ${playerDetails.team}',
+                  style: Styles.largeTextBold.copyWith(fontSize: 20),
+                ),
+                Text(
+                  '${playerDetails.birthState.toString().toUpperCase()} STATE',
+                  style: Styles.normalText.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
           ),
         ],
       ),
