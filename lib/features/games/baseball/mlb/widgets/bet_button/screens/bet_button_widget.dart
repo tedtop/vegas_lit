@@ -59,7 +59,7 @@ class BetButton extends StatelessWidget {
     return BlocListener<MlbBetButtonCubit, MlbBetButtonState>(
       listener: (context, state) {
         switch (state.status) {
-          case BetButtonStatus.alreadyPlaced:
+          case MlbBetButtonStatus.alreadyPlaced:
             return ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -70,26 +70,32 @@ class BetButton extends StatelessWidget {
                 ),
               );
             break;
+          case MlbBetButtonStatus.placed:
+            context
+                .read<BetSlipCubit>()
+                .removeBetSlip(uniqueId: state.uniqueId);
+            break;
           default:
+            break;
         }
       },
       child: Builder(
         builder: (context) {
           final betButtonState = context.watch<MlbBetButtonCubit>().state;
           switch (betButtonState.status) {
-            case BetButtonStatus.unclicked:
+            case MlbBetButtonStatus.unclicked:
               return BetButtonUnclicked();
               break;
-            case BetButtonStatus.clicked:
+            case MlbBetButtonStatus.clicked:
               return BetButtonClicked();
               break;
-            case BetButtonStatus.placed:
+            case MlbBetButtonStatus.placed:
               return BetButtonDone();
               break;
-            case BetButtonStatus.alreadyPlaced:
+            case MlbBetButtonStatus.alreadyPlaced:
               return BetButtonDone();
               break;
-            case BetButtonStatus.placing:
+            case MlbBetButtonStatus.placing:
               return const CircularProgressIndicator(
                 color: Palette.green,
               );

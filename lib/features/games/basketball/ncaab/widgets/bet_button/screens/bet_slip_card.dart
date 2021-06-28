@@ -312,9 +312,10 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                                       .awayTeamData.city,
                                                   betAmount:
                                                       betButtonState.betAmount,
-                                                  gameId: betButtonState.gameId,
-                                                  isClosed:
-                                                      betButtonState.isClosed,
+                                                  gameId: betButtonState
+                                                      .game.gameId,
+                                                  isClosed: betButtonState
+                                                      .game.isClosed,
                                                   homeTeam: betButtonState
                                                       .game.homeTeam,
                                                   awayTeam: betButtonState
@@ -376,12 +377,6 @@ class _BetSlipCardState extends State<NcaabBetSlipCard> {
                                           context
                                               .read<NcaabBetButtonCubit>()
                                               .confirmBetButton();
-                                          context
-                                              .read<BetSlipCubit>()
-                                              .removeBetSlip(
-                                                uniqueId:
-                                                    betButtonState.uniqueId,
-                                              );
                                         }
                                       }
                                     }

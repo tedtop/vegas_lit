@@ -230,10 +230,10 @@ class MlbBetSlipCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Visibility(
-                            visible:
-                                betButtonState.status == BetButtonStatus.placing
-                                    ? false
-                                    : true,
+                            visible: betButtonState.status ==
+                                    MlbBetButtonStatus.placing
+                                ? false
+                                : true,
                             replacement: Padding(
                               padding:
                                   const EdgeInsets.only(top: 20, bottom: 6.5),
@@ -372,12 +372,6 @@ class MlbBetSlipCard extends StatelessWidget {
                                           context
                                               .read<MlbBetButtonCubit>()
                                               .confirmBetButton();
-                                          context
-                                              .read<BetSlipCubit>()
-                                              .removeBetSlip(
-                                                uniqueId:
-                                                    betButtonState.uniqueId,
-                                              );
                                         }
                                       }
                                     }

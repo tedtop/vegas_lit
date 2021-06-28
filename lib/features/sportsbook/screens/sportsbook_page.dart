@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
@@ -254,16 +253,16 @@ class _SportsBookViewState extends State<SportsBookView>
                   size: 40,
                   color: Palette.cream,
                 ),
-                onPressed: () {
-                  // await _scrollController.animateTo(
-                  //   _scrollController.initialScrollOffset,
-                  //   duration: const Duration(milliseconds: 300),
-                  //   curve: Curves.linear,
-                  // );
+                onPressed: () async {
+                  await _scrollController.animateTo(
+                    _scrollController.initialScrollOffset,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  );
 
-                  // await Future.delayed(
-                  //   const Duration(milliseconds: 300),
-                  // );
+                  await Future.delayed(
+                    const Duration(milliseconds: 300),
+                  );
 
                   HelpOverlayLoader.appLoader.showLoader();
                 },

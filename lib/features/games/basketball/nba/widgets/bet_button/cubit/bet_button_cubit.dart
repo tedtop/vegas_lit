@@ -16,19 +16,16 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
-          const NbaBetButtonState.loading(),
+          const NbaBetButtonState(),
         );
 
   final BetsRepository _betsRepository;
-
   void openBetButton({
     @required String text,
     @required NbaGame game,
     @required Bet betType,
     @required String uid,
     @required String mainOdds,
-    @required int gameId,
-    @required bool isClosed,
     @required BetButtonWin winTeam,
     @required double spread,
     @required NbaTeam awayTeamData,
@@ -44,20 +41,19 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-$gameId-${gameStartTimeFormat.toUpperCase()}-$uid';
+        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     final toWinAmount =
         toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
 
     emit(
-      NbaBetButtonState.unclicked(
+      NbaBetButtonState(
         text: text,
-        gameId: gameId,
-        isClosed: isClosed,
+        status: NbaBetButtonStatus.unclicked,
         game: game,
-        awayTeamData: awayTeamData,
         toWinAmount: toWinAmount,
         betAmount: state.betAmount,
+        awayTeamData: awayTeamData,
         winTeam: winTeam,
         homeTeamData: homeTeamData,
         uniqueId: uniqueId,
@@ -77,44 +73,12 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
     );
     if (isBetExists) {
       emit(
-        NbaBetButtonState.placed(
-          text: state.text,
-          isClosed: state.isClosed,
-          gameId: state.gameId,
-          game: state.game,
-          uid: state.uid,
-          toWinAmount: state.toWinAmount,
-          betAmount: state.betAmount,
-          winTeam: state.winTeam,
-          uniqueId: state.uniqueId,
-          spread: state.spread,
-          awayTeamData: state.awayTeamData,
-          league: state.league,
-          homeTeamData: state.homeTeamData,
-          mainOdds: state.mainOdds,
-          betType: state.betType,
-        ),
+        state.copyWith(status: NbaBetButtonStatus.alreadyPlaced),
       );
       return true;
     } else {
       emit(
-        NbaBetButtonState.clicked(
-          text: state.text,
-          isClosed: state.isClosed,
-          toWinAmount: state.toWinAmount,
-          betAmount: state.betAmount,
-          uid: state.uid,
-          gameId: state.gameId,
-          game: state.game,
-          winTeam: state.winTeam,
-          uniqueId: state.uniqueId,
-          spread: state.spread,
-          awayTeamData: state.awayTeamData,
-          league: state.league,
-          homeTeamData: state.homeTeamData,
-          mainOdds: state.mainOdds,
-          betType: state.betType,
-        ),
+        state.copyWith(status: NbaBetButtonStatus.clicked),
       );
       return false;
     }
@@ -122,45 +86,19 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
 
   void unclickBetButton() {
     emit(
-      NbaBetButtonState.unclicked(
-        text: state.text,
-        mainOdds: state.mainOdds,
-        game: state.game,
-        league: state.league,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        isClosed: state.isClosed,
-        gameId: state.gameId,
-        uid: state.uid,
-        winTeam: state.winTeam,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: NbaBetButtonStatus.unclicked),
     );
   }
 
   void confirmBetButton() {
     emit(
-      NbaBetButtonState.done(
-        text: state.text,
-        game: state.game,
-        mainOdds: state.mainOdds,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        winTeam: state.winTeam,
-        uid: state.uid,
-        isClosed: state.isClosed,
-        gameId: state.gameId,
-        league: state.league,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: NbaBetButtonStatus.placed),
+    );
+  }
+
+  void placingBet() {
+    emit(
+      state.copyWith(status: NbaBetButtonStatus.placing),
     );
   }
 
