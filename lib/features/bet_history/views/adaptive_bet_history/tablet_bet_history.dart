@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_content.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
-import '../../widgets/bet_history_board_items.dart';
 import '../../widgets/bet_history_card.dart';
 
 class TabletBetHistory extends StatelessWidget {
@@ -53,7 +53,7 @@ class _TabletHistoryBoard extends StatelessWidget {
             );
             break;
           case HistoryStatus.success:
-            return const _TabletBetHistoryBoardContent();
+            return const BetHistoryBoardContent();
             break;
           case HistoryStatus.failure:
             return const Center(
@@ -65,117 +65,6 @@ class _TabletHistoryBoard extends StatelessWidget {
             break;
         }
       },
-    );
-  }
-}
-
-class _TabletBetHistoryBoardContent extends StatelessWidget {
-  const _TabletBetHistoryBoardContent({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final userWallet =
-        context.select((HistoryCubit cubit) => cubit.state.userWallet);
-    return Container(
-      constraints: const BoxConstraints(minWidth: 380, maxWidth: 600),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 140,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                color: Palette.lightGrey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 8,
-                  ),
-                  child: Column(
-                    children: [
-                      BetHistoryBoardText(
-                        leftText: 'Rank',
-                        rightText:
-                            '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Won',
-                        rightText: '${userWallet.totalBetsWon}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Lost',
-                        rightText: '${userWallet.totalBetsLost}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Open',
-                        rightText: '${userWallet.totalOpenBets}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Total',
-                        rightText: '${userWallet.totalBets}',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                color: Palette.lightGrey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 8,
-                  ),
-                  child: Column(
-                    children: [
-                      BetHistoryBoardText(
-                        leftText: 'Total Bet',
-                        rightText: '\$${userWallet.totalRiskedAmount}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Total Won',
-                        rightText:
-                            '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
-                      ),
-                      // BetHistoryBoardText(
-                      //   leftText: 'Biggest Win',
-                      //   rightText: '\$${userWallet.biggestWinAmount}',
-                      // ),
-
-                      BetHistoryBoardText(
-                        leftText: 'Ad Rewards',
-                        rightText: '\$${userWallet.totalRewards}',
-                      ),
-                      //  Should replace with biggest win
-                      BetHistoryBoardText(
-                        leftText: 'Total Profit',
-                        rightText: '\$${userWallet.totalProfit}',
-                      ),
-                      BetHistoryBoardText(
-                        leftText: 'Balance',
-                        rightText: '\$${userWallet.accountBalance}',
-                        color: Palette.green,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }
@@ -204,7 +93,7 @@ class _TabletHistoryContent extends StatelessWidget {
         return const _TabletHistoryList();
       case HistoryStatus.failure:
         return const Center(
-          child: Text('Some Error Occured'),
+          child: Text("Couldn't load bet history data"),
         );
       default:
         return const SizedBox();
@@ -240,9 +129,7 @@ class _TabletHistoryList extends StatelessWidget {
 }
 
 class _TabletHistoryEmpty extends StatelessWidget {
-  const _TabletHistoryEmpty({
-    Key key,
-  }) : super(key: key);
+  const _TabletHistoryEmpty({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -262,35 +149,20 @@ class _TabletHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'BET HISTORY',
-            style: Styles.pageTitle,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-extension on int {
-  String get ordinalNumber {
-    if (this >= 11 && this <= 13) {
-      return '${this}th';
-    }
-    switch (this % 10) {
-      case 1:
-        return '${this}st';
-      case 2:
-        return '${this}nd';
-      case 3:
-        return '${this}rd';
-      default:
-        return '${this}th';
-    }
+    final betHistoryState = context.select((HistoryCubit cubit) => cubit.state);
+    return betHistoryState.status == HistoryStatus.success
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'BET HISTORY',
+                  style: Styles.pageTitle,
+                ),
+              ),
+            ],
+          )
+        : const SizedBox();
   }
 }

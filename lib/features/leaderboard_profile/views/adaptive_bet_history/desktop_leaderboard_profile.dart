@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -125,9 +126,11 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
                     '\$${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
               ),
               DesktopBetHistoryBoardItem(
-                bottomText: 'Winning Bets',
-                topText:
-                    '${((wallet.totalBetsWon / wallet.totalBets).isNaN ? 0 : (wallet.totalBetsWon / wallet.totalBets) * 100).toStringAsFixed(0)}%',
+                bottomText: BetsDataHelper.betHistoryWinningBetsRatioText(),
+                topText: BetsDataHelper.betHistoryWinningBetsRatio(
+                  wallet.totalBetsWon,
+                  wallet.totalBetsLost,
+                ),
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Ad Rewards',

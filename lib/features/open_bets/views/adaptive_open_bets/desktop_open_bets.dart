@@ -109,7 +109,7 @@ class _DesktopOpenBetsContent extends StatelessWidget {
         break;
       case OpenBetsStatus.failure:
         return const Center(
-          child: Text('Some Error Occured'),
+          child: Text("Couldn't load bet history data"),
         );
         break;
       default:

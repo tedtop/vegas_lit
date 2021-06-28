@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -62,7 +63,7 @@ class _DesktopHistoryBoard extends StatelessWidget {
             break;
           case HistoryStatus.failure:
             return const Center(
-              child: Text('Some error occured.'),
+              child: Text("Couldn't load bet history data"),
             );
             break;
           default:
@@ -127,9 +128,11 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
                     '\$${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
               ),
               DesktopBetHistoryBoardItem(
-                bottomText: 'Winning Bets',
-                topText:
-                    '${((wallet.totalBetsWon / wallet.totalBets).isNaN ? 0 : (wallet.totalBetsWon / wallet.totalBets) * 100).toStringAsFixed(0)}%',
+                bottomText: BetsDataHelper.betHistoryWinningBetsRatioText(),
+                topText: BetsDataHelper.betHistoryWinningBetsRatio(
+                  wallet.totalBetsWon,
+                  wallet.totalBetsLost,
+                ),
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Ad Rewards',
@@ -177,7 +180,7 @@ class _DesktopHistoryContent extends StatelessWidget {
             break;
           case HistoryStatus.failure:
             return const Center(
-              child: Text('Some Error Occured'),
+              child: Text("Couldn't load bet history data"),
             );
             break;
           default:

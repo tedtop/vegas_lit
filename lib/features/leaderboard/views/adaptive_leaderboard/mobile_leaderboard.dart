@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/features/bet_history/bet_history.dart';
 
 import '../../../../config/palette.dart';
@@ -223,7 +224,10 @@ class MobileLeaderboardTile extends StatelessWidget {
                 style: Styles.awayTeam,
               ),
               Text(
-                'Wins: ${((player.totalBetsWon / (player.totalBetsWon + player.totalBetsLost)) * 100).toStringAsFixed(0)}%',
+                BetsDataHelper.leaderboardWinningBetsRatio(
+                  player.totalBetsWon,
+                  player.totalBetsLost,
+                ),
                 style: Styles.awayTeam,
               ),
             ],
