@@ -98,7 +98,7 @@ class OpenBetsSlip extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            'Max Payout \$${openBets.betAmount + openBets.betProfit}',
+                            'Max Payout ${openBets.betAmount + openBets.betProfit}',
                             style: Styles.openBetsCardNormal,
                           ),
 
@@ -173,7 +173,7 @@ class OpenBetsSlip extends StatelessWidget {
                           children: [
                             Text('ticket cost',
                                 style: Styles.openBetsCardBetText),
-                            Text('\$${openBets.betAmount}',
+                            Text('${openBets.betAmount}',
                                 style: Styles.openBetsCardBetMoney),
                           ],
                         ),
@@ -194,7 +194,7 @@ class OpenBetsSlip extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '\$${openBets.betProfit}',
+                              '${openBets.betProfit}',
                               style: Styles.openBetsCardBetMoney
                                   .copyWith(color: Palette.green),
                             ),

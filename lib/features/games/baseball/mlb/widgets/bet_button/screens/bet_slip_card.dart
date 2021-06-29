@@ -169,7 +169,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                               bottom: 8.0),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
-                                            '\$${betButtonState.betAmount}',
+                                            '${betButtonState.betAmount}',
                                             style: GoogleFonts.nunito(
                                               color: Palette.green,
                                               fontSize: 18,
@@ -458,7 +458,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(bottom: 8.0),
                                         child: Text(
-                                          '\$${betButtonState.toWinAmount}',
+                                          '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
                                             fontSize: 18,
@@ -715,7 +715,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                   child: FittedBox(
                                     fit: BoxFit.contain,
                                     child: Text(
-                                      '\$$betValue',
+                                      '$betValue',
                                       style: Styles.normalText,
                                     ),
                                   ),

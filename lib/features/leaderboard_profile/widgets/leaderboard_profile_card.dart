@@ -96,7 +96,7 @@ class LeaderboardProfileHistorySlip extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            'Max Payout \$${betHistoryData.betAmount + betHistoryData.betProfit}',
+                            'Max Payout ${betHistoryData.betAmount + betHistoryData.betProfit}',
                             style: Styles.openBetsCardNormal,
                           ),
 
@@ -149,7 +149,7 @@ class LeaderboardProfileHistorySlip extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '\$${betHistoryData.betAmount}',
+                              '${betHistoryData.betAmount}',
                               style: Styles.betHistoryAmount.copyWith(
                                 color: Palette.cream,
                               ),
@@ -170,8 +170,8 @@ class LeaderboardProfileHistorySlip extends StatelessWidget {
                             ),
                             Text(
                               isWin
-                                  ? '\$${betHistoryData.betProfit}'
-                                  : '\$${betHistoryData.betAmount}',
+                                  ? '${betHistoryData.betProfit}'
+                                  : '${betHistoryData.betAmount}',
                               style: Styles.betHistoryAmount.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),

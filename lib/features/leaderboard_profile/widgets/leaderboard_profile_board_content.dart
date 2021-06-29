@@ -76,29 +76,29 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
                   children: [
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Total Bet',
-                      rightText: '\$${userWallet.totalRiskedAmount}',
+                      rightText: '${userWallet.totalRiskedAmount}',
                     ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Total Won',
                       rightText:
-                          '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
+                          '${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
                     ),
                     // LeaderboardProfileHistoryBoardText(
                     //   leftText: 'Biggest Win',
-                    //   rightText: '\$${userWallet.biggestWinAmount}',
+                    //   rightText: '${userWallet.biggestWinAmount}',
                     // ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Ad Rewards',
-                      rightText: '\$${userWallet.totalRewards}',
+                      rightText: '${userWallet.totalRewards}',
                     ),
                     //  Should replace with biggest win
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Total Profit',
-                      rightText: '\$${userWallet.totalProfit}',
+                      rightText: '${userWallet.totalProfit}',
                     ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Balance',
-                      rightText: '\$${userWallet.accountBalance}',
+                      rightText: '${userWallet.accountBalance}',
                       color: Palette.green,
                     ),
                   ],

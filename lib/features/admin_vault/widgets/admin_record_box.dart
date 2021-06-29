@@ -62,7 +62,7 @@ class AdminRecordBox extends StatelessWidget {
                         width: 120,
                       ),
                       Expanded(
-                          child: Text('\$${item.moneyIn.toString()}',
+                          child: Text('${item.moneyIn.toString()}',
                               style: Styles.normalText))
                     ],
                   ),
@@ -73,7 +73,7 @@ class AdminRecordBox extends StatelessWidget {
                         width: 120,
                       ),
                       Expanded(
-                          child: Text('\$${item.moneyOut.toString()}',
+                          child: Text('${item.moneyOut.toString()}',
                               style: Styles.normalText))
                     ],
                   ),
@@ -84,7 +84,7 @@ class AdminRecordBox extends StatelessWidget {
                         width: 120,
                       ),
                       Expanded(
-                          child: Text('\$${item.totalProfit.toString()}',
+                          child: Text('${item.totalProfit.toString()}',
                               style: Styles.normalText))
                     ],
                   ),

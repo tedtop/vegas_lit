@@ -76,29 +76,29 @@ class BetHistoryBoardContent extends StatelessWidget {
                   children: [
                     BetHistoryBoardText(
                       leftText: 'Total Bet',
-                      rightText: '\$${userWallet.totalRiskedAmount}',
+                      rightText: '${userWallet.totalRiskedAmount}',
                     ),
                     BetHistoryBoardText(
                       leftText: 'Total Won',
                       rightText:
-                          '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
+                          '${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
                     ),
                     // BetHistoryBoardText(
                     //   leftText: 'Biggest Win',
-                    //   rightText: '\$${userWallet.biggestWinAmount}',
+                    //   rightText: '${userWallet.biggestWinAmount}',
                     // ),
                     BetHistoryBoardText(
                       leftText: 'Ad Rewards',
-                      rightText: '\$${userWallet.totalRewards}',
+                      rightText: '${userWallet.totalRewards}',
                     ),
                     //  Should replace with biggest win
                     BetHistoryBoardText(
                       leftText: 'Total Profit',
-                      rightText: '\$${userWallet.totalProfit}',
+                      rightText: '${userWallet.totalProfit}',
                     ),
                     BetHistoryBoardText(
                       leftText: 'Balance',
-                      rightText: '\$${userWallet.accountBalance}',
+                      rightText: '${userWallet.accountBalance}',
                       color: Palette.green,
                     ),
                   ],

@@ -66,7 +66,7 @@ class RewardedBetSlip extends StatelessWidget {
                                     const SnackBar(
                                       duration: Duration(milliseconds: 2000),
                                       content: Text(
-                                        'You just earned another \$100 to play with!',
+                                        'You just earned another 100 to play with!',
                                       ),
                                     ),
                                   );

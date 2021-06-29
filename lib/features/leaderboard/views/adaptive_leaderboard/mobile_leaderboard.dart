@@ -207,7 +207,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '\$${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
+                '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,

@@ -262,14 +262,14 @@ class WebLeaderboardItem extends StatelessWidget {
             SizedBox(
               width: 120,
               child: Text(
-                '\$${player.totalProfit}',
+                '${player.totalProfit}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 150,
               child: Text(
-                '\$${player.accountBalance}',
+                '${player.accountBalance}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
@@ -290,7 +290,7 @@ class WebLeaderboardItem extends StatelessWidget {
             SizedBox(
               width: 110,
               child: Text(
-                '\$${player.totalOpenBets}',
+                '${player.totalOpenBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),

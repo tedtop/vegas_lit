@@ -154,7 +154,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.normalTextBold,
                 ),
                 Text(
-                  '\$${player.accountBalance + player.pendingRiskedAmount}',
+                  '${player.accountBalance + player.pendingRiskedAmount}',
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.green,
