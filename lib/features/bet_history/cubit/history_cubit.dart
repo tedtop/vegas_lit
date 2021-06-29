@@ -62,6 +62,8 @@ class HistoryCubit extends Cubit<HistoryState> {
         uid: state.uid,
         status: HistoryStatus.failure,
         bets: state.bets,
+        weeks: state.weeks,
+        week: state.week,
       ));
     }
   }
@@ -79,19 +81,32 @@ class HistoryCubit extends Cubit<HistoryState> {
           userWallet: state.userWallet,
         ),
       );
-      final walletData = await _userRepository.fetchUserWalletByWeek(
-          uid: state.uid, week: state.week);
-      final betDataList = await _userRepository
-          .fetchBetHistoryByWeek(week: week, uid: state.uid)
-          .first;
-      emit(HistoryState(
-        status: HistoryStatus.success,
-        bets: betDataList,
-        week: week,
-        userWallet: walletData,
-        weeks: state.weeks,
-        uid: state.uid,
-      ));
+      final isUserWalletExist = await _userRepository.isUserWalletExistByWeek(
+          uid: state.uid, week: week);
+      if (isUserWalletExist) {
+        final walletData = await _userRepository.fetchUserWalletByWeek(
+            uid: state.uid, week: state.week);
+        final betDataList = await _userRepository
+            .fetchBetHistoryByWeek(week: week, uid: state.uid)
+            .first;
+
+        emit(HistoryState(
+          status: HistoryStatus.success,
+          bets: betDataList,
+          week: week,
+          userWallet: walletData,
+          weeks: state.weeks,
+          uid: state.uid,
+        ));
+      } else {
+        emit(HistoryState(
+          uid: state.uid,
+          status: HistoryStatus.failure,
+          bets: state.bets,
+          weeks: state.weeks,
+          week: week,
+        ));
+      }
     }
   }
 

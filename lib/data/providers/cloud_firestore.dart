@@ -124,11 +124,29 @@ class CloudFirestoreClient {
     return betHistoryData;
   }
 
+  Future<bool> isUserWalletExistByWeek({
+    @required String uid,
+    @required String week,
+  }) async {
+    final snapshot = await _firebaseFirestore
+        .collection('leaderboard')
+        .doc('global')
+        .collection('weeks')
+        .doc(week)
+        .collection('wallets')
+        .doc(uid)
+        .get();
+
+    final isWalletExist = snapshot != null && snapshot.exists;
+
+    return isWalletExist;
+  }
+
   Future<Wallet> fetchUserWalletByWeek({
     @required String uid,
     @required String week,
-  }) {
-    final snapshot = _firebaseFirestore
+  }) async {
+    final snapshot = await _firebaseFirestore
         .collection('leaderboard')
         .doc('global')
         .collection('weeks')

@@ -14,24 +14,48 @@ class MobileBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HistoryCubit>().state;
-    return state.status == HistoryStatus.loading
-        ? const Padding(
-            padding: EdgeInsets.only(top: 160),
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Palette.cream,
+
+    switch (state.status) {
+      case HistoryStatus.loading:
+        return const Padding(
+          padding: EdgeInsets.only(top: 160),
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Palette.cream,
+            ),
+          ),
+        );
+        break;
+      case HistoryStatus.failure:
+        return Column(
+          children: [
+            const _MobileHistoryHeading(),
+            const _MobileHistoryDropdown(),
+            Padding(
+              padding: const EdgeInsets.only(top: 160),
+              child: Center(
+                child: Text(
+                  "Couldn't load bet history data",
+                  style: GoogleFonts.nunito(),
+                ),
               ),
             ),
-          )
-        : Column(
-            children: [
-              const _MobileHistoryHeading(),
-              const _MobileHistoryDropdown(),
-              const _MobileHistoryBoard(),
-              const _MobileHistoryContent(),
-              const BottomBar()
-            ],
-          );
+            const BottomBar()
+          ],
+        );
+        break;
+      default:
+        return Column(
+          children: [
+            const _MobileHistoryHeading(),
+            const _MobileHistoryDropdown(),
+            const _MobileHistoryBoard(),
+            const _MobileHistoryContent(),
+            const BottomBar()
+          ],
+        );
+        break;
+    }
   }
 }
 
@@ -58,8 +82,14 @@ class _MobileHistoryBoard extends StatelessWidget {
             return const BetHistoryBoardContent();
             break;
           case HistoryStatus.failure:
-            return const Center(
-              child: Text("Couldn't load bet history data"),
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  "Couldn't load bet history data",
+                  style: GoogleFonts.nunito(),
+                ),
+              ),
             );
             break;
           default:
@@ -94,8 +124,11 @@ class _MobileHistoryContent extends StatelessWidget {
         }
         return const _MobileHistoryList();
       case HistoryStatus.failure:
-        return const Center(
-          child: Text("Couldn't load bet history data"),
+        return Center(
+          child: Text(
+            "Couldn't load bet history data",
+            style: GoogleFonts.nunito(),
+          ),
         );
       default:
         return const SizedBox();
@@ -146,22 +179,18 @@ class _MobileHistoryHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final betHistoryState = context.select((HistoryCubit cubit) => cubit.state);
-
-    return betHistoryState.status == HistoryStatus.success
-        ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'BET HISTORY',
-                  style: Styles.pageTitle,
-                ),
-              ),
-            ],
-          )
-        : const SizedBox();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'BET HISTORY',
+            style: Styles.pageTitle,
+          ),
+        ),
+      ],
+    );
   }
 }
 

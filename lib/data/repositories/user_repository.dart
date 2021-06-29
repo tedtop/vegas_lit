@@ -77,6 +77,10 @@ class UserRepository {
           {@required String uid, @required String week}) =>
       _databaseProvider.fetchUserWalletByWeek(uid: uid, week: week);
 
+  Future<bool> isUserWalletExistByWeek(
+          {@required String uid, @required String week}) =>
+      _databaseProvider.isUserWalletExistByWeek(uid: uid, week: week);
+
   Future<bool> isUsernameExist({@required String username}) =>
       _databaseProvider.isUsernameExist(username: username);
 
