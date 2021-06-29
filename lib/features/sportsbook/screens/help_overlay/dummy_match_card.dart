@@ -134,25 +134,26 @@ class DummyMatchCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Sat, June, 26, 2021 @ 01:10 PM',
-                            style: Styles.matchupTime,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      'Starting in 3hr 46m 20s',
-                      style: GoogleFonts.nunito(
-                        fontSize: 15,
-                        color: Palette.red,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 4),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Text(
+                    //         'Sat, June, 26, 2021 @ 01:10 PM',
+                    //         style: Styles.matchupTime,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Text(
+                    //   'Starting in 3hr 46m 20s',
+                    //   style: GoogleFonts.nunito(
+                    //     fontSize: 15,
+                    //     color: Palette.red,
+                    //   ),
+                    // ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
