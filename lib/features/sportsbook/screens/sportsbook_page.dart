@@ -260,9 +260,9 @@ class _SportsBookViewState extends State<SportsBookView>
                     curve: Curves.linear,
                   );
 
-                  await Future.delayed(
-                    const Duration(milliseconds: 300),
-                  );
+                  // await Future.delayed(
+                  //   const Duration(milliseconds: 300),
+                  // );
 
                   HelpOverlayLoader.appLoader.showLoader();
                 },

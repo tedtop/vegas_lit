@@ -169,7 +169,6 @@ class _TabletHistoryHeading extends StatelessWidget {
         ),
         constraints: const BoxConstraints(minWidth: 380, maxWidth: 600),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             betHistoryState.userWallet.avatarUrl != null
                 ? CircleAvatar(
@@ -199,20 +198,22 @@ class _TabletHistoryHeading extends StatelessWidget {
                       ),
                     ),
                   ),
-            betHistoryState.status == LeaderboardProfileStatus.success
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '${betHistoryState.userWallet.username}',
-                          style: Styles.pageTitle,
+            Expanded(
+              child: betHistoryState.status == LeaderboardProfileStatus.success
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '${betHistoryState.userWallet.username}',
+                            style: Styles.pageTitle,
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                : const SizedBox(),
+                      ],
+                    )
+                  : const SizedBox(),
+            ),
           ],
         ),
       ),

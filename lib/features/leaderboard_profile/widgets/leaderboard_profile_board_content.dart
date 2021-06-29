@@ -15,9 +15,10 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 140,
+          width: 165,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(
+                top: 10.0, bottom: 10.0, left: 8.0, right: 2.0),
             child: Card(
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
@@ -60,7 +61,8 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(
+                top: 10.0, bottom: 10.0, left: 2.0, right: 8.0),
             child: Card(
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(

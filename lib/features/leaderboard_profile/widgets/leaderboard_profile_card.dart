@@ -164,7 +164,7 @@ class LeaderboardProfileHistorySlip extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              '${isWin ? 'you won' : 'you lost'}',
+                              '${isWin ? 'and won' : 'and lost'}',
                               style: Styles.betHistoryDescription.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),
