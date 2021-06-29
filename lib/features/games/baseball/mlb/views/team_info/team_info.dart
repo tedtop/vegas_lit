@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/stat_widgets.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
@@ -30,7 +33,7 @@ class TeamInfo extends StatelessWidget {
       settings: const RouteSettings(name: 'TeamInfo'),
       builder: (context) => BlocProvider<TeamInfoCubit>(
         create: (_) => TeamInfoCubit(SportsRepository())
-          ..listTeamPlayers(teamData.key, gameName),
+          ..getTeamDetails(teamData.key, gameName),
         child: TeamInfo._(teamData: teamData, gameName: gameName),
       ),
     );
@@ -62,17 +65,226 @@ class TeamInfoView extends StatelessWidget {
         BlocConsumer<TeamInfoCubit, TeamInfoState>(
             builder: (context, state) {
               if (state is TeamInfoOpened) {
-                final players = state.player;
-                return _buildPlayersList(players);
+                return Column(
+                  children: [
+                    _teamStats(state.teamStats),
+                    _buildPlayersList(state.players),
+                  ],
+                );
               } else {
-                return const Center(
-                    child: CircularProgressIndicator(
-                  color: Palette.cream,
-                ));
+                return const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: Palette.cream,
+                  )),
+                );
               }
             },
             listener: (context, state) {})
       ],
+    );
+  }
+
+  Widget _teamStats(MlbTeamStats stats) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 20),
+      width: 380,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'WINS',
+                    style: Styles.teamStatsMain.copyWith(color: Palette.green),
+                  ),
+                  Text(
+                    stats.wins.toString(),
+                    style: Styles.teamStatsMain.copyWith(color: Palette.green),
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    'RBI',
+                    style: Styles.teamStatsMain.copyWith(color: Palette.cream),
+                  ),
+                  Text(
+                    stats.runsBattedIn.toString(),
+                    style: Styles.teamStatsMain.copyWith(color: Palette.cream),
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    'LOSSES',
+                    style: Styles.teamStatsMain.copyWith(color: Palette.red),
+                  ),
+                  Text(
+                    stats.losses.toString(),
+                    style: Styles.teamStatsMain.copyWith(color: Palette.red),
+                  )
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Container(
+                width: 380,
+                margin: const EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.only(
+                    left: 8, right: 8, top: 8, bottom: 22),
+                decoration: BoxDecoration(
+                    color: Palette.lightGrey,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    border: Border.all(
+                      color: Palette.cream,
+                    )),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 145,
+                      child: Column(
+                        children: [
+                          StatsText(
+                            leftText: 'AT BATS',
+                            rightText: '${stats.atBats ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'RUNS',
+                            rightText: '${stats.runs ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'HITS',
+                            rightText: '${stats.hits ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'SINGLES',
+                            rightText: '${stats.singles ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'DOUBLES',
+                            rightText: '${stats.doubles ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'TRIPLES',
+                            rightText: '${stats.triples ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'HOME RUNS',
+                            rightText: '${stats.homeRuns ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'RUNS BATTED IN',
+                            rightText: '${stats.runsBattedIn ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'BATTING AVERAGE',
+                            rightText: '${stats.battingAverage ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'OUTS',
+                            rightText: '${stats.outs ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'STRIKEOUTS',
+                            rightText: '${stats.strikeouts ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'WALKS',
+                            rightText: '${stats.walks ?? 'NA'}',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          StatsText(
+                            leftText: 'HIT BY PITCH',
+                            rightText: '${stats.hitByPitch ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'SACRIFICES',
+                            rightText: '${stats.sacrifices ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'SACRIFICE FLIES',
+                            rightText: '${stats.sacrificeFlies ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'GROUND INTO DOUBLE PLAY',
+                            rightText: '${stats.groundIntoDoublePlay ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'STOLEN BASES',
+                            rightText: '${stats.stolenBases ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'CAUGHT STEALING',
+                            rightText: '${stats.caughtStealing ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'PITCHES SEEN',
+                            rightText: '${stats.pitchesSeen ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'ON BASE PERCENTAGE',
+                            rightText: '${stats.onBasePercentage ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'SLUGGING PERCENTAGE',
+                            rightText: '${stats.sluggingPercentage ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'ON BASE PLUS SLUGGING',
+                            rightText: '${stats.onBasePlusSlugging ?? 'NA'}',
+                          ),
+                          StatsText(
+                            leftText: 'ERRORS',
+                            rightText: '${stats.errors ?? 'NA'}',
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  height: 35,
+                  width: 100,
+                  decoration: const BoxDecoration(
+                      color: Palette.green,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            blurRadius: 0.5,
+                            offset: Offset(-2, 1),
+                            color: Palette.darkGrey)
+                      ]),
+                  child: const Center(
+                    child: Text('FULL STATS'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -133,14 +345,14 @@ class TeamInfoView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ClipOval(
-                    child: CircleAvatar(
-                      child: Image.network(players[index].photoUrl),
-                      backgroundColor: Color(teamColor).withOpacity(1),
-                      minRadius: 30,
-                      maxRadius: 30,
-                    ),
-                  ),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Color(teamColor).withOpacity(1),
+                    foregroundImage: CachedNetworkImageProvider(
+                        players[index].photoUrl,
+                        imageRenderMethodForWeb:
+                            ImageRenderMethodForWeb.HttpGet),
+                  )
                 ],
               ),
             ));
@@ -159,13 +371,11 @@ class TeamInfoView extends StatelessWidget {
           Container(
             height: 100,
             width: 100,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(100)),
-            child: Center(
-              child: SvgPicture.network(
-                teamData.wikipediaLogoUrl,
-                height: 80,
-              ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+            child: SvgPicture.network(
+              teamData.wikipediaLogoUrl,
+              fit: BoxFit.fill,
+              height: 100,
             ),
           ),
           const SizedBox(width: 24),

@@ -196,6 +196,13 @@ class Styles {
 
   /// --> DRAWER PAGES
   /// --> GAMES
+
+  /// // --> TEAM INFO
+  static final teamStatsMain = Styles.normalText.copyWith(fontSize: 28);
+
+  static final teamStatsText = GoogleFonts.nunito().copyWith(
+      color: Palette.cream, fontSize: 11, fontWeight: FontWeight.bold);
+
   /// --> HOME
 
   /// --> LEADERBOARD
