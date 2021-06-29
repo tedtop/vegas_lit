@@ -1,4 +1,6 @@
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_player_stats.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
 
 import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
@@ -22,8 +24,16 @@ class SportsRepository {
   Future<List<MlbGame>> fetchMLB({@required DateTime dateTime}) =>
       _sportsProvider.fetchMLB(dateTime: dateTime);
 
+  Future<List<MlbTeamStats>> fetchMLBTeamStats({@required DateTime dateTime}) =>
+      _sportsProvider.fetchMLBTeamStats(dateTime: dateTime);
+
   Future<List<MlbPlayer>> fetchMLBPlayers({@required String teamKey}) =>
       _sportsProvider.fetchMLBPlayers(teamKey: teamKey);
+
+  Future<MlbPlayerStats> fetchMLBPlayerStats(
+          {@required String playerId, @required DateTime dateTime}) =>
+      _sportsProvider.fetchMLBPlayerStats(
+          playerId: playerId, dateTime: dateTime);
 
   // NBA
   Future<List<NbaGame>> fetchNBA({@required DateTime dateTime}) =>
