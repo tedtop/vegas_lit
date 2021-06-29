@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_player_stats.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
 
 import '../../config/api.dart';
 import '../models/golf/golf.dart';
@@ -45,6 +47,23 @@ class SportsAPI {
     }
   }
 
+  Future<List<MlbTeamStats>> fetchMLBTeamStats(
+      {@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.mlb;
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/mlb/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return parsed
+          .map<MlbTeamStats>(
+            (json) => MlbTeamStats.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureTeamStats();
+    }
+  }
+
   Future<List<MlbPlayer>> fetchMLBPlayers({@required String teamKey}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
 
@@ -59,6 +78,20 @@ class SportsAPI {
           .toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<MlbPlayerStats> fetchMLBPlayerStats(
+      {@required String playerId, @required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.mlb;
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/mlb/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return MlbPlayerStats.fromMap(parsed);
+    } else {
+      throw FetchFailurePlayerStats();
     }
   }
 
@@ -326,9 +359,11 @@ class SportsAPI {
   }
 }
 
+class FetchFailureTeamStats implements Exception {}
+
 class FetchFailurePlayer implements Exception {}
 
-class FetchFailurePlayerDetails implements Exception {}
+class FetchFailurePlayerStats implements Exception {}
 
 class FetchFailureNFL implements Exception {}
 
