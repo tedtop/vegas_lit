@@ -27,8 +27,8 @@ class RewardedBetSlip extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final buttonWidthHeight = size.width * .30;
-    final totalRewards = context
-        .select((HomeCubit cubit) => cubit.state?.userWallet?.totalRewards);
+    final todayRewards = context
+        .select((HomeCubit cubit) => cubit.state?.userWallet?.todayRewards);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -41,7 +41,7 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              totalRewards >= 400
+              todayRewards >= 300
                   ? Text(
                       'Sorry. You\'ve exceeded the rewards amount.',
                       textAlign: TextAlign.center,

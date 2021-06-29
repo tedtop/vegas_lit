@@ -24,6 +24,7 @@ class CloudFirestoreClient {
     final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
     final wallet = Wallet(
         accountBalance: 1000,
+        todayRewards: 0,
         totalBets: 0,
         totalBetsLost: 0,
         totalLoss: 0,
@@ -352,6 +353,7 @@ class CloudFirestoreClient {
   }) async {
     await _firebaseFirestore.collection('wallets').doc(uid).update({
       'totalRewards': FieldValue.increment(rewardValue),
+      'todayRewards': FieldValue.increment(rewardValue),
       'accountBalance': FieldValue.increment(rewardValue),
     });
   }
