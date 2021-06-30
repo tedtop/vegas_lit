@@ -73,6 +73,14 @@ class BetButton extends StatelessWidget {
               );
             break;
           case NhlBetButtonStatus.placed:
+            ScaffoldMessenger.of(context)
+              ..removeCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  duration: Duration(milliseconds: 1000),
+                  content: Text('Your bet has been placed!'),
+                ),
+              );
             context
                 .read<BetSlipCubit>()
                 .removeBetSlip(uniqueId: state.uniqueId);

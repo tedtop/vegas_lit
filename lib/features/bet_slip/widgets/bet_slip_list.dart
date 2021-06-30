@@ -13,27 +13,22 @@ class BetSlipList extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: ListView(
+      child: ListView.builder(
         key: Key(
           '${betSlipState.betSlipCard.length}',
         ),
-        physics: const ClampingScrollPhysics(),
+        reverse: true,
         shrinkWrap: true,
-        children: [
-          //BetSlipUpper(),
-          ListView.builder(
-            reverse: true,
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            itemCount: betSlipState.betSlipCard.length,
-            itemBuilder: (context, index) {
-              return Center(
-                  child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 380),
-                      child: betSlipState.betSlipCard[index]));
-            },
-          ),
-        ],
+        physics: const ClampingScrollPhysics(),
+        itemCount: betSlipState.betSlipCard.length,
+        itemBuilder: (context, index) {
+          return Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 380),
+              child: betSlipState.betSlipCard[index],
+            ),
+          );
+        },
       ),
     );
   }

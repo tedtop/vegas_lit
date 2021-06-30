@@ -9,13 +9,11 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
-import '../../../../../../../data/models/bet.dart';
 import '../../../../../../authentication/authentication.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../../../../bet_slip/models/bet_slip_card.dart';
@@ -251,143 +249,16 @@ class MlbBetSlipCard extends StatelessWidget {
                               child: DefaultButton(
                                 text: 'PLACE BET',
                                 action: () async {
-                                  if (isMinimumVersion) {
-                                    if (betButtonState.game.dateTime
-                                        .isBefore(ESTDateTime.fetchTimeEST())) {
-                                      ScaffoldMessenger.of(context)
-                                        ..removeCurrentSnackBar()
-                                        ..showSnackBar(
-                                          const SnackBar(
-                                            duration:
-                                                Duration(milliseconds: 1000),
-                                            content: Text(
-                                              'The game has already started',
-                                            ),
-                                          ),
-                                        );
-                                    } else {
-                                      if (betButtonState.betAmount != null &&
-                                          betButtonState.betAmount != 0 &&
-                                          betButtonState.toWinAmount != 0) {
-                                        if (balanceAmount -
-                                                betButtonState.betAmount <
-                                            0) {
-                                          ScaffoldMessenger.of(context)
-                                            ..removeCurrentSnackBar()
-                                            ..showSnackBar(
-                                              const SnackBar(
-                                                duration: Duration(
-                                                    milliseconds: 1000),
-                                                content: Text(
-                                                  // ignore: lines_longer_than_80_chars
-                                                  "You're out of funds!",
-                                                ),
-                                              ),
-                                            );
-                                        } else {
-                                          context
-                                              .read<MlbBetButtonCubit>()
-                                              .placingBet();
-                                          await context
-                                              .read<MlbBetButtonCubit>()
-                                              .updateOpenBets(
-                                                betAmount:
-                                                    betButtonState.betAmount,
-                                                betsData: BetData(
-                                                  stillOpen: false,
-                                                  username: username,
-                                                  homeTeamCity: betButtonState
-                                                      .homeTeamData.city,
-                                                  awayTeamCity: betButtonState
-                                                      .awayTeamData.city,
-                                                  betAmount:
-                                                      betButtonState.betAmount,
-                                                  gameId: betButtonState
-                                                      .game.gameId,
-                                                  isClosed: betButtonState
-                                                      .game.isClosed,
-                                                  homeTeam: betButtonState
-                                                      .game.homeTeam,
-                                                  awayTeam: betButtonState
-                                                      .game.awayTeam,
-                                                  winningTeam: null,
-                                                  winningTeamName: null,
-                                                  status: betButtonState
-                                                      .game.status,
-                                                  league: betButtonState.league,
-                                                  betOverUnder: betButtonState
-                                                      .game.overUnder,
-                                                  betPointSpread: betButtonState
-                                                      .game.pointSpread,
-                                                  awayTeamName: betButtonState
-                                                      .awayTeamData.name,
-                                                  homeTeamName: betButtonState
-                                                      .homeTeamData.name,
-                                                  totalGameScore: null,
-                                                  id: betButtonState.uniqueId,
-                                                  betType: whichBetSystemToSave(
-                                                      betType: betButtonState
-                                                          .betType),
-                                                  odds: int.parse(
-                                                      betButtonState.mainOdds),
-                                                  betProfit: betButtonState
-                                                      .toWinAmount,
-                                                  gameStartDateTime:
-                                                      betButtonState
-                                                          .game.dateTime
-                                                          .toString(),
-                                                  awayTeamScore: betButtonState
-                                                      .game.awayTeamScore,
-                                                  homeTeamScore: betButtonState
-                                                      .game.homeTeamScore,
-                                                  uid: currentUserId,
-                                                  betTeam:
-                                                      betButtonState.winTeam ==
-                                                              BetButtonWin.home
-                                                          ? 'home'
-                                                          : 'away',
-                                                  dateTime:
-                                                      ESTDateTime.fetchTimeEST()
-                                                          .toString(),
-                                                  week:
-                                                      ESTDateTime.weekStringVL,
-                                                  clientVersion:
-                                                      await _getAppVersion(),
-                                                  dataProvider: 'sportsdata.io',
-                                                ),
-                                                currentUserId: currentUserId,
-                                              );
-
-                                          ScaffoldMessenger.of(context)
-                                            ..removeCurrentSnackBar()
-                                            ..showSnackBar(
-                                              const SnackBar(
-                                                duration: Duration(
-                                                    milliseconds: 1000),
-                                                content: Text(
-                                                    'Your bet has been placed!'),
-                                              ),
-                                            );
-
-                                          context
-                                              .read<MlbBetButtonCubit>()
-                                              .confirmBetButton();
-                                        }
-                                      }
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                      ..removeCurrentSnackBar()
-                                      ..showSnackBar(
-                                        const SnackBar(
-                                          duration:
-                                              Duration(milliseconds: 1000),
-                                          content: Text(
-                                            'Please update your app to place bets',
-                                          ),
-                                        ),
+                                  await context
+                                      .read<MlbBetButtonCubit>()
+                                      .placeBet(
+                                        isMinimumVersion: isMinimumVersion,
+                                        betButtonState: betButtonState,
+                                        context: context,
+                                        balanceAmount: balanceAmount,
+                                        username: username,
+                                        currentUserId: currentUserId,
                                       );
-                                  }
                                 },
                               ),
                             ),
@@ -587,11 +458,6 @@ class MlbBetSlipCard extends StatelessWidget {
     );
   }
 
-  Future<String> _getAppVersion() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.version;
-  }
-
   String whichBetSystem({@required Bet betType}) {
     if (betType == Bet.ml) {
       return 'MONEYLINE';
@@ -603,20 +469,6 @@ class MlbBetSlipCard extends StatelessWidget {
       return 'TOTAL O/U';
     } else {
       return 'Error';
-    }
-  }
-
-  String whichBetSystemToSave({@required Bet betType}) {
-    if (betType == Bet.ml) {
-      return 'moneyline';
-    }
-    if (betType == Bet.pts) {
-      return 'pointspread';
-    }
-    if (betType == Bet.tot) {
-      return 'total';
-    } else {
-      return 'error';
     }
   }
 
