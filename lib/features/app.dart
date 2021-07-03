@@ -10,6 +10,7 @@ import '../data/repositories/user_repository.dart';
 
 import 'authentication/bloc/authentication_bloc.dart';
 import 'authentication/views/login/login.dart';
+import 'authentication/views/sign_up/sign_up.dart';
 import 'authentication/views/splash/splash.dart';
 import 'authentication/views/verify/views/verify_page.dart';
 import 'home/cubit/internet_cubit.dart';
@@ -104,7 +105,7 @@ class _AppViewState extends State<AppView> {
                     break;
                   case AuthenticationStatus.unauthenticated:
                     _navigator.pushAndRemoveUntil<void>(
-                      LoginPage.route(),
+                      SignUpPage.route(),
                       (route) => false,
                     );
                     break;

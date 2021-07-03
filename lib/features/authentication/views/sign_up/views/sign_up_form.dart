@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/authentication/views/login/login.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
@@ -322,7 +323,8 @@ class _ExistingAccountSignIn extends StatelessWidget {
           ),
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () =>
+                Navigator.of(context).push<void>(LoginPage.route()),
             child: Text(
               'Log In',
               style: Styles.authButtonText,
