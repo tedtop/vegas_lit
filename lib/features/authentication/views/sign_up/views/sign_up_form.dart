@@ -324,7 +324,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
             onPressed: () =>
-                Navigator.of(context).push<void>(LoginPage.route()),
+                Navigator.of(context).pushReplacement(LoginPage.route()),
             child: Text(
               'Log In',
               style: Styles.authButtonText,
