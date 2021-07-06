@@ -115,7 +115,7 @@ class GolfTournamentCard extends StatelessWidget {
                       style: Styles.normalTextBold.copyWith(fontSize: 12),
                     ),
                     Text(
-                      'Purse \$$purse',
+                      'Purse $purse',
                       style: Styles.normalTextBold.copyWith(fontSize: 14),
                     )
                   ],

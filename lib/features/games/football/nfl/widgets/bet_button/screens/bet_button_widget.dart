@@ -39,8 +39,6 @@ class BetButton extends StatelessWidget {
           create: (_) => NflBetButtonCubit(
             betsRepository: context.read<BetsRepository>(),
           )..openBetButton(
-              gameId: gameId,
-              isClosed: isClosed,
               uid: currentUserId,
               text: text,
               spread: spread,
@@ -63,7 +61,7 @@ class BetButton extends StatelessWidget {
     return BlocListener<NflBetButtonCubit, NflBetButtonState>(
       listener: (context, state) {
         switch (state.status) {
-          case BetButtonStatus.placed:
+          case NflBetButtonStatus.alreadyPlaced:
             return ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -74,24 +72,35 @@ class BetButton extends StatelessWidget {
                 ),
               );
             break;
+          case NflBetButtonStatus.placed:
+            context
+                .read<BetSlipCubit>()
+                .removeBetSlip(uniqueId: state.uniqueId);
+            break;
           default:
+            break;
         }
       },
       child: Builder(
         builder: (context) {
           final betButtonState = context.watch<NflBetButtonCubit>().state;
           switch (betButtonState.status) {
-            case BetButtonStatus.unclicked:
+            case NflBetButtonStatus.unclicked:
               return BetButtonUnclicked();
               break;
-            case BetButtonStatus.clicked:
+            case NflBetButtonStatus.clicked:
               return BetButtonClicked();
               break;
-            case BetButtonStatus.done:
+            case NflBetButtonStatus.placed:
               return BetButtonDone();
               break;
-            case BetButtonStatus.placed:
+            case NflBetButtonStatus.alreadyPlaced:
               return BetButtonDone();
+              break;
+            case NflBetButtonStatus.placing:
+              return const CircularProgressIndicator(
+                color: Palette.green,
+              );
               break;
             default:
               return const CircularProgressIndicator(

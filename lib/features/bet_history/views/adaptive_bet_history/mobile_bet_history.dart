@@ -2,36 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_content.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
-import '../../widgets/bet_history_board_items.dart';
 import '../../widgets/bet_history_card.dart';
 
 class MobileBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HistoryCubit>().state;
-    return state.status == HistoryStatus.loading
-        ? const Padding(
-            padding: EdgeInsets.only(top: 160),
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Palette.cream,
+
+    switch (state.status) {
+      case HistoryStatus.loading:
+        return const Padding(
+          padding: EdgeInsets.only(top: 160),
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Palette.cream,
+            ),
+          ),
+        );
+        break;
+      case HistoryStatus.failure:
+        return Column(
+          children: [
+            const _MobileHistoryHeading(),
+            const _MobileHistoryDropdown(),
+            Padding(
+              padding: const EdgeInsets.only(top: 160),
+              child: Center(
+                child: Text(
+                  "Couldn't load bet history data",
+                  style: GoogleFonts.nunito(),
+                ),
               ),
             ),
-          )
-        : Column(
-            children: [
-              const _MobileHistoryHeading(),
-              const _MobileHistoryDropdown(),
-              const _MobileHistoryBoard(),
-              const _MobileHistoryContent(),
-              const BottomBar()
-            ],
-          );
+            const BottomBar()
+          ],
+        );
+        break;
+      default:
+        return Column(
+          children: [
+            const _MobileHistoryHeading(),
+            const _MobileHistoryDropdown(),
+            const _MobileHistoryBoard(),
+            const _MobileHistoryContent(),
+            const BottomBar()
+          ],
+        );
+        break;
+    }
   }
 }
 
@@ -55,11 +79,17 @@ class _MobileHistoryBoard extends StatelessWidget {
             );
             break;
           case HistoryStatus.success:
-            return const _MobileHistoryBoardContent();
+            return const BetHistoryBoardContent();
             break;
           case HistoryStatus.failure:
-            return const Center(
-              child: Text('Some Error Occured'),
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  "Couldn't load bet history data",
+                  style: GoogleFonts.nunito(),
+                ),
+              ),
             );
             break;
           default:
@@ -67,77 +97,6 @@ class _MobileHistoryBoard extends StatelessWidget {
             break;
         }
       },
-    );
-  }
-}
-
-class _MobileHistoryBoardContent extends StatelessWidget {
-  const _MobileHistoryBoardContent({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final userWallet =
-        context.select((HistoryCubit cubit) => cubit.state.userWallet);
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 6,
-        vertical: 8,
-      ),
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        color: Palette.lightGrey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 8,
-          ),
-          child: Column(
-            children: [
-              BetHistoryBoardText(
-                leftText: 'Your Rank',
-                rightText:
-                    '${userWallet.rank == 0 ? 'N/A' : userWallet.rank.ordinalNumber}',
-              ),
-              BetHistoryBoardText(
-                leftText: 'Winnings',
-                rightText:
-                    '\$${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
-                color: Palette.cream,
-              ),
-              BetHistoryBoardText(
-                leftText: 'Winning Bets',
-                rightText:
-                    '${((userWallet.totalBetsWon / userWallet.totalBets).isNaN ? 0 : (userWallet.totalBetsWon / userWallet.totalBets) * 100).toStringAsFixed(0)}%',
-                color: Palette.cream,
-              ),
-              BetHistoryBoardText(
-                leftText: 'Won/Lost/Open/Total',
-                rightText:
-                    '${userWallet.totalBetsWon}/${userWallet.totalBetsLost}/${userWallet.totalOpenBets}/${userWallet.totalBets}',
-              ),
-              BetHistoryBoardText(
-                leftText: 'Ad Rewards',
-                rightText: '\$${userWallet.totalRewards}',
-                color: Palette.cream,
-              ),
-              BetHistoryBoardText(
-                leftText: 'Total Risked',
-                rightText: '\$${userWallet.totalRiskedAmount}',
-                color: Palette.cream,
-              ),
-              BetHistoryBoardText(
-                leftText: 'Total Profit',
-                rightText: '\$${userWallet.totalProfit}',
-                color:
-                    userWallet.totalProfit >= 0 ? Palette.green : Palette.red,
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
@@ -165,8 +124,11 @@ class _MobileHistoryContent extends StatelessWidget {
         }
         return const _MobileHistoryList();
       case HistoryStatus.failure:
-        return const Center(
-          child: Text('Some Error Occured'),
+        return Center(
+          child: Text(
+            "Couldn't load bet history data",
+            style: GoogleFonts.nunito(),
+          ),
         );
       default:
         return const SizedBox();
@@ -208,6 +170,26 @@ class _MobileHistoryEmpty extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
       ),
+    );
+  }
+}
+
+class _MobileHistoryHeading extends StatelessWidget {
+  const _MobileHistoryHeading({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'BET HISTORY',
+            style: Styles.pageTitle,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -282,47 +264,5 @@ class _MobileHistoryDropdown extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _MobileHistoryHeading extends StatelessWidget {
-  const _MobileHistoryHeading({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final betHistoryState = context.select((HistoryCubit cubit) => cubit.state);
-
-    return betHistoryState.status == HistoryStatus.success
-        ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'BET HISTORY',
-                  style: Styles.pageTitle,
-                ),
-              ),
-            ],
-          )
-        : const SizedBox();
-  }
-}
-
-extension on int {
-  String get ordinalNumber {
-    if (this >= 11 && this <= 13) {
-      return '${this}th';
-    }
-    switch (this % 10) {
-      case 1:
-        return '${this}st';
-      case 2:
-        return '${this}nd';
-      case 3:
-        return '${this}rd';
-      default:
-        return '${this}th';
-    }
   }
 }

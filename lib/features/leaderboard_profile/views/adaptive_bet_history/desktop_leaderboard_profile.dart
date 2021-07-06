@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -103,15 +104,15 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Bets',
-                topText: '\$${wallet.totalBets}',
+                topText: '${wallet.totalBets}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Risked',
-                topText: '\$${wallet.totalRiskedAmount}',
+                topText: '${wallet.totalRiskedAmount}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Profit',
-                topText: '\$${wallet.totalProfit}',
+                topText: '${wallet.totalProfit}',
                 color: wallet.totalProfit >= 0 ? Palette.green : Palette.red,
               ),
             ],
@@ -122,16 +123,18 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
               DesktopBetHistoryBoardItem(
                 bottomText: 'Winnings',
                 topText:
-                    '\$${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
+                    '${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
               ),
               DesktopBetHistoryBoardItem(
-                bottomText: 'Winning Bets',
-                topText:
-                    '${((wallet.totalBetsWon / wallet.totalBets).isNaN ? 0 : (wallet.totalBetsWon / wallet.totalBets) * 100).toStringAsFixed(0)}%',
+                bottomText: BetsDataHelper.betHistoryWinningBetsRatioText(),
+                topText: BetsDataHelper.betHistoryWinningBetsRatio(
+                  wallet.totalBetsWon,
+                  wallet.totalBetsLost,
+                ),
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Ad Rewards',
-                topText: '\$${wallet.totalRewards}',
+                topText: '${wallet.totalRewards}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Won/Lost/Open/Total',
@@ -378,7 +381,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 18),
-                                child: Text('\$${bet.betAmount}',
+                                child: Text('${bet.betAmount}',
                                     style: Styles.betHistoryDesktopItem));
                           case 'Result':
                             return Padding(
@@ -386,8 +389,8 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                                     horizontal: 10, vertical: 18),
                                 child: Text(
                                     isWin
-                                        ? '\$${bet.betProfit}'
-                                        : '-\$${bet.betAmount}',
+                                        ? '${bet.betProfit}'
+                                        : '-${bet.betAmount}',
                                     style: Styles.betHistoryDesktopItem));
                           default:
                             return const SizedBox();

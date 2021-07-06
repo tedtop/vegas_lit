@@ -16,12 +16,12 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
-          const MlbBetButtonState.loading(),
+          const MlbBetButtonState(),
         );
 
   final BetsRepository _betsRepository;
 
-  Future<void> openBetButton({
+  void openBetButton({
     @required String text,
     @required MlbGame game,
     @required Bet betType,
@@ -32,7 +32,7 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
     @required MlbTeam awayTeamData,
     @required String league,
     @required MlbTeam homeTeamData,
-  }) async {
+  }) {
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
     final gameStartTimeFormat =
         DateFormat('yyyy-MM-dd-hh-mm').format(game.dateTime);
@@ -48,8 +48,9 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
         toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
 
     emit(
-      MlbBetButtonState.unclicked(
+      MlbBetButtonState(
         text: text,
+        status: MlbBetButtonStatus.unclicked,
         game: game,
         toWinAmount: toWinAmount,
         betAmount: state.betAmount,
@@ -73,40 +74,12 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
     );
     if (isBetExists) {
       emit(
-        MlbBetButtonState.alreadyPlaced(
-          text: state.text,
-          game: state.game,
-          toWinAmount: state.toWinAmount,
-          betAmount: state.betAmount,
-          uid: state.uid,
-          winTeam: state.winTeam,
-          uniqueId: state.uniqueId,
-          spread: state.spread,
-          awayTeamData: state.awayTeamData,
-          league: state.league,
-          homeTeamData: state.homeTeamData,
-          mainOdds: state.mainOdds,
-          betType: state.betType,
-        ),
+        state.copyWith(status: MlbBetButtonStatus.alreadyPlaced),
       );
       return true;
     } else {
       emit(
-        MlbBetButtonState.clicked(
-          text: state.text,
-          uid: state.uid,
-          game: state.game,
-          winTeam: state.winTeam,
-          uniqueId: state.uniqueId,
-          spread: state.spread,
-          awayTeamData: state.awayTeamData,
-          league: state.league,
-          homeTeamData: state.homeTeamData,
-          toWinAmount: state.toWinAmount,
-          betAmount: state.betAmount,
-          mainOdds: state.mainOdds,
-          betType: state.betType,
-        ),
+        state.copyWith(status: MlbBetButtonStatus.clicked),
       );
       return false;
     }
@@ -114,61 +87,19 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
 
   void unclickBetButton() {
     emit(
-      MlbBetButtonState.unclicked(
-        text: state.text,
-        mainOdds: state.mainOdds,
-        game: state.game,
-        league: state.league,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        uid: state.uid,
-        winTeam: state.winTeam,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: MlbBetButtonStatus.unclicked),
     );
   }
 
   void confirmBetButton() {
     emit(
-      MlbBetButtonState.placed(
-        text: state.text,
-        game: state.game,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        mainOdds: state.mainOdds,
-        winTeam: state.winTeam,
-        uid: state.uid,
-        league: state.league,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: MlbBetButtonStatus.placed),
     );
   }
 
   void placingBet() {
     emit(
-      MlbBetButtonState.placing(
-        text: state.text,
-        game: state.game,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        mainOdds: state.mainOdds,
-        winTeam: state.winTeam,
-        uid: state.uid,
-        league: state.league,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: MlbBetButtonStatus.placing),
     );
   }
 

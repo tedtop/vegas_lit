@@ -48,7 +48,7 @@ AppBar mobileAppBar({int balanceAmount}) {
                                 maxLines: 1,
                               ),
                               Text(
-                                '\$$balanceAmount',
+                                '$balanceAmount',
                                 style: GoogleFonts.nunito(
                                   color: Palette.cream,
                                   fontSize: 14.0,

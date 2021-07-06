@@ -24,14 +24,13 @@ class LeaderboardProfileHistoryBoardText extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            flex: 2,
             child: Text(
               leftText,
               style: Styles.betHistoryNormal,
             ),
           ),
-          Expanded(
-            flex: 1,
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
             child: Text(
               rightText,
               style: GoogleFonts.nunito(

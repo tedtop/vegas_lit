@@ -61,10 +61,9 @@ class PlayerDetailsPage extends StatelessWidget {
   }
 
   Widget _playerBadge(Size size, MlbPlayer playerDetails) {
-    return Container(
+    return SizedBox(
       width: size.width,
-      margin: const EdgeInsets.symmetric(vertical: 15),
-      //height: 130,
+      height: 150,
       child: Row(
         children: [
           const SizedBox(width: 12),

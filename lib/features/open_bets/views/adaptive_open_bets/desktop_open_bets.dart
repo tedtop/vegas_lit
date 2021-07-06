@@ -109,7 +109,7 @@ class _DesktopOpenBetsContent extends StatelessWidget {
         break;
       case OpenBetsStatus.failure:
         return const Center(
-          child: Text('Some Error Occured'),
+          child: Text("Couldn't load bet history data"),
         );
         break;
       default:
@@ -369,13 +369,13 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                           return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text('\$${openBets.betAmount}',
+                              child: Text('${openBets.betAmount}',
                                   style: Styles.openBetsDesktopItem));
                         case 'To Win':
                           return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text('\$${openBets.betProfit}',
+                              child: Text('${openBets.betProfit}',
                                   style: Styles.openBetsDesktopItem));
                         case 'Time Remaining':
                           return Padding(

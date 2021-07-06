@@ -24,6 +24,7 @@ class CloudFirestoreClient {
     final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
     final wallet = Wallet(
         accountBalance: 1000,
+        todayRewards: 0,
         totalBets: 0,
         totalBetsLost: 0,
         totalLoss: 0,
@@ -123,11 +124,29 @@ class CloudFirestoreClient {
     return betHistoryData;
   }
 
+  Future<bool> isUserWalletExistByWeek({
+    @required String uid,
+    @required String week,
+  }) async {
+    final snapshot = await _firebaseFirestore
+        .collection('leaderboard')
+        .doc('global')
+        .collection('weeks')
+        .doc(week)
+        .collection('wallets')
+        .doc(uid)
+        .get();
+
+    final isWalletExist = snapshot != null && snapshot.exists;
+
+    return isWalletExist;
+  }
+
   Future<Wallet> fetchUserWalletByWeek({
     @required String uid,
     @required String week,
-  }) {
-    final snapshot = _firebaseFirestore
+  }) async {
+    final snapshot = await _firebaseFirestore
         .collection('leaderboard')
         .doc('global')
         .collection('weeks')
@@ -352,6 +371,7 @@ class CloudFirestoreClient {
   }) async {
     await _firebaseFirestore.collection('wallets').doc(uid).update({
       'totalRewards': FieldValue.increment(rewardValue),
+      'todayRewards': FieldValue.increment(rewardValue),
       'accountBalance': FieldValue.increment(rewardValue),
     });
   }

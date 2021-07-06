@@ -139,9 +139,8 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                showModalBottomSheet(
+                                showDialog(
                                   context: context,
-                                  isScrollControlled: true,
                                   builder: (_) => MultiBlocProvider(
                                     providers: [
                                       BlocProvider.value(
@@ -149,11 +148,9 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                             context.read<NbaBetButtonCubit>(),
                                       ),
                                     ],
-                                    child: SingleChildScrollView(
-                                      child: BetAmountPage(
-                                        betAmount: betButtonState.betAmount,
-                                        betSlipCardData: widget.betSlipCardData,
-                                      ),
+                                    child: BetAmountPage(
+                                      betAmount: betButtonState.betAmount,
+                                      betSlipCardData: widget.betSlipCardData,
                                     ),
                                   ),
                                 );
@@ -180,7 +177,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                               bottom: 8.0),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
-                                            '\$${betButtonState.betAmount}',
+                                            '${betButtonState.betAmount}',
                                             style: GoogleFonts.nunito(
                                               color: Palette.green,
                                               fontSize: 18,
@@ -315,9 +312,10 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                                       .awayTeamData.city,
                                                   betAmount:
                                                       betButtonState.betAmount,
-                                                  gameId: betButtonState.gameId,
-                                                  isClosed:
-                                                      betButtonState.isClosed,
+                                                  gameId: betButtonState
+                                                      .game.gameId,
+                                                  isClosed: betButtonState
+                                                      .game.isClosed,
                                                   homeTeam: betButtonState
                                                       .game.homeTeam,
                                                   awayTeam: betButtonState
@@ -379,12 +377,6 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                           context
                                               .read<NbaBetButtonCubit>()
                                               .confirmBetButton();
-                                          context
-                                              .read<BetSlipCubit>()
-                                              .removeBetSlip(
-                                                uniqueId:
-                                                    betButtonState.uniqueId,
-                                              );
                                         }
                                       }
                                     }
@@ -474,7 +466,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                         padding:
                                             const EdgeInsets.only(bottom: 8.0),
                                         child: Text(
-                                          '\$${betButtonState.toWinAmount}',
+                                          '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
                                             fontSize: 18,
@@ -674,175 +666,190 @@ class _BetAmountPageState extends State<BetAmountPage> {
     final betButtonState = context.watch<NbaBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
-    return Container(
-      padding: const EdgeInsets.all(15),
-      height: 170,
-      child: Row(
-        children: [
-          Expanded(
-            child: Center(
-              child: Column(
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+            color: Palette.darkGrey,
+            border: Border.all(color: Palette.cream),
+            borderRadius: const BorderRadius.all(Radius.circular(8))),
+        padding: const EdgeInsets.all(15),
+        width: 390,
+        height: 170,
+        child: Material(
+          child: Row(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Bet Amount',
-                    style: Styles.normalTextBold.copyWith(fontSize: 22),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'Scroll to select your bet amount and press to confirm',
-                    style: Styles.normalText,
-                    textAlign: TextAlign.center,
-                    maxLines: 3,
-                  )
+                  InkWell(
+                      child: const Icon(
+                        FontAwesome.angle_up,
+                        size: 32,
+                      ),
+                      onTap: () {
+                        carouselController.previousPage(
+                            curve: Curves.easeIn,
+                            duration: const Duration(microseconds: 100));
+                      }),
+                  InkWell(
+                      child: const Icon(
+                        FontAwesome.angle_down,
+                        size: 32,
+                      ),
+                      onTap: () {
+                        carouselController.nextPage(
+                            curve: Curves.easeIn,
+                            duration: const Duration(microseconds: 100));
+                      }),
                 ],
               ),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                  icon: const Icon(
-                    FontAwesome.angle_up,
-                    size: 32,
-                  ),
-                  onPressed: () {
-                    carouselController.previousPage(
-                        curve: Curves.easeIn,
-                        duration: const Duration(microseconds: 100));
-                  }),
-              IconButton(
-                  icon: const Icon(
-                    FontAwesome.angle_down,
-                    size: 32,
-                  ),
-                  onPressed: () {
-                    carouselController.nextPage(
-                        curve: Curves.easeIn,
-                        duration: const Duration(microseconds: 100));
-                  }),
-            ],
-          ),
-          Stack(
-            fit: StackFit.passthrough,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                    left: 10, top: 10, bottom: 10, right: 2),
-                width: 60,
-                height: 120,
-                child: CarouselSlider(
-                  items: betValues
-                      .map(
-                        (betValue) => GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            width: 20,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Palette.green,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: FittedBox(
-                                fit: BoxFit.contain,
-                                child: Text(
-                                  '\$$betValue',
-                                  style: Styles.normalText,
+              Stack(
+                fit: StackFit.passthrough,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 2),
+                    width: 60,
+                    height: 120,
+                    child: CarouselSlider(
+                      items: betValues
+                          .map(
+                            (betValue) => GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                width: 20,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: Palette.green,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: Text(
+                                      '$betValue',
+                                      style: Styles.normalText,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  carouselController: carouselController,
-                  options: CarouselOptions(
-                    initialPage: newBetAmount != null
-                        ? betValues.indexOf(newBetAmount)
-                        : betValues.indexOf(widget.betAmount),
-                    scrollDirection: Axis.vertical,
-                    viewportFraction: 0.36,
-                    enlargeCenterPage: true,
-                    onPageChanged: (i, reason) {
-                      setState(
-                        () {
-                          newBetAmount = betValues[i];
-                        },
-                      );
-                      if (int.parse(betButtonState.mainOdds).isNegative) {
-                        final toWinAmount = (100 /
-                                int.parse(betButtonState.mainOdds) *
-                                betValues[i])
-                            .round()
-                            .abs();
-
-                        context.read<NbaBetButtonCubit>().updateBetAmount(
-                              toWinAmount: toWinAmount,
-                              betAmount: betValues[i],
-                            );
-                      } else {
-                        final toWinAmount =
-                            (int.parse(betButtonState.mainOdds) /
-                                    100 *
+                          )
+                          .toList(),
+                      carouselController: carouselController,
+                      options: CarouselOptions(
+                        initialPage: newBetAmount != null
+                            ? betValues.indexOf(newBetAmount)
+                            : betValues.indexOf(widget.betAmount),
+                        scrollDirection: Axis.vertical,
+                        viewportFraction: 0.36,
+                        enlargeCenterPage: true,
+                        onPageChanged: (i, reason) {
+                          setState(
+                            () {
+                              newBetAmount = betValues[i];
+                            },
+                          );
+                          if (int.parse(betButtonState.mainOdds).isNegative) {
+                            final toWinAmount = (100 /
+                                    int.parse(betButtonState.mainOdds) *
                                     betValues[i])
                                 .round()
                                 .abs();
 
-                        context.read<NbaBetButtonCubit>().updateBetAmount(
-                              toWinAmount: toWinAmount,
-                              betAmount: betValues[i],
-                            );
-                      }
-                    },
+                            context.read<NbaBetButtonCubit>().updateBetAmount(
+                                  toWinAmount: toWinAmount,
+                                  betAmount: betValues[i],
+                                );
+                          } else {
+                            final toWinAmount =
+                                (int.parse(betButtonState.mainOdds) /
+                                        100 *
+                                        betValues[i])
+                                    .round()
+                                    .abs();
+
+                            context.read<NbaBetButtonCubit>().updateBetAmount(
+                                  toWinAmount: toWinAmount,
+                                  betAmount: betValues[i],
+                                );
+                          }
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                left: 10,
-                child: Container(
-                  height: 35,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      Palette.darkGrey,
-                      Palette.darkGrey.withOpacity(0.9),
-                      Palette.darkGrey.withOpacity(0.7),
-                      Palette.darkGrey.withOpacity(0.05)
-                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  Positioned(
+                    top: 0,
+                    left: 10,
+                    child: Container(
+                      height: 35,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              Palette.darkGrey,
+                              Palette.darkGrey.withOpacity(0.9),
+                              Palette.darkGrey.withOpacity(0.7),
+                              Palette.darkGrey.withOpacity(0.05)
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 0,
+                    left: 10,
+                    child: Container(
+                      height: 35,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              Palette.darkGrey,
+                              Palette.darkGrey.withOpacity(0.9),
+                              Palette.darkGrey.withOpacity(0.7),
+                              Palette.darkGrey.withOpacity(0.05)
+                            ].reversed.toList(),
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                bottom: 0,
-                left: 10,
-                child: Container(
-                  height: 35,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Palette.darkGrey,
-                          Palette.darkGrey.withOpacity(0.9),
-                          Palette.darkGrey.withOpacity(0.7),
-                          Palette.darkGrey.withOpacity(0.05)
-                        ].reversed.toList(),
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Bet Amount',
+                          style: Styles.normalTextBold.copyWith(fontSize: 22),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          'Scroll to select your bet amount and press to confirm',
+                          style: Styles.normalText,
+                          textAlign: TextAlign.center,
+                          maxLines: 3,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

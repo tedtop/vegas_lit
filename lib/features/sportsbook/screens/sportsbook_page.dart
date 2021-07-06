@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
@@ -18,6 +17,7 @@ import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../bloc/sportsbook_bloc.dart';
+import 'help_overlay/help_overlay.dart';
 
 class Sportsbook extends StatelessWidget {
   @override
@@ -78,7 +78,7 @@ class _SportsBookViewState extends State<SportsBookView>
   bool get wantKeepAlive => true;
 
   final ScrollController _scrollController = ScrollController();
-  OverlayEntry _overlayEntry;
+  //OverlayEntry _overlayEntry;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -264,7 +264,7 @@ class _SportsBookViewState extends State<SportsBookView>
                     const Duration(milliseconds: 300),
                   );
 
-                  await showHelp(context: context, key1: _key1, key2: _key2);
+                  HelpOverlayLoader.appLoader.showLoader();
                 },
               );
             }
@@ -357,86 +357,6 @@ class _SportsBookViewState extends State<SportsBookView>
           ),
         ),
       );
-  Future<void> showHelp(
-      {BuildContext context, GlobalKey key1, GlobalKey key2}) async {
-    _overlayEntry = _createOverlayEntry(
-      context: context,
-    );
-    Overlay.of(context).insert(_overlayEntry);
-  }
-
-  OverlayEntry _createOverlayEntry({
-    BuildContext context,
-  }) {
-    return OverlayEntry(builder: (context) {
-      final size = MediaQuery.of(context).size;
-      final topSafeSpacePadding = MediaQuery.of(context).viewPadding.top;
-      return GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        child: Align(
-          alignment: Alignment.center,
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 0,
-                child: Image.asset(
-                  Images.betTypesHelpOverlay,
-                  fit: BoxFit.contain,
-                  width: size.width,
-                ),
-              ),
-              Positioned(
-                  top: topSafeSpacePadding + 108,
-                  left: 25,
-                  child: Image.asset(Images.sportTypesHelpOverlay,
-                      fit: BoxFit.contain, width: 285)),
-              Positioned(
-                  top: topSafeSpacePadding + 18,
-                  right: 22,
-                  child: Image.asset(Images.coinBalanceHelpOverlay,
-                      fit: BoxFit.contain, width: 300)),
-              Positioned(
-                  left: size.width / 2 - 110,
-                  top: topSafeSpacePadding + 245,
-                  child: Image.asset(Images.placeBetHelpOverlay,
-                      fit: BoxFit.contain, width: 220)),
-              Positioned(
-                right: 17,
-                top: topSafeSpacePadding + 56,
-                child: Image.asset(Images.numberOfBetsHelpOverlay,
-                    fit: BoxFit.contain, width: 300),
-              )
-            ],
-          ),
-        ),
-        onHorizontalDragStart: (_) {
-          hideHelp();
-        },
-        onPanStart: (_) {
-          hideHelp();
-        },
-        onVerticalDragDown: (_) {
-          hideHelp();
-        },
-        onDoubleTap: () {
-          hideHelp();
-        },
-        onDoubleTapDown: (_) {
-          hideHelp();
-        },
-        onLongPress: () {
-          hideHelp();
-        },
-        onTap: () {
-          hideHelp();
-        },
-      );
-    });
-  }
-
-  void hideHelp() {
-    _overlayEntry.remove();
-  }
 
   String formatDate(DateTime dateTime) {
     return DateFormat('E, MMMM, c, y @ hh:mm a').format(

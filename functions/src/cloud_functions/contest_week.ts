@@ -53,6 +53,7 @@ export const resetContestWeek = functions.pubsub
                 totalBetsLost: 0,
                 totalLoss: 0,
                 totalBets: 0,
+                todayRewards: 0,
                 rank: 0,
                 pendingRiskedAmount: 0,
                 totalRewards: 0,

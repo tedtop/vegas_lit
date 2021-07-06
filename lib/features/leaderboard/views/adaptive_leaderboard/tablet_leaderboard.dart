@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -153,7 +154,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.normalTextBold,
                 ),
                 Text(
-                  '\$${player.accountBalance + player.pendingRiskedAmount}',
+                  '${player.accountBalance + player.pendingRiskedAmount}',
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.green,
@@ -170,7 +171,10 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.awayTeam,
                 ),
                 Text(
-                  'Wins: ${((player.totalBetsWon / player.totalBets) * 100).toStringAsFixed(0)}%',
+                  BetsDataHelper.leaderboardWinningBetsRatio(
+                    player.totalBetsWon,
+                    player.totalBetsLost,
+                  ),
                   style: Styles.awayTeam,
                 ),
               ],

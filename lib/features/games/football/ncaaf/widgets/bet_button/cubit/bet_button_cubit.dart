@@ -16,7 +16,7 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
-          const NcaafBetButtonState.loading(),
+          const NcaafBetButtonState(),
         );
 
   final BetsRepository _betsRepository;
@@ -27,8 +27,6 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
     @required Bet betType,
     @required String uid,
     @required String mainOdds,
-    @required int gameId,
-    @required bool isClosed,
     @required BetButtonWin winTeam,
     @required double spread,
     @required NcaafTeam awayTeamData,
@@ -44,16 +42,15 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-$gameId-${gameStartTimeFormat.toUpperCase()}-$uid';
+        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     final toWinAmount =
         toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
 
     emit(
-      NcaafBetButtonState.unclicked(
+      NcaafBetButtonState(
         text: text,
-        gameId: gameId,
-        isClosed: isClosed,
+        status: NcaafBetButtonStatus.unclicked,
         game: game,
         toWinAmount: toWinAmount,
         betAmount: state.betAmount,
@@ -77,44 +74,12 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
     );
     if (isBetExists) {
       emit(
-        NcaafBetButtonState.placed(
-          text: state.text,
-          isClosed: state.isClosed,
-          gameId: state.gameId,
-          game: state.game,
-          toWinAmount: state.toWinAmount,
-          betAmount: state.betAmount,
-          uid: state.uid,
-          winTeam: state.winTeam,
-          uniqueId: state.uniqueId,
-          spread: state.spread,
-          awayTeamData: state.awayTeamData,
-          league: state.league,
-          homeTeamData: state.homeTeamData,
-          mainOdds: state.mainOdds,
-          betType: state.betType,
-        ),
+        state.copyWith(status: NcaafBetButtonStatus.alreadyPlaced),
       );
       return true;
     } else {
       emit(
-        NcaafBetButtonState.clicked(
-          text: state.text,
-          isClosed: state.isClosed,
-          uid: state.uid,
-          gameId: state.gameId,
-          game: state.game,
-          winTeam: state.winTeam,
-          uniqueId: state.uniqueId,
-          spread: state.spread,
-          awayTeamData: state.awayTeamData,
-          league: state.league,
-          homeTeamData: state.homeTeamData,
-          toWinAmount: state.toWinAmount,
-          betAmount: state.betAmount,
-          mainOdds: state.mainOdds,
-          betType: state.betType,
-        ),
+        state.copyWith(status: NcaafBetButtonStatus.clicked),
       );
       return false;
     }
@@ -122,45 +87,19 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
 
   void unclickBetButton() {
     emit(
-      NcaafBetButtonState.unclicked(
-        text: state.text,
-        mainOdds: state.mainOdds,
-        game: state.game,
-        league: state.league,
-        isClosed: state.isClosed,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        gameId: state.gameId,
-        uid: state.uid,
-        winTeam: state.winTeam,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: NcaafBetButtonStatus.unclicked),
     );
   }
 
   void confirmBetButton() {
     emit(
-      NcaafBetButtonState.done(
-        text: state.text,
-        game: state.game,
-        toWinAmount: state.toWinAmount,
-        betAmount: state.betAmount,
-        mainOdds: state.mainOdds,
-        winTeam: state.winTeam,
-        uid: state.uid,
-        isClosed: state.isClosed,
-        gameId: state.gameId,
-        league: state.league,
-        awayTeamData: state.awayTeamData,
-        homeTeamData: state.homeTeamData,
-        spread: state.spread,
-        uniqueId: state.uniqueId,
-        betType: state.betType,
-      ),
+      state.copyWith(status: NcaafBetButtonStatus.placed),
+    );
+  }
+
+  void placingBet() {
+    emit(
+      state.copyWith(status: NcaafBetButtonStatus.placing),
     );
   }
 
