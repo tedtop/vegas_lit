@@ -43,5 +43,9 @@
 	<false/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-8972894064340370~5870308893</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app allows you to upload a profile picture</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app allows you to upload a profile picture</string>
 </dict>
 </plist>
