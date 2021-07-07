@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -63,17 +65,13 @@ class AdsCubit extends Cubit<AdsState> {
     emit(
       const AdsState.loading(),
     );
-    // final rewardedAdID = Platform.isIOS
-    //     ? 'ca-app-pub-8972894064340370/3118061623'
-    //     : 'ca-app-pub-8972894064340370/1258556174';
+    final rewardedAdID = Platform.isIOS
+        ? 'ca-app-pub-8972894064340370/9802303712'
+        : 'ca-app-pub-8972894064340370/8321701085';
     final currentUser = await _userRepository.getCurrentUser();
     await RewardedAd.loadWithAdManagerAdRequest(
-      // adUnitId: kDebugMode
-      //     ? RewardedAd.testAdUnitId
-      //     : Platform.isIOS
-      //         ? RewardedAd.testAdUnitId
-      //         : rewardedAdID,
-      adUnitId: RewardedAd.testAdUnitId,
+      adUnitId: kDebugMode ? RewardedAd.testAdUnitId : rewardedAdID,
+      // adUnitId: RewardedAd.testAdUnitId,
       adManagerRequest: const AdManagerAdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd rewardedAd) async {
