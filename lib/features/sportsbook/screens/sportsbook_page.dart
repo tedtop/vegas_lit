@@ -210,32 +210,46 @@ class _SportsBookViewState extends State<SportsBookView>
               ),
               Builder(
                 builder: (context) {
+                  var selectedIndex = 6;
                   switch (widget.league) {
                     case 'NFL':
-                      return NflScreen.route();
+                      selectedIndex = 0;
                       break;
                     case 'NBA':
-                      return NbaScreen.route();
+                      selectedIndex = 1;
                       break;
                     case 'NHL':
-                      return NhlScreen.route();
+                      selectedIndex = 2;
                       break;
                     case 'NCAAF':
-                      return NcaafScreen.route();
+                      selectedIndex = 3;
                       break;
                     case 'NCAAB':
-                      return NcaabScreen.route();
+                      selectedIndex = 4;
                       break;
                     case 'GOLF':
-                      return GolfScreen.route();
+                      selectedIndex = 5;
                       break;
                     case 'MLB':
-                      return MlbScreen.route();
+                      selectedIndex = 6;
                       break;
                     default:
-                      return Container();
+                      selectedIndex = 7;
                       break;
                   }
+                  return FadeIndexedStack(
+                    index: selectedIndex,
+                    children: [
+                      NflScreen.route(),
+                      NbaScreen.route(),
+                      NhlScreen.route(),
+                      NcaafScreen.route(),
+                      NcaabScreen.route(),
+                      GolfScreen.route(),
+                      MlbScreen.route(),
+                      Container(),
+                    ],
+                  );
                 },
               ),
             ],
@@ -260,9 +274,9 @@ class _SportsBookViewState extends State<SportsBookView>
                     curve: Curves.linear,
                   );
 
-                  await Future.delayed(
-                    const Duration(milliseconds: 300),
-                  );
+                  // await Future.delayed(
+                  //   const Duration(milliseconds: 300),
+                  // );
 
                   HelpOverlayLoader.appLoader.showLoader();
                 },
@@ -306,9 +320,6 @@ class _SportsBookViewState extends State<SportsBookView>
                 context.read<SportsbookBloc>().add(
                       SportsbookLeagueChange(league: newValue),
                     );
-                context.read<BetSlipCubit>().openBetSlip(
-                  betSlipGames: [],
-                );
               }
             },
             items: <String>[
@@ -361,6 +372,61 @@ class _SportsBookViewState extends State<SportsBookView>
   String formatDate(DateTime dateTime) {
     return DateFormat('E, MMMM, c, y @ hh:mm a').format(
       dateTime,
+    );
+  }
+}
+
+class FadeIndexedStack extends StatefulWidget {
+  const FadeIndexedStack({
+    Key key,
+    this.index,
+    this.children,
+    this.duration = const Duration(
+      milliseconds: 800,
+    ),
+  }) : super(key: key);
+
+  final int index;
+  final List<Widget> children;
+  final Duration duration;
+
+  @override
+  _FadeIndexedStackState createState() => _FadeIndexedStackState();
+}
+
+class _FadeIndexedStackState extends State<FadeIndexedStack>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void didUpdateWidget(FadeIndexedStack oldWidget) {
+    if (widget.index != oldWidget.index) {
+      _controller.forward(from: 0.0);
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this, duration: widget.duration);
+    _controller.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _controller,
+      child: IndexedStack(
+        index: widget.index,
+        children: widget.children,
+      ),
     );
   }
 }

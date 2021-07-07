@@ -141,6 +141,7 @@ class LeaderboardProfileHistorySlip extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: isWin ? Palette.green : Palette.red),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'ticket cost',
@@ -162,9 +163,10 @@ class LeaderboardProfileHistorySlip extends StatelessWidget {
                         height: 61,
                         decoration: const BoxDecoration(color: Palette.cream),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '${isWin ? 'you won' : 'you lost'}',
+                              '${isWin ? 'and won' : 'and lost'}',
                               style: Styles.betHistoryDescription.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),

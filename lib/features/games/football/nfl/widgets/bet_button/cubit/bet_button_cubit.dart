@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../data/models/bet.dart';
@@ -91,16 +95,101 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
     );
   }
 
-  void confirmBetButton() {
-    emit(
-      state.copyWith(status: NflBetButtonStatus.placed),
-    );
-  }
+  Future<void> placeBet({
+    @required bool isMinimumVersion,
+    @required NflBetButtonState betButtonState,
+    @required BuildContext context,
+    @required int balanceAmount,
+    @required String username,
+    @required String currentUserId,
+  }) async {
+    if (isMinimumVersion) {
+      if (betButtonState.game.dateTime.isBefore(ESTDateTime.fetchTimeEST())) {
+        ScaffoldMessenger.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              duration: Duration(milliseconds: 1000),
+              content: Text(
+                'The game has already started',
+              ),
+            ),
+          );
+      } else {
+        if (betButtonState.betAmount != null &&
+            betButtonState.betAmount != 0 &&
+            betButtonState.toWinAmount != 0) {
+          if (balanceAmount - betButtonState.betAmount < 0) {
+            ScaffoldMessenger.of(context)
+              ..removeCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  duration: Duration(milliseconds: 1000),
+                  content: Text(
+                    // ignore: lines_longer_than_80_chars
+                    "You're out of funds!",
+                  ),
+                ),
+              );
+          } else {
+            emit(state.copyWith(status: NflBetButtonStatus.placing));
+            await context.read<NflBetButtonCubit>().updateOpenBets(
+                  betAmount: betButtonState.betAmount,
+                  betsData: BetData(
+                    stillOpen: false,
+                    username: username,
+                    homeTeamCity: betButtonState.homeTeamData.city,
+                    awayTeamCity: betButtonState.awayTeamData.city,
+                    betAmount: betButtonState.betAmount,
+                    gameId: betButtonState.game.gameId,
+                    isClosed: betButtonState.game.isClosed,
+                    homeTeam: betButtonState.game.homeTeam,
+                    awayTeam: betButtonState.game.awayTeam,
+                    winningTeam: null,
+                    winningTeamName: null,
+                    status: betButtonState.game.status,
+                    league: betButtonState.league,
+                    betOverUnder: betButtonState.game.overUnder,
+                    betPointSpread: betButtonState.game.pointSpread,
+                    awayTeamName: betButtonState.awayTeamData.name,
+                    homeTeamName: betButtonState.homeTeamData.name,
+                    totalGameScore: null,
+                    id: betButtonState.uniqueId,
+                    betType:
+                        whichBetSystemToSave(betType: betButtonState.betType),
+                    odds: int.parse(betButtonState.mainOdds),
+                    betProfit: betButtonState.toWinAmount,
+                    gameStartDateTime: betButtonState.game.dateTime.toString(),
+                    awayTeamScore: betButtonState.game.awayTeamScore,
+                    homeTeamScore: betButtonState.game.homeTeamScore,
+                    uid: currentUserId,
+                    betTeam: betButtonState.winTeam == BetButtonWin.home
+                        ? 'home'
+                        : 'away',
+                    dateTime: ESTDateTime.fetchTimeEST().toString(),
+                    week: ESTDateTime.weekStringVL,
+                    clientVersion: await _getAppVersion(),
+                    dataProvider: 'sportsdata.io',
+                  ),
+                  currentUserId: currentUserId,
+                );
 
-  void placingBet() {
-    emit(
-      state.copyWith(status: NflBetButtonStatus.placing),
-    );
+            emit(state.copyWith(status: NflBetButtonStatus.placed));
+          }
+        }
+      }
+    } else {
+      ScaffoldMessenger.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(
+            duration: Duration(milliseconds: 1000),
+            content: Text(
+              'Please update your app to place bets',
+            ),
+          ),
+        );
+    }
   }
 
   Future<void> updateOpenBets({
@@ -128,6 +217,25 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
     } else {
       final toWinAmount = (int.parse(odds) / 100 * betAmount).round().abs();
       return toWinAmount;
+    }
+  }
+
+  Future<String> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
+
+  String whichBetSystemToSave({@required Bet betType}) {
+    if (betType == Bet.ml) {
+      return 'moneyline';
+    }
+    if (betType == Bet.pts) {
+      return 'pointspread';
+    }
+    if (betType == Bet.tot) {
+      return 'total';
+    } else {
+      return 'error';
     }
   }
 }

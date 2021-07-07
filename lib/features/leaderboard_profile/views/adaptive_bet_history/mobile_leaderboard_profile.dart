@@ -157,7 +157,6 @@ class _MobileHistoryHeading extends StatelessWidget {
           color: Palette.lightGrey,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             betHistoryState.userWallet.avatarUrl != null
                 ? CircleAvatar(
@@ -187,20 +186,22 @@ class _MobileHistoryHeading extends StatelessWidget {
                       ),
                     ),
                   ),
-            betHistoryState.status == LeaderboardProfileStatus.success
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '${betHistoryState.userWallet.username}',
-                          style: Styles.pageTitle,
+            Expanded(
+              child: betHistoryState.status == LeaderboardProfileStatus.success
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '${betHistoryState.userWallet.username}',
+                            style: Styles.pageTitle,
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                : const SizedBox(),
+                      ],
+                    )
+                  : const SizedBox(),
+            ),
           ],
         ),
       ),

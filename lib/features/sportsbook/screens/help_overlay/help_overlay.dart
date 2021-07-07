@@ -63,7 +63,7 @@ class HelpOverlay extends StatelessWidget {
               )),
           Positioned(
             right: 17,
-            top: topSafeSpacePadding + 56,
+            top: topSafeSpacePadding + 55.7,
             child: Image.asset(Images.numberOfBetsHelpOverlay,
                 fit: BoxFit.contain, width: 300),
           ),
