@@ -67,6 +67,8 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/country_icons/
+    - assets/images/olympics_icons/
     - assets/json/
     - assets/overlays/
     - assets/svg/

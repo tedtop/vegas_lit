@@ -39,6 +39,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final list = <String>[
       'NFL',
       'NBA',
+      'OLYMPICS',
       'MLB',
       'NHL',
       'NCAAF',
@@ -103,6 +104,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       case 'NFL':
         return 'nfl';
         break;
+      case 'OLYMPICS':
+        return 'olympics';
       default:
         break;
     }
