@@ -3,7 +3,7 @@ description: This is a free to play sports simulation game
 
 publish_to: "none"
 
-version: 1.0.4+65
+version: 1.0.5+66
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
