@@ -111,7 +111,7 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
             const SnackBar(
               duration: Duration(milliseconds: 1000),
               content: Text(
-                'The game has already started',
+                'This game has already started.',
               ),
             ),
           );
@@ -127,7 +127,7 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
                   duration: Duration(milliseconds: 1000),
                   content: Text(
                     // ignore: lines_longer_than_80_chars
-                    "You're out of funds!",
+                    "You're out of funds. Try watching the video in your bet slip.",
                   ),
                 ),
               );
@@ -185,7 +185,7 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
           const SnackBar(
             duration: Duration(milliseconds: 1000),
             content: Text(
-              'Please update your app to place bets',
+              'Please update your app to place bets.',
             ),
           ),
         );
