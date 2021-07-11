@@ -75,7 +75,7 @@ class BetButton extends StatelessWidget {
               ..removeCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  duration: Duration(milliseconds: 1000),
+                  duration: Duration(milliseconds: 2000),
                   content: Text('Your bet has been placed.'),
                 ),
               );
