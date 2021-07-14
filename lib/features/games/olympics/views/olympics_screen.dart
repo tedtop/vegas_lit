@@ -47,36 +47,22 @@ class OlympicsScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.olympicsIconsPath}Shooting.png',
-                                    height: 35,
-                                    width: 35,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'SHOOTING',
-                                    style: Styles.normalTextBold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Image.asset(
-                              '${Images.olympicsIconsPath}Olympics.png',
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              '${Images.olympicsIconsPath}Shooting.png',
                               height: 35,
                               width: 35,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 10),
+                            Text(
+                              'SHOOTING',
+                              style: Styles.normalTextBold,
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                           padding: const EdgeInsets.all(3.0),
@@ -162,36 +148,22 @@ class OlympicsScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.olympicsIconsPath}Badminton.png',
-                                    height: 35,
-                                    width: 35,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'BADMINTON',
-                                    style: Styles.normalTextBold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Image.asset(
-                              '${Images.olympicsIconsPath}Olympics.png',
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              '${Images.olympicsIconsPath}Badminton.png',
                               height: 35,
                               width: 35,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 10),
+                            Text(
+                              'BADMINTON',
+                              style: Styles.normalTextBold,
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                           padding: const EdgeInsets.all(3.0),
