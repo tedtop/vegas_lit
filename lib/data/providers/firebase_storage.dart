@@ -4,8 +4,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-class CloudStorageClient {
-  CloudStorageClient({FirebaseStorage firebaseFirestore})
+class FirebaseStorageClient {
+  FirebaseStorageClient({FirebaseStorage firebaseFirestore})
       : _firebaseStorage = firebaseFirestore ?? FirebaseStorage.instance;
 
   final FirebaseStorage _firebaseStorage;
