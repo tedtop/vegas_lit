@@ -6,7 +6,6 @@ import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
-import 'package:vegas_lit/data/models/bet.dart';
 import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
 
 class NcaabOpenBetCard extends StatelessWidget {
