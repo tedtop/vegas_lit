@@ -13,7 +13,6 @@ import '../../../../data/models/bet.dart';
 import '../../../home/home.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
-import '../open_bets_card.dart';
 
 class DesktopOpenBets extends StatelessWidget {
   @override
