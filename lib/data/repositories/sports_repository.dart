@@ -1,6 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_player_stats.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
+import 'package:vegas_lit/data/models/olympics/olympics.dart';
+import 'package:vegas_lit/data/providers/cloud_firestore.dart';
 
 import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
@@ -19,6 +21,7 @@ import '../providers/sportsdata_api.dart';
 
 class SportsRepository {
   final _sportsProvider = SportsAPI();
+  final _databaseProvider = CloudFirestoreClient();
 
   // MLB
   Future<List<MlbGame>> fetchMLB({@required DateTime dateTime}) =>
@@ -82,4 +85,7 @@ class SportsRepository {
 
   Future<GolfLeaderboard> fetchGolfLeaderboard({@required int tournamentID}) =>
       _sportsProvider.fetchGolfLeaderboard(tournamentID: tournamentID);
+
+  Stream<List<OlympicsGame>> fetchOlympicsGame() =>
+      _databaseProvider.fetchOlympicsGames();
 }

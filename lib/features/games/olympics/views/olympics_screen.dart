@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/matchup_card/olympics_matchup_card.dart';
+import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../olympics.dart';
 
@@ -13,7 +17,9 @@ class OlympicsScreen extends StatelessWidget {
     return Builder(
       builder: (context) {
         return BlocProvider(
-          create: (context) => OlympicsCubit(),
+          create: (context) => OlympicsCubit(
+            sportsRepository: context.read<SportsRepository>(),
+          )..fetchOlympicsGames(),
           child: const OlympicsScreen._(),
         );
       },
@@ -22,239 +28,54 @@ class OlympicsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            width: 390,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Palette.cream,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 12,
-            ),
-            child: Card(
-                margin: EdgeInsets.zero,
-                color: Palette.lightGrey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+    return BlocBuilder<OlympicsCubit, OlympicsState>(
+      builder: (context, state) {
+        switch (state.status) {
+          case OlympicsStatus.initial:
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 120),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
                 ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.olympicsIconsPath}Shooting.png',
-                                    height: 35,
-                                    width: 35,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'SHOOTING',
-                                    style: Styles.normalTextBold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Image.asset(
-                              '${Images.olympicsIconsPath}Olympics.png',
-                              height: 35,
-                              width: 35,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                              width: 330,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Palette.darkGrey),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.countryIconsPath}GB.png',
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Nigel Wheatstone',
-                                    style: Styles.normalText,
-                                  ),
-                                ],
-                              ))),
-                      Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                              width: 330,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Palette.green),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.countryIconsPath}RU.png',
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Ted Toporkov',
-                                    style: Styles.normalText,
-                                  ),
-                                ],
-                              ))),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Sat, June, 26, 2021 @ 01:10 PM',
-                              style: Styles.matchupTime,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ))),
-        Container(
-            width: 390,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Palette.cream,
               ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 12,
-            ),
-            child: Card(
-                margin: EdgeInsets.zero,
-                color: Palette.lightGrey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.olympicsIconsPath}Badminton.png',
-                                    height: 35,
-                                    width: 35,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'BADMINTON',
-                                    style: Styles.normalTextBold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Image.asset(
-                              '${Images.olympicsIconsPath}Olympics.png',
-                              height: 35,
-                              width: 35,
-                            ),
-                          ),
-                        ],
+            );
+            break;
+          default:
+            if (state.games.isEmpty) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 120),
+                    child: Text(
+                      // ignore: lines_longer_than_80_chars
+                      'No odds available for the league you have selected at this time.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.nunito(
+                        color: Palette.cream,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w300,
                       ),
-                      Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                              width: 330,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Palette.green),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.countryIconsPath}CA.png',
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Brad Pitt',
-                                    style: Styles.normalText,
-                                  ),
-                                ],
-                              ))),
-                      Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                              width: 330,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Palette.darkGrey),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    '${Images.countryIconsPath}GH.png',
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    'Chris Evans',
-                                    style: Styles.normalText,
-                                  ),
-                                ],
-                              ))),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Sat, June, 26, 2021 @ 01:10 PM',
-                              style: Styles.matchupTime,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ))),
-      ],
+                  const BottomBar()
+                ],
+              );
+            } else {
+              return ListView.builder(
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: state.games.length,
+                itemBuilder: (context, index) {
+                  return OlympicsMatchupCard.route(
+                    game: state.games[index],
+                    gameName: state.league,
+                  );
+                },
+              );
+            }
+        }
+      },
     );
   }
 }

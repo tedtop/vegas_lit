@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/olympics/olympics.dart';
 
 import '../models/bet.dart';
 import '../models/user.dart';
@@ -374,5 +375,20 @@ class CloudFirestoreClient {
       'todayRewards': FieldValue.increment(rewardValue),
       'accountBalance': FieldValue.increment(rewardValue),
     });
+  }
+
+  Stream<List<OlympicsGame>> fetchOlympicsGames() {
+    final snapshots = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('games')
+        .snapshots();
+
+    final gameList = snapshots.map(
+      (event) => event.docs.map(
+        (e) => OlympicsGame.fromFirestore(e),
+      ),
+    );
+    return gameList;
   }
 }
