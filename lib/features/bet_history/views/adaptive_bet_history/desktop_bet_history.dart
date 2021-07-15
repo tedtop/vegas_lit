@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/bet.dart';
 import '../../../../data/models/wallet.dart';
-import '../../../open_bets/views/open_bets_card.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_items.dart';
@@ -373,7 +373,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text(
-                                  '${whichBetSystem(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                  '${BetsDataHelper.whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                   style: Styles.betHistoryDesktopItem),
                             );
                           case 'Risked':

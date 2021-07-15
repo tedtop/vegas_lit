@@ -374,7 +374,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text(
-                                  '${whichBetSystem(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                  '${BetsDataHelper.whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                   style: Styles.betHistoryDesktopItem),
                             );
                           case 'Risked':

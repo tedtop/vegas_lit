@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -362,7 +363,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 18),
                             child: Text(
-                                '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                '${BetsDataHelper.whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                 style: Styles.openBetsDesktopItem),
                           );
                         case 'Risking':
