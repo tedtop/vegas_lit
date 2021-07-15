@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../data/models/bet.dart';
@@ -135,7 +136,7 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
             emit(state.copyWith(status: NcaafBetButtonStatus.placing));
             await context.read<NcaafBetButtonCubit>().updateOpenBets(
                   betAmount: betButtonState.betAmount,
-                  betsData: BetData(
+                  betsData: NcaafBetData(
                     stillOpen: false,
                     username: username,
                     homeTeamCity: betButtonState.homeTeamData.city,

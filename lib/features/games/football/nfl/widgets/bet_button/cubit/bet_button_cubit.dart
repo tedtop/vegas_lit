@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../data/models/bet.dart';
@@ -135,7 +136,7 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
             emit(state.copyWith(status: NflBetButtonStatus.placing));
             await context.read<NflBetButtonCubit>().updateOpenBets(
                   betAmount: betButtonState.betAmount,
-                  betsData: BetData(
+                  betsData: NflBetData(
                     stillOpen: false,
                     username: username,
                     homeTeamCity: betButtonState.homeTeamData.city,

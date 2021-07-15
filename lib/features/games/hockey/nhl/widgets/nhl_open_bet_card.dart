@@ -7,6 +7,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 class NhlOpenBetCard extends StatelessWidget {
   const NhlOpenBetCard({
@@ -15,7 +16,7 @@ class NhlOpenBetCard extends StatelessWidget {
   })  : assert(openBets != null),
         super(key: key);
 
-  final BetData openBets;
+  final NhlBetData openBets;
 
   @override
   Widget build(BuildContext context) {

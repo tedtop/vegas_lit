@@ -1,19 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class NflBetData extends Equatable {
+import '../bet.dart';
+
+class NflBetData extends BetData {
   NflBetData({
-    @required this.id,
-    @required this.betAmount,
-    @required this.betProfit,
-    @required this.betType,
+    @required id,
+    @required betAmount,
+    @required betProfit,
+    @required betType,
+    @required stillOpen,
+    @required username,
+    @required status,
+    @required dataProvider,
+    @required clientVersion,
+    @required uid,
+    @required gameStartDateTime,
+    @required dateTime,
+    @required week,
+    @required isClosed,
+    @required league,
+    @required odds,
     @required this.betTeam,
     @required this.winningTeamName,
     @required this.winningTeam,
     @required this.betPointSpread,
     @required this.betOverUnder,
-    @required this.username,
     @required this.homeTeam,
     @required this.awayTeam,
     @required this.awayTeamScore,
@@ -21,17 +33,29 @@ class NflBetData extends Equatable {
     @required this.awayTeamCity,
     @required this.homeTeamScore,
     @required this.totalGameScore,
-    @required this.uid,
     @required this.homeTeamName,
     @required this.awayTeamName,
-    @required this.gameStartDateTime,
-    @required this.dateTime,
     @required this.gameId,
-    @required this.isClosed,
-    @required this.league,
-    @required this.odds,
-  });
+  }) : super(
+          id: id,
+          betAmount: betAmount,
+          betProfit: betProfit,
+          betType: betType,
+          stillOpen: stillOpen,
+          username: username,
+          status: status,
+          dataProvider: dataProvider,
+          clientVersion: clientVersion,
+          uid: uid,
+          gameStartDateTime: gameStartDateTime,
+          dateTime: dateTime,
+          week: week,
+          isClosed: isClosed,
+          league: league,
+          odds: odds,
+        );
 
+  @override
   factory NflBetData.fromFirestore(DocumentSnapshot snapshot) {
     final Map data = snapshot.data();
     return NflBetData(
@@ -40,6 +64,7 @@ class NflBetData extends Equatable {
       betAmount: data['betAmount'] as int,
       betProfit: data['betProfit'] as int,
       uid: data['uid'] as String,
+      stillOpen: data['stillOpen'] as bool,
       betType: data['betType'] as String,
       awayTeamCity: data['awayTeamCity'] as String,
       homeTeamCity: data['homeTeamCity'] as String,
@@ -48,8 +73,10 @@ class NflBetData extends Equatable {
       betTeam: data['betTeam'] as String,
       winningTeamName: data['winningTeamName'] as String,
       username: data['username'] as String,
-      betPointSpread: data['betPointSpread'] as double,
-      betOverUnder: data['betOverUnder'] as double,
+      dataProvider: data['dataProvider'] as String,
+      clientVersion: data['clientVersion'] as String,
+      betPointSpread: double.tryParse(data['betPointSpread'].toString()),
+      betOverUnder: double.tryParse(data['betOverUnder'].toString()),
       awayTeamScore: data['awayTeamScore'] as int,
       homeTeamScore: data['homeTeamScore'] as int,
       totalGameScore: data['totalGameScore'] as int,
@@ -57,6 +84,8 @@ class NflBetData extends Equatable {
       awayTeamName: data['awayTeamName'] as String,
       gameStartDateTime: data['gameStartDateTime'] as String,
       dateTime: data['dateTime'] as String,
+      week: data['week'] as String,
+      status: data['status'] as String,
       gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
       league: data['league'] as String,
@@ -64,10 +93,6 @@ class NflBetData extends Equatable {
     );
   }
 
-  final String id;
-  final int betAmount;
-  final int betProfit;
-  final String betType;
   final String betTeam;
   final String winningTeamName;
   final double betPointSpread;
@@ -77,20 +102,14 @@ class NflBetData extends Equatable {
   final int totalGameScore;
   final String homeTeamCity;
   final String awayTeamCity;
-  final String username;
   final String homeTeamName;
   final String homeTeam;
   final String awayTeamName;
   final String awayTeam;
-  final String uid;
-  final String gameStartDateTime;
-  final String dateTime;
   final int gameId;
   final String winningTeam;
-  final bool isClosed;
-  final String league;
-  final int odds;
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -107,12 +126,17 @@ class NflBetData extends Equatable {
       'username': username,
       'homeTeamCity': homeTeamCity,
       'awayTeamCity': awayTeamCity,
+      'clientVersion': clientVersion,
+      'stillOpen': stillOpen,
+      'dataProvider': dataProvider,
+      'status': status,
       'totalGameScore': totalGameScore,
       'winningTeam': winningTeam,
       'homeTeamName': homeTeamName,
       'awayTeamName': awayTeamName,
       'gameStartDateTime': gameStartDateTime,
       'dateTime': dateTime,
+      'week': week,
       'homeTeam': homeTeam,
       'awayTeam': awayTeam,
       'gameId': gameId,
@@ -124,33 +148,23 @@ class NflBetData extends Equatable {
 
   @override
   List<Object> get props {
-    return [
-      id,
-      betAmount,
-      uid,
-      betProfit,
-      betType,
-      betTeam,
-      winningTeamName,
-      betPointSpread,
-      betOverUnder,
-      winningTeam,
-      homeTeam,
-      username,
-      awayTeam,
-      awayTeamScore,
-      homeTeamScore,
-      totalGameScore,
-      homeTeamName,
-      awayTeamName,
-      gameStartDateTime,
-      dateTime,
-      gameId,
-      homeTeamCity,
-      awayTeamCity,
-      isClosed,
-      league,
-      odds,
-    ];
+    return super.props
+      ..addAll([
+        betTeam,
+        winningTeamName,
+        betPointSpread,
+        betOverUnder,
+        winningTeam,
+        homeTeam,
+        awayTeam,
+        awayTeamScore,
+        homeTeamScore,
+        totalGameScore,
+        homeTeamName,
+        awayTeamName,
+        gameId,
+        homeTeamCity,
+        awayTeamCity,
+      ]);
   }
 }

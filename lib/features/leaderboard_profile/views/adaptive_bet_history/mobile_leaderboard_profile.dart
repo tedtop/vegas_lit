@@ -2,13 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_bet_history_card.dart';
+import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_bet_history_card.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_bet_history_card.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
+import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_card.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
 import 'package:vegas_lit/features/leaderboard_profile/widgets/leaderboard_profile_board_content.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/leaderboard_profile_cubit.dart';
-import '../../widgets/leaderboard_profile_card.dart';
 
 class MobileLeaderboardProfile extends StatelessWidget {
   @override
@@ -115,11 +120,36 @@ class _MobileHistoryList extends StatelessWidget {
       key: Key('${bets.length}'),
       itemCount: bets.length,
       itemBuilder: (context, index) {
-        return Center(
-          child: LeaderboardProfileHistorySlip(
-            betHistoryData: bets[index],
-          ),
-        );
+        switch (bets[index].league) {
+          case 'mlb':
+            return MlbBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'nba':
+            return NbaBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'cbb':
+            return NcaabBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'cfb':
+            return NcaafBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'nfl':
+            return NflBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'nhl':
+            return NhlBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          // case 'olympic':
+          //   return OlympicOpenBetCard(openBets: bets[index]);
+          //   break;
+          default:
+            return const SizedBox();
+        }
+        // return Center(
+        //   child: BetHistorySlip(
+        //     betHistoryData: bets[index],
+        //   ),
+        // );
       },
     );
   }

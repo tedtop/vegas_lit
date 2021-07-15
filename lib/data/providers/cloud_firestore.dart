@@ -1,6 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 
 import '../models/bet.dart';
@@ -93,11 +99,36 @@ class CloudFirestoreClient {
         .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
+          (event) => event.docs.map(
+            (snapshot) {
+              final baseBetData = BetData.fromFirestore(snapshot);
+              switch (baseBetData.league) {
+                case 'mlb':
+                  return MlbBetData.fromFirestore(snapshot);
+                  break;
+                case 'nba':
+                  return NbaBetData.fromFirestore(snapshot);
+                  break;
+                case 'cbb':
+                  return NcaabBetData.fromFirestore(snapshot);
+                  break;
+                case 'cfb':
+                  return NcaafBetData.fromFirestore(snapshot);
+                  break;
+                case 'nfl':
+                  return NflBetData.fromFirestore(snapshot);
+                  break;
+                case 'nhl':
+                  return NhlBetData.fromFirestore(snapshot);
+                  break;
+                // case 'olympic':
+                //   return OlympicBetData.fromFirestore(snapshot);
+                //   break;
+                default:
+                  return baseBetData;
+              }
+            },
+          ).toList(),
         );
     return openBetsData;
   }
@@ -116,11 +147,36 @@ class CloudFirestoreClient {
         .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
+          (event) => event.docs.map(
+            (snapshot) {
+              final baseBetData = BetData.fromFirestore(snapshot);
+              switch (baseBetData.league) {
+                case 'mlb':
+                  return MlbBetData.fromFirestore(snapshot);
+                  break;
+                case 'nba':
+                  return NbaBetData.fromFirestore(snapshot);
+                  break;
+                case 'cbb':
+                  return NcaabBetData.fromFirestore(snapshot);
+                  break;
+                case 'cfb':
+                  return NcaafBetData.fromFirestore(snapshot);
+                  break;
+                case 'nfl':
+                  return NflBetData.fromFirestore(snapshot);
+                  break;
+                case 'nhl':
+                  return NhlBetData.fromFirestore(snapshot);
+                  break;
+                // case 'olympic':
+                //   return OlympicBetData.fromFirestore(snapshot);
+                //   break;
+                default:
+                  return baseBetData;
+              }
+            },
+          ).toList(),
         );
     return betHistoryData;
   }

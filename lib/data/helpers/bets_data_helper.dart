@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/bet.dart';
 
 class BetsDataHelper {
   static String betHistoryWinningBetsRatioText() {
@@ -45,7 +44,8 @@ class BetsDataHelper {
     }
   }
 
-  static Widget whichBetTextWidget(BetData betData) {
+  // Can be used for bets from sportdata.io for now
+  static Widget whichBetTextWidget(dynamic betData) {
     final odds = betData?.odds?.isNegative ?? 0.isNegative
         ? betData.odds.toString()
         : '+${betData.odds}';

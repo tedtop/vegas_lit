@@ -8,30 +8,15 @@ class BetData extends Equatable {
     @required this.betAmount,
     @required this.betProfit,
     @required this.betType,
-    @required this.betTeam,
-    @required this.winningTeamName,
-    @required this.winningTeam,
-    @required this.betPointSpread,
-    @required this.betOverUnder,
     @required this.stillOpen,
     @required this.username,
     @required this.status,
     @required this.dataProvider,
     @required this.clientVersion,
-    @required this.homeTeam,
-    @required this.awayTeam,
-    @required this.awayTeamScore,
-    @required this.homeTeamCity,
-    @required this.awayTeamCity,
-    @required this.homeTeamScore,
-    @required this.totalGameScore,
     @required this.uid,
-    @required this.homeTeamName,
-    @required this.awayTeamName,
     @required this.gameStartDateTime,
     @required this.dateTime,
     @required this.week,
-    @required this.gameId,
     @required this.isClosed,
     @required this.league,
     @required this.odds,
@@ -41,33 +26,18 @@ class BetData extends Equatable {
     final Map data = snapshot.data();
     return BetData(
       id: data['id'] as String,
-      winningTeam: data['winningTeam'] as String,
       betAmount: data['betAmount'] as int,
       betProfit: data['betProfit'] as int,
       uid: data['uid'] as String,
       stillOpen: data['stillOpen'] as bool,
       betType: data['betType'] as String,
-      awayTeamCity: data['awayTeamCity'] as String,
-      homeTeamCity: data['homeTeamCity'] as String,
-      homeTeam: data['homeTeam'] as String,
-      awayTeam: data['awayTeam'] as String,
-      betTeam: data['betTeam'] as String,
-      winningTeamName: data['winningTeamName'] as String,
       username: data['username'] as String,
       dataProvider: data['dataProvider'] as String,
       clientVersion: data['clientVersion'] as String,
-      betPointSpread: double.tryParse(data['betPointSpread'].toString()),
-      betOverUnder: double.tryParse(data['betOverUnder'].toString()),
-      awayTeamScore: data['awayTeamScore'] as int,
-      homeTeamScore: data['homeTeamScore'] as int,
-      totalGameScore: data['totalGameScore'] as int,
-      homeTeamName: data['homeTeamName'] as String,
-      awayTeamName: data['awayTeamName'] as String,
       gameStartDateTime: data['gameStartDateTime'] as String,
       dateTime: data['dateTime'] as String,
       week: data['week'] as String,
       status: data['status'] as String,
-      gameId: data['gameId'] as int,
       isClosed: data['isClosed'] as bool,
       league: data['league'] as String,
       odds: data['odds'] as int,
@@ -78,29 +48,14 @@ class BetData extends Equatable {
   final int betAmount;
   final int betProfit;
   final String betType;
-  final String betTeam;
-  final String winningTeamName;
-  final double betPointSpread;
-  final double betOverUnder;
-  final int awayTeamScore;
-  final int homeTeamScore;
-  final int totalGameScore;
-  final String homeTeamCity;
-  final String awayTeamCity;
   final String username;
-  final String homeTeamName;
-  final String homeTeam;
   final bool stillOpen;
-  final String awayTeamName;
-  final String awayTeam;
   final String uid;
   final String gameStartDateTime;
   final String clientVersion;
   final String dataProvider;
   final String dateTime;
   final String week;
-  final int gameId;
-  final String winningTeam;
   final bool isClosed;
   final String league;
   final String status;
@@ -112,30 +67,15 @@ class BetData extends Equatable {
       'betAmount': betAmount,
       'betProfit': betProfit,
       'betType': betType,
-      'betTeam': betTeam,
       'uid': uid,
-      'winningTeamName': winningTeamName,
-      'betPointSpread': betPointSpread,
-      'betOverUnder': betOverUnder,
-      'awayTeamScore': awayTeamScore,
-      'homeTeamScore': homeTeamScore,
       'username': username,
-      'homeTeamCity': homeTeamCity,
-      'awayTeamCity': awayTeamCity,
       'clientVersion': clientVersion,
       'stillOpen': stillOpen,
       'dataProvider': dataProvider,
       'status': status,
-      'totalGameScore': totalGameScore,
-      'winningTeam': winningTeam,
-      'homeTeamName': homeTeamName,
-      'awayTeamName': awayTeamName,
       'gameStartDateTime': gameStartDateTime,
       'dateTime': dateTime,
       'week': week,
-      'homeTeam': homeTeam,
-      'awayTeam': awayTeam,
-      'gameId': gameId,
       'isClosed': isClosed,
       'league': league,
       'odds': odds
@@ -152,27 +92,12 @@ class BetData extends Equatable {
       betType,
       status,
       stillOpen,
-      betTeam,
-      winningTeamName,
-      betPointSpread,
-      betOverUnder,
-      winningTeam,
-      homeTeam,
       username,
-      awayTeam,
-      awayTeamScore,
-      homeTeamScore,
-      totalGameScore,
       clientVersion,
       dataProvider,
-      homeTeamName,
-      awayTeamName,
       gameStartDateTime,
       dateTime,
       week,
-      gameId,
-      homeTeamCity,
-      awayTeamCity,
       isClosed,
       league,
       odds,

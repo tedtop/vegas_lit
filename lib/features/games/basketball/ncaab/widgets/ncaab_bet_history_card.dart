@@ -5,6 +5,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
 
 class NcaabBetHistoryCard extends StatelessWidget {
   const NcaabBetHistoryCard({
@@ -13,7 +14,7 @@ class NcaabBetHistoryCard extends StatelessWidget {
   })  : assert(betHistoryData != null),
         super(key: key);
 
-  final BetData betHistoryData;
+  final NcaabBetData betHistoryData;
 
   @override
   Widget build(BuildContext context) {

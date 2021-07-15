@@ -261,171 +261,173 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final odd = openBets.odds.isNegative
-        ? openBets.odds.toString()
-        : '+${openBets.odds}';
+    // final odd = openBets.odds.isNegative
+    //     ? openBets.odds.toString()
+    //     : '+${openBets.odds}';
 
-    var isMoneyline = true;
-    var betSpread = 0.0;
-    var spread = '0';
+    // var isMoneyline = true;
+    // var betSpread = 0.0;
+    // var spread = '0';
 
-    if (openBets.betOverUnder != null || openBets.betPointSpread != null) {
-      isMoneyline = openBets.betType == 'moneyline';
-      betSpread = openBets.betType == 'total'
-          ? openBets.betOverUnder
-          : openBets.betPointSpread;
-      spread = betSpread == 0
-          ? ''
-          : betSpread.isNegative
-              ? betSpread.toString()
-              : '+$betSpread';
-    }
+    // if (openBets.betOverUnder != null || openBets.betPointSpread != null) {
+    //   isMoneyline = openBets.betType == 'moneyline';
+    //   betSpread = openBets.betType == 'total'
+    //       ? openBets.betOverUnder
+    //       : openBets.betPointSpread;
+    //   spread = betSpread == 0
+    //       ? ''
+    //       : betSpread.isNegative
+    //           ? betSpread.toString()
+    //           : '+$betSpread';
+    // }
 
-    return Container(
-      constraints: const BoxConstraints(minHeight: 50),
-      color: Palette.lightGrey,
-      child: Row(
-        children: tableHeadingsWithWidth.keys
-            .map((entry) => SizedBox(
-                  child: Builder(
-                    builder: (context) {
-                      switch (entry) {
-                        case 'Game':
-                          return Stack(
-                            fit: StackFit.passthrough,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(8),
-                                            topLeft: Radius.circular(8)),
-                                        color: Palette.darkGrey,
-                                      ),
-                                      width:
-                                          (tableHeadingsWithWidth[entry] / 2) -
-                                              15,
-                                      child: Center(
-                                        child: Text(
-                                          '${openBets.awayTeamName.toUpperCase()}',
-                                          style: Styles.openBetsDesktopItem,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(8),
-                                            topRight: Radius.circular(8)),
-                                        color: Palette.darkGrey,
-                                      ),
-                                      width:
-                                          (tableHeadingsWithWidth[entry] / 2) -
-                                              15,
-                                      child: Center(
-                                        child: Text(
-                                          '${openBets.homeTeamName.toUpperCase()}',
-                                          style: Styles.openBetsDesktopItem
-                                              .copyWith(color: Palette.green),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 23, vertical: 18),
-                                child: Center(child: Text('@')),
-                              )
-                            ],
-                          );
-                        // case 'Bet Type':
-                        //   return Padding(
-                        //     padding: const EdgeInsets.symmetric(
-                        //         horizontal: 23, vertical: 18),
-                        //     child: Text(openBets.betType,
-                        //         style: GoogleFonts.nunito(
-                        //           fontSize: 18,
-                        //           fontWeight: FontWeight.w300,
-                        //           color: Palette.cream,
-                        //         )),
-                        //   );
-                        case 'Bet':
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 18),
-                            child: Text(
-                                '${BetsDataHelper.whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
-                                style: Styles.openBetsDesktopItem),
-                          );
-                        case 'Risking':
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 18),
-                              child: Text('${openBets.betAmount}',
-                                  style: Styles.openBetsDesktopItem));
-                        case 'To Win':
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 18),
-                              child: Text('${openBets.betProfit}',
-                                  style: Styles.openBetsDesktopItem));
-                        case 'Time Remaining':
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 18),
-                            child: CountdownTimer(
-                              endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                                DateTime.parse(openBets.gameStartDateTime),
-                              ),
-                              widgetBuilder: (_, CurrentRemainingTime time) {
-                                if (time == null) {
-                                  final startTime = DateTime.parse(
-                                      openBets.gameStartDateTime);
-                                  return Center(
-                                    child: Text(
-                                      'Started at ${DateFormat('hh:mm a').format(
-                                        startTime,
-                                      )} EST',
-                                      style: Styles.openBetsDesktopTime,
-                                    ),
-                                  );
-                                }
+    // return Container(
+    //   constraints: const BoxConstraints(minHeight: 50),
+    //   color: Palette.lightGrey,
+    //   child: Row(
+    //     children: tableHeadingsWithWidth.keys
+    //         .map((entry) => SizedBox(
+    //               child: Builder(
+    //                 builder: (context) {
+    //                   switch (entry) {
+    //                     case 'Game':
+    //                       return Stack(
+    //                         fit: StackFit.passthrough,
+    //                         children: [
+    //                           Padding(
+    //                             padding: const EdgeInsets.symmetric(
+    //                                 horizontal: 15, vertical: 10),
+    //                             child: Row(
+    //                               children: [
+    //                                 Container(
+    //                                   padding: const EdgeInsets.all(8),
+    //                                   decoration: const BoxDecoration(
+    //                                     borderRadius: BorderRadius.only(
+    //                                         bottomLeft: Radius.circular(8),
+    //                                         topLeft: Radius.circular(8)),
+    //                                     color: Palette.darkGrey,
+    //                                   ),
+    //                                   width:
+    //                                       (tableHeadingsWithWidth[entry] / 2) -
+    //                                           15,
+    //                                   child: Center(
+    //                                     child: Text(
+    //                                       '${openBets.awayTeamName.toUpperCase()}',
+    //                                       style: Styles.openBetsDesktopItem,
+    //                                     ),
+    //                                   ),
+    //                                 ),
+    //                                 Container(
+    //                                   padding: const EdgeInsets.all(8),
+    //                                   decoration: const BoxDecoration(
+    //                                     borderRadius: BorderRadius.only(
+    //                                         bottomRight: Radius.circular(8),
+    //                                         topRight: Radius.circular(8)),
+    //                                     color: Palette.darkGrey,
+    //                                   ),
+    //                                   width:
+    //                                       (tableHeadingsWithWidth[entry] / 2) -
+    //                                           15,
+    //                                   child: Center(
+    //                                     child: Text(
+    //                                       '${openBets.homeTeamName.toUpperCase()}',
+    //                                       style: Styles.openBetsDesktopItem
+    //                                           .copyWith(color: Palette.green),
+    //                                     ),
+    //                                   ),
+    //                                 ),
+    //                               ],
+    //                             ),
+    //                           ),
+    //                           const Padding(
+    //                             padding: EdgeInsets.symmetric(
+    //                                 horizontal: 23, vertical: 18),
+    //                             child: Center(child: Text('@')),
+    //                           )
+    //                         ],
+    //                       );
+    //                     // case 'Bet Type':
+    //                     //   return Padding(
+    //                     //     padding: const EdgeInsets.symmetric(
+    //                     //         horizontal: 23, vertical: 18),
+    //                     //     child: Text(openBets.betType,
+    //                     //         style: GoogleFonts.nunito(
+    //                     //           fontSize: 18,
+    //                     //           fontWeight: FontWeight.w300,
+    //                     //           color: Palette.cream,
+    //                     //         )),
+    //                     //   );
+    //                     case 'Bet':
+    //                       return Padding(
+    //                         padding: const EdgeInsets.symmetric(
+    //                             horizontal: 10, vertical: 18),
+    //                         child: Text(
+    //                             '${BetsDataHelper.whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
+    //                             style: Styles.openBetsDesktopItem),
+    //                       );
+    //                     case 'Risking':
+    //                       return Padding(
+    //                           padding: const EdgeInsets.symmetric(
+    //                               horizontal: 10, vertical: 18),
+    //                           child: Text('${openBets.betAmount}',
+    //                               style: Styles.openBetsDesktopItem));
+    //                     case 'To Win':
+    //                       return Padding(
+    //                           padding: const EdgeInsets.symmetric(
+    //                               horizontal: 10, vertical: 18),
+    //                           child: Text('${openBets.betProfit}',
+    //                               style: Styles.openBetsDesktopItem));
+    //                     case 'Time Remaining':
+    //                       return Padding(
+    //                         padding: const EdgeInsets.symmetric(
+    //                             horizontal: 10, vertical: 18),
+    //                         child: CountdownTimer(
+    //                           endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+    //                             DateTime.parse(openBets.gameStartDateTime),
+    //                           ),
+    //                           widgetBuilder: (_, CurrentRemainingTime time) {
+    //                             if (time == null) {
+    //                               final startTime = DateTime.parse(
+    //                                   openBets.gameStartDateTime);
+    //                               return Center(
+    //                                 child: Text(
+    //                                   'Started at ${DateFormat('hh:mm a').format(
+    //                                     startTime,
+    //                                   )} EST',
+    //                                   style: Styles.openBetsDesktopTime,
+    //                                 ),
+    //                               );
+    //                             }
 
-                                final hours = time.hours == null
-                                    ? ''
-                                    : ' ${time.hours}hr';
-                                final min =
-                                    time.min == null ? '' : ' ${time.min}m';
-                                final sec =
-                                    time.sec == null ? '' : ' ${time.sec}s';
+    //                             final hours = time.hours == null
+    //                                 ? ''
+    //                                 : ' ${time.hours}hr';
+    //                             final min =
+    //                                 time.min == null ? '' : ' ${time.min}m';
+    //                             final sec =
+    //                                 time.sec == null ? '' : ' ${time.sec}s';
 
-                                return Center(
-                                  child: Text(
-                                    'Starting in$hours$min$sec',
-                                    style: Styles.openBetsDesktopTime,
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        default:
-                          return const SizedBox();
-                      }
-                    },
-                  ),
-                  width: tableHeadingsWithWidth[entry].toDouble(),
-                ))
-            .toList(),
-      ),
-    );
+    //                             return Center(
+    //                               child: Text(
+    //                                 'Starting in$hours$min$sec',
+    //                                 style: Styles.openBetsDesktopTime,
+    //                               ),
+    //                             );
+    //                           },
+    //                         ),
+    //                       );
+    //                     default:
+    //                       return const SizedBox();
+    //                   }
+    //                 },
+    //               ),
+    //               width: tableHeadingsWithWidth[entry].toDouble(),
+    //             ))
+    //         .toList(),
+    //   ),
+    // );
+
+    return const SizedBox();
   }
 }
 
