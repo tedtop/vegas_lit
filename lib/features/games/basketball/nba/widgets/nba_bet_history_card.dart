@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/models/bet.dart';
 
-import '../../../config/palette.dart';
-import '../../../config/styles.dart';
-import '../../../data/models/bet.dart';
-
-class BetHistorySlip extends StatelessWidget {
-  const BetHistorySlip({
+class NbaBetHistoryCard extends StatelessWidget {
+  const NbaBetHistoryCard({
     Key key,
     @required this.betHistoryData,
   })  : assert(betHistoryData != null),
