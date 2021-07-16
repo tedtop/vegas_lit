@@ -11,7 +11,7 @@ import 'nfl_screen_desktop/nfl_screen_desktop.dart';
 import 'nfl_screen_mobile/nfl_screen_mobile.dart';
 import 'nfl_screen_tablet/nfl_screen_tablet.dart';
 
-class NflScreen extends StatelessWidget {
+class NflScreen extends StatefulWidget {
   const NflScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -28,7 +28,17 @@ class NflScreen extends StatelessWidget {
   }
 
   @override
+  _NflScreenState createState() => _NflScreenState();
+}
+
+class _NflScreenState extends State<NflScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<NflCubit, NflState>(
       builder: (context, state) {
         switch (state.status) {
@@ -43,7 +53,8 @@ class NflScreen extends StatelessWidget {
             );
           default:
             if (state.games.isEmpty) {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
@@ -62,7 +73,8 @@ class NflScreen extends StatelessWidget {
                 ],
               );
             } else {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   ScreenTypeLayout(
                     //key: cardKey,

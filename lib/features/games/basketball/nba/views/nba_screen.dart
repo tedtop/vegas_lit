@@ -11,7 +11,7 @@ import 'nba_screen_desktop/nba_screen_desktop.dart';
 import 'nba_screen_mobile/nba_screen_mobile.dart';
 import 'nba_screen_tablet/nba_screen_tablet.dart';
 
-class NbaScreen extends StatelessWidget {
+class NbaScreen extends StatefulWidget {
   const NbaScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -28,7 +28,17 @@ class NbaScreen extends StatelessWidget {
   }
 
   @override
+  _NbaScreenState createState() => _NbaScreenState();
+}
+
+class _NbaScreenState extends State<NbaScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<NbaCubit, NbaState>(
       builder: (context, state) {
         switch (state.status) {
@@ -43,7 +53,8 @@ class NbaScreen extends StatelessWidget {
             );
           default:
             if (state.games.isEmpty) {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
@@ -62,7 +73,8 @@ class NbaScreen extends StatelessWidget {
                 ],
               );
             } else {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   ScreenTypeLayout(
                     //key: cardKey,

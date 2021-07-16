@@ -75,16 +75,18 @@ class _SportsBookViewState extends State<SportsBookView>
 
   final GlobalKey _key2 = GlobalKey();
 
+  final ScrollController _scrollController = ScrollController();
+  final _pageController = PageController(initialPage: 7);
+
   @override
   bool get wantKeepAlive => true;
 
-  final ScrollController _scrollController = ScrollController();
-  //OverlayEntry _overlayEntry;
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
         body: RefreshIndicator(
+          notificationPredicate: (notification) => notification.depth == 1,
           onRefresh: () async {
             context.read<SportsbookBloc>().add(
                   SportsbookOpen(league: widget.league),
@@ -94,170 +96,189 @@ class _SportsBookViewState extends State<SportsBookView>
                 betSlipGames: [],
               );
           },
-          color: Palette.cream,
-          child: ListView(
+          child: NestedScrollView(
             controller: _scrollController,
-            shrinkWrap: true,
+            floatHeaderSlivers: true,
             physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              Text(
-                'SPORTSBOOK',
-                textAlign: TextAlign.center,
-                style: Styles.pageTitle,
-              ),
-              ScreenTypeLayout(
-                mobile: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverToBoxAdapter(
+                  child: Column(
                     children: [
-                      Expanded(flex: 2, child: _selectGameDropdown()),
-                      kIsWeb
-                          ? const SizedBox()
-                          : Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  context.read<HomeCubit>().homeChange(1);
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      'BET SLIP',
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Palette.cream,
+                      Text(
+                        'SPORTSBOOK',
+                        textAlign: TextAlign.center,
+                        style: Styles.pageTitle,
+                      ),
+                      ScreenTypeLayout(
+                        mobile: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(flex: 2, child: _selectGameDropdown()),
+                              kIsWeb
+                                  ? const SizedBox()
+                                  : Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          context
+                                              .read<HomeCubit>()
+                                              .homeChange(1);
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              'BET SLIP',
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Palette.cream,
+                                              ),
+                                            ),
+                                            BlocBuilder<BetSlipCubit,
+                                                BetSlipState>(
+                                              builder: (context, state) {
+                                                switch (state.status) {
+                                                  case BetSlipStatus.opened:
+                                                    return Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Palette.cream,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                      ),
+                                                      height: 40,
+                                                      width: 42,
+                                                      child: Center(
+                                                        child: Text(
+                                                          state.betSlipCard
+                                                              .length
+                                                              .toString(),
+                                                          style: GoogleFonts
+                                                              .nunito(
+                                                            color: Palette
+                                                                .darkGrey,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                    break;
+                                                  default:
+                                                    return const Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: Palette.cream,
+                                                      ),
+                                                    );
+                                                    break;
+                                                }
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    BlocBuilder<BetSlipCubit, BetSlipState>(
-                                      builder: (context, state) {
-                                        switch (state.status) {
-                                          case BetSlipStatus.opened:
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Palette.cream,
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
-                                              ),
-                                              height: 40,
-                                              width: 42,
-                                              child: Center(
-                                                child: Text(
-                                                  state.betSlipCard.length
-                                                      .toString(),
-                                                  style: GoogleFonts.nunito(
-                                                    color: Palette.darkGrey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                            break;
-                                          default:
-                                            return const Center(
-                                              child: CircularProgressIndicator(
-                                                color: Palette.cream,
-                                              ),
-                                            );
-                                            break;
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            ],
+                          ),
+                        ),
+                        tablet: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            constraints: const BoxConstraints(maxWidth: 500),
+                            width: 500,
+                            child: _selectGameDropdown()),
+                        desktop: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            constraints: const BoxConstraints(
+                              maxWidth: 600,
                             ),
+                            width: 600,
+                            child: _selectGameDropdown()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'All games are based on Eastern Standard Time',
+                              style: Styles.matchupTime,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Eastern Time: ${formatDate(widget.estTimeZone)}',
+                              style: Styles.matchupTime,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                tablet: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    constraints: const BoxConstraints(maxWidth: 500),
-                    width: 500,
-                    child: _selectGameDropdown()),
-                desktop: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    constraints: const BoxConstraints(
-                      maxWidth: 600,
-                    ),
-                    width: 600,
-                    child: _selectGameDropdown()),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'All games are based on Eastern Standard Time',
-                      style: Styles.matchupTime,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Eastern Time: ${formatDate(widget.estTimeZone)}',
-                      style: Styles.matchupTime,
-                    ),
-                  ],
-                ),
-              ),
-              Builder(
-                builder: (context) {
-                  var selectedIndex = 6;
+              ];
+            },
+            body: Builder(
+              builder: (context) {
+                if (_pageController.hasClients ?? false)
                   switch (widget.league) {
                     case 'NFL':
-                      selectedIndex = 0;
+                      _pageController.jumpToPage(0);
                       break;
                     case 'NBA':
-                      selectedIndex = 1;
+                      _pageController.jumpToPage(1);
                       break;
                     case 'NHL':
-                      selectedIndex = 2;
+                      _pageController.jumpToPage(2);
                       break;
                     case 'NCAAF':
-                      selectedIndex = 3;
+                      _pageController.jumpToPage(3);
                       break;
                     case 'NCAAB':
-                      selectedIndex = 4;
+                      _pageController.jumpToPage(4);
                       break;
                     case 'GOLF':
-                      selectedIndex = 5;
+                      _pageController.jumpToPage(5);
                       break;
                     case 'MLB':
-                      selectedIndex = 6;
+                      _pageController.jumpToPage(6);
                       break;
                     case 'OLYMPICS':
-                      selectedIndex = 7;
+                      _pageController.jumpToPage(7);
                       break;
                     default:
-                      selectedIndex = 8;
+                      _pageController.jumpToPage(0);
                       break;
                   }
-                  return FadeIndexedStack(
-                    index: selectedIndex,
-                    children: [
-                      NflScreen.route(),
-                      NbaScreen.route(),
-                      NhlScreen.route(),
-                      NcaafScreen.route(),
-                      NcaabScreen.route(),
-                      GolfScreen.route(),
-                      MlbScreen.route(),
-                      OlympicsScreen.route(),
-                      Container(),
-                    ],
-                  );
-                },
-              ),
-            ],
+
+                return PageView(
+                  controller: _pageController,
+                  // allowImplicitScrolling: true,
+                  children: [
+                    NflScreen.route(),
+                    NbaScreen.route(),
+                    NhlScreen.route(),
+                    NcaafScreen.route(),
+                    NcaabScreen.route(),
+                    GolfScreen.route(),
+                    MlbScreen.route(),
+                    OlympicsScreen.route(),
+                    Container(),
+                  ],
+                );
+              },
+            ),
           ),
         ),
         floatingActionButton: ResponsiveBuilder(
@@ -378,61 +399,6 @@ class _SportsBookViewState extends State<SportsBookView>
   String formatDate(DateTime dateTime) {
     return DateFormat('E, MMMM, c, y @ hh:mm a').format(
       dateTime,
-    );
-  }
-}
-
-class FadeIndexedStack extends StatefulWidget {
-  const FadeIndexedStack({
-    Key key,
-    this.index,
-    this.children,
-    this.duration = const Duration(
-      milliseconds: 800,
-    ),
-  }) : super(key: key);
-
-  final int index;
-  final List<Widget> children;
-  final Duration duration;
-
-  @override
-  _FadeIndexedStackState createState() => _FadeIndexedStackState();
-}
-
-class _FadeIndexedStackState extends State<FadeIndexedStack>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-
-  @override
-  void didUpdateWidget(FadeIndexedStack oldWidget) {
-    if (widget.index != oldWidget.index) {
-      _controller.forward(from: 0.0);
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void initState() {
-    _controller = AnimationController(vsync: this, duration: widget.duration);
-    _controller.forward();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _controller,
-      child: IndexedStack(
-        index: widget.index,
-        children: widget.children,
-      ),
     );
   }
 }

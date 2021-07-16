@@ -11,7 +11,7 @@ import 'mlb_screen_desktop/mlb_screen_desktop.dart';
 import 'mlb_screen_mobile/mlb_screen_mobile.dart';
 import 'mlb_screen_tablet/mlb_screen_tablet.dart';
 
-class MlbScreen extends StatelessWidget {
+class MlbScreen extends StatefulWidget {
   const MlbScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -28,7 +28,17 @@ class MlbScreen extends StatelessWidget {
   }
 
   @override
+  _MlbScreenState createState() => _MlbScreenState();
+}
+
+class _MlbScreenState extends State<MlbScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<MlbCubit, MlbState>(
       builder: (context, state) {
         switch (state.status) {
@@ -62,7 +72,8 @@ class MlbScreen extends StatelessWidget {
                 ],
               );
             } else {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   ScreenTypeLayout(
                     mobile: MobileMlbScreen(

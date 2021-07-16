@@ -11,7 +11,7 @@ import 'ncaab_screen_desktop/ncaab_screen_desktop.dart';
 import 'ncaab_screen_mobile/ncaab_screen_mobile.dart';
 import 'ncaab_screen_tablet/ncaab_screen_tablet.dart';
 
-class NcaabScreen extends StatelessWidget {
+class NcaabScreen extends StatefulWidget {
   const NcaabScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -28,7 +28,17 @@ class NcaabScreen extends StatelessWidget {
   }
 
   @override
+  _NcaabScreenState createState() => _NcaabScreenState();
+}
+
+class _NcaabScreenState extends State<NcaabScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<NcaabCubit, NcaabState>(
       builder: (context, state) {
         switch (state.status) {
@@ -43,7 +53,8 @@ class NcaabScreen extends StatelessWidget {
             );
           default:
             if (state.games.isEmpty) {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
@@ -62,7 +73,8 @@ class NcaabScreen extends StatelessWidget {
                 ],
               );
             } else {
-              return Column(
+              return ListView(
+                shrinkWrap: true,
                 children: [
                   ScreenTypeLayout(
                     //key: cardKey,
