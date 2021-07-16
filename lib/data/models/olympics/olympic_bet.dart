@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 
 import '../bet.dart';
 
-class OlympicBetData extends BetData {
-  OlympicBetData({
+class OlympicsBetData extends BetData {
+  OlympicsBetData({
     @required id,
     @required betAmount,
     @required betProfit,
@@ -21,6 +21,21 @@ class OlympicBetData extends BetData {
     @required isClosed,
     @required league,
     @required odds,
+    @required this.betTeam,
+    @required this.winningTeamName,
+    @required this.betPointSpread,
+    @required this.betOverUnder,
+    @required this.awayTeamScore,
+    @required this.homeTeamScore,
+    @required this.totalGameScore,
+    @required this.homeTeamCity,
+    @required this.awayTeamCity,
+    @required this.homeTeamName,
+    @required this.homeTeam,
+    @required this.awayTeamName,
+    @required this.awayTeam,
+    @required this.gameId,
+    @required this.winningTeam,
   }) : super(
           id: id,
           betAmount: betAmount,
@@ -41,9 +56,9 @@ class OlympicBetData extends BetData {
         );
 
   @override
-  factory OlympicBetData.fromFirestore(DocumentSnapshot snapshot) {
+  factory OlympicsBetData.fromFirestore(DocumentSnapshot snapshot) {
     final Map data = snapshot.data();
-    return OlympicBetData(
+    return OlympicsBetData(
       id: data['id'] as String,
       betAmount: data['betAmount'] as int,
       betProfit: data['betProfit'] as int,
@@ -84,6 +99,22 @@ class OlympicBetData extends BetData {
       'odds': odds
     };
   }
+
+  final String betTeam;
+  final String winningTeamName;
+  final double betPointSpread;
+  final double betOverUnder;
+  final int awayTeamScore;
+  final int homeTeamScore;
+  final int totalGameScore;
+  final String homeTeamCity;
+  final String awayTeamCity;
+  final String homeTeamName;
+  final String homeTeam;
+  final String awayTeamName;
+  final String awayTeam;
+  final int gameId;
+  final String winningTeam;
 
   @override
   List<Object> get props {
