@@ -101,8 +101,7 @@ class CloudFirestoreClient {
         .map(
           (event) => event.docs.map(
             (snapshot) {
-              final baseBetData = BetData.fromFirestore(snapshot);
-              switch (baseBetData.league) {
+              switch (snapshot.data()['league'] as String) {
                 case 'mlb':
                   return MlbBetData.fromFirestore(snapshot);
                   break;
@@ -125,7 +124,7 @@ class CloudFirestoreClient {
                 //   return OlympicBetData.fromFirestore(snapshot);
                 //   break;
                 default:
-                  return baseBetData;
+                  return BetData.fromFirestore(snapshot);
               }
             },
           ).toList(),
@@ -149,8 +148,7 @@ class CloudFirestoreClient {
         .map(
           (event) => event.docs.map(
             (snapshot) {
-              final baseBetData = BetData.fromFirestore(snapshot);
-              switch (baseBetData.league) {
+              switch (snapshot.data()['league'] as String) {
                 case 'mlb':
                   return MlbBetData.fromFirestore(snapshot);
                   break;
@@ -173,7 +171,7 @@ class CloudFirestoreClient {
                 //   return OlympicBetData.fromFirestore(snapshot);
                 //   break;
                 default:
-                  return baseBetData;
+                  return BetData.fromFirestore(snapshot);
               }
             },
           ).toList(),
