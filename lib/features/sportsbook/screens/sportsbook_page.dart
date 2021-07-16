@@ -85,151 +85,148 @@ class _SportsBookViewState extends State<SportsBookView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-        body: RefreshIndicator(
-          notificationPredicate: (notification) => notification.depth == 1,
-          onRefresh: () async {
-            context.read<SportsbookBloc>().add(
-                  SportsbookOpen(league: widget.league),
-                );
-            context.read<BetSlipCubit>()
-              ..openBetSlip(
-                betSlipGames: [],
-              );
-          },
-          child: NestedScrollView(
-            controller: _scrollController,
-            floatHeaderSlivers: true,
-            physics: const AlwaysScrollableScrollPhysics(),
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      Text(
-                        'SPORTSBOOK',
-                        textAlign: TextAlign.center,
-                        style: Styles.pageTitle,
-                      ),
-                      ScreenTypeLayout(
-                        mobile: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(flex: 2, child: _selectGameDropdown()),
-                              kIsWeb
-                                  ? const SizedBox()
-                                  : Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          context
-                                              .read<HomeCubit>()
-                                              .homeChange(1);
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'BET SLIP',
-                                              style: GoogleFonts.nunito(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Palette.cream,
-                                              ),
+        body: NestedScrollView(
+          controller: _scrollController,
+          floatHeaderSlivers: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    Text(
+                      'SPORTSBOOK',
+                      textAlign: TextAlign.center,
+                      style: Styles.pageTitle,
+                    ),
+                    ScreenTypeLayout(
+                      mobile: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(flex: 2, child: _selectGameDropdown()),
+                            kIsWeb
+                                ? const SizedBox()
+                                : Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        context.read<HomeCubit>().homeChange(1);
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            'BET SLIP',
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.cream,
                                             ),
-                                            BlocBuilder<BetSlipCubit,
-                                                BetSlipState>(
-                                              builder: (context, state) {
-                                                switch (state.status) {
-                                                  case BetSlipStatus.opened:
-                                                    return Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Palette.cream,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(6),
-                                                      ),
-                                                      height: 40,
-                                                      width: 42,
-                                                      child: Center(
-                                                        child: Text(
-                                                          state.betSlipCard
-                                                              .length
-                                                              .toString(),
-                                                          style: GoogleFonts
-                                                              .nunito(
-                                                            color: Palette
-                                                                .darkGrey,
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                          ),
+                                          BlocBuilder<BetSlipCubit,
+                                              BetSlipState>(
+                                            builder: (context, state) {
+                                              switch (state.status) {
+                                                case BetSlipStatus.opened:
+                                                  return Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Palette.cream,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6),
+                                                    ),
+                                                    height: 40,
+                                                    width: 42,
+                                                    child: Center(
+                                                      child: Text(
+                                                        state.betSlipCard.length
+                                                            .toString(),
+                                                        style:
+                                                            GoogleFonts.nunito(
+                                                          color:
+                                                              Palette.darkGrey,
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                       ),
-                                                    );
-                                                    break;
-                                                  default:
-                                                    return const Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: Palette.cream,
-                                                      ),
-                                                    );
-                                                    break;
-                                                }
-                                              },
-                                            ),
-                                          ],
-                                        ),
+                                                    ),
+                                                  );
+                                                  break;
+                                                default:
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: Palette.cream,
+                                                    ),
+                                                  );
+                                                  break;
+                                              }
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ),
-                            ],
+                                  ),
+                          ],
+                        ),
+                      ),
+                      tablet: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          constraints: const BoxConstraints(maxWidth: 500),
+                          width: 500,
+                          child: _selectGameDropdown()),
+                      desktop: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          constraints: const BoxConstraints(
+                            maxWidth: 600,
                           ),
-                        ),
-                        tablet: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            constraints: const BoxConstraints(maxWidth: 500),
-                            width: 500,
-                            child: _selectGameDropdown()),
-                        desktop: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            constraints: const BoxConstraints(
-                              maxWidth: 600,
-                            ),
-                            width: 600,
-                            child: _selectGameDropdown()),
+                          width: 600,
+                          child: _selectGameDropdown()),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'All games are based on Eastern Standard Time',
+                            style: Styles.matchupTime,
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'All games are based on Eastern Standard Time',
-                              style: Styles.matchupTime,
-                            ),
-                          ],
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Eastern Time: ${formatDate(widget.estTimeZone)}',
+                            style: Styles.matchupTime,
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Eastern Time: ${formatDate(widget.estTimeZone)}',
-                              style: Styles.matchupTime,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ];
+              ),
+            ];
+          },
+          body: RefreshIndicator(
+            notificationPredicate: (notif) => notif.depth == 1,
+            onRefresh: () async {
+              context.read<SportsbookBloc>().add(
+                    SportsbookOpen(league: widget.league),
+                  );
+              context.read<BetSlipCubit>()
+                ..openBetSlip(
+                  betSlipGames: [],
+                );
             },
-            body: Builder(
+            color: Palette.cream,
+            child: Builder(
               builder: (context) {
                 if (_pageController.hasClients ?? false)
                   switch (widget.league) {
@@ -264,7 +261,6 @@ class _SportsBookViewState extends State<SportsBookView>
 
                 return PageView(
                   controller: _pageController,
-                  // allowImplicitScrolling: true,
                   children: [
                     NflScreen.route(),
                     NbaScreen.route(),
