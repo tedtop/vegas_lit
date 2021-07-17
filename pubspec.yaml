@@ -17,6 +17,7 @@ dependencies:
   cloud_firestore: ^1.0.7
   cloud_firestore_web: ^1.0.5
   connectivity: ^3.0.3
+  country_picker: ^2.0.6
   dio: ^4.0.0
   equatable: ^2.0.0
   firebase_analytics: ^8.1.0

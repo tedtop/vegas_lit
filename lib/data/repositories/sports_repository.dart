@@ -88,4 +88,7 @@ class SportsRepository {
 
   Stream<List<OlympicsGame>> fetchOlympicsGame() =>
       _databaseProvider.fetchOlympicsGames();
+
+  Future<void> addOlympicsGame({OlympicsGame game}) =>
+      _databaseProvider.addOlympicsGame(game: game);
 }

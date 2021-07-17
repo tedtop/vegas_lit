@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/olympics/olympic_add.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -117,6 +118,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   },
                 )
               : Container(),
+          ListTile(
+            title: Text('OLYMPICS', style: Styles.normalTextBold),
+            onTap: () {
+              Navigator.of(context).push(OlympicsAddForm.route());
+            },
+          ),
           ListTile(
             leading: Text('LOGOUT', style: Styles.normalTextBold),
             onTap: () {

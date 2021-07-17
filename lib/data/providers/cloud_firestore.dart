@@ -447,4 +447,14 @@ class CloudFirestoreClient {
     );
     return gameList;
   }
+
+  Future<void> addOlympicsGame({OlympicsGame game}) async {
+    final olympicsCollectionRef = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('games');
+
+    await olympicsCollectionRef.add(game.toMap());
+    return;
+  }
 }

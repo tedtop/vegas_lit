@@ -70,7 +70,7 @@ class OlympicsGame extends Equatable {
   }
 
   Map<String, dynamic> toMap() => {
-        'startTime': startTime,
+        'startTime': startTime.toString(),
         'venue': venue,
         'event': event,
         'gameName': gameName,

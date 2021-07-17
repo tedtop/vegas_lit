@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -55,6 +56,24 @@ extension ESTDateTime on DateTime {
       case DateTime.saturday:
         return '${time.year}-$weekNumber-${weekNumber + 1}';
         break;
+    }
+  }
+}
+
+extension TimeOfDayExtension on TimeOfDay {
+  TimeOfDay plusMinutes(int minutes) {
+    if (minutes == 0) {
+      return this;
+    } else {
+      final mofd = hour * 60 + minute;
+      final newMofd = ((minutes % 1440) + mofd + 1440) % 1440;
+      if (mofd == newMofd) {
+        return this;
+      } else {
+        final newHour = newMofd ~/ 60;
+        final newMinute = newMofd % 60;
+        return TimeOfDay(hour: newHour, minute: newMinute);
+      }
     }
   }
 }
