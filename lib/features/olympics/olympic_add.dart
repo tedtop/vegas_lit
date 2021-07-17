@@ -9,7 +9,6 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
 class OlympicsAddForm extends StatefulWidget {
@@ -124,30 +123,62 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         ),
                       ],
                     ),
-                    TextFormField(
-                      controller: venueController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Venue',
-                        labelStyle: Styles.signUpFieldHint,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        controller: venueController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        cursorColor: Palette.cream,
+                        style: Styles.signUpFieldText,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 8,
+                          ),
+                          hintStyle: Styles.signUpFieldHint,
+                          errorStyle: Styles.authFieldError,
+                          filled: true,
+                          fillColor: Palette.lightGrey,
+                          border: Styles.signUpInputFieldBorder,
+                          focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                          isDense: true,
+                          labelText: 'Venue',
+                          labelStyle: Styles.signUpFieldHint,
+                        ),
                       ),
                     ),
-                    TextFormField(
-                      controller: eventController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Event',
-                        labelStyle: Styles.signUpFieldHint,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        controller: eventController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        cursorColor: Palette.cream,
+                        style: Styles.signUpFieldText,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 8,
+                          ),
+                          hintStyle: Styles.signUpFieldHint,
+                          errorStyle: Styles.authFieldError,
+                          filled: true,
+                          fillColor: Palette.lightGrey,
+                          border: Styles.signUpInputFieldBorder,
+                          focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                          isDense: true,
+                          labelText: 'Event',
+                          labelStyle: Styles.signUpFieldHint,
+                        ),
                       ),
                     ),
                     DropdownButtonFormField(
@@ -155,6 +186,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         'Event Type',
                         style: Styles.signUpFieldHint,
                       ),
+                      style: Styles.signUpFieldText,
                       value: eventType,
                       items: <String>[
                         'Normal',
@@ -172,22 +204,38 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         });
                       },
                     ),
-                    TextFormField(
-                      onChanged: (text) {
-                        setState(() {
-                          sessionNo = int.tryParse(text);
-                        });
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Session No.',
-                        labelStyle: Styles.signUpFieldHint,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        onChanged: (text) {
+                          setState(() {
+                            sessionNo = int.tryParse(text);
+                          });
+                        },
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        cursorColor: Palette.cream,
+                        style: Styles.signUpFieldText,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 8,
+                          ),
+                          hintStyle: Styles.signUpFieldHint,
+                          errorStyle: Styles.authFieldError,
+                          filled: true,
+                          fillColor: Palette.lightGrey,
+                          border: Styles.signUpInputFieldBorder,
+                          focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                          isDense: true,
+                          labelText: 'Session No.',
+                          labelStyle: Styles.signUpFieldHint,
+                        ),
                       ),
                     ),
                     Row(
@@ -232,22 +280,38 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         ),
                       ],
                     ),
-                    TextFormField(
-                      onChanged: (text) {
-                        setState(() {
-                          matchCode = int.tryParse(text);
-                        });
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Match Code',
-                        labelStyle: Styles.signUpFieldHint,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        onChanged: (text) {
+                          setState(() {
+                            matchCode = int.tryParse(text);
+                          });
+                        },
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        cursorColor: Palette.cream,
+                        style: Styles.signUpFieldText,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 8,
+                          ),
+                          hintStyle: Styles.signUpFieldHint,
+                          errorStyle: Styles.authFieldError,
+                          filled: true,
+                          fillColor: Palette.lightGrey,
+                          border: Styles.signUpInputFieldBorder,
+                          focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                          isDense: true,
+                          labelText: 'Match Code',
+                          labelStyle: Styles.signUpFieldHint,
+                        ),
                       ),
                     ),
                     DropdownButtonFormField(
@@ -261,6 +325,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         }
                         return null;
                       },
+                      style: Styles.signUpFieldText,
                       value: gameName,
                       items: <String>[
                         '3x3 Basketball',
@@ -320,17 +385,33 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         });
                       },
                     ),
-                    TextFormField(
-                      controller: playerController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Player',
-                        labelStyle: Styles.signUpFieldHint,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        controller: playerController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        cursorColor: Palette.cream,
+                        style: Styles.signUpFieldText,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 8,
+                          ),
+                          hintStyle: Styles.signUpFieldHint,
+                          errorStyle: Styles.authFieldError,
+                          filled: true,
+                          fillColor: Palette.lightGrey,
+                          border: Styles.signUpInputFieldBorder,
+                          focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                          isDense: true,
+                          labelText: 'Player',
+                          labelStyle: Styles.signUpFieldHint,
+                        ),
                       ),
                     ),
                     Row(
@@ -383,7 +464,20 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         }
                         return null;
                       },
+                      cursorColor: Palette.cream,
+                      style: Styles.signUpFieldText,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 8,
+                        ),
+                        hintStyle: Styles.signUpFieldHint,
+                        errorStyle: Styles.authFieldError,
+                        filled: true,
+                        fillColor: Palette.lightGrey,
+                        border: Styles.signUpInputFieldBorder,
+                        focusedBorder: Styles.signUpInputFieldFocusedBorder,
+                        isDense: true,
                         labelText: 'Rival',
                         labelStyle: Styles.signUpFieldHint,
                       ),
