@@ -13,7 +13,6 @@ class Images {
   static const String numberOfBetsHelpOverlay =
       'assets/overlays/how_many_bets.png';
 
-  static const String countryIconsPath = 'assets/images/country_icons/';
   static const String olympicsIconsPath = 'assets/images/olympics_icons/';
 }
 

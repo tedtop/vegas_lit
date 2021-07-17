@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 
 class OlympicsMatchupCard extends StatelessWidget {
@@ -83,10 +84,10 @@ class OlympicsMatchupCard extends StatelessWidget {
                           color: Palette.darkGrey),
                       child: Row(
                         children: [
-                          Image.asset(
-                            '${Images.countryIconsPath}GB.png',
-                            height: 25,
-                            width: 25,
+                          Text(
+                            OlympicHelper.countryFlagFromCode(
+                                countryCode: game.playerCountry),
+                            style: const TextStyle(fontSize: 18),
                           ),
                           const SizedBox(width: 10),
                           Text(
@@ -108,10 +109,10 @@ class OlympicsMatchupCard extends StatelessWidget {
                           color: Palette.green),
                       child: Row(
                         children: [
-                          Image.asset(
-                            '${Images.countryIconsPath}CL.png',
-                            height: 25,
-                            width: 25,
+                          Text(
+                            OlympicHelper.countryFlagFromCode(
+                                countryCode: game.rivalCountry),
+                            style: const TextStyle(fontSize: 18),
                           ),
                           const SizedBox(width: 10),
                           Text(
