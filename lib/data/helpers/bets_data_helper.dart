@@ -25,6 +25,9 @@ class BetsDataHelper {
     }
     if (betType == 'total') {
       return 'TOTAL O/U';
+    }
+    if (betType == 'olympics') {
+      return 'OLYMPICS';
     } else {
       return 'ERROR';
     }
