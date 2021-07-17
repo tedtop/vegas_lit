@@ -439,9 +439,11 @@ class CloudFirestoreClient {
         .snapshots();
 
     final gameList = snapshots.map(
-      (event) => event.docs.map(
-        (e) => OlympicsGame.fromFirestore(e),
-      ),
+      (event) => event.docs
+          .map(
+            (e) => OlympicsGame.fromFirestore(e),
+          )
+          .toList(),
     );
     return gameList;
   }

@@ -1,14 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class OlympicsGame {
+class OlympicsGame extends Equatable {
   OlympicsGame({
-    this.sport,
-    this.date,
-    this.player1,
-    this.player1Country,
-    this.player2,
-    this.player2Country,
-    this.winner,
+    this.startTime,
+    this.venue,
+    this.event,
+    this.gameName,
+    this.eventType,
+    this.sessionNo,
+    this.sessionTime,
+    this.matchCode,
+    this.player,
+    this.playerCountry,
+    this.rival,
+    this.rivalCountry,
+    this.gameId,
+    this.isClosed,
     this.snapshot,
     this.reference,
     this.documentID,
@@ -19,13 +27,21 @@ class OlympicsGame {
     final map = snapshot.data();
 
     return OlympicsGame(
-      sport: map['sport'],
-      date: map['date']?.toDate(),
-      player1: map['player1'],
-      player1Country: map['player1Country'],
-      player2: map['player2'],
-      player2Country: map['player2Country'],
-      winner: map['winner'],
+      startTime:
+          map['startTime'] == null ? null : DateTime.parse(map['startTime']),
+      venue: map['venue'],
+      event: map['event'],
+      gameName: map['gameName'],
+      eventType: map['eventType'],
+      sessionNo: map['sessionNo'],
+      sessionTime: map['sessionTime'],
+      matchCode: map['matchCode'],
+      player: map['player'],
+      playerCountry: map['playerCountry'],
+      rival: map['rival'],
+      rivalCountry: map['rivalCountry'],
+      gameId: map['gameId'],
+      isClosed: map['isClosed'],
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -36,59 +52,112 @@ class OlympicsGame {
     if (map == null) return null;
 
     return OlympicsGame(
-      sport: map['sport'],
-      date: map['date']?.toDate(),
-      player1: map['player1'],
-      player1Country: map['player1Country'],
-      player2: map['player2'],
-      player2Country: map['player2Country'],
-      winner: map['winner'],
+      startTime: map['startTime'],
+      venue: map['venue'],
+      event: map['event'],
+      gameName: map['gameName'],
+      eventType: map['eventType'],
+      sessionNo: map['sessionNo'],
+      sessionTime: map['sessionTime'],
+      matchCode: map['matchCode'],
+      player: map['player'],
+      playerCountry: map['playerCountry'],
+      rival: map['rival'],
+      rivalCountry: map['rivalCountry'],
+      gameId: map['gameId'],
+      isClosed: map['isClosed'],
     );
   }
 
   Map<String, dynamic> toMap() => {
-        'sport': sport,
-        'date': date,
-        'player1': player1,
-        'player1Country': player1Country,
-        'player2': player2,
-        'player2Country': player2Country,
-        'winner': winner,
+        'startTime': startTime,
+        'venue': venue,
+        'event': event,
+        'gameName': gameName,
+        'eventType': eventType,
+        'sessionNo': sessionNo,
+        'sessionTime': sessionTime,
+        'matchCode': matchCode,
+        'player': player,
+        'playerCountry': playerCountry,
+        'rival': rival,
+        'rivalCountry': rivalCountry,
+        'gameId': gameId,
+        'isClosed': isClosed,
       };
 
-  OlympicsGame copyWith({
-    String sport,
-    DateTime date,
-    String player1,
-    String player1Country,
-    String player2,
-    String player2Country,
-    String winner,
-  }) {
-    return OlympicsGame(
-      sport: sport ?? this.sport,
-      date: date ?? this.date,
-      player1: player1 ?? this.player1,
-      player1Country: player1Country ?? this.player1Country,
-      player2: player2 ?? this.player2,
-      player2Country: player2Country ?? this.player2Country,
-      winner: winner ?? this.winner,
-    );
-  }
-
-  final String sport;
-  final DateTime date;
-  final String player1;
-  final String player1Country;
-  final String player2;
-  final String player2Country;
-  final String winner;
+  final DateTime startTime;
+  final String venue;
+  final String event;
+  final String gameName;
+  final String eventType;
+  final int sessionNo;
+  final String sessionTime;
+  final String matchCode;
+  final String player;
+  final String playerCountry;
+  final String rival;
+  final String rivalCountry;
+  final String gameId;
+  final bool isClosed;
   final DocumentSnapshot snapshot;
   final DocumentReference reference;
   final String documentID;
 
+  OlympicsGame copyWith({
+    DateTime startTime,
+    String venue,
+    String event,
+    String gameName,
+    String eventType,
+    int sessionNo,
+    String sessionTime,
+    String matchCode,
+    String player,
+    String playerCountry,
+    String rival,
+    String rivalCountry,
+    String gameId,
+    bool isClosed,
+  }) {
+    return OlympicsGame(
+      startTime: startTime ?? this.startTime,
+      venue: venue ?? this.venue,
+      event: event ?? this.event,
+      gameName: gameName ?? this.gameName,
+      eventType: eventType ?? this.eventType,
+      sessionNo: sessionNo ?? this.sessionNo,
+      sessionTime: sessionTime ?? this.sessionTime,
+      matchCode: matchCode ?? this.matchCode,
+      player: player ?? this.player,
+      playerCountry: playerCountry ?? this.playerCountry,
+      rival: rival ?? this.rival,
+      rivalCountry: rivalCountry ?? this.rivalCountry,
+      gameId: gameId ?? this.gameId,
+      isClosed: isClosed ?? this.isClosed,
+    );
+  }
+
   @override
-  String toString() {
-    return '${sport.toString()}, ${date.toString()}, ${player1.toString()}, ${player1Country.toString()}, ${player2.toString()}, ${player2Country.toString()}, ${winner.toString()}, ';
+  List<Object> get props {
+    return [
+      startTime,
+      venue,
+      event,
+      gameName,
+      eventType,
+      sessionNo,
+      sessionTime,
+      matchCode,
+      player,
+      playerCountry,
+      rival,
+      rivalCountry,
+      gameId,
+      isClosed,
+      snapshot,
+      reference,
+      documentID,
+    ];
   }
 }
