@@ -216,19 +216,19 @@ class _MobileHistoryHeading extends StatelessWidget {
                       ),
                     ),
                   ),
+            const SizedBox(
+              width: 10,
+            ),
             Expanded(
               child: betHistoryState.status == LeaderboardProfileStatus.success
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '${betHistoryState.userWallet.username}',
-                            style: Styles.pageTitle,
-                          ),
-                        ),
-                      ],
+                  ? Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${betHistoryState.userWallet.username}',
+                        style: Styles.pageTitle,
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                      ),
                     )
                   : const SizedBox(),
             ),

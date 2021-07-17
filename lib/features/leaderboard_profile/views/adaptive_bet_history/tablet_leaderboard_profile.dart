@@ -249,17 +249,14 @@ class _TabletHistoryHeading extends StatelessWidget {
                   ),
             Expanded(
               child: betHistoryState.status == LeaderboardProfileStatus.success
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '${betHistoryState.userWallet.username}',
-                            style: Styles.pageTitle,
-                          ),
-                        ),
-                      ],
+                  ? Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${betHistoryState.userWallet.username}',
+                        style: Styles.pageTitle,
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                      ),
                     )
                   : const SizedBox(),
             ),
