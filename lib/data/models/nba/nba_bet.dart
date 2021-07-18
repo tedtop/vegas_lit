@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 
 import '../bet.dart';
 
@@ -8,19 +8,19 @@ class NbaBetData extends BetData {
     @required id,
     @required betAmount,
     @required betProfit,
-    @required betType,
-    @required stillOpen,
     @required username,
-    @required status,
     @required dataProvider,
     @required clientVersion,
     @required uid,
-    @required gameStartDateTime,
     @required dateTime,
     @required week,
     @required isClosed,
     @required league,
-    @required odds,
+    @required this.betType,
+    @required this.gameStartDateTime,
+    @required this.status,
+    @required this.stillOpen,
+    @required this.odds,
     @required this.betTeam,
     @required this.winningTeamName,
     @required this.winningTeam,
@@ -40,19 +40,14 @@ class NbaBetData extends BetData {
           id: id,
           betAmount: betAmount,
           betProfit: betProfit,
-          betType: betType,
-          stillOpen: stillOpen,
           username: username,
-          status: status,
           dataProvider: dataProvider,
           clientVersion: clientVersion,
           uid: uid,
-          gameStartDateTime: gameStartDateTime,
           dateTime: dateTime,
           week: week,
           isClosed: isClosed,
           league: league,
-          odds: odds,
         );
 
   @override
@@ -107,6 +102,11 @@ class NbaBetData extends BetData {
   final String awayTeamName;
   final String awayTeam;
   final int gameId;
+  final String betType;
+  final bool stillOpen;
+  final String gameStartDateTime;
+  final String status;
+  final int odds;
   final String winningTeam;
 
   @override
@@ -155,6 +155,11 @@ class NbaBetData extends BetData {
         betPointSpread,
         betOverUnder,
         winningTeam,
+        betType,
+        stillOpen,
+        gameStartDateTime,
+        status,
+        odds,
         homeTeam,
         awayTeam,
         awayTeamScore,

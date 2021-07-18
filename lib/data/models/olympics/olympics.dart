@@ -15,6 +15,7 @@ class OlympicsGame extends Equatable {
     this.playerCountry,
     this.rival,
     this.rivalCountry,
+    this.winner,
     this.gameId,
     this.isClosed,
     this.snapshot,
@@ -40,6 +41,7 @@ class OlympicsGame extends Equatable {
       playerCountry: map['playerCountry'],
       rival: map['rival'],
       rivalCountry: map['rivalCountry'],
+      winner: map['winner'],
       gameId: map['gameId'],
       isClosed: map['isClosed'],
       snapshot: snapshot,
@@ -52,7 +54,8 @@ class OlympicsGame extends Equatable {
     if (map == null) return null;
 
     return OlympicsGame(
-      startTime: map['startTime'],
+      startTime:
+          map['startTime'] == null ? null : DateTime.parse(map['startTime']),
       venue: map['venue'],
       event: map['event'],
       gameName: map['gameName'],
@@ -64,6 +67,7 @@ class OlympicsGame extends Equatable {
       playerCountry: map['playerCountry'],
       rival: map['rival'],
       rivalCountry: map['rivalCountry'],
+      winner: map['winner'],
       gameId: map['gameId'],
       isClosed: map['isClosed'],
     );
@@ -82,6 +86,7 @@ class OlympicsGame extends Equatable {
         'playerCountry': playerCountry,
         'rival': rival,
         'rivalCountry': rivalCountry,
+        'winner': winner,
         'gameId': gameId,
         'isClosed': isClosed,
       };
@@ -98,6 +103,7 @@ class OlympicsGame extends Equatable {
   final String playerCountry;
   final String rival;
   final String rivalCountry;
+  final String winner;
   final String gameId;
   final bool isClosed;
   final DocumentSnapshot snapshot;
@@ -117,6 +123,7 @@ class OlympicsGame extends Equatable {
     String playerCountry,
     String rival,
     String rivalCountry,
+    String winner,
     String gameId,
     bool isClosed,
   }) {
@@ -133,6 +140,7 @@ class OlympicsGame extends Equatable {
       playerCountry: playerCountry ?? this.playerCountry,
       rival: rival ?? this.rival,
       rivalCountry: rivalCountry ?? this.rivalCountry,
+      winner: winner ?? this.winner,
       gameId: gameId ?? this.gameId,
       isClosed: isClosed ?? this.isClosed,
     );
@@ -153,6 +161,7 @@ class OlympicsGame extends Equatable {
       playerCountry,
       rival,
       rivalCountry,
+      winner,
       gameId,
       isClosed,
       snapshot,
