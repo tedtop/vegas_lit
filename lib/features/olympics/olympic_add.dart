@@ -248,10 +248,10 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                             var timeOfDay2 = await showTimePicker(
                                 context: context,
                                 initialTime: TimeOfDay.fromDateTime(startTime));
-                            timeOfDay1 = timeOfDay1.plusMinutes(11 * 60);
-                            timeOfDay2 = timeOfDay2.plusMinutes(11 * 60);
 
                             if (timeOfDay1 != null && timeOfDay2 != null) {
+                              timeOfDay1 = timeOfDay1.plusMinutes(11 * 60);
+                              timeOfDay2 = timeOfDay2.plusMinutes(11 * 60);
                               setState(() {
                                 sessionTime =
                                     '${timeOfDay1.hour}:${timeOfDay1.minute}-${timeOfDay2.hour}:${timeOfDay2.minute}';
@@ -535,21 +535,22 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                               playerCountry != null &&
                               rivalCountry != null) {
                             final olympicGame = OlympicsGame(
-                                event: eventController.text,
-                                eventType: eventType,
-                                gameName: gameName,
-                                isClosed: false,
-                                matchCode: '#$matchCode',
-                                player: playerController.text,
-                                playerCountry: playerCountry,
-                                rival: rivalController.text,
-                                rivalCountry: rivalCountry,
-                                sessionNo: sessionNo,
-                                sessionTime: sessionTime,
-                                startTime: startTime,
-                                venue: venueController.text,
-                                gameId:
-                                    '$playerCountry$rivalCountry$gameName${startTime.toIso8601String()}');
+                              event: eventController.text,
+                              eventType: eventType,
+                              gameName: gameName,
+                              isClosed: false,
+                              matchCode: '#$matchCode',
+                              player: playerController.text,
+                              playerCountry: playerCountry,
+                              rival: rivalController.text,
+                              rivalCountry: rivalCountry,
+                              sessionNo: sessionNo,
+                              sessionTime: sessionTime,
+                              startTime: startTime,
+                              venue: venueController.text,
+                              gameId:
+                                  '$playerCountry$rivalCountry${gameName.toUpperCase()}${startTime.toIso8601String()}',
+                            );
                             setState(() {
                               isAdding = true;
                             });
