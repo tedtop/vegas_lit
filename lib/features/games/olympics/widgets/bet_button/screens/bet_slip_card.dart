@@ -1,12 +1,9 @@
 // ignore: must_be_immutable
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -65,25 +62,25 @@ class OlympicsBetSlipCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // betButtonState.winTeam == BetButtonWin.player
-                //     ? Text(
-                //         '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
-                //         maxLines: 1,
-                //         style: GoogleFonts.nunito(
-                //           fontSize: 24,
-                //           color: Palette.cream,
-                //           // fontWeight: FontWeight.bold,
-                //         ),
-                //       )
-                //     : Text(
-                //         '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
-                //         maxLines: 1,
-                //         style: GoogleFonts.nunito(
-                //           fontSize: 24,
-                //           color: Palette.cream,
-                //           // fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
+                betButtonState.winTeam == BetButtonWin.player
+                    ? Text(
+                        '${betButtonState.game.player.toUpperCase()} TO WIN',
+                        maxLines: 1,
+                        style: GoogleFonts.nunito(
+                          fontSize: 24,
+                          color: Palette.cream,
+                          // fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : Text(
+                        '${betButtonState.game.rival.toUpperCase()} TO WIN',
+                        maxLines: 1,
+                        style: GoogleFonts.nunito(
+                          fontSize: 24,
+                          color: Palette.cream,
+                          // fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ],
             ),
             const SizedBox(
@@ -98,24 +95,24 @@ class OlympicsBetSlipCard extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            // Text(
-                            //   betButtonState.awayTeamData.city,
-                            //   textAlign: TextAlign.center,
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 12,
-                            //     color: Palette.cream,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
-                            // Text(
-                            //   betButtonState.awayTeamData.name.toUpperCase(),
-                            //   textAlign: TextAlign.center,
-                            //   style: Styles.awayTeam,
-                            // ),
+                            Text(
+                              betButtonState.game.playerCountry,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunito(
+                                fontSize: 12,
+                                color: Palette.cream,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              betButtonState.game.player.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: Styles.awayTeam,
+                            ),
                           ],
                         ),
                         const SizedBox(
-                          height: 11,
+                          height: 10,
                         ),
                         Stack(
                           children: [
@@ -156,7 +153,8 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                       Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              bottom: 8.0),
+                                            bottom: 8.0,
+                                          ),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
                                             '${betButtonState.betAmount}',
@@ -202,19 +200,6 @@ class OlympicsBetSlipCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(top: 11.0),
-                        //   child: Text(
-                        //     (BetsDataHelper.whichBetSystemFromEnum(
-                        //         betButtonState.betType)),
-                        //     maxLines: 1,
-                        //     style: GoogleFonts.nunito(
-                        //       fontSize: 16,
-                        //       color: Palette.cream,
-                        //       fontWeight: FontWeight.w400,
-                        //     ),
-                        //   ),
-                        // ),
                         Container(
                           width: 174,
                           decoration: BoxDecoration(
@@ -238,7 +223,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 9),
+                              padding: const EdgeInsets.only(top: 8),
                               child: DefaultButton(
                                 text: 'PLACE BET',
                                 action: () async {
@@ -276,28 +261,28 @@ class OlympicsBetSlipCard extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            // Text(
-                            //   betButtonState.homeTeamData.city,
-                            //   textAlign: TextAlign.center,
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 12,
-                            //     fontWeight: FontWeight.bold,
-                            //     color: Palette.green,
-                            //   ),
-                            // ),
-                            // Text(
-                            //   betButtonState.homeTeamData.name.toUpperCase(),
-                            //   textAlign: TextAlign.center,
-                            //   style: GoogleFonts.nunito(
-                            //     fontSize: 18,
-                            //     fontWeight: FontWeight.bold,
-                            //     color: Palette.green,
-                            //   ),
-                            // ),
+                            Text(
+                              betButtonState.game.rivalCountry,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunito(
+                                fontSize: 12,
+                                color: Palette.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              betButtonState.game.rival.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunito(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Palette.green,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 10,
                         ),
                         Stack(
                           children: [
@@ -319,8 +304,9 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                     ),
                                     Center(
                                       child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(
+                                          bottom: 8.0,
+                                        ),
                                         child: Text(
                                           '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
@@ -364,34 +350,26 @@ class OlympicsBetSlipCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        //   child: Text(
-                        //     betButtonState.text,
-                        //     maxLines: 1,
-                        //     style: GoogleFonts.nunito(
-                        //       fontSize: 16,
-                        //       color: Palette.cream,
-                        //     ),
-                        //   ),
-                        // ),
                         Container(
                           width: 174,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                          child: DefaultButton(
-                            color: Palette.red,
-                            elevation: 0,
-                            text: 'CANCEL',
-                            action: () {
-                              context
-                                  .read<OlympicsBetButtonCubit>()
-                                  .unclickBetButton();
-                              context.read<BetSlipCubit>().removeBetSlip(
-                                    uniqueId: betButtonState.uniqueId,
-                                  );
-                            },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: DefaultButton(
+                              color: Palette.red,
+                              elevation: 0,
+                              text: 'CANCEL',
+                              action: () {
+                                context
+                                    .read<OlympicsBetButtonCubit>()
+                                    .unclickBetButton();
+                                context.read<BetSlipCubit>().removeBetSlip(
+                                      uniqueId: betButtonState.uniqueId,
+                                    );
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -411,32 +389,6 @@ class OlympicsBetSlipCard extends StatelessWidget {
                       color: Palette.cream,
                       fontSize: 14,
                     )),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: CountdownTimer(
-                  endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                      betButtonState.game.startTime),
-                  widgetBuilder: (_, CurrentRemainingTime time) {
-                    if (time == null) {
-                      return Container();
-                    }
-
-                    final hours = time.hours == null ? '' : ' ${time.hours}hr';
-                    final min = time.min == null ? '' : ' ${time.min}m';
-                    final sec = time.sec == null ? '' : ' ${time.sec}s';
-
-                    return Text(
-                      'Starting in$hours$min$sec',
-                      style: GoogleFonts.nunito(
-                        fontSize: 15,
-                        color: Palette.red,
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
           ],

@@ -7,6 +7,7 @@ import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
 import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
 import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
 import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 
 import '../models/bet.dart';
@@ -120,9 +121,9 @@ class CloudFirestoreClient {
                 case 'nhl':
                   return NhlBetData.fromFirestore(snapshot);
                   break;
-                // case 'olympic':
-                //   return OlympicBetData.fromFirestore(snapshot);
-                //   break;
+                case 'olympics':
+                  return OlympicsBetData.fromFirestore(snapshot);
+                  break;
                 default:
                   return BetData.fromFirestore(snapshot);
               }

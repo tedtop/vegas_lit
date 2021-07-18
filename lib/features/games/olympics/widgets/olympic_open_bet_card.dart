@@ -7,7 +7,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/helpers/olympic_helper.dart';
-import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 
 class OlympicOpenBetCard extends StatelessWidget {
   const OlympicOpenBetCard({
@@ -16,7 +16,7 @@ class OlympicOpenBetCard extends StatelessWidget {
   })  : assert(openBets != null),
         super(key: key);
 
-  final BetData openBets;
+  final OlympicsBetData openBets;
 
   @override
   Widget build(BuildContext context) {
@@ -120,13 +120,13 @@ class OlympicOpenBetCard extends StatelessWidget {
                                 child: CountdownTimer(
                                   endTime:
                                       ESTDateTime.getESTmillisecondsSinceEpoch(
-                                    DateTime.parse(openBets.gameStartDateTime),
+                                    openBets.gameStartDateTime,
                                   ),
                                   widgetBuilder:
                                       (_, CurrentRemainingTime time) {
                                     if (time == null) {
-                                      final startTime = DateTime.parse(
-                                          openBets.gameStartDateTime);
+                                      final startTime =
+                                          openBets.gameStartDateTime;
                                       return Center(
                                         child: Text(
                                           'Started at ${DateFormat('hh:mm a').format(
@@ -233,7 +233,7 @@ class OlympicOpenBetCard extends StatelessWidget {
               width: 80,
               child: Center(
                 child: Text(
-                  BetsDataHelper.whichBetSystemFromString(openBets.betType),
+                  BetsDataHelper.whichBetSystemFromString(openBets.league),
                   style: GoogleFonts.nunito(
                     fontSize: 10,
                   ),

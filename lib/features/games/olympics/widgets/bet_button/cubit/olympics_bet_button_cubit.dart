@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 
@@ -33,7 +34,7 @@ class OlympicsBetButtonCubit extends Cubit<OlympicsBetButtonState> {
         DateFormat('yyyy-MM-dd-hh-mm').format(game.startTime);
 
     final uniqueId =
-        '${league.toUpperCase()}-${winTeamString.toUpperCase()}-${game.documentID}-${gameStartTimeFormat.toUpperCase()}-$uid';
+        '${league.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     final toWinAmount = toWinAmountCalculation(
         odds: state.mainOdds, betAmount: state.betAmount);
@@ -113,39 +114,47 @@ class OlympicsBetButtonCubit extends Cubit<OlympicsBetButtonState> {
                 ),
               );
           } else {
-            emit(state.copyWith(status: OlympicsBetButtonStatus.placing));
-            // await context.read<OlympicsBetButtonCubit>().updateOpenBets(
-            //       betAmount: betButtonState.betAmount,
-            //       // betsData: OlympicsBetData(
-            //       //   stillOpen: false,
-            //       //   username: username,
-            //       //   betAmount: betButtonState.betAmount,
-            //       //   isClosed: betButtonState.game.isClosed,
-            //       //   winningTeam: null,
-            //       //   winningTeamName: null,
-            //       //   status: betButtonState.game.status,
-            //       //   league: betButtonState.league,
-            //       //   betOverUnder: betButtonState.game.overUnder,
-            //       //   betPointSpread: betButtonState.game.pointSpread,
-            //       //   awayTeamName: betButtonState.awayTeamData.name,
-            //       //   homeTeamName: betButtonState.homeTeamData.name,
-            //       //   totalGameScore: null,
-            //       //   id: betButtonState.uniqueId,
-            //       //   betType:
-            //       //       whichBetSystemToSave(betType: betButtonState.betType),
-            //       //   odds: int.parse(betButtonState.),
-            //       //   betProfit: betButtonState.toWinAmount,
-            //       //   gameStartDateTime: betButtonState.game.date.toString(),
-            //       //   uid: currentUserId,
-            //       //   dateTime: ESTDateTime.fetchTimeEST().toString(),
-            //       //   week: ESTDateTime.weekStringVL,
-            //       //   clientVersion: await _getAppVersion(),
-            //       //   dataProvider: 'sportsdata.io',
-            //       // ),
-            //       currentUserId: currentUserId,
-            //     );
+            emit(
+              state.copyWith(status: OlympicsBetButtonStatus.placing),
+            );
+            await context.read<OlympicsBetButtonCubit>().updateOpenBets(
+                  betAmount: betButtonState.betAmount,
+                  betsData: OlympicsBetData(
+                    username: username,
+                    betAmount: betButtonState.betAmount,
+                    isClosed: betButtonState.game.isClosed,
+                    league: betButtonState.league.toLowerCase(),
+                    id: betButtonState.uniqueId,
+                    betProfit: betButtonState.toWinAmount,
+                    uid: currentUserId,
+                    dateTime: ESTDateTime.fetchTimeEST().toString(),
+                    week: ESTDateTime.weekStringVL,
+                    clientVersion: await _getAppVersion(),
+                    dataProvider: 'olympics.com',
+                    gameName: state.game.gameName,
+                    playerName: state.game.player,
+                    rivalCountry: state.game.rivalCountry,
+                    rivalName: state.game.rival,
+                    sessionNo: state.game.sessionNo,
+                    sessionTime: state.game.sessionTime,
+                    matchCode: state.game.matchCode,
+                    eventType: state.game.eventType,
+                    betTeam: state.winTeam == BetButtonWin.player
+                        ? 'player'
+                        : 'rival',
+                    event: state.game.event,
+                    gameId: state.game.gameId,
+                    playerCountry: state.game.playerCountry,
+                    gameStartDateTime: state.game.startTime,
+                    venue: state.game.venue,
+                    winner: null,
+                  ),
+                  currentUserId: currentUserId,
+                );
 
-            emit(state.copyWith(status: OlympicsBetButtonStatus.placed));
+            emit(
+              state.copyWith(status: OlympicsBetButtonStatus.placed),
+            );
           }
         }
       }

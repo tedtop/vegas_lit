@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
@@ -112,8 +113,9 @@ class BetButtonUnclicked extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        width: 150,
-        padding: const EdgeInsets.symmetric(horizontal: 2),
+        width: 330,
+        height: 50,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: ElevatedButton(
           style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -125,15 +127,28 @@ class BetButtonUnclicked extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          child: Text(
-            betButtonState.winTeam == BetButtonWin.player
-                ? betButtonState.game.player
-                : betButtonState.game.rival,
-            maxLines: 1,
-            style: GoogleFonts.nunito(
-              fontSize: 14,
-              color: Palette.cream,
-            ),
+          child: Row(
+            children: [
+              Text(
+                OlympicHelper.countryFlagFromCode(
+                  countryCode: betButtonState.winTeam == BetButtonWin.player
+                      ? betButtonState.game.playerCountry
+                      : betButtonState.game.rivalCountry,
+                ),
+                style: const TextStyle(fontSize: 18),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                betButtonState.winTeam == BetButtonWin.player
+                    ? betButtonState.game.player
+                    : betButtonState.game.rival,
+                maxLines: 1,
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  color: Palette.cream,
+                ),
+              ),
+            ],
           ),
           onPressed: () async {
             final isBetExist =
@@ -170,8 +185,9 @@ class BetButtonClicked extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        width: 150,
-        padding: const EdgeInsets.symmetric(horizontal: 2),
+        width: 330,
+        height: 50,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: ElevatedButton(
           style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -183,16 +199,28 @@ class BetButtonClicked extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.green),
           ),
-          child: Text(
-            betButtonState.winTeam == BetButtonWin.player
-                ? betButtonState.game.player
-                : betButtonState.game.rival,
-            maxLines: 1,
-            style: GoogleFonts.nunito(
-              fontSize: 14,
-              color: Palette.cream,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Row(
+            children: [
+              Text(
+                OlympicHelper.countryFlagFromCode(
+                  countryCode: betButtonState.winTeam == BetButtonWin.player
+                      ? betButtonState.game.playerCountry
+                      : betButtonState.game.rivalCountry,
+                ),
+                style: const TextStyle(fontSize: 18),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                betButtonState.winTeam == BetButtonWin.player
+                    ? betButtonState.game.player
+                    : betButtonState.game.rival,
+                maxLines: 1,
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  color: Palette.cream,
+                ),
+              ),
+            ],
           ),
           onPressed: () {
             context.read<OlympicsBetButtonCubit>().unclickBetButton();
@@ -212,8 +240,9 @@ class BetButtonDone extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        width: 150,
-        padding: const EdgeInsets.symmetric(horizontal: 2),
+        width: 330,
+        height: 50,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: ElevatedButton(
           style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -225,13 +254,15 @@ class BetButtonDone extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          child: Text(
-            'BET PLACED',
-            maxLines: 1,
-            style: GoogleFonts.nunito(
-              fontSize: 14,
-              color: Palette.cream,
-              fontWeight: FontWeight.bold,
+          child: Center(
+            child: Text(
+              'BET PLACED',
+              maxLines: 1,
+              style: GoogleFonts.nunito(
+                fontSize: 18,
+                color: Palette.cream,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           onPressed: () {},

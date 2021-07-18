@@ -5,7 +5,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/helpers/olympic_helper.dart';
-import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 
 class OlympicBetHistoryCard extends StatelessWidget {
   const OlympicBetHistoryCard({
@@ -14,11 +14,11 @@ class OlympicBetHistoryCard extends StatelessWidget {
   })  : assert(betHistoryData != null),
         super(key: key);
 
-  final BetData betHistoryData;
+  final OlympicsBetData betHistoryData;
 
   @override
   Widget build(BuildContext context) {
-    final isWin = true;
+    const isWin = true;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 20, 10, 2),
       child: Stack(
@@ -120,8 +120,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                                   child: Text(
                                     DateFormat('E, MMMM, c, y @ hh:mm a')
                                         .format(
-                                      DateTime.parse(
-                                              betHistoryData.gameStartDateTime)
+                                      betHistoryData.gameStartDateTime
                                           .toLocal(),
                                     ),
                                     style: Styles.openBetsCardTime,
@@ -150,7 +149,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                       Container(
                         width: 90,
                         height: 61,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: isWin ? Palette.green : Palette.red),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -214,7 +213,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
               child: Center(
                 child: Text(
                   BetsDataHelper.whichBetSystemFromString(
-                      betHistoryData.betType),
+                      betHistoryData.league),
                   style: GoogleFonts.nunito(
                     fontSize: 10,
                   ),

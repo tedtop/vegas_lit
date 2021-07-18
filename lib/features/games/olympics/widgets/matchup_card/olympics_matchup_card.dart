@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/bet_button/screens/bet_button_widget.dart';
 
 class OlympicsMatchupCard extends StatelessWidget {
   const OlympicsMatchupCard._(
@@ -73,55 +74,15 @@ class OlympicsMatchupCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Container(
-                      width: 330,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: Palette.darkGrey),
-                      child: Row(
-                        children: [
-                          Text(
-                            OlympicHelper.countryFlagFromCode(
-                                countryCode: game.playerCountry),
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            '${game.player}',
-                            style: Styles.normalText,
-                          ),
-                        ],
-                      ),
-                    ),
+                  BetButton.route(
+                    game: game,
+                    league: gameName,
+                    winTeam: BetButtonWin.player,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Container(
-                      width: 330,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: Palette.green),
-                      child: Row(
-                        children: [
-                          Text(
-                            OlympicHelper.countryFlagFromCode(
-                                countryCode: game.rivalCountry),
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            '${game.rival}',
-                            style: Styles.normalText,
-                          ),
-                        ],
-                      ),
-                    ),
+                  BetButton.route(
+                    game: game,
+                    league: gameName,
+                    winTeam: BetButtonWin.rival,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
