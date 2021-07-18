@@ -260,6 +260,7 @@ class _SportsBookViewState extends State<SportsBookView>
                   }
 
                 return PageView(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   children: [
                     NflScreen.route(),
