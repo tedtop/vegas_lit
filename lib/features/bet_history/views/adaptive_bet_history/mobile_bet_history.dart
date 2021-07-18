@@ -9,6 +9,7 @@ import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_bet_hist
 import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
 import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_card.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/olympic_bet_history_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -172,9 +173,9 @@ class _MobileHistoryList extends StatelessWidget {
           case 'nhl':
             return NhlBetHistoryCard(betHistoryData: bets[index]);
             break;
-          // case 'olympic':
-          //   return OlympicOpenBetCard(openBets: bets[index]);
-          //   break;
+          case 'olympics':
+            return OlympicsBetHistoryCard(betHistoryData: bets[index]);
+            break;
           default:
             return const SizedBox();
         }

@@ -7,8 +7,8 @@ import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 
-class OlympicBetHistoryCard extends StatelessWidget {
-  const OlympicBetHistoryCard({
+class OlympicsBetHistoryCard extends StatelessWidget {
+  const OlympicsBetHistoryCard({
     Key key,
     @required this.betHistoryData,
   })  : assert(betHistoryData != null),
@@ -18,7 +18,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isWin = true;
+    final isWin = betHistoryData.betTeam == betHistoryData.winner;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 20, 10, 2),
       child: Stack(
@@ -64,7 +64,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text:
-                                      '${OlympicHelper.countryFlagFromCode(countryCode: 'AS')} Player 1',
+                                      '${OlympicHelper.countryFlagFromCode(countryCode: betHistoryData.playerCountry)} ${betHistoryData.playerName}',
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
                                     color: Palette.cream,
@@ -80,7 +80,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text:
-                                      '${OlympicHelper.countryFlagFromCode(countryCode: 'AF')} Player 2',
+                                      '${OlympicHelper.countryFlagFromCode(countryCode: betHistoryData.rivalCountry)} ${betHistoryData.rivalName}',
                                   style: GoogleFonts.nunito(
                                     color: Palette.green,
                                     fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            'FOOTBALL',
+                            betHistoryData.gameName.toUpperCase(),
                             style: Styles.openBetsCardNormal
                                 .copyWith(color: Palette.green),
                           ),
@@ -101,7 +101,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            'Men\'s Pool Round',
+                            betHistoryData.event,
                             style: Styles.openBetsCardNormal,
                           ),
                           const SizedBox(
@@ -149,7 +149,7 @@ class OlympicBetHistoryCard extends StatelessWidget {
                       Container(
                         width: 90,
                         height: 61,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             color: isWin ? Palette.green : Palette.red),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

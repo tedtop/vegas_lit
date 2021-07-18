@@ -168,9 +168,9 @@ class CloudFirestoreClient {
                 case 'nhl':
                   return NhlBetData.fromFirestore(snapshot);
                   break;
-                // case 'olympic':
-                //   return OlympicBetData.fromFirestore(snapshot);
-                //   break;
+                case 'olympics':
+                  return OlympicsBetData.fromFirestore(snapshot);
+                  break;
                 default:
                   return BetData.fromFirestore(snapshot);
               }

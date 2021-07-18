@@ -7,6 +7,7 @@ import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet
 import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
 import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -154,9 +155,9 @@ class _MobileOpenBetsContentList extends StatelessWidget {
           case 'nhl':
             return NhlOpenBetCard(openBets: bets[index]);
             break;
-          // case 'olympic':
-          //   return OlympicOpenBetCard(openBets: bets[index]);
-          //   break;
+          case 'olympics':
+            return OlympicsOpenBetCard(openBets: bets[index]);
+            break;
           default:
             return const SizedBox();
         }

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
@@ -96,7 +97,9 @@ class OlympicsBetSlipCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              betButtonState.game.playerCountry,
+                              OlympicHelper.countryFlagFromCode(
+                                  countryCode:
+                                      betButtonState.game.playerCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
                                 fontSize: 12,
@@ -262,7 +265,9 @@ class OlympicsBetSlipCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              betButtonState.game.rivalCountry,
+                              OlympicHelper.countryFlagFromCode(
+                                  countryCode:
+                                      betButtonState.game.rivalCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
                                 fontSize: 12,

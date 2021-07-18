@@ -5,12 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 
-class OlympicOpenBetCard extends StatelessWidget {
-  const OlympicOpenBetCard({
+class OlympicsOpenBetCard extends StatelessWidget {
+  const OlympicsOpenBetCard({
     Key key,
     @required this.openBets,
   })  : assert(openBets != null),
@@ -65,7 +64,7 @@ class OlympicOpenBetCard extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text:
-                                      '${OlympicHelper.countryFlagFromCode(countryCode: 'AS')} Player 1',
+                                      '${OlympicHelper.countryFlagFromCode(countryCode: openBets.playerCountry)} ${openBets.playerName}',
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
                                     color: Palette.cream,
@@ -81,7 +80,7 @@ class OlympicOpenBetCard extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text:
-                                      '${OlympicHelper.countryFlagFromCode(countryCode: 'AF')} Player 2',
+                                      '${OlympicHelper.countryFlagFromCode(countryCode: openBets.rivalCountry)} ${openBets.rivalName}',
                                   style: GoogleFonts.nunito(
                                     color: Palette.green,
                                     fontWeight: FontWeight.bold,
@@ -94,7 +93,7 @@ class OlympicOpenBetCard extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            'FOOTBALL',
+                            openBets.gameName.toUpperCase(),
                             style: Styles.openBetsCardNormal
                                 .copyWith(color: Palette.green),
                           ),
@@ -102,7 +101,7 @@ class OlympicOpenBetCard extends StatelessWidget {
                             height: 3,
                           ),
                           Text(
-                            'Men\'s Pool Round',
+                            openBets.event,
                             style: Styles.openBetsCardNormal,
                           ),
                           const SizedBox(
@@ -218,29 +217,6 @@ class OlympicOpenBetCard extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            top: -15,
-            left: 15,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Palette.cream,
-                ),
-                borderRadius: BorderRadius.circular(12),
-                color: Palette.darkGrey,
-              ),
-              height: 25,
-              width: 80,
-              child: Center(
-                child: Text(
-                  BetsDataHelper.whichBetSystemFromString(openBets.league),
-                  style: GoogleFonts.nunito(
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );
