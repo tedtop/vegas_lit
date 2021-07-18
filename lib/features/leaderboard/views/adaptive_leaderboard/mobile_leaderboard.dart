@@ -220,7 +220,7 @@ class MobileLeaderboardTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
+                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets - (player.totalBetsWon + player.totalBetsLost + player.totalOpenBets)}',
                 style: Styles.awayTeam,
               ),
               Text(
