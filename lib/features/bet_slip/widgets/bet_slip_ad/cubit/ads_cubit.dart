@@ -86,9 +86,6 @@ class AdsCubit extends Cubit<AdsState> {
               // ignore: avoid_print
               print('$ad onAdDismissedFullScreenContent.');
               ad.dispose();
-              emit(
-                const AdsState.success(),
-              );
             },
             onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
               // ignore: avoid_print
@@ -107,6 +104,9 @@ class AdsCubit extends Cubit<AdsState> {
               await _userRepository.rewardForVideoAd(
                 uid: currentUser.uid,
                 rewardValue: 100,
+              );
+              emit(
+                const AdsState.success(),
               );
             },
           );
