@@ -91,4 +91,7 @@ class SportsRepository {
 
   Future<void> addOlympicsGame({OlympicsGame game}) =>
       _databaseProvider.addOlympicsGame(game: game);
+
+  Future<void> updateOlympicGame({OlympicsGame game}) =>
+      _databaseProvider.updateOlympicGame(game: game);
 }

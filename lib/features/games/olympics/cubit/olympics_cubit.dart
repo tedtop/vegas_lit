@@ -39,6 +39,10 @@ class OlympicsCubit extends Cubit<OlympicsState> {
     );
   }
 
+  Future<void> updateOlympicsGame({@required OlympicsGame game}) async {
+    await _sportsRepository.updateOlympicGame(game: game);
+  }
+
   @override
   Future<void> close() async {
     await _gamesStream?.cancel();

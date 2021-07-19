@@ -437,6 +437,7 @@ class CloudFirestoreClient {
         .collection('custom_matches')
         .doc('olympics_2021_tokyo')
         .collection('games')
+        .where('isClosed', isEqualTo: false)
         .snapshots();
 
     final gameList = snapshots.map(
@@ -449,13 +450,23 @@ class CloudFirestoreClient {
     return gameList;
   }
 
-  Future<void> addOlympicsGame({OlympicsGame game}) async {
+  Future<void> addOlympicsGame({@required OlympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('olympics_2021_tokyo')
-        .collection('games');
+        .collection('games')
+        .doc(game.gameId);
 
-    await olympicsCollectionRef.add(game.toMap());
-    return;
+    await olympicsCollectionRef.set(game.toMap(), SetOptions(merge: true));
+  }
+
+  Future<void> updateOlympicGame({@required OlympicsGame game}) async {
+    final olympicsCollectionRef = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('games')
+        .doc(game.gameId);
+
+    await olympicsCollectionRef.update(game.toMap());
   }
 }
