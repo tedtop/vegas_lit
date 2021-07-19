@@ -216,6 +216,12 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       case 'GOLF':
         return 0;
         break;
+      case 'OLYMPICS':
+        return await _sportsfeedRepository
+            .fetchOlympicsGame()
+            .first
+            .then((value) => value.length);
+        break;
       default:
         return 0;
         break;
