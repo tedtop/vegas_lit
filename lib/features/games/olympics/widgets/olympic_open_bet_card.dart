@@ -116,41 +116,15 @@ class OlympicsOpenBetCard extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: CountdownTimer(
-                                  endTime:
-                                      ESTDateTime.getESTmillisecondsSinceEpoch(
-                                    openBets.gameStartDateTime,
-                                  ),
-                                  widgetBuilder:
-                                      (_, CurrentRemainingTime time) {
-                                    if (time == null) {
-                                      final startTime =
-                                          openBets.gameStartDateTime;
-                                      return Center(
-                                        child: Text(
-                                          'Started at ${DateFormat('hh:mm a').format(
-                                            startTime,
-                                          )} EST',
-                                          style: Styles.openBetsCardTime,
-                                        ),
-                                      );
-                                    }
-
-                                    final hours = time.hours == null
-                                        ? ''
-                                        : ' ${time.hours}hr';
-                                    final min =
-                                        time.min == null ? '' : ' ${time.min}m';
-                                    final sec =
-                                        time.sec == null ? '' : ' ${time.sec}s';
-
-                                    return Center(
-                                      child: Text(
-                                        'Starting in$hours$min$sec',
-                                        style: Styles.openBetsCardTime,
-                                      ),
-                                    );
-                                  },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      DateFormat('E, MMMM, c, y @ hh:mm a')
+                                          .format(openBets.gameStartDateTime),
+                                      style: Styles.openBetsCardTime,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
