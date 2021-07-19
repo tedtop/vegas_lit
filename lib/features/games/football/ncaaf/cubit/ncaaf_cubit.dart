@@ -32,6 +32,7 @@ class NcaafCubit extends Cubit<NcaafState> {
     // final todayGames = await _sportsfeedRepository
     //     .fetchNCAAF(
     //       dateTime: estTimeZone,
+    //       days: 2,
     //     )
     //     .then(
     //       (value) => value

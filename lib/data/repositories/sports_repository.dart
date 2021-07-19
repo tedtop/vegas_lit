@@ -24,8 +24,8 @@ class SportsRepository {
   final _databaseProvider = CloudFirestoreClient();
 
   // MLB
-  Future<List<MlbGame>> fetchMLB({@required DateTime dateTime}) =>
-      _sportsProvider.fetchMLB(dateTime: dateTime);
+  Future<List<MlbGame>> fetchMLB({@required DateTime dateTime, int days = 1}) =>
+      _sportsProvider.fetchMLB(dateTime: dateTime, days: days);
 
   Future<List<MlbTeamStats>> fetchMLBTeamStats({@required DateTime dateTime}) =>
       _sportsProvider.fetchMLBTeamStats(dateTime: dateTime);
@@ -39,36 +39,38 @@ class SportsRepository {
           playerId: playerId, dateTime: dateTime);
 
   // NBA
-  Future<List<NbaGame>> fetchNBA({@required DateTime dateTime}) =>
-      _sportsProvider.fetchNBA(dateTime: dateTime);
+  Future<List<NbaGame>> fetchNBA({@required DateTime dateTime, int days = 1}) =>
+      _sportsProvider.fetchNBA(dateTime: dateTime, days: days);
 
   Future<List<NbaPlayer>> fetchNBAPlayers({@required String teamKey}) =>
       _sportsProvider.fetchNBAPlayers(teamKey: teamKey);
 
   // NCAAB
-  Future<List<NcaabGame>> fetchNCAAB({@required DateTime dateTime}) =>
-      _sportsProvider.fetchNCAAB(dateTime: dateTime);
+  Future<List<NcaabGame>> fetchNCAAB(
+          {@required DateTime dateTime, int days = 1}) =>
+      _sportsProvider.fetchNCAAB(dateTime: dateTime, days: days);
 
   Future<List<NcaabPlayer>> fetchNCAABPlayers({@required String teamKey}) =>
       _sportsProvider.fetchNCAABPlayers(teamKey: teamKey);
 
   // NCAAF
-  Future<List<NcaafGame>> fetchNCAAF({@required DateTime dateTime}) =>
-      _sportsProvider.fetchNCAAF(dateTime: dateTime);
+  Future<List<NcaafGame>> fetchNCAAF(
+          {@required DateTime dateTime, int days = 1}) =>
+      _sportsProvider.fetchNCAAF(dateTime: dateTime, days: days);
 
   Future<List<NcaafPlayer>> fetchNCAAFPlayers({@required String teamKey}) =>
       _sportsProvider.fetchNCAAFPlayers(teamKey: teamKey);
 
   // NFL
-  Future<List<NflGame>> fetchNFL({@required DateTime dateTime}) =>
-      _sportsProvider.fetchNFL(dateTime: dateTime);
+  Future<List<NflGame>> fetchNFL({@required DateTime dateTime, int days = 1}) =>
+      _sportsProvider.fetchNFL(dateTime: dateTime, days: days);
 
   Future<List<NflPlayer>> fetchNFLPlayers({@required String teamKey}) =>
       _sportsProvider.fetchNFLPlayers(teamKey: teamKey);
 
   // NHL
-  Future<List<NhlGame>> fetchNHL({@required DateTime dateTime}) =>
-      _sportsProvider.fetchNHL(dateTime: dateTime);
+  Future<List<NhlGame>> fetchNHL({@required DateTime dateTime, int days = 1}) =>
+      _sportsProvider.fetchNHL(dateTime: dateTime, days: days);
 
   Future<List<NhlPlayer>> fetchNHLPlayers({@required String teamKey}) =>
       _sportsProvider.fetchNHLPlayers(teamKey: teamKey);

@@ -30,6 +30,7 @@ class NcaabCubit extends Cubit<NcaabState> {
     final todayGames = await _sportsfeedRepository
         .fetchNCAAB(
           dateTime: estTimeZone,
+          days: 2,
         )
         .then(
           (value) => value

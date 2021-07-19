@@ -298,7 +298,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                   //       final sec = time.sec == null ? '' : ' ${time.sec}s';
 
                   //       return Text(
-                  //         'Starting in$hours$min$sec',
+                  //         'Starting in  ${TimerHelper.getRemainingTimeText(time:time)}',
                   //         style: GoogleFonts.nunito(
                   //           fontSize: 15,
                   //           color: Palette.red,

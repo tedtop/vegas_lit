@@ -29,6 +29,7 @@ class MlbCubit extends Cubit<MlbState> {
     final todayGames = await _sportsfeedRepository
         .fetchMLB(
           dateTime: estTimeZone,
+          days: 2,
         )
         .then(
           (value) => value

@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/helpers/timer_helper.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
@@ -451,12 +452,8 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                       );
                     }
 
-                    final hours = time.hours == null ? '' : ' ${time.hours}hr';
-                    final min = time.min == null ? '' : ' ${time.min}m';
-                    final sec = time.sec == null ? '' : ' ${time.sec}s';
-
                     return Text(
-                      'Starting in$hours$min$sec',
+                      'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
                       style: GoogleFonts.nunito(
                         fontSize: 15,
                         color: Palette.red,

@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/helpers/timer_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -397,17 +398,9 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                   );
                                 }
 
-                                final hours = time.hours == null
-                                    ? ''
-                                    : ' ${time.hours}hr';
-                                final min =
-                                    time.min == null ? '' : ' ${time.min}m';
-                                final sec =
-                                    time.sec == null ? '' : ' ${time.sec}s';
-
                                 return Center(
                                   child: Text(
-                                    'Starting in$hours$min$sec',
+                                    'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
                                     style: Styles.openBetsDesktopTime,
                                   ),
                                 );

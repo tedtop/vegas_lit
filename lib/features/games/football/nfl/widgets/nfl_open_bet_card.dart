@@ -6,6 +6,7 @@ import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/helpers/timer_helper.dart';
 import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
 
 class NflOpenBetCard extends StatelessWidget {
@@ -125,17 +126,9 @@ class NflOpenBetCard extends StatelessWidget {
                                       );
                                     }
 
-                                    final hours = time.hours == null
-                                        ? ''
-                                        : ' ${time.hours}hr';
-                                    final min =
-                                        time.min == null ? '' : ' ${time.min}m';
-                                    final sec =
-                                        time.sec == null ? '' : ' ${time.sec}s';
-
                                     return Center(
                                       child: Text(
-                                        'Starting in$hours$min$sec',
+                                        'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
                                         style: Styles.openBetsCardTime,
                                       ),
                                     );

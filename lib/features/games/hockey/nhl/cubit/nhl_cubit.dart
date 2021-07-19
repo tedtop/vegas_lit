@@ -30,6 +30,7 @@ class NhlCubit extends Cubit<NhlState> {
     final todayGames = await _sportsfeedRepository
         .fetchNHL(
           dateTime: estTimeZone,
+          days: 2,
         )
         .then(
           (value) => value
