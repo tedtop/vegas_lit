@@ -58,31 +58,19 @@ class OlympicsBetSlipCard extends StatelessWidget {
 
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                betButtonState.winTeam == BetButtonWin.player
-                    ? Text(
-                        '${betButtonState.game.player.toUpperCase()} TO WIN',
-                        maxLines: 1,
-                        style: GoogleFonts.nunito(
-                          fontSize: 24,
-                          color: Palette.cream,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    : Text(
-                        '${betButtonState.game.rival.toUpperCase()} TO WIN',
-                        maxLines: 1,
-                        style: GoogleFonts.nunito(
-                          fontSize: 24,
-                          color: Palette.cream,
-                          // fontWeight: FontWeight.bold,
-                        ),
-                      ),
-              ],
+            OlympicHelper.badgeFromEventType(
+                eventType: betButtonState.game.eventType),
+            Text(
+              '${OlympicHelper.countryFlagFromCode(countryCode: betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry)} TO WIN',
+              maxLines: 3,
+              style: GoogleFonts.nunito(
+                fontSize: 24,
+                color: Palette.cream,
+                // fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 2,
@@ -102,13 +90,13 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                       betButtonState.game.playerCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
-                                fontSize: 12,
+                                fontSize: 15,
                                 color: Palette.cream,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              betButtonState.game.player.toUpperCase(),
+                              betButtonState.game.player,
                               textAlign: TextAlign.center,
                               style: Styles.awayTeam,
                             ),
@@ -249,7 +237,8 @@ class OlympicsBetSlipCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 190),
+                    padding:
+                        const EdgeInsets.only(bottom: 190, left: 5, right: 5),
                     child: Text(
                       '@',
                       style: GoogleFonts.nunito(
@@ -270,19 +259,15 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                       betButtonState.game.rivalCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
-                                fontSize: 12,
+                                fontSize: 15,
                                 color: Palette.green,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              betButtonState.game.rival.toUpperCase(),
+                              betButtonState.game.rival,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.green,
-                              ),
+                              style: Styles.homeTeam,
                             ),
                           ],
                         ),

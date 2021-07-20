@@ -59,9 +59,9 @@ class Styles {
   );
 
   static final homeTeam = GoogleFonts.nunito(
-    fontSize: 18,
+    fontSize: 16,
     color: Palette.green,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w800,
   );
 
   static final awayTeam = GoogleFonts.nunito(

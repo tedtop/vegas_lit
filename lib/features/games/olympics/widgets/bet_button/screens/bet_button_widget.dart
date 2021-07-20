@@ -114,7 +114,7 @@ class BetButtonUnclicked extends StatelessWidget {
       padding: const EdgeInsets.all(3.0),
       child: Container(
         width: 330,
-        height: 50,
+        constraints: const BoxConstraints(minHeight: 50),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: ElevatedButton(
           style: ButtonStyle(
@@ -138,14 +138,16 @@ class BetButtonUnclicked extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(width: 10),
-              Text(
-                betButtonState.winTeam == BetButtonWin.player
-                    ? betButtonState.game.player
-                    : betButtonState.game.rival,
-                maxLines: 1,
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  color: Palette.cream,
+              Expanded(
+                child: Text(
+                  betButtonState.winTeam == BetButtonWin.player
+                      ? betButtonState.game.player
+                      : betButtonState.game.rival,
+                  maxLines: 2,
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    color: Palette.cream,
+                  ),
                 ),
               ),
             ],
@@ -186,7 +188,7 @@ class BetButtonClicked extends StatelessWidget {
       padding: const EdgeInsets.all(3.0),
       child: Container(
         width: 330,
-        height: 50,
+        constraints: const BoxConstraints(minHeight: 50),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: ElevatedButton(
           style: ButtonStyle(
@@ -210,14 +212,16 @@ class BetButtonClicked extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(width: 10),
-              Text(
-                betButtonState.winTeam == BetButtonWin.player
-                    ? betButtonState.game.player
-                    : betButtonState.game.rival,
-                maxLines: 1,
-                style: GoogleFonts.nunito(
-                  fontSize: 18,
-                  color: Palette.cream,
+              Expanded(
+                child: Text(
+                  betButtonState.winTeam == BetButtonWin.player
+                      ? betButtonState.game.player
+                      : betButtonState.game.rival,
+                  maxLines: 2,
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    color: Palette.cream,
+                  ),
                 ),
               ),
             ],

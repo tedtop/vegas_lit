@@ -188,10 +188,10 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       style: Styles.signUpFieldText,
                       value: eventType,
                       items: <String>[
-                        'Normal',
-                        'Bronze',
-                        'Silver',
-                        'Gold',
+                        'normal',
+                        'bronze',
+                        'silver',
+                        'gold',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                             value: value,

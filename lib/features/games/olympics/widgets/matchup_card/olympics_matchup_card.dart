@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/features/games/olympics/cubit/olympics_cubit.dart';
@@ -87,6 +88,14 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                           '${widget.game.gameName}',
                           style: Styles.normalTextBold,
                         ),
+                        Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: FittedBox(
+                                child: OlympicHelper.badgeFromEventType(
+                                    eventType: widget.game.eventType),
+                              )),
+                        )
                       ],
                     ),
                   ),
