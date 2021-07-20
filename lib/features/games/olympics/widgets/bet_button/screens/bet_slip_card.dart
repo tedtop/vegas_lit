@@ -60,8 +60,23 @@ class OlympicsBetSlipCard extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
-            OlympicHelper.badgeFromEventType(
-                eventType: betButtonState.game.eventType),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  betButtonState.game.gameName.replaceAll(RegExp('-'), '\/'),
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    color: Palette.cream,
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                OlympicHelper.badgeFromEventType(
+                    eventType: betButtonState.game.eventType),
+              ],
+            ),
             Text(
               '${OlympicHelper.countryFlagFromCode(countryCode: betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry)} TO WIN',
               maxLines: 3,
@@ -78,6 +93,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
             Form(
               key: _formKey,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Flexible(
                     child: Column(

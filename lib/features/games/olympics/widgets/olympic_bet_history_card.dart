@@ -78,7 +78,9 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
-                        betHistoryData.gameName.toUpperCase(),
+                        betHistoryData.gameName
+                            .replaceAll(RegExp('-'), '\/')
+                            .toUpperCase(),
                         style: Styles.betHistoryCardNormal
                             .copyWith(color: Palette.green),
                       ),

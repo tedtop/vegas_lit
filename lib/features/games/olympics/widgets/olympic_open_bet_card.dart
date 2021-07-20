@@ -77,7 +77,9 @@ class OlympicsOpenBetCard extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
-                        openBets.gameName.toUpperCase(),
+                        openBets.gameName
+                            .replaceAll(RegExp('-'), '\/')
+                            .toUpperCase(),
                         style: Styles.openBetsCardNormal
                             .copyWith(color: Palette.green),
                       ),

@@ -85,7 +85,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          '${widget.game.gameName}',
+                          '${widget.game.gameName.replaceAll(RegExp('-'), '\/')}',
                           style: Styles.normalTextBold,
                         ),
                         Expanded(

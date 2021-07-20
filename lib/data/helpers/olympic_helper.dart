@@ -26,10 +26,7 @@ class OlympicHelper {
                         '🥉',
                         style: TextStyle(fontSize: 20),
                       )
-                    : const Text(
-                        '🥇',
-                        style: TextStyle(fontSize: 20),
-                      ),
+                    : const SizedBox.shrink(),
         Image.asset(
           '${Images.olympicsIconsPath}Olympics.png',
           height: 18,
