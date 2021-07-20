@@ -107,8 +107,6 @@ class OlympicsGame extends Equatable {
     String event,
     String gameName,
     String eventType,
-    int sessionNo,
-    String sessionTime,
     String matchCode,
     String player,
     String playerCountry,
