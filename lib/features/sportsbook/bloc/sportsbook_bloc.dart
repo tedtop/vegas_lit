@@ -118,6 +118,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNFL(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -134,6 +135,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNBA(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -150,6 +152,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchMLB(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -166,6 +169,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNHL(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -182,6 +186,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNCAAF(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -198,6 +203,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNCAAB(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {

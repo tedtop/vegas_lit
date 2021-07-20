@@ -11,7 +11,7 @@ import 'nhl_screen_desktop/nhl_screen_desktop.dart';
 import 'nhl_screen_mobile/nhl_screen_mobile.dart';
 import 'nhl_screen_tablet/nhl_screen_tablet.dart';
 
-class NhlScreen extends StatefulWidget {
+class NhlScreen extends StatelessWidget {
   const NhlScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -28,17 +28,7 @@ class NhlScreen extends StatefulWidget {
   }
 
   @override
-  _NhlScreenState createState() => _NhlScreenState();
-}
-
-class _NhlScreenState extends State<NhlScreen>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<NhlCubit, NhlState>(
       builder: (context, state) {
         switch (state.status) {
@@ -53,8 +43,7 @@ class _NhlScreenState extends State<NhlScreen>
             );
           default:
             if (state.games.isEmpty) {
-              return ListView(
-                shrinkWrap: true,
+              return Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
@@ -73,11 +62,9 @@ class _NhlScreenState extends State<NhlScreen>
                 ],
               );
             } else {
-              return ListView(
-                shrinkWrap: true,
+              return Column(
                 children: [
                   ScreenTypeLayout(
-                    //key: cardKey,
                     breakpoints: const ScreenBreakpoints(
                       desktop: 1000,
                       tablet: 600,

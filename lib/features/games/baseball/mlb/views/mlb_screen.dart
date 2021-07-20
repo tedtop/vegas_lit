@@ -11,7 +11,7 @@ import 'mlb_screen_desktop/mlb_screen_desktop.dart';
 import 'mlb_screen_mobile/mlb_screen_mobile.dart';
 import 'mlb_screen_tablet/mlb_screen_tablet.dart';
 
-class MlbScreen extends StatefulWidget {
+class MlbScreen extends StatelessWidget {
   const MlbScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -28,17 +28,7 @@ class MlbScreen extends StatefulWidget {
   }
 
   @override
-  _MlbScreenState createState() => _MlbScreenState();
-}
-
-class _MlbScreenState extends State<MlbScreen>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<MlbCubit, MlbState>(
       builder: (context, state) {
         switch (state.status) {
@@ -58,7 +48,6 @@ class _MlbScreenState extends State<MlbScreen>
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
                     child: Text(
-                      // ignore: lines_longer_than_80_chars
                       'No odds available for the league you have selected at this time.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(
@@ -72,8 +61,7 @@ class _MlbScreenState extends State<MlbScreen>
                 ],
               );
             } else {
-              return ListView(
-                shrinkWrap: true,
+              return Column(
                 children: [
                   ScreenTypeLayout(
                     mobile: MobileMlbScreen(

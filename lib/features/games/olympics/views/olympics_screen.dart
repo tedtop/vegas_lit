@@ -8,7 +8,7 @@ import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
 
 import '../olympics.dart';
 
-class OlympicsScreen extends StatefulWidget {
+class OlympicsScreen extends StatelessWidget {
   const OlympicsScreen._({Key key}) : super(key: key);
 
   static Builder route() {
@@ -25,17 +25,7 @@ class OlympicsScreen extends StatefulWidget {
   }
 
   @override
-  _OlympicsScreenState createState() => _OlympicsScreenState();
-}
-
-class _OlympicsScreenState extends State<OlympicsScreen>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<OlympicsCubit, OlympicsState>(
       builder: (context, state) {
         switch (state.status) {
