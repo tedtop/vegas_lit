@@ -9,7 +9,7 @@ class Group {
     this.description,
     this.id,
     this.name,
-    this.type,
+    this.isPublic,
     this.userLimit,
     this.users,
     this.snapshot,
@@ -24,12 +24,13 @@ class Group {
     return Group(
       adminId: map['adminId'],
       adminName: map['adminName'],
-      createdAt: map['createdAt'],
+      createdAt:
+          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
       createdBy: map['createdBy'],
       description: map['description'],
       id: map['id'],
       name: map['name'],
-      type: map['type'],
+      isPublic: map['isPublic'],
       userLimit: map['userLimit'],
       users: map['users'] != null ? List<String>.from(map['users']) : null,
       snapshot: snapshot,
@@ -43,12 +44,13 @@ class Group {
     return Group(
       adminId: map['adminId'],
       adminName: map['adminName'],
-      createdAt: map['createdAt'],
+      createdAt:
+          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
       createdBy: map['createdBy'],
       description: map['description'],
       id: map['id'],
       name: map['name'],
-      type: map['type'],
+      isPublic: map['isPublic'],
       userLimit: map['userLimit'],
       users: map['users'] != null ? List<String>.from(map['users']) : null,
     );
@@ -57,12 +59,12 @@ class Group {
   Map<String, dynamic> toMap() => {
         'adminId': adminId,
         'adminName': adminName,
-        'createdAt': createdAt,
+        'createdAt': createdAt.toString(),
         'createdBy': createdBy,
         'description': description,
         'id': id,
         'name': name,
-        'type': type,
+        'isPublic': isPublic,
         'userLimit': userLimit,
         'users': users,
       };
@@ -70,12 +72,12 @@ class Group {
   Group copyWith({
     String adminId,
     String adminName,
-    String createdAt,
+    DateTime createdAt,
     String createdBy,
     String description,
     String id,
     String name,
-    String type,
+    bool isPublic,
     int userLimit,
     List<String> users,
   }) {
@@ -87,7 +89,7 @@ class Group {
       description: description ?? this.description,
       id: id ?? this.id,
       name: name ?? this.name,
-      type: type ?? this.type,
+      isPublic: isPublic ?? this.isPublic,
       userLimit: userLimit ?? this.userLimit,
       users: users ?? this.users,
     );
@@ -95,12 +97,12 @@ class Group {
 
   final String adminId;
   final String adminName;
-  final String createdAt;
+  final DateTime createdAt;
   final String createdBy;
   final String description;
   final String id;
   final String name;
-  final String type;
+  final bool isPublic;
   final int userLimit;
   final List<String> users;
   final DocumentSnapshot snapshot;
@@ -109,7 +111,7 @@ class Group {
 
   @override
   String toString() {
-    return '${adminId.toString()}, ${adminName.toString()}, ${createdAt.toString()}, ${createdBy.toString()}, ${description.toString()}, ${id.toString()}, ${name.toString()}, ${type.toString()}, ${userLimit.toString()}, ${users.toString()}, ';
+    return '${adminId.toString()}, ${adminName.toString()}, ${createdAt.toString()}, ${createdBy.toString()}, ${description.toString()}, ${id.toString()}, ${name.toString()}, ${isPublic ? 'public' : 'private'}, ${userLimit.toString()}, ${users.toString()}, ';
   }
 
   @override
