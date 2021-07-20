@@ -70,15 +70,10 @@ class OlympicsBetSlipCard extends StatelessWidget {
                     color: Palette.cream,
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                OlympicHelper.badgeFromEventType(
-                    eventType: betButtonState.game.eventType),
               ],
             ),
             Text(
-              '${OlympicHelper.countryFlagFromCode(countryCode: betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry)} TO WIN',
+              '${betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry} TO WIN',
               maxLines: 3,
               style: GoogleFonts.nunito(
                 fontSize: 24,
@@ -254,15 +249,9 @@ class OlympicsBetSlipCard extends StatelessWidget {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(bottom: 190, left: 5, right: 5),
-                    child: Text(
-                      '@',
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.cream,
-                      ),
-                    ),
+                        const EdgeInsets.only(bottom: 170, left: 5, right: 5),
+                    child: OlympicHelper.badgeFromEventType(
+                        eventType: betButtonState.game.eventType),
                   ),
                   Flexible(
                     child: Column(
