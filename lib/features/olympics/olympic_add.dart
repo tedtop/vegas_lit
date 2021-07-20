@@ -32,8 +32,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
   final venueController = TextEditingController();
   final eventController = TextEditingController();
   var eventType = 'Normal';
-  int sessionNo;
-  String sessionTime;
+
   int matchCode;
   String gameName;
   final playerController = TextEditingController();
@@ -203,82 +202,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                           eventType = value;
                         });
                       },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: TextFormField(
-                        onChanged: (text) {
-                          setState(() {
-                            sessionNo = int.tryParse(text);
-                          });
-                        },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        cursorColor: Palette.cream,
-                        style: Styles.signUpFieldText,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 8,
-                          ),
-                          hintStyle: Styles.signUpFieldHint,
-                          errorStyle: Styles.authFieldError,
-                          filled: true,
-                          fillColor: Palette.lightGrey,
-                          border: Styles.signUpInputFieldBorder,
-                          focusedBorder: Styles.signUpInputFieldFocusedBorder,
-                          isDense: true,
-                          labelText: 'Session No.',
-                          labelStyle: Styles.signUpFieldHint,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () async {
-                            var timeOfDay1 = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.fromDateTime(startTime));
-                            var timeOfDay2 = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.fromDateTime(startTime));
-
-                            if (timeOfDay1 != null && timeOfDay2 != null) {
-                              timeOfDay1 = timeOfDay1.plusMinutes(11 * 60);
-                              timeOfDay2 = timeOfDay2.plusMinutes(11 * 60);
-                              setState(() {
-                                sessionTime =
-                                    '${timeOfDay1.hour}:${timeOfDay1.minute}-${timeOfDay2.hour}:${timeOfDay2.minute}';
-                              });
-                            }
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Palette.lightGrey)),
-                          child: Text(
-                            'Choose Session Time',
-                            style: Styles.normalText,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            sessionTime ?? 'Select session time',
-                            style: Styles.normalTextBold.copyWith(
-                                color: sessionTime != null
-                                    ? Palette.cream
-                                    : Palette.red),
-                          ),
-                        ),
-                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -531,7 +454,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         text: 'Add Game',
                         action: () {
                           if (_formKey.currentState.validate() &&
-                              sessionTime != null &&
                               playerCountry != null &&
                               rivalCountry != null) {
                             final olympicGame = OlympicsGame(
@@ -544,8 +466,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                               playerCountry: playerCountry,
                               rival: rivalController.text,
                               rivalCountry: rivalCountry,
-                              sessionNo: sessionNo,
-                              sessionTime: sessionTime,
                               startTime: startTime,
                               venue: venueController.text,
                               gameId:

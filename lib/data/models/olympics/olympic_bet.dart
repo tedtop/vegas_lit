@@ -11,8 +11,6 @@ class OlympicsBetData extends BetData {
     @required this.venue,
     @required this.event,
     @required this.eventType,
-    @required this.sessionNo,
-    @required this.sessionTime,
     @required this.matchCode,
     @required this.gameName,
     @required this.playerName,
@@ -72,8 +70,6 @@ class OlympicsBetData extends BetData {
       venue: map['venue'],
       event: map['event'],
       eventType: map['eventType'],
-      sessionNo: map['sessionNo'],
-      sessionTime: map['sessionTime'],
       matchCode: map['matchCode'],
       gameName: map['gameName'],
       playerName: map['playerName'],
@@ -106,8 +102,6 @@ class OlympicsBetData extends BetData {
         'venue': venue,
         'event': event,
         'eventType': eventType,
-        'sessionNo': sessionNo,
-        'sessionTime': sessionTime,
         'matchCode': matchCode,
         'gameName': gameName,
         'playerName': playerName,
@@ -123,8 +117,7 @@ class OlympicsBetData extends BetData {
   final String venue;
   final String event;
   final String eventType;
-  final int sessionNo;
-  final String sessionTime;
+
   final String matchCode;
   final String gameName;
   final String playerName;
@@ -145,8 +138,6 @@ class OlympicsBetData extends BetData {
       venue,
       event,
       eventType,
-      sessionNo,
-      sessionTime,
       matchCode,
       gameName,
       playerName,

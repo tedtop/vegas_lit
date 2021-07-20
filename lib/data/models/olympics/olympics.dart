@@ -8,8 +8,6 @@ class OlympicsGame extends Equatable {
     this.event,
     this.gameName,
     this.eventType,
-    this.sessionNo,
-    this.sessionTime,
     this.matchCode,
     this.player,
     this.playerCountry,
@@ -34,8 +32,6 @@ class OlympicsGame extends Equatable {
       event: map['event'],
       gameName: map['gameName'],
       eventType: map['eventType'],
-      sessionNo: map['sessionNo'],
-      sessionTime: map['sessionTime'],
       matchCode: map['matchCode'],
       player: map['player'],
       playerCountry: map['playerCountry'],
@@ -60,8 +56,6 @@ class OlympicsGame extends Equatable {
       event: map['event'],
       gameName: map['gameName'],
       eventType: map['eventType'],
-      sessionNo: map['sessionNo'],
-      sessionTime: map['sessionTime'],
       matchCode: map['matchCode'],
       player: map['player'],
       playerCountry: map['playerCountry'],
@@ -79,8 +73,6 @@ class OlympicsGame extends Equatable {
         'event': event,
         'gameName': gameName,
         'eventType': eventType,
-        'sessionNo': sessionNo,
-        'sessionTime': sessionTime,
         'matchCode': matchCode,
         'player': player,
         'playerCountry': playerCountry,
@@ -96,8 +88,7 @@ class OlympicsGame extends Equatable {
   final String event;
   final String gameName;
   final String eventType;
-  final int sessionNo;
-  final String sessionTime;
+
   final String matchCode;
   final String player;
   final String playerCountry;
@@ -133,8 +124,6 @@ class OlympicsGame extends Equatable {
       event: event ?? this.event,
       gameName: gameName ?? this.gameName,
       eventType: eventType ?? this.eventType,
-      sessionNo: sessionNo ?? this.sessionNo,
-      sessionTime: sessionTime ?? this.sessionTime,
       matchCode: matchCode ?? this.matchCode,
       player: player ?? this.player,
       playerCountry: playerCountry ?? this.playerCountry,
@@ -154,8 +143,6 @@ class OlympicsGame extends Equatable {
       event,
       gameName,
       eventType,
-      sessionNo,
-      sessionTime,
       matchCode,
       player,
       playerCountry,

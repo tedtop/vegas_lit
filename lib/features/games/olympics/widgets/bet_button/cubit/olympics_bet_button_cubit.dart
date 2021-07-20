@@ -135,8 +135,6 @@ class OlympicsBetButtonCubit extends Cubit<OlympicsBetButtonState> {
                     playerName: state.game.player,
                     rivalCountry: state.game.rivalCountry,
                     rivalName: state.game.rival,
-                    sessionNo: state.game.sessionNo,
-                    sessionTime: state.game.sessionTime,
                     matchCode: state.game.matchCode,
                     eventType: state.game.eventType,
                     betTeam: state.winTeam == BetButtonWin.player
