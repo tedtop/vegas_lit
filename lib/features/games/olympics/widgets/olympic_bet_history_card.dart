@@ -116,7 +116,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                       color: Palette.cream,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
                                   Text(
@@ -126,7 +126,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                       color: Palette.green,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -145,7 +145,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                                   '${betHistoryData.playerName.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
-                                                    color: Palette.green,
+                                                    color: Palette.cream,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   overflow:
@@ -157,7 +157,6 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
-                                                  color: Palette.green,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -166,15 +165,18 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           const SizedBox(
                                             height: 4,
                                           ),
-                                          Text(
-                                            '${betHistoryData.rivalName.toUpperCase()}',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.green,
-                                              fontWeight: FontWeight.bold,
+                                          SizedBox(
+                                            child: Text(
+                                              '${betHistoryData.rivalName.toUpperCase()}',
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 15,
+                                                color: Palette.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              textAlign: TextAlign.center,
                                             ),
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
                                           )
                                         ],
                                       )
@@ -201,7 +203,6 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
-                                                  color: Palette.green,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -210,14 +211,17 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           const SizedBox(
                                             height: 4,
                                           ),
-                                          Text(
-                                            '${betHistoryData.playerName.toUpperCase()}',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.cream,
-                                              fontWeight: FontWeight.bold,
+                                          SizedBox(
+                                            child: Text(
+                                              '${betHistoryData.playerName.toUpperCase()}',
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 15,
+                                                color: Palette.cream,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
                                           ),
                                         ],
                                       ),
@@ -230,16 +234,15 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    '${betHistoryData.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 14,
-                                      color: Palette.cream,
-                                    ),
+                              Flexible(
+                                child: Text(
+                                  '${betHistoryData.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 14,
+                                    color: Palette.cream,
                                   ),
-                                ],
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
@@ -265,9 +268,12 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                betHistoryData.event,
-                                style: Styles.openBetsCardNormal,
+                              Flexible(
+                                child: Text(
+                                  betHistoryData.event,
+                                  style: Styles.openBetsCardNormal,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),

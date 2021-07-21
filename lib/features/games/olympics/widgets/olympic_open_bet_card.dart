@@ -115,7 +115,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                       color: Palette.cream,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
                                   Text(
@@ -125,7 +125,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                       color: Palette.green,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
                                 ],
@@ -144,7 +144,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                                   '${openBets.playerName.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
-                                                    color: Palette.green,
+                                                    color: Palette.cream,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   overflow:
@@ -156,7 +156,6 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
-                                                  color: Palette.green,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -165,15 +164,18 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           const SizedBox(
                                             height: 4,
                                           ),
-                                          Text(
-                                            '${openBets.rivalName.toUpperCase()}',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.green,
-                                              fontWeight: FontWeight.bold,
+                                          SizedBox(
+                                            child: Text(
+                                              '${openBets.rivalName.toUpperCase()}',
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 15,
+                                                color: Palette.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              textAlign: TextAlign.center,
                                             ),
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
                                           )
                                         ],
                                       )
@@ -200,7 +202,6 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
-                                                  color: Palette.green,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -209,14 +210,17 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           const SizedBox(
                                             height: 4,
                                           ),
-                                          Text(
-                                            '${openBets.playerName.toUpperCase()}',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.cream,
-                                              fontWeight: FontWeight.bold,
+                                          SizedBox(
+                                            child: Text(
+                                              '${openBets.playerName.toUpperCase()}',
+                                              style: GoogleFonts.nunito(
+                                                fontSize: 15,
+                                                color: Palette.cream,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
                                           ),
                                         ],
                                       ),
@@ -229,16 +233,15 @@ class OlympicsOpenBetCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    '${openBets.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 14,
-                                      color: Palette.cream,
-                                    ),
+                              Flexible(
+                                child: Text(
+                                  '${openBets.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 14,
+                                    color: Palette.cream,
                                   ),
-                                ],
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
@@ -264,9 +267,12 @@ class OlympicsOpenBetCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                openBets.event,
-                                style: Styles.openBetsCardNormal,
+                              Flexible(
+                                child: Text(
+                                  openBets.event,
+                                  style: Styles.openBetsCardNormal,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
