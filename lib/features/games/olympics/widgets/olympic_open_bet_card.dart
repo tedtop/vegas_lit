@@ -131,52 +131,89 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(width: 8),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  isPlayerWin
-                                      ? Text(
-                                          '${openBets.playerName.toUpperCase()} TO WIN',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.cream,
-                                            fontWeight: FontWeight.bold,
+                              Expanded(
+                                child: isPlayerWin
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  '${openBets.playerName.toUpperCase()}',
+                                                  style: GoogleFonts.nunito(
+                                                    fontSize: 15,
+                                                    color: Palette.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  softWrap: true,
+                                                ),
+                                              ),
+                                              Text(
+                                                ' TO WIN',
+                                                style: GoogleFonts.nunito(
+                                                  fontSize: 15,
+                                                  color: Palette.green,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${openBets.playerName.toUpperCase()}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.cream,
-                                            fontWeight: FontWeight.bold,
+                                          Text(
+                                            '${openBets.rivalName.toUpperCase()}',
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 15,
+                                              color: Palette.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  '${openBets.rivalName.toUpperCase()}',
+                                                  style: GoogleFonts.nunito(
+                                                    fontSize: 15,
+                                                    color: Palette.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  softWrap: true,
+                                                ),
+                                              ),
+                                              Text(
+                                                ' TO WIN',
+                                                style: GoogleFonts.nunito(
+                                                  fontSize: 15,
+                                                  color: Palette.green,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                  isPlayerWin
-                                      ? Text(
-                                          '${openBets.rivalName.toUpperCase()}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
+                                          Text(
+                                            '${openBets.playerName.toUpperCase()}',
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 15,
+                                              color: Palette.cream,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${openBets.rivalName.toUpperCase()} TO WIN',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                ],
+                                        ],
+                                      ),
                               ),
                             ],
                           ),
@@ -199,31 +236,22 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
-                                child: FittedBox(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      openBets.eventType == 'gold'
-                                          ? const Text(
-                                              '🥇',
-                                              style: TextStyle(fontSize: 14),
-                                            )
-                                          : openBets.eventType == 'silver'
-                                              ? const Text(
-                                                  '🥈',
-                                                  style:
-                                                      TextStyle(fontSize: 14),
-                                                )
-                                              : openBets.eventType == 'bronze'
-                                                  ? const Text(
-                                                      '🥉',
-                                                      style: TextStyle(
-                                                          fontSize: 14),
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                    ],
-                                  ),
-                                ),
+                                child: openBets.eventType == 'gold'
+                                    ? const Text(
+                                        '🥇',
+                                        style: TextStyle(fontSize: 14),
+                                      )
+                                    : openBets.eventType == 'silver'
+                                        ? const Text(
+                                            '🥈',
+                                            style: TextStyle(fontSize: 14),
+                                          )
+                                        : openBets.eventType == 'bronze'
+                                            ? const Text(
+                                                '🥉',
+                                                style: TextStyle(fontSize: 14),
+                                              )
+                                            : const SizedBox(),
                               )
                             ],
                           ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
@@ -28,17 +29,21 @@ class OlympicsCubit extends Cubit<OlympicsState> {
     await _gamesStream?.cancel();
     _gamesStream = todayGamesStream.listen(
       (games) {
-        // final todayGames = <OlympicsGame>[];
-        // if (games.isNotEmpty) {
-        //   todayGames.addAll(games
-        //       .where((game) =>
-        //           ESTDateTime.fetchTimeEST().isSameDate(game.startTime))
-        //       .toList());
-        // }
+        final todayGames = <OlympicsGame>[];
+        if (games.isNotEmpty) {
+          todayGames.addAll(games
+              .where((game) =>
+                  ESTDateTime.fetchTimeEST().isSameDate(game.startTime) &&
+                  (kReleaseMode
+                      ? (!game.isClosed &&
+                          game.startTime.isAfter(ESTDateTime.fetchTimeEST()))
+                      : true))
+              .toList());
+        }
         emit(
           OlympicsState.opened(
             estTimeZone: estTimeZone,
-            games: games,
+            games: todayGames,
             league: league,
           ),
         );

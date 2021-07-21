@@ -1,5 +1,6 @@
 // ignore: must_be_immutable
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +62,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
             Text(
-              '${betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry} TO WIN',
+              '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game.playerCountry).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game.rivalCountry).name.toUpperCase()} TO WIN',
               maxLines: 3,
               style: GoogleFonts.nunito(
                 fontSize: 24,
