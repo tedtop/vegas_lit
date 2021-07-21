@@ -77,25 +77,24 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(
-                          '${Images.olympicsIconsPath}${widget.game.gameName}.png',
-                          height: 35,
-                          width: 35,
+                        Row(
+                          children: [
+                            Image.asset(
+                              '${Images.olympicsIconsPath}${widget.game.gameName}.png',
+                              height: 35,
+                              width: 35,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              '${widget.game.gameName.replaceAll(RegExp('-'), '\/')}',
+                              style: Styles.normalTextBold,
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                        Text(
-                          '${widget.game.gameName.replaceAll(RegExp('-'), '\/')}',
-                          style: Styles.normalTextBold,
-                        ),
-                        Expanded(
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: FittedBox(
-                                child: OlympicHelper.badgeFromEventType(
-                                    eventType: widget.game.eventType),
-                              )),
-                        )
+                        OlympicHelper.badgeFromEventType(
+                            eventType: widget.game.eventType)
                       ],
                     ),
                   ),
