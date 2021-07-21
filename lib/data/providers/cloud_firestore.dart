@@ -438,7 +438,7 @@ class CloudFirestoreClient {
         .doc('olympics_2021_tokyo')
         .collection('matches')
         .where('isClosed', isEqualTo: false)
-        .orderBy('startTime', descending: true)
+        .orderBy('startTime')
         .snapshots();
 
     final gameList = snapshots.map(
