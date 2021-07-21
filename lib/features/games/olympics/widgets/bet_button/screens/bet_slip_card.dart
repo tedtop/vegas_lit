@@ -60,6 +60,16 @@ class OlympicsBetSlipCard extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
+            Text(
+              '${betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry} TO WIN',
+              maxLines: 3,
+              style: GoogleFonts.nunito(
+                fontSize: 24,
+                color: Palette.cream,
+                // fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -71,16 +81,6 @@ class OlympicsBetSlipCard extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            Text(
-              '${betButtonState.winTeam == BetButtonWin.player ? betButtonState.game.playerCountry : betButtonState.game.rivalCountry} TO WIN',
-              maxLines: 3,
-              style: GoogleFonts.nunito(
-                fontSize: 24,
-                color: Palette.cream,
-                // fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 2,
@@ -101,7 +101,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                       betButtonState.game.playerCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
-                                fontSize: 15,
+                                fontSize: 25,
                                 color: Palette.cream,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -249,8 +249,8 @@ class OlympicsBetSlipCard extends StatelessWidget {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(bottom: 170, left: 5, right: 5),
-                    child: OlympicHelper.badgeFromEventType(
+                        const EdgeInsets.only(bottom: 120, left: 5, right: 5),
+                    child: OlympicHelper.badgeFromEventTypeColumn(
                         eventType: betButtonState.game.eventType),
                   ),
                   Flexible(
@@ -264,7 +264,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                       betButtonState.game.rivalCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
-                                fontSize: 15,
+                                fontSize: 25,
                                 color: Palette.green,
                                 fontWeight: FontWeight.bold,
                               ),

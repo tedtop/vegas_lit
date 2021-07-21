@@ -34,4 +34,34 @@ class OlympicHelper {
       ],
     );
   }
+
+  static Widget badgeFromEventTypeColumn({String eventType}) {
+    return Column(
+      children: [
+        Image.asset(
+          '${Images.olympicsIconsPath}Olympics.png',
+          height: 18,
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        eventType == 'gold'
+            ? const Text(
+                '🥇',
+                style: TextStyle(fontSize: 20),
+              )
+            : eventType == 'silver'
+                ? const Text(
+                    '🥈',
+                    style: TextStyle(fontSize: 20),
+                  )
+                : eventType == 'bronze'
+                    ? const Text(
+                        '🥉',
+                        style: TextStyle(fontSize: 20),
+                      )
+                    : const SizedBox.shrink(),
+      ],
+    );
+  }
 }

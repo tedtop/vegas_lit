@@ -61,6 +61,7 @@ class OlympicsScreen extends StatelessWidget {
               );
             } else {
               return ListView.builder(
+                key: Key('${state.games.length}'),
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: state.games.length,
