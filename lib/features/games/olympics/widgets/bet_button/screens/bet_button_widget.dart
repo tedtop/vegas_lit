@@ -112,8 +112,9 @@ class BetButtonUnclicked extends StatelessWidget {
     final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
-      child: SizedBox(
-        width: 330,
+      child: Container(
+        width: 350,
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         child: ElevatedButton(
           style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -187,8 +188,9 @@ class BetButtonClicked extends StatelessWidget {
     final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
-      child: SizedBox(
-        width: 330,
+      child: Container(
+        width: 350,
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         child: ElevatedButton(
           style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -245,8 +247,9 @@ class BetButtonDone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
-      child: SizedBox(
-        width: 330,
+      child: Container(
+        width: 350,
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         child: ElevatedButton(
           style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
