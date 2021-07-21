@@ -3,12 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_content.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_bet_history_card.dart';
+import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_bet_history_card.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_bet_history_card.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
+import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_card.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/olympic_bet_history_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
-import '../../widgets/bet_history_card.dart';
 
 class MobileBetHistory extends StatelessWidget {
   @override
@@ -44,6 +50,23 @@ class MobileBetHistory extends StatelessWidget {
           ],
         );
         break;
+      case HistoryStatus.empty:
+        return Column(
+          children: [
+            const _MobileHistoryHeading(),
+            const _MobileHistoryDropdown(),
+            Padding(
+              padding: const EdgeInsets.only(top: 160),
+              child: Center(
+                child: Text(
+                  'No Records Found',
+                  style: GoogleFonts.nunito(),
+                ),
+              ),
+            ),
+            const BottomBar()
+          ],
+        );
       default:
         return Column(
           children: [
@@ -148,11 +171,36 @@ class _MobileHistoryList extends StatelessWidget {
       key: Key('${bets.length}'),
       itemCount: bets.length,
       itemBuilder: (context, index) {
-        return Center(
-          child: BetHistorySlip(
-            betHistoryData: bets[index],
-          ),
-        );
+        switch (bets[index].league) {
+          case 'mlb':
+            return MlbBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'nba':
+            return NbaBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'cbb':
+            return NcaabBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'cfb':
+            return NcaafBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'nfl':
+            return NflBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'nhl':
+            return NhlBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          case 'olympics':
+            return OlympicsBetHistoryCard(betHistoryData: bets[index]);
+            break;
+          default:
+            return const SizedBox();
+        }
+        // return Center(
+        //   child: BetHistorySlip(
+        //     betHistoryData: bets[index],
+        //   ),
+        // );
       },
     );
   }

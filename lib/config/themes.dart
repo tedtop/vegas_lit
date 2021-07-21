@@ -29,8 +29,8 @@ class Themes {
     ),
     textSelectionTheme: const TextSelectionThemeData(
         selectionHandleColor: Palette.cream,
-        selectionColor: Palette.cream,
-        cursorColor: Palette.cream),
+        selectionColor: Palette.darkGrey,
+        cursorColor: Palette.lightGrey),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     appBarTheme: const AppBarTheme(
       color: Palette.darkGrey,

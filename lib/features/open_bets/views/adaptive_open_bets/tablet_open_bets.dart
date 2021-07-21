@@ -1,13 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
+import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
+import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+// import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../home/cubit/home_cubit.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
-import '../open_bets_card.dart';
 
 class TabletOpenBets extends StatelessWidget {
   @override
@@ -132,14 +138,58 @@ class _TabletOpenBetsContentList extends StatelessWidget {
         crossAxisCount: 2,
         shrinkWrap: true,
         key: Key('${bets.length}'),
-        children: bets
-            .map(
-              (openBets) => FittedBox(
-                child: OpenBetsSlip(openBets: openBets),
+        children: bets.map((openBet) {
+          switch (openBet.league) {
+            case 'mlb':
+              return FittedBox(
+                child: MlbOpenBetCard(openBets: openBet),
                 fit: BoxFit.scaleDown,
-              ),
-            )
-            .toList(),
+              );
+              break;
+            case 'nba':
+              return FittedBox(
+                child: NbaOpenBetCard(openBets: openBet),
+                fit: BoxFit.scaleDown,
+              );
+              break;
+            case 'cbb':
+              return FittedBox(
+                child: NcaabOpenBetCard(openBets: openBet),
+                fit: BoxFit.scaleDown,
+              );
+              break;
+            case 'cfb':
+              return FittedBox(
+                child: NcaafOpenBetCard(openBets: openBet),
+                fit: BoxFit.scaleDown,
+              );
+              break;
+            case 'nfl':
+              return FittedBox(
+                child: NflOpenBetCard(openBets: openBet),
+                fit: BoxFit.scaleDown,
+              );
+              break;
+            case 'nhl':
+              return FittedBox(
+                child: NhlOpenBetCard(openBets: openBet),
+                fit: BoxFit.scaleDown,
+              );
+              break;
+            // case 'olympic':
+            //   return FittedBox(
+            //     child: OlympicOpenBetCard(openBets: openBet),
+            //     fit: BoxFit.scaleDown,
+            //   );
+            //   break;
+            default:
+              return const SizedBox();
+          }
+          // return FittedBox(
+          //   child: OpenBetsSlip(openBets: openBets),
+          //   fit: BoxFit.scaleDown,
+          // );
+        }).toList(),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:vegas_lit/features/games/olympics/views/olympics_screen.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -78,7 +79,7 @@ class _SportsBookViewState extends State<SportsBookView>
   bool get wantKeepAlive => true;
 
   final ScrollController _scrollController = ScrollController();
-  //OverlayEntry _overlayEntry;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -210,7 +211,7 @@ class _SportsBookViewState extends State<SportsBookView>
               ),
               Builder(
                 builder: (context) {
-                  var selectedIndex = 6;
+                  var selectedIndex = 7;
                   switch (widget.league) {
                     case 'NFL':
                       selectedIndex = 0;
@@ -233,8 +234,11 @@ class _SportsBookViewState extends State<SportsBookView>
                     case 'MLB':
                       selectedIndex = 6;
                       break;
-                    default:
+                    case 'OLYMPICS':
                       selectedIndex = 7;
+                      break;
+                    default:
+                      selectedIndex = 8;
                       break;
                   }
                   return FadeIndexedStack(
@@ -247,6 +251,7 @@ class _SportsBookViewState extends State<SportsBookView>
                       NcaabScreen.route(),
                       GolfScreen.route(),
                       MlbScreen.route(),
+                      OlympicsScreen.route(),
                       Container(),
                     ],
                   );
@@ -325,6 +330,7 @@ class _SportsBookViewState extends State<SportsBookView>
             items: <String>[
               'NFL',
               'NBA',
+              'OLYMPICS',
               'MLB',
               'NHL',
               'NCAAF',

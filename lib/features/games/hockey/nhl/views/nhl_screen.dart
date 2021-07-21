@@ -65,7 +65,6 @@ class NhlScreen extends StatelessWidget {
               return Column(
                 children: [
                   ScreenTypeLayout(
-                    //key: cardKey,
                     breakpoints: const ScreenBreakpoints(
                       desktop: 1000,
                       tablet: 600,

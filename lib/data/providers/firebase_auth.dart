@@ -43,11 +43,11 @@ class FirebaseAuthentication {
         case 'ERROR_EMAIL_ALREADY_IN_USE':
         case 'account-exists-with-different-credential':
         case 'email-already-in-use':
-          errorMessage = 'Email already used. Go to login page.';
+          errorMessage = 'An account with this email already exists.';
           break;
         case 'ERROR_WRONG_PASSWORD':
         case 'wrong-password':
-          errorMessage = 'Wrong email/password combination.';
+          errorMessage = 'Wrong password. Try resetting it.';
           break;
         case 'ERROR_USER_NOT_FOUND':
         case 'user-not-found':
@@ -59,14 +59,14 @@ class FirebaseAuthentication {
           break;
         case 'ERROR_TOO_MANY_REQUESTS':
         case 'operation-not-allowed':
-          errorMessage = 'Too many requests to log into this account.';
+          errorMessage = 'Wrong password. Try resetting it.';
           break;
         case 'ERROR_INVALID_EMAIL':
         case 'invalid-email':
           errorMessage = 'Email address is invalid.';
           break;
         default:
-          errorMessage = 'Sign Up failed. Please try again.';
+          errorMessage = 'Signup failed. Try again later.';
           break;
       }
       throw SignUpFailure(
@@ -95,11 +95,11 @@ class FirebaseAuthentication {
         case 'ERROR_EMAIL_ALREADY_IN_USE':
         case 'account-exists-with-different-credential':
         case 'email-already-in-use':
-          errorMessage = 'Email already used. Go to login page.';
+          errorMessage = 'An account with this email already exists.';
           break;
         case 'ERROR_WRONG_PASSWORD':
         case 'wrong-password':
-          errorMessage = 'Wrong email/password combination.';
+          errorMessage = 'Wrong password. Try resetting it.';
           break;
         case 'ERROR_USER_NOT_FOUND':
         case 'user-not-found':
@@ -111,14 +111,14 @@ class FirebaseAuthentication {
           break;
         case 'ERROR_TOO_MANY_REQUESTS':
         case 'operation-not-allowed':
-          errorMessage = 'Too many requests to log into this account.';
+          errorMessage = 'Too many login attempts. Try again later.';
           break;
         case 'ERROR_INVALID_EMAIL':
         case 'invalid-email':
           errorMessage = 'Email address is invalid.';
           break;
         default:
-          errorMessage = 'Login failed. Please try again.';
+          errorMessage = 'Login failed. Try again later.';
           break;
       }
       throw LogInWithEmailAndPasswordFailure(

@@ -38,7 +38,7 @@ class ProfileAvatar extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   content: Text(
-                    'Profile Updated!',
+                    'Your profile was updated.',
                   ),
                 ),
               );
@@ -49,7 +49,7 @@ class ProfileAvatar extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   content: Text(
-                    'Some Error Occured!',
+                    'An error occurred. Try again later.',
                   ),
                 ),
               );

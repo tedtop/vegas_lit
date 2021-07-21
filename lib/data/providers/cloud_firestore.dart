@@ -1,6 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympics.dart';
 
 import '../models/bet.dart';
 import '../models/user.dart';
@@ -92,11 +100,35 @@ class CloudFirestoreClient {
         .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
+          (event) => event.docs.map(
+            (snapshot) {
+              switch (snapshot.data()['league'] as String) {
+                case 'mlb':
+                  return MlbBetData.fromFirestore(snapshot);
+                  break;
+                case 'nba':
+                  return NbaBetData.fromFirestore(snapshot);
+                  break;
+                case 'cbb':
+                  return NcaabBetData.fromFirestore(snapshot);
+                  break;
+                case 'cfb':
+                  return NcaafBetData.fromFirestore(snapshot);
+                  break;
+                case 'nfl':
+                  return NflBetData.fromFirestore(snapshot);
+                  break;
+                case 'nhl':
+                  return NhlBetData.fromFirestore(snapshot);
+                  break;
+                case 'olympics':
+                  return OlympicsBetData.fromFirestore(snapshot);
+                  break;
+                default:
+                  return BetData.fromFirestore(snapshot);
+              }
+            },
+          ).toList(),
         );
     return openBetsData;
   }
@@ -115,11 +147,35 @@ class CloudFirestoreClient {
         .orderBy('gameStartDateTime', descending: true)
         .snapshots()
         .map(
-          (event) => event.docs
-              .map(
-                (e) => BetData.fromFirestore(e),
-              )
-              .toList(),
+          (event) => event.docs.map(
+            (snapshot) {
+              switch (snapshot.data()['league'] as String) {
+                case 'mlb':
+                  return MlbBetData.fromFirestore(snapshot);
+                  break;
+                case 'nba':
+                  return NbaBetData.fromFirestore(snapshot);
+                  break;
+                case 'cbb':
+                  return NcaabBetData.fromFirestore(snapshot);
+                  break;
+                case 'cfb':
+                  return NcaafBetData.fromFirestore(snapshot);
+                  break;
+                case 'nfl':
+                  return NflBetData.fromFirestore(snapshot);
+                  break;
+                case 'nhl':
+                  return NhlBetData.fromFirestore(snapshot);
+                  break;
+                case 'olympics':
+                  return OlympicsBetData.fromFirestore(snapshot);
+                  break;
+                default:
+                  return BetData.fromFirestore(snapshot);
+              }
+            },
+          ).toList(),
         );
     return betHistoryData;
   }
@@ -374,5 +430,44 @@ class CloudFirestoreClient {
       'todayRewards': FieldValue.increment(rewardValue),
       'accountBalance': FieldValue.increment(rewardValue),
     });
+  }
+
+  Stream<List<OlympicsGame>> fetchOlympicsGames() {
+    final snapshots = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('matches')
+        .where('isClosed', isEqualTo: false)
+        .orderBy('startTime')
+        .snapshots();
+
+    final gameList = snapshots.map(
+      (event) => event.docs
+          .map(
+            (e) => OlympicsGame.fromFirestore(e),
+          )
+          .toList(),
+    );
+    return gameList;
+  }
+
+  Future<void> addOlympicsGame({@required OlympicsGame game}) async {
+    final olympicsCollectionRef = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('matches')
+        .doc(game.gameId);
+
+    await olympicsCollectionRef.set(game.toMap(), SetOptions(merge: true));
+  }
+
+  Future<void> updateOlympicGame({@required OlympicsGame game}) async {
+    final olympicsCollectionRef = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('matches')
+        .doc(game.gameId);
+
+    await olympicsCollectionRef.update(game.toMap());
   }
 }

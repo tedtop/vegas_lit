@@ -50,6 +50,11 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
                       rightText: '${userWallet.totalOpenBets}',
                     ),
                     LeaderboardProfileHistoryBoardText(
+                      leftText: 'Cancelled',
+                      rightText:
+                          '${userWallet.totalBets - (userWallet.totalBetsWon + userWallet.totalBetsLost + userWallet.totalOpenBets)}',
+                    ),
+                    LeaderboardProfileHistoryBoardText(
                       leftText: 'Total',
                       rightText: '${userWallet.totalBets}',
                     ),
@@ -98,6 +103,11 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
                       leftText: 'Total Profit',
                       rightText: '${userWallet.totalProfit}',
                     ),
+                    // LeaderboardProfileHistoryBoardText(
+                    //   leftText: 'Total Refund',
+                    //   rightText:
+                    //       '${(userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount) - (userWallet.totalRiskedAmount - userWallet.pendingRiskedAmount)}',
+                    // ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Balance',
                       rightText: '${userWallet.accountBalance}',

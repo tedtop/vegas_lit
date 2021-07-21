@@ -10,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/helpers/timer_helper.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
@@ -221,7 +223,8 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                         Padding(
                           padding: const EdgeInsets.only(top: 11.0),
                           child: Text(
-                            (whichBetSystem(betType: betButtonState.betType)),
+                            (BetsDataHelper.whichBetSystemFromEnum(
+                                betButtonState.betType)),
                             maxLines: 1,
                             style: GoogleFonts.nunito(
                               fontSize: 16,
@@ -448,12 +451,8 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
                       );
                     }
 
-                    final hours = time.hours == null ? '' : ' ${time.hours}hr';
-                    final min = time.min == null ? '' : ' ${time.min}m';
-                    final sec = time.sec == null ? '' : ' ${time.sec}s';
-
                     return Text(
-                      'Starting in$hours$min$sec',
+                      'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
                       style: GoogleFonts.nunito(
                         fontSize: 15,
                         color: Palette.red,
@@ -467,20 +466,6 @@ class _BetSlipCardState extends State<NhlBetSlipCard> {
         );
       },
     );
-  }
-
-  String whichBetSystem({@required Bet betType}) {
-    if (betType == Bet.ml) {
-      return 'MONEYLINE';
-    }
-    if (betType == Bet.pts) {
-      return 'POINT SPREAD';
-    }
-    if (betType == Bet.tot) {
-      return 'TOTAL O/U';
-    } else {
-      return 'Error';
-    }
   }
 
   bool isNumeric(String s) {

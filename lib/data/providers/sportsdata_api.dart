@@ -27,24 +27,33 @@ class SportsAPI {
   final Dio _dio;
 
   // MLB
-  Future<List<MlbGame>> fetchMLB({@required DateTime dateTime}) async {
+  Future<List<MlbGame>> fetchMLB(
+      {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
-
-    final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-    );
-    if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data));
-
-      return parsed
-          .map<MlbGame>(
-            (json) => MlbGame.fromMap(json),
-          )
-          .toList();
-    } else {
-      throw FetchFailureMLB();
+    final formattedDates = <String>[];
+    for (var day = 0; day < days; day++) {
+      formattedDates.add(
+          DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
+    final responses =
+        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+            )));
+    final games = <MlbGame>[];
+    for (final response in responses) {
+      if (response.statusCode == 200) {
+        final parsed = json.decode(json.encode(response.data));
+
+        games.addAll(parsed
+            .map<MlbGame>(
+              (json) => MlbGame.fromMap(json),
+            )
+            .toList());
+      } else {
+        throw FetchFailureMLB();
+      }
+    }
+    return games;
   }
 
   Future<List<MlbTeamStats>> fetchMLBTeamStats(
@@ -96,24 +105,33 @@ class SportsAPI {
   }
 
   // NBA
-  Future<List<NbaGame>> fetchNBA({@required DateTime dateTime}) async {
+  Future<List<NbaGame>> fetchNBA(
+      {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.nba;
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
-
-    final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-    );
-    if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data));
-
-      return parsed
-          .map<NbaGame>(
-            (json) => NbaGame.fromMap(json),
-          )
-          .toList();
-    } else {
-      throw FetchFailureNBA();
+    final formattedDates = <String>[];
+    for (var day = 0; day < days; day++) {
+      formattedDates.add(
+          DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
+    final responses =
+        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+            )));
+    final games = <NbaGame>[];
+    for (final response in responses) {
+      if (response.statusCode == 200) {
+        final parsed = json.decode(json.encode(response.data));
+
+        games.addAll(parsed
+            .map<NbaGame>(
+              (json) => NbaGame.fromMap(json),
+            )
+            .toList());
+      } else {
+        throw FetchFailureNBA();
+      }
+    }
+    return games;
   }
 
   Future<List<NbaPlayer>> fetchNBAPlayers({@required String teamKey}) async {
@@ -134,26 +152,33 @@ class SportsAPI {
   }
 
   // NCAAB
-  Future<List<NcaabGame>> fetchNCAAB({@required DateTime dateTime}) async {
+  Future<List<NcaabGame>> fetchNCAAB(
+      {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
-
-    final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-    );
-    if (response.statusCode == 200) {
-      final parsed = json.decode(
-        json.encode(response.data),
-      );
-
-      return parsed
-          .map<NcaabGame>(
-            (json) => NcaabGame.fromMap(json),
-          )
-          .toList();
-    } else {
-      throw FetchFailureNCAAB();
+    final formattedDates = <String>[];
+    for (var day = 0; day < days; day++) {
+      formattedDates.add(
+          DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
+    final responses =
+        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+            )));
+    final games = <NcaabGame>[];
+    for (final response in responses) {
+      if (response.statusCode == 200) {
+        final parsed = json.decode(json.encode(response.data));
+
+        games.addAll(parsed
+            .map<NcaabGame>(
+              (json) => NcaabGame.fromMap(json),
+            )
+            .toList());
+      } else {
+        throw FetchFailureNCAAB();
+      }
+    }
+    return games;
   }
 
   Future<List<NcaabPlayer>> fetchNCAABPlayers(
@@ -175,26 +200,33 @@ class SportsAPI {
   }
 
   // NCAAF
-  Future<List<NcaafGame>> fetchNCAAF({@required DateTime dateTime}) async {
+  Future<List<NcaafGame>> fetchNCAAF(
+      {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
-
-    final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-    );
-    if (response.statusCode == 200) {
-      final parsed = json.decode(
-        json.encode(response.data),
-      );
-
-      return parsed
-          .map<NcaafGame>(
-            (json) => NcaafGame.fromMap(json),
-          )
-          .toList();
-    } else {
-      throw FetchFailureNCAAB();
+    final formattedDates = <String>[];
+    for (var day = 0; day < days; day++) {
+      formattedDates.add(
+          DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
+    final responses =
+        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+            )));
+    final games = <NcaafGame>[];
+    for (final response in responses) {
+      if (response.statusCode == 200) {
+        final parsed = json.decode(json.encode(response.data));
+
+        games.addAll(parsed
+            .map<NcaafGame>(
+              (json) => NcaafGame.fromMap(json),
+            )
+            .toList());
+      } else {
+        throw FetchFailureNCAAB();
+      }
+    }
+    return games;
   }
 
   Future<List<NcaafPlayer>> fetchNCAAFPlayers(
@@ -216,24 +248,33 @@ class SportsAPI {
   }
 
   // NFL
-  Future<List<NflGame>> fetchNFL({@required DateTime dateTime}) async {
+  Future<List<NflGame>> fetchNFL(
+      {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
-
-    final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-    );
-    if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data));
-
-      return parsed
-          .map<NflGame>(
-            (json) => NflGame.fromMap(json),
-          )
-          .toList();
-    } else {
-      throw FetchFailureNFL();
+    final formattedDates = <String>[];
+    for (var day = 0; day < days; day++) {
+      formattedDates.add(
+          DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
+    final responses =
+        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+            )));
+    final games = <NflGame>[];
+    for (final response in responses) {
+      if (response.statusCode == 200) {
+        final parsed = json.decode(json.encode(response.data));
+
+        games.addAll(parsed
+            .map<NflGame>(
+              (json) => NflGame.fromMap(json),
+            )
+            .toList());
+      } else {
+        throw FetchFailureNFL();
+      }
+    }
+    return games;
   }
 
   Future<List<NflPlayer>> fetchNFLPlayers({@required String teamKey}) async {
@@ -254,24 +295,33 @@ class SportsAPI {
   }
 
   // NHL
-  Future<List<NhlGame>> fetchNHL({@required DateTime dateTime}) async {
+  Future<List<NhlGame>> fetchNHL(
+      {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
-    final formattedDate = DateFormat('yyyy-MMM-dd').format(dateTime);
-
-    final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-    );
-    if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data));
-
-      return parsed
-          .map<NhlGame>(
-            (json) => NhlGame.fromMap(json),
-          )
-          .toList();
-    } else {
-      throw FetchFailureNHL();
+    final formattedDates = <String>[];
+    for (var day = 0; day < days; day++) {
+      formattedDates.add(
+          DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
+    final responses =
+        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+            )));
+    final games = <NhlGame>[];
+    for (final response in responses) {
+      if (response.statusCode == 200) {
+        final parsed = json.decode(json.encode(response.data));
+
+        games.addAll(parsed
+            .map<NhlGame>(
+              (json) => NhlGame.fromMap(json),
+            )
+            .toList());
+      } else {
+        throw FetchFailureNHL();
+      }
+    }
+    return games;
   }
 
   Future<List<NhlPlayer>> fetchNHLPlayers({@required String teamKey}) async {

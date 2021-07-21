@@ -67,7 +67,7 @@ class BetButton extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   content: Text(
-                    'Bet already placed!',
+                    "You've already placed a bet on this game.",
                   ),
                 ),
               );
@@ -77,8 +77,8 @@ class BetButton extends StatelessWidget {
               ..removeCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  duration: Duration(milliseconds: 1000),
-                  content: Text('Your bet has been placed!'),
+                  duration: Duration(milliseconds: 2000),
+                  content: Text('Your bet has been placed.'),
                 ),
               );
             context
@@ -244,7 +244,7 @@ class BetButtonDone extends StatelessWidget {
             maxLines: 1,
             style: GoogleFonts.nunito(
               fontSize: 14,
-              color: Palette.red,
+              color: Palette.cream,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../data/models/bet.dart';
@@ -109,9 +110,9 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
           ..removeCurrentSnackBar()
           ..showSnackBar(
             const SnackBar(
-              duration: Duration(milliseconds: 1000),
+              duration: Duration(milliseconds: 2000),
               content: Text(
-                'The game has already started',
+                'This game has already started.',
               ),
             ),
           );
@@ -124,10 +125,10 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
               ..removeCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  duration: Duration(milliseconds: 1000),
+                  duration: Duration(milliseconds: 2000),
                   content: Text(
                     // ignore: lines_longer_than_80_chars
-                    "You're out of funds!",
+                    "You're out of funds. Try watching the video in your bet slip.",
                   ),
                 ),
               );
@@ -135,7 +136,7 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
             emit(state.copyWith(status: MlbBetButtonStatus.placing));
             await context.read<MlbBetButtonCubit>().updateOpenBets(
                   betAmount: betButtonState.betAmount,
-                  betsData: BetData(
+                  betsData: MlbBetData(
                     stillOpen: false,
                     username: username,
                     homeTeamCity: betButtonState.homeTeamData.city,
@@ -183,9 +184,9 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
         ..removeCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            duration: Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: 2000),
             content: Text(
-              'Please update your app to place bets',
+              'Please update your app to place bets.',
             ),
           ),
         );

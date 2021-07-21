@@ -12,6 +12,8 @@ class Images {
   static const String placeBetHelpOverlay = 'assets/overlays/how_to_bet.png';
   static const String numberOfBetsHelpOverlay =
       'assets/overlays/how_many_bets.png';
+
+  static const String olympicsIconsPath = 'assets/images/olympics_icons/';
 }
 
 class Json {

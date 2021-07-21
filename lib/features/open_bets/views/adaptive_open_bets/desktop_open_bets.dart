@@ -1,18 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/helpers/timer_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../../data/models/bet.dart';
 import '../../../home/home.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
-import '../open_bets_card.dart';
 
 class DesktopOpenBets extends StatelessWidget {
   @override
@@ -257,7 +256,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
       : assert(openBets != null),
         super(key: key);
 
-  final BetData openBets;
+  final dynamic openBets;
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +361,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 18),
                             child: Text(
-                                '${whichBetSystem(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                '${BetsDataHelper.whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                 style: Styles.openBetsDesktopItem),
                           );
                         case 'Risking':
@@ -399,17 +398,9 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                   );
                                 }
 
-                                final hours = time.hours == null
-                                    ? ''
-                                    : ' ${time.hours}hr';
-                                final min =
-                                    time.min == null ? '' : ' ${time.min}m';
-                                final sec =
-                                    time.sec == null ? '' : ' ${time.sec}s';
-
                                 return Center(
                                   child: Text(
-                                    'Starting in$hours$min$sec',
+                                    'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
                                     style: Styles.openBetsDesktopTime,
                                   ),
                                 );

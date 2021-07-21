@@ -7,7 +7,6 @@ import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/bet.dart';
 import '../../../../data/models/wallet.dart';
-import '../../../open_bets/views/open_bets_card.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/leaderboard_profile_cubit.dart';
 import '../../widgets/leaderboard_profile_board_items.dart';
@@ -314,7 +313,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
 
 class _DesktopBetHistoryTableRow extends StatelessWidget {
   const _DesktopBetHistoryTableRow({Key key, this.bet}) : super(key: key);
-  final BetData bet;
+  final dynamic bet;
   @override
   Widget build(BuildContext context) {
     final isWin = bet.winningTeam == bet.betTeam;
@@ -374,7 +373,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text(
-                                  '${whichBetSystem(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                  '${BetsDataHelper.whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                   style: Styles.betHistoryDesktopItem),
                             );
                           case 'Risked':

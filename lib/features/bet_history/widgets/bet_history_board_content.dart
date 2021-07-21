@@ -50,6 +50,11 @@ class BetHistoryBoardContent extends StatelessWidget {
                       rightText: '${userWallet.totalOpenBets}',
                     ),
                     BetHistoryBoardText(
+                      leftText: 'Cancelled',
+                      rightText:
+                          '${userWallet.totalBets - (userWallet.totalBetsWon + userWallet.totalBetsLost + userWallet.totalOpenBets)}',
+                    ),
+                    BetHistoryBoardText(
                       leftText: 'Total',
                       rightText: '${userWallet.totalBets}',
                     ),
@@ -98,6 +103,11 @@ class BetHistoryBoardContent extends StatelessWidget {
                       leftText: 'Total Profit',
                       rightText: '${userWallet.totalProfit}',
                     ),
+                    // BetHistoryBoardText(
+                    //   leftText: 'Total Refund',
+                    //   rightText:
+                    //       '${userWallet.totalRiskedAmount - userWallet.totalRewards - (userWallet.totalRiskedAmount - userWallet.totalLoss - userWallet.pendingRiskedAmount) - 1000}',
+                    // ),
                     BetHistoryBoardText(
                       leftText: 'Balance',
                       rightText: '${userWallet.accountBalance}',

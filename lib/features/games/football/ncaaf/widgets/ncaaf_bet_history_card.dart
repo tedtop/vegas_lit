@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
 
-import '../../../config/palette.dart';
-import '../../../config/styles.dart';
-import '../../../data/models/bet.dart';
-
-class BetHistorySlip extends StatelessWidget {
-  const BetHistorySlip({
+class NcaafBetHistoryCard extends StatelessWidget {
+  const NcaafBetHistoryCard({
     Key key,
     @required this.betHistoryData,
   })  : assert(betHistoryData != null),
         super(key: key);
 
-  final BetData betHistoryData;
+  final NcaafBetData betHistoryData;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class BetHistorySlip extends StatelessWidget {
                           const SizedBox(
                             height: 3,
                           ),
-                          whichBetText(betData: betHistoryData),
+                          BetsDataHelper.whichBetTextWidget(betHistoryData),
                           const SizedBox(
                             height: 3,
                           ),
@@ -201,7 +201,8 @@ class BetHistorySlip extends StatelessWidget {
               width: 80,
               child: Center(
                 child: Text(
-                  whichBetSystem(betHistoryData.betType),
+                  BetsDataHelper.whichBetSystemFromString(
+                      betHistoryData.betType),
                   style: GoogleFonts.nunito(
                     fontSize: 10,
                   ),
@@ -212,195 +213,5 @@ class BetHistorySlip extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-Widget whichBetText({@required BetData betData}) {
-  final odds = betData?.odds?.isNegative ?? 0.isNegative
-      ? betData.odds.toString()
-      : '+${betData.odds}';
-  final isPointSpreadNegative =
-      betData?.betPointSpread?.isNegative ?? 0.isNegative;
-  final overUnder = betData.betTeam == 'away'
-      ? '+${betData.betOverUnder}'
-      : '-${betData.betOverUnder}';
-  final awayTeamPointSpread = isPointSpreadNegative
-      ? betData?.betPointSpread?.abs() ?? 0
-      : betData?.betPointSpread != null
-          ? -betData?.betPointSpread?.abs()
-          : 0;
-  final homeTeamPointSpread = isPointSpreadNegative
-      ? betData?.betPointSpread != null
-          ? -betData?.betPointSpread?.abs()
-          : 0
-      : betData?.betPointSpread?.abs() ?? 0;
-  switch (betData.betType) {
-    case 'moneyline':
-      return Column(
-        children: [
-          RichText(
-            text: TextSpan(
-              style: Styles.openBetsCardNormal,
-              children: [
-                betData.betTeam == 'away'
-                    ? TextSpan(
-                        text: '${betData.awayTeamName.toUpperCase()} ',
-                        style: Styles.openBetsCardNormal,
-                      )
-                    : TextSpan(
-                        text: '${betData.homeTeamName.toUpperCase()} ',
-                        style: Styles.openBetsCardNormal
-                            .copyWith(color: Palette.green),
-                      ),
-                const TextSpan(text: 'TO WIN'),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Text(
-            '(ML) ${whichBetSystem(betData.betType)}  ($odds)',
-            style: Styles.openBetsCardNormal,
-          ),
-        ],
-      );
-      break;
-    case 'pointspread':
-      if (betData.betTeam == 'away') {
-        return Column(
-          children: [
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${betData.awayTeamName.toUpperCase()} ',
-                    style: Styles.openBetsCardNormal,
-                  ),
-                  awayTeamPointSpread.isNegative
-                      ? TextSpan(
-                          text: '(-${awayTeamPointSpread.abs()})',
-                          style: Styles.openBetsCardNormal,
-                        )
-                      : TextSpan(
-                          text: '(+${awayTeamPointSpread.abs()})',
-                          style: Styles.openBetsCardNormal,
-                        ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              '(PTS) POINT SPREAD ($odds)',
-              style: Styles.openBetsCardNormal,
-            )
-          ],
-        );
-      } else {
-        return Column(
-          children: [
-            RichText(
-              text: TextSpan(
-                style: Styles.openBetsCardNormal,
-                children: [
-                  TextSpan(
-                    text: '${betData.homeTeamName.toUpperCase()} ',
-                    style: Styles.openBetsCardNormal.copyWith(
-                      color: Palette.green,
-                    ),
-                  ),
-                  homeTeamPointSpread.isNegative
-                      ? TextSpan(
-                          text: '(-${homeTeamPointSpread.abs()})',
-                          style: Styles.openBetsCardNormal,
-                        )
-                      : TextSpan(
-                          text: '(+${homeTeamPointSpread.abs()})',
-                          style: Styles.openBetsCardNormal,
-                        ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              '(PTS) POINT SPREAD ($odds)',
-              style: Styles.openBetsCardNormal,
-            )
-          ],
-        );
-      }
-      break;
-    case 'total':
-      if (betData.betTeam == 'away') {
-        return Column(
-          children: [
-            Text(
-              '${betData.awayTeamName.toUpperCase()} OVER ($overUnder)',
-              style: Styles.openBetsCardNormal,
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              '(TOT) TOTAL O/U ($odds)',
-              style: Styles.openBetsCardNormal,
-            )
-          ],
-        );
-      } else {
-        return Column(
-          children: [
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${betData.homeTeamName.toUpperCase()}',
-                    style: Styles.openBetsCardNormal.copyWith(
-                      color: Palette.green,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' UNDER ($overUnder)',
-                    style: Styles.openBetsCardNormal,
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              '(TOT) TOTAL O/U ($odds)',
-              style: Styles.openBetsCardNormal,
-            )
-          ],
-        );
-      }
-      break;
-    default:
-      return Center(
-        child: Text(
-          'NO DATA FOUND',
-          style: Styles.openBetsCardNormal,
-        ),
-      );
-  }
-}
-
-String whichBetSystem(String betType) {
-  if (betType == 'moneyline') {
-    return 'MONEYLINE';
-  }
-  if (betType == 'pointspread') {
-    return 'POINT SPREAD';
-  }
-  if (betType == 'total') {
-    return 'TOTAL O/U';
-  } else {
-    return 'ERROR';
   }
 }

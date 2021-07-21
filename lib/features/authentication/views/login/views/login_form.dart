@@ -311,38 +311,32 @@ class __ResetPageState extends State<_ResetPage> {
                           ..showSnackBar(
                             const SnackBar(
                               content: Text(
-                                'Reset Password link sent to your Email.',
+                                'Password reset link has been sent.',
                               ),
                             ),
                           );
                       } on ResetPasswordEmailFailure {
                         setState(() {
-                          isEmailValid = 'Some error occured. Try again later.';
+                          isEmailValid = 'An error occurred. Try again later.';
                         });
                       } on ResetPasswordEmailNotExists {
                         setState(() {
-                          isEmailValid = 'Email not exists.';
+                          isEmailValid = "That account doesn't exist.";
                         });
                       }
                     } else {
                       setState(() {
-                        isEmailValid = 'Enter Correct Email!';
+                        isEmailValid = 'Invalid email.';
                       });
                     }
                   } else {
-                    // ignore: avoid_print
-                    print('Don\'t leave the field blank.');
-
                     setState(() {
-                      isEmailValid = 'Don\'t leave the field blank.';
+                      isEmailValid = "Don't leave this field blank";
                     });
                   }
                 } else {
-                  // ignore: avoid_print
-                  print('Type Something in the Field!');
-
                   setState(() {
-                    isEmailValid = 'Type Something in the Field!';
+                    isEmailValid = "Don't leave this field blank";
                   });
                 }
               },

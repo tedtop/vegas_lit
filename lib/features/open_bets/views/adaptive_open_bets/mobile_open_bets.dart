@@ -1,13 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
+import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
+import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../home/home.dart';
 import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
-import '../open_bets_card.dart';
 
 class MobileOpenBets extends StatelessWidget {
   @override
@@ -130,11 +136,36 @@ class _MobileOpenBetsContentList extends StatelessWidget {
       key: Key('${bets.length}'),
       itemCount: bets.length,
       itemBuilder: (context, index) {
-        return Center(
-          child: OpenBetsSlip(
-            openBets: bets[index],
-          ),
-        );
+        switch (bets[index].league) {
+          case 'mlb':
+            return MlbOpenBetCard(openBets: bets[index]);
+            break;
+          case 'nba':
+            return NbaOpenBetCard(openBets: bets[index]);
+            break;
+          case 'cbb':
+            return NcaabOpenBetCard(openBets: bets[index]);
+            break;
+          case 'cfb':
+            return NcaafOpenBetCard(openBets: bets[index]);
+            break;
+          case 'nfl':
+            return NflOpenBetCard(openBets: bets[index]);
+            break;
+          case 'nhl':
+            return NhlOpenBetCard(openBets: bets[index]);
+            break;
+          case 'olympics':
+            return OlympicsOpenBetCard(openBets: bets[index]);
+            break;
+          default:
+            return const SizedBox();
+        }
+        // return Center(
+        //   child: OpenBetsSlip(
+        //     openBets: bets[index],
+        //   ),
+        // );
       },
     );
   }

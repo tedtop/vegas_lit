@@ -35,7 +35,7 @@ class RewardedBetSlip extends StatelessWidget {
           AbstractCard(
             widgets: [
               Text(
-                'Your bets are placed!',
+                'Your bet was placed.',
                 style: Styles.betSlipBoxLargeText,
               ),
               const SizedBox(
@@ -43,7 +43,7 @@ class RewardedBetSlip extends StatelessWidget {
               ),
               todayRewards >= 300
                   ? Text(
-                      'Sorry. You\'ve exceeded the rewards amount.',
+                      "Sorry. You've exceeded the daily reward amount.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(fontSize: 20),
                     )
@@ -52,7 +52,7 @@ class RewardedBetSlip extends StatelessWidget {
                       child: Column(
                         children: [
                           textPoints(
-                            'Need more funds to bet?',
+                            'Need more funds to play?',
                           ),
                           const SizedBox(
                             height: 15,
@@ -77,7 +77,7 @@ class RewardedBetSlip extends StatelessWidget {
                                     const SnackBar(
                                       duration: Duration(milliseconds: 2000),
                                       content: Text(
-                                        'There was an error displaying the ad',
+                                        'There was an error displaying the ad.',
                                       ),
                                     ),
                                   );

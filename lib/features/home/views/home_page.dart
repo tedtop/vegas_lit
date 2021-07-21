@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:new_version/new_version.dart';
 import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
-
 import '../../../config/assets.dart';
 import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/sports_repository.dart';
@@ -52,7 +52,7 @@ class HomePage extends StatefulWidget {
                 sportsfeedRepository: context.read<SportsRepository>(),
               )..add(
                   SportsbookOpen(
-                    league: 'MLB',
+                    league: 'OLYMPICS',
                   ),
                 ),
             ),
@@ -102,10 +102,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin, RouteAware {
+  final newVersion = NewVersion();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     widget.observer.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void initState() {
+    newVersion.showAlertIfNecessary(context: context);
+    super.initState();
   }
 
   @override
@@ -150,7 +158,20 @@ class _HomePageState extends State<HomePage>
               builder: (context, state) {
                 if (state is InternetDisconnected) {
                   return Center(
-                    child: SvgPicture.asset(SVG.networkError),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(SVG.networkError),
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<InternetCubit>()
+                                .checkInternetConnection();
+                          },
+                          icon: const Icon(Icons.replay_rounded),
+                        )
+                      ],
+                    ),
                   );
                 } else {
                   return PageView(

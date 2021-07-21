@@ -39,6 +39,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final list = <String>[
       'NFL',
       'NBA',
+      'OLYMPICS',
       'MLB',
       'NHL',
       'NCAAF',
@@ -103,6 +104,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       case 'NFL':
         return 'nfl';
         break;
+      case 'OLYMPICS':
+        return 'olympics';
       default:
         break;
     }
@@ -115,6 +118,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNFL(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -131,6 +135,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNBA(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -147,6 +152,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchMLB(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -163,6 +169,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNHL(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -179,6 +186,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNCAAF(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -195,6 +203,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return await _sportsfeedRepository
             .fetchNCAAB(
           dateTime: dateTime,
+          days: 2,
         )
             .then(
           (value) {
@@ -212,6 +221,20 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         break;
       case 'GOLF':
         return 0;
+        break;
+      case 'OLYMPICS':
+        return await _sportsfeedRepository.fetchOlympicsGame().first.then(
+          (value) {
+            return kDebugMode
+                ? value.length
+                : value
+                    .where((game) =>
+                        ESTDateTime.fetchTimeEST().isSameDate(game.startTime))
+                    .toList()
+                    .length;
+          },
+        );
+
         break;
       default:
         return 0;

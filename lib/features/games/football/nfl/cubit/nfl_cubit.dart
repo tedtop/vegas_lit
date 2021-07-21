@@ -32,6 +32,7 @@ class NflCubit extends Cubit<NflState> {
     // final todayGames = await _sportsfeedRepository
     //     .fetchNFL(
     //       dateTime: estTimeZone,
+    //        days: 2,
     //     )
     //     .then(
     //       (value) => value
