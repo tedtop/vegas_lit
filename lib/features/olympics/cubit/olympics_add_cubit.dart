@@ -10,13 +10,19 @@ class OlympicsAddCubit extends Cubit<OlympicsAddState> {
   OlympicsAddCubit({@required SportsRepository sportsRepository})
       : assert(sportsRepository != null),
         _sportsRepository = sportsRepository,
-        super(OlympicsAddInitial());
+        super(
+          const OlympicsAddState(),
+        );
 
   final SportsRepository _sportsRepository;
 
   void addOlympicsGame({@required OlympicsGame game}) async {
-    emit(OlympicsAddLoading());
+    emit(
+      const OlympicsAddState(status: OlympicsAddStatus.loading),
+    );
     await _sportsRepository.addOlympicsGame(game: game);
-    emit(OlympicsAddComplete());
+    emit(
+      const OlympicsAddState(status: OlympicsAddStatus.complete),
+    );
   }
 }

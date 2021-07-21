@@ -1,6 +1,7 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'package:vegas_lit/config/extensions.dart';
@@ -16,14 +17,16 @@ class OlympicsAddForm extends StatefulWidget {
   OlympicsAddForm._({Key key}) : super(key: key);
 
   static MaterialPageRoute route() {
-    return MaterialPageRoute(builder: (context) {
-      return BlocProvider(
-        create: (context) => OlympicsAddCubit(
-          sportsRepository: context.read<SportsRepository>(),
-        ),
-        child: OlympicsAddForm._(),
-      );
-    });
+    return MaterialPageRoute(
+      builder: (context) {
+        return BlocProvider(
+          create: (context) => OlympicsAddCubit(
+            sportsRepository: context.read<SportsRepository>(),
+          ),
+          child: OlympicsAddForm._(),
+        );
+      },
+    );
   }
 
   @override
@@ -450,36 +453,21 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
               const SizedBox(
                 height: 15,
               ),
-              BlocBuilder<OlympicsAddCubit, OlympicsAddState>(
+              BlocConsumer<OlympicsAddCubit, OlympicsAddState>(
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Match added.',
+                          style: GoogleFonts.nunito(color: Palette.cream),
+                        ),
+                      ),
+                    );
+                },
                 builder: (context, state) {
-                  if (state is OlympicsAddInitial) {
-                    return DefaultButton(
-                        text: 'Add Game',
-                        action: () {
-                          if (_formKey.currentState.validate() &&
-                              playerCountry != null &&
-                              rivalCountry != null) {
-                            final olympicGame = OlympicsGame(
-                              event: eventController.text,
-                              eventType: eventType,
-                              gameName: gameName,
-                              isClosed: false,
-                              matchCode: '#',
-                              player: playerController.text,
-                              playerCountry: playerCountry,
-                              rival: rivalController.text,
-                              rivalCountry: rivalCountry,
-                              startTime: startTime,
-                              venue: venueController.text,
-                              gameId:
-                                  '${gameName.toUpperCase()}${startTime.toIso8601String()}',
-                            );
-                            context
-                                .read<OlympicsAddCubit>()
-                                .addOlympicsGame(game: olympicGame);
-                          }
-                        });
-                  } else if (state is OlympicsAddLoading) {
+                  if (state.status == OlympicsAddStatus.loading) {
                     return const SizedBox(
                         height: 50,
                         child: Center(
@@ -488,7 +476,33 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                           ),
                         ));
                   } else {
-                    return const SizedBox();
+                    return DefaultButton(
+                      text: 'Add Game',
+                      action: () {
+                        if (_formKey.currentState.validate() &&
+                            playerCountry != null &&
+                            rivalCountry != null) {
+                          final olympicGame = OlympicsGame(
+                            event: eventController.text,
+                            eventType: eventType,
+                            gameName: gameName,
+                            isClosed: false,
+                            matchCode: '#',
+                            player: playerController.text,
+                            playerCountry: playerCountry,
+                            rival: rivalController.text,
+                            rivalCountry: rivalCountry,
+                            startTime: startTime,
+                            venue: venueController.text,
+                            gameId:
+                                '${gameName.toUpperCase()}-$playerCountry-$rivalCountry-{${startTime.toIso8601String()}',
+                          );
+                          context
+                              .read<OlympicsAddCubit>()
+                              .addOlympicsGame(game: olympicGame);
+                        }
+                      },
+                    );
                   }
                 },
               )
