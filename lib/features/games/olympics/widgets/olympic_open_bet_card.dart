@@ -96,7 +96,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                     color: Palette.darkGrey,
                     child: Container(
                       padding: const EdgeInsets.only(
-                        top: 10,
+                        top: 8,
                         bottom: 3,
                         left: 6,
                         right: 6,
@@ -162,6 +162,9 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                               ),
                                             ],
                                           ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
                                           Text(
                                             '${openBets.rivalName.toUpperCase()}',
                                             style: GoogleFonts.nunito(
@@ -203,6 +206,9 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                               ),
                                             ],
                                           ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
                                           Text(
                                             '${openBets.playerName.toUpperCase()}',
                                             style: GoogleFonts.nunito(
@@ -221,7 +227,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             height: 2,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
@@ -256,7 +262,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 openBets.event,
@@ -265,21 +271,21 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             ],
                           ),
                           // Last Row
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      DateFormat('E, MMMM, c, y @ hh:mm a')
-                                          .format(openBets.gameStartDateTime),
-                                      style: Styles.openBetsCardTime,
-                                    ),
-                                  ],
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  DateFormat('E, MMMM, c, y @ hh:mm a')
+                                      .format(openBets.gameStartDateTime),
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.red,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),

@@ -249,7 +249,7 @@ class Styles {
 
   static final openBetsCardTime = GoogleFonts.nunito(
     color: Palette.red,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
   );
   static final openBetsCardBetText = GoogleFonts.nunito(

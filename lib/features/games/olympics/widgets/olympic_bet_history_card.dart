@@ -87,6 +87,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(width: 1),
                 Expanded(
                   child: Card(
                     margin: EdgeInsets.zero,
@@ -96,7 +97,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                     color: Palette.darkGrey,
                     child: Container(
                       padding: const EdgeInsets.only(
-                        top: 10,
+                        top: 8,
                         bottom: 3,
                         left: 6,
                         right: 6,
@@ -131,52 +132,95 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(width: 8),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  isPlayerWin
-                                      ? Text(
-                                          '${betHistoryData.playerName.toUpperCase()} TO WIN',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.cream,
-                                            fontWeight: FontWeight.bold,
+                              Expanded(
+                                child: isPlayerWin
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  '${betHistoryData.playerName.toUpperCase()}',
+                                                  style: GoogleFonts.nunito(
+                                                    fontSize: 15,
+                                                    color: Palette.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  softWrap: true,
+                                                ),
+                                              ),
+                                              Text(
+                                                ' TO WIN',
+                                                style: GoogleFonts.nunito(
+                                                  fontSize: 15,
+                                                  color: Palette.green,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${betHistoryData.playerName.toUpperCase()}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.cream,
-                                            fontWeight: FontWeight.bold,
+                                          const SizedBox(
+                                            height: 4,
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                  isPlayerWin
-                                      ? Text(
-                                          '${betHistoryData.rivalName.toUpperCase()}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
+                                          Text(
+                                            '${betHistoryData.rivalName.toUpperCase()}',
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 15,
+                                              color: Palette.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  '${betHistoryData.rivalName.toUpperCase()}',
+                                                  style: GoogleFonts.nunito(
+                                                    fontSize: 15,
+                                                    color: Palette.green,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  softWrap: true,
+                                                ),
+                                              ),
+                                              Text(
+                                                ' TO WIN',
+                                                style: GoogleFonts.nunito(
+                                                  fontSize: 15,
+                                                  color: Palette.green,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${betHistoryData.rivalName.toUpperCase()} TO WIN',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 15,
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
+                                          const SizedBox(
+                                            height: 4,
                                           ),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                ],
+                                          Text(
+                                            '${betHistoryData.playerName.toUpperCase()}',
+                                            style: GoogleFonts.nunito(
+                                              fontSize: 15,
+                                              color: Palette.cream,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
                               ),
                             ],
                           ),
@@ -184,7 +228,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             height: 2,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
@@ -199,37 +243,27 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
-                                child: FittedBox(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      betHistoryData.eventType == 'gold'
-                                          ? const Text(
-                                              '🥇',
-                                              style: TextStyle(fontSize: 14),
-                                            )
-                                          : betHistoryData.eventType == 'silver'
-                                              ? const Text(
-                                                  '🥈',
-                                                  style:
-                                                      TextStyle(fontSize: 14),
-                                                )
-                                              : betHistoryData.eventType ==
-                                                      'bronze'
-                                                  ? const Text(
-                                                      '🥉',
-                                                      style: TextStyle(
-                                                          fontSize: 14),
-                                                    )
-                                                  : const SizedBox.shrink(),
-                                    ],
-                                  ),
-                                ),
+                                child: betHistoryData.eventType == 'gold'
+                                    ? const Text(
+                                        '🥇',
+                                        style: TextStyle(fontSize: 14),
+                                      )
+                                    : betHistoryData.eventType == 'silver'
+                                        ? const Text(
+                                            '🥈',
+                                            style: TextStyle(fontSize: 14),
+                                          )
+                                        : betHistoryData.eventType == 'bronze'
+                                            ? const Text(
+                                                '🥉',
+                                                style: TextStyle(fontSize: 14),
+                                              )
+                                            : const SizedBox(),
                               )
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 betHistoryData.event,
@@ -237,24 +271,22 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                               ),
                             ],
                           ),
-
                           // Last Row
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      DateFormat('E, MMMM, c, y @ hh:mm a')
-                                          .format(
-                                              betHistoryData.gameStartDateTime),
-                                      style: Styles.openBetsCardTime,
-                                    ),
-                                  ],
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  DateFormat('E, MMMM, c, y @ hh:mm a')
+                                      .format(betHistoryData.gameStartDateTime),
+                                  style: GoogleFonts.nunito(
+                                    color: Palette.red,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
