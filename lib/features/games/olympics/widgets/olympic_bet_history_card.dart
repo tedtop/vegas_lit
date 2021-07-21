@@ -281,7 +281,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                       .format(betHistoryData.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
-                                    fontSize: 10,
+                                    fontSize: 11,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

@@ -280,7 +280,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                       .format(openBets.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
-                                    fontSize: 10,
+                                    fontSize: 11,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

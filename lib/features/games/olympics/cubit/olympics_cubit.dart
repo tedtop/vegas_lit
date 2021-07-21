@@ -29,20 +29,18 @@ class OlympicsCubit extends Cubit<OlympicsState> {
     await _gamesStream?.cancel();
     _gamesStream = todayGamesStream.listen(
       (games) {
-        final todayGames = <OlympicsGame>[];
+        var todayGames = <OlympicsGame>[];
         if (games.isNotEmpty) {
-          todayGames.addAll(games
-              .where((game) =>
-                  ESTDateTime.fetchTimeEST().isSameDate(game.startTime) &&
-                  (kReleaseMode
-                      ? (game.startTime.isAfter(ESTDateTime.fetchTimeEST()))
-                      : true))
-              .toList());
+          todayGames = games
+              .where(
+                (game) => ESTDateTime.fetchTimeEST().isSameDate(game.startTime),
+              )
+              .toList();
         }
         emit(
           OlympicsState.opened(
             estTimeZone: estTimeZone,
-            games: todayGames,
+            games: kDebugMode ? games : todayGames,
             league: league,
           ),
         );
