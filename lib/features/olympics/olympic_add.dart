@@ -495,7 +495,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                             startTime: startTime,
                             venue: venueController.text,
                             gameId:
-                                '${gameName.toUpperCase()}-$playerCountry-$rivalCountry-{${startTime.toIso8601String()}',
+                                '${gameName.toUpperCase()}-${playerCountry.toUpperCase()}-${rivalCountry.toUpperCase()}-{${startTime.toIso8601String()}',
                           );
                           context
                               .read<OlympicsAddCubit>()
