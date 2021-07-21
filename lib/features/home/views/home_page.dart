@@ -158,7 +158,20 @@ class _HomePageState extends State<HomePage>
               builder: (context, state) {
                 if (state is InternetDisconnected) {
                   return Center(
-                    child: SvgPicture.asset(SVG.networkError),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(SVG.networkError),
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<InternetCubit>()
+                                .checkInternetConnection();
+                          },
+                          icon: const Icon(Icons.replay_rounded),
+                        )
+                      ],
+                    ),
                   );
                 } else {
                   return PageView(

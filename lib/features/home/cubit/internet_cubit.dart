@@ -39,6 +39,17 @@ class InternetCubit extends Cubit<InternetState> {
     );
   }
 
+  Future<void> checkInternetConnection() async {
+    final currentStatus = await connectivity.checkConnectivity();
+    if (currentStatus == ConnectivityResult.wifi) {
+      emitInternetConnected(ConnectionType.wifi);
+    } else if (currentStatus == ConnectivityResult.mobile) {
+      emitInternetConnected(ConnectionType.mobile);
+    } else if (currentStatus == ConnectivityResult.none) {
+      emitInternetDisconnected();
+    }
+  }
+
   void emitInternetConnected(ConnectionType _connectionType) =>
       emit(InternetConnected(connectionType: _connectionType));
 
