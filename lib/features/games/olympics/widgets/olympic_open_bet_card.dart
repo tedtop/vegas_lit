@@ -108,26 +108,48 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  Text(
-                                    '${OlympicHelper.countryFlagFromCode(countryCode: openBets.playerCountry)}',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 20,
-                                      color: Palette.cream,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    '${OlympicHelper.countryFlagFromCode(countryCode: openBets.rivalCountry)}',
-                                    style: GoogleFonts.nunito(
-                                      fontSize: 20,
-                                      color: Palette.green,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                  ),
+                                  isPlayerWin
+                                      ? Text(
+                                          '${OlympicHelper.countryFlagFromCode(countryCode: openBets.playerCountry)}',
+                                          style: GoogleFonts.nunito(
+                                            fontSize: 20,
+                                            color: Palette.cream,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                        )
+                                      : Text(
+                                          '${OlympicHelper.countryFlagFromCode(countryCode: openBets.rivalCountry)}',
+                                          style: GoogleFonts.nunito(
+                                            fontSize: 20,
+                                            color: Palette.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                  isPlayerWin
+                                      ? Text(
+                                          '${OlympicHelper.countryFlagFromCode(countryCode: openBets.rivalCountry)}',
+                                          style: GoogleFonts.nunito(
+                                            fontSize: 20,
+                                            color: Palette.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                        )
+                                      : Text(
+                                          '${OlympicHelper.countryFlagFromCode(countryCode: openBets.playerCountry)}',
+                                          style: GoogleFonts.nunito(
+                                            fontSize: 20,
+                                            color: Palette.cream,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                        ),
                                 ],
                               ),
                               const SizedBox(width: 8),
@@ -286,7 +308,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                       .format(openBets.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
-                                    fontSize: 11,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
