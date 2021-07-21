@@ -1,6 +1,6 @@
 part of 'history_cubit.dart';
 
-enum HistoryStatus { initial, loading, success, failure }
+enum HistoryStatus { initial, loading, success, failure, empty }
 
 class HistoryState extends Equatable {
   const HistoryState({

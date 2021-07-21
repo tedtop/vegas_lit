@@ -24,47 +24,54 @@ class HistoryCubit extends Cubit<HistoryState> {
 
   Future<void> fetchAllBets({@required String uid}) async {
     final currentWeek = <String>['Current Week'];
-    emit(HistoryState(
-      status: HistoryStatus.loading,
-      bets: state.bets,
-      uid: uid,
-    ));
+    emit(
+      HistoryState(
+        status: HistoryStatus.loading,
+        bets: state.bets,
+        uid: uid,
+      ),
+    );
     try {
       final walletStream = _userRepository.fetchWalletData(uid: uid);
-      final betDataList = await _userRepository
-          .fetchBetHistoryByWeek(week: ESTDateTime.weekStringVL, uid: state.uid)
-          .first;
+      final betListStream = _userRepository.fetchBetHistoryByWeek(
+          week: ESTDateTime.weekStringVL, uid: state.uid);
       final weeksStream = _userRepository.fetchLeaderboardWeeks();
       await _betHistorySubscription?.cancel();
-      _betHistorySubscription = Rx.combineLatest2(
+      _betHistorySubscription = Rx.combineLatest3(
         walletStream,
         weeksStream,
+        betListStream,
         (
           Wallet wallet,
           List<String> weeks,
+          List<BetData> betList,
         ) {
           weeks.sort((a, b) => b.compareTo(a));
           final totalWeeks = currentWeek + weeks;
-          emit(HistoryState(
-            status: HistoryStatus.success,
-            bets: betDataList,
-            userWallet: wallet,
-            weeks: totalWeeks,
-            uid: uid,
-          ));
+          emit(
+            HistoryState(
+              status: HistoryStatus.success,
+              bets: betList,
+              userWallet: wallet,
+              weeks: totalWeeks,
+              uid: uid,
+            ),
+          );
         },
       ).listen(
         // ignore: avoid_print
         print,
       );
     } on Exception {
-      emit(HistoryState(
-        uid: state.uid,
-        status: HistoryStatus.failure,
-        bets: state.bets,
-        weeks: state.weeks,
-        week: state.week,
-      ));
+      emit(
+        HistoryState(
+          uid: state.uid,
+          status: HistoryStatus.failure,
+          bets: state.bets,
+          weeks: state.weeks,
+          week: state.week,
+        ),
+      );
     }
   }
 
@@ -89,7 +96,7 @@ class HistoryCubit extends Cubit<HistoryState> {
         final betDataList = await _userRepository
             .fetchBetHistoryByWeek(week: week, uid: state.uid)
             .first;
-
+        await _betHistorySubscription?.cancel();
         emit(HistoryState(
           status: HistoryStatus.success,
           bets: betDataList,
@@ -101,7 +108,7 @@ class HistoryCubit extends Cubit<HistoryState> {
       } else {
         emit(HistoryState(
           uid: state.uid,
-          status: HistoryStatus.failure,
+          status: HistoryStatus.empty,
           bets: state.bets,
           weeks: state.weeks,
           week: week,

@@ -50,6 +50,23 @@ class MobileBetHistory extends StatelessWidget {
           ],
         );
         break;
+      case HistoryStatus.empty:
+        return Column(
+          children: [
+            const _MobileHistoryHeading(),
+            const _MobileHistoryDropdown(),
+            Padding(
+              padding: const EdgeInsets.only(top: 160),
+              child: Center(
+                child: Text(
+                  'No Records Found',
+                  style: GoogleFonts.nunito(),
+                ),
+              ),
+            ),
+            const BottomBar()
+          ],
+        );
       default:
         return Column(
           children: [
