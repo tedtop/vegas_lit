@@ -35,8 +35,7 @@ class OlympicsCubit extends Cubit<OlympicsState> {
               .where((game) =>
                   ESTDateTime.fetchTimeEST().isSameDate(game.startTime) &&
                   (kReleaseMode
-                      ? (!game.isClosed &&
-                          game.startTime.isAfter(ESTDateTime.fetchTimeEST()))
+                      ? (game.startTime.isAfter(ESTDateTime.fetchTimeEST()))
                       : true))
               .toList());
         }

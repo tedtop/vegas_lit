@@ -223,10 +223,15 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         return 0;
         break;
       case 'OLYMPICS':
-        return await _sportsfeedRepository
-            .fetchOlympicsGame()
-            .first
-            .then((value) => value.length);
+        return await _sportsfeedRepository.fetchOlympicsGame().first.then(
+            (value) => value
+                .where((game) =>
+                    ESTDateTime.fetchTimeEST().isSameDate(game.startTime) &&
+                    (kReleaseMode
+                        ? (game.startTime.isAfter(ESTDateTime.fetchTimeEST()))
+                        : true))
+                .toList()
+                .length);
         break;
       default:
         return 0;
