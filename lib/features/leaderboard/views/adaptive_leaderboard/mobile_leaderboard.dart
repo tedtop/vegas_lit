@@ -221,14 +221,20 @@ class MobileLeaderboardTile extends StatelessWidget {
             children: [
               Text(
                 'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets - (player.totalBetsWon + player.totalBetsLost + player.totalOpenBets)}',
-                style: Styles.awayTeam,
+                style: GoogleFonts.nunito(
+                  fontSize: 15,
+                  color: Palette.cream,
+                ),
               ),
               Text(
                 BetsDataHelper.leaderboardWinningBetsRatio(
                   player.totalBetsWon,
                   player.totalBetsLost,
                 ),
-                style: Styles.awayTeam,
+                style: GoogleFonts.nunito(
+                  fontSize: 15,
+                  color: Palette.cream,
+                ),
               ),
             ],
           ),
