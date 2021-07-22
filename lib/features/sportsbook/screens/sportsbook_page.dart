@@ -244,15 +244,51 @@ class _SportsBookViewState extends State<SportsBookView>
                   return FadeIndexedStack(
                     index: selectedIndex,
                     children: [
-                      NflScreen.route(),
-                      NbaScreen.route(),
-                      NhlScreen.route(),
-                      NcaafScreen.route(),
-                      NcaabScreen.route(),
-                      GolfScreen.route(),
-                      MlbScreen.route(),
-                      OlympicsScreen.route(),
-                      Container(),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 0,
+                        child: NflScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 1,
+                        child: NbaScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 2,
+                        child: NhlScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 3,
+                        child: NcaafScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 4,
+                        child: NcaabScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 5,
+                        child: GolfScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 6,
+                        child: MlbScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 7,
+                        child: OlympicsScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 8,
+                        child: Container(),
+                      ),
                     ],
                   );
                 },
