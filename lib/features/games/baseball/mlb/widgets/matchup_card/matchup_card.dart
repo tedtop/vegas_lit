@@ -348,7 +348,7 @@ class MatchupCard extends StatelessWidget {
                               }
 
                               return Text(
-                                'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
+                                'Starting in ${TimerHelper.getRemainingTimeText(time: time)}',
                                 style: GoogleFonts.nunito(
                                   fontSize: 15,
                                   color: Palette.red,
