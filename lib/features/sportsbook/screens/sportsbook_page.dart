@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/features/games/olympics/views/olympics_screen.dart';
 
 import '../../../config/palette.dart';
@@ -18,7 +19,6 @@ import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../bloc/sportsbook_bloc.dart';
-import 'help_overlay/help_overlay.dart';
 
 class Sportsbook extends StatelessWidget {
   @override
@@ -272,25 +272,25 @@ class _SportsBookViewState extends State<SportsBookView>
                   size: 40,
                   color: Palette.cream,
                 ),
-                onPressed: () async {
-                  await _scrollController.animateTo(
-                    _scrollController.initialScrollOffset,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
+                onPressed: _launchTutorialVideo,
+                // await _scrollController.animateTo(
+                //   _scrollController.initialScrollOffset,
+                //   duration: const Duration(milliseconds: 300),
+                //   curve: Curves.linear,
+                // );
 
-                  // await Future.delayed(
-                  //   const Duration(milliseconds: 300),
-                  // );
-
-                  HelpOverlayLoader.appLoader.showLoader();
-                },
+                // HelpOverlayLoader.appLoader.showLoader();
               );
             }
             return const SizedBox();
           },
         ));
   }
+
+  final _tutorialVideoUrl = 'https://www.youtube.com/watch?v=LX2sJuqDWn0';
+  void _launchTutorialVideo() async => await canLaunch(_tutorialVideoUrl)
+      ? await launch(_tutorialVideoUrl)
+      : throw TutorialVideoUrlFailure();
 
   Widget _selectGameDropdown() => Card(
         elevation: 4,
@@ -436,3 +436,5 @@ class _FadeIndexedStackState extends State<FadeIndexedStack>
     );
   }
 }
+
+class TutorialVideoUrlFailure implements Exception {}
