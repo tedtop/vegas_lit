@@ -228,8 +228,15 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return kDebugMode
                 ? value.length
                 : value
-                    .where((game) =>
-                        ESTDateTime.fetchTimeEST().isSameDate(game.startTime))
+                    .where(
+                      (game) =>
+                          game.startTime.isAfter(ESTDateTime.fetchTimeEST()) &&
+                          (ESTDateTime.fetchTimeEST()
+                                  .isSameDate(game.startTime) ||
+                              ESTDateTime.fetchTimeEST()
+                                  .add(const Duration(days: 1))
+                                  .isSameDate(game.startTime)),
+                    )
                     .toList()
                     .length;
           },

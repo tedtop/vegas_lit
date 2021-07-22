@@ -33,7 +33,12 @@ class OlympicsCubit extends Cubit<OlympicsState> {
         if (games.isNotEmpty) {
           todayGames = games
               .where(
-                (game) => ESTDateTime.fetchTimeEST().isSameDate(game.startTime),
+                (game) =>
+                    game.startTime.isAfter(ESTDateTime.fetchTimeEST()) &&
+                    (ESTDateTime.fetchTimeEST().isSameDate(game.startTime) ||
+                        ESTDateTime.fetchTimeEST()
+                            .add(const Duration(days: 1))
+                            .isSameDate(game.startTime)),
               )
               .toList();
         }

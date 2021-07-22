@@ -29,7 +29,7 @@ class Themes {
     ),
     textSelectionTheme: const TextSelectionThemeData(
         selectionHandleColor: Palette.cream,
-        selectionColor: Palette.darkGrey,
+        selectionColor: Colors.transparent,
         cursorColor: Palette.lightGrey),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     appBarTheme: const AppBarTheme(

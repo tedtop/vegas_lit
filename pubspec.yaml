@@ -2,12 +2,7 @@ name: vegas_lit
 description: This is a free to play sports simulation game
 
 publish_to: "none"
-
-<<<<<<< HEAD
-version: 1.0.6+67
-=======
-version: 1.0.7+68
->>>>>>> release/1.0.7
+version: 1.0.8+69
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
