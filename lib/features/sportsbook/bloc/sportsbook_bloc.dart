@@ -225,7 +225,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       case 'OLYMPICS':
         return await _sportsfeedRepository.fetchOlympicsGame().first.then(
           (value) {
-            return kReleaseMode
+            return kDebugMode
                 ? value.length
                 : value
                     .where(

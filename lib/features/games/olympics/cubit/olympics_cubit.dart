@@ -45,7 +45,7 @@ class OlympicsCubit extends Cubit<OlympicsState> {
         emit(
           OlympicsState.opened(
             estTimeZone: estTimeZone,
-            games: kReleaseMode ? games : todayGames,
+            games: kDebugMode ? games : todayGames,
             league: league,
           ),
         );
