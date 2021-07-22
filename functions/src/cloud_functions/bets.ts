@@ -24,28 +24,234 @@ export const resolveBets = functions.pubsub
       .get()
       .then(async function (snapshots) {
         await Promise.all(
-          snapshots.docs.map(async (document) => {
-            const data = document.data();
+          snapshots.docs.map(async (bet) => {
+            const data = bet.data();
             const league = data.league.toLowerCase();
+            const isClosedFirestore = data.isClosed;
+            const betTeam = data.betTeam;
+            const amountBet = data.betAmount;
+            const uid = data.uid;
+            const week = getCurrentWeekByDate(data.gameStartDateTime);
+            const amountWin = data.betProfit;
+            const username = data.username;
+            const documentId = data.id;
+            const totalWinAmount = amountWin + amountBet;
 
             if (league == "olympics") {
               const batch = admin.firestore().batch();
+
+              const gameId: string = data.gameId;
+
+              await admin
+                .firestore()
+                .collection("custom_matches")
+                .doc("olympics_2021_tokyo")
+                .collection("matches")
+                .doc(gameId)
+                .get()
+                .then(async (match) => {
+                  const matchData = match.data();
+                  if (matchData != undefined) {
+                    const isClosed = matchData.isClosed;
+                    const finalWinner = matchData.winner;
+
+                    if (isClosed != isClosedFirestore) {
+                      if (finalWinner == "none") {
+                        const betRef = admin
+                          .firestore()
+                          .collection("bets")
+                          .doc(documentId);
+
+                        batch.update(betRef, {
+                          isClosed: null,
+                          winner: finalWinner,
+                        });
+
+                        const documentName = getCurrentWeek();
+                        if (week == documentName) {
+                          const walletRef = admin
+                            .firestore()
+                            .collection("wallets")
+                            .doc(uid);
+
+                          batch.update(walletRef, {
+                            totalOpenBets:
+                              admin.firestore.FieldValue.increment(-1),
+
+                            accountBalance:
+                              admin.firestore.FieldValue.increment(amountBet),
+                            pendingRiskedAmount:
+                              admin.firestore.FieldValue.increment(-amountBet),
+                            potentialWinAmount:
+                              admin.firestore.FieldValue.increment(-amountWin),
+                          });
+                          await sendMessageToSlack(
+                            `:hourglass_flowing_sand: Postponed match bet refunded to *${username}*`
+                          );
+                        } else {
+                          const walletRef = admin
+                            .firestore()
+                            .collection("leaderboard")
+                            .doc("global")
+                            .collection("weeks")
+                            .doc(week)
+                            .collection("wallets")
+                            .doc(uid);
+
+                          batch.update(walletRef, {
+                            totalOpenBets:
+                              admin.firestore.FieldValue.increment(-1),
+                            accountBalance:
+                              admin.firestore.FieldValue.increment(amountBet),
+                            pendingRiskedAmount:
+                              admin.firestore.FieldValue.increment(-amountBet),
+                            potentialWinAmount:
+                              admin.firestore.FieldValue.increment(-amountWin),
+                          });
+                          await sendMessageToSlack(
+                            `:hourglass_flowing_sand: Postponed match bet refunded to *${username}*`
+                          );
+                        }
+                        await batch.commit();
+                        betsResolved++;
+                      } else {
+                        const isWin = betTeam == finalWinner;
+
+                        const betRef = admin
+                          .firestore()
+                          .collection("bets")
+                          .doc(documentId);
+
+                        batch.update(betRef, {
+                          isClosed: isClosed,
+                          winner: finalWinner,
+                        });
+
+                        const documentName = getCurrentWeek();
+                        if (week == documentName) {
+                          const walletRef = admin
+                            .firestore()
+                            .collection("wallets")
+                            .doc(uid);
+                          if (isWin) {
+                            batch.update(walletRef, {
+                              totalOpenBets:
+                                admin.firestore.FieldValue.increment(-1),
+                              totalProfit:
+                                admin.firestore.FieldValue.increment(amountWin),
+                              accountBalance:
+                                admin.firestore.FieldValue.increment(
+                                  totalWinAmount
+                                ),
+                              pendingRiskedAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                              totalBetsWon:
+                                admin.firestore.FieldValue.increment(1),
+                              potentialWinAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountWin
+                                ),
+                            });
+                            await sendMessageToSlack(
+                              `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                            );
+                          } else {
+                            batch.update(walletRef, {
+                              totalOpenBets:
+                                admin.firestore.FieldValue.increment(-1),
+                              totalLoss:
+                                admin.firestore.FieldValue.increment(amountBet),
+                              totalBetsLost:
+                                admin.firestore.FieldValue.increment(1),
+                              potentialWinAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountWin
+                                ),
+                              pendingRiskedAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                            });
+                            await sendMessageToSlack(
+                              `:moneybag: *${username}* lost their bet for $${amountBet}`
+                            );
+                          }
+                        } else {
+                          const walletRef = admin
+                            .firestore()
+                            .collection("leaderboard")
+                            .doc("global")
+                            .collection("weeks")
+                            .doc(week)
+                            .collection("wallets")
+                            .doc(uid);
+                          if (isWin) {
+                            batch.update(walletRef, {
+                              totalOpenBets:
+                                admin.firestore.FieldValue.increment(-1),
+                              totalProfit:
+                                admin.firestore.FieldValue.increment(amountWin),
+                              accountBalance:
+                                admin.firestore.FieldValue.increment(
+                                  totalWinAmount
+                                ),
+                              pendingRiskedAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                              totalBetsWon:
+                                admin.firestore.FieldValue.increment(1),
+                              potentialWinAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountWin
+                                ),
+                            });
+                            await sendMessageToSlack(
+                              `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
+                            );
+                          } else {
+                            batch.update(walletRef, {
+                              totalOpenBets:
+                                admin.firestore.FieldValue.increment(-1),
+                              totalLoss:
+                                admin.firestore.FieldValue.increment(amountBet),
+                              totalBetsLost:
+                                admin.firestore.FieldValue.increment(1),
+                              potentialWinAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountWin
+                                ),
+                              pendingRiskedAmount:
+                                admin.firestore.FieldValue.increment(
+                                  -amountBet
+                                ),
+                            });
+                            await sendMessageToSlack(
+                              `:moneybag: *${username}* lost their bet for $${amountBet}`
+                            );
+                          }
+                        }
+                        await batch.commit();
+                        betsResolved++;
+                      }
+                    } else {
+                      betsRemainOpen++;
+                    }
+                  }
+                })
+                .catch(function (error: any) {
+                  console.log(error);
+                });
             } else {
               const batch = admin.firestore().batch();
 
               const dateTime = formatTime(data.gameStartDateTime);
-              const isClosedFirestore = data.isClosed;
+
               const apikey = whichKey(league);
               const gameId = data.gameId;
-              const documentId = data.id;
-              const uid = data.uid;
               const betType = data.betType;
-              const week = getCurrentWeekByDate(data.gameStartDateTime);
-              const betTeam = data.betTeam;
-              const amountBet = data.betAmount;
-              const username = data.username;
-              const amountWin = data.betProfit;
-              const totalWinAmount = amountWin + amountBet;
 
               await axios
                 .get(
