@@ -344,6 +344,8 @@ class _SportsBookViewState extends State<SportsBookView>
                   (key, newValue) {
                     if (key == 'NFL' || key == 'NCAAF' || key == 'GOLF') {
                       length = '$newValue';
+                    } else if (key == 'OLYMPICS' && key == value) {
+                      length = '$newValue Matches';
                     } else {
                       if (key == value) {
                         length = '$newValue Games';
@@ -354,19 +356,23 @@ class _SportsBookViewState extends State<SportsBookView>
                 return DropdownMenuItem<String>(
                   value: value,
                   child: value == widget.league
-                      ? Text('$value ($length)',
+                      ? Text(
+                          '$value ($length)',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.nunito(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Palette.cream,
-                          ))
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        )
                       : Text(
                           '$value ($length)',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.nunito(
                             color: Palette.cream,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                 );
               },
