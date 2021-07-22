@@ -1,6 +1,6 @@
 part of 'ads_cubit.dart';
 
-enum AdsStatus { initial, loading, success, failure }
+enum AdsStatus { initial, loading, success, failure, cancelled }
 
 class AdsState extends Equatable {
   const AdsState._({
@@ -14,6 +14,8 @@ class AdsState extends Equatable {
   const AdsState.success() : this._(status: AdsStatus.success);
 
   const AdsState.failure() : this._(status: AdsStatus.failure);
+
+  const AdsState.cancelled() : this._(status: AdsStatus.cancelled);
 
   final AdsStatus status;
 

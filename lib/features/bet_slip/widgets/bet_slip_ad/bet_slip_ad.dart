@@ -81,6 +81,17 @@ class RewardedBetSlip extends StatelessWidget {
                                       ),
                                     ),
                                   );
+                              } else if (state.status == AdsStatus.cancelled) {
+                                ScaffoldMessenger.of(context)
+                                  ..removeCurrentSnackBar()
+                                  ..showSnackBar(
+                                    const SnackBar(
+                                      duration: Duration(milliseconds: 2000),
+                                      content: Text(
+                                        'Ad Reward Cancelled.',
+                                      ),
+                                    ),
+                                  );
                               }
                             },
                             builder: (context, state) {
