@@ -41,9 +41,9 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              todayRewards >= 300
+              todayRewards >= 600
                   ? Text(
-                      "Sorry. You've exceeded the daily reward amount.",
+                      "Sorry. You've exceeded the daily reward amount. Come back later.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(fontSize: 20),
                     )
@@ -63,10 +63,11 @@ class RewardedBetSlip extends StatelessWidget {
                                 ScaffoldMessenger.of(context)
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(
-                                    const SnackBar(
-                                      duration: Duration(milliseconds: 2000),
+                                    SnackBar(
+                                      duration:
+                                          const Duration(milliseconds: 2000),
                                       content: Text(
-                                        'You just earned another 100 to play with!',
+                                        'You just earned another ${state.rewardAmount} to play with!',
                                       ),
                                     ),
                                   );

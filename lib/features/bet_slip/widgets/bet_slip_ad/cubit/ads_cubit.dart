@@ -38,6 +38,10 @@ class AdsCubit extends Cubit<AdsState> {
               print('$ad onAdDismissedFullScreenContent.');
               ad.dispose();
             },
+            onAdWillDismissFullScreenContent: (InterstitialAd ad) {
+              // ignore: avoid_print
+              print('$ad onAdWillDismissFullScreenContent.');
+            },
             onAdFailedToShowFullScreenContent:
                 (InterstitialAd ad, AdError error) {
               // ignore: avoid_print
@@ -87,6 +91,10 @@ class AdsCubit extends Cubit<AdsState> {
               print('$ad onAdDismissedFullScreenContent.');
               ad.dispose();
             },
+            onAdWillDismissFullScreenContent: (RewardedAd ad) {
+              // ignore: avoid_print
+              print('$ad onAdWillDismissFullScreenContent.');
+            },
             onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
               // ignore: avoid_print
               print('$ad onAdFailedToShowFullScreenContent: $error');
@@ -101,12 +109,19 @@ class AdsCubit extends Cubit<AdsState> {
                 (RewardedAd rewardedAd, RewardItem rewardItem) async {
               // ignore: avoid_print
               print('Reward Amount ${rewardItem.amount}');
-              await _userRepository.rewardForVideoAd(
+              // ignore: avoid_print
+              print('Reward Type ${rewardItem.type}');
+              await _userRepository
+                  .rewardForVideoAd(
                 uid: currentUser.uid,
-                rewardValue: 100,
-              );
-              emit(
-                const AdsState.success(),
+                rewardValue: rewardItem.amount,
+              )
+                  .then(
+                (value) async {
+                  emit(
+                    AdsState.success(rewardAmount: rewardItem.amount),
+                  );
+                },
               );
             },
           );
