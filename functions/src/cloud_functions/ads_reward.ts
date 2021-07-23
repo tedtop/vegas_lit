@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
 export const resetTodayRewards = functions.pubsub
-  .schedule("0 0 * * *")
+  .schedule("0 */3 * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
     await admin
