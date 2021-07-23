@@ -32,7 +32,7 @@ class MatchupCard extends StatelessWidget {
             ..openMatchupCard(
               game: game,
               gameName: gameName,
-              parsedTeamData: parsedTeamData,
+              teamData: parsedTeamData,
             ),
           child: MatchupCard._(gameName: gameName),
         );

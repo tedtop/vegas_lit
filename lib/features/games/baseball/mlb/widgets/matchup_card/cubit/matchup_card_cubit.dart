@@ -10,10 +10,9 @@ class MlbMatchupCardCubit extends Cubit<MlbMatchupCardState> {
 
   void openMatchupCard({
     @required MlbGame game,
-    @required dynamic parsedTeamData,
+    @required List<MlbTeam> teamData,
     @required String gameName,
   }) async {
-    final teamData = getData(parsedTeamData: parsedTeamData);
     final awayTeamData =
         teamData.singleWhere((element) => element.key == game.awayTeam);
     final homeTeamData =
@@ -27,15 +26,5 @@ class MlbMatchupCardCubit extends Cubit<MlbMatchupCardState> {
         league: gameName,
       ),
     );
-  }
-
-  List<MlbTeam> getData({@required dynamic parsedTeamData}) {
-    final teamData = parsedTeamData
-        .map<MlbTeam>(
-          (json) => MlbTeam.fromMap(json),
-        )
-        .toList();
-
-    return teamData;
   }
 }

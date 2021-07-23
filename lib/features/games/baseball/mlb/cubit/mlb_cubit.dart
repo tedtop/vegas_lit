@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
 import '../../../../../data/models/mlb/mlb_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';
@@ -52,8 +53,14 @@ class MlbCubit extends Cubit<MlbState> {
   }
 }
 
-dynamic getMLBParsedTeamData() async {
+Future<List<MlbTeam>> getMLBParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/mlb.json');
   final parsedTeamData = await json.decode(jsonData);
-  return parsedTeamData;
+  final teamData = parsedTeamData
+      .map<MlbTeam>(
+        (json) => MlbTeam.fromMap(json),
+      )
+      .toList();
+
+  return teamData;
 }
