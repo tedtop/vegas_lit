@@ -41,7 +41,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
   final eventController = TextEditingController();
   var eventType = 'normal';
 
-  int matchCode;
+  final matchCodeController = TextEditingController();
   String gameName;
   final playerController = TextEditingController();
   String playerCountry;
@@ -207,22 +207,15 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: TextFormField(
-                  onChanged: (text) {
-                    setState(() {
-                      matchCode = int.tryParse(text);
-                    });
-                  },
+                  controller: matchCodeController,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter some text';
-                    } else if (int.tryParse(value) == null) {
-                      return 'Enter a number';
                     }
                     return null;
                   },
                   cursorColor: Palette.cream,
                   style: Styles.signUpFieldText,
-                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(
                       vertical: 5,
@@ -487,7 +480,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                             eventType: eventType,
                             gameName: gameName,
                             isClosed: false,
-                            matchCode: '#',
+                            matchCode: '#${matchCodeController.text}',
                             player: playerController.text,
                             playerCountry: playerCountry,
                             rival: rivalController.text,
