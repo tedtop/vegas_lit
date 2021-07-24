@@ -9,7 +9,6 @@ import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_bet_histor
 import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_card.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/olympic_bet_history_card.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 import 'package:vegas_lit/features/leaderboard_profile/widgets/leaderboard_profile_board_content.dart';
 
 import '../../../../config/palette.dart';

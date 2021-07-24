@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
@@ -47,15 +48,20 @@ class MlbCubit extends Cubit<MlbState> {
         estTimeZone: estTimeZone,
         games: totalGames,
         league: league,
-        parsedTeamData: await getMLBParsedTeamData(),
+        parsedTeamData: await getMLBTeamData(),
       ),
     );
   }
 }
 
-Future<List<MlbTeam>> getMLBParsedTeamData() async {
+Future<List<MlbTeam>> getMLBTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/mlb.json');
-  final parsedTeamData = await json.decode(jsonData);
+
+  return compute(parseTeamData, jsonData);
+}
+
+List<MlbTeam> parseTeamData(String jsonData) {
+  final parsedTeamData = json.decode(jsonData);
   final teamData = parsedTeamData
       .map<MlbTeam>(
         (json) => MlbTeam.fromMap(json),
