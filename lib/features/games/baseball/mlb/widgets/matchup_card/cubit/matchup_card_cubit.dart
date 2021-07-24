@@ -18,6 +18,20 @@ class MlbMatchupCardCubit extends Cubit<MlbMatchupCardState> {
     final homeTeamData =
         teamData.singleWhere((element) => element.key == game.homeTeam);
 
+    // MlbTeam awayTeamData;
+    // MlbTeam homeTeamData;
+    // await Future.wait(
+    //   teamData.map(
+    //     (e) async {
+    //       if (e.key == game.homeTeam) {
+    //         homeTeamData = e;
+    //       } else if (e.key == game.awayTeam) {
+    //         awayTeamData = e;
+    //       }
+    //     },
+    //   ),
+    // );
+
     emit(
       MatchupCardOpened(
         game: game,
