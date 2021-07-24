@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/features/groups/views/group_details/cubit/group_details_cubit.dart';
-import 'package:vegas_lit/features/leaderboard/views/adaptive_leaderboard/desktop_leaderboard.dart';
-import 'package:vegas_lit/features/leaderboard/views/adaptive_leaderboard/mobile_leaderboard.dart';
-import 'package:vegas_lit/features/leaderboard/views/adaptive_leaderboard/tablet_leaderboard.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
+
+import 'cubit/group_details_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
   GroupDetails._({Key key, this.group}) : super(key: key);

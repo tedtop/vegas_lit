@@ -3,7 +3,7 @@ part of 'groups_cubit.dart';
 enum GroupsStatus {
   initial,
   loading,
-  loaded,
+  success,
   error,
 }
 
