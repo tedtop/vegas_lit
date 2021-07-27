@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/group.dart';
 
 import '../models/bet.dart';
 import '../models/user.dart';
@@ -374,5 +375,29 @@ class CloudFirestoreClient {
       'todayRewards': FieldValue.increment(rewardValue),
       'accountBalance': FieldValue.increment(rewardValue),
     });
+  }
+
+  Stream<List<Group>> fetchPublicGroups() {
+    final snapshotRef = _firebaseFirestore.collection('groups').snapshots().map(
+          (event) => event.docs
+              .map(
+                (e) => Group.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return snapshotRef;
+  }
+
+  Future<void> addNewGroup({@required Group group}) async {
+    await _firebaseFirestore
+        .collection('groups')
+        .add(
+          group.toMap(),
+        )
+        .then(
+          (value) => value.update(
+            {'id': value.id},
+          ),
+        );
   }
 }

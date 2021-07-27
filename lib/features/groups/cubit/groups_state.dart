@@ -4,7 +4,7 @@ enum GroupsStatus {
   initial,
   loading,
   success,
-  error,
+  failure,
 }
 
 class GroupsState extends Equatable {

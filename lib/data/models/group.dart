@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
 
 class Group {
   Group({
-    this.adminId,
-    this.adminName,
-    this.createdAt,
-    this.createdBy,
-    this.description,
-    this.id,
-    this.name,
-    this.isPublic,
-    this.userLimit,
-    this.users,
+    @required this.adminId,
+    @required this.adminName,
+    @required this.createdAt,
+    @required this.createdBy,
+    @required this.description,
+    @required this.id,
+    @required this.name,
+    @required this.isPublic,
+    @required this.userLimit,
+    @required this.users,
     this.snapshot,
     this.reference,
     this.documentID,
@@ -24,8 +25,7 @@ class Group {
     return Group(
       adminId: map['adminId'],
       adminName: map['adminName'],
-      createdAt:
-          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
+      createdAt: map['createdAt']?.toDate(),
       createdBy: map['createdBy'],
       description: map['description'],
       id: map['id'],
@@ -41,11 +41,11 @@ class Group {
 
   factory Group.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
+
     return Group(
       adminId: map['adminId'],
       adminName: map['adminName'],
-      createdAt:
-          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
+      createdAt: map['createdAt']?.toDate(),
       createdBy: map['createdBy'],
       description: map['description'],
       id: map['id'],
@@ -59,7 +59,7 @@ class Group {
   Map<String, dynamic> toMap() => {
         'adminId': adminId,
         'adminName': adminName,
-        'createdAt': createdAt.toString(),
+        'createdAt': createdAt,
         'createdBy': createdBy,
         'description': description,
         'id': id,
@@ -68,6 +68,20 @@ class Group {
         'userLimit': userLimit,
         'users': users,
       };
+
+  final String adminId;
+  final String adminName;
+  final DateTime createdAt;
+  final String createdBy;
+  final String description;
+  final String id;
+  final String name;
+  final bool isPublic;
+  final int userLimit;
+  final List<String> users;
+  final DocumentSnapshot snapshot;
+  final DocumentReference reference;
+  final String documentID;
 
   Group copyWith({
     String adminId,
@@ -94,29 +108,4 @@ class Group {
       users: users ?? this.users,
     );
   }
-
-  final String adminId;
-  final String adminName;
-  final DateTime createdAt;
-  final String createdBy;
-  final String description;
-  final String id;
-  final String name;
-  final bool isPublic;
-  final int userLimit;
-  final List<String> users;
-  final DocumentSnapshot snapshot;
-  final DocumentReference reference;
-  final String documentID;
-
-  @override
-  String toString() {
-    return '${adminId.toString()}, ${adminName.toString()}, ${createdAt.toString()}, ${createdBy.toString()}, ${description.toString()}, ${id.toString()}, ${name.toString()}, ${isPublic ? 'public' : 'private'}, ${userLimit.toString()}, ${users.toString()}, ';
-  }
-
-  @override
-  bool operator ==(other) => other is Group && documentID == other.documentID;
-
-  @override
-  int get hashCode => documentID.hashCode;
 }

@@ -4,6 +4,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import '../config/themes.dart';
 import '../data/repositories/bets_repository.dart';
 import '../data/repositories/sports_repository.dart';
@@ -24,6 +25,7 @@ class App extends StatelessWidget {
     @required this.userRepository,
     @required this.betsRepository,
     @required this.sharedPreferences,
+    @required this.groupsRepository,
   })  : assert(
           sportsRepository != null,
         ),
@@ -32,6 +34,7 @@ class App extends StatelessWidget {
   final SportsRepository sportsRepository;
   final UserRepository userRepository;
   final BetsRepository betsRepository;
+  final GroupsRepository groupsRepository;
   final SharedPreferences sharedPreferences;
 
   @override
@@ -46,6 +49,9 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider.value(
           value: userRepository,
+        ),
+        RepositoryProvider.value(
+          value: groupsRepository,
         ),
         RepositoryProvider.value(
           value: sharedPreferences,

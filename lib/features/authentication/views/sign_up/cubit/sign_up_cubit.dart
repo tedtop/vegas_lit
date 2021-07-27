@@ -18,7 +18,10 @@ class SignUpCubit extends Cubit<SignUpState> {
         assert(authenticationBloc != null),
         _authenticationBloc = authenticationBloc,
         _userRepository = userRepository,
-        super(const SignUpState());
+        super(
+          const SignUpState(),
+        );
+
   final UserRepository _userRepository;
   final AuthenticationBloc _authenticationBloc;
 
