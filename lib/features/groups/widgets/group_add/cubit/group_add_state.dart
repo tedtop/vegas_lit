@@ -3,8 +3,8 @@ part of 'group_add_cubit.dart';
 enum GroupAddStatus {
   initial,
   loading,
-  complete,
-  error,
+  success,
+  failure,
 }
 
 class GroupAddState extends Equatable {

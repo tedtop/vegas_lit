@@ -121,9 +121,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
               : Container(),
 
           ListTile(
-            leading: Text('CREATE GROUP', style: Styles.normalTextBold),
+            leading: Text('GROUPS', style: Styles.normalTextBold),
             onTap: () {
-              Navigator.push(context, GroupsPage.route());
+              Navigator.push(
+                context,
+                GroupsPage.route(
+                  homeCubit: context.read<HomeCubit>(),
+                ),
+              );
             },
           ),
           ListTile(
