@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegas_lit/data/repositories/device_repository.dart';
 
 import 'data/repositories/bets_repository.dart';
 import 'data/repositories/sports_repository.dart';
@@ -45,6 +46,7 @@ Future<void> main() async {
       sportsRepository: SportsRepository(),
       betsRepository: BetsRepository(),
       sharedPreferences: sharedPreferencesInstance,
+      deviceRepository: DeviceRepository(),
     ),
   );
 }
