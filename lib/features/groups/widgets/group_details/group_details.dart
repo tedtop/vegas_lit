@@ -58,108 +58,140 @@ class GroupDetails extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  'WIN OR GO BROKE',
+                  group.name,
                   style: Styles.pageTitle,
                 ),
               ),
+              //TODO: Should replace to Pic
               const Center(
                 child: Icon(
                   Icons.star,
                   size: 50,
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Table(
+                  border: TableBorder.all(color: Colors.transparent),
+                  columnWidths: {
+                    0: const FixedColumnWidth(70),
+                    1: const FixedColumnWidth(10),
+                    2: const FlexColumnWidth()
+                  },
+                  children: [
+                    TableRow(
+                      children: [
+                        Text(
+                          'Motto',
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                        const SizedBox(),
+                        Text(
+                          group.description,
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          'Type',
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                        const SizedBox(),
+                        Text(
+                          group.isPublic ? 'Public' : 'Private',
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          'People',
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                        const SizedBox(),
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                '${group.users.length}${group.userLimit == 0 ? '' : '/${group.userLimit}'}',
+                            style: Styles.normalTextBold.copyWith(
+                              fontSize: 14.5,
+                              color: group.userLimit == 0 ||
+                                      group.userLimit > group.users.length
+                                  ? Palette.green
+                                  : Palette.red,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: ' people are in the group',
+                                style:
+                                    Styles.normalText.copyWith(fontSize: 14.5),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    // TableRow(
+                    //   children: [
+                    //     Text(
+                    //       'Homepage',
+                    //       style: Styles.normalText.copyWith(fontSize: 14.5),
+                    //     ),
+                    //     const SizedBox(),
+                    //     Text(
+                    //       'https://thisisntasite.com/wasteyourlife',
+                    //       style: Styles.normalText.copyWith(fontSize: 14.5),
+                    //     ),
+                    //   ],
+                    // ),
+                    TableRow(
+                      children: [
+                        Text(
+                          'Members',
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                        const SizedBox(),
+                        //TODO: change this to member names if thats needed or remove it
+                        Text(
+                          group.users.join(', '),
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          'Admin',
+                          style: Styles.normalText.copyWith(fontSize: 14.5),
+                        ),
+                        const SizedBox(),
+                        Text(
+                          group.adminName,
+                          style: Styles.greenTextBold.copyWith(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              Table(
-                border: TableBorder.all(color: Colors.transparent),
-                columnWidths: {
-                  0: const FixedColumnWidth(70),
-                  1: const FixedColumnWidth(10),
-                  2: const FlexColumnWidth()
-                },
-                children: [
-                  TableRow(
-                    children: [
-                      Text(
-                        'Motto',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                      const SizedBox(),
-                      Text(
-                        'assume this is a motto, okay? If you don\'t think this is anything like a motto, then you are right, as I do not know what to do with my life myself.',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(
-                        'Type',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                      const SizedBox(),
-                      Text(
-                        'Public',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(
-                        'Homepage',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                      const SizedBox(),
-                      Text(
-                        'https://thisisntasite.com/wasteyourlife',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(
-                        'Members',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                      const SizedBox(),
-                      Text(
-                        'assume this is a motto, okay? If you don\'t think this is anything like a motto, then you are right, as I do not know what to do with my life myself.',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(
-                        'Admin',
-                        style: Styles.normalText.copyWith(fontSize: 14),
-                      ),
-                      const SizedBox(),
-                      Text(
-                        'ritikTheGreat',
-                        style: Styles.greenText.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Center(
                 child: SizedBox(
-                    width: 200,
-                    child: DefaultButton(text: 'SHARE', action: () {})),
+                  width: 200,
+                  child: DefaultButton(text: 'SHARE', action: () {}),
+                ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                'LEADERBOARD',
-                style: Styles.pageTitle.copyWith(fontSize: 18),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  'LEADERBOARD',
+                  style: Styles.pageTitle.copyWith(fontSize: 18),
+                ),
               ),
               BlocBuilder<GroupDetailsCubit, GroupDetailsState>(
                   builder: (context, state) {
