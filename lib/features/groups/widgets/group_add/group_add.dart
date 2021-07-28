@@ -6,7 +6,8 @@ import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import 'package:vegas_lit/data/repositories/groups_repository.dart';
+import 'package:vegas_lit/features/home/home.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
 import 'cubit/group_add_cubit.dart';
@@ -14,15 +15,20 @@ import 'cubit/group_add_cubit.dart';
 class GroupAdd extends StatefulWidget {
   GroupAdd._({Key key}) : super(key: key);
 
-  static MaterialPageRoute route() {
-    return MaterialPageRoute(builder: (context) {
-      return BlocProvider(
-        create: (context) => GroupAddCubit(
-          userRepository: context.read<UserRepository>(),
-        ),
-        child: GroupAdd._(),
-      );
-    });
+  static MaterialPageRoute route({@required HomeCubit homeCubit}) {
+    return MaterialPageRoute(
+      builder: (context) {
+        return BlocProvider.value(
+          value: homeCubit,
+          child: BlocProvider(
+            create: (context) => GroupAddCubit(
+              groupsRepository: context.read<GroupsRepository>(),
+            ),
+            child: GroupAdd._(),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -32,16 +38,16 @@ class GroupAdd extends StatefulWidget {
 class _GroupAddState extends State<GroupAdd> {
   final _formKey = GlobalKey<FormState>();
 
-  var _isUnlimitedSize = true;
-
+  bool _isUnlimitedSize = true;
   final _groupNameController = TextEditingController();
   final _groupDescriptionController = TextEditingController();
   final _groupLinkController = TextEditingController();
-  var _isPublic = false;
-  var _userLimit = 1;
+  bool _isPublic = false;
+  int _userLimit = 1;
 
   @override
   Widget build(BuildContext context) {
+    final userData = context.select((HomeCubit cubit) => cubit.state.userData);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -93,7 +99,7 @@ class _GroupAddState extends State<GroupAdd> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'tedtop',
+                      userData.username,
                       style: Styles.normalText,
                     ),
                   ),
@@ -143,7 +149,10 @@ class _GroupAddState extends State<GroupAdd> {
                         onChanged: (val) => setState(() {
                           _isPublic = val;
                         }),
-                        title: Text('Public', style: Styles.normalText),
+                        title: Text(
+                          'Public',
+                          style: Styles.normalText,
+                        ),
                         activeColor: Palette.green,
                       ),
                     ),
@@ -185,12 +194,12 @@ class _GroupAddState extends State<GroupAdd> {
                     focusedBorder: Styles.groupFieldFocusedBorder,
                   ),
                   controller: _groupDescriptionController,
-                  // validator: (value) {
-                  //   if (value.isEmpty) {
-                  //     return 'Please enter a group description.';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (value) {
+                    if (value.length > 160) {
+                      return 'Maximum 160 characters allowed!';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 Text('Discussion Link', style: Styles.groupFieldHeading),
@@ -212,12 +221,6 @@ class _GroupAddState extends State<GroupAdd> {
                     focusedBorder: Styles.groupFieldFocusedBorder,
                   ),
                   controller: _groupLinkController,
-                  // validator: (value) {
-                  //   if (value.isEmpty) {
-                  //     return 'Please enter a discussion link.';
-                  //   }
-                  //   return null;
-                  // },
                 ),
                 const SizedBox(height: 10),
                 Text('Maximum Size', style: Styles.groupFieldHeading),
@@ -270,10 +273,17 @@ class _GroupAddState extends State<GroupAdd> {
                               if (value.isEmpty) {
                                 return 'Required';
                               } else if (int.tryParse(value) < 1) {
-                                return 'Invalid';
+                                return 'Invalid value';
+                              } else if (int.parse(value) > 250) {
+                                return 'Maximum 250 members allowed';
                               }
                             }
                             return null;
+                          },
+                          onTap: () {
+                            setState(() {
+                              _isUnlimitedSize = false;
+                            });
                           },
                           onChanged: (val) {
                             setState(() {
@@ -286,32 +296,45 @@ class _GroupAddState extends State<GroupAdd> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                BlocBuilder<GroupAddCubit, GroupAddState>(
+                BlocConsumer<GroupAddCubit, GroupAddState>(
+                  listener: (context, state) {
+                    if (state.status == GroupAddStatus.success) {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          const SnackBar(
+                            content: Text('Group Created Successfully!'),
+                          ),
+                        );
+                      Navigator.of(context).pop();
+                    }
+                  },
                   builder: (context, state) {
                     switch (state.status) {
                       case GroupAddStatus.initial:
                         return DefaultButton(
-                            text: 'CREATE GROUP',
-                            action: () {
-                              if (_formKey.currentState.validate()) {
-                                final _newGroup = Group(
-                                  adminId: 'adminId',
-                                  adminName: 'adminName',
-                                  createdBy: 'adminId',
-                                  createdAt: ESTDateTime.fetchTimeEST(),
-                                  description: _groupDescriptionController.text,
-                                  isPublic: _isPublic,
-                                  name: _groupNameController.text,
-                                  // 0 means unlimited
-                                  userLimit: _isUnlimitedSize ? 0 : _userLimit,
-                                  users: <String>['adminId'],
-                                  id: '${_groupNameController.text}${ESTDateTime.fetchTimeEST().toString()}',
-                                );
-                                context
-                                    .read<GroupAddCubit>()
-                                    .addGroup(group: _newGroup);
-                              }
-                            });
+                          text: 'CREATE GROUP',
+                          action: () {
+                            if (_formKey.currentState.validate()) {
+                              context.read<GroupAddCubit>().addGroup(
+                                    group: Group(
+                                      adminId: userData.uid,
+                                      adminName: userData.username,
+                                      createdBy: userData.uid,
+                                      createdAt: ESTDateTime.fetchTimeEST(),
+                                      description:
+                                          _groupDescriptionController.text,
+                                      isPublic: _isPublic,
+                                      name: _groupNameController.text,
+                                      userLimit:
+                                          _isUnlimitedSize ? 0 : _userLimit,
+                                      users: <String>[userData.uid],
+                                      id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
+                                    ),
+                                  );
+                            }
+                          },
+                        );
                         break;
                       case GroupAddStatus.loading:
                         return const SizedBox(
@@ -321,7 +344,7 @@ class _GroupAddState extends State<GroupAdd> {
                                 color: Palette.cream,
                               ),
                             ));
-                      case GroupAddStatus.complete:
+                      case GroupAddStatus.success:
                         return Container(
                           height: 80,
                           width: 360,

@@ -6,19 +6,22 @@ import 'package:vegas_lit/data/models/group.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:vegas_lit/features/groups/cubit/groups_cubit.dart';
 import 'package:vegas_lit/features/groups/widgets/group_add/group_add.dart';
+import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 class GroupsPage extends StatelessWidget {
   const GroupsPage._({Key key}) : super(key: key);
 
-  static MaterialPageRoute route() {
+  static MaterialPageRoute route({@required HomeCubit homeCubit}) {
     return MaterialPageRoute(
       builder: (context) {
-        return BlocProvider(
-          create: (context) => GroupsCubit(
-            groupsRepository: context.read<GroupsRepository>()
-              ..fetchPublicGroups(),
+        return BlocProvider.value(
+          value: homeCubit,
+          child: BlocProvider(
+            create: (context) => GroupsCubit(
+              groupsRepository: context.read<GroupsRepository>(),
+            )..openPublicGroups(),
+            child: const GroupsPage._(),
           ),
-          child: const GroupsPage._(),
         );
       },
     );
@@ -33,7 +36,9 @@ class GroupsPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                GroupAdd.route(),
+                GroupAdd.route(
+                  homeCubit: context.read<HomeCubit>(),
+                ),
               );
             },
             icon: const Icon(Icons.add),
@@ -57,12 +62,13 @@ class GroupsPage extends StatelessWidget {
               if (state.publicGroups.isEmpty) {
                 return Center(
                   child: Text(
-                    'Couldn\'t open groups',
+                    'No Groups Found!',
                     style: GoogleFonts.nunito(),
                   ),
                 );
+              } else {
+                return const GroupList();
               }
-              return const GroupList();
               break;
             case GroupsStatus.failure:
               return Center(
