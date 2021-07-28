@@ -4,7 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/data/repositories/device_repository.dart';
+import 'package:vegas_lit/features/home/cubit/notification_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
 import '../../../config/assets.dart';
 import '../../../data/repositories/bets_repository.dart';
@@ -75,6 +80,11 @@ class HomePage extends StatefulWidget {
               create: (context) => HistoryCubit(
                 userRepository: context.read<UserRepository>(),
               )..fetchAllBets(uid: uid),
+            ),
+            BlocProvider<NotificationCubit>(
+              create: (context) => NotificationCubit(
+                deviceRepository: context.read<DeviceRepository>(),
+              )..initializePushNotification(),
             ),
             BlocProvider<BetSlipCubit>(
               create: (_) => BetSlipCubit()
@@ -154,38 +164,73 @@ class _HomePageState extends State<HomePage>
                 balanceAmount: balanceAmount,
                 pageIndex: pageIndex),
             drawer: HomeDrawer(),
-            body: BlocBuilder<InternetCubit, InternetState>(
-              builder: (context, state) {
-                if (state is InternetDisconnected) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(SVG.networkError),
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<InternetCubit>()
-                                .checkInternetConnection();
-                          },
-                          icon: const Icon(Icons.replay_rounded),
-                        )
-                      ],
-                    ),
-                  );
-                } else {
-                  return PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: _pageController,
-                    children: [
-                      Sportsbook(),
-                      BetSlip(),
-                      Leaderboard.route(),
-                      OpenBets.route(uid: widget.currentUserId),
-                      History.route(uid: widget.currentUserId),
-                    ],
-                  );
+            body: BlocConsumer<NotificationCubit, NotificationState>(
+              listener: (context, state) {
+                switch (state.status) {
+                  case NotificationStatus.failure:
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            state.errorMessage,
+                          ),
+                        ),
+                      );
+
+                    break;
+                  case NotificationStatus.success:
+                    showSimpleNotification(
+                      Text(
+                        state.notification.title,
+                        style: GoogleFonts.nunito(color: Palette.cream),
+                      ),
+                      subtitle: Text(
+                        state.notification.body,
+                        style: GoogleFonts.nunito(color: Palette.cream),
+                      ),
+                      background: Palette.lightGrey,
+                      duration: const Duration(seconds: 4),
+                    );
+                    break;
+                  default:
                 }
+              },
+              builder: (context, state) {
+                return BlocBuilder<InternetCubit, InternetState>(
+                  builder: (context, state) {
+                    if (state is InternetDisconnected) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(SVG.networkError),
+                            IconButton(
+                              onPressed: () {
+                                context
+                                    .read<InternetCubit>()
+                                    .checkInternetConnection();
+                              },
+                              icon: const Icon(Icons.replay_rounded),
+                            )
+                          ],
+                        ),
+                      );
+                    } else {
+                      return PageView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: _pageController,
+                        children: [
+                          Sportsbook(),
+                          BetSlip(),
+                          Leaderboard.route(),
+                          OpenBets.route(uid: widget.currentUserId),
+                          History.route(uid: widget.currentUserId),
+                        ],
+                      );
+                    }
+                  },
+                );
               },
             ),
             bottomNavigationBar: kIsWeb ? null : BottomNavigation(),

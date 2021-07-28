@@ -56,8 +56,8 @@ class InternetCubit extends Cubit<InternetState> {
   void emitInternetDisconnected() => emit(InternetDisconnected());
 
   @override
-  Future<void> close() {
-    connectivityStreamSubscription.cancel();
+  Future<void> close() async {
+    await connectivityStreamSubscription.cancel();
     return super.close();
   }
 }
