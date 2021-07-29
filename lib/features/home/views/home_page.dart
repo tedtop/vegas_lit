@@ -7,8 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
+import 'package:vegas_lit/features/drawer_pages/rules.dart';
 import 'package:vegas_lit/features/home/cubit/notification_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
 import '../../../config/assets.dart';
@@ -135,8 +138,25 @@ class _HomePageState extends State<HomePage>
   final PageController _pageController = PageController();
   var selectedIndex = 0;
 
+  Future<bool> isRulesShown() async {
+    final sharedPref = context.read<SharedPreferences>();
+    final currentWeek = ESTDateTime.weekStringVL;
+    final storedWeek = sharedPref.getString('week');
+    if (storedWeek != currentWeek) {
+      await sharedPref.setString('week', currentWeek);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    isRulesShown().then((isShown) {
+      if (!isShown) {
+        Navigator.push(context, Rules.route());
+      }
+    });
     final pageIndex =
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
     final balanceAmount = context.select(
@@ -145,6 +165,7 @@ class _HomePageState extends State<HomePage>
           : homeCubit.state.userWallet.accountBalance,
     );
     final width = MediaQuery.of(context).size.width;
+
     return BlocListener<HomeCubit, HomeState>(
       listenWhen: (previous, current) =>
           previous.pageIndex != current.pageIndex,
