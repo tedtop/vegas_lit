@@ -230,7 +230,7 @@ class WebLeaderboardItem extends StatelessWidget {
         currentUserUid == player.uid
             ? context.read<HomeCubit>().homeChange(4)
             : Navigator.of(context).push(
-                LeaderboardProfile.navigation(
+                LeaderboardProfile.route(
                   uid: player.uid,
                   homeCubit: context.read<HomeCubit>(),
                   week: week,

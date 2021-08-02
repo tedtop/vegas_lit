@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/routes.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 import 'package:vegas_lit/features/shared_widgets/dropdown.dart';
+import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -14,12 +16,10 @@ import '../../shared_widgets/bottom_bar.dart';
 import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   Profile._({Key key, @required this.currentUserId}) : super(key: key);
 
   final String currentUserId;
-  final Key usernameKey = UniqueKey();
-  final Key emailKey = UniqueKey();
 
   static Route route({@required String currentUserId}) {
     return MaterialPageRoute<void>(
@@ -36,6 +36,15 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> with RouteAwareAnalytics {
+  final Key usernameKey = UniqueKey();
+
+  final Key emailKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +91,9 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Routes get route => Routes.profile;
 }
 
 class _AvatarInput extends StatelessWidget {

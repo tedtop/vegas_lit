@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:vegas_lit/config/routes.dart';
+import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../../config/palette.dart';
 import '../../../data/repositories/user_repository.dart';
@@ -12,18 +14,10 @@ import 'adaptive_bet_history/desktop_leaderboard_profile.dart';
 import 'adaptive_bet_history/mobile_leaderboard_profile.dart';
 import 'adaptive_bet_history/tablet_leaderboard_profile.dart';
 
-class LeaderboardProfile extends StatelessWidget {
+class LeaderboardProfile extends StatefulWidget {
   const LeaderboardProfile._({Key key}) : super(key: key);
 
-  static Builder route({@required String uid}) {
-    return Builder(
-      builder: (context) {
-        return const LeaderboardProfile._();
-      },
-    );
-  }
-
-  static Route navigation({
+  static Route route({
     @required String uid,
     @required HomeCubit homeCubit,
     @required String week,
@@ -55,6 +49,12 @@ class LeaderboardProfile extends StatelessWidget {
   }
 
   @override
+  _LeaderboardProfileState createState() => _LeaderboardProfileState();
+}
+
+class _LeaderboardProfileState extends State<LeaderboardProfile>
+    with RouteAwareAnalytics {
+  @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
@@ -66,4 +66,7 @@ class LeaderboardProfile extends StatelessWidget {
       ],
     );
   }
+
+  @override
+  Routes get route => Routes.leaderboardProfile;
 }

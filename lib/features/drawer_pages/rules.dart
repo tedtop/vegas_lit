@@ -1,12 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/config/routes.dart';
+import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../config/assets.dart';
 import '../../config/palette.dart';
 import '../../config/styles.dart';
 
-class Rules extends StatelessWidget {
+class Rules extends StatefulWidget {
   const Rules._({Key key}) : super(key: key);
 
   static Route route() {
@@ -16,6 +18,11 @@ class Rules extends StatelessWidget {
     );
   }
 
+  @override
+  _RulesState createState() => _RulesState();
+}
+
+class _RulesState extends State<Rules> with RouteAwareAnalytics {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,9 +114,13 @@ class Rules extends StatelessWidget {
   }
 
   final _rulesURL = 'https://vegaslit.web.app/rules.html';
+
   void _launchRules() async => await canLaunch(_rulesURL)
       ? await launch(_rulesURL)
       : throw LaunchWebsiteFailure();
+
+  @override
+  Routes get route => Routes.rules;
 }
 
 class _RulesList extends StatelessWidget {
