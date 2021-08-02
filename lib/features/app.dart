@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
+import 'package:vegas_lit/utils/route_aware_analytics.dart';
 import '../config/themes.dart';
 import '../data/repositories/bets_repository.dart';
 import '../data/repositories/sports_repository.dart';
@@ -83,10 +84,6 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState;
 
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
-
   Future<bool> isFirstTime() async {
     final sharedPref = context.read<SharedPreferences>();
     final isFirstTime = sharedPref.getBool('first_time');
@@ -111,7 +108,7 @@ class _AppViewState extends State<AppView> {
           title: 'Vegas Lit',
           theme: Themes.dark,
           navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
+            routeObserver,
           ],
           builder: (context, child) {
             return MediaQuery(
@@ -122,7 +119,6 @@ class _AppViewState extends State<AppView> {
                     case AuthenticationStatus.authenticated:
                       _navigator.pushAndRemoveUntil<void>(
                         HomePage.route(
-                          observer: observer,
                           connectivity: Connectivity(),
                           uid: state.user.uid,
                         ),

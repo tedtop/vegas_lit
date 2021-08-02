@@ -1,5 +1,4 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +9,12 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/routes.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:vegas_lit/features/drawer_pages/rules.dart';
 import 'package:vegas_lit/features/home/cubit/notification_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
+import 'package:vegas_lit/utils/route_aware_analytics.dart';
 import '../../../config/assets.dart';
 import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/sports_repository.dart';
@@ -35,14 +36,11 @@ import '../widgets/bottom_navigation.dart';
 import '../widgets/home_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage._({@required this.observer, this.currentUserId, Key key})
-      : super(key: key);
+  const HomePage._({this.currentUserId, Key key}) : super(key: key);
 
-  final FirebaseAnalyticsObserver observer;
   final String currentUserId;
 
   static Route route({
-    @required FirebaseAnalyticsObserver observer,
     @required Connectivity connectivity,
     @required String uid,
   }) {
@@ -101,9 +99,7 @@ class HomePage extends StatefulWidget {
               )..openHome(uid: uid),
             ),
           ],
-          child: HomePage._(
-            observer: observer,
-          ),
+          child: const HomePage._(),
         );
       },
     );
@@ -114,25 +110,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin, RouteAware {
+    with SingleTickerProviderStateMixin, RouteAwareAnalytics {
   final newVersion = NewVersion();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    widget.observer.subscribe(this, ModalRoute.of(context));
-  }
 
   @override
   void initState() {
     newVersion.showAlertIfNecessary(context: context);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    widget.observer.unsubscribe(this);
-    super.dispose();
   }
 
   final PageController _pageController = PageController();
@@ -173,7 +157,7 @@ class _HomePageState extends State<HomePage>
         if (state.status == HomeStatus.changed) {
           _pageController.jumpToPage(state.pageIndex);
           selectedIndex = _pageController.page.toInt();
-          _sendCurrentTabToAnalytics();
+          super.setThisScreenForAnalytics();
         }
       },
       child: Stack(
@@ -263,37 +247,22 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  void didPush() {
-    _sendCurrentTabToAnalytics();
-  }
-
-  @override
-  void didPopNext() {
-    _sendCurrentTabToAnalytics();
-  }
-
-  void _sendCurrentTabToAnalytics() {
-    widget.observer.analytics.setCurrentScreen(
-      screenName: '${whichIndexPage(selectedIndex)}',
-    );
-  }
-
-  String whichIndexPage(int pageIndex) {
-    switch (pageIndex) {
+  Routes get route {
+    switch (selectedIndex) {
       case 1:
-        return 'BetSlip';
+        return Routes.betSlip;
         break;
       case 2:
-        return 'Leaderboard';
+        return Routes.leaderboard;
         break;
       case 3:
-        return 'OpenBets';
+        return Routes.openBets;
         break;
       case 4:
-        return 'BetHistory';
+        return Routes.betHistory;
         break;
       default:
-        return 'Sportsbook';
+        return Routes.sportsbook;
         break;
     }
   }
