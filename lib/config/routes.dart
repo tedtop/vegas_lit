@@ -39,19 +39,14 @@ extension RoutesExtension on Routes {
     switch (this) {
       case Routes.sportsbook:
         return 'Sportsbook';
-      //'/sportsbook';
       case Routes.betSlip:
         return 'BetSlip';
-      // '/betslip';
       case Routes.leaderboard:
         return 'Leaderboard';
-      //'/leaderboard';
       case Routes.openBets:
         return 'OpenBets';
-      //'/openbets';
       case Routes.betHistory:
         return 'BetHistory';
-      //'/bethistory';
       case Routes.profile:
         return 'Profile';
       case Routes.leaderboardProfile:

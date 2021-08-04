@@ -43,7 +43,7 @@ mixin RouteAwareAnalytics<T extends StatefulWidget> on State<T>
   Future<void> _setCurrentScreen(Routes analyticsRoute) {
     return FirebaseAnalytics().setCurrentScreen(
       screenName: analyticsRoute.screenName,
-      //screenClassOverride: analyticsRoute.screenClass,
+      screenClassOverride: analyticsRoute.screenClass,
     );
   }
 }
