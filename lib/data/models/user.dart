@@ -3,14 +3,16 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class UserData extends Equatable {
-  const UserData(
-      {@required this.uid,
-      @required this.username,
-      @required this.email,
-      // @required this.phone,
-      @required this.location,
-      this.isAdmin,
-      this.avatarUrl});
+  const UserData({
+    @required this.uid,
+    @required this.username,
+    @required this.email,
+    @required this.groups,
+    // @required this.phone,
+    @required this.location,
+    this.isAdmin,
+    this.avatarUrl,
+  });
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
@@ -18,6 +20,7 @@ class UserData extends Equatable {
         isAdmin: data['isAdmin'] ?? false,
         uid: data['uid'] as String,
         email: data['email'] as String,
+        groups: data['groups'] == null ? [] : data['groups'] as List,
         username: data['username'] as String,
         // phone: data['phone'] as int,
         location: data['location'] as String,
@@ -28,6 +31,7 @@ class UserData extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'email': email,
+      'groups': groups,
       'username': username,
       // 'phone': phone,
       'location': location,
@@ -42,6 +46,7 @@ class UserData extends Equatable {
   final String email;
   // final int phone;
   final String location;
+  final List groups;
   final bool isAdmin;
   final String avatarUrl;
 
@@ -51,6 +56,7 @@ class UserData extends Equatable {
       uid,
       username,
       email,
+      groups,
       // phone,
       location,
       isAdmin,
@@ -64,12 +70,14 @@ class UserData extends Equatable {
     String email,
     String location,
     bool isAdmin,
+    List groups,
     String avatarUrl,
   }) {
     return UserData(
       uid: uid ?? this.uid,
       username: username ?? this.username,
       email: email ?? this.email,
+      groups: groups ?? this.groups,
       location: location ?? this.location,
       isAdmin: isAdmin ?? this.isAdmin,
       avatarUrl: avatarUrl ?? this.avatarUrl,
