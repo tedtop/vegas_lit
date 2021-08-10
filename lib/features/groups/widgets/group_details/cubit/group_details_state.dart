@@ -6,11 +6,13 @@ class GroupDetailsState extends Equatable {
   GroupDetailsState({
     this.status = GroupDetailsStatus.initial,
     this.players = const [],
+    this.group,
   });
 
   final GroupDetailsStatus status;
+  final Group group;
   final List<Wallet> players;
 
   @override
-  List<Object> get props => [status, players];
+  List<Object> get props => [status, players, group];
 }

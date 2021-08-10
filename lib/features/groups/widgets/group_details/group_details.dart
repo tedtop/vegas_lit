@@ -7,22 +7,21 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import 'package:vegas_lit/data/repositories/groups_repository.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
 import 'cubit/group_details_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
-  GroupDetails._({Key key, this.group}) : super(key: key);
+  GroupDetails._({Key key, @required this.group}) : super(key: key);
 
   static MaterialPageRoute route({@required Group group}) {
     return MaterialPageRoute(builder: (context) {
       return BlocProvider(
-        // USE THE CUBIT TO GET LEADERBOARD
         create: (context) => GroupDetailsCubit(
-          userRepository: context.read<UserRepository>(),
-        )..fetchLeaderboardForGroup(groupId: 'groupId'),
+          groupsRepository: context.read<GroupsRepository>(),
+        )..fetchGroupDetailsLeaderboard(group: group),
         child: GroupDetails._(
           group: group,
         ),
@@ -34,6 +33,8 @@ class GroupDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userId = context.watch<AuthenticationBloc>().state.user.uid;
+    final isJoined = group.users.contains(userId);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -180,9 +181,27 @@ class GroupDetails extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Center(
-                child: SizedBox(
-                  width: 200,
-                  child: DefaultButton(text: 'SHARE', action: () {}),
+                child: Row(
+                  mainAxisAlignment: isJoined
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.spaceEvenly,
+                  children: [
+                    isJoined
+                        ? const SizedBox()
+                        : SizedBox(
+                            width: 150,
+                            child: DefaultButton(
+                                text: 'Join',
+                                action: () {
+                                  context.read<GroupDetailsCubit>().addNewUser(
+                                      groupId: group.id, userId: userId);
+                                }),
+                          ),
+                    SizedBox(
+                      width: 150,
+                      child: DefaultButton(text: 'SHARE', action: () {}),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 10),

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vegas_lit/data/models/group.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
 
 part 'group_add_state.dart';
 

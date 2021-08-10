@@ -38,12 +38,11 @@ class GroupAdd extends StatefulWidget {
 class _GroupAddState extends State<GroupAdd> {
   final _formKey = GlobalKey<FormState>();
 
-  bool _isUnlimitedSize = true;
   final _groupNameController = TextEditingController();
   final _groupDescriptionController = TextEditingController();
-  //final _groupLinkController = TextEditingController();
-  bool _isPublic = false;
-  int _userLimit = 1;
+  bool _isUnlimitedSize = true;
+  bool _isPublic = true;
+  int _userLimit;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +143,7 @@ class _GroupAddState extends State<GroupAdd> {
                     SizedBox(
                       width: 150,
                       child: RadioListTile(
-                        value: false,
+                        value: true,
                         groupValue: _isPublic,
                         onChanged: (val) => setState(() {
                           _isPublic = val;
@@ -159,12 +158,15 @@ class _GroupAddState extends State<GroupAdd> {
                     SizedBox(
                       width: 150,
                       child: RadioListTile(
-                        value: true,
+                        value: false,
                         groupValue: _isPublic,
                         onChanged: (val) => setState(() {
                           _isPublic = val;
                         }),
-                        title: Text('Private', style: Styles.normalText),
+                        title: Text(
+                          'Private',
+                          style: Styles.normalText,
+                        ),
                         activeColor: Palette.green,
                       ),
                     ),
@@ -202,27 +204,6 @@ class _GroupAddState extends State<GroupAdd> {
                   },
                 ),
                 const SizedBox(height: 10),
-                // Text('Discussion Link', style: Styles.groupFieldHeading),
-                // Text(
-                //   'Add a link to any external chats for this group.',
-                //   style: Styles.groupFieldDescription,
-                // ),
-                // const SizedBox(height: 10),
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     hintText: 'Discussion Link',
-                //     contentPadding: EdgeInsets.symmetric(
-                //       vertical: 2.5,
-                //       horizontal: 10,
-                //     ),
-                //     fillColor: Palette.lightGrey,
-                //     filled: true,
-                //     border: Styles.groupFieldBorder,
-                //     focusedBorder: Styles.groupFieldFocusedBorder,
-                //   ),
-                //   controller: _groupLinkController,
-                // ),
-                // const SizedBox(height: 10),
                 Text('Maximum Size', style: Styles.groupFieldHeading),
                 RadioListTile(
                   value: true,
@@ -263,7 +244,6 @@ class _GroupAddState extends State<GroupAdd> {
                             border: Styles.groupFieldBorder,
                             focusedBorder: Styles.groupFieldFocusedBorder,
                           ),
-                          initialValue: _userLimit.toString(),
                           keyboardType: TextInputType.number,
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
