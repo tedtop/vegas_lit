@@ -45,6 +45,7 @@ dependencies:
   new_version: ^0.2.2
   firebase_messaging: ^10.0.4
   overlay_support: ^1.2.1
+  in_app_review: ^2.0.2
 
 dev_dependencies:
   flutter_test:

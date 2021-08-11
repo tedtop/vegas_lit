@@ -1,8 +1,10 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:vegas_lit/data/providers/cloud_messaging.dart';
+import 'package:vegas_lit/data/providers/device_provider.dart';
 
 class DeviceRepository {
   final _messagingProvider = CloudMessagingClient();
+  final _deviceProvider = DeviceProvider();
 
   Future<void> handleBackgroundNotification() =>
       _messagingProvider.handleBackgroundNotification();
@@ -18,4 +20,6 @@ class DeviceRepository {
 
   Stream<RemoteMessage> handleOpenBackgroundNotification() =>
       _messagingProvider.handleOpenBackgroundNotification();
+
+  Future<void> openAppReview() => _deviceProvider.openAppReview();
 }
