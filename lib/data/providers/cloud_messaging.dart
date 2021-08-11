@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // ignore: avoid_print
   print('Handling a background message: ${message.messageId}');
 }
 

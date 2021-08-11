@@ -469,78 +469,77 @@ class CloudFirestoreClient {
         .doc(game.gameId);
 
     await olympicsCollectionRef.update(game.toMap());
+  }
 
-    Stream<List<Group>> fetchPublicGroups() {
-      final snapshotRef =
-          _firebaseFirestore.collection('groups').snapshots().map(
-                (event) => event.docs
-                    .map(
-                      (e) => Group.fromFirestore(e),
-                    )
-                    .toList(),
-              );
-      return snapshotRef;
-    }
-
-    Stream<Group> fetchPublicGroup({@required String groupId}) {
-      final snapshotRef =
-          _firebaseFirestore.collection('groups').doc(groupId).snapshots().map(
+  Stream<List<Group>> fetchPublicGroups() {
+    final snapshotRef = _firebaseFirestore.collection('groups').snapshots().map(
+          (event) => event.docs
+              .map(
                 (e) => Group.fromFirestore(e),
-              );
-      return snapshotRef;
-    }
+              )
+              .toList(),
+        );
+    return snapshotRef;
+  }
 
-    Future<List<Wallet>> fetchGroupLeaderboard(
-        {@required List<String> userList}) async {
-      final walletList = await Future.wait(
-        userList.map(
-          (e) async =>
-              await _firebaseFirestore.collection('wallets').doc(e).get().then(
-                    (value) => Wallet.fromFirestore(value),
-                  ),
-        ),
-      );
+  Stream<Group> fetchPublicGroup({@required String groupId}) {
+    final snapshotRef =
+        _firebaseFirestore.collection('groups').doc(groupId).snapshots().map(
+              (e) => Group.fromFirestore(e),
+            );
+    return snapshotRef;
+  }
 
-      return walletList;
-    }
+  Future<List<Wallet>> fetchGroupLeaderboard(
+      {@required List<String> userList}) async {
+    final walletList = await Future.wait(
+      userList.map(
+        (e) async =>
+            await _firebaseFirestore.collection('wallets').doc(e).get().then(
+                  (value) => Wallet.fromFirestore(value),
+                ),
+      ),
+    );
 
-    Future<void> addNewGroup({@required Group group}) async {
-      await _firebaseFirestore
-          .collection('groups')
-          .add(
-            group.toMap(),
-          )
-          .then(
-        (value) async {
-          await value.update(
-            {'id': value.id},
-          );
-          return await _firebaseFirestore
-              .collection('users')
-              .doc('${group.createdBy}')
-              .update(
-            {
-              'groups': FieldValue.arrayUnion([value.id]),
-            },
-          );
-        },
-      );
-    }
+    return walletList;
+  }
 
-    Future<void> addNewUserToGroup(
-        {@required String groupId, @required String userId}) async {
-      final addNewUserBatch = _firebaseFirestore.batch();
-      final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
-      final userRef = _firebaseFirestore.collection('users').doc(userId);
-      addNewUserBatch
-        ..update(groupRef, {
-          'users': FieldValue.arrayUnion([userId])
-        })
-        ..update(userRef, {
-          'groups': FieldValue.arrayUnion([groupId]),
-        });
+  Future<void> addNewGroup({@required Group group}) async {
+    await _firebaseFirestore
+        .collection('groups')
+        .add(
+          group.toMap(),
+        )
+        .then(
+      (value) async {
+        await value.update(
+          {'id': value.id},
+        );
+        return await _firebaseFirestore
+            .collection('users')
+            .doc('${group.createdBy}')
+            .update(
+          {
+            'groups': FieldValue.arrayUnion([value.id]),
+          },
+        );
+      },
+    );
+  }
 
-      await addNewUserBatch.commit();
-    }
+  Future<void> addNewUserToGroup(
+      {@required String groupId, @required String userId}) async {
+    final addNewUserBatch = _firebaseFirestore.batch();
+    final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
+    final userRef = _firebaseFirestore.collection('users').doc(userId);
+    addNewUserBatch
+      ..update(groupRef, {
+        'users': FieldValue.arrayUnion([userId])
+      })
+      ..update(userRef, {
+        'groups': FieldValue.arrayUnion([groupId]),
+      });
+
+    await addNewUserBatch.commit();
   }
 }
