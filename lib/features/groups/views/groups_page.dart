@@ -6,6 +6,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/group.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
+import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
 import 'package:vegas_lit/features/groups/cubit/groups_cubit.dart';
 import 'package:vegas_lit/features/groups/widgets/group_add/group_add.dart';
 import 'package:vegas_lit/features/groups/widgets/group_details/group_details.dart';
@@ -157,20 +158,21 @@ class GroupListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userId = context.watch<AuthenticationBloc>().state.user.uid;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-          color: Palette.lightGrey,
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          border: Border.all(color: Palette.cream, width: 1.0),
-          boxShadow: <BoxShadow>[
-            const BoxShadow(
-                color: Palette.lightGrey,
-                blurRadius: 1.2,
-                offset: Offset(0.4, 0.6))
-          ]),
+        color: Palette.lightGrey,
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        border: Border.all(color: Palette.cream, width: 1.0),
+        boxShadow: <BoxShadow>[
+          const BoxShadow(
+              color: Palette.lightGrey,
+              blurRadius: 1.2,
+              offset: Offset(0.4, 0.6))
+        ],
+      ),
       child: ListTile(
-        //TODO: Should replace to Pic
         leading: const Icon(
           Icons.star,
           size: 35,
@@ -201,7 +203,12 @@ class GroupListTile extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.push(context, GroupDetails.route(group: _group));
+          Navigator.push(
+              context,
+              GroupDetails.route(
+                groupId: _group.id,
+                userId: userId,
+              ));
         },
       ),
     );
