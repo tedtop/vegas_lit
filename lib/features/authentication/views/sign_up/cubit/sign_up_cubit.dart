@@ -18,7 +18,10 @@ class SignUpCubit extends Cubit<SignUpState> {
         assert(authenticationBloc != null),
         _authenticationBloc = authenticationBloc,
         _userRepository = userRepository,
-        super(const SignUpState());
+        super(
+          const SignUpState(),
+        );
+
   final UserRepository _userRepository;
   final AuthenticationBloc _authenticationBloc;
 
@@ -165,6 +168,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           email: state.email.value,
           uid: currentUser.uid,
           username: state.username.value,
+          groups: [],
         ),
       );
       _authenticationBloc.add(CheckProfileComplete(currentUser));

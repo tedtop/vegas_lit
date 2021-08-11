@@ -297,6 +297,31 @@ class Styles {
   static final profileFieldValue =
       GoogleFonts.nunito(fontSize: 20, color: Palette.cream);
 
+  /// --> GROUPS
+  /// // --> CREATE GROUP
+  static final groupFieldHeading = GoogleFonts.nunito(
+    fontSize: 18,
+    color: Palette.cream,
+    fontWeight: FontWeight.w700,
+  );
+  static final groupFieldDescription = GoogleFonts.nunito(
+    fontSize: 14,
+    color: Palette.cream,
+    fontWeight: FontWeight.w400,
+  );
+
+  static const groupFieldBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(4),
+    ),
+  );
+  static const groupFieldFocusedBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: Palette.cream),
+    borderRadius: BorderRadius.all(
+      Radius.circular(4),
+    ),
+  );
+
   /// --> SHARED WIDGETS
   /// // --> BOTTOM BAR
   static final bottomBarHeading = GoogleFonts.nunito(

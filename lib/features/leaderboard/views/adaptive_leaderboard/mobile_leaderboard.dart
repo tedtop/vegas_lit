@@ -16,14 +16,11 @@ import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
 import '../../widgets/textbar.dart';
 
-class MobileLeaderboard extends StatefulWidget {
-  MobileLeaderboard({@required this.players});
-  final List<Wallet> players;
-  @override
-  _MobileLeaderboardState createState() => _MobileLeaderboardState();
-}
+class MobileLeaderboard extends StatelessWidget {
+  const MobileLeaderboard({Key key, @required this.players}) : super(key: key);
 
-class _MobileLeaderboardState extends State<MobileLeaderboard> {
+  final List<Wallet> players;
+
   @override
   Widget build(BuildContext context) {
     final leaderboardState = context.watch<LeaderboardCubit>().state;
@@ -47,7 +44,7 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
               case LeaderboardStatus.opened:
                 return leaderboardState.rankedUserList.isNotEmpty
                     ? Column(
-                        children: widget.players
+                        children: players
                             .asMap()
                             .entries
                             .map((entry) => MobileLeaderboardTile(
@@ -73,7 +70,7 @@ class _MobileLeaderboardState extends State<MobileLeaderboard> {
               case LeaderboardStatus.weekChanged:
                 return leaderboardState.rankedUserList.isNotEmpty
                     ? Column(
-                        children: widget.players
+                        children: players
                             .asMap()
                             .entries
                             .map((entry) => MobileLeaderboardTile(

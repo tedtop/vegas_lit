@@ -7,6 +7,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:vegas_lit/utils/route_aware_analytics.dart';
+import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import '../config/themes.dart';
 import '../data/repositories/bets_repository.dart';
 import '../data/repositories/sports_repository.dart';
@@ -28,6 +29,7 @@ class App extends StatelessWidget {
     @required this.betsRepository,
     @required this.sharedPreferences,
     @required this.deviceRepository,
+    @required this.groupsRepository,
   })  : assert(
           sportsRepository != null,
         ),
@@ -36,6 +38,7 @@ class App extends StatelessWidget {
   final SportsRepository sportsRepository;
   final UserRepository userRepository;
   final BetsRepository betsRepository;
+  final GroupsRepository groupsRepository;
   final SharedPreferences sharedPreferences;
   final DeviceRepository deviceRepository;
 
@@ -51,6 +54,9 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider.value(
           value: userRepository,
+        ),
+        RepositoryProvider.value(
+          value: groupsRepository,
         ),
         RepositoryProvider.value(
           value: sharedPreferences,

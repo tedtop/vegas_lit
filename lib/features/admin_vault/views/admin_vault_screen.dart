@@ -47,9 +47,10 @@ class AdminVaultScreen extends StatelessWidget {
               );
             } else {
               return const Center(
-                  child: CircularProgressIndicator(
-                color: Palette.cream,
-              ));
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
+              );
             }
           },
         ));
