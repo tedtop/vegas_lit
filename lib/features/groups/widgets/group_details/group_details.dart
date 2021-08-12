@@ -242,34 +242,33 @@ class GroupDetailsJoinButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child:
-                      // state.isMember
-                      //     ? const SizedBox()
-                      //     :
-                      Visibility(
-                    visible: state.group.userLimit == 0
-                        ? true
-                        : state.group.userLimit >= state.group.users.length + 1,
-                    replacement: SizedBox(
-                      height: 60,
-                      child: Center(
-                        child: Text(
-                          'Group Members Limit Exceeded.',
-                          style: Styles.normalText,
+                  child: state.isMember
+                      ? const SizedBox()
+                      : Visibility(
+                          visible: state.group.userLimit == 0
+                              ? true
+                              : state.group.userLimit >=
+                                  state.group.users.length + 1,
+                          replacement: SizedBox(
+                            height: 60,
+                            child: Center(
+                              child: Text(
+                                'Group Members Limit Exceeded.',
+                                style: Styles.normalText,
+                              ),
+                            ),
+                          ),
+                          child: SizedBox(
+                            width: 150,
+                            child: DefaultButton(
+                              text: 'Join',
+                              action: () {
+                                context.read<GroupDetailsCubit>().addNewUser(
+                                    groupId: state.group.id, userId: userId);
+                              },
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    child: SizedBox(
-                      width: 150,
-                      child: DefaultButton(
-                        text: 'Join',
-                        action: () {
-                          context.read<GroupDetailsCubit>().addNewUser(
-                              groupId: state.group.id, userId: userId);
-                        },
-                      ),
-                    ),
-                  ),
                 ),
               ],
             );
