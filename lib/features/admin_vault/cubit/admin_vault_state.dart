@@ -1,16 +1,18 @@
 part of 'admin_vault_cubit.dart';
 
-abstract class AdminVaultState extends Equatable {
-  const AdminVaultState();
+enum AdminVaultStatus { initial, loading, success, failure }
+
+class AdminVaultState extends Equatable {
+  const AdminVaultState({
+    this.status = AdminVaultStatus.initial,
+    this.cumulativeData,
+    this.dailyData = const [],
+  });
+
+  final AdminVaultStatus status;
+  final VaultItem cumulativeData;
+  final List<VaultItem> dailyData;
 
   @override
-  List<Object> get props => [];
-}
-
-class AdminVaultInitial extends AdminVaultState {}
-
-class AdminVaultDataFetched extends AdminVaultState {
-  AdminVaultDataFetched({this.cumulativeData, this.totalData});
-  final VaultItem cumulativeData;
-  final List<VaultItem> totalData;
+  List<Object> get props => [status, cumulativeData, dailyData];
 }

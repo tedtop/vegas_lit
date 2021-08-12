@@ -100,11 +100,11 @@ class UserRepository {
   Stream<String> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();
 
-  Stream<List<VaultItem>> fetchAllDataDateWise() =>
-      _databaseProvider.fetchAllDataDateWise();
+  Stream<List<VaultItem>> fetchAdminVaultDaily() =>
+      _databaseProvider.fetchAdminVaultDaily();
 
-  Future<VaultItem> fetchCumulativeAdminVaultData() =>
-      _databaseProvider.fetchCumulativeAdminVaultData();
+  Future<VaultItem> fetchAdminVaultCumulative() =>
+      _databaseProvider.fetchAdminVaultCumulative();
 
   Future<void> rewardForVideoAd(
           {@required String uid, @required int rewardValue}) =>
