@@ -31,7 +31,7 @@ export const resolveBets = functions.pubsub
             const betTeam = data.betTeam;
             const amountBet = data.betAmount;
             const uid = data.uid;
-            const week = getCurrentWeekByDate(data.gameStartDateTime);
+
             const amountWin = data.betProfit;
             const username = data.username;
             const documentId = data.id;
@@ -39,7 +39,7 @@ export const resolveBets = functions.pubsub
 
             if (league == "olympics") {
               const batch = admin.firestore().batch();
-
+              const week = getCurrentWeekByDate(data.dateTime);
               const gameId: string = data.gameId;
 
               await admin
@@ -248,7 +248,7 @@ export const resolveBets = functions.pubsub
               const batch = admin.firestore().batch();
 
               const dateTime = formatTime(data.gameStartDateTime);
-
+              const week = getCurrentWeekByDate(data.gameStartDateTime);
               const apikey = whichKey(league);
               const gameId = data.gameId;
               const betType = data.betType;
