@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_player_stats.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/stat_widgets.dart';
+import 'package:vegas_lit/features/shared_widgets/game_stats/stats_box.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
@@ -59,7 +58,7 @@ class PlayerDetailsPage extends StatelessWidget {
           BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
             builder: (context, state) {
               if (state is PlayerDetailsOpened) {
-                return _playerStats(state.playerStats);
+                return StatsBox(statMap: state.playerStats.toStatOnlyMap());
               } else {
                 return const Padding(
                   padding: EdgeInsets.all(20.0),
@@ -75,161 +74,6 @@ class PlayerDetailsPage extends StatelessWidget {
           //_buildProfileWidget(size),
         ],
       ),
-    );
-  }
-
-  Widget _playerStats(MlbPlayerStats stats) {
-    return Stack(
-      alignment: AlignmentDirectional.center,
-      children: [
-        Container(
-          width: 380,
-          margin: const EdgeInsets.only(top: 20, bottom: 40),
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
-          decoration: BoxDecoration(
-              color: Palette.lightGrey,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              border: Border.all(
-                color: Palette.cream,
-              )),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 145,
-                child: Column(
-                  children: [
-                    StatsText(
-                      leftText: 'AT BATS',
-                      rightText: '${stats.atBats ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'RUNS',
-                      rightText: '${stats.runs ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'HITS',
-                      rightText: '${stats.hits ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'SINGLES',
-                      rightText: '${stats.singles ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'DOUBLES',
-                      rightText: '${stats.doubles ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'TRIPLES',
-                      rightText: '${stats.triples ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'HOME RUNS',
-                      rightText: '${stats.homeRuns ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'RUNS BATTED IN',
-                      rightText: '${stats.runsBattedIn ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'BATTING AVERAGE',
-                      rightText: '${stats.battingAverage ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'OUTS',
-                      rightText: '${stats.outs ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'STRIKEOUTS',
-                      rightText: '${stats.strikeouts ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'WALKS',
-                      rightText: '${stats.walks ?? 'NA'}',
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    StatsText(
-                      leftText: 'BATTING ORDER',
-                      rightText: '${stats.battingOrder ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'HIT BY PITCH',
-                      rightText: '${stats.hitByPitch ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'SACRIFICES',
-                      rightText: '${stats.sacrifices ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'SACRIFICE FLIES',
-                      rightText: '${stats.sacrificeFlies ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'GROUND INTO DOUBLE PLAY',
-                      rightText: '${stats.groundIntoDoublePlay ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'STOLEN BASES',
-                      rightText: '${stats.stolenBases ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'CAUGHT STEALING',
-                      rightText: '${stats.caughtStealing ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'PITCHES SEEN',
-                      rightText: '${stats.pitchesSeen ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'ON BASE PERCENTAGE',
-                      rightText: '${stats.onBasePercentage ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'SLUGGING PERCENTAGE',
-                      rightText: '${stats.sluggingPercentage ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'ON BASE PLUS SLUGGING',
-                      rightText: '${stats.onBasePlusSlugging ?? 'NA'}',
-                    ),
-                    StatsText(
-                      leftText: 'ERRORS',
-                      rightText: '${stats.errors ?? 'NA'}',
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 20,
-          child: Container(
-            height: 35,
-            width: 100,
-            decoration: const BoxDecoration(
-                color: Palette.green,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      blurRadius: 0.5,
-                      offset: Offset(-2, 1),
-                      color: Palette.darkGrey)
-                ]),
-            child: const Center(
-              child: Text('FULL STATS'),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -292,7 +136,9 @@ class PlayerDetailsPage extends StatelessWidget {
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             ),
             Text(
-              '${playerDetails.height ?? 'NA'}',
+              playerDetails.height != null
+                  ? '${playerDetails.height ~/ 12}′ ${playerDetails.height % 12}\′\′'
+                  : 'NA',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             )
           ],

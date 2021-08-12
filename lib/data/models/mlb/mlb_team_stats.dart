@@ -736,7 +736,6 @@ class MlbTeamStats {
         'Wins': wins,
         'Losses': losses,
         'Saves': saves,
-        'Innings Pitched Decimal': inningsPitchedDecimal,
         'Total Outs Pitched': totalOutsPitched,
         'Innings Pitched Full': inningsPitchedFull,
         'Innings Pitched Outs': inningsPitchedOuts,

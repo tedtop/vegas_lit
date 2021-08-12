@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/stat_widgets.dart';
+import 'package:vegas_lit/features/shared_widgets/game_stats/stats_box.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
@@ -134,154 +134,8 @@ class TeamInfoView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Container(
-                width: 380,
-                margin: const EdgeInsets.only(bottom: 20),
-                padding: const EdgeInsets.only(
-                    left: 8, right: 8, top: 8, bottom: 22),
-                decoration: BoxDecoration(
-                    color: Palette.lightGrey,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(
-                      color: Palette.cream,
-                    )),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 145,
-                      child: Column(
-                        children: [
-                          StatsText(
-                            leftText: 'AT BATS',
-                            rightText: '${stats.atBats ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'RUNS',
-                            rightText: '${stats.runs ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'HITS',
-                            rightText: '${stats.hits ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'SINGLES',
-                            rightText: '${stats.singles ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'DOUBLES',
-                            rightText: '${stats.doubles ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'TRIPLES',
-                            rightText: '${stats.triples ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'HOME RUNS',
-                            rightText: '${stats.homeRuns ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'RUNS BATTED IN',
-                            rightText: '${stats.runsBattedIn ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'BATTING AVERAGE',
-                            rightText: '${stats.battingAverage ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'OUTS',
-                            rightText: '${stats.outs ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'STRIKEOUTS',
-                            rightText: '${stats.strikeouts ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'WALKS',
-                            rightText: '${stats.walks ?? 'NA'}',
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          StatsText(
-                            leftText: 'HIT BY PITCH',
-                            rightText: '${stats.hitByPitch ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'SACRIFICES',
-                            rightText: '${stats.sacrifices ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'SACRIFICE FLIES',
-                            rightText: '${stats.sacrificeFlies ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'GROUND INTO DOUBLE PLAY',
-                            rightText: '${stats.groundIntoDoublePlay ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'STOLEN BASES',
-                            rightText: '${stats.stolenBases ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'CAUGHT STEALING',
-                            rightText: '${stats.caughtStealing ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'PITCHES SEEN',
-                            rightText: '${stats.pitchesSeen ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'ON BASE PERCENTAGE',
-                            rightText: '${stats.onBasePercentage ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'SLUGGING PERCENTAGE',
-                            rightText: '${stats.sluggingPercentage ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'ON BASE PLUS SLUGGING',
-                            rightText: '${stats.onBasePlusSlugging ?? 'NA'}',
-                          ),
-                          StatsText(
-                            leftText: 'ERRORS',
-                            rightText: '${stats.errors ?? 'NA'}',
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  height: 35,
-                  width: 100,
-                  decoration: const BoxDecoration(
-                      color: Palette.green,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            blurRadius: 0.5,
-                            offset: Offset(-2, 1),
-                            color: Palette.darkGrey)
-                      ]),
-                  child: const Center(
-                    child: Text('FULL STATS'),
-                  ),
-                ),
-              ),
-            ],
+          StatsBox(
+            statMap: stats.toStatOnlyMap(),
           ),
         ],
       ),
