@@ -248,7 +248,7 @@ export const resolveBets = functions.pubsub
               const batch = admin.firestore().batch();
 
               const dateTime = formatTime(data.gameStartDateTime);
-              const week = getCurrentWeekByDate(data.gameStartDateTime);
+              const week = getCurrentWeekByDate(data.dateTime);
               const apikey = whichKey(league);
               const gameId = data.gameId;
               const betType = data.betType;

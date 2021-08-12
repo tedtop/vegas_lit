@@ -18,14 +18,16 @@ class GroupDetails extends StatelessWidget {
 
   static MaterialPageRoute route(
       {@required String groupId, @required String userId}) {
-    return MaterialPageRoute(builder: (context) {
-      return BlocProvider(
-        create: (context) => GroupDetailsCubit(
-          groupsRepository: context.read<GroupsRepository>(),
-        )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
-        child: GroupDetails._(),
-      );
-    });
+    return MaterialPageRoute(
+      builder: (context) {
+        return BlocProvider(
+          create: (context) => GroupDetailsCubit(
+            groupsRepository: context.read<GroupsRepository>(),
+          )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
+          child: GroupDetails._(),
+        );
+      },
+    );
   }
 
   @override
