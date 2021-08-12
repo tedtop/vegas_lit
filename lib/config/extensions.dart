@@ -41,20 +41,19 @@ extension ESTDateTime on DateTime {
   }
 
   // ignore: missing_return
-  static String get weekStringVL {
-    final time = ESTDateTime.fetchTimeEST();
+  String get weekStringVL {
     final weekNumber = ESTDateTime.weekNumberVL;
-    switch (time.weekday) {
+    switch (weekday) {
       case DateTime.sunday:
       case DateTime.monday:
       case DateTime.tuesday:
       case DateTime.wednesday:
-        return '${time.year}-${weekNumber - 1}-$weekNumber';
+        return '$year-${weekNumber - 1}-$weekNumber';
         break;
       case DateTime.thursday:
       case DateTime.friday:
       case DateTime.saturday:
-        return '${time.year}-$weekNumber-${weekNumber + 1}';
+        return '$year-$weekNumber-${weekNumber + 1}';
         break;
     }
   }

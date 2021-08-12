@@ -128,7 +128,7 @@ class OlympicsBetButtonCubit extends Cubit<OlympicsBetButtonState> {
                     betProfit: betButtonState.toWinAmount,
                     uid: currentUserId,
                     dateTime: ESTDateTime.fetchTimeEST().toString(),
-                    week: ESTDateTime.weekStringVL,
+                    week: ESTDateTime.fetchTimeEST().weekStringVL,
                     clientVersion: await _getAppVersion(),
                     dataProvider: 'olympics.com',
                     gameName: state.game.gameName,

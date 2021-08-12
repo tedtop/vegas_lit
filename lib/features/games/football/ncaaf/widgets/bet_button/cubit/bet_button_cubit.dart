@@ -168,7 +168,7 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
                         ? 'home'
                         : 'away',
                     dateTime: ESTDateTime.fetchTimeEST().toString(),
-                    week: ESTDateTime.weekStringVL,
+                    week: ESTDateTime.fetchTimeEST().weekStringVL,
                     clientVersion: await _getAppVersion(),
                     dataProvider: 'sportsdata.io',
                   ),

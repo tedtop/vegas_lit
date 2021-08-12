@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vegas_lit/data/helpers/shared_pref_helper.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:vegas_lit/utils/route_aware_analytics.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
@@ -88,18 +89,6 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState;
 
-  Future<bool> isFirstTime() async {
-    final sharedPref = context.read<SharedPreferences>();
-    final isFirstTime = sharedPref.getBool('first_time');
-    if (isFirstTime != null && !isFirstTime) {
-      await sharedPref.setBool('first_time', false);
-      return false;
-    } else {
-      await sharedPref.setBool('first_time', false);
-      return true;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<InternetCubit>(
@@ -130,7 +119,9 @@ class _AppViewState extends State<AppView> {
                       );
                       break;
                     case AuthenticationStatus.unauthenticated:
-                      isFirstTime().then((value) {
+                      SharedPrefHelper.isFirstTime(
+                        sharedPref: context.read<SharedPreferences>(),
+                      ).then((value) {
                         if (value)
                           _navigator.pushAndRemoveUntil<void>(
                             SignUpPage.route(),

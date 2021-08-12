@@ -34,7 +34,7 @@ class HistoryCubit extends Cubit<HistoryState> {
     try {
       final walletStream = _userRepository.fetchWalletData(uid: uid);
       final betListStream = _userRepository.fetchBetHistoryByWeek(
-          week: ESTDateTime.weekStringVL, uid: state.uid);
+          week: ESTDateTime.fetchTimeEST().weekStringVL, uid: state.uid);
       final weeksStream = _userRepository.fetchLeaderboardWeeks();
       await _betHistorySubscription?.cancel();
       _betHistorySubscription = Rx.combineLatest3(

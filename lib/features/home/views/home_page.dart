@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/routes.dart';
+import 'package:vegas_lit/data/helpers/shared_pref_helper.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:vegas_lit/features/drawer_pages/rules.dart';
 import 'package:vegas_lit/features/home/cubit/notification_cubit.dart';
@@ -122,21 +122,11 @@ class _HomePageState extends State<HomePage>
   final PageController _pageController = PageController();
   var selectedIndex = 0;
 
-  Future<bool> isRulesShown() async {
-    final sharedPref = context.read<SharedPreferences>();
-    final currentWeek = ESTDateTime.weekStringVL;
-    final storedWeek = sharedPref.getString('week');
-    if (storedWeek != currentWeek) {
-      await sharedPref.setString('week', currentWeek);
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    isRulesShown().then((isShown) {
+    SharedPrefHelper.isRulesShown(
+      sharedPref: context.read<SharedPreferences>(),
+    ).then((isShown) {
       if (!isShown) {
         Navigator.push(context, Rules.route());
       }
@@ -158,6 +148,18 @@ class _HomePageState extends State<HomePage>
           _pageController.jumpToPage(state.pageIndex);
           selectedIndex = _pageController.page.toInt();
           super.setThisScreenForAnalytics();
+          if (state.pageIndex == 3) {
+            // If total user profit is more than 150 and the review has not asked
+            // for more than 28 days, show the dialog to review app.
+            if (context.read<HomeCubit>().state.userWallet.totalProfit >= 150)
+              SharedPrefHelper.shouldAskReview(
+                      sharedPref: context.read<SharedPreferences>())
+                  .then((value) async {
+                if (value) {
+                  await context.read<DeviceRepository>().openAppReview();
+                }
+              });
+          }
         }
       },
       child: Stack(

@@ -34,7 +34,7 @@ class LeaderboardProfileCubit extends Cubit<LeaderboardProfileState> {
         final walletStream = _userRepository.fetchWalletData(uid: uid);
         final betsStream = _userRepository.fetchBetHistoryByWeek(
           uid: uid,
-          week: ESTDateTime.weekStringVL,
+          week: ESTDateTime.fetchTimeEST().weekStringVL,
         );
         await _betHistorySubscription?.cancel();
         _betHistorySubscription = Rx.combineLatest2(

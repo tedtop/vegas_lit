@@ -168,7 +168,7 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
                         ? 'home'
                         : 'away',
                     dateTime: ESTDateTime.fetchTimeEST().toString(),
-                    week: ESTDateTime.weekStringVL,
+                    week: ESTDateTime.fetchTimeEST().weekStringVL,
                     clientVersion: await _getAppVersion(),
                     dataProvider: 'sportsdata.io',
                   ),
