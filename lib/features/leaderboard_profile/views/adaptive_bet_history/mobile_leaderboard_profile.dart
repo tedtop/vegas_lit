@@ -219,11 +219,15 @@ class _MobileHistoryHeading extends StatelessWidget {
               child: betHistoryState.status == LeaderboardProfileStatus.success
                   ? Container(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '${betHistoryState.userWallet.username}',
-                        style: Styles.pageTitle,
-                        softWrap: true,
-                        overflow: TextOverflow.clip,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          '${betHistoryState.userWallet.username}',
+                          style: Styles.pageTitle,
+                          softWrap: true,
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                        ),
                       ),
                     )
                   : const SizedBox(),
