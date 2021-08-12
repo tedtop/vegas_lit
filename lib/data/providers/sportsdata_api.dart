@@ -5,6 +5,16 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_player_stats.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
+import 'package:vegas_lit/data/models/nba/nba_player_stats.dart';
+import 'package:vegas_lit/data/models/nba/nba_team_stats.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_player_stats.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_team_stats.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_player_stats.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_team_stats.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_player_stats.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_team_stats.dart';
+import 'package:vegas_lit/data/models/nhl/nfl_player_stats.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_team_stats.dart';
 
 import '../../config/api.dart';
 import '../models/golf/golf.dart';
@@ -134,6 +144,23 @@ class SportsAPI {
     return games;
   }
 
+  Future<List<NbaTeamStats>> fetchNBATeamStats(
+      {@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nba;
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return parsed
+          .map<NbaTeamStats>(
+            (json) => NbaTeamStats.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureTeamStats();
+    }
+  }
+
   Future<List<NbaPlayer>> fetchNBAPlayers({@required String teamKey}) async {
     const leagueData = ConstantSportsDataAPI.nba;
 
@@ -148,6 +175,20 @@ class SportsAPI {
           .toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<NbaPlayerStats> fetchNBAPlayerStats(
+      {@required String playerId, @required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nba;
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return NbaPlayerStats.fromMap(parsed);
+    } else {
+      throw FetchFailurePlayerStats();
     }
   }
 
@@ -181,6 +222,23 @@ class SportsAPI {
     return games;
   }
 
+  Future<List<NcaabTeamStats>> fetchNCAABTeamStats(
+      {@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.ncaab;
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return parsed
+          .map<NcaabTeamStats>(
+            (json) => NcaabTeamStats.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureTeamStats();
+    }
+  }
+
   Future<List<NcaabPlayer>> fetchNCAABPlayers(
       {@required String teamKey}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
@@ -196,6 +254,20 @@ class SportsAPI {
           .toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<NcaabPlayerStats> fetchNCAABPlayerStats(
+      {@required String playerId, @required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.ncaab;
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return NcaabPlayerStats.fromMap(parsed);
+    } else {
+      throw FetchFailurePlayerStats();
     }
   }
 
@@ -229,6 +301,23 @@ class SportsAPI {
     return games;
   }
 
+  Future<List<NcaafTeamStats>> fetchNCAAFTeamStats(
+      {@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.ncaaf;
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return parsed
+          .map<NcaafTeamStats>(
+            (json) => NcaafTeamStats.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureTeamStats();
+    }
+  }
+
   Future<List<NcaafPlayer>> fetchNCAAFPlayers(
       {@required String teamKey}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
@@ -244,6 +333,20 @@ class SportsAPI {
           .toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<NcaafPlayerStats> fetchNCAAFPlayerStats(
+      {@required String playerId, @required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.ncaaf;
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return NcaafPlayerStats.fromMap(parsed);
+    } else {
+      throw FetchFailurePlayerStats();
     }
   }
 
@@ -277,6 +380,23 @@ class SportsAPI {
     return games;
   }
 
+  Future<List<NflTeamStats>> fetchNFLTeamStats(
+      {@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nfl;
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return parsed
+          .map<NflTeamStats>(
+            (json) => NflTeamStats.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureTeamStats();
+    }
+  }
+
   Future<List<NflPlayer>> fetchNFLPlayers({@required String teamKey}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
 
@@ -291,6 +411,20 @@ class SportsAPI {
           .toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<NflPlayerStats> fetchNFLPlayerStats(
+      {@required String playerId, @required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nfl;
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayerID/${dateTime.year}/$playerId?key=${leagueData['key']}',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return NflPlayerStats.fromMap(parsed);
+    } else {
+      throw FetchFailurePlayerStats();
     }
   }
 
@@ -324,6 +458,23 @@ class SportsAPI {
     return games;
   }
 
+  Future<List<NhlTeamStats>> fetchNHLTeamStats(
+      {@required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nhl;
+    final response = await _dio.get(
+        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return parsed
+          .map<NhlTeamStats>(
+            (json) => NhlTeamStats.fromMap(json),
+          )
+          .toList();
+    } else {
+      throw FetchFailureTeamStats();
+    }
+  }
+
   Future<List<NhlPlayer>> fetchNHLPlayers({@required String teamKey}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
 
@@ -338,6 +489,20 @@ class SportsAPI {
           .toList();
     } else {
       throw FetchFailurePlayer();
+    }
+  }
+
+  Future<NhlPlayerStats> fetchNHLPlayerStats(
+      {@required String playerId, @required DateTime dateTime}) async {
+    const leagueData = ConstantSportsDataAPI.nhl;
+    final response = await _dio.get(
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data));
+      return NhlPlayerStats.fromMap(parsed);
+    } else {
+      throw FetchFailurePlayerStats();
     }
   }
 
