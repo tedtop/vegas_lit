@@ -115,15 +115,15 @@ class MlbTeamStats {
       MlbTeamStats.fromMap(json.decode(str));
 
   factory MlbTeamStats.fromMap(Map<String, dynamic> json) => MlbTeamStats(
-        statId: json['StatID'],
-        teamId: json['TeamID'],
-        seasonType: json['SeasonType'],
-        season: json['Season'],
+        statId: json['StatID'].toInt(),
+        teamId: json['TeamID'].toInt(),
+        seasonType: json['SeasonType'].toInt(),
+        season: json['Season'].toInt(),
         name: json['Name'],
         team: json['Team'],
-        globalTeamId: json['GlobalTeamID'],
+        globalTeamId: json['GlobalTeamID'].toInt(),
         updated: DateTime.parse(json['Updated']),
-        games: json['Games'],
+        games: json['Games'].toInt(),
         fantasyPoints: json['FantasyPoints'].toDouble(),
         atBats: json['AtBats'].toInt(),
         runs: json['Runs'].toInt(),
