@@ -110,7 +110,8 @@ class GroupsPage extends StatelessWidget {
       ),
       floatingActionButton: TextButton.icon(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Palette.green)),
+          backgroundColor: MaterialStateProperty.all(Palette.green),
+        ),
         onPressed: () {
           Navigator.push(
             context,
@@ -134,6 +135,7 @@ class GroupList extends StatelessWidget {
     final groupList =
         context.select((GroupsCubit cubit) => cubit.state?.publicGroups);
     return ListView.builder(
+      physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
       key: Key('${groupList.length}'),
       itemCount: groupList.length,

@@ -141,21 +141,21 @@ class _GroupAddState extends State<GroupAdd> {
                       activeColor: Palette.green,
                     ),
                   ),
-                  SizedBox(
-                    width: 150,
-                    child: RadioListTile(
-                      value: false,
-                      groupValue: _isPublic,
-                      onChanged: (val) => setState(() {
-                        _isPublic = val;
-                      }),
-                      title: Text(
-                        'Private',
-                        style: Styles.normalText,
-                      ),
-                      activeColor: Palette.green,
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: 150,
+                  //   child: RadioListTile(
+                  //     value: false,
+                  //     groupValue: _isPublic,
+                  //     onChanged: (val) => setState(() {
+                  //       _isPublic = val;
+                  //     }),
+                  //     title: Text(
+                  //       'Private',
+                  //       style: Styles.normalText,
+                  //     ),
+                  //     activeColor: Palette.green,
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 10),
