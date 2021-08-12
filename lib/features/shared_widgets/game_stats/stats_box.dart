@@ -9,11 +9,13 @@ class StatsBox extends StatelessWidget {
   List<Widget> _statMapToList() {
     return statMap.keys.map(
       (key) {
-        // if (statMap[key] != null)
-        return StatsText(
-          leftText: key,
-          rightText: statMap[key],
-        );
+        if (statMap[key] != null)
+          return StatsText(
+            leftText: key,
+            rightText: statMap[key],
+          );
+        else
+          return const SizedBox();
       },
     ).toList();
   }
@@ -21,7 +23,7 @@ class StatsBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statsList = _statMapToList();
-    final statsOffset = (statsList.length ~/ 2) + 10;
+    final statsOffset = (statsList.length ~/ 2) + 8;
     return Container(
       width: 380,
       margin: const EdgeInsets.only(top: 20, bottom: 40),

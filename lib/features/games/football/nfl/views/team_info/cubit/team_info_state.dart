@@ -10,6 +10,7 @@ abstract class TeamInfoState extends Equatable {
 class TeamInfoInitial extends TeamInfoState {}
 
 class TeamInfoOpened extends TeamInfoState {
-  TeamInfoOpened(this.player);
-  final List<NflPlayer> player;
+  TeamInfoOpened(this.players, this.teamStats);
+  final List<NflPlayer> players;
+  final NflTeamStats teamStats;
 }
