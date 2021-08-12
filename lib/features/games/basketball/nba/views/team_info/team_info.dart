@@ -143,7 +143,9 @@ class TeamInfoView extends StatelessWidget {
   }
 
   Widget _buildPlayersList(List<NbaPlayer> players) {
-    final teamColor = int.parse('0xA6${teamData.primaryColor}'.toString());
+    final teamColor = teamData.primaryColor != null
+        ? int.parse('0xA6${teamData.primaryColor}'.toString())
+        : Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -226,11 +228,22 @@ class TeamInfoView extends StatelessWidget {
             height: 100,
             width: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
-            child: SvgPicture.network(
-              teamData.wikipediaLogoUrl,
-              fit: BoxFit.fill,
-              height: 100,
-            ),
+            child: teamData.wikipediaLogoUrl != null
+                ? SvgPicture.network(
+                    teamData.wikipediaLogoUrl,
+                    fit: BoxFit.fill,
+                    height: 100,
+                  )
+                : SizedBox(
+                    height: 100,
+                    child: CircleAvatar(
+                      backgroundColor: Palette.lightGrey,
+                      child: Text(
+                        teamData.name.characters.first,
+                        style: Styles.largeTextBold.copyWith(fontSize: 40),
+                      ),
+                    ),
+                  ),
           ),
           const SizedBox(width: 24),
           Column(

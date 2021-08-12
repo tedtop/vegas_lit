@@ -110,7 +110,7 @@ class PlayerDetailsPage extends StatelessWidget {
                   style: Styles.largeTextBold.copyWith(fontSize: 30),
                 ),
                 Text(
-                  '#${playerDetails.jersey} ${playerDetails.position} ${playerDetails.team}',
+                  '${playerDetails.jersey != null ? '#${playerDetails.jersey}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
                   style: Styles.largeTextBold.copyWith(fontSize: 20),
                 ),
                 Text(
