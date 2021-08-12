@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class VaultItem {
+class VaultItem extends Equatable {
   VaultItem({
     this.moneyIn,
     this.moneyOut,
-    this.numberOfBets,
+    this.totalBets,
     this.totalProfit,
     this.date,
   });
@@ -16,15 +17,16 @@ class VaultItem {
     return VaultItem(
       moneyIn: moneyIn,
       moneyOut: moneyOut,
-      numberOfBets: data['numberOfBets'],
+      totalBets: data['totalBets'],
       totalProfit: moneyIn - moneyOut,
       date: documentSnapshot.id,
     );
   }
+
   final int moneyIn;
   final int moneyOut;
   final int totalProfit;
-  final int numberOfBets;
+  final int totalBets;
   final String date;
 
   Map<String, dynamic> toMap() {
@@ -32,7 +34,18 @@ class VaultItem {
       'moneyIn': moneyIn,
       'moneyOut': moneyOut,
       'totalProfit': totalProfit,
-      'numberOfBets': numberOfBets,
+      'totalBets': totalBets,
     };
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      moneyIn,
+      moneyOut,
+      totalProfit,
+      totalBets,
+      date,
+    ];
   }
 }

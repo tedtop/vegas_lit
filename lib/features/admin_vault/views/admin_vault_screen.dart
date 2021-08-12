@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -9,15 +10,16 @@ import '../cubit/admin_vault_cubit.dart';
 import '../widgets/admin_record_box.dart';
 
 class AdminVaultScreen extends StatelessWidget {
-  AdminVaultScreen._();
+  const AdminVaultScreen._({Key key}) : super(key: key);
 
   static MaterialPageRoute route() {
     return MaterialPageRoute(
       builder: (_) {
         return BlocProvider(
-          create: (context) => AdminVaultCubit(userRepository: UserRepository())
-            ..fetchAdminVaultData(),
-          child: AdminVaultScreen._(),
+          create: (context) => AdminVaultCubit(
+            userRepository: context.read<UserRepository>(),
+          )..fetchAdminVault(),
+          child: const AdminVaultScreen._(),
         );
       },
     );
@@ -27,12 +29,22 @@ class AdminVaultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: adaptiveAppBar(width: width),
-        body: BlocBuilder<AdminVaultCubit, AdminVaultState>(
-          builder: (context, state) {
-            if (state is AdminVaultDataFetched) {
-              final totalData = state.totalData.reversed.toList();
-              return ListView(
+      appBar: adaptiveAppBar(width: width),
+      body: BlocBuilder<AdminVaultCubit, AdminVaultState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case AdminVaultStatus.initial:
+              return const SizedBox();
+              break;
+            case AdminVaultStatus.loading:
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Palette.cream,
+                ),
+              );
+              break;
+            case AdminVaultStatus.success:
+              return Column(
                 children: [
                   Center(
                     child: Text(
@@ -40,19 +52,31 @@ class AdminVaultScreen extends StatelessWidget {
                       style: Styles.adminVaultTitle,
                     ),
                   ),
-                  ...totalData.map((data) => AdminRecordBox(
-                        item: data,
-                      ))
+                  AdminVaultCumulativeTile(
+                    vaultItem: state.cumulativeData,
+                  ),
+                  ListView.builder(
+                    key: Key('${state.dailyData.length}'),
+                    itemCount: state.dailyData.length,
+                    itemBuilder: (context, index) {
+                      return AdminVaultDailyList(
+                        vaultItem: state.dailyData[index],
+                      );
+                    },
+                  ),
                 ],
               );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Palette.cream,
+              break;
+            default:
+              return Center(
+                child: Text(
+                  'Couldn\'t load admin vault',
+                  style: GoogleFonts.nunito(),
                 ),
               );
-            }
-          },
-        ));
+          }
+        },
+      ),
+    );
   }
 }

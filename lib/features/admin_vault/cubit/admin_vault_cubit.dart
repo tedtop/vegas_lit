@@ -8,26 +8,38 @@ import '../../../data/repositories/user_repository.dart';
 part 'admin_vault_state.dart';
 
 class AdminVaultCubit extends Cubit<AdminVaultState> {
-  AdminVaultCubit({@required this.userRepository}) : super(AdminVaultInitial());
-  UserRepository userRepository;
-  StreamSubscription _subscription;
+  AdminVaultCubit({@required UserRepository userRepository})
+      : assert(userRepository != null),
+        _userRepository = userRepository,
+        super(const AdminVaultState());
 
-  void fetchAdminVaultData() async {
-    final cumulativeData = await userRepository.fetchCumulativeAdminVaultData();
+  final UserRepository _userRepository;
+  StreamSubscription _adminVaultSubscription;
 
-    final adminDataStream = userRepository.fetchAllDataDateWise();
-    await _subscription?.cancel();
-    _subscription = adminDataStream.listen((adminData) {
-      emit(AdminVaultDataFetched(
-        cumulativeData: cumulativeData,
-        totalData: adminData,
-      ));
-    });
+  Future<void> fetchAdminVault() async {
+    emit(const AdminVaultState(status: AdminVaultStatus.loading));
+
+    final cumulativeData = await _userRepository.fetchAdminVaultCumulative();
+    final dailyDataStream = _userRepository.fetchAdminVaultDaily();
+
+    await _adminVaultSubscription?.cancel();
+    _adminVaultSubscription = dailyDataStream.listen(
+      (dailyData) {
+        final reversedList = dailyData.reversed.toList();
+        emit(
+          AdminVaultState(
+            cumulativeData: cumulativeData,
+            dailyData: reversedList,
+            status: AdminVaultStatus.initial,
+          ),
+        );
+      },
+    );
   }
 
   @override
   Future<void> close() async {
-    await _subscription?.cancel();
+    await _adminVaultSubscription?.cancel();
     return super.close();
   }
 }
