@@ -29,15 +29,6 @@ class VaultItem extends Equatable {
   final int totalBets;
   final String date;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'moneyIn': moneyIn,
-      'moneyOut': moneyOut,
-      'totalProfit': totalProfit,
-      'totalBets': totalBets,
-    };
-  }
-
   @override
   List<Object> get props {
     return [

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
 import 'package:vegas_lit/data/models/nba/nba_bet.dart';
 import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
@@ -253,7 +254,7 @@ class CloudFirestoreClient {
         .collection('vault')
         .doc('regular')
         .collection('daily')
-        .doc(dateFormat.format(DateTime.now()));
+        .doc(dateFormat.format(ESTDateTime.fetchTimeEST()));
     final cumulativeReference =
         _firebaseFirestore.collection('vault').doc('cumulative');
     saveAdminVaultWrite
@@ -261,9 +262,9 @@ class CloudFirestoreClient {
         dailyReference,
         {
           'moneyIn': FieldValue.increment(betsData.betAmount),
-          'moneyOut': FieldValue.increment(betsData.betProfit),
-          'numberOfBets': FieldValue.increment(1),
-          'date': dateFormat.format(DateTime.now()),
+          'moneyOut': FieldValue.increment(0),
+          'totalBets': FieldValue.increment(1),
+          'date': dateFormat.format(ESTDateTime.fetchTimeEST()),
         },
         SetOptions(merge: true),
       )
@@ -271,8 +272,8 @@ class CloudFirestoreClient {
         cumulativeReference,
         {
           'moneyIn': FieldValue.increment(betsData.betAmount),
-          'moneyOut': FieldValue.increment(betsData.betProfit),
-          'numberOfBets': FieldValue.increment(1),
+          'moneyOut': FieldValue.increment(0),
+          'totalBets': FieldValue.increment(1),
         },
         SetOptions(merge: true),
       );
