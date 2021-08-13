@@ -55,11 +55,10 @@ class HomePage extends StatefulWidget {
                       ..openProfile(currentUserId: uid)),
             BlocProvider<SportsbookBloc>(
               create: (_) => SportsbookBloc(
+                deviceRepository: context.read<DeviceRepository>(),
                 sportsfeedRepository: context.read<SportsRepository>(),
               )..add(
-                  SportsbookOpen(
-                    league: 'OLYMPICS',
-                  ),
+                  SportsbookOpen(),
                 ),
             ),
             BlocProvider<VersionCubit>(
@@ -95,6 +94,7 @@ class HomePage extends StatefulWidget {
             ),
             BlocProvider<HomeCubit>(
               create: (_) => HomeCubit(
+                deviceRepository: context.read<DeviceRepository>(),
                 userRepository: context.read<UserRepository>(),
               )..openHome(uid: uid),
             ),

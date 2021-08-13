@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/repositories/device_repository.dart';
 
 import '../../../data/repositories/sports_repository.dart';
 
@@ -12,14 +13,19 @@ part 'sportsbook_event.dart';
 part 'sportsbook_state.dart';
 
 class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
-  SportsbookBloc({@required SportsRepository sportsfeedRepository})
+  SportsbookBloc(
+      {@required SportsRepository sportsfeedRepository,
+      @required DeviceRepository deviceRepository})
       : assert(sportsfeedRepository != null),
+        assert(deviceRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
+        _deviceRepository = deviceRepository,
         super(
           const SportsbookState.initial(),
         );
 
   final SportsRepository _sportsfeedRepository;
+  final DeviceRepository _deviceRepository;
 
   @override
   Stream<SportsbookState> mapEventToState(
@@ -48,6 +54,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       'CRICKET',
     ];
 
+    final league = _deviceRepository.fetchRemoteLeague();
+
     final gameNumberMap = <String, String>{};
 
     final estTimeZone = ESTDateTime.fetchTimeEST();
@@ -68,7 +76,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     );
 
     yield SportsbookState.opened(
-      league: event.league,
+      league: event.league ?? league,
       gameNumbers: gameNumberMap,
       estTimeZone: estTimeZone,
     );

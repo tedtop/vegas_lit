@@ -8,7 +8,7 @@ abstract class SportsbookEvent extends Equatable {
 }
 
 class SportsbookOpen extends SportsbookEvent {
-  SportsbookOpen({@required this.league});
+  SportsbookOpen({this.league});
   final String league;
 
   @override
