@@ -47,7 +47,7 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
+        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.globalGameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     final toWinAmount =
         toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
@@ -142,13 +142,13 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
                     homeTeamCity: betButtonState.homeTeamData.city,
                     awayTeamCity: betButtonState.awayTeamData.city,
                     betAmount: betButtonState.betAmount,
-                    gameId: betButtonState.game.gameId,
-                    isClosed: betButtonState.game.isClosed,
+                    gameId: betButtonState.game.globalGameId,
+                    isClosed: betButtonState.game.closed,
                     homeTeam: betButtonState.game.homeTeam,
                     awayTeam: betButtonState.game.awayTeam,
                     winningTeam: null,
                     winningTeamName: null,
-                    status: betButtonState.game.status,
+                    status: betButtonState.game.status.toString(),
                     league: betButtonState.league,
                     betOverUnder: betButtonState.game.overUnder,
                     betPointSpread: betButtonState.game.pointSpread,
@@ -161,8 +161,8 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
                     odds: int.parse(betButtonState.mainOdds),
                     betProfit: betButtonState.toWinAmount,
                     gameStartDateTime: betButtonState.game.dateTime.toString(),
-                    awayTeamScore: betButtonState.game.awayTeamScore,
-                    homeTeamScore: betButtonState.game.homeTeamScore,
+                    awayTeamScore: betButtonState.game.awayScore,
+                    homeTeamScore: betButtonState.game.homeScore,
                     uid: currentUserId,
                     betTeam: betButtonState.winTeam == BetButtonWin.home
                         ? 'home'

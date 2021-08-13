@@ -361,7 +361,7 @@ class SportsAPI {
     }
     final responses =
         await Future.wait((formattedDates).map((formattedDate) => _dio.get(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/ScoresByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NflGame>[];
     for (final response in responses) {

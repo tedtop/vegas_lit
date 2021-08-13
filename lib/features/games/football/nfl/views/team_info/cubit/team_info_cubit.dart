@@ -18,7 +18,9 @@ class TeamInfoCubit extends Cubit<TeamInfoState> {
     final teamStats = await sportsRepository.fetchNFLTeamStats(
         dateTime: ESTDateTime.fetchTimeEST());
     emit(TeamInfoOpened(
-        players.where((element) => element.status == 'Active').toList(),
+        players
+            .where((element) => element.status == StatusEnum.ACTIVE)
+            .toList(),
         teamStats.where((element) => element.team == teamKey).first));
   }
 }

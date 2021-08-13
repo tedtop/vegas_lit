@@ -109,14 +109,14 @@ class PlayerDetailsPage extends StatelessWidget {
                   softWrap: true,
                   style: Styles.largeTextBold.copyWith(fontSize: 30),
                 ),
-                Text(
-                  '${playerDetails.jersey != null ? '#${playerDetails.jersey}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
-                  style: Styles.largeTextBold.copyWith(fontSize: 20),
-                ),
-                Text(
-                  '${'${playerDetails.birthState ?? 'NA'}'.toUpperCase()} STATE',
-                  style: Styles.normalText.copyWith(fontSize: 16),
-                ),
+                // Text(
+                //   '${playerDetails.jersey != null ? '#${playerDetails.jersey}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
+                //   style: Styles.largeTextBold.copyWith(fontSize: 20),
+                // ),
+                // Text(
+                //   '${'${playerDetails.birthState ?? 'NA'}'.toUpperCase()} STATE',
+                //   style: Styles.normalText.copyWith(fontSize: 16),
+                // ),
               ],
             ),
           ),
@@ -136,9 +136,7 @@ class PlayerDetailsPage extends StatelessWidget {
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             ),
             Text(
-              playerDetails.height != null
-                  ? '${playerDetails.height ~/ 12}′ ${playerDetails.height % 12}\′\′'
-                  : 'NA',
+              playerDetails.height ?? 'NA',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             )
           ],
@@ -194,7 +192,8 @@ class PlayerDetailsPage extends StatelessWidget {
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
                   Text(
-                    playerDetails.injuryStatus?.toUpperCase() ?? 'NONE',
+                    playerDetails.injuryStatus.toString()?.toUpperCase() ??
+                        'NONE',
                     style: Styles.normalText.copyWith(fontSize: 16),
                   )
                 ],

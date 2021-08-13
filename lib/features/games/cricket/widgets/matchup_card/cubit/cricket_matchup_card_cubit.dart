@@ -49,7 +49,7 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
   }
 
 // // ignore: missing_return
-//   String whichGame({String gameName}) {
+//   String BetsDataHelper.whichGame({String gameName}) {
 //     switch (gameName) {
 //       case 'IPL':
 //         return 'ipl';

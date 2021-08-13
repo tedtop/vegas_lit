@@ -33,6 +33,27 @@ class BetsDataHelper {
     }
   }
 
+  static String whichGame({String gameName}) {
+    switch (gameName) {
+      case 'NBA':
+        return 'nba';
+      case 'MLB':
+        return 'mlb';
+      case 'NHL':
+        return 'nhl';
+      case 'NCAAB':
+        return 'cbb';
+      case 'NFL':
+        return 'nfl';
+      case 'NCAAF':
+        return 'cfb';
+      case 'OLYMPICS':
+        return 'olympics';
+      default:
+        return 'none';
+    }
+  }
+
   static String whichBetSystemFromEnum(Bet betType) {
     if (betType == Bet.ml) {
       return 'MONEYLINE';

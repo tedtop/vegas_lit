@@ -441,7 +441,7 @@ class _BetSlipCardState extends State<NflBetSlipCard> {
                   widgetBuilder: (_, CurrentRemainingTime time) {
                     if (time == null) {
                       return Text(
-                        betButtonState.game.status,
+                        '${betButtonState.game.status}',
                         style: GoogleFonts.nunito(
                           color: Palette.red,
                           fontSize: 15,

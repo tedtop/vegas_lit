@@ -6,6 +6,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 import 'package:vegas_lit/data/helpers/timer_helper.dart';
 
 import '../../../../../../config/enum.dart';
@@ -129,8 +130,8 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
+                                                gameId: gameData.globalGameId,
+                                                isClosed: gameData.closed,
                                                 mainOdds: gameData
                                                     .awayTeamMoneyLine
                                                     .toString(),
@@ -143,7 +144,8 @@ class MatchupCard extends StatelessWidget {
                                                 text: positiveNumber(
                                                     gameData.awayTeamMoneyLine),
                                                 game: state.game,
-                                                league: whichGame(
+                                                league:
+                                                    BetsDataHelper.whichGame(
                                                   gameName: state.league,
                                                 ),
                                               ),
@@ -152,15 +154,16 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
+                                                gameId: gameData.globalGameId,
+                                                isClosed: gameData.closed,
                                                 mainOdds: gameData
                                                     .pointSpreadAwayTeamMoneyLine
                                                     .toString(),
                                                 spread: double.parse(
                                                     awayTeamPointSpread),
                                                 betType: Bet.pts,
-                                                league: whichGame(
+                                                league:
+                                                    BetsDataHelper.whichGame(
                                                   gameName: state.league,
                                                 ),
                                                 awayTeamData:
@@ -175,9 +178,10 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
-                                                league: whichGame(
+                                                gameId: gameData.globalGameId,
+                                                isClosed: gameData.closed,
+                                                league:
+                                                    BetsDataHelper.whichGame(
                                                   gameName: state.league,
                                                 ),
                                                 spread: gameData.overUnder
@@ -260,9 +264,10 @@ class MatchupCard extends StatelessWidget {
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.home,
-                                                gameId: gameData.gameId,
-                                                isClosed: gameData.isClosed,
-                                                league: whichGame(
+                                                gameId: gameData.globalGameId,
+                                                isClosed: gameData.closed,
+                                                league:
+                                                    BetsDataHelper.whichGame(
                                                   gameName: state.league,
                                                 ),
                                                 mainOdds: gameData
@@ -282,12 +287,13 @@ class MatchupCard extends StatelessWidget {
                                                 null
                                             ? Container()
                                             : BetButton.route(
-                                                gameId: gameData.gameId,
+                                                gameId: gameData.globalGameId,
                                                 winTeam: BetButtonWin.home,
                                                 spread: double.parse(
                                                     homeTeamPointSpread),
-                                                isClosed: gameData.isClosed,
-                                                league: whichGame(
+                                                isClosed: gameData.closed,
+                                                league:
+                                                    BetsDataHelper.whichGame(
                                                   gameName: state.league,
                                                 ),
                                                 mainOdds: gameData
@@ -305,10 +311,11 @@ class MatchupCard extends StatelessWidget {
                                         gameData.underPayout == null
                                             ? Container()
                                             : BetButton.route(
-                                                gameId: gameData.gameId,
+                                                gameId: gameData.globalGameId,
                                                 winTeam: BetButtonWin.home,
-                                                isClosed: gameData.isClosed,
-                                                league: whichGame(
+                                                isClosed: gameData.closed,
+                                                league:
+                                                    BetsDataHelper.whichGame(
                                                   gameName: state.league,
                                                 ),
                                                 mainOdds: gameData.underPayout
@@ -351,7 +358,7 @@ class MatchupCard extends StatelessWidget {
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {
                                 return Text(
-                                  gameData.status,
+                                  '${gameData.status}',
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
                                     fontSize: 15,
@@ -430,25 +437,5 @@ class MatchupCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  // ignore: missing_return
-  String whichGame({String gameName}) {
-    switch (gameName) {
-      case 'NBA':
-        return 'nba';
-        break;
-      case 'MLB':
-        return 'mlb';
-        break;
-      case 'NHL':
-        return 'nhl';
-        break;
-      case 'NCAAB':
-        return 'cbb';
-        break;
-      default:
-        break;
-    }
   }
 }

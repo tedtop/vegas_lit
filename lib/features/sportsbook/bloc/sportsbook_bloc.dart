@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 
 import '../../../data/repositories/sports_repository.dart';
@@ -63,7 +64,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     await Future.wait(
       list.map(
         (e) async {
-          if (e == 'NFL' || e == 'NCAAF' || e == 'GOLF') {
+          if (e == 'NCAAF' || e == 'GOLF') {
             gameNumberMap[e] = 'OFF-SEASON';
           } else {
             final todayGamesLength =
@@ -91,34 +92,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     );
   }
 
-  // ignore: missing_return
-  String whichGame({String league}) {
-    switch (league) {
-      case 'NBA':
-        return 'nba';
-        break;
-      case 'MLB':
-        return 'mlb';
-        break;
-      case 'NHL':
-        return 'nhl';
-        break;
-      case 'NCAAB':
-        return 'cbb';
-        break;
-      case 'NCAAF':
-        return 'cfb';
-        break;
-      case 'NFL':
-        return 'nfl';
-        break;
-      case 'OLYMPICS':
-        return 'olympics';
-      default:
-        break;
-    }
-  }
-
   Future<int> mapGameLength(
       {@required DateTime dateTime, @required String league}) async {
     switch (league) {
@@ -131,10 +104,10 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             .then(
           (value) {
             return value
-                .where((element) => element.status == 'Scheduled')
+                .where((element) => element.status == Status.SCHEDULED)
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
-                .where((element) => element.isClosed == false)
+                .where((element) => element.closed == false)
                 .length;
           },
         );

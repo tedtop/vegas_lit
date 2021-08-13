@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
 import '../../../../../data/models/nfl/nfl_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';
@@ -18,59 +20,53 @@ class NflCubit extends Cubit<NflState> {
         super(
           const NflState.initial(),
         );
-  // ignore: unused_field
+
   final SportsRepository _sportsfeedRepository;
 
   Future<void> fetchNflGames() async {
     const league = 'NFL';
-    final localTimeZone = DateTime.now();
     final estTimeZone = ESTDateTime.fetchTimeEST();
-    // final tomorrowEstTimeZone =
-    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
-    // List<Game> totalGames;
+    List<NflGame> totalGames;
+    print('fetching nfl');
+    final todayGames = await _sportsfeedRepository
+        .fetchNFL(
+          dateTime: estTimeZone,
+          days: 2,
+        )
+        .then(
+          (value) => value
+              .where((element) => element.status == Status.SCHEDULED)
+              .where((element) =>
+                  element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+              .where((element) => element.closed == false)
+              .toList(),
+        );
+    totalGames = todayGames;
 
-    // final todayGames = await _sportsfeedRepository
-    //     .fetchNFL(
-    //       dateTime: estTimeZone,
-    //        days: 2,
-    //     )
-    //     .then(
-    //       (value) => value
-    //           .where((element) => element.status == 'Scheduled')
-    //           .where((element) =>element.dateTime.isAfter(fetchTimeEST()))
-    //           .where((element) => element.isClosed == false)
-    //           .toList(),
-    //     );
-
-    // if (greeting(dateTime: estTimeZone) == 'evening') {
-    //   final tomorrowGames = await _sportsfeedRepository
-    //       .fetchNFL(
-    //         dateTime: tomorrowEstTimeZone,
-    //       )
-    //       .then(
-    //         (value) => value
-    //             .where((element) => element.status == 'Scheduled')
-    //             .where((element) => element.isClosed == false)
-    //             .toList(),
-    //       );
-
-    //   totalGames = todayGames + tomorrowGames;
-    // } else {
-    //   totalGames = todayGames;
-    // }
-
-    emit(NflState.opened(
-      localTimeZone: localTimeZone,
-      estTimeZone: estTimeZone,
-      games: [],
-      league: league,
-      parsedTeamData: await getNflParsedTeamData(),
-    ));
+    emit(
+      NflState.opened(
+        estTimeZone: estTimeZone,
+        games: totalGames,
+        league: league,
+        parsedTeamData: await getNFLTeamData(),
+      ),
+    );
   }
 }
 
-dynamic getNflParsedTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/nba.json');
-  final parsedTeamData = await json.decode(jsonData);
-  return parsedTeamData;
+Future<List<NflTeam>> getNFLTeamData() async {
+  final jsonData = await rootBundle.loadString('assets/json/nfl.json');
+
+  return compute(parseTeamData, jsonData);
+}
+
+List<NflTeam> parseTeamData(String jsonData) {
+  final parsedTeamData = json.decode(jsonData);
+  final teamData = parsedTeamData
+      .map<NflTeam>(
+        (json) => NflTeam.fromMap(json),
+      )
+      .toList();
+
+  return teamData;
 }
