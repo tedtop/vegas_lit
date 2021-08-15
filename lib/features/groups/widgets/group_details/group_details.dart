@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
+
 import 'package:vegas_lit/data/models/wallet.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
@@ -444,7 +444,7 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                 style: Styles.awayTeam,
               ),
               Text(
-                BetsDataHelper.leaderboardWinningBetsRatio(
+                leaderboardWinningBetsRatio(
                   player.totalBetsWon,
                   player.totalBetsLost,
                 ),
@@ -457,4 +457,8 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
       ),
     );
   }
+}
+
+String leaderboardWinningBetsRatio(int betsWon, int betsLost) {
+  return 'Wins: ${(betsWon / (betsWon + betsLost)).isNaN ? 0 : (betsWon / (betsWon + betsLost) * 100).toStringAsFixed(0)}%';
 }

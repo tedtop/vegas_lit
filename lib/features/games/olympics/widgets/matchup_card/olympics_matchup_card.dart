@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/features/games/olympics/cubit/olympics_cubit.dart';
@@ -91,8 +90,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                               ),
                             ],
                           ),
-                          OlympicHelper.badgeFromEventType(
-                              eventType: widget.game.eventType)
+                          badgeFromEventType(eventType: widget.game.eventType)
                         ],
                       ),
                     ),
@@ -366,4 +364,32 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
       ),
     );
   }
+}
+
+Widget badgeFromEventType({String eventType}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      eventType == 'gold'
+          ? const Text(
+              '🥇',
+              style: TextStyle(fontSize: 20),
+            )
+          : eventType == 'silver'
+              ? const Text(
+                  '🥈',
+                  style: TextStyle(fontSize: 20),
+                )
+              : eventType == 'bronze'
+                  ? const Text(
+                      '🥉',
+                      style: TextStyle(fontSize: 20),
+                    )
+                  : const SizedBox.shrink(),
+      Image.asset(
+        '${Images.olympicsIconsPath}Olympics.png',
+        height: 18,
+      )
+    ],
+  );
 }

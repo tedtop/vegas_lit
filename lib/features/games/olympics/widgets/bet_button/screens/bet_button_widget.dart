@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
@@ -131,7 +130,7 @@ class BetButtonUnclicked extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  OlympicHelper.countryFlagFromCode(
+                  countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.playerCountry
                         : betButtonState.game.rivalCountry,
@@ -207,7 +206,7 @@ class BetButtonClicked extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  OlympicHelper.countryFlagFromCode(
+                  countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.playerCountry
                         : betButtonState.game.rivalCountry,
@@ -277,4 +276,9 @@ class BetButtonDone extends StatelessWidget {
       ),
     );
   }
+}
+
+String countryFlagFromCode({String countryCode}) {
+  return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
+      String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }

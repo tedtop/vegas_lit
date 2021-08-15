@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/routes.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';

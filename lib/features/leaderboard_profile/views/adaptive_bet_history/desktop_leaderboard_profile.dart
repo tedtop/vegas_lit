@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -125,8 +124,8 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
                     '${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
               ),
               DesktopBetHistoryBoardItem(
-                bottomText: BetsDataHelper.betHistoryWinningBetsRatioText(),
-                topText: BetsDataHelper.betHistoryWinningBetsRatio(
+                bottomText: betHistoryWinningBetsRatioText(),
+                topText: betHistoryWinningBetsRatio(
                   wallet.totalBetsWon,
                   wallet.totalBetsLost,
                 ),
@@ -373,7 +372,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
                               child: Text(
-                                  '${BetsDataHelper.whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                  '${whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                   style: Styles.betHistoryDesktopItem),
                             );
                           case 'Risked':
@@ -428,3 +427,28 @@ const tableHeadingsWithWidth = {
   'Risked': 140,
   'Result': 140
 };
+
+String whichBetSystemFromString(String betType) {
+  if (betType == 'moneyline') {
+    return 'MONEYLINE';
+  }
+  if (betType == 'pointspread') {
+    return 'POINT SPREAD';
+  }
+  if (betType == 'total') {
+    return 'TOTAL O/U';
+  }
+  if (betType == 'olympics') {
+    return 'OLYMPICS';
+  } else {
+    return 'ERROR';
+  }
+}
+
+String betHistoryWinningBetsRatio(int betsWon, int betsLost) {
+  return '${(betsWon / (betsWon + betsLost)).isNaN ? 0 : (betsWon / (betsWon + betsLost) * 100).toStringAsFixed(0)}%';
+}
+
+String betHistoryWinningBetsRatioText() {
+  return 'Winning Bets';
+}

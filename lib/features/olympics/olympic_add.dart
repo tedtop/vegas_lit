@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympics.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/features/olympics/cubit/olympics_add_cubit.dart';
@@ -359,8 +358,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       child: ListTile(
                     leading: playerCountry != null
                         ? Text(
-                            OlympicHelper.countryFlagFromCode(
-                                countryCode: playerCountry),
+                            countryFlagFromCode(countryCode: playerCountry),
                             style: const TextStyle(fontSize: 25),
                           )
                         : Text(
@@ -427,8 +425,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       child: ListTile(
                     leading: rivalCountry != null
                         ? Text(
-                            OlympicHelper.countryFlagFromCode(
-                                countryCode: rivalCountry),
+                            countryFlagFromCode(countryCode: rivalCountry),
                             style: const TextStyle(fontSize: 25),
                           )
                         : Text(
@@ -505,4 +502,9 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
       ),
     );
   }
+}
+
+String countryFlagFromCode({String countryCode}) {
+  return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
+      String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }

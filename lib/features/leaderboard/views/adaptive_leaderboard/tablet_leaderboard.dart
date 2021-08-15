@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -171,7 +170,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.awayTeam,
                 ),
                 Text(
-                  BetsDataHelper.leaderboardWinningBetsRatio(
+                  leaderboardWinningBetsRatio(
                     player.totalBetsWon,
                     player.totalBetsLost,
                   ),
@@ -184,4 +183,8 @@ class TabletLeaderboardTile extends StatelessWidget {
       ),
     );
   }
+}
+
+String leaderboardWinningBetsRatio(int betsWon, int betsLost) {
+  return 'Wins: ${(betsWon / (betsWon + betsLost)).isNaN ? 0 : (betsWon / (betsWon + betsLost) * 100).toStringAsFixed(0)}%';
 }

@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/helpers/bets_data_helper.dart';
-import 'package:vegas_lit/data/helpers/timer_helper.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -361,7 +359,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 18),
                             child: Text(
-                                '${BetsDataHelper.whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
+                                '${whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                 style: Styles.openBetsDesktopItem),
                           );
                         case 'Risking':
@@ -400,7 +398,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
 
                                 return Center(
                                   child: Text(
-                                    'Starting in  ${TimerHelper.getRemainingTimeText(time: time)}',
+                                    'Starting in  ${getRemainingTimeText(time: time)}',
                                     style: Styles.openBetsDesktopTime,
                                   ),
                                 );
@@ -428,3 +426,28 @@ const tableHeadingsWithWidth = {
   'To Win': 160,
   'Time Remaining': 280
 };
+
+String getRemainingTimeText({CurrentRemainingTime time}) {
+  final days = time.days == null ? '' : '${time.days}d ';
+  final hours = time.hours == null ? '' : '${time.hours}hr';
+  final min = time.min == null ? '' : ' ${time.min}m';
+  final sec = time.sec == null ? '' : ' ${time.sec}s';
+  return days + hours + min + sec;
+}
+
+String whichBetSystemFromString(String betType) {
+  if (betType == 'moneyline') {
+    return 'MONEYLINE';
+  }
+  if (betType == 'pointspread') {
+    return 'POINT SPREAD';
+  }
+  if (betType == 'total') {
+    return 'TOTAL O/U';
+  }
+  if (betType == 'olympics') {
+    return 'OLYMPICS';
+  } else {
+    return 'ERROR';
+  }
+}

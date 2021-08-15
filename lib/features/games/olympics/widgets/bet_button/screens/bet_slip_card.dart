@@ -6,9 +6,9 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
@@ -97,7 +97,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              OlympicHelper.countryFlagFromCode(
+                              countryFlagFromCode(
                                   countryCode:
                                       betButtonState.game.playerCountry),
                               textAlign: TextAlign.center,
@@ -251,7 +251,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.only(bottom: 120, left: 5, right: 5),
-                    child: OlympicHelper.badgeFromEventTypeColumn(
+                    child: badgeFromEventTypeColumn(
                         eventType: betButtonState.game.eventType),
                   ),
                   Flexible(
@@ -260,7 +260,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              OlympicHelper.countryFlagFromCode(
+                              countryFlagFromCode(
                                   countryCode:
                                       betButtonState.game.rivalCountry),
                               textAlign: TextAlign.center,
@@ -600,4 +600,39 @@ class _BetAmountPageState extends State<BetAmountPage> {
       ),
     );
   }
+}
+
+String countryFlagFromCode({String countryCode}) {
+  return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
+      String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
+}
+
+Widget badgeFromEventTypeColumn({String eventType}) {
+  return Column(
+    children: [
+      Image.asset(
+        '${Images.olympicsIconsPath}Olympics.png',
+        height: 18,
+      ),
+      const SizedBox(
+        height: 40,
+      ),
+      eventType == 'gold'
+          ? const Text(
+              '🥇',
+              style: TextStyle(fontSize: 20),
+            )
+          : eventType == 'silver'
+              ? const Text(
+                  '🥈',
+                  style: TextStyle(fontSize: 20),
+                )
+              : eventType == 'bronze'
+                  ? const Text(
+                      '🥉',
+                      style: TextStyle(fontSize: 20),
+                    )
+                  : const SizedBox.shrink(),
+    ],
+  );
 }

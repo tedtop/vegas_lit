@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/helpers/olympic_helper.dart';
 import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
 
 class OlympicsBetHistoryCard extends StatelessWidget {
@@ -111,7 +110,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                 children: [
                                   isPlayerWin
                                       ? Text(
-                                          '${OlympicHelper.countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.cream,
@@ -121,7 +120,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                         )
                                       : Text(
-                                          '${OlympicHelper.countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.green,
@@ -132,7 +131,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                         ),
                                   isPlayerWin
                                       ? Text(
-                                          '${OlympicHelper.countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.green,
@@ -142,7 +141,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                         )
                                       : Text(
-                                          '${OlympicHelper.countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.cream,
@@ -411,4 +410,9 @@ class OlympicsBetHistoryCard extends StatelessWidget {
       ),
     );
   }
+}
+
+String countryFlagFromCode({String countryCode}) {
+  return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
+      String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }
