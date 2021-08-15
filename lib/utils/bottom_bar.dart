@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../config/palette.dart';
-import '../../config/styles.dart';
-import '../drawer_pages/faq.dart';
-import '../drawer_pages/rules.dart';
+import '../config/palette.dart';
+import '../config/styles.dart';
+import '../features/drawer_pages/faq.dart';
+import '../features/drawer_pages/rules.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({

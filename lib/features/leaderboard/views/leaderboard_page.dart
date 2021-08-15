@@ -5,7 +5,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
-import '../../shared_widgets/bottom_bar.dart';
+import '../../../utils/bottom_bar.dart';
 import '../cubit/leaderboard_cubit.dart';
 import 'adaptive_leaderboard/desktop_leaderboard.dart';
 import 'adaptive_leaderboard/mobile_leaderboard.dart';

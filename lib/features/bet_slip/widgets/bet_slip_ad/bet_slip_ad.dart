@@ -6,7 +6,7 @@ import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../shared_widgets/abstract_card.dart';
+
 import 'cubit/ads_cubit.dart';
 
 class RewardedBetSlip extends StatelessWidget {
@@ -178,6 +178,56 @@ class RewardedBetSlip extends StatelessWidget {
           style: Styles.betSlipBoxNormalText,
         ),
       ],
+    );
+  }
+}
+
+class AbstractCard extends StatelessWidget {
+  const AbstractCard({
+    Key key,
+    @required this.widgets,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.padding = const EdgeInsets.symmetric(
+      horizontal: 12.5,
+      vertical: 12.0,
+    ),
+  }) : super(key: key);
+
+  final List<Widget> widgets;
+  final CrossAxisAlignment crossAxisAlignment;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      child: Container(
+        width: 390,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Palette.cream,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Card(
+          margin: EdgeInsets.zero,
+          color: Palette.lightGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: padding,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: crossAxisAlignment,
+                children: widgets,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -11,8 +11,8 @@ import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../utils/bottom_bar.dart';
 import '../../../home/home.dart';
-import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
 
 class MobileOpenBets extends StatelessWidget {

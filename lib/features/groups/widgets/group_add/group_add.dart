@@ -8,7 +8,6 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/group.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
 import 'cubit/group_add_cubit.dart';
 
@@ -332,6 +331,56 @@ class _GroupAddState extends State<GroupAdd> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({
+    Key key,
+    @required this.text,
+    @required this.action,
+    this.color = Palette.green,
+    this.elevation = Styles.normalElevation,
+  })  : assert(text != null),
+        super(key: key);
+
+  final String text;
+  final Function action;
+  final Color color;
+  final double elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: 174,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              elevation: MaterialStateProperty.all(elevation),
+              shape: MaterialStateProperty.all(Styles.smallRadius),
+              textStyle: MaterialStateProperty.all(
+                const TextStyle(color: Palette.cream),
+              ),
+              backgroundColor: MaterialStateProperty.all(color),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: action,
         ),
       ),
     );

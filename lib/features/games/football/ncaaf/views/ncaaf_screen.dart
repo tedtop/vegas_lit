@@ -5,7 +5,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
-import '../../../../shared_widgets/bottom_bar.dart';
+import '../../../../../utils/bottom_bar.dart';
 import '../cubit/ncaaf_cubit.dart';
 import 'ncaaf_screen_desktop/ncaaf_screen_desktop.dart';
 import 'ncaaf_screen_mobile/ncaaf_screen_mobile.dart';

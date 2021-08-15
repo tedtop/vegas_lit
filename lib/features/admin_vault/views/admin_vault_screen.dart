@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/repositories/user_repository.dart';
-import '../../shared_widgets/app_bar/app_bar.dart';
+import '../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
 import '../cubit/admin_vault_cubit.dart';
 import '../widgets/admin_record_box.dart';
 

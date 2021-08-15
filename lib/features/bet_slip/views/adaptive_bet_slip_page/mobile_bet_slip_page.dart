@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../utils/bottom_bar.dart';
 import '../../../open_bets/cubit/open_bets_cubit.dart';
-import '../../../shared_widgets/bottom_bar.dart';
 import '../../bet_slip.dart';
 import '../../widgets/bet_slip_ad/bet_slip_ad.dart';
 import '../../widgets/bet_slip_empty.dart';

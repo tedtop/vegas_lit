@@ -4,13 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/data/models/nfl/nfl_team_stats.dart';
-import 'package:vegas_lit/features/shared_widgets/game_stats/stats_box.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/nfl/nfl_player.dart';
 import '../../../../../../data/repositories/sports_repository.dart';
-import '../../../../../shared_widgets/app_bar/app_bar.dart';
+import '../../../../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
 import '../../models/nfl_team.dart';
 import '../player_details/player_details.dart';
 import 'cubit/team_info_cubit.dart';

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/matchup_card/olympics_matchup_card.dart';
-import 'package:vegas_lit/features/shared_widgets/bottom_bar.dart';
+import 'package:vegas_lit/utils/bottom_bar.dart';
 
 import '../olympics.dart';
 

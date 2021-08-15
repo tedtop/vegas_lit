@@ -6,7 +6,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/bet.dart';
 import '../../../../data/models/wallet.dart';
-import '../../../shared_widgets/bottom_bar.dart';
+import '../../../../utils/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_items.dart';
 

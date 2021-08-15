@@ -7,12 +7,13 @@ import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet
 import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
 import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+
 // import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../utils/bottom_bar.dart';
 import '../../../home/cubit/home_cubit.dart';
-import '../../../shared_widgets/bottom_bar.dart';
 import '../../cubit/open_bets_cubit.dart';
 
 class TabletOpenBets extends StatelessWidget {

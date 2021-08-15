@@ -5,12 +5,12 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/config/assets.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
 import '../../../../../data/providers/firebase_auth.dart';
-import '../../../../shared_widgets/auth_logo.dart';
-import '../../../../shared_widgets/default_button.dart';
+
 import '../../sign_up/views/sign_up_page.dart';
 import '../login.dart';
 
@@ -42,7 +42,7 @@ class LoginForm extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  TopLogo(),
+                  _TopLogo(),
                   const SizedBox(height: 30),
                   Column(
                     children: [
@@ -66,6 +66,19 @@ class LoginForm extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _TopLogo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: 'top_logo',
+      child: Image.asset(
+        Images.topLogo,
+        height: 80,
       ),
     );
   }
@@ -378,6 +391,56 @@ class _VersionNumberState extends State<VersionNumber> {
         return Text('Version: $versionString ($buildNumber)',
             style: Styles.versionText);
       },
+    );
+  }
+}
+
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({
+    Key key,
+    @required this.text,
+    @required this.action,
+    this.color = Palette.green,
+    this.elevation = Styles.normalElevation,
+  })  : assert(text != null),
+        super(key: key);
+
+  final String text;
+  final Function action;
+  final Color color;
+  final double elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: 174,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              elevation: MaterialStateProperty.all(elevation),
+              shape: MaterialStateProperty.all(Styles.smallRadius),
+              textStyle: MaterialStateProperty.all(
+                const TextStyle(color: Palette.cream),
+              ),
+              backgroundColor: MaterialStateProperty.all(color),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: action,
+        ),
+      ),
     );
   }
 }

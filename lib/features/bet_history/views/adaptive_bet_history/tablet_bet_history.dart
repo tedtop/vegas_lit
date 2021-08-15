@@ -10,7 +10,7 @@ import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../shared_widgets/bottom_bar.dart';
+import '../../../../utils/bottom_bar.dart';
 import '../../cubit/history_cubit.dart';
 
 class TabletBetHistory extends StatelessWidget {

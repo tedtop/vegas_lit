@@ -3,16 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/routes.dart';
-import 'package:vegas_lit/features/shared_widgets/default_button.dart';
-import 'package:vegas_lit/features/shared_widgets/dropdown.dart';
+
 import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/repositories/user_repository.dart';
-import '../../shared_widgets/abstract_card.dart';
-import '../../shared_widgets/app_bar/app_bar.dart';
-import '../../shared_widgets/bottom_bar.dart';
+
+import '../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
+import '../../../utils/bottom_bar.dart';
 import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';
 
@@ -540,3 +539,171 @@ class _EditButton extends StatelessWidget {
 //     );
 //   }
 // }
+
+class DropDown<T> extends StatefulWidget {
+  DropDown({
+    @required this.items,
+    this.customWidgets,
+    this.initialValue,
+    this.hint,
+    this.onChanged,
+    this.isExpanded = false,
+    this.isCleared = false,
+    this.showUnderline = true,
+  })  : assert(items != null && !(items is Widget)),
+        assert((customWidgets != null)
+            ? items.length == customWidgets.length
+            : (customWidgets == null));
+
+  final List<T> items;
+  final List<Widget> customWidgets;
+  final T initialValue;
+  final Widget hint;
+  final Function onChanged;
+  final bool isExpanded;
+  final bool isCleared;
+  final bool showUnderline;
+
+  @override
+  _DropDownState createState() => _DropDownState();
+}
+
+class _DropDownState<T> extends State<DropDown<T>> {
+  T selectedValue;
+
+  @override
+  void initState() {
+    selectedValue = widget.initialValue;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dropdown = DropdownButton<T>(
+      isExpanded: widget.isExpanded,
+      onChanged: (T value) {
+        setState(() => selectedValue = value);
+        if (widget.onChanged != null) widget.onChanged(value);
+      },
+      value: widget.isCleared ? null : selectedValue,
+      items: widget.items.map<DropdownMenuItem<T>>(buildDropDownItem).toList(),
+      hint: widget.hint,
+    );
+
+    return widget.showUnderline
+        ? dropdown
+        : DropdownButtonHideUnderline(child: dropdown);
+  }
+
+  DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
+        child: (widget.customWidgets != null)
+            ? widget.customWidgets[widget.items.indexOf(item)]
+            : Text(
+                item.toString(),
+                style: GoogleFonts.nunito(
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+        value: item,
+      );
+}
+
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({
+    Key key,
+    @required this.text,
+    @required this.action,
+    this.color = Palette.green,
+    this.elevation = Styles.normalElevation,
+  })  : assert(text != null),
+        super(key: key);
+
+  final String text;
+  final Function action;
+  final Color color;
+  final double elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: 174,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              elevation: MaterialStateProperty.all(elevation),
+              shape: MaterialStateProperty.all(Styles.smallRadius),
+              textStyle: MaterialStateProperty.all(
+                const TextStyle(color: Palette.cream),
+              ),
+              backgroundColor: MaterialStateProperty.all(color),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: action,
+        ),
+      ),
+    );
+  }
+}
+
+class AbstractCard extends StatelessWidget {
+  const AbstractCard({
+    Key key,
+    @required this.widgets,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.padding = const EdgeInsets.symmetric(
+      horizontal: 12.5,
+      vertical: 12.0,
+    ),
+  }) : super(key: key);
+
+  final List<Widget> widgets;
+  final CrossAxisAlignment crossAxisAlignment;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      child: Container(
+        width: 390,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Palette.cream,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Card(
+          margin: EdgeInsets.zero,
+          color: Palette.lightGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: padding,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: crossAxisAlignment,
+                children: widgets,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

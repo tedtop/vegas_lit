@@ -5,7 +5,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
-import '../../../../shared_widgets/bottom_bar.dart';
+import '../../../../../utils/bottom_bar.dart';
 import '../cubit/mlb_cubit.dart';
 import 'mlb_screen_desktop/mlb_screen_desktop.dart';
 import 'mlb_screen_mobile/mlb_screen_mobile.dart';

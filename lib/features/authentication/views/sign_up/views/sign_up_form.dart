@@ -4,13 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/assets.dart';
 import 'package:vegas_lit/features/authentication/views/login/login.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
-import '../../../../shared_widgets/auth_logo.dart';
-import '../../../../shared_widgets/default_button.dart';
-import '../../../../shared_widgets/dropdown.dart';
+
 import '../../../models/confirmed_password.dart';
 import '../../../models/email.dart';
 import '../../../models/password.dart';
@@ -82,7 +81,7 @@ class SignUpForm extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          TopLogo(),
+          _TopLogo(),
           Padding(
             padding: const EdgeInsets.all(14),
             child: Column(
@@ -659,6 +658,19 @@ class _StateInput extends StatelessWidget {
   }
 }
 
+class _TopLogo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: 'top_logo',
+      child: Image.asset(
+        Images.topLogo,
+        height: 80,
+      ),
+    );
+  }
+}
+
 class _UsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -707,6 +719,124 @@ class _UsernameInput extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class DropDown<T> extends StatefulWidget {
+  DropDown({
+    @required this.items,
+    this.customWidgets,
+    this.initialValue,
+    this.hint,
+    this.onChanged,
+    this.isExpanded = false,
+    this.isCleared = false,
+    this.showUnderline = true,
+  })  : assert(items != null && !(items is Widget)),
+        assert((customWidgets != null)
+            ? items.length == customWidgets.length
+            : (customWidgets == null));
+
+  final List<T> items;
+  final List<Widget> customWidgets;
+  final T initialValue;
+  final Widget hint;
+  final Function onChanged;
+  final bool isExpanded;
+  final bool isCleared;
+  final bool showUnderline;
+
+  @override
+  _DropDownState createState() => _DropDownState();
+}
+
+class _DropDownState<T> extends State<DropDown<T>> {
+  T selectedValue;
+
+  @override
+  void initState() {
+    selectedValue = widget.initialValue;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dropdown = DropdownButton<T>(
+      isExpanded: widget.isExpanded,
+      onChanged: (T value) {
+        setState(() => selectedValue = value);
+        if (widget.onChanged != null) widget.onChanged(value);
+      },
+      value: widget.isCleared ? null : selectedValue,
+      items: widget.items.map<DropdownMenuItem<T>>(buildDropDownItem).toList(),
+      hint: widget.hint,
+    );
+
+    return widget.showUnderline
+        ? dropdown
+        : DropdownButtonHideUnderline(child: dropdown);
+  }
+
+  DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
+        child: (widget.customWidgets != null)
+            ? widget.customWidgets[widget.items.indexOf(item)]
+            : Text(
+                item.toString(),
+                style: GoogleFonts.nunito(
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+        value: item,
+      );
+}
+
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({
+    Key key,
+    @required this.text,
+    @required this.action,
+    this.color = Palette.green,
+    this.elevation = Styles.normalElevation,
+  })  : assert(text != null),
+        super(key: key);
+
+  final String text;
+  final Function action;
+  final Color color;
+  final double elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: 174,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              elevation: MaterialStateProperty.all(elevation),
+              shape: MaterialStateProperty.all(Styles.smallRadius),
+              textStyle: MaterialStateProperty.all(
+                const TextStyle(color: Palette.cream),
+              ),
+              backgroundColor: MaterialStateProperty.all(color),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: action,
+        ),
+      ),
     );
   }
 }

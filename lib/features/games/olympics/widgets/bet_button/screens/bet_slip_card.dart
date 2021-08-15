@@ -15,8 +15,6 @@ import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olymp
 import 'package:vegas_lit/features/games/olympics/widgets/bet_button/models/olympics_bet_slip_card_data.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/shared_widgets/abstract_card.dart';
-import 'package:vegas_lit/features/shared_widgets/default_button.dart';
 
 class OlympicsBetSlipCard extends StatelessWidget {
   OlympicsBetSlipCard._({Key key, @required this.betSlipCardData})
@@ -635,4 +633,104 @@ Widget badgeFromEventTypeColumn({String eventType}) {
                   : const SizedBox.shrink(),
     ],
   );
+}
+
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({
+    Key key,
+    @required this.text,
+    @required this.action,
+    this.color = Palette.green,
+    this.elevation = Styles.normalElevation,
+  })  : assert(text != null),
+        super(key: key);
+
+  final String text;
+  final Function action;
+  final Color color;
+  final double elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: 174,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              padding: MaterialStateProperty.all(
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
+              elevation: MaterialStateProperty.all(elevation),
+              shape: MaterialStateProperty.all(Styles.smallRadius),
+              textStyle: MaterialStateProperty.all(
+                const TextStyle(color: Palette.cream),
+              ),
+              backgroundColor: MaterialStateProperty.all(color),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            text,
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: action,
+        ),
+      ),
+    );
+  }
+}
+
+class AbstractCard extends StatelessWidget {
+  const AbstractCard({
+    Key key,
+    @required this.widgets,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.padding = const EdgeInsets.symmetric(
+      horizontal: 12.5,
+      vertical: 12.0,
+    ),
+  }) : super(key: key);
+
+  final List<Widget> widgets;
+  final CrossAxisAlignment crossAxisAlignment;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      child: Container(
+        width: 390,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Palette.cream,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Card(
+          margin: EdgeInsets.zero,
+          color: Palette.lightGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: padding,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: crossAxisAlignment,
+                children: widgets,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
