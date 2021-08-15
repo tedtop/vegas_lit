@@ -3,11 +3,13 @@ import 'package:vegas_lit/data/providers/cloud_messaging.dart';
 import 'package:vegas_lit/data/providers/device_provider.dart';
 import 'package:vegas_lit/data/providers/remote_config.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/providers/shared_preferences.dart';
 
 class DeviceRepository {
   final _messagingProvider = CloudMessagingClient();
   final _deviceProvider = DeviceProvider();
   final _remoteConfigProvider = RemoteConfigClient();
+  final _sharedPreferencesProvider = SharedPreferencesClient();
 
   Future<void> handleBackgroundNotification() =>
       _messagingProvider.handleBackgroundNotification();
@@ -33,4 +35,11 @@ class DeviceRepository {
       _remoteConfigProvider.fetchAndActivateRemote();
 
   String fetchRemoteLeague() => _remoteConfigProvider.fetchRemoteLeague;
+
+  Future<bool> shouldAskReview() =>
+      _sharedPreferencesProvider.shouldAskReview();
+
+  Future<bool> isFirstTime() => _sharedPreferencesProvider.isFirstTime();
+
+  Future<bool> isRulesShown() => _sharedPreferencesProvider.isRulesShown();
 }

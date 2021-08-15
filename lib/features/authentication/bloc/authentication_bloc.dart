@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
 import '../../../data/models/user.dart';
@@ -15,9 +16,13 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc({@required UserRepository userRepository})
+  AuthenticationBloc(
+      {@required UserRepository userRepository,
+      @required DeviceRepository deviceRepository})
       : assert(userRepository != null),
+        assert(deviceRepository != null),
         _userRepository = userRepository,
+        _deviceRepository = deviceRepository,
         super(
           const AuthenticationState.splashscreen(),
         ) {
@@ -29,6 +34,7 @@ class AuthenticationBloc
   }
 
   final UserRepository _userRepository;
+  final DeviceRepository _deviceRepository;
   StreamSubscription<User> _userSubscription;
 
   @override
@@ -42,7 +48,13 @@ class AuthenticationBloc
         );
       } else {
         _userSubscription?.pause();
-        yield const AuthenticationState.unauthenticated();
+        final isFirstTime = await _deviceRepository.isFirstTime();
+
+        if (isFirstTime) {
+          yield const AuthenticationState.firstOpen();
+        } else {
+          yield const AuthenticationState.unauthenticated();
+        }
       }
     } else if (event is CheckProfileComplete) {
       yield* _checkProfileComplete(event);

@@ -18,32 +18,34 @@ class MobileBetSlipPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isBetPlaced = context.watch<OpenBetsCubit>().state.bets.isNotEmpty;
     return Scaffold(
-      body: ListView(children: [
-        const MobileBetSlipUpper(),
-        BlocBuilder<BetSlipCubit, BetSlipState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case BetSlipStatus.opened:
-                return Column(
-                  children: [
-                    state.betSlipCard.isEmpty
-                        ? isBetPlaced
-                            ? RewardedBetSlip.route()
-                            : EmptyBetSlip()
-                        : BetSlipList(),
-                    const BottomBar()
-                  ],
-                );
-                break;
-              default:
-                return const CircularProgressIndicator(
-                  color: Palette.cream,
-                );
-                break;
-            }
-          },
-        ),
-      ]),
+      body: ListView(
+        children: [
+          const MobileBetSlipUpper(),
+          BlocBuilder<BetSlipCubit, BetSlipState>(
+            builder: (context, state) {
+              switch (state.status) {
+                case BetSlipStatus.opened:
+                  return Column(
+                    children: [
+                      state.betSlipCard.isEmpty
+                          ? isBetPlaced
+                              ? RewardedBetSlip.route()
+                              : EmptyBetSlip()
+                          : BetSlipList(),
+                      const BottomBar()
+                    ],
+                  );
+                  break;
+                default:
+                  return const CircularProgressIndicator(
+                    color: Palette.cream,
+                  );
+                  break;
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

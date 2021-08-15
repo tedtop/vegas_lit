@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/drawer_pages/rules.dart';
 import 'package:vegas_lit/features/games/olympics/views/olympics_screen.dart';
 
 import '../../../config/palette.dart';
@@ -23,7 +24,17 @@ import '../bloc/sportsbook_bloc.dart';
 class Sportsbook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SportsbookBloc, SportsbookState>(
+    return BlocConsumer<SportsbookBloc, SportsbookState>(
+      listener: (context, state) {
+        if (state.status == SportsbookStatus.initial) {
+          if (!state.isRulesShown) {
+            Navigator.push(
+              context,
+              Rules.route(),
+            );
+          }
+        }
+      },
       builder: (context, state) {
         switch (state.status) {
           case SportsbookStatus.initial:

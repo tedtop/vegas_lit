@@ -31,17 +31,26 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> openHome({@required String uid}) async {
     await _deviceRepository.setDefaultLeague(league: 'MLB');
     await _deviceRepository.fetchAndActivateRemote();
+
     final userStream = _userRepository.fetchUserData(uid: uid);
     final walletStream = _userRepository.fetchWalletData(uid: uid);
     await _homeDataSubscription?.cancel();
     _homeDataSubscription = Rx.combineLatest2(
       userStream,
       walletStream,
-      (UserData userData, Wallet userWallet) {
+      (UserData userData, Wallet userWallet) async {
+        var askReview = false;
+        if (userWallet.totalBets > 25) {
+          final shouldAskReview = await _deviceRepository.shouldAskReview();
+          if (shouldAskReview) {
+            askReview = true;
+          }
+        }
         emit(
           HomeState.openHome(
             pageIndex: state.pageIndex,
             userData: userData,
+            askReview: askReview,
             userWallet: userWallet,
           ),
         );
@@ -58,6 +67,7 @@ class HomeCubit extends Cubit<HomeState> {
         pageIndex: pageIndex,
         userData: state.userData,
         userWallet: state.userWallet,
+        askReview: state.askReview,
       ),
     );
   }

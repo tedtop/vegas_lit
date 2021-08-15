@@ -2,8 +2,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vegas_lit/data/helpers/shared_pref_helper.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:vegas_lit/utils/route_aware_analytics.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
@@ -26,7 +24,6 @@ class App extends StatelessWidget {
     @required this.sportsRepository,
     @required this.userRepository,
     @required this.betsRepository,
-    @required this.sharedPreferences,
     @required this.deviceRepository,
     @required this.groupsRepository,
   })  : assert(
@@ -38,7 +35,6 @@ class App extends StatelessWidget {
   final UserRepository userRepository;
   final BetsRepository betsRepository;
   final GroupsRepository groupsRepository;
-  final SharedPreferences sharedPreferences;
   final DeviceRepository deviceRepository;
 
   @override
@@ -58,15 +54,13 @@ class App extends StatelessWidget {
           value: groupsRepository,
         ),
         RepositoryProvider.value(
-          value: sharedPreferences,
-        ),
-        RepositoryProvider.value(
           value: deviceRepository,
         ),
       ],
       child: BlocProvider(
         create: (_) => AuthenticationBloc(
           userRepository: userRepository,
+          deviceRepository: deviceRepository,
         ),
         child: AppView(
           connectivity: Connectivity(),
@@ -119,21 +113,16 @@ class _AppViewState extends State<AppView> {
                       );
                       break;
                     case AuthenticationStatus.unauthenticated:
-                      SharedPrefHelper.isFirstTime(
-                        sharedPref: context.read<SharedPreferences>(),
-                      ).then((value) {
-                        if (value)
-                          _navigator.pushAndRemoveUntil<void>(
-                            SignUpPage.route(),
-                            (route) => false,
-                          );
-                        else
-                          _navigator.pushAndRemoveUntil<void>(
-                            LoginPage.route(),
-                            (route) => false,
-                          );
-                      });
-
+                      _navigator.pushAndRemoveUntil<void>(
+                        LoginPage.route(),
+                        (route) => false,
+                      );
+                      break;
+                    case AuthenticationStatus.firstTime:
+                      _navigator.pushAndRemoveUntil<void>(
+                        SignUpPage.route(),
+                        (route) => false,
+                      );
                       break;
                     case AuthenticationStatus.notverified:
                       _navigator.pushAndRemoveUntil<void>(

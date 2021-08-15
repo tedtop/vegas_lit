@@ -22,7 +22,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
         _sportsfeedRepository = sportsfeedRepository,
         _deviceRepository = deviceRepository,
         super(
-          const SportsbookState.initial(),
+          const SportsbookState.initial(isRulesShown: true),
         );
 
   final SportsRepository _sportsfeedRepository;
@@ -42,7 +42,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
   Stream<SportsbookState> _mapSportsbookOpenToState(
       SportsbookOpen event) async* {
-    yield const SportsbookState.initial();
+    final isRulesShow = await _deviceRepository.isRulesShown();
+    yield SportsbookState.initial(isRulesShown: isRulesShow);
     final list = <String>[
       'NFL',
       'NBA',
@@ -78,6 +79,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
 
     yield SportsbookState.opened(
       league: event.league ?? league,
+      isRulesShown: state.isRulesShown,
       gameNumbers: gameNumberMap,
       estTimeZone: estTimeZone,
     );
@@ -87,6 +89,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       SportsbookLeagueChange event) async* {
     yield SportsbookState.opened(
       league: event.league,
+      isRulesShown: state.isRulesShown,
       gameNumbers: state.gameNumbers,
       estTimeZone: state.estTimeZone,
     );
