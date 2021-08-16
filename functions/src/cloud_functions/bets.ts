@@ -748,7 +748,7 @@ export const resolveBets = functions.pubsub
           // Positive value
           // Underdog betting team
           if (betTeam != finalWinTeam) {
-            if (scoreDifference <= Math.abs(gameNumber)) {
+            if (Math.abs(scoreDifference) <= Math.abs(gameNumber)) {
               return betTeam == "home" ? "home" : "away";
             } else {
               return betTeam == "home" ? "away" : "home";
@@ -760,7 +760,7 @@ export const resolveBets = functions.pubsub
           // Negative value
           // Favorite betting team
           if (betTeam == finalWinTeam) {
-            if (scoreDifference >= Math.abs(gameNumber)) {
+            if (Math.abs(scoreDifference) >= Math.abs(gameNumber)) {
               return betTeam == "home" ? "home" : "away";
             } else {
               return betTeam == "home" ? "away" : "home";
