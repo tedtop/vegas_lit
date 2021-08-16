@@ -30,7 +30,7 @@ import '../models/nhl/nhl_player.dart';
 import '../providers/sportsdata_api.dart';
 
 class SportsRepository {
-  final _sportsProvider = SportsAPI();
+  final _sportsProvider = SportsdataApiClient();
   final _databaseProvider = CloudFirestoreClient();
 
   // MLB

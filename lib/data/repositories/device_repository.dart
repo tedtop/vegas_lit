@@ -1,13 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:vegas_lit/data/providers/cloud_messaging.dart';
-import 'package:vegas_lit/data/providers/device_provider.dart';
+import 'package:vegas_lit/data/providers/app_review.dart';
 import 'package:vegas_lit/data/providers/remote_config.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/providers/shared_preferences.dart';
+import 'package:vegas_lit/data/providers/shared_prefs.dart';
 
 class DeviceRepository {
   final _messagingProvider = CloudMessagingClient();
-  final _deviceProvider = DeviceProvider();
+  final _appReviewProvider = AppReviewClient();
   final _remoteConfigProvider = RemoteConfigClient();
   final _sharedPreferencesProvider = SharedPreferencesClient();
 
@@ -26,7 +26,7 @@ class DeviceRepository {
   Stream<RemoteMessage> handleOpenBackgroundNotification() =>
       _messagingProvider.handleOpenBackgroundNotification();
 
-  Future<void> openAppReview() => _deviceProvider.openAppReview();
+  Future<void> openAppReview() => _appReviewProvider.openAppReview();
 
   Future<void> setDefaultLeague({@required String league}) =>
       _remoteConfigProvider.setDefaultLeague(league: league);

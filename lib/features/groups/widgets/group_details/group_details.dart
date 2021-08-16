@@ -335,7 +335,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return GroupDetailsLeaderboardTile(
                             player: state.players[index],
-                            index: index,
+                            index: index + 1,
                           );
                         },
                       );

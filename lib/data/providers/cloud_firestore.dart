@@ -22,8 +22,6 @@ class CloudFirestoreClient {
 
   final FirebaseFirestore _firebaseFirestore;
 
-  // Sign Up Page
-
   Future<void> saveUserDetails({
     @required UserData user,
     @required String uid,
@@ -91,8 +89,6 @@ class CloudFirestoreClient {
     await userAvatarUpdateBatch.commit();
   }
 
-  // Open Bets Page
-
   Stream<List<BetData>> fetchOpenBets({@required String uid}) {
     final openBetsData = _firebaseFirestore
         .collection('bets')
@@ -133,8 +129,6 @@ class CloudFirestoreClient {
         );
     return openBetsData;
   }
-
-  // Bet History Page
 
   Stream<List<BetData>> fetchBetHistoryByWeek({
     @required String uid,
@@ -217,8 +211,6 @@ class CloudFirestoreClient {
     return snapshot;
   }
 
-  // Bet Slip Page
-
   Future<void> saveBets({
     @required String uid,
     @required BetData betsData,
@@ -280,7 +272,6 @@ class CloudFirestoreClient {
     await saveAdminVaultWrite.commit();
   }
 
-  // Vault Page
   Stream<List<VaultItem>> fetchAdminVaultDaily() {
     final dailyData = _firebaseFirestore
         .collection('vault')
@@ -304,8 +295,6 @@ class CloudFirestoreClient {
     return cumulativeData;
   }
 
-  // Profile Page
-
   Stream<UserData> fetchUserData({@required String uid}) {
     final snapshot = _firebaseFirestore
         .collection('users')
@@ -324,12 +313,9 @@ class CloudFirestoreClient {
     return snapshot;
   }
 
-  // Leaderboard Page
-
   Stream<List<Wallet>> fetchRankedUsers() {
     final snapshot = _firebaseFirestore
         .collection('wallets')
-        // .where('totalBets', isGreaterThanOrEqualTo: 5)
         .where('rank', isNotEqualTo: 0)
         .limit(100)
         .snapshots();
@@ -391,7 +377,6 @@ class CloudFirestoreClient {
         .collection('weeks')
         .doc(week)
         .collection('wallets')
-        // .where('totalBets', isGreaterThanOrEqualTo: 5)
         .where('rank', isNotEqualTo: 0)
         .limit(100)
         .get()

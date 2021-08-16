@@ -31,12 +31,14 @@ import '../models/nfl/nfl_player.dart';
 import '../models/nhl/nhl_game.dart';
 import '../models/nhl/nhl_player.dart';
 
-class SportsAPI {
-  SportsAPI({Dio dio}) : _dio = dio ?? Dio();
+class SportsdataApiClient {
+  SportsdataApiClient({Dio dio}) : _dio = dio ?? Dio();
 
   final Dio _dio;
 
-  // MLB
+  /// MLB
+  ///
+  /// All functions related to MLB.
   Future<List<MlbGame>> fetchMLB(
       {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
@@ -114,7 +116,9 @@ class SportsAPI {
     }
   }
 
-  // NBA
+  /// NBA
+  ///
+  /// All functions related to NBA.
   Future<List<NbaGame>> fetchNBA(
       {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.nba;
@@ -192,7 +196,9 @@ class SportsAPI {
     }
   }
 
-  // NCAAB
+  /// NCAAB
+  ///
+  /// All functions related to NCAAB.
   Future<List<NcaabGame>> fetchNCAAB(
       {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
@@ -271,7 +277,9 @@ class SportsAPI {
     }
   }
 
-  // NCAAF
+  /// NCAAF
+  ///
+  /// All functions related to NCAAF.
   Future<List<NcaafGame>> fetchNCAAF(
       {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
@@ -350,7 +358,9 @@ class SportsAPI {
     }
   }
 
-  // NFL
+  /// NFL
+  ///
+  /// All functions related to NFL.
   Future<List<NflGame>> fetchNFL(
       {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
@@ -428,7 +438,9 @@ class SportsAPI {
     }
   }
 
-  // NHL
+  /// NHL
+  ///
+  /// All functions related to NHL.
   Future<List<NhlGame>> fetchNHL(
       {@required DateTime dateTime, @required int days}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
@@ -506,6 +518,9 @@ class SportsAPI {
     }
   }
 
+  /// Cricket
+  ///
+  /// All functions related to Cricket.
   // Future<List<CricketDatum>> fetchCricketGame(
   //     {@required DateTime dateTimeEastern}) async {
   //   const leagueData = ConstantSportsDataAPI.cricket;
@@ -524,7 +539,9 @@ class SportsAPI {
   //   }
   // }
 
-  // GOLF
+  /// Golf
+  ///
+  /// All functions related to Golf.
   Future<List<GolfTournament>> fetchGolfTournaments({
     DateTime dateTimeEastern,
   }) async {

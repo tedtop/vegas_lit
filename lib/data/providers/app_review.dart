@@ -1,7 +1,7 @@
 import 'package:in_app_review/in_app_review.dart';
 
-class DeviceProvider {
-  DeviceProvider({InAppReview inAppReview})
+class AppReviewClient {
+  AppReviewClient({InAppReview inAppReview})
       : _inAppReview = inAppReview ?? InAppReview.instance;
 
   final InAppReview _inAppReview;
