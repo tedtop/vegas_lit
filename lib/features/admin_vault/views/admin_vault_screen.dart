@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/utils/app_bar.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/repositories/user_repository.dart';
-import '../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
+
 import '../cubit/admin_vault_cubit.dart';
 import '../widgets/admin_record_box.dart';
 

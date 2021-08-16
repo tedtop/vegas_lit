@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/routes.dart';
+import 'package:vegas_lit/utils/app_bar.dart';
 
 import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
@@ -10,7 +11,6 @@ import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/repositories/user_repository.dart';
 
-import '../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
 import '../../../utils/bottom_bar.dart';
 import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';

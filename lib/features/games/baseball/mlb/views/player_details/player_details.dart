@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import 'package:vegas_lit/utils/app_bar.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/mlb/mlb_player.dart';
-import '../../../../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
+
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {

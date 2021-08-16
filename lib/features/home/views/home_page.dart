@@ -11,13 +11,14 @@ import 'package:vegas_lit/config/routes.dart';
 import 'package:vegas_lit/data/repositories/device_repository.dart';
 import 'package:vegas_lit/features/home/cubit/notification_cubit.dart';
 import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
+import 'package:vegas_lit/utils/app_bar.dart';
 import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../../config/assets.dart';
 import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/sports_repository.dart';
 import '../../../data/repositories/user_repository.dart';
-import '../../../utils/app_bar/adaptive_app_bar/app_bar.dart';
+
 import '../../bet_history/cubit/history_cubit.dart';
 import '../../bet_history/views/bet_history_page.dart';
 import '../../bet_slip/bet_slip.dart';
