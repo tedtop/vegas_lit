@@ -139,8 +139,8 @@ class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
                   betsData: NcaafBetData(
                     stillOpen: false,
                     username: username,
-                    homeTeamCity: betButtonState.homeTeamData.city,
-                    awayTeamCity: betButtonState.awayTeamData.city,
+                    homeTeamSchool: betButtonState.homeTeamData.school,
+                    awayTeamSchool: betButtonState.awayTeamData.school,
                     betAmount: betButtonState.betAmount,
                     gameId: betButtonState.game.gameId,
                     isClosed: betButtonState.game.isClosed,

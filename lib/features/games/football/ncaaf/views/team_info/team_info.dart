@@ -144,9 +144,7 @@ class TeamInfoView extends StatelessWidget {
   }
 
   Widget _buildPlayersList(List<NcaafPlayer> players) {
-    final teamColor = teamData.primaryColor != null
-        ? int.parse('0xA6${teamData.primaryColor}'.toString())
-        : Palette.lightGrey.value;
+    final teamColor = Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
@@ -229,9 +227,9 @@ class TeamInfoView extends StatelessWidget {
             height: 100,
             width: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
-            child: teamData.wikipediaLogoUrl != null
-                ? SvgPicture.network(
-                    teamData.wikipediaLogoUrl,
+            child: teamData.teamLogoUrl != null
+                ? Image.network(
+                    teamData.teamLogoUrl,
                     fit: BoxFit.fill,
                     height: 100,
                   )
@@ -256,7 +254,7 @@ class TeamInfoView extends StatelessWidget {
                 style: Styles.largeTextBold.copyWith(fontSize: 30),
               ),
               Text(
-                teamData.city.toUpperCase(),
+                teamData.school.toUpperCase(),
                 style: Styles.normalText,
               ),
             ],

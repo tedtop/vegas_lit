@@ -5,93 +5,118 @@ class NcaafTeam {
     this.teamId,
     this.key,
     this.active,
-    this.city,
+    this.school,
     this.name,
     this.stadiumId,
-    this.conference,
-    this.division,
-    this.primaryColor,
-    this.secondaryColor,
-    this.tertiaryColor,
-    this.quaternaryColor,
-    this.wikipediaLogoUrl,
-    this.wikipediaWordMarkUrl,
+    this.apRank,
+    this.wins,
+    this.losses,
+    this.conferenceWins,
+    this.conferenceLosses,
     this.globalTeamId,
+    this.coachesRank,
+    this.playoffRank,
+    this.teamLogoUrl,
+    this.conferenceId,
+    this.conference,
+    this.shortDisplayName,
+    this.rankWeek,
+    this.rankSeason,
+    this.rankSeasonType,
   });
-
   factory NcaafTeam.fromJson(String str) => NcaafTeam.fromMap(json.decode(str));
 
   factory NcaafTeam.fromMap(Map<String, dynamic> json) => NcaafTeam(
         teamId: json['TeamID'],
         key: json['Key'],
         active: json['Active'],
-        city: json['City'],
+        school: json['School'],
         name: json['Name'],
         stadiumId: json['StadiumID'],
-        conference: json['Conference'] == null
-            ? null
-            : conferenceValues.map[json['Conference']],
-        division: json['Division'] == null
-            ? null
-            : divisionValues.map[json['Division']],
-        primaryColor: json['PrimaryColor'],
-        secondaryColor: json['SecondaryColor'],
-        tertiaryColor: json['TertiaryColor'],
-        quaternaryColor: json['QuaternaryColor'],
-        wikipediaLogoUrl: json['WikipediaLogoUrl'],
-        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'],
+        apRank: json['ApRank'],
+        wins: json['Wins'],
+        losses: json['Losses'],
+        conferenceWins: json['ConferenceWins'],
+        conferenceLosses: json['ConferenceLosses'],
         globalTeamId: json['GlobalTeamID'],
+        coachesRank: json['CoachesRank'],
+        playoffRank: json['PlayoffRank'],
+        teamLogoUrl: json['TeamLogoUrl'],
+        conferenceId: json['ConferenceID'],
+        conference: json['Conference'],
+        shortDisplayName: json['ShortDisplayName'],
+        rankWeek: json['RankWeek'],
+        rankSeason: json['RankSeason'],
+        rankSeasonType: json['RankSeasonType'],
       );
 
   final int teamId;
   final String key;
   final bool active;
-  final String city;
+  final String school;
   final String name;
   final int stadiumId;
-  final Conference conference;
-  final Division division;
-  final String primaryColor;
-  final String secondaryColor;
-  final String tertiaryColor;
-  final String quaternaryColor;
-  final String wikipediaLogoUrl;
-  final String wikipediaWordMarkUrl;
+  final int apRank;
+  final int wins;
+  final int losses;
+  final int conferenceWins;
+  final int conferenceLosses;
   final int globalTeamId;
+  final int coachesRank;
+  final int playoffRank;
+  final String teamLogoUrl;
+  final int conferenceId;
+  final String conference;
+  final String shortDisplayName;
+  final int rankWeek;
+  final int rankSeason;
+  final int rankSeasonType;
 
   NcaafTeam copyWith({
     int teamId,
     String key,
     bool active,
-    String city,
+    String school,
     String name,
     int stadiumId,
-    Conference conference,
-    Division division,
-    String primaryColor,
-    String secondaryColor,
-    String tertiaryColor,
-    String quaternaryColor,
-    String wikipediaLogoUrl,
-    String wikipediaWordMarkUrl,
+    int apRank,
+    int wins,
+    int losses,
+    int conferenceWins,
+    int conferenceLosses,
     int globalTeamId,
+    int coachesRank,
+    int playoffRank,
+    String teamLogoUrl,
+    int conferenceId,
+    String conference,
+    String shortDisplayName,
+    int rankWeek,
+    int rankSeason,
+    int rankSeasonType,
   }) =>
       NcaafTeam(
         teamId: teamId ?? this.teamId,
         key: key ?? this.key,
         active: active ?? this.active,
-        city: city ?? this.city,
+        school: school ?? this.school,
         name: name ?? this.name,
         stadiumId: stadiumId ?? this.stadiumId,
-        conference: conference ?? this.conference,
-        division: division ?? this.division,
-        primaryColor: primaryColor ?? this.primaryColor,
-        secondaryColor: secondaryColor ?? this.secondaryColor,
-        tertiaryColor: tertiaryColor ?? this.tertiaryColor,
-        quaternaryColor: quaternaryColor ?? this.quaternaryColor,
-        wikipediaLogoUrl: wikipediaLogoUrl ?? this.wikipediaLogoUrl,
-        wikipediaWordMarkUrl: wikipediaWordMarkUrl ?? this.wikipediaWordMarkUrl,
+        apRank: apRank ?? this.apRank,
+        wins: wins ?? this.wins,
+        losses: losses ?? this.losses,
+        conferenceWins: conferenceWins ?? this.conferenceWins,
+        conferenceLosses: conferenceLosses ?? this.conferenceLosses,
         globalTeamId: globalTeamId ?? this.globalTeamId,
+        coachesRank: coachesRank ?? this.coachesRank,
+        playoffRank: playoffRank ?? this.playoffRank,
+        teamLogoUrl: teamLogoUrl ?? this.teamLogoUrl,
+        conferenceId: conferenceId ?? this.conferenceId,
+        conference: conference ?? this.conference,
+        shortDisplayName: shortDisplayName ?? this.shortDisplayName,
+        rankWeek: rankWeek ?? this.rankWeek,
+        rankSeason: rankSeason ?? this.rankSeason,
+        rankSeasonType: rankSeasonType ?? this.rankSeasonType,
       );
 
   String toJson() => json.encode(toMap());
@@ -100,44 +125,23 @@ class NcaafTeam {
         'TeamID': teamId,
         'Key': key,
         'Active': active,
-        'City': city,
+        'School': school,
         'Name': name,
         'StadiumID': stadiumId,
-        'Conference':
-            conference == null ? null : conferenceValues.reverse[conference],
-        'Division': division == null ? null : divisionValues.reverse[division],
-        'PrimaryColor': primaryColor,
-        'SecondaryColor': secondaryColor,
-        'TertiaryColor': tertiaryColor,
-        'QuaternaryColor': quaternaryColor,
-        'WikipediaLogoUrl': wikipediaLogoUrl,
-        'WikipediaWordMarkUrl': wikipediaWordMarkUrl,
+        'ApRank': apRank,
+        'Wins': wins,
+        'Losses': losses,
+        'ConferenceWins': conferenceWins,
+        'ConferenceLosses': conferenceLosses,
         'GlobalTeamID': globalTeamId,
+        'CoachesRank': coachesRank,
+        'PlayoffRank': playoffRank,
+        'TeamLogoUrl': teamLogoUrl,
+        'ConferenceID': conferenceId,
+        'Conference': conference,
+        'ShortDisplayName': shortDisplayName,
+        'RankWeek': rankWeek,
+        'RankSeason': rankSeason,
+        'RankSeasonType': rankSeasonType,
       };
-}
-
-enum Conference { eastern, western }
-
-final conferenceValues =
-    EnumValues({'Eastern': Conference.eastern, 'Western': Conference.western});
-
-enum Division { east, central, north, west }
-
-final divisionValues = EnumValues({
-  'Central': Division.central,
-  'East': Division.east,
-  'North': Division.north,
-  'West': Division.west
-});
-
-class EnumValues<T> {
-  EnumValues(this.map);
-
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  Map<T, String> get reverse {
-    reverseMap ??= map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

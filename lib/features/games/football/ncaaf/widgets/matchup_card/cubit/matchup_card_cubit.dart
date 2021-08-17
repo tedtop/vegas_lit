@@ -10,14 +10,13 @@ class NcaafMatchupCardCubit extends Cubit<NcaafMatchupCardState> {
 
   void openMatchupCard({
     @required NcaafGame game,
-    @required dynamic parsedTeamData,
+    @required List<NcaafTeam> parsedTeamData,
     @required String gameName,
   }) async {
-    final teamData = getData(parsedTeamData: parsedTeamData);
     final awayTeamData =
-        teamData.singleWhere((element) => element.key == game.awayTeam);
+        parsedTeamData.singleWhere((element) => element.key == game.awayTeam);
     final homeTeamData =
-        teamData.singleWhere((element) => element.key == game.homeTeam);
+        parsedTeamData.singleWhere((element) => element.key == game.homeTeam);
 
     emit(
       MatchupCardOpened(
@@ -27,15 +26,5 @@ class NcaafMatchupCardCubit extends Cubit<NcaafMatchupCardState> {
         league: gameName,
       ),
     );
-  }
-
-  List<NcaafTeam> getData({@required dynamic parsedTeamData}) {
-    final teamData = parsedTeamData
-        .map<NcaafTeam>(
-          (json) => NcaafTeam.fromMap(json),
-        )
-        .toList();
-
-    return teamData;
   }
 }

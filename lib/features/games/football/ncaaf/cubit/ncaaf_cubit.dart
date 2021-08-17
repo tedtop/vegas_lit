@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
 
 import '../../../../../data/models/ncaaf/ncaaf_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';
@@ -18,59 +20,53 @@ class NcaafCubit extends Cubit<NcaafState> {
         super(
           const NcaafState.initial(),
         );
-  // ignore: unused_field
+
   final SportsRepository _sportsfeedRepository;
 
   Future<void> fetchNcaafGames() async {
     const league = 'NCAAF';
-    final localTimeZone = DateTime.now();
     final estTimeZone = ESTDateTime.fetchTimeEST();
-    // final tomorrowEstTimeZone =
-    //     DateTime(estTimeZone.year, estTimeZone.month, estTimeZone.day + 1);
-    // List<Game> totalGames;
+    List<NcaafGame> totalGames;
 
-    // final todayGames = await _sportsfeedRepository
-    //     .fetchNCAAF(
-    //       dateTime: estTimeZone,
-    //       days: 2,
-    //     )
-    //     .then(
-    //       (value) => value
-    //           .where((element) => element.status == 'Scheduled')
-    //           .where((element) => element.dateTime.isAfter(fetchTimeEST()))
-    //           .where((element) => element.isClosed == false)
-    //           .toList(),
-    //     );
+    final todayGames = await _sportsfeedRepository
+        .fetchNCAAF(
+          dateTime: estTimeZone,
+          days: 2,
+        )
+        .then(
+          (value) => value
+              .where((element) => element.status == 'Scheduled')
+              .where((element) =>
+                  element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+              .where((element) => element.isClosed == false)
+              .toList(),
+        );
+    totalGames = todayGames;
 
-    // if (greeting(dateTime: estTimeZone) == 'evening') {
-    //   final tomorrowGames = await _sportsfeedRepository
-    //       .fetchNCAAF(
-    //         dateTime: tomorrowEstTimeZone,
-    //       )
-    //       .then(
-    //         (value) => value
-    //             .where((element) => element.status == 'Scheduled')
-    //             .where((element) => element.isClosed == false)
-    //             .toList(),
-    //       );
-
-    //   totalGames = todayGames + tomorrowGames;
-    // } else {
-    //   totalGames = todayGames;
-    // }
-
-    emit(NcaafState.opened(
-      localTimeZone: localTimeZone,
-      estTimeZone: estTimeZone,
-      games: [],
-      league: league,
-      parsedTeamData: await getNcaafParsedTeamData(),
-    ));
+    emit(
+      NcaafState.opened(
+        estTimeZone: estTimeZone,
+        games: totalGames,
+        league: league,
+        parsedTeamData: await getNCAAFTeamData(),
+      ),
+    );
   }
 }
 
-dynamic getNcaafParsedTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/mlb.json');
-  final parsedTeamData = await json.decode(jsonData);
-  return parsedTeamData;
+Future<List<NcaafTeam>> getNCAAFTeamData() async {
+  final jsonData = await rootBundle.loadString('assets/json/cfb.json');
+
+  return compute(parseTeamData, jsonData);
+}
+
+List<NcaafTeam> parseTeamData(String jsonData) {
+  final parsedTeamData = json.decode(jsonData);
+  final teamData = parsedTeamData
+      .map<NcaafTeam>(
+        (json) => NcaafTeam.fromMap(json),
+      )
+      .toList();
+
+  return teamData;
 }

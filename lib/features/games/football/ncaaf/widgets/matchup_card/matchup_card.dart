@@ -103,7 +103,7 @@ class MatchupCard extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              state.awayTeamData.city,
+                                              state.awayTeamData.school,
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.nunito(
                                                 fontSize: 12,
@@ -146,15 +146,14 @@ class MatchupCard extends StatelessWidget {
                                                   gameName: state.league,
                                                 ),
                                               ),
-                                        gameData.pointSpreadAwayTeamMoneyLine ==
-                                                null
+                                        gameData.awayPointSpreadPayout == null
                                             ? Container()
                                             : BetButton.route(
                                                 winTeam: BetButtonWin.away,
                                                 gameId: gameData.gameId,
                                                 isClosed: gameData.isClosed,
                                                 mainOdds: gameData
-                                                    .pointSpreadAwayTeamMoneyLine
+                                                    .awayPointSpreadPayout
                                                     .toString(),
                                                 spread: double.parse(
                                                     awayTeamPointSpread),
@@ -168,7 +167,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine)}',
+                                                    '$awayTeamPointSpread     ${positiveNumber(gameData.awayPointSpreadPayout)}',
                                               ),
                                         gameData.overPayout == null
                                             ? Container()
@@ -210,7 +209,7 @@ class MatchupCard extends StatelessWidget {
                                       ? Container()
                                       : _betButtonSeparator(text: 'ML'),
                                   const SizedBox(height: 2),
-                                  gameData.pointSpreadHomeTeamMoneyLine == null
+                                  gameData.homePointSpreadPayout == null
                                       ? Container()
                                       : _betButtonSeparator(text: 'PTS'),
                                   const SizedBox(height: 1),
@@ -231,7 +230,7 @@ class MatchupCard extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            state.homeTeamData.city,
+                                            state.homeTeamData.school,
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.nunito(
                                               fontSize: 12,
@@ -277,8 +276,7 @@ class MatchupCard extends StatelessWidget {
                                                 text: positiveNumber(
                                                     gameData.homeTeamMoneyLine),
                                               ),
-                                        gameData.pointSpreadHomeTeamMoneyLine ==
-                                                null
+                                        gameData.homePointSpreadPayout == null
                                             ? Container()
                                             : BetButton.route(
                                                 gameId: gameData.gameId,
@@ -290,7 +288,7 @@ class MatchupCard extends StatelessWidget {
                                                   gameName: state.league,
                                                 ),
                                                 mainOdds: gameData
-                                                    .pointSpreadHomeTeamMoneyLine
+                                                    .homePointSpreadPayout
                                                     .toString(),
                                                 betType: Bet.pts,
                                                 awayTeamData:
@@ -299,7 +297,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine)}',
+                                                    '$homeTeamPointSpread     ${positiveNumber(gameData.homePointSpreadPayout)}',
                                               ),
                                         gameData.underPayout == null
                                             ? Container()

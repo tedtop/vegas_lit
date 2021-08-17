@@ -29,8 +29,8 @@ class NcaafBetData extends BetData {
     @required this.homeTeam,
     @required this.awayTeam,
     @required this.awayTeamScore,
-    @required this.homeTeamCity,
-    @required this.awayTeamCity,
+    @required this.homeTeamSchool,
+    @required this.awayTeamSchool,
     @required this.homeTeamScore,
     @required this.totalGameScore,
     @required this.homeTeamName,
@@ -61,8 +61,8 @@ class NcaafBetData extends BetData {
       uid: data['uid'] as String,
       stillOpen: data['stillOpen'] as bool,
       betType: data['betType'] as String,
-      awayTeamCity: data['awayTeamCity'] as String,
-      homeTeamCity: data['homeTeamCity'] as String,
+      awayTeamSchool: data['awayTeamSchool'] as String,
+      homeTeamSchool: data['homeTeamSchool'] as String,
       homeTeam: data['homeTeam'] as String,
       awayTeam: data['awayTeam'] as String,
       betTeam: data['betTeam'] as String,
@@ -95,8 +95,8 @@ class NcaafBetData extends BetData {
   final int awayTeamScore;
   final int homeTeamScore;
   final int totalGameScore;
-  final String homeTeamCity;
-  final String awayTeamCity;
+  final String homeTeamSchool;
+  final String awayTeamSchool;
   final String homeTeamName;
   final String homeTeam;
   final String awayTeamName;
@@ -124,8 +124,8 @@ class NcaafBetData extends BetData {
       'awayTeamScore': awayTeamScore,
       'homeTeamScore': homeTeamScore,
       'username': username,
-      'homeTeamCity': homeTeamCity,
-      'awayTeamCity': awayTeamCity,
+      'homeTeamSchool': homeTeamSchool,
+      'awayTeamSchool': awayTeamSchool,
       'clientVersion': clientVersion,
       'stillOpen': stillOpen,
       'dataProvider': dataProvider,
@@ -168,8 +168,8 @@ class NcaafBetData extends BetData {
         homeTeamName,
         awayTeamName,
         gameId,
-        homeTeamCity,
-        awayTeamCity,
+        homeTeamSchool,
+        awayTeamSchool,
       ]);
   }
 }

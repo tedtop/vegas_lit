@@ -27,7 +27,6 @@ class NflCubit extends Cubit<NflState> {
     const league = 'NFL';
     final estTimeZone = ESTDateTime.fetchTimeEST();
     List<NflGame> totalGames;
-    print('fetching nfl');
     final todayGames = await _sportsfeedRepository
         .fetchNFL(
           dateTime: estTimeZone,

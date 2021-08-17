@@ -115,7 +115,7 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                         Column(
                           children: [
                             Text(
-                              betButtonState.awayTeamData.city,
+                              betButtonState.awayTeamData.school,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
                                 fontSize: 12,
@@ -295,7 +295,7 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                         Column(
                           children: [
                             Text(
-                              betButtonState.homeTeamData.city,
+                              betButtonState.homeTeamData.school,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
                                 fontSize: 12,

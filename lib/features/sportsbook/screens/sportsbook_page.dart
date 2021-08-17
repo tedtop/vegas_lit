@@ -389,7 +389,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 String length;
                 widget.gameNumberList.forEach(
                   (key, newValue) {
-                    if (key == 'NCAAF' || key == 'GOLF') {
+                    if (key == 'GOLF') {
                       length = '$newValue';
                     } else if (key == 'OLYMPICS' && key == value) {
                       length = '$newValue Matches';

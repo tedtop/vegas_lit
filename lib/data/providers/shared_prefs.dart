@@ -2,11 +2,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vegas_lit/config/extensions.dart';
 
 class SharedPreferencesClient {
-  SharedPreferencesClient({SharedPreferences sharedPreferences})
-      : _sharedPreferences =
-            sharedPreferences ?? SharedPreferences.getInstance();
+  SharedPreferencesClient({SharedPreferences sharedPreferences}) {
+    sharedPreferences != null
+        ? _sharedPreferences = sharedPreferences
+        : SharedPreferences.getInstance()
+            .then((instance) => _sharedPreferences = instance);
+  }
 
-  final SharedPreferences _sharedPreferences;
+  SharedPreferences _sharedPreferences;
 
   Future<bool> shouldAskReview() async {
     final today = ESTDateTime.fetchTimeEST();

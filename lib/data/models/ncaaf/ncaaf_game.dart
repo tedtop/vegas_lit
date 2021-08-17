@@ -5,6 +5,7 @@ class NcaafGame {
     this.gameId,
     this.season,
     this.seasonType,
+    this.week,
     this.status,
     this.day,
     this.dateTime,
@@ -12,33 +13,41 @@ class NcaafGame {
     this.homeTeam,
     this.awayTeamId,
     this.homeTeamId,
-    this.stadiumId,
-    this.channel,
-    this.attendance,
+    this.awayTeamName,
+    this.homeTeamName,
     this.awayTeamScore,
     this.homeTeamScore,
-    this.updated,
-    this.quarter,
+    this.period,
     this.timeRemainingMinutes,
     this.timeRemainingSeconds,
     this.pointSpread,
     this.overUnder,
     this.awayTeamMoneyLine,
     this.homeTeamMoneyLine,
+    this.updated,
+    this.created,
     this.globalGameId,
     this.globalAwayTeamId,
     this.globalHomeTeamId,
-    this.pointSpreadAwayTeamMoneyLine,
-    this.pointSpreadHomeTeamMoneyLine,
-    this.lastPlay,
+    this.stadiumId,
+    this.yardLine,
+    this.yardLineTerritory,
+    this.down,
+    this.distance,
+    this.possession,
     this.isClosed,
     this.gameEndDateTime,
+    this.title,
     this.homeRotationNumber,
     this.awayRotationNumber,
+    this.channel,
     this.neutralVenue,
+    this.awayPointSpreadPayout,
+    this.homePointSpreadPayout,
     this.overPayout,
     this.underPayout,
-    this.quarters,
+    this.stadium,
+    this.periods,
   });
 
   factory NcaafGame.fromJson(String str) => NcaafGame.fromMap(json.decode(str));
@@ -47,53 +56,57 @@ class NcaafGame {
         gameId: json['GameID'],
         season: json['Season'],
         seasonType: json['SeasonType'],
+        week: json['Week'],
         status: json['Status'],
-        day: json['Day'] == null ? null : DateTime.parse(json['Day']),
-        dateTime:
-            json['DateTime'] == null ? null : DateTime.parse(json['DateTime']),
+        day: DateTime.parse(json['Day']),
+        dateTime: DateTime.parse(json['DateTime']),
         awayTeam: json['AwayTeam'],
         homeTeam: json['HomeTeam'],
         awayTeamId: json['AwayTeamID'],
         homeTeamId: json['HomeTeamID'],
-        stadiumId: json['StadiumID'],
-        channel: json['Channel'],
-        attendance: json['Attendance'],
+        awayTeamName: json['AwayTeamName'],
+        homeTeamName: json['HomeTeamName'],
         awayTeamScore: json['AwayTeamScore'],
         homeTeamScore: json['HomeTeamScore'],
-        updated:
-            json['Updated'] == null ? null : DateTime.parse(json['Updated']),
-        quarter: json['Quarter'],
+        period: json['Period'],
         timeRemainingMinutes: json['TimeRemainingMinutes'],
         timeRemainingSeconds: json['TimeRemainingSeconds'],
-        pointSpread: json['PointSpread'] == null
-            ? null
-            : double.tryParse(json['PointSpread'].toString()),
-        overUnder: json['OverUnder'] == null
-            ? null
-            : double.tryParse(json['OverUnder'].toString()),
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'] ?? 100,
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'] ?? -100,
+        pointSpread:
+            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
+        overUnder:
+            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'],
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'],
+        updated: DateTime.parse(json['Updated']),
+        created: DateTime.parse(json['Created']),
         globalGameId: json['GlobalGameID'],
         globalAwayTeamId: json['GlobalAwayTeamID'],
         globalHomeTeamId: json['GlobalHomeTeamID'],
-        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
-        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
-        lastPlay: json['LastPlay'],
+        stadiumId: json['StadiumID'],
+        yardLine: json['YardLine'],
+        yardLineTerritory: json['YardLineTerritory'],
+        down: json['Down'],
+        distance: json['Distance'],
+        possession: json['Possession'],
         isClosed: json['IsClosed'],
         gameEndDateTime: json['GameEndDateTime'],
+        title: json['Title'],
         homeRotationNumber: json['HomeRotationNumber'],
         awayRotationNumber: json['AwayRotationNumber'],
+        channel: json['Channel'],
         neutralVenue: json['NeutralVenue'],
+        awayPointSpreadPayout: json['AwayPointSpreadPayout'],
+        homePointSpreadPayout: json['HomePointSpreadPayout'],
         overPayout: json['OverPayout'],
         underPayout: json['UnderPayout'],
-        quarters: json['Quarters'] == null
-            ? null
-            : List<dynamic>.from(json['Quarters'].map((x) => x)),
+        stadium: json['Stadium'],
+        periods: List<dynamic>.from(json['Periods'].map((x) => x)),
       );
 
   final int gameId;
   final int season;
   final int seasonType;
+  final int week;
   final String status;
   final DateTime day;
   final DateTime dateTime;
@@ -101,38 +114,47 @@ class NcaafGame {
   final String homeTeam;
   final int awayTeamId;
   final int homeTeamId;
-  final int stadiumId;
-  final String channel;
-  final dynamic attendance;
+  final String awayTeamName;
+  final String homeTeamName;
   final dynamic awayTeamScore;
   final dynamic homeTeamScore;
-  final DateTime updated;
-  final dynamic quarter;
+  final dynamic period;
   final dynamic timeRemainingMinutes;
   final dynamic timeRemainingSeconds;
   final double pointSpread;
   final double overUnder;
   final int awayTeamMoneyLine;
   final int homeTeamMoneyLine;
+  final DateTime updated;
+  final DateTime created;
   final int globalGameId;
   final int globalAwayTeamId;
   final int globalHomeTeamId;
-  final int pointSpreadAwayTeamMoneyLine;
-  final int pointSpreadHomeTeamMoneyLine;
-  final dynamic lastPlay;
+  final int stadiumId;
+  final dynamic yardLine;
+  final dynamic yardLineTerritory;
+  final dynamic down;
+  final dynamic distance;
+  final dynamic possession;
   final bool isClosed;
   final dynamic gameEndDateTime;
+  final dynamic title;
   final int homeRotationNumber;
   final int awayRotationNumber;
+  final String channel;
   final bool neutralVenue;
+  final int awayPointSpreadPayout;
+  final int homePointSpreadPayout;
   final int overPayout;
   final int underPayout;
-  final List<dynamic> quarters;
+  final dynamic stadium;
+  final List<dynamic> periods;
 
   NcaafGame copyWith({
     int gameId,
     int season,
     int seasonType,
+    int week,
     String status,
     DateTime day,
     DateTime dateTime,
@@ -140,38 +162,47 @@ class NcaafGame {
     String homeTeam,
     int awayTeamId,
     int homeTeamId,
-    int stadiumId,
-    String channel,
-    dynamic attendance,
+    String awayTeamName,
+    String homeTeamName,
     dynamic awayTeamScore,
     dynamic homeTeamScore,
-    DateTime updated,
-    dynamic quarter,
+    dynamic period,
     dynamic timeRemainingMinutes,
     dynamic timeRemainingSeconds,
     double pointSpread,
     double overUnder,
     int awayTeamMoneyLine,
     int homeTeamMoneyLine,
+    DateTime updated,
+    DateTime created,
     int globalGameId,
     int globalAwayTeamId,
     int globalHomeTeamId,
-    int pointSpreadAwayTeamMoneyLine,
-    int pointSpreadHomeTeamMoneyLine,
-    dynamic lastPlay,
+    int stadiumId,
+    dynamic yardLine,
+    dynamic yardLineTerritory,
+    dynamic down,
+    dynamic distance,
+    dynamic possession,
     bool isClosed,
     dynamic gameEndDateTime,
+    dynamic title,
     int homeRotationNumber,
     int awayRotationNumber,
+    String channel,
     bool neutralVenue,
+    int awayPointSpreadPayout,
+    int homePointSpreadPayout,
     int overPayout,
     int underPayout,
-    List<dynamic> quarters,
+    dynamic stadium,
+    List<dynamic> periods,
   }) =>
       NcaafGame(
         gameId: gameId ?? this.gameId,
         season: season ?? this.season,
         seasonType: seasonType ?? this.seasonType,
+        week: week ?? this.week,
         status: status ?? this.status,
         day: day ?? this.day,
         dateTime: dateTime ?? this.dateTime,
@@ -179,78 +210,92 @@ class NcaafGame {
         homeTeam: homeTeam ?? this.homeTeam,
         awayTeamId: awayTeamId ?? this.awayTeamId,
         homeTeamId: homeTeamId ?? this.homeTeamId,
-        stadiumId: stadiumId ?? this.stadiumId,
-        channel: channel ?? this.channel,
-        attendance: attendance ?? this.attendance,
+        awayTeamName: awayTeamName ?? this.awayTeamName,
+        homeTeamName: homeTeamName ?? this.homeTeamName,
         awayTeamScore: awayTeamScore ?? this.awayTeamScore,
         homeTeamScore: homeTeamScore ?? this.homeTeamScore,
-        updated: updated ?? this.updated,
-        quarter: quarter ?? this.quarter,
+        period: period ?? this.period,
         timeRemainingMinutes: timeRemainingMinutes ?? this.timeRemainingMinutes,
         timeRemainingSeconds: timeRemainingSeconds ?? this.timeRemainingSeconds,
         pointSpread: pointSpread ?? this.pointSpread,
         overUnder: overUnder ?? this.overUnder,
         awayTeamMoneyLine: awayTeamMoneyLine ?? this.awayTeamMoneyLine,
         homeTeamMoneyLine: homeTeamMoneyLine ?? this.homeTeamMoneyLine,
+        updated: updated ?? this.updated,
+        created: created ?? this.created,
         globalGameId: globalGameId ?? this.globalGameId,
         globalAwayTeamId: globalAwayTeamId ?? this.globalAwayTeamId,
         globalHomeTeamId: globalHomeTeamId ?? this.globalHomeTeamId,
-        pointSpreadAwayTeamMoneyLine:
-            pointSpreadAwayTeamMoneyLine ?? this.pointSpreadAwayTeamMoneyLine,
-        pointSpreadHomeTeamMoneyLine:
-            pointSpreadHomeTeamMoneyLine ?? this.pointSpreadHomeTeamMoneyLine,
-        lastPlay: lastPlay ?? this.lastPlay,
+        stadiumId: stadiumId ?? this.stadiumId,
+        yardLine: yardLine ?? this.yardLine,
+        yardLineTerritory: yardLineTerritory ?? this.yardLineTerritory,
+        down: down ?? this.down,
+        distance: distance ?? this.distance,
+        possession: possession ?? this.possession,
         isClosed: isClosed ?? this.isClosed,
         gameEndDateTime: gameEndDateTime ?? this.gameEndDateTime,
+        title: title ?? this.title,
         homeRotationNumber: homeRotationNumber ?? this.homeRotationNumber,
         awayRotationNumber: awayRotationNumber ?? this.awayRotationNumber,
+        channel: channel ?? this.channel,
         neutralVenue: neutralVenue ?? this.neutralVenue,
+        awayPointSpreadPayout:
+            awayPointSpreadPayout ?? this.awayPointSpreadPayout,
+        homePointSpreadPayout:
+            homePointSpreadPayout ?? this.homePointSpreadPayout,
         overPayout: overPayout ?? this.overPayout,
         underPayout: underPayout ?? this.underPayout,
-        quarters: quarters ?? this.quarters,
+        stadium: stadium ?? this.stadium,
+        periods: periods ?? this.periods,
       );
 
   String toJson() => json.encode(toMap());
-
   Map<String, dynamic> toMap() => {
         'GameID': gameId,
         'Season': season,
         'SeasonType': seasonType,
+        'Week': week,
         'Status': status,
-        'Day': day == null ? null : day.toIso8601String(),
-        'DateTime': dateTime == null ? null : dateTime.toIso8601String(),
+        'Day': day.toIso8601String(),
+        'DateTime': dateTime.toIso8601String(),
         'AwayTeam': awayTeam,
         'HomeTeam': homeTeam,
         'AwayTeamID': awayTeamId,
         'HomeTeamID': homeTeamId,
-        'StadiumID': stadiumId,
-        'Channel': channel,
-        'Attendance': attendance,
+        'AwayTeamName': awayTeamName,
+        'HomeTeamName': homeTeamName,
         'AwayTeamScore': awayTeamScore,
         'HomeTeamScore': homeTeamScore,
-        'Updated': updated == null ? null : updated.toIso8601String(),
-        'Quarter': quarter,
+        'Period': period,
         'TimeRemainingMinutes': timeRemainingMinutes,
         'TimeRemainingSeconds': timeRemainingSeconds,
         'PointSpread': pointSpread,
         'OverUnder': overUnder,
         'AwayTeamMoneyLine': awayTeamMoneyLine,
         'HomeTeamMoneyLine': homeTeamMoneyLine,
+        'Updated': updated.toIso8601String(),
+        'Created': created.toIso8601String(),
         'GlobalGameID': globalGameId,
         'GlobalAwayTeamID': globalAwayTeamId,
         'GlobalHomeTeamID': globalHomeTeamId,
-        'PointSpreadAwayTeamMoneyLine': pointSpreadAwayTeamMoneyLine,
-        'PointSpreadHomeTeamMoneyLine': pointSpreadHomeTeamMoneyLine,
-        'LastPlay': lastPlay,
+        'StadiumID': stadiumId,
+        'YardLine': yardLine,
+        'YardLineTerritory': yardLineTerritory,
+        'Down': down,
+        'Distance': distance,
+        'Possession': possession,
         'IsClosed': isClosed,
         'GameEndDateTime': gameEndDateTime,
+        'Title': title,
         'HomeRotationNumber': homeRotationNumber,
         'AwayRotationNumber': awayRotationNumber,
+        'Channel': channel,
         'NeutralVenue': neutralVenue,
+        'AwayPointSpreadPayout': awayPointSpreadPayout,
+        'HomePointSpreadPayout': homePointSpreadPayout,
         'OverPayout': overPayout,
         'UnderPayout': underPayout,
-        'Quarters': quarters == null
-            ? null
-            : List<dynamic>.from(quarters.map((x) => x)),
+        'Stadium': stadium,
+        'Periods': List<dynamic>.from(periods.map((x) => x)),
       };
 }
