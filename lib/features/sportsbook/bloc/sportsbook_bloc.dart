@@ -56,6 +56,8 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       'CRICKET',
     ];
 
+    await _deviceRepository.setDefaultLeague(league: 'MLB');
+    await _deviceRepository.fetchAndActivateRemote();
     final league = _deviceRepository.fetchRemoteLeague();
 
     final gameNumberMap = <String, String>{};

@@ -112,12 +112,6 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin, RouteAwareAnalytics {
   final newVersion = NewVersion();
 
-  @override
-  void initState() {
-    newVersion.showAlertIfNecessary(context: context);
-    super.initState();
-  }
-
   final PageController _pageController = PageController();
   var selectedIndex = 0;
 
@@ -142,6 +136,8 @@ class _HomePageState extends State<HomePage>
           await super.setThisScreenForAnalytics();
         } else if (state.askReview) {
           await context.read<DeviceRepository>().openAppReview();
+        } else if (state.status == HomeStatus.initial) {
+          newVersion.showAlertIfNecessary(context: context);
         }
       },
       child: Stack(

@@ -29,9 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
   StreamSubscription _homeDataSubscription;
 
   Future<void> openHome({@required String uid}) async {
-    await _deviceRepository.setDefaultLeague(league: 'MLB');
-    await _deviceRepository.fetchAndActivateRemote();
-
+    
     final userStream = _userRepository.fetchUserData(uid: uid);
     final walletStream = _userRepository.fetchWalletData(uid: uid);
     await _homeDataSubscription?.cancel();
