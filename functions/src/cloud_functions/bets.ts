@@ -82,19 +82,27 @@ export const resolveBets = functions.pubsub
                           winner: finalWinner,
                         });
 
-                        batch.update(cumulativeVaultRef, {
-                          moneyIn: admin.firestore.FieldValue.increment(
-                            -amountBet
-                          ),
-                          totalBets: admin.firestore.FieldValue.increment(-1),
-                        });
+                        batch.set(
+                          cumulativeVaultRef,
+                          {
+                            moneyIn: admin.firestore.FieldValue.increment(
+                              -amountBet
+                            ),
+                            totalBets: admin.firestore.FieldValue.increment(-1),
+                          },
+                          { merge: true }
+                        );
 
-                        batch.update(dailyVaultRef, {
-                          moneyIn: admin.firestore.FieldValue.increment(
-                            -amountBet
-                          ),
-                          totalBets: admin.firestore.FieldValue.increment(-1),
-                        });
+                        batch.set(
+                          dailyVaultRef,
+                          {
+                            moneyIn: admin.firestore.FieldValue.increment(
+                              -amountBet
+                            ),
+                            totalBets: admin.firestore.FieldValue.increment(-1),
+                          },
+                          { merge: true }
+                        );
 
                         const documentName = getCurrentWeek();
                         if (week == documentName) {
@@ -186,19 +194,27 @@ export const resolveBets = functions.pubsub
                             await sendMessageToSlack(
                               `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
                             );
-                            batch.update(cumulativeVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              cumulativeVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
 
-                            batch.update(dailyVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              dailyVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
                           } else {
                             batch.update(walletRef, {
                               totalOpenBets:
@@ -254,19 +270,27 @@ export const resolveBets = functions.pubsub
                               `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
                             );
 
-                            batch.update(cumulativeVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              cumulativeVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
 
-                            batch.update(dailyVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              dailyVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
                           } else {
                             batch.update(walletRef, {
                               totalOpenBets:
@@ -348,15 +372,27 @@ export const resolveBets = functions.pubsub
                       isClosed: null,
                     });
 
-                    batch.update(cumulativeVaultRef, {
-                      moneyIn: admin.firestore.FieldValue.increment(-amountBet),
-                      totalBets: admin.firestore.FieldValue.increment(-1),
-                    });
+                    batch.set(
+                      cumulativeVaultRef,
+                      {
+                        moneyIn: admin.firestore.FieldValue.increment(
+                          -amountBet
+                        ),
+                        totalBets: admin.firestore.FieldValue.increment(-1),
+                      },
+                      { merge: true }
+                    );
 
-                    batch.update(dailyVaultRef, {
-                      moneyIn: admin.firestore.FieldValue.increment(-amountBet),
-                      totalBets: admin.firestore.FieldValue.increment(-1),
-                    });
+                    batch.set(
+                      dailyVaultRef,
+                      {
+                        moneyIn: admin.firestore.FieldValue.increment(
+                          -amountBet
+                        ),
+                        totalBets: admin.firestore.FieldValue.increment(-1),
+                      },
+                      { merge: true }
+                    );
 
                     const documentName = getCurrentWeek();
                     if (week == documentName) {
@@ -469,19 +505,27 @@ export const resolveBets = functions.pubsub
                             await sendMessageToSlack(
                               `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
                             );
-                            batch.update(cumulativeVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              cumulativeVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
 
-                            batch.update(dailyVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              dailyVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
                           } else {
                             batch.update(walletRef, {
                               totalOpenBets:
@@ -537,19 +581,27 @@ export const resolveBets = functions.pubsub
                               `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
                             );
 
-                            batch.update(cumulativeVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              cumulativeVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
 
-                            batch.update(dailyVaultRef, {
-                              moneyOut:
-                                admin.firestore.FieldValue.increment(
-                                  totalWinAmount
-                                ),
-                            });
+                            batch.set(
+                              dailyVaultRef,
+                              {
+                                moneyOut:
+                                  admin.firestore.FieldValue.increment(
+                                    totalWinAmount
+                                  ),
+                              },
+                              { merge: true }
+                            );
                           } else {
                             batch.update(walletRef, {
                               totalOpenBets:
