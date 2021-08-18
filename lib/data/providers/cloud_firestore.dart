@@ -453,7 +453,11 @@ class CloudFirestoreClient {
   }
 
   Stream<List<Group>> fetchPublicGroups() {
-    final snapshotRef = _firebaseFirestore.collection('groups').snapshots().map(
+    final snapshotRef = _firebaseFirestore
+        .collection('groups')
+        .where('isPublic', isEqualTo: true)
+        .snapshots()
+        .map(
           (event) => event.docs
               .map(
                 (e) => Group.fromFirestore(e),
@@ -463,7 +467,39 @@ class CloudFirestoreClient {
     return snapshotRef;
   }
 
-  Stream<Group> fetchPublicGroup({@required String groupId}) {
+  Stream<List<Group>> fetchPrivateGroups({@required String uid}) {
+    final snapshotRef = _firebaseFirestore
+        .collection('groups')
+        .where('isPublic', isEqualTo: false)
+        .where('users.$uid', isEqualTo: true)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (e) => Group.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return snapshotRef;
+  }
+
+  Stream<List<Group>> fetchGroupRequests({@required String uid}) {
+    final snapshotRef = _firebaseFirestore
+        .collection('groups')
+        .where('isPublic', isEqualTo: false)
+        .where('users.$uid', isEqualTo: false)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (e) => Group.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return snapshotRef;
+  }
+
+  Stream<Group> fetchGroupDetails({@required String groupId}) {
     final snapshotRef =
         _firebaseFirestore.collection('groups').doc(groupId).snapshots().map(
               (e) => Group.fromFirestore(e),
@@ -496,31 +532,70 @@ class CloudFirestoreClient {
         await value.update(
           {'id': value.id},
         );
-        return await _firebaseFirestore
-            .collection('users')
-            .doc('${group.createdBy}')
-            .update(
-          {
-            'groups': FieldValue.arrayUnion([value.id]),
-          },
-        );
       },
     );
   }
 
-  Future<void> addNewUserToGroup(
-      {@required String groupId, @required String userId}) async {
+  Future<void> addNewUserToGroup({
+    @required String groupId,
+    @required Map<String, bool> users,
+  }) async {
     final addNewUserBatch = _firebaseFirestore.batch();
     final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
-    final userRef = _firebaseFirestore.collection('users').doc(userId);
-    addNewUserBatch
-      ..update(groupRef, {
-        'users': FieldValue.arrayUnion([userId])
-      })
-      ..update(userRef, {
-        'groups': FieldValue.arrayUnion([groupId]),
-      });
+
+    addNewUserBatch.update(groupRef, {'users': users});
 
     await addNewUserBatch.commit();
+  }
+
+  Future<void> acceptGroupRequest({
+    @required String groupId,
+    @required String uid,
+  }) async {
+    await _firebaseFirestore
+        .collection('groups')
+        .doc(groupId)
+        .update({'users.$uid': true});
+  }
+
+  Future<void> rejectGroupRequest({
+    @required String groupId,
+    @required String uid,
+  }) async {
+    await _firebaseFirestore.collection('groups').doc(groupId).update(
+      {'users.$uid': FieldValue.delete()},
+    );
+  }
+
+  Future<List<UserData>> searchUserResults({@required String query}) async {
+    final results = await _firebaseFirestore
+        .collection('users')
+        .where('username', isEqualTo: query)
+        .limit(5)
+        .get()
+        .then(
+          (value) => value.docs
+              .map(
+                (e) => UserData.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return results;
+  }
+
+  Future<List<UserData>> searchUserSuggestions({@required String query}) async {
+    final results = await _firebaseFirestore
+        .collection('users')
+        .where('username', isGreaterThanOrEqualTo: query)
+        .limit(5)
+        .get()
+        .then(
+          (value) => value.docs
+              .map(
+                (e) => UserData.fromFirestore(e),
+              )
+              .toList(),
+        );
+    return results;
   }
 }

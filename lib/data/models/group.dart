@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class Group {
+class Group extends Equatable {
   Group({
     @required this.adminId,
     @required this.adminName,
@@ -11,6 +12,7 @@ class Group {
     @required this.id,
     @required this.name,
     @required this.isPublic,
+    @required this.isUnlimited,
     @required this.userLimit,
     @required this.users,
     this.snapshot,
@@ -31,8 +33,9 @@ class Group {
       id: map['id'],
       name: map['name'],
       isPublic: map['isPublic'],
+      isUnlimited: map['isUnlimited'],
       userLimit: map['userLimit'],
-      users: map['users'] != null ? List<String>.from(map['users']) : null,
+      users: map['users'] != null ? Map<String, bool>.from(map['users']) : null,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -51,8 +54,9 @@ class Group {
       id: map['id'],
       name: map['name'],
       isPublic: map['isPublic'],
+      isUnlimited: map['isUnlimited'],
       userLimit: map['userLimit'],
-      users: map['users'] != null ? List<String>.from(map['users']) : null,
+      users: map['users'] != null ? Map<String, bool>.from(map['users']) : null,
     );
   }
 
@@ -65,23 +69,10 @@ class Group {
         'id': id,
         'name': name,
         'isPublic': isPublic,
+        'isUnlimited': isUnlimited,
         'userLimit': userLimit,
         'users': users,
       };
-
-  final String adminId;
-  final String adminName;
-  final DateTime createdAt;
-  final String createdBy;
-  final String description;
-  final String id;
-  final String name;
-  final bool isPublic;
-  final int userLimit;
-  final List<String> users;
-  final DocumentSnapshot snapshot;
-  final DocumentReference reference;
-  final String documentID;
 
   Group copyWith({
     String adminId,
@@ -92,8 +83,9 @@ class Group {
     String id,
     String name,
     bool isPublic,
+    bool isUnlimited,
     int userLimit,
-    List<String> users,
+    Map<String, bool> users,
   }) {
     return Group(
       adminId: adminId ?? this.adminId,
@@ -104,8 +96,44 @@ class Group {
       id: id ?? this.id,
       name: name ?? this.name,
       isPublic: isPublic ?? this.isPublic,
+      isUnlimited: isUnlimited ?? this.isUnlimited,
       userLimit: userLimit ?? this.userLimit,
       users: users ?? this.users,
     );
+  }
+
+  final String adminId;
+  final String adminName;
+  final DateTime createdAt;
+  final String createdBy;
+  final String description;
+  final String id;
+  final String name;
+  final bool isPublic;
+  final bool isUnlimited;
+  final int userLimit;
+  final Map<String, bool> users;
+  final DocumentSnapshot snapshot;
+  final DocumentReference reference;
+  final String documentID;
+
+  @override
+  List<Object> get props {
+    return [
+      adminId,
+      adminName,
+      createdAt,
+      createdBy,
+      description,
+      id,
+      name,
+      isPublic,
+      isUnlimited,
+      userLimit,
+      users,
+      snapshot,
+      reference,
+      documentID,
+    ];
   }
 }

@@ -140,21 +140,21 @@ class _GroupAddState extends State<GroupAdd> {
                       activeColor: Palette.green,
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 150,
-                  //   child: RadioListTile(
-                  //     value: false,
-                  //     groupValue: _isPublic,
-                  //     onChanged: (val) => setState(() {
-                  //       _isPublic = val;
-                  //     }),
-                  //     title: Text(
-                  //       'Private',
-                  //       style: Styles.normalText,
-                  //     ),
-                  //     activeColor: Palette.green,
-                  //   ),
-                  // ),
+                  SizedBox(
+                    width: 150,
+                    child: RadioListTile(
+                      value: false,
+                      groupValue: _isPublic,
+                      onChanged: (val) => setState(() {
+                        _isPublic = val;
+                      }),
+                      title: Text(
+                        'Private',
+                        style: Styles.normalText,
+                      ),
+                      activeColor: Palette.green,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -293,8 +293,9 @@ class _GroupAddState extends State<GroupAdd> {
                                     name: _groupNameController.text,
                                     userLimit:
                                         _isUnlimitedSize ? 0 : _userLimit,
-                                    users: <String>[userData.uid],
+                                    users: {userData.uid: true},
                                     id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
+                                    isUnlimited: _isUnlimitedSize,
                                   ),
                                 );
                           }

@@ -7,8 +7,6 @@ class UserData extends Equatable {
     @required this.uid,
     @required this.username,
     @required this.email,
-    @required this.groups,
-    // @required this.phone,
     @required this.location,
     this.isAdmin,
     this.avatarUrl,
@@ -20,9 +18,7 @@ class UserData extends Equatable {
         isAdmin: data['isAdmin'] ?? false,
         uid: data['uid'] as String,
         email: data['email'] as String,
-        groups: data['groups'] == null ? [] : data['groups'] as List,
         username: data['username'] as String,
-        // phone: data['phone'] as int,
         location: data['location'] as String,
         avatarUrl:
             data['avatarUrl'] != null ? data['avatarUrl'] as String : null);
@@ -31,9 +27,7 @@ class UserData extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'email': email,
-      'groups': groups,
       'username': username,
-      // 'phone': phone,
       'location': location,
       'uid': uid,
       'isAdmin': false,
@@ -44,25 +38,13 @@ class UserData extends Equatable {
   final String uid;
   final String username;
   final String email;
-  // final int phone;
   final String location;
-  final List groups;
   final bool isAdmin;
   final String avatarUrl;
 
   @override
-  List<Object> get props {
-    return [
-      uid,
-      username,
-      email,
-      groups,
-      // phone,
-      location,
-      isAdmin,
-      avatarUrl
-    ];
-  }
+  List<Object> get props =>
+      [uid, username, email, location, isAdmin, avatarUrl];
 
   UserData copyWith({
     String uid,
@@ -70,14 +52,12 @@ class UserData extends Equatable {
     String email,
     String location,
     bool isAdmin,
-    List groups,
     String avatarUrl,
   }) {
     return UserData(
       uid: uid ?? this.uid,
       username: username ?? this.username,
       email: email ?? this.email,
-      groups: groups ?? this.groups,
       location: location ?? this.location,
       isAdmin: isAdmin ?? this.isAdmin,
       avatarUrl: avatarUrl ?? this.avatarUrl,

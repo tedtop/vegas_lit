@@ -5,10 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/models/user.dart';
 
 import 'package:vegas_lit/data/models/wallet.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
+import 'package:vegas_lit/data/repositories/user_repository.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
+import 'package:vegas_lit/features/groups/widgets/group_details/cubit/user_search_cubit.dart';
 
 import 'cubit/group_details_cubit.dart';
 
@@ -23,7 +26,12 @@ class GroupDetails extends StatelessWidget {
           create: (context) => GroupDetailsCubit(
             groupsRepository: context.read<GroupsRepository>(),
           )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
-          child: GroupDetails._(),
+          child: BlocProvider(
+            create: (context) => UserSearchCubit(
+              userRepository: context.read<UserRepository>(),
+            ),
+            child: GroupDetails._(),
+          ),
         );
       },
     );
@@ -242,6 +250,28 @@ class GroupDetailsJoinButton extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  width: 150,
+                  child: DefaultButton(
+                    text: 'Add',
+                    action: () async {
+                      final selectedUser = await showSearch(
+                        context: context,
+                        delegate: UserSearch(
+                          context.read<UserSearchCubit>(),
+                        ),
+                      );
+                      if (selectedUser != null) {
+                        final updatedUsers = state.group.users;
+                        updatedUsers[selectedUser.uid] = false;
+                        await context.read<GroupDetailsCubit>().addNewUser(
+                              groupId: state.group.id,
+                              users: updatedUsers,
+                            );
+                      }
+                    },
+                  ),
+                ),
                 Center(
                   child: state.isMember
                       ? const SizedBox()
@@ -264,8 +294,12 @@ class GroupDetailsJoinButton extends StatelessWidget {
                             child: DefaultButton(
                               text: 'Join',
                               action: () {
+                                final updatedUsers = state.group.users;
+                                updatedUsers[userId] = true;
                                 context.read<GroupDetailsCubit>().addNewUser(
-                                    groupId: state.group.id, userId: userId);
+                                      groupId: state.group.id,
+                                      users: updatedUsers,
+                                    );
                               },
                             ),
                           ),
@@ -508,6 +542,169 @@ class DefaultButton extends StatelessWidget {
           onPressed: action,
         ),
       ),
+    );
+  }
+}
+
+class UserSearch extends SearchDelegate<UserData> {
+  UserSearch(this.userSearchCubit);
+
+  final UserSearchCubit userSearchCubit;
+
+  @override
+  List<Widget> buildActions(BuildContext context) => null;
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const BackButtonIcon(),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    userSearchCubit.searchUserResults(query: query);
+    return BlocBuilder<UserSearchCubit, UserSearchState>(
+      cubit: userSearchCubit,
+      builder: (context, state) {
+        switch (state.status) {
+          case UserSearchStatus.initial:
+            return const SizedBox();
+            break;
+          case UserSearchStatus.loading:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+            break;
+          case UserSearchStatus.success:
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                final userData = state.users[index];
+                return ListTile(
+                  leading: userData.avatarUrl != null && !kIsWeb
+                      ? CircleAvatar(
+                          radius: 25,
+                          backgroundImage: CachedNetworkImageProvider(
+                              userData.avatarUrl,
+                              imageRenderMethodForWeb:
+                                  ImageRenderMethodForWeb.HttpGet),
+                        )
+                      : CircleAvatar(
+                          radius: 25,
+                          child: ClipOval(
+                            child: Container(
+                              alignment: Alignment.center,
+                              color: Palette.darkGrey,
+                              height: 50.0,
+                              width: 50.0,
+                              child: Text(
+                                  userData.username
+                                      .substring(0, 1)
+                                      .toUpperCase(),
+                                  style: Styles.leaderboardUsername),
+                            ),
+                          ),
+                        ),
+                  title: Text(
+                    userData.username,
+                    style: GoogleFonts.nunito(),
+                  ),
+                  onTap: () {
+                    close(
+                      context,
+                      state.users[index],
+                    );
+                  },
+                );
+              },
+              itemCount: state.users.length,
+            );
+
+            break;
+          default:
+            return Text(
+              'Error',
+              style: GoogleFonts.nunito(),
+            );
+        }
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    userSearchCubit.searchUserSuggestions(query: query);
+    return BlocBuilder<UserSearchCubit, UserSearchState>(
+      cubit: userSearchCubit,
+      builder: (context, state) {
+        switch (state.status) {
+          case UserSearchStatus.initial:
+            return const SizedBox();
+            break;
+          case UserSearchStatus.loading:
+            return const Center(
+              child: SizedBox(
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(),
+              ),
+            );
+            break;
+          case UserSearchStatus.success:
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                final userData = state.users[index];
+                return ListTile(
+                  leading: userData.avatarUrl != null && !kIsWeb
+                      ? CircleAvatar(
+                          radius: 25,
+                          backgroundImage: CachedNetworkImageProvider(
+                              userData.avatarUrl,
+                              imageRenderMethodForWeb:
+                                  ImageRenderMethodForWeb.HttpGet),
+                        )
+                      : CircleAvatar(
+                          radius: 25,
+                          child: ClipOval(
+                            child: Container(
+                              alignment: Alignment.center,
+                              color: Palette.darkGrey,
+                              height: 50.0,
+                              width: 50.0,
+                              child: Text(
+                                  userData.username
+                                      .substring(0, 1)
+                                      .toUpperCase(),
+                                  style: Styles.leaderboardUsername),
+                            ),
+                          ),
+                        ),
+                  title: Text(
+                    userData.username,
+                    style: GoogleFonts.nunito(),
+                  ),
+                  onTap: () {
+                    close(
+                      context,
+                      state.users[index],
+                    );
+                  },
+                );
+              },
+              itemCount: state.users.length,
+            );
+
+            break;
+          default:
+            return Text(
+              'Error',
+              style: GoogleFonts.nunito(),
+            );
+        }
+      },
     );
   }
 }

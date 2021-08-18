@@ -109,4 +109,10 @@ class UserRepository {
   Future<void> rewardForVideoAd(
           {@required String uid, @required int rewardValue}) =>
       _databaseProvider.rewardBalance(uid: uid, rewardValue: rewardValue);
+
+  Future<List<UserData>> searchUserResults({@required String query}) =>
+      _databaseProvider.searchUserResults(query: query);
+
+  Future<List<UserData>> searchUserSuggestions({@required String query}) =>
+      _databaseProvider.searchUserSuggestions(query: query);
 }

@@ -131,7 +131,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               Navigator.push(
                 context,
                 GroupsPage.route(
-                  homeCubit: context.read<HomeCubit>(),
+                  cubit: context.read<HomeCubit>(),
                 ),
               );
             },

@@ -27,19 +27,23 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
       GroupDetailsState(status: GroupDetailsStatus.loading),
     );
 
-    final groupStream = _groupsRepository.fetchPublicGroup(groupId: groupId);
+    final groupStream = _groupsRepository.fetchGroupDetails(groupId: groupId);
 
     await _groupDetailsSubscription?.cancel();
     _groupDetailsSubscription = groupStream.listen(
       (group) async {
+        final filteredMap = Map<String, bool>.from(group.users)
+          ..removeWhere((k, v) => v == false);
+        final userList = filteredMap.keys.toList();
         final leaderboardList = await _groupsRepository.fetchGroupLeaderboard(
-            userList: group.users);
+          userList: userList,
+        );
         leaderboardList.sort(
           (a, b) => (a.rank).compareTo(b.rank),
         );
         final leaderboardListWithRank =
             leaderboardList.where((element) => element.rank != 0).toList();
-        final isMember = group.users.contains(userId);
+        final isMember = userList.contains(userId);
         emit(
           GroupDetailsState(
             status: GroupDetailsStatus.complete,
@@ -52,9 +56,11 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
     );
   }
 
-  Future<void> addNewUser(
-      {@required String groupId, @required String userId}) async {
-    await _groupsRepository.addNewUserToGroup(groupId: groupId, userId: userId);
+  Future<void> addNewUser({
+    @required String groupId,
+    @required Map<String, bool> users,
+  }) async {
+    await _groupsRepository.addNewUserToGroup(groupId: groupId, users: users);
   }
 
   @override

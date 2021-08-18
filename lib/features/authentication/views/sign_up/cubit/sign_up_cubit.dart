@@ -168,7 +168,6 @@ class SignUpCubit extends Cubit<SignUpState> {
           email: state.email.value,
           uid: currentUser.uid,
           username: state.username.value,
-          groups: [],
         ),
       );
       _authenticationBloc.add(CheckProfileComplete(currentUser));
