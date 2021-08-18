@@ -247,49 +247,48 @@ class GroupDetailsJoinButton extends StatelessWidget {
             );
             break;
           case GroupDetailsStatus.complete:
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 150,
-                  child: DefaultButton(
-                    text: 'Add',
-                    action: () async {
-                      final selectedUser = await showSearch(
-                        context: context,
-                        delegate: UserSearch(
-                          context.read<UserSearchCubit>(),
-                        ),
-                      );
-                      if (selectedUser != null) {
-                        final updatedUsers = state.group.users;
-                        updatedUsers[selectedUser.uid] = false;
-                        await context.read<GroupDetailsCubit>().addNewUser(
-                              groupId: state.group.id,
-                              users: updatedUsers,
-                            );
-                      }
-                    },
+            return Visibility(
+              visible: state.group.userLimit == 0
+                  ? true
+                  : state.group.userLimit >= state.group.users.length + 1,
+              replacement: SizedBox(
+                height: 60,
+                child: Center(
+                  child: Text(
+                    'Group Members Limit Exceeded.',
+                    style: Styles.normalText,
                   ),
                 ),
-                Center(
-                  child: state.isMember
-                      ? const SizedBox()
-                      : Visibility(
-                          visible: state.group.userLimit == 0
-                              ? true
-                              : state.group.userLimit >=
-                                  state.group.users.length + 1,
-                          replacement: SizedBox(
-                            height: 60,
-                            child: Center(
-                              child: Text(
-                                'Group Members Limit Exceeded.',
-                                style: Styles.normalText,
-                              ),
-                            ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 150,
+                    child: DefaultButton(
+                      text: 'Add',
+                      action: () async {
+                        final selectedUser = await showSearch(
+                          context: context,
+                          delegate: UserSearch(
+                            context.read<UserSearchCubit>(),
                           ),
-                          child: SizedBox(
+                        );
+                        if (selectedUser != null) {
+                          final updatedUsers = state.group.users;
+                          updatedUsers[selectedUser.uid] = false;
+                          await context.read<GroupDetailsCubit>().addNewUser(
+                                groupId: state.group.id,
+                                users: updatedUsers,
+                              );
+                        }
+                      },
+                    ),
+                  ),
+                  Center(
+                    child: state.isMember
+                        ? const SizedBox()
+                        : SizedBox(
                             width: 150,
                             child: DefaultButton(
                               text: 'Join',
@@ -303,9 +302,9 @@ class GroupDetailsJoinButton extends StatelessWidget {
                               },
                             ),
                           ),
-                        ),
-                ),
-              ],
+                  ),
+                ],
+              ),
             );
             break;
           default:

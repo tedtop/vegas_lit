@@ -237,7 +237,7 @@ class _GroupAddState extends State<GroupAdd> {
                           if (!_isUnlimitedSize) {
                             if (value.isEmpty) {
                               return 'Required';
-                            } else if (int.tryParse(value) < 1) {
+                            } else if (int.tryParse(value) <= 1) {
                               return 'Invalid value';
                             } else if (int.parse(value) > 250) {
                               return 'Maximum 250 members allowed';
