@@ -324,6 +324,10 @@ export const resolveBets = functions.pubsub
                 .catch(function (error: any) {
                   console.log(error);
                 });
+            } else if (league == "nfl") {
+              console.log("WIP");
+            } else if (league == "cfb") {
+              console.log("WIP");
             } else {
               const batch = admin.firestore().batch();
 
@@ -852,6 +856,12 @@ export const resolveBets = functions.pubsub
           break;
         case "ccb":
           return "c4ddc8ca2fcd4c659c0910eabc75a4c6";
+          break;
+        case "nfl":
+          return "f45a65cc1d7642f7950644d49ec749fc";
+          break;
+        case "cfb":
+          return "bb98e463c5e34a86bb246ff4574a598f";
           break;
         default:
           return "";
