@@ -275,12 +275,38 @@ class GroupDetailsJoinButton extends StatelessWidget {
                           ),
                         );
                         if (selectedUser != null) {
-                          final updatedUsers = state.group.users;
-                          updatedUsers[selectedUser.uid] = false;
-                          await context.read<GroupDetailsCubit>().addNewUser(
-                                groupId: state.group.id,
-                                users: updatedUsers,
+                          if (state.group.users.containsKey(selectedUser.uid)) {
+                            ScaffoldMessenger.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  duration: const Duration(milliseconds: 2000),
+                                  content: Text(
+                                    'User already added',
+                                    style: GoogleFonts.nunito(),
+                                  ),
+                                ),
                               );
+                          } else {
+                            final updatedUsers = state.group.users;
+                            updatedUsers[selectedUser.uid] = false;
+                            await context.read<GroupDetailsCubit>().addNewUser(
+                                  groupId: state.group.id,
+                                  users: updatedUsers,
+                                );
+
+                            ScaffoldMessenger.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  duration: const Duration(milliseconds: 2000),
+                                  content: Text(
+                                    'Group request sent to ${selectedUser.username}',
+                                    style: GoogleFonts.nunito(),
+                                  ),
+                                ),
+                              );
+                          }
                         }
                       },
                     ),
