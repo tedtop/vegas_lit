@@ -43,7 +43,7 @@ export const resolveBets = functions.pubsub
               .doc("cumulative");
 
             const betDateInVaultFormat =
-              moment(betPlacedTime).format("yyyy-MM-dd");
+              moment(betPlacedTime).format("yyyy-MM-DD");
 
             const dailyVaultRef = admin
               .firestore()
