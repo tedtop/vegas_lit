@@ -250,7 +250,7 @@ class StatsBox extends StatelessWidget {
   List<Widget> _statMapToList() {
     return statMap.keys.map(
       (key) {
-        if (statMap[key] != null)
+        if (statMap[key] != null && statMap[key] != 0)
           return StatsText(
             leftText: key,
             rightText: statMap[key],
