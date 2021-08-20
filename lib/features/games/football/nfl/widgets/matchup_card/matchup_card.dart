@@ -350,7 +350,7 @@ class MatchupCard extends StatelessWidget {
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {
                                 return Text(
-                                  '${gameData.status}',
+                                  'Scheduled',
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
                                     fontSize: 15,
