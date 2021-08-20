@@ -24,8 +24,8 @@ class PlayerDetailsPage extends StatelessWidget {
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
         create: (_) => PlayerDetailsCubit(
-            sportsRepository: context.read<SportsRepository>())
-          ..getPlayerDetails(playerId: playerId),
+            sportsRepository: context.read<SportsRepository>()),
+        // ..getPlayerDetails(playerId: playerId)
         child: PlayerDetailsPage(
             playerId: playerId,
             gameName: gameName,
@@ -54,21 +54,21 @@ class PlayerDetailsPage extends StatelessWidget {
           const SizedBox(height: 12),
           _playerBadge(size, playerDetails),
           _playerDescription(playerDetails),
-          BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
-            builder: (context, state) {
-              if (state is PlayerDetailsOpened) {
-                return StatsBox(statMap: state.playerStats.toStatOnlyMap());
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-          ),
+          // BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
+          //   builder: (context, state) {
+          //     if (state is PlayerDetailsOpened) {
+          //       return StatsBox(statMap: state.playerStats.toStatOnlyMap());
+          //     } else {
+          //       return const Padding(
+          //         padding: EdgeInsets.all(20.0),
+          //         child: Center(
+          //             child: CircularProgressIndicator(
+          //           color: Palette.cream,
+          //         )),
+          //       );
+          //     }
+          //   },
+          // ),
           _playerInjury(playerDetails)
           //_buildProfileWidget(size),
         ],

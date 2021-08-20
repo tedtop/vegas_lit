@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mime/mime.dart';
 import 'package:vegas_lit/data/models/nfl/nfl_team_stats.dart';
 import 'package:vegas_lit/utils/app_bar.dart';
 
@@ -229,10 +232,25 @@ class TeamInfoView extends StatelessWidget {
             width: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
             child: teamData.wikipediaLogoUrl != null
-                ? SvgPicture.network(
-                    teamData.wikipediaLogoUrl,
-                    fit: BoxFit.fill,
-                    height: 100,
+                ? Builder(
+                    builder: (context) {
+                      final mimeStr = lookupMimeType(teamData.wikipediaLogoUrl);
+                      final fileType = mimeStr.split('/');
+                      print(fileType);
+                      if (fileType[1] == 'svg+xml') {
+                        return SvgPicture.network(
+                          teamData.wikipediaLogoUrl,
+                          fit: BoxFit.fill,
+                          height: 100,
+                        );
+                      } else {
+                        return Image.network(
+                          teamData.wikipediaLogoUrl,
+                          fit: BoxFit.fill,
+                          height: 100,
+                        );
+                      }
+                    },
                   )
                 : SizedBox(
                     height: 100,

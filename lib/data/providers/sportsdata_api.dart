@@ -394,7 +394,7 @@ class SportsdataApiClient {
       {@required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
     final response = await _dio.get(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}PRE?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
       return parsed
@@ -428,7 +428,7 @@ class SportsdataApiClient {
       {@required String playerId, @required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
     final response = await _dio.get(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayerID/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayerID/${dateTime.year}PRE/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data));
