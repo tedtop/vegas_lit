@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/config/routes.dart';
 import 'package:vegas_lit/utils/route_aware_analytics.dart';

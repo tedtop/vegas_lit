@@ -8,7 +8,6 @@ import 'package:vegas_lit/data/models/group.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
 import 'package:vegas_lit/features/groups/widgets/group_add/group_add.dart';
-import 'package:vegas_lit/features/groups/widgets/group_details/group_details.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 import 'cubit/group_requests_cubit.dart';
