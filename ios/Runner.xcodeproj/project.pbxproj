@@ -188,7 +188,10 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				81E3065E603A84274F7E696E /* [CP] Embed Pods Frameworks */,
+<<<<<<< HEAD
 				3311608B36DC051E9838F3C1 /* [CP] Copy Pods Resources */,
+=======
+>>>>>>> release/1.1.0
 				9FD8CB1526B2599500B7B597 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -271,6 +274,7 @@
 		};
 		9FD8CB0726B2599500B7B597 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+<<<<<<< HEAD
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -281,21 +285,16 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3311608B36DC051E9838F3C1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
+=======
+>>>>>>> release/1.1.0
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
