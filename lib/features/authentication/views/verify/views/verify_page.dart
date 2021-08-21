@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +20,10 @@ class VerifyPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              const AutoSizeText(
                   'Your Email isn\'t verified. Please check your inbox.'),
               ElevatedButton(
-                child: const Text('Go Back'),
+                child: const AutoSizeText('Go Back'),
                 onPressed: () {
                   context.read<AuthenticationBloc>().add(
                         AuthenticationLogoutRequested(),

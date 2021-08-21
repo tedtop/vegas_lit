@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -136,7 +137,7 @@ class BottomBar extends StatelessWidget {
                       //height: sizeInfo.isDesktop ? 20 : 0,
                       width: 5,
                     ),
-                    Text(
+                    AutoSizeText(
                       'Copyright © 2021 | VEGAS LIT',
                       style: Styles.bottomBarType,
                     ),
@@ -159,7 +160,7 @@ class BottomBarColumn extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(heading, style: Styles.bottomBarHeading),
+          AutoSizeText(heading, style: Styles.bottomBarHeading),
           const SizedBox(
             height: 10,
           ),
@@ -168,7 +169,8 @@ class BottomBarColumn extends StatelessWidget {
                     children: [
                       TextButton(
                           onPressed: content[text],
-                          child: Text(text, style: Styles.bottomBarNormal)),
+                          child: AutoSizeText(text,
+                              style: Styles.bottomBarNormal)),
                       const SizedBox(height: 5),
                     ],
                   ))
@@ -189,11 +191,11 @@ class InfoText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        AutoSizeText(
           '$type: ',
           style: Styles.bottomBarType,
         ),
-        Text(
+        AutoSizeText(
           text,
           style: Styles.bottomBarNormal,
         )

@@ -1,17 +1,18 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
-import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../utils/bottom_bar.dart';
+import '../../../games/baseball/mlb/widgets/mlb_open_bet_card.dart';
+import '../../../games/basketball/nba/widgets/nba_open_bet_card.dart';
+import '../../../games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
+import '../../../games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
+import '../../../games/football/nfl/widgets/nfl_open_bet_card.dart';
+import '../../../games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+import '../../../games/olympics/widgets/olympic_open_bet_card.dart';
 import '../../../home/home.dart';
 import '../../cubit/open_bets_cubit.dart';
 
@@ -39,7 +40,7 @@ class _MobileOpenBetsHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
+          child: AutoSizeText(
             'OPEN BETS',
             style: Styles.pageTitle,
           ),
@@ -113,7 +114,7 @@ class _MobileOpenBetsContent extends StatelessWidget {
         break;
       case OpenBetsStatus.failure:
         return const Center(
-          child: Text('Some Error Occured'),
+          child: AutoSizeText('Some Error Occured'),
         );
         break;
       default:
@@ -180,7 +181,7 @@ class _MobileOpenBetsContentEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: Text(
+      child: AutoSizeText(
         // ignore: lines_longer_than_80_chars
         'No bets placed. \nPlace some bets to show them here.',
         textAlign: TextAlign.center,

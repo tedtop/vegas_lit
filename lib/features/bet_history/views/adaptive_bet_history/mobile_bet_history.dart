@@ -1,20 +1,21 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/bet_history/widgets/bet_history_board_content.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_bet_history_card.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_bet_history_card.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_bet_history_card.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
-import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_card.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/olympic_bet_history_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../utils/bottom_bar.dart';
+import '../../../games/baseball/mlb/widgets/mlb_bet_history_card.dart';
+import '../../../games/basketball/nba/widgets/nba_bet_history_card.dart';
+import '../../../games/basketball/ncaab/widgets/ncaab_bet_history_card.dart';
+import '../../../games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
+import '../../../games/football/nfl/widgets/nfl_bet_history_card.dart';
+import '../../../games/hockey/nhl/widgets/nhl_bet_history_card.dart';
+import '../../../games/olympics/widgets/olympic_bet_history_card.dart';
 import '../../cubit/history_cubit.dart';
+import '../../widgets/bet_history_board_content.dart';
 
 class MobileBetHistory extends StatelessWidget {
   @override
@@ -40,7 +41,7 @@ class MobileBetHistory extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 160),
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                   "Couldn't load bet history data",
                   style: GoogleFonts.nunito(),
                 ),
@@ -58,7 +59,7 @@ class MobileBetHistory extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 160),
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                   'No Records Found',
                   style: GoogleFonts.nunito(),
                 ),
@@ -108,7 +109,7 @@ class _MobileHistoryBoard extends StatelessWidget {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Text(
+                child: AutoSizeText(
                   "Couldn't load bet history data",
                   style: GoogleFonts.nunito(),
                 ),
@@ -148,7 +149,7 @@ class _MobileHistoryContent extends StatelessWidget {
         return const _MobileHistoryList();
       case HistoryStatus.failure:
         return Center(
-          child: Text(
+          child: AutoSizeText(
             "Couldn't load bet history data",
             style: GoogleFonts.nunito(),
           ),
@@ -213,7 +214,7 @@ class _MobileHistoryEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: Text(
+      child: AutoSizeText(
         'No bets resolved yet.',
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
@@ -232,7 +233,7 @@ class _MobileHistoryHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
+          child: AutoSizeText(
             'BET HISTORY',
             style: Styles.pageTitle,
           ),
@@ -298,7 +299,7 @@ class _MobileHistoryDropdown extends StatelessWidget {
                         }
                         return DropdownMenuItem<String>(
                           value: weekValue,
-                          child: Text(
+                          child: AutoSizeText(
                             weekFormat.toString(),
                             textAlign: TextAlign.left,
                             style: Styles.leaderboardDropdown,

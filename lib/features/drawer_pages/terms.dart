@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../config/assets.dart';
 import '../../config/palette.dart';
 import '../../config/styles.dart';
@@ -48,7 +50,7 @@ class _TermsOfServiceHeading extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        AutoSizeText(
           'TERMS OF SERVICE',
           style: Styles.pageTitle,
         ),
@@ -66,7 +68,7 @@ class _TermsOfServiceContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: Text(
+      child: AutoSizeText(
         // ignore: lines_longer_than_80_chars
         'WORK IN PROGRESS\n Come Back Later.',
         textAlign: TextAlign.center,

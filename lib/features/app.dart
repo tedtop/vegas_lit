@@ -2,14 +2,14 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:vegas_lit/data/repositories/device_repository.dart';
-import 'package:vegas_lit/utils/route_aware_analytics.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
+
 import '../config/themes.dart';
 import '../data/repositories/bets_repository.dart';
+import '../data/repositories/device_repository.dart';
+import '../data/repositories/groups_repository.dart';
 import '../data/repositories/sports_repository.dart';
 import '../data/repositories/user_repository.dart';
-
+import '../utils/route_aware_analytics.dart';
 import 'authentication/bloc/authentication_bloc.dart';
 import 'authentication/views/login/login.dart';
 import 'authentication/views/sign_up/sign_up.dart';

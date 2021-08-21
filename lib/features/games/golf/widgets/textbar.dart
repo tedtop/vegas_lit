@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../config/palette.dart';
 
 class TextBar extends StatelessWidget {
@@ -52,7 +54,7 @@ class TextBar extends StatelessWidget {
               onChanged: onPress,
               items: textList.map<DropdownMenuItem<String>>((element) {
                 return DropdownMenuItem<String>(
-                  child: Text(element),
+                  child: AutoSizeText(element),
                   value: element,
                 );
               }).toList(),

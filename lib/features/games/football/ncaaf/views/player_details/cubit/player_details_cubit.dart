@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_player_stats.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
+import '../../../../../../../config/extensions.dart';
+import '../../../../../../../data/models/ncaaf/ncaaf_player_stats.dart';
+import '../../../../../../../data/repositories/sports_repository.dart';
 
 part 'player_details_state.dart';
 

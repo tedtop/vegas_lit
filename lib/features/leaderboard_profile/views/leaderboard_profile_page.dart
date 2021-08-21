@@ -1,13 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/config/routes.dart';
-import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../../config/palette.dart';
+import '../../../config/routes.dart';
 import '../../../data/repositories/user_repository.dart';
+import '../../../utils/route_aware_analytics.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../cubit/leaderboard_profile_cubit.dart';
 import 'adaptive_bet_history/desktop_leaderboard_profile.dart';
@@ -32,7 +33,7 @@ class LeaderboardProfile extends StatefulWidget {
           child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text(
+              title: AutoSizeText(
                 'PROFILE',
                 style: GoogleFonts.nunito(
                   fontSize: 30,

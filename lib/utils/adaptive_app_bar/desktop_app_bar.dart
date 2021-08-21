@@ -1,11 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
+import '../../features/bet_slip/cubit/bet_slip_cubit.dart';
+import '../../features/home/cubit/home_cubit.dart';
 
 AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
   return AppBar(
@@ -94,7 +95,7 @@ class _DesktopAppBarItemState extends State<DesktopAppBarItem> {
               },
               hoverColor: Colors.transparent,
               onTap: () => context.read<HomeCubit>().homeChange(widget.index),
-              child: Text(
+              child: AutoSizeText(
                 widget.title,
                 style: _isHovering || widget.isSelected
                     ? GoogleFonts.nunito(

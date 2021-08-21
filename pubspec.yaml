@@ -8,6 +8,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  auto_size_text: ^2.1.0
   bloc: ^6.1.1
   cached_network_image: ^3.0.0
   carousel_slider: ^3.0.0

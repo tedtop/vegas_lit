@@ -1,19 +1,20 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_bet_history_card.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_bet_history_card.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_bet_history_card.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
-import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_card.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
-import 'package:vegas_lit/features/leaderboard_profile/widgets/leaderboard_profile_board_content.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../utils/bottom_bar.dart';
+import '../../../games/baseball/mlb/widgets/mlb_bet_history_card.dart';
+import '../../../games/basketball/nba/widgets/nba_bet_history_card.dart';
+import '../../../games/basketball/ncaab/widgets/ncaab_bet_history_card.dart';
+import '../../../games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
+import '../../../games/football/nfl/widgets/nfl_bet_history_card.dart';
+import '../../../games/hockey/nhl/widgets/nhl_bet_history_card.dart';
 import '../../cubit/leaderboard_profile_cubit.dart';
+import '../../widgets/leaderboard_profile_board_content.dart';
 
 class TabletLeaderboardProfile extends StatelessWidget {
   @override
@@ -64,7 +65,7 @@ class _TabletHistoryBoard extends StatelessWidget {
             break;
           case LeaderboardProfileStatus.failure:
             return const Center(
-              child: Text('Some error occured.'),
+              child: AutoSizeText('Some error occured.'),
             );
             break;
           default:
@@ -102,7 +103,7 @@ class _TabletHistoryContent extends StatelessWidget {
         return const _TabletHistoryList();
       case LeaderboardProfileStatus.failure:
         return const Center(
-          child: Text("Couldn't load bet history data"),
+          child: AutoSizeText("Couldn't load bet history data"),
         );
       default:
         return const SizedBox();
@@ -191,7 +192,7 @@ class _TabletHistoryEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: Text(
+      child: AutoSizeText(
         'No bets resolved yet.',
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
@@ -235,7 +236,7 @@ class _TabletHistoryHeading extends StatelessWidget {
                         color: Palette.darkGrey,
                         height: 100.0,
                         width: 100.0,
-                        child: Text(
+                        child: AutoSizeText(
                           betHistoryState.userWallet.username
                               .substring(0, 1)
                               .toUpperCase(),
@@ -251,7 +252,7 @@ class _TabletHistoryHeading extends StatelessWidget {
               child: betHistoryState.status == LeaderboardProfileStatus.success
                   ? Container(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
+                      child: AutoSizeText(
                         '${betHistoryState.userWallet.username}',
                         style: Styles.pageTitle,
                         softWrap: true,

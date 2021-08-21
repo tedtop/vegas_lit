@@ -1,10 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+
+import '../../../../config/assets.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/olympics/olympic_bet.dart';
 
 class OlympicsBetHistoryCard extends StatelessWidget {
   const OlympicsBetHistoryCard({
@@ -109,7 +111,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                               Column(
                                 children: [
                                   isPlayerWin
-                                      ? Text(
+                                      ? AutoSizeText(
                                           '${countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -119,7 +121,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
                                         )
-                                      : Text(
+                                      : AutoSizeText(
                                           '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -130,7 +132,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                         ),
                                   isPlayerWin
-                                      ? Text(
+                                      ? AutoSizeText(
                                           '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -140,7 +142,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
                                         )
-                                      : Text(
+                                      : AutoSizeText(
                                           '${countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -162,7 +164,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           Row(
                                             children: [
                                               Flexible(
-                                                child: Text(
+                                                child: AutoSizeText(
                                                   '${betHistoryData.playerName.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
@@ -174,7 +176,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                                   softWrap: true,
                                                 ),
                                               ),
-                                              Text(
+                                              AutoSizeText(
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
@@ -187,7 +189,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                             height: 4,
                                           ),
                                           SizedBox(
-                                            child: Text(
+                                            child: AutoSizeText(
                                               '${betHistoryData.rivalName.toUpperCase()}',
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
@@ -208,7 +210,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           Row(
                                             children: [
                                               Flexible(
-                                                child: Text(
+                                                child: AutoSizeText(
                                                   '${betHistoryData.rivalName.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
@@ -220,7 +222,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                                   softWrap: true,
                                                 ),
                                               ),
-                                              Text(
+                                              AutoSizeText(
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
@@ -233,7 +235,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                             height: 4,
                                           ),
                                           SizedBox(
-                                            child: Text(
+                                            child: AutoSizeText(
                                               '${betHistoryData.playerName.toUpperCase()}',
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
@@ -256,7 +258,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: Text(
+                                child: AutoSizeText(
                                   '${betHistoryData.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
@@ -268,17 +270,17 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: betHistoryData.eventType == 'gold'
-                                    ? const Text(
+                                    ? const AutoSizeText(
                                         '🥇',
                                         style: TextStyle(fontSize: 14),
                                       )
                                     : betHistoryData.eventType == 'silver'
-                                        ? const Text(
+                                        ? const AutoSizeText(
                                             '🥈',
                                             style: TextStyle(fontSize: 14),
                                           )
                                         : betHistoryData.eventType == 'bronze'
-                                            ? const Text(
+                                            ? const AutoSizeText(
                                                 '🥉',
                                                 style: TextStyle(fontSize: 14),
                                               )
@@ -290,7 +292,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: Text(
+                                child: AutoSizeText(
                                   betHistoryData.event,
                                   style: Styles.openBetsCardNormal,
                                   overflow: TextOverflow.ellipsis,
@@ -303,7 +305,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   DateFormat('E, MMMM, c, y @ hh:mm a')
                                       .format(betHistoryData.gameStartDateTime),
                                   style: GoogleFonts.nunito(
@@ -340,13 +342,13 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               'ticket cost',
                               style: Styles.betHistoryDescription.copyWith(
                                 color: Palette.cream,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               '${betHistoryData.betAmount}',
                               style: Styles.betHistoryAmount.copyWith(
                                 color: Palette.cream,
@@ -362,12 +364,12 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               '${isWin ? 'you won' : 'you lost'}',
                               style: Styles.betHistoryDescription.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),
-                            Text(
+                            AutoSizeText(
                               isWin
                                   ? '${betHistoryData.betProfit}'
                                   : '${betHistoryData.betAmount}',
@@ -397,7 +399,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
               height: 25,
               width: 80,
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                   'MONEYLINE',
                   style: GoogleFonts.nunito(
                     fontSize: 10,

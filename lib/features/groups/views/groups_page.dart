@@ -1,13 +1,15 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/groups/widgets/group_add/group_add.dart';
-import 'package:vegas_lit/features/groups/widgets/group_requests/group_requests_page.dart';
-import 'package:vegas_lit/features/groups/widgets/private_groups/private_groups_page.dart';
-import 'package:vegas_lit/features/groups/widgets/public_groups/public_groups_page.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
+
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../home/cubit/home_cubit.dart';
+import '../widgets/group_add/group_add.dart';
+import '../widgets/group_requests/group_requests_page.dart';
+import '../widgets/private_groups/private_groups_page.dart';
+import '../widgets/public_groups/public_groups_page.dart';
 
 class GroupsPage extends StatelessWidget {
   const GroupsPage._({Key key}) : super(key: key);
@@ -32,21 +34,21 @@ class GroupsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('GROUPS', style: Styles.pageTitle),
+          title: AutoSizeText('GROUPS', style: Styles.pageTitle),
           bottom: TabBar(
             indicatorColor: Palette.green,
             labelPadding:
                 const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             tabs: [
-              Text(
+              AutoSizeText(
                 'Public',
                 style: GoogleFonts.nunito(fontSize: 15),
               ),
-              Text(
+              AutoSizeText(
                 'Private',
                 style: GoogleFonts.nunito(fontSize: 15),
               ),
-              Text(
+              AutoSizeText(
                 'Requests',
                 style: GoogleFonts.nunito(fontSize: 15),
               ),
@@ -72,7 +74,7 @@ class GroupsPage extends StatelessWidget {
               ),
             );
           },
-          label: Text('CREATE', style: Styles.normalTextBold),
+          label: AutoSizeText('CREATE', style: Styles.normalTextBold),
           icon: const Icon(Icons.add),
         ),
       ),

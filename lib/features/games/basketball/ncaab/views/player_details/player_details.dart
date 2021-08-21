@@ -1,15 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/views/player_details/cubit/player_details_cubit.dart';
-import 'package:vegas_lit/utils/app_bar.dart';
-import 'package:vegas_lit/utils/vl_image.dart';
 
+import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/ncaab/ncaab_player.dart';
+import '../../../../../../data/repositories/sports_repository.dart';
+import '../../../../../../utils/app_bar.dart';
+import '../../../../../../utils/vl_image.dart';
+import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
   PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
@@ -43,7 +44,7 @@ class PlayerDetailsPage extends StatelessWidget {
       body: ListView(
         children: [
           Center(
-            child: Text(
+            child: AutoSizeText(
               'PLAYER STATS',
               style: GoogleFonts.nunito(
                 fontSize: 24,
@@ -100,17 +101,17 @@ class PlayerDetailsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AutoSizeText(
                   '${playerDetails.firstName} ${playerDetails.lastName}',
                   maxLines: 3,
                   softWrap: true,
                   style: Styles.largeTextBold.copyWith(fontSize: 30),
                 ),
-                Text(
+                AutoSizeText(
                   '${playerDetails.jersey != null ? '#${playerDetails.jersey}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
                   style: Styles.largeTextBold.copyWith(fontSize: 20),
                 ),
-                Text(
+                AutoSizeText(
                   '${'${playerDetails.birthState ?? 'NA'}'.toUpperCase()} STATE',
                   style: Styles.normalText.copyWith(fontSize: 16),
                 ),
@@ -128,11 +129,11 @@ class PlayerDetailsPage extends StatelessWidget {
       children: [
         Column(
           children: [
-            Text(
+            AutoSizeText(
               'HEIGHT',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             ),
-            Text(
+            AutoSizeText(
               playerDetails.height != null
                   ? '${playerDetails.height ~/ 12}′ ${playerDetails.height % 12}\′\′'
                   : 'NA',
@@ -142,11 +143,11 @@ class PlayerDetailsPage extends StatelessWidget {
         ),
         Column(
           children: [
-            Text(
+            AutoSizeText(
               'WEIGHT',
               style: Styles.teamStatsMain.copyWith(color: Palette.cream),
             ),
-            Text(
+            AutoSizeText(
               '${playerDetails.weight ?? 'NA'}',
               style: Styles.teamStatsMain.copyWith(color: Palette.cream),
             )
@@ -154,11 +155,11 @@ class PlayerDetailsPage extends StatelessWidget {
         ),
         Column(
           children: [
-            Text(
+            AutoSizeText(
               'AGE',
               style: Styles.teamStatsMain.copyWith(color: Palette.red),
             ),
-            Text(
+            AutoSizeText(
               '${ESTDateTime.fetchTimeEST().difference(playerDetails.birthDate).inDays ~/ 365}',
               style: Styles.teamStatsMain.copyWith(color: Palette.red),
             )
@@ -186,11 +187,11 @@ class PlayerDetailsPage extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Text(
+                  AutoSizeText(
                     'INJURY STATUS',
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
-                  Text(
+                  AutoSizeText(
                     playerDetails.injuryStatus?.toUpperCase() ?? 'NONE',
                     style: Styles.normalText.copyWith(fontSize: 16),
                   )
@@ -198,11 +199,11 @@ class PlayerDetailsPage extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Text(
+                  AutoSizeText(
                     'BODY PART',
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
-                  Text(
+                  AutoSizeText(
                     playerDetails.injuryBodyPart?.toUpperCase() ?? 'NONE',
                     style: Styles.normalText.copyWith(
                       fontSize: 16,
@@ -222,12 +223,12 @@ class PlayerDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AutoSizeText(
                   'INJURY NOTES',
                   style: Styles.normalText
                       .copyWith(color: Palette.red, fontSize: 16),
                 ),
-                Text(
+                AutoSizeText(
                   playerDetails.injuryNotes ?? 'NONE',
                   style: Styles.normalText.copyWith(fontSize: 12),
                 ),
@@ -302,11 +303,13 @@ class StatsText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-            width: 110, child: Text(leftText, style: Styles.teamStatsText)),
+            width: 110,
+            child: AutoSizeText(leftText, style: Styles.teamStatsText)),
         Expanded(
             child: Align(
                 alignment: Alignment.centerRight,
-                child: Text('$rightText', style: Styles.teamStatsText))),
+                child:
+                    AutoSizeText('$rightText', style: Styles.teamStatsText))),
       ],
     );
   }

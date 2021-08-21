@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/config/extensions.dart';
+import '../../config/extensions.dart';
 
 class FirebaseStorageClient {
   FirebaseStorageClient({FirebaseStorage firebaseFirestore})

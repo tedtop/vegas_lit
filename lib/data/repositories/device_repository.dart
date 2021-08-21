@@ -1,9 +1,10 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:vegas_lit/data/providers/cloud_messaging.dart';
-import 'package:vegas_lit/data/providers/app_review.dart';
-import 'package:vegas_lit/data/providers/remote_config.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/providers/shared_prefs.dart';
+
+import '../providers/app_review.dart';
+import '../providers/cloud_messaging.dart';
+import '../providers/remote_config.dart';
+import '../providers/shared_prefs.dart';
 
 class DeviceRepository {
   final _messagingProvider = CloudMessagingClient();

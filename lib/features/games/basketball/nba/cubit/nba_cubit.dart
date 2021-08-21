@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/config/extensions.dart';
+import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/nba/nba_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';

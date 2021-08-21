@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +7,8 @@ import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 
 class LeaderboardProfileDropdown extends StatelessWidget {
-  const LeaderboardProfileDropdown({Key key, @required this.text}) : super(key: key);
+  const LeaderboardProfileDropdown({Key key, @required this.text})
+      : super(key: key);
 
   final String text;
 
@@ -51,7 +53,7 @@ class LeaderboardProfileDropdown extends StatelessWidget {
                 (String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(
+                    child: AutoSizeText(
                       text,
                       textAlign: TextAlign.left,
                       style: Styles.betHistoryDropdown,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,19 +46,19 @@ class _GolfMatchupState extends State<GolfMatchup> {
               child: Column(
                 children: [
                   Center(
-                    child: Text(
+                    child: AutoSizeText(
                       widget.name,
                       style: Styles.greenTextBold.copyWith(fontSize: 24),
                     ),
                   ),
                   Center(
-                    child: Text(
+                    child: AutoSizeText(
                       widget.venue,
                       style: Styles.awayTeam,
                     ),
                   ),
                   Center(
-                    child: Text(
+                    child: AutoSizeText(
                       widget.location,
                       style: Styles.awayTeam,
                     ),
@@ -125,7 +126,7 @@ class _GolfMatchupState extends State<GolfMatchup> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           child: Row(
             children: [
-              Text('GOLFER', style: Styles.normalTextBold),
+              AutoSizeText('GOLFER', style: Styles.normalTextBold),
               const SizedBox(
                 width: 20,
               ),
@@ -136,7 +137,7 @@ class _GolfMatchupState extends State<GolfMatchup> {
                       border: Border.all(color: Palette.cream),
                       borderRadius: BorderRadius.circular(8)),
                   child: Center(
-                    child: Text('${widget.player.name}',
+                    child: AutoSizeText('${widget.player.name}',
                         style: Styles.normalTextBold),
                   ),
                 ),
@@ -231,7 +232,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   'DOUBLE EAGLE +500',
                   style: Styles.awayTeam,
                 ),
@@ -241,7 +242,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   'MAKE TOP 5 +500',
                   style: Styles.awayTeam,
                 ),
@@ -255,7 +256,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   'HOLE IN ONE +2000',
                   style: Styles.awayTeam,
                 ),
@@ -265,7 +266,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   '15+ PARS +1000',
                   style: Styles.awayTeam,
                 ),
@@ -279,7 +280,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   '2+ EAGLES +500',
                   style: Styles.awayTeam,
                 ),
@@ -289,7 +290,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   '9+ BIRDIES +1000',
                   style: Styles.awayTeam,
                 ),
@@ -303,7 +304,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   '6+ BIRDIES +500',
                   style: Styles.awayTeam,
                 ),
@@ -313,7 +314,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
               child: RoundBetBox(
                 onPressed: () {},
                 isSelected: false,
-                text: Text(
+                text: AutoSizeText(
                   'BOGEY FREE +1000',
                   style: Styles.awayTeam,
                 ),
@@ -344,7 +345,7 @@ class OverallBetBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: isSelected ? Palette.green : Palette.darkGrey),
         child: Center(
-          child: Text(
+          child: AutoSizeText(
             text,
             style: Styles.normalText.copyWith(fontWeight: FontWeight.w600),
           ),
@@ -370,7 +371,7 @@ class RoundNumberBox extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: isSelected ? Palette.green : Palette.lightGrey),
-        child: Text(
+        child: AutoSizeText(
           text,
           style: Styles.awayTeam.copyWith(fontWeight: FontWeight.w600),
         ),

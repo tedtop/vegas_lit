@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:vegas_lit/config/extensions.dart';
+import '../../../config/extensions.dart';
 
 import '../../../data/models/bet.dart';
 import '../../../data/models/wallet.dart';

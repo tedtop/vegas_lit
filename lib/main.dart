@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/data/repositories/device_repository.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
+
 import 'data/repositories/bets_repository.dart';
+import 'data/repositories/device_repository.dart';
+import 'data/repositories/groups_repository.dart';
 import 'data/repositories/sports_repository.dart';
 import 'data/repositories/user_repository.dart';
 import 'features/app.dart';

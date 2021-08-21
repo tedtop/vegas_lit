@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,7 +48,7 @@ class MlbScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
-                    child: Text(
+                    child: AutoSizeText(
                       'No odds available for the league you have selected at this time.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(

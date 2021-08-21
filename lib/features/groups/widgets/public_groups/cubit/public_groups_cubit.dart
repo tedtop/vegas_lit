@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
+import '../../../../../data/models/group.dart';
+import '../../../../../data/repositories/groups_repository.dart';
 
 part 'public_groups_state.dart';
 

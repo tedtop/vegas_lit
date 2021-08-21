@@ -1,7 +1,8 @@
-import 'package:vegas_lit/data/models/group.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/data/providers/cloud_firestore.dart';
+
+import '../models/group.dart';
+import '../models/wallet.dart';
+import '../providers/cloud_firestore.dart';
 
 class GroupsRepository {
   final _databaseProvider = CloudFirestoreClient();

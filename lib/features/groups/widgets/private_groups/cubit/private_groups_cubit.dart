@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../../data/models/group.dart';
+import '../../../../../data/repositories/groups_repository.dart';
+
 part 'private_groups_state.dart';
 
 class PrivateGroupsCubit extends Cubit<PrivateGroupsState> {

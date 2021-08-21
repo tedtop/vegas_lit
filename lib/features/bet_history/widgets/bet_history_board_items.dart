@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,14 +25,14 @@ class BetHistoryBoardText extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            child: Text(
+            child: AutoSizeText(
               leftText,
               style: Styles.betHistoryNormal,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-            child: Text(
+            child: AutoSizeText(
               rightText,
               style: GoogleFonts.nunito(
                 fontSize: 18,
@@ -68,11 +69,11 @@ class DesktopBetHistoryBoardItem extends StatelessWidget {
           ]),
       child: Column(
         children: [
-          Text(
+          AutoSizeText(
             topText,
             style: Styles.pageTitle.copyWith(color: color),
           ),
-          Text(
+          AutoSizeText(
             bottomText,
             style: Styles.normalTextBold,
           )

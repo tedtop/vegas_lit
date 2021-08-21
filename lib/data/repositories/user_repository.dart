@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/bet.dart';
+import '../models/bet.dart';
 
 import '../models/user.dart';
 import '../models/vault_data.dart';

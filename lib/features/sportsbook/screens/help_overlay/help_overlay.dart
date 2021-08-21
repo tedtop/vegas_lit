@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/sportsbook/screens/help_overlay/dummy_match_card.dart';
+import '../../../../config/assets.dart';
+import '../../../../config/palette.dart';
+import 'dummy_match_card.dart';
 
 class HelpOverlayView extends StatelessWidget {
   const HelpOverlayView({

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +62,7 @@ class MobileBetSlipUpper extends StatelessWidget {
         20,
         20,
       ),
-      child: Text(
+      child: AutoSizeText(
         'BET SLIP',
         textAlign: TextAlign.center,
         style: Styles.pageTitle,

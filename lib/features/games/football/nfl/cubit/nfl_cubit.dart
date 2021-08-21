@@ -5,11 +5,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
+import '../../../../../config/extensions.dart';
 import '../../../../../data/models/nfl/nfl_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';
+import '../models/nfl_team.dart';
 
 part 'nfl_state.dart';
 

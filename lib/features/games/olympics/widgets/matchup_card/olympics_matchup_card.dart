@@ -1,15 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/olympics/olympics.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/games/olympics/cubit/olympics_cubit.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/screens/bet_button_widget.dart';
-import 'package:vegas_lit/features/profile/profile.dart';
+
+import '../../../../../config/assets.dart';
+import '../../../../../config/palette.dart';
+import '../../../../../config/styles.dart';
+import '../../../../../data/models/olympics/olympics.dart';
+import '../../../../profile/profile.dart';
+import '../../cubit/olympics_cubit.dart';
+import '../bet_button/cubit/olympics_bet_button_cubit.dart';
+import '../bet_button/screens/bet_button_widget.dart';
 
 enum WinnerOlympics { player, rival, none }
 
@@ -84,7 +86,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                 width: 35,
                               ),
                               const SizedBox(width: 10),
-                              Text(
+                              AutoSizeText(
                                 '${widget.game.gameName.replaceAll(RegExp('-'), '\/')}',
                                 style: Styles.normalTextBold,
                               ),
@@ -138,7 +140,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                               });
                                             },
                                           ),
-                                          Text(
+                                          AutoSizeText(
                                             'Player',
                                             style: GoogleFonts.nunito(
                                               fontSize: 15,
@@ -157,7 +159,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                               });
                                             },
                                           ),
-                                          Text(
+                                          AutoSizeText(
                                             'Rival',
                                             style: GoogleFonts.nunito(
                                               fontSize: 15,
@@ -176,7 +178,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                               });
                                             },
                                           ),
-                                          Text(
+                                          AutoSizeText(
                                             'None',
                                             style: GoogleFonts.nunito(
                                               fontSize: 15,
@@ -213,7 +215,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                               tapTargetSize:
                                                   MaterialTapTargetSize
                                                       .shrinkWrap),
-                                          child: Text(
+                                          child: AutoSizeText(
                                             'Submit',
                                             style: GoogleFonts.nunito(
                                               fontSize: 18,
@@ -251,7 +253,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                                   ..hideCurrentSnackBar()
                                                   ..showSnackBar(
                                                     SnackBar(
-                                                      content: Text(
+                                                      content: AutoSizeText(
                                                         'Are you mad? Select some value first.',
                                                         style: GoogleFonts
                                                             .nunito(),
@@ -264,7 +266,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                                 ..hideCurrentSnackBar()
                                                 ..showSnackBar(
                                                   SnackBar(
-                                                    content: Text(
+                                                    content: AutoSizeText(
                                                       'Admin privileges required.',
                                                       style:
                                                           GoogleFonts.nunito(),
@@ -286,7 +288,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Flexible(
-                            child: Text(
+                            child: AutoSizeText(
                               widget.game.event,
                               style: GoogleFonts.nunito(
                                 fontSize: 16,
@@ -304,7 +306,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Flexible(
-                            child: Text(
+                            child: AutoSizeText(
                               widget.game.venue,
                               style: GoogleFonts.nunito(
                                 fontSize: 14,
@@ -321,7 +323,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          AutoSizeText(
                             DateFormat('E, MMMM, c, y @ hh:mm a')
                                 .format(widget.game.startTime),
                             style: Styles.matchupTime,
@@ -345,7 +347,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                     //       final min = time.min == null ? '' : ' ${time.min}m';
                     //       final sec = time.sec == null ? '' : ' ${time.sec}s';
 
-                    //       return Text(
+                    //       returnAutoSizeText(
                     //         'Starting in  ${TimerHelper.getRemainingTimeText(time:time)}',
                     //         style: GoogleFonts.nunito(
                     //           fontSize: 15,
@@ -371,17 +373,17 @@ Widget badgeFromEventType({String eventType}) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       eventType == 'gold'
-          ? const Text(
+          ? const AutoSizeText(
               '🥇',
               style: TextStyle(fontSize: 20),
             )
           : eventType == 'silver'
-              ? const Text(
+              ? const AutoSizeText(
                   '🥈',
                   style: TextStyle(fontSize: 20),
                 )
               : eventType == 'bronze'
-                  ? const Text(
+                  ? const AutoSizeText(
                       '🥉',
                       style: TextStyle(fontSize: 20),
                     )

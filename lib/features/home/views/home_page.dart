@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,19 +7,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/routes.dart';
-import 'package:vegas_lit/data/repositories/device_repository.dart';
-import 'package:vegas_lit/features/home/cubit/notification_cubit.dart';
-import 'package:vegas_lit/features/sportsbook/screens/help_overlay/help_overlay.dart';
-import 'package:vegas_lit/utils/app_bar.dart';
-import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../../config/assets.dart';
+import '../../../config/palette.dart';
+import '../../../config/routes.dart';
 import '../../../data/repositories/bets_repository.dart';
+import '../../../data/repositories/device_repository.dart';
 import '../../../data/repositories/sports_repository.dart';
 import '../../../data/repositories/user_repository.dart';
-
+import '../../../utils/app_bar.dart';
+import '../../../utils/route_aware_analytics.dart';
 import '../../bet_history/cubit/history_cubit.dart';
 import '../../bet_history/views/bet_history_page.dart';
 import '../../bet_slip/bet_slip.dart';
@@ -26,9 +24,11 @@ import '../../leaderboard/leaderboard.dart';
 import '../../open_bets/cubit/open_bets_cubit.dart';
 import '../../open_bets/views/open_bets_page.dart';
 import '../../profile/cubit/profile_cubit.dart';
+import '../../sportsbook/screens/help_overlay/help_overlay.dart';
 import '../../sportsbook/screens/sportsbook_page.dart';
 import '../../sportsbook/sportsbook.dart';
 import '../cubit/internet_cubit.dart';
+import '../cubit/notification_cubit.dart';
 import '../cubit/version_cubit.dart';
 import '../home.dart';
 import '../widgets/bottom_navigation.dart';
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage>
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
                         SnackBar(
-                          content: Text(
+                          content: AutoSizeText(
                             state.errorMessage,
                           ),
                         ),
@@ -166,11 +166,11 @@ class _HomePageState extends State<HomePage>
                     break;
                   case NotificationStatus.success:
                     showSimpleNotification(
-                      Text(
+                      AutoSizeText(
                         state.notification.title,
                         style: GoogleFonts.nunito(color: Palette.cream),
                       ),
-                      subtitle: Text(
+                      subtitle: AutoSizeText(
                         state.notification.body,
                         style: GoogleFonts.nunito(color: Palette.cream),
                       ),

@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vegas_lit/data/models/user.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+
+import '../../../../../data/models/user.dart';
+import '../../../../../data/repositories/user_repository.dart';
 
 part 'user_search_state.dart';
 

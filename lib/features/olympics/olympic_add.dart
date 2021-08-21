@@ -1,15 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/olympics/olympics.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/features/olympics/cubit/olympics_add_cubit.dart';
+import '../../config/extensions.dart';
+import '../../config/palette.dart';
+import '../../config/styles.dart';
+import '../../data/models/olympics/olympics.dart';
+import '../../data/repositories/sports_repository.dart';
+import 'cubit/olympics_add_cubit.dart';
 
 class OlympicsAddForm extends StatefulWidget {
   OlympicsAddForm._({Key key}) : super(key: key);
@@ -68,7 +69,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: Text(
+                      child: AutoSizeText(
                         'Add Olympic Game',
                         style: Styles.pageTitle,
                       ),
@@ -105,7 +106,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Palette.lightGrey)),
-                    child: Text(
+                    child: AutoSizeText(
                       'Change Start Time',
                       style: Styles.normalText,
                     ),
@@ -114,7 +115,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     width: 10,
                   ),
                   Expanded(
-                    child: Text(
+                    child: AutoSizeText(
                       '${DateFormat('dd-MM-yy HH:mm').format(startTime)} EST',
                       style: Styles.normalTextBold,
                     ),
@@ -180,7 +181,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 ),
               ),
               DropdownButtonFormField(
-                hint: Text(
+                hint: AutoSizeText(
                   'Event Type',
                   style: Styles.signUpFieldHint,
                 ),
@@ -194,7 +195,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value, style: Styles.normalTextBold));
+                      child: AutoSizeText(value, style: Styles.normalTextBold));
                 }).toList(),
                 onChanged: (String value) {
                   setState(() {
@@ -232,7 +233,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 ),
               ),
               DropdownButtonFormField(
-                hint: Text(
+                hint: AutoSizeText(
                   'Game Name',
                   style: Styles.signUpFieldHint,
                 ),
@@ -294,7 +295,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value, style: Styles.normalTextBold));
+                      child: AutoSizeText(value, style: Styles.normalTextBold));
                 }).toList(),
                 onChanged: (String value) {
                   setState(() {
@@ -348,7 +349,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Palette.lightGrey)),
-                    child: Text(
+                    child: AutoSizeText(
                       'Player Country',
                       style: Styles.normalText,
                     ),
@@ -356,16 +357,16 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   Expanded(
                       child: ListTile(
                     leading: playerCountry != null
-                        ? Text(
+                        ? AutoSizeText(
                             countryFlagFromCode(countryCode: playerCountry),
                             style: const TextStyle(fontSize: 25),
                           )
-                        : Text(
+                        : AutoSizeText(
                             'No country selected.',
                             style: Styles.normalTextBold
                                 .copyWith(color: Palette.red),
                           ),
-                    title: Text(
+                    title: AutoSizeText(
                       playerCountry ?? '',
                       style: Styles.normalTextBold,
                     ),
@@ -415,7 +416,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Palette.lightGrey)),
-                    child: Text(
+                    child: AutoSizeText(
                       'Rival Country',
                       style: Styles.normalText,
                     ),
@@ -423,16 +424,16 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   Expanded(
                       child: ListTile(
                     leading: rivalCountry != null
-                        ? Text(
+                        ? AutoSizeText(
                             countryFlagFromCode(countryCode: rivalCountry),
                             style: const TextStyle(fontSize: 25),
                           )
-                        : Text(
+                        : AutoSizeText(
                             'No country selected.',
                             style: Styles.normalTextBold
                                 .copyWith(color: Palette.red),
                           ),
-                    title: Text(
+                    title: AutoSizeText(
                       rivalCountry ?? '',
                       style: Styles.normalTextBold,
                     ),
@@ -448,7 +449,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       SnackBar(
-                        content: Text(
+                        content: AutoSizeText(
                           'Match added.',
                           style: GoogleFonts.nunito(color: Palette.cream),
                         ),
@@ -544,7 +545,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
+          child: AutoSizeText(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,9 +6,9 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../../../config/enum.dart';
+import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
@@ -102,7 +103,7 @@ class MatchupCard extends StatelessWidget {
                                                 gameName: gameName)),
                                         child: Column(
                                           children: [
-                                            Text(
+                                            AutoSizeText(
                                               state.awayTeamData.school,
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.nunito(
@@ -111,7 +112,7 @@ class MatchupCard extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text(
+                                            AutoSizeText(
                                               state.awayTeamData.name
                                                   .toUpperCase(),
                                               textAlign: TextAlign.center,
@@ -200,7 +201,7 @@ class MatchupCard extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   const SizedBox(height: 2),
-                                  Text(
+                                  AutoSizeText(
                                     '@',
                                     style: Styles.matchupSeparator,
                                   ),
@@ -229,7 +230,7 @@ class MatchupCard extends StatelessWidget {
                                               gameName: state.league)),
                                       child: Column(
                                         children: [
-                                          Text(
+                                          AutoSizeText(
                                             state.homeTeamData.school,
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.nunito(
@@ -238,7 +239,7 @@ class MatchupCard extends StatelessWidget {
                                               color: Palette.green,
                                             ),
                                           ),
-                                          Text(
+                                          AutoSizeText(
                                             state.homeTeamData.name
                                                 .toUpperCase(),
                                             textAlign: TextAlign.center,
@@ -333,7 +334,7 @@ class MatchupCard extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   DateFormat('E, MMMM, c, y @ hh:mm a').format(
                                     state.game.dateTime.toLocal(),
                                   ),
@@ -347,7 +348,7 @@ class MatchupCard extends StatelessWidget {
                                 state.game.dateTime),
                             widgetBuilder: (_, CurrentRemainingTime time) {
                               if (time == null) {
-                                return Text(
+                                return AutoSizeText(
                                   gameData.status,
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
@@ -356,7 +357,7 @@ class MatchupCard extends StatelessWidget {
                                 );
                               }
 
-                              return Text(
+                              return AutoSizeText(
                                 'Starting in ${getRemainingTimeText(time: time)}',
                                 style: GoogleFonts.nunito(
                                   fontSize: 15,
@@ -372,7 +373,7 @@ class MatchupCard extends StatelessWidget {
                           //     ? Row(
                           //         mainAxisAlignment: MainAxisAlignment.center,
                           //         children: [
-                          //           Text(
+                          //          AutoSizeText(
                           //             'Status: ${gameData.status}',
                           //             style: Styles.matchupTime,
                           //           ),
@@ -383,7 +384,7 @@ class MatchupCard extends StatelessWidget {
                           //     ? Row(
                           //         mainAxisAlignment: MainAxisAlignment.center,
                           //         children: [
-                          //           Text(
+                          //          AutoSizeText(
                           //             'IsClosed: ${gameData.isClosed}',
                           //             style: Styles.matchupTime,
                           //           ),
@@ -416,7 +417,7 @@ class MatchupCard extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
-      child: Text(
+      child: AutoSizeText(
         text,
         maxLines: 1,
         textAlign: TextAlign.center,

@@ -1,12 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-
+import '../../../../data/repositories/user_repository.dart';
+import '../../../home/cubit/home_cubit.dart';
 import 'cubit/ads_cubit.dart';
 
 class RewardedBetSlip extends StatelessWidget {
@@ -34,7 +34,7 @@ class RewardedBetSlip extends StatelessWidget {
         children: [
           AbstractCard(
             widgets: [
-              Text(
+              AutoSizeText(
                 'Your bet was placed.',
                 style: Styles.betSlipBoxLargeText,
               ),
@@ -42,7 +42,7 @@ class RewardedBetSlip extends StatelessWidget {
                 height: 20,
               ),
               todayRewards >= 600
-                  ? Text(
+                  ? AutoSizeText(
                       "Sorry. You've exceeded the daily reward amount. Come back later.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(fontSize: 20),
@@ -66,7 +66,7 @@ class RewardedBetSlip extends StatelessWidget {
                                     SnackBar(
                                       duration:
                                           const Duration(milliseconds: 2000),
-                                      content: Text(
+                                      content: AutoSizeText(
                                         'You just earned another ${state.rewardAmount} to play with!',
                                       ),
                                     ),
@@ -77,7 +77,7 @@ class RewardedBetSlip extends StatelessWidget {
                                   ..showSnackBar(
                                     const SnackBar(
                                       duration: Duration(milliseconds: 2000),
-                                      content: Text(
+                                      content: AutoSizeText(
                                         'There was an error displaying the ad.',
                                       ),
                                     ),
@@ -88,7 +88,7 @@ class RewardedBetSlip extends StatelessWidget {
                                   ..showSnackBar(
                                     const SnackBar(
                                       duration: Duration(milliseconds: 2000),
-                                      content: Text(
+                                      content: AutoSizeText(
                                         'Ad Reward Cancelled.',
                                       ),
                                     ),
@@ -136,14 +136,14 @@ class RewardedBetSlip extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Text(
+                                                AutoSizeText(
                                                   'Watch',
                                                   style: GoogleFonts.nunito(
                                                     color: Palette.cream,
                                                     fontSize: 20,
                                                   ),
                                                 ),
-                                                Text(
+                                                AutoSizeText(
                                                   'Video',
                                                   style: GoogleFonts.nunito(
                                                     color: Palette.cream,
@@ -173,7 +173,7 @@ class RewardedBetSlip extends StatelessWidget {
   Widget textPoints(String text) {
     return Column(
       children: [
-        Text(
+        AutoSizeText(
           text,
           style: Styles.betSlipBoxNormalText,
         ),

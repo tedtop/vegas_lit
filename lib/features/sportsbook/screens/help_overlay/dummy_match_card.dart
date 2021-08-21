@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
+
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
 
 class DummyMatchCard extends StatelessWidget {
   const DummyMatchCard({Key key}) : super(key: key);
@@ -46,7 +48,7 @@ class DummyMatchCard extends StatelessWidget {
                                 child:
                                     //  Column(
                                     //   children: [
-                                    //     Text(
+                                    //    AutoSizeText(
                                     //      'New York',
                                     //       textAlign: TextAlign.center,
                                     //       style: GoogleFonts.nunito(
@@ -55,7 +57,7 @@ class DummyMatchCard extends StatelessWidget {
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
                                     //     ),
-                                    Text(
+                                    AutoSizeText(
                                   'WARRIORS',
                                   textAlign: TextAlign.center,
                                   style: Styles.awayTeam,
@@ -79,7 +81,7 @@ class DummyMatchCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const SizedBox(height: 2),
-                            Text(
+                            AutoSizeText(
                               '@',
                               style: Styles.matchupSeparator,
                             ),
@@ -100,7 +102,7 @@ class DummyMatchCard extends StatelessWidget {
                                 child:
                                     //  Column(
                                     //   children: [
-                                    //     Text(
+                                    //    AutoSizeText(
                                     //      'New York',
                                     //       textAlign: TextAlign.center,
                                     //       style: GoogleFonts.nunito(
@@ -109,7 +111,7 @@ class DummyMatchCard extends StatelessWidget {
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
                                     //     ),
-                                    Text(
+                                    AutoSizeText(
                                   'LAKERS',
                                   textAlign: TextAlign.center,
                                   style: Styles.awayTeam,
@@ -139,14 +141,14 @@ class DummyMatchCard extends StatelessWidget {
                     //   child: Row(
                     //     mainAxisAlignment: MainAxisAlignment.center,
                     //     children: [
-                    //       Text(
+                    //      AutoSizeText(
                     //         'Sat, June, 26, 2021 @ 01:10 PM',
                     //         style: Styles.matchupTime,
                     //       ),
                     //     ],
                     //   ),
                     // ),
-                    // Text(
+                    //AutoSizeText(
                     //   'Starting in 3hr 46m 20s',
                     //   style: GoogleFonts.nunito(
                     //     fontSize: 15,
@@ -181,7 +183,7 @@ class DummyMatchCardButton extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6), color: color),
             child: Center(
-              child: Text(
+              child: AutoSizeText(
                 text,
                 style: GoogleFonts.nunito(
                   fontSize: 14,
@@ -199,7 +201,7 @@ class DummyMatchButtonSeperator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
-      child: Text(
+      child: AutoSizeText(
         text,
         maxLines: 1,
         textAlign: TextAlign.center,

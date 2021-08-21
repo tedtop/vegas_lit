@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -66,7 +67,7 @@ class BetButton extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: Text(
+                  content: AutoSizeText(
                     "You've already placed a bet on this game.",
                   ),
                 ),
@@ -78,7 +79,7 @@ class BetButton extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
-                  content: Text('Your bet has been placed.'),
+                  content: AutoSizeText('Your bet has been placed.'),
                 ),
               );
             context
@@ -143,7 +144,7 @@ class BetButtonUnclicked extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          child: Text(
+          child: AutoSizeText(
             betButtonState.text ?? '100',
             maxLines: 1,
             style: GoogleFonts.nunito(
@@ -199,7 +200,7 @@ class BetButtonClicked extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.green),
           ),
-          child: Text(
+          child: AutoSizeText(
             betButtonState.text ?? '100',
             maxLines: 1,
             style: GoogleFonts.nunito(
@@ -239,7 +240,7 @@ class BetButtonDone extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          child: Text(
+          child: AutoSizeText(
             'BET PLACED',
             maxLines: 1,
             style: GoogleFonts.nunito(

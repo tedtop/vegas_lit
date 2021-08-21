@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vegas_lit/config/extensions.dart';
+import '../../config/extensions.dart';
 
 class SharedPreferencesClient {
   SharedPreferencesClient({SharedPreferences sharedPreferences}) {

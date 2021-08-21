@@ -1,16 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/extensions.dart';
 
-import 'package:vegas_lit/features/bet_history/bet_history.dart';
-
+import '../../../../config/extensions.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
+import '../../../bet_history/bet_history.dart';
 import '../../../home/home.dart';
 import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
@@ -55,7 +55,7 @@ class MobileLeaderboard extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.symmetric(vertical: 120),
-                        child: Text(
+                        child: AutoSizeText(
                           // ignore: lines_longer_than_80_chars
                           'No records found',
                           textAlign: TextAlign.center,
@@ -81,7 +81,7 @@ class MobileLeaderboard extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.symmetric(vertical: 120),
-                        child: Text(
+                        child: AutoSizeText(
                           // ignore: lines_longer_than_80_chars
                           'No records found',
                           textAlign: TextAlign.center,
@@ -107,16 +107,16 @@ class MobileLeaderboard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              AutoSizeText(
                 'Last Updated: ',
                 style: Styles.matchupTime,
               ),
-              Text(
+              AutoSizeText(
                 DateFormat('E, MMMM, c, y @ hh:00 a')
                     .format(ESTDateTime.fetchTimeEST()),
                 style: Styles.matchupTime,
               ),
-              Text(
+              AutoSizeText(
                 ' EST',
                 style: Styles.matchupTime,
               ),
@@ -190,7 +190,8 @@ class MobileLeaderboardTile extends StatelessWidget {
                       color: Palette.darkGrey,
                       height: 50.0,
                       width: 50.0,
-                      child: Text(player.username.substring(0, 1).toUpperCase(),
+                      child: AutoSizeText(
+                          player.username.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -199,11 +200,11 @@ class MobileLeaderboardTile extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              AutoSizeText(
                 '${player.rank}. ${player.username}',
                 style: Styles.normalTextBold,
               ),
-              Text(
+              AutoSizeText(
                 '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
@@ -216,14 +217,14 @@ class MobileLeaderboardTile extends StatelessWidget {
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              AutoSizeText(
                 'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets - (player.totalBetsWon + player.totalBetsLost + player.totalOpenBets)}',
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   color: Palette.cream,
                 ),
               ),
-              Text(
+              AutoSizeText(
                 leaderboardWinningBetsRatio(
                   player.totalBetsWon,
                   player.totalBetsLost,

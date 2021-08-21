@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,12 +6,11 @@ import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/assets.dart';
 
+import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
 import '../../../../../data/providers/firebase_auth.dart';
-
 import '../../sign_up/views/sign_up_page.dart';
 import '../login.dart';
 
@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: Text(
+                  content: AutoSizeText(
                     state.loginErrorMessage,
                   ),
                 ),
@@ -184,7 +184,7 @@ class _ResetPassword extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        AutoSizeText(
           'Forgot Password?',
           style: Styles.authNormalText,
         ),
@@ -202,7 +202,7 @@ class _ResetPassword extends StatelessWidget {
               ),
             );
           },
-          child: Text(
+          child: AutoSizeText(
             'Reset',
             style: Styles.authButtonText,
           ),
@@ -218,7 +218,7 @@ class _LinkToSignup extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        AutoSizeText(
           "Don't have an account yet? ",
           style: Styles.authNormalText,
         ),
@@ -226,7 +226,7 @@ class _LinkToSignup extends StatelessWidget {
           key: const Key('loginForm_createAccount_flatButton'),
           onPressed: () =>
               Navigator.of(context).pushReplacement(SignUpPage.route()),
-          child: Text(
+          child: AutoSizeText(
             'Sign Up',
             style: Styles.authButtonText,
           ),
@@ -265,7 +265,7 @@ class __ResetPageState extends State<_ResetPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
+            AutoSizeText(
               'Reset Password',
               textAlign: TextAlign.center,
               style: Styles.authNormalText.copyWith(fontSize: 26),
@@ -297,7 +297,7 @@ class __ResetPageState extends State<_ResetPage> {
             ),
             const SizedBox(height: 20),
             TextButton(
-              child: Text(
+              child: AutoSizeText(
                 'Done',
                 style: GoogleFonts.nunito(
                   color: Palette.cream,
@@ -323,7 +323,7 @@ class __ResetPageState extends State<_ResetPage> {
                           ..hideCurrentSnackBar()
                           ..showSnackBar(
                             const SnackBar(
-                              content: Text(
+                              content: AutoSizeText(
                                 'Password reset link has been sent.',
                               ),
                             ),
@@ -388,7 +388,7 @@ class _VersionNumberState extends State<VersionNumber> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return Text('Version: $versionString ($buildNumber)',
+        return AutoSizeText('Version: $versionString ($buildNumber)',
             style: Styles.versionText);
       },
     );
@@ -431,7 +431,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
+          child: AutoSizeText(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

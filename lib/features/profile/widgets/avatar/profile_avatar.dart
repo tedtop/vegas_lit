@@ -1,12 +1,13 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
-import 'package:vegas_lit/features/profile/cubit/profile_cubit.dart';
 
 import '../../../../config/palette.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import '../../../../data/repositories/user_repository.dart';
+import '../../cubit/profile_cubit.dart';
 import 'cubit/profileavatar_cubit.dart';
 
 class ProfileAvatar extends StatelessWidget {
@@ -37,7 +38,7 @@ class ProfileAvatar extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: Text(
+                  content: AutoSizeText(
                     'Your profile was updated.',
                   ),
                 ),
@@ -48,7 +49,7 @@ class ProfileAvatar extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: Text(
+                  content: AutoSizeText(
                     'An error occurred. Try again later.',
                   ),
                 ),
@@ -116,7 +117,7 @@ class ProfileAvatar extends StatelessWidget {
                             color: Palette.darkGrey,
                             height: 100.0,
                             width: 100.0,
-                            child: Text(
+                            child: AutoSizeText(
                               username.substring(0, 1).toUpperCase(),
                               style: GoogleFonts.nunito(
                                 fontSize: 60,
@@ -151,7 +152,7 @@ class ProfileAvatar extends StatelessWidget {
                             const SizedBox(
                               width: 2,
                             ),
-                            Text(
+                            AutoSizeText(
                               'Edit',
                               style: GoogleFonts.nunito(fontSize: 12),
                             )

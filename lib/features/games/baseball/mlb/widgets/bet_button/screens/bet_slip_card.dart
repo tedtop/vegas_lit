@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +10,9 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../../../../config/enum.dart';
+import '../../../../../../../config/extensions.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
 import '../../../../../../authentication/authentication.dart';
@@ -19,7 +20,6 @@ import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../../../../bet_slip/models/bet_slip_card.dart';
 import '../../../../../../home/cubit/version_cubit.dart';
 import '../../../../../../home/home.dart';
-
 import '../cubit/bet_button_cubit.dart';
 
 // ignore: must_be_immutable
@@ -70,7 +70,7 @@ class MlbBetSlipCard extends StatelessWidget {
               children: [
                 betButtonState.winTeam == BetButtonWin.home
                     ? isMoneyline
-                        ? Text(
+                        ? AutoSizeText(
                             '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -81,7 +81,7 @@ class MlbBetSlipCard extends StatelessWidget {
                           )
                         : Container()
                     : isMoneyline
-                        ? Text(
+                        ? AutoSizeText(
                             '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -105,7 +105,7 @@ class MlbBetSlipCard extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Text(
+                            AutoSizeText(
                               betButtonState.awayTeamData.city,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
@@ -114,7 +114,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               betButtonState.awayTeamData.name.toUpperCase(),
                               textAlign: TextAlign.center,
                               style: Styles.awayTeam,
@@ -164,7 +164,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               bottom: 8.0),
-                                          child: Text(
+                                          child: AutoSizeText(
                                             // ignore: lines_longer_than_80_chars
                                             '${betButtonState.betAmount}',
                                             style: GoogleFonts.nunito(
@@ -198,7 +198,7 @@ class MlbBetSlipCard extends StatelessWidget {
                               height: 40,
                               width: 174,
                               child: Center(
-                                child: Text(
+                                child: AutoSizeText(
                                   'BET AMOUNT',
                                   style: GoogleFonts.nunito(
                                     fontSize: 18,
@@ -211,7 +211,7 @@ class MlbBetSlipCard extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 11.0),
-                          child: Text(
+                          child: AutoSizeText(
                             (whichBetSystemFromEnum(betButtonState.betType)),
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -268,7 +268,7 @@ class MlbBetSlipCard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 190),
-                    child: Text(
+                    child: AutoSizeText(
                       '@',
                       style: GoogleFonts.nunito(
                         fontSize: 18,
@@ -282,7 +282,7 @@ class MlbBetSlipCard extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Text(
+                            AutoSizeText(
                               betButtonState.homeTeamData.city,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
@@ -291,7 +291,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                 color: Palette.green,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               betButtonState.homeTeamData.name.toUpperCase(),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
@@ -327,7 +327,7 @@ class MlbBetSlipCard extends StatelessWidget {
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(bottom: 8.0),
-                                        child: Text(
+                                        child: AutoSizeText(
                                           '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
@@ -359,7 +359,7 @@ class MlbBetSlipCard extends StatelessWidget {
                               height: 40,
                               width: 174,
                               child: Center(
-                                child: Text(
+                                child: AutoSizeText(
                                   'TO WIN',
                                   style: GoogleFonts.nunito(
                                     fontSize: 18,
@@ -372,7 +372,7 @@ class MlbBetSlipCard extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
+                          child: AutoSizeText(
                             betButtonState.text,
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -409,7 +409,7 @@ class MlbBetSlipCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                     DateFormat('E, MMMM, c, y @ hh:mm a').format(
                       betButtonState.game.dateTime.toLocal(),
                     ),
@@ -427,7 +427,7 @@ class MlbBetSlipCard extends StatelessWidget {
                       betButtonState.game.dateTime),
                   widgetBuilder: (_, CurrentRemainingTime time) {
                     if (time == null) {
-                      return Text(
+                      return AutoSizeText(
                         betButtonState.game.status,
                         style: GoogleFonts.nunito(
                           color: Palette.red,
@@ -436,7 +436,7 @@ class MlbBetSlipCard extends StatelessWidget {
                       );
                     }
 
-                    return Text(
+                    return AutoSizeText(
                       'Starting in  ${getRemainingTimeText(time: time)}',
                       style: GoogleFonts.nunito(
                         fontSize: 15,
@@ -547,7 +547,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 child: Center(
                                   child: FittedBox(
                                     fit: BoxFit.contain,
-                                    child: Text(
+                                    child: AutoSizeText(
                                       '$betValue',
                                       style: Styles.normalText,
                                     ),
@@ -648,14 +648,14 @@ class _BetAmountPageState extends State<BetAmountPage> {
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        AutoSizeText(
                           'Bet Amount',
                           style: Styles.normalTextBold.copyWith(fontSize: 22),
                         ),
                         const SizedBox(
                           height: 12,
                         ),
-                        Text(
+                        AutoSizeText(
                           'Scroll to select your bet amount and press to confirm',
                           style: Styles.normalText,
                           textAlign: TextAlign.center,
@@ -732,7 +732,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
+          child: AutoSizeText(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,12 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/features/drawer_pages/rules_dialog.dart';
-import 'package:vegas_lit/features/games/olympics/views/olympics_screen.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
+import '../../drawer_pages/rules_dialog.dart';
 import '../../games/baseball/mlb/mlb_page.dart';
 import '../../games/basketball/nba/nba_page.dart';
 import '../../games/basketball/ncaab/views/ncaab_screen.dart';
@@ -18,6 +18,7 @@ import '../../games/football/ncaaf/views/ncaaf_screen.dart';
 import '../../games/football/nfl/views/nfl_screen.dart';
 import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
+import '../../games/olympics/views/olympics_screen.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../bloc/sportsbook_bloc.dart';
 
@@ -111,7 +112,7 @@ class _SportsBookViewState extends State<SportsBookView>
             shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              Text(
+              AutoSizeText(
                 'SPORTSBOOK',
                 textAlign: TextAlign.center,
                 style: Styles.pageTitle,
@@ -133,7 +134,7 @@ class _SportsBookViewState extends State<SportsBookView>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text(
+                                    AutoSizeText(
                                       'BET SLIP',
                                       style: GoogleFonts.nunito(
                                         fontSize: 16,
@@ -154,7 +155,7 @@ class _SportsBookViewState extends State<SportsBookView>
                                               height: 40,
                                               width: 42,
                                               child: Center(
-                                                child: Text(
+                                                child: AutoSizeText(
                                                   state.betSlipCard.length
                                                       .toString(),
                                                   style: GoogleFonts.nunito(
@@ -201,7 +202,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    AutoSizeText(
                       'All games are based on Eastern Standard Time',
                       style: Styles.matchupTime,
                     ),
@@ -213,7 +214,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    AutoSizeText(
                       'Eastern Time: ${formatDate(widget.estTimeZone)}',
                       style: Styles.matchupTime,
                     ),
@@ -403,7 +404,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 return DropdownMenuItem<String>(
                   value: value,
                   child: value == widget.league
-                      ? Text(
+                      ? AutoSizeText(
                           '$value ($length)',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.nunito(
@@ -413,7 +414,7 @@ class _SportsBookViewState extends State<SportsBookView>
                           ),
                           overflow: TextOverflow.ellipsis,
                         )
-                      : Text(
+                      : AutoSizeText(
                           '$value ($length)',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.nunito(

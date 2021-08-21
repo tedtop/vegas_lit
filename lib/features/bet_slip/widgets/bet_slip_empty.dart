@@ -1,6 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/palette.dart';
 
+import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 
 class EmptyBetSlip extends StatelessWidget {
@@ -13,7 +14,7 @@ class EmptyBetSlip extends StatelessWidget {
           AbstractCard(
             crossAxisAlignment: CrossAxisAlignment.start,
             widgets: [
-              Text(
+              AutoSizeText(
                 'Your Bet List is\ncurrently Empty.',
                 style: Styles.betSlipBoxLargeText,
               ),
@@ -40,7 +41,7 @@ class EmptyBetSlip extends StatelessWidget {
   Widget textPoints(String text) {
     return Column(
       children: [
-        Text(
+        AutoSizeText(
           text,
           style: Styles.betSlipBoxNormalText,
         ),

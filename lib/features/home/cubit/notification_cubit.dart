@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/notification.dart';
-import 'package:vegas_lit/data/repositories/device_repository.dart';
+import '../../../data/models/notification.dart';
+import '../../../data/repositories/device_repository.dart';
 
 part 'notification_state.dart';
 
@@ -49,9 +49,9 @@ class NotificationCubit extends Cubit<NotificationState> {
           );
 
           // showSimpleNotification(
-          //   Text(_notificationInfo.title),
+          //  AutoSizeText(_notificationInfo.title),
           //   leading: NotificationBadge(totalNotifications: _totalNotifications),
-          //   subtitle: Text(_notificationInfo.body),
+          //   subtitle:AutoSizeText(_notificationInfo.body),
           //   background: Colors.cyan.shade700,
           //   duration: Duration(seconds: 2),
           // );

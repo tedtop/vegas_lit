@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -32,7 +33,7 @@ class _GolfDetailViewState extends State<GolfDetailView> {
               }),
           Expanded(
               child: Center(
-            child: Text(
+            child: AutoSizeText(
               widget.tournament.name,
               style: Styles.greenTextBold.copyWith(fontSize: 24),
             ),
@@ -69,33 +70,33 @@ class GolfTournamentDetailCard extends StatelessWidget {
                 color: Palette.lightGrey),
             child: Column(
               children: [
-                Text(
+                AutoSizeText(
                   'Tournament ID: ${tournament.tournamentId}',
                   style: Styles.normalTextBold,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
+                AutoSizeText(
                   'Start Date: ${tournament.startDate.day}-${DateFormat.MMMM().format(tournament.startDate)}-${tournament.startDate.year}',
                   style: Styles.normalText,
                 ),
-                Text(
+                AutoSizeText(
                   'End Date: ${tournament.endDate.day}-${DateFormat.MMMM().format(tournament.endDate)}-${tournament.endDate.year}',
                   style: Styles.normalText,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
+                AutoSizeText(
                   'Venue:',
                   style: Styles.greenTextBold,
                 ),
-                Text(
+                AutoSizeText(
                   '${tournament.venue ?? 'NA'}',
                   style: Styles.awayTeam,
                 ),
-                Text(
+                AutoSizeText(
                   '${tournament.location ?? 'NA'}',
                   style: Styles.awayTeam,
                 ),
@@ -106,19 +107,19 @@ class GolfTournamentDetailCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GolfStyledBox(
-                      child: Text(
+                      child: AutoSizeText(
                         'Par: ${tournament.par ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
                     ),
                     GolfStyledBox(
-                      child: Text(
+                      child: AutoSizeText(
                         'Yards: ${tournament.yards ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
                     ),
                     GolfStyledBox(
-                      child: Text(
+                      child: AutoSizeText(
                         'Purse: ${tournament.purse ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
@@ -129,18 +130,18 @@ class GolfTournamentDetailCard extends StatelessWidget {
                   ],
                 ),
                 tournament.isInProgress
-                    ? Text(
+                    ? AutoSizeText(
                         'This tournament is in progress!',
                         style: Styles.largeTextBold,
                         textAlign: TextAlign.center,
                       )
                     : (tournament.isOver
-                        ? Text(
+                        ? AutoSizeText(
                             'This tournament is over!',
                             style: Styles.largeTextBold,
                             textAlign: TextAlign.center,
                           )
-                        : Text(
+                        : AutoSizeText(
                             'This tournament has not started yet!',
                             style: Styles.largeTextBold,
                             textAlign: TextAlign.center,
@@ -152,7 +153,7 @@ class GolfTournamentDetailCard extends StatelessWidget {
               ? Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                  child: Text(
+                  child: AutoSizeText(
                     'Players',
                     style: Styles.pageTitle,
                   ),
@@ -177,23 +178,23 @@ class GolfTournamentDetailCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          AutoSizeText(
                             '${player.name}',
                             style: Styles.normalTextBold,
                           ),
-                          Text(
+                          AutoSizeText(
                             '${player.country}',
                             style: Styles.normalText,
                           ),
-                          Text(
+                          AutoSizeText(
                             'Rank: ${player.rank ?? 'N/A'}',
                             style: Styles.greenTextBold,
                           ),
-                          Text(
+                          AutoSizeText(
                             'Total Score: ${player.totalScore}',
                             style: Styles.greenTextBold,
                           ),
-                          Text(
+                          AutoSizeText(
                             'Total Strokes: ${player.totalStrokes}',
                             style: Styles.greenTextBold,
                           )

@@ -1,32 +1,32 @@
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_player_stats.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
-import 'package:vegas_lit/data/models/nba/nba_player_stats.dart';
-import 'package:vegas_lit/data/models/nba/nba_team_stats.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_player_stats.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_team_stats.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_player_stats.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_team_stats.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_player_stats.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_team_stats.dart';
-import 'package:vegas_lit/data/models/nhl/nfl_player_stats.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_team_stats.dart';
-import 'package:vegas_lit/data/models/olympics/olympics.dart';
-import 'package:vegas_lit/data/providers/cloud_firestore.dart';
 
 import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
 import '../models/mlb/mlb_player.dart';
+import '../models/mlb/mlb_player_stats.dart';
+import '../models/mlb/mlb_team_stats.dart';
 import '../models/nba/nba_game.dart';
 import '../models/nba/nba_player.dart';
+import '../models/nba/nba_player_stats.dart';
+import '../models/nba/nba_team_stats.dart';
 import '../models/ncaab/ncaab_game.dart';
 import '../models/ncaab/ncaab_player.dart';
+import '../models/ncaab/ncaab_player_stats.dart';
+import '../models/ncaab/ncaab_team_stats.dart';
 import '../models/ncaaf/ncaaf_game.dart';
 import '../models/ncaaf/ncaaf_player.dart';
+import '../models/ncaaf/ncaaf_player_stats.dart';
+import '../models/ncaaf/ncaaf_team_stats.dart';
 import '../models/nfl/nfl_game.dart';
 import '../models/nfl/nfl_player.dart';
+import '../models/nfl/nfl_player_stats.dart';
+import '../models/nfl/nfl_team_stats.dart';
+import '../models/nhl/nfl_player_stats.dart';
 import '../models/nhl/nhl_game.dart';
 import '../models/nhl/nhl_player.dart';
+import '../models/nhl/nhl_team_stats.dart';
+import '../models/olympics/olympics.dart';
+import '../providers/cloud_firestore.dart';
 import '../providers/sportsdata_api.dart';
 
 class SportsRepository {

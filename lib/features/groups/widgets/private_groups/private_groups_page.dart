@@ -1,16 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/features/authentication/authentication.dart';
-import 'package:vegas_lit/features/groups/widgets/group_add/group_add.dart';
-import 'package:vegas_lit/features/groups/widgets/group_details/group_details.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/features/home/home.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/group.dart';
+import '../../../../data/repositories/groups_repository.dart';
+import '../../../authentication/authentication.dart';
+import '../../../home/home.dart';
+import '../group_add/group_add.dart';
+import '../group_details/group_details.dart';
 import 'cubit/private_groups_cubit.dart';
 
 class PrivateGroups extends StatelessWidget {
@@ -76,7 +77,7 @@ class PrivateGroups extends StatelessWidget {
                 case PrivateGroupsStatus.success:
                   if (state.privateGroups.isEmpty) {
                     return Center(
-                      child: Text(
+                      child: AutoSizeText(
                         'No Groups Found!',
                         style: GoogleFonts.nunito(),
                       ),
@@ -87,7 +88,7 @@ class PrivateGroups extends StatelessWidget {
                   break;
                 case PrivateGroupsStatus.failure:
                   return Center(
-                    child: Text(
+                    child: AutoSizeText(
                       'Couldn\'t open groups',
                       style: GoogleFonts.nunito(),
                     ),
@@ -158,17 +159,17 @@ class PrivateGroupListTile extends StatelessWidget {
           Icons.star,
           size: 35,
         ),
-        title: Text(
+        title: AutoSizeText(
           _group.name,
           style: Styles.leaderboardUsername,
         ),
-        subtitle: Text(
+        subtitle: AutoSizeText(
           _group.isPublic ? 'Public Group' : 'Private Group',
           style: Styles.normalText.copyWith(fontSize: 14),
         ),
         trailing: Column(
           children: [
-            Text(
+            AutoSizeText(
               '${_group.users.length}${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
@@ -177,7 +178,7 @@ class PrivateGroupListTile extends StatelessWidget {
                     : Palette.red,
               ),
             ),
-            Text(
+            AutoSizeText(
               'Users',
               style: Styles.normalText.copyWith(fontSize: 14),
             ),

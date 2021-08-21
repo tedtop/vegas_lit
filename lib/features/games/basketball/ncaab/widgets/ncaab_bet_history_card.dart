@@ -1,10 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
 
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import '../../../../../config/palette.dart';
+import '../../../../../config/styles.dart';
+import '../../../../../data/models/ncaab/ncaab_bet.dart';
 
 class NcaabBetHistoryCard extends StatelessWidget {
   const NcaabBetHistoryCard({
@@ -95,7 +96,7 @@ class NcaabBetHistoryCard extends StatelessWidget {
                           const SizedBox(
                             height: 3,
                           ),
-                          Text(
+                          AutoSizeText(
                             'Max Payout ${betHistoryData.betAmount + betHistoryData.betProfit}',
                             style: Styles.openBetsCardNormal,
                           ),
@@ -105,7 +106,7 @@ class NcaabBetHistoryCard extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Center(
-                                  child: Text(
+                                  child: AutoSizeText(
                                     DateFormat('E, MMMM, c, y @ hh:mm a')
                                         .format(
                                       DateTime.parse(
@@ -143,13 +144,13 @@ class NcaabBetHistoryCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               'ticket cost',
                               style: Styles.betHistoryDescription.copyWith(
                                 color: Palette.cream,
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               '${betHistoryData.betAmount}',
                               style: Styles.betHistoryAmount.copyWith(
                                 color: Palette.cream,
@@ -165,12 +166,12 @@ class NcaabBetHistoryCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               '${isWin ? 'you won' : 'you lost'}',
                               style: Styles.betHistoryDescription.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),
-                            Text(
+                            AutoSizeText(
                               isWin
                                   ? '${betHistoryData.betProfit}'
                                   : '${betHistoryData.betAmount}',
@@ -200,7 +201,7 @@ class NcaabBetHistoryCard extends StatelessWidget {
               height: 25,
               width: 80,
               child: Center(
-                child: Text(
+                child: AutoSizeText(
                   whichBetSystemFromString(betHistoryData.betType),
                   style: GoogleFonts.nunito(
                     fontSize: 10,
@@ -259,7 +260,7 @@ Widget whichBetTextWidget(dynamic betData) {
           const SizedBox(
             height: 4,
           ),
-          Text(
+          AutoSizeText(
             '(ML) ${whichBetSystemFromString(betData.betType)}  ($odds)',
             style: Styles.openBetsCardNormal,
           ),
@@ -292,7 +293,7 @@ Widget whichBetTextWidget(dynamic betData) {
             const SizedBox(
               height: 4,
             ),
-            Text(
+            AutoSizeText(
               '(PTS) POINT SPREAD ($odds)',
               style: Styles.openBetsCardNormal,
             )
@@ -326,7 +327,7 @@ Widget whichBetTextWidget(dynamic betData) {
             const SizedBox(
               height: 4,
             ),
-            Text(
+            AutoSizeText(
               '(PTS) POINT SPREAD ($odds)',
               style: Styles.openBetsCardNormal,
             )
@@ -338,14 +339,14 @@ Widget whichBetTextWidget(dynamic betData) {
       if (betData.betTeam == 'away') {
         return Column(
           children: [
-            Text(
+            AutoSizeText(
               '${betData.awayTeamName.toUpperCase()} OVER ($overUnder)',
               style: Styles.openBetsCardNormal,
             ),
             const SizedBox(
               height: 4,
             ),
-            Text(
+            AutoSizeText(
               '(TOT) TOTAL O/U ($odds)',
               style: Styles.openBetsCardNormal,
             )
@@ -373,7 +374,7 @@ Widget whichBetTextWidget(dynamic betData) {
             const SizedBox(
               height: 4,
             ),
-            Text(
+            AutoSizeText(
               '(TOT) TOTAL O/U ($odds)',
               style: Styles.openBetsCardNormal,
             )
@@ -383,7 +384,7 @@ Widget whichBetTextWidget(dynamic betData) {
       break;
     default:
       return Center(
-        child: Text(
+        child: AutoSizeText(
           'NO DATA FOUND',
           style: Styles.openBetsCardNormal,
         ),

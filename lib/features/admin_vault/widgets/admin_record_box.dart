@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/models/vault_data.dart';
@@ -20,7 +22,7 @@ class AdminVaultDailyList extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-            child: Text(
+            child: AutoSizeText(
               'Date: ${vaultItem.date}',
               style: Styles.normalTextBold,
               textAlign: TextAlign.start,
@@ -40,11 +42,11 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Bets', style: Styles.greenText),
+                      child: AutoSizeText('Bets', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         vaultItem.totalBets.toString(),
                         style: Styles.normalText,
                       ),
@@ -54,11 +56,11 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Money In', style: Styles.greenText),
+                      child: AutoSizeText('Money In', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         '${vaultItem.moneyIn.toString()}',
                         style: Styles.normalText,
                       ),
@@ -68,11 +70,11 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Money Out', style: Styles.greenText),
+                      child: AutoSizeText('Money Out', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         '${vaultItem.moneyOut.toString()}',
                         style: Styles.normalText,
                       ),
@@ -82,11 +84,11 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Profit', style: Styles.greenText),
+                      child: AutoSizeText('Profit', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         '${vaultItem.totalProfit.toString()}',
                         style: Styles.normalText,
                       ),
@@ -119,7 +121,7 @@ class AdminVaultCumulativeTile extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-            child: Text(
+            child: AutoSizeText(
               'Total',
               style: Styles.normalTextBold,
               textAlign: TextAlign.start,
@@ -139,11 +141,11 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Bets', style: Styles.greenText),
+                      child: AutoSizeText('Bets', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         vaultItem.totalBets.toString(),
                         style: Styles.normalText,
                       ),
@@ -153,11 +155,11 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Money In', style: Styles.greenText),
+                      child: AutoSizeText('Money In', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         '${vaultItem.moneyIn.toString()}',
                         style: Styles.normalText,
                       ),
@@ -167,11 +169,11 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Money Out', style: Styles.greenText),
+                      child: AutoSizeText('Money Out', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         '${vaultItem.moneyOut.toString()}',
                         style: Styles.normalText,
                       ),
@@ -181,11 +183,11 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Profit', style: Styles.greenText),
+                      child: AutoSizeText('Profit', style: Styles.greenText),
                       width: 120,
                     ),
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         '${vaultItem.totalProfit.toString()}',
                         style: Styles.normalText,
                       ),

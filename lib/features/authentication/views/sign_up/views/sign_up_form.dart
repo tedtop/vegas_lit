@@ -1,19 +1,19 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/features/authentication/views/login/login.dart';
 
+import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
-
 import '../../../models/confirmed_password.dart';
 import '../../../models/email.dart';
 import '../../../models/password.dart';
 import '../../../models/username.dart';
+import '../../login/login.dart';
 import '../sign_up.dart';
 
 String confirmedPasswordError(
@@ -71,7 +71,7 @@ class SignUpForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(
+                content: AutoSizeText(
                   state.signUpErrorMessage,
                 ),
               ),
@@ -184,7 +184,7 @@ class _AgreementCheck extends StatelessWidget {
                     width: 40,
                   ),
                   state.agreement.invalid
-                      ? Text(
+                      ? AutoSizeText(
                           'Required',
                           style: Styles.authFieldError
                               .copyWith(color: Palette.red),
@@ -213,7 +213,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
+                child: AutoSizeText(
                   'Verify Password',
                   style: Styles.signUpFieldDescription,
                 ),
@@ -266,7 +266,7 @@ class _EmailInput extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
+                child: AutoSizeText(
                   'Email Address',
                   style: Styles.signUpFieldDescription,
                 ),
@@ -316,7 +316,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          AutoSizeText(
             'Already have an account?',
             style: Styles.authNormalText,
           ),
@@ -324,7 +324,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
             key: const Key('loginForm_createAccount_flatButton'),
             onPressed: () =>
                 Navigator.of(context).pushReplacement(LoginPage.route()),
-            child: Text(
+            child: AutoSizeText(
               'Log In',
               style: Styles.authButtonText,
             ),
@@ -346,7 +346,7 @@ class _PasswordInput extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
+                child: AutoSizeText(
                   'Password',
                   style: Styles.signUpFieldDescription,
                 ),
@@ -397,7 +397,7 @@ class _PasswordInput extends StatelessWidget {
 //             Expanded(
 //               child: Padding(
 //                 padding: const EdgeInsets.only(bottom: 20),
-//                 child: Text(
+//                 child:AutoSizeText(
 //                   'Mobile Number',
 //                   style: GoogleFonts.nunito(
 //                     fontSize: 18,
@@ -490,7 +490,7 @@ class _PasswordInput extends StatelessWidget {
 //                 ),
 //                 Column(
 //                   children: [
-//                     Text(
+//                    AutoSizeText(
 //                       'I am 18 years or older',
 //                       style: GoogleFonts.nunito(
 //                         fontSize: 14,
@@ -507,7 +507,7 @@ class _PasswordInput extends StatelessWidget {
 //                   width: 40,
 //                 ),
 //                 state.age.invalid
-//                     ? Text(
+//                     ?AutoSizeText(
 //                         'Required',
 //                         style: GoogleFonts.nunito(
 //                           color: Colors.red,
@@ -614,7 +614,7 @@ class _StateInput extends StatelessWidget {
         return Row(
           children: [
             Expanded(
-              child: Text(
+              child: AutoSizeText(
                 'State',
                 style: Styles.signUpFieldDescription,
               ),
@@ -626,7 +626,7 @@ class _StateInput extends StatelessWidget {
                     isExpanded: true,
                     showUnderline: true,
                     items: stateList,
-                    hint: Text(
+                    hint: AutoSizeText(
                       'State',
                       style: GoogleFonts.nunito(),
                     ),
@@ -640,7 +640,7 @@ class _StateInput extends StatelessWidget {
                         width: 5,
                       ),
                       state.americanState.invalid
-                          ? Text(
+                          ? AutoSizeText(
                               'Required',
                               style: Styles.authFieldError
                                   .copyWith(color: Palette.red),
@@ -682,7 +682,7 @@ class _UsernameInput extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
+                child: AutoSizeText(
                   'Username',
                   style: Styles.signUpFieldDescription,
                 ),
@@ -781,7 +781,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
         child: (widget.customWidgets != null)
             ? widget.customWidgets[widget.items.indexOf(item)]
-            : Text(
+            : AutoSizeText(
                 item.toString(),
                 style: GoogleFonts.nunito(
                   fontWeight: FontWeight.w300,
@@ -827,7 +827,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
+          child: AutoSizeText(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

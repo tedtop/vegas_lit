@@ -1,12 +1,13 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/config/routes.dart';
-import 'package:vegas_lit/utils/route_aware_analytics.dart';
 
 import '../../config/assets.dart';
 import '../../config/palette.dart';
+import '../../config/routes.dart';
 import '../../config/styles.dart';
+import '../../utils/route_aware_analytics.dart';
 
 class RulesDialog extends StatefulWidget {
   const RulesDialog._({Key key}) : super(key: key);
@@ -52,7 +53,7 @@ class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  AutoSizeText(
                     'RULES',
                     style: Styles.pageTitle,
                   ),
@@ -60,20 +61,20 @@ class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Text(
+                child: AutoSizeText(
                   'WEEKLY CONTEST RULES',
                   textAlign: TextAlign.start,
                   style: Styles.normalText.copyWith(fontSize: 28),
                 ),
               ),
-              const Text(
+              const AutoSizeText(
                 'The Vegas Lit Games Free2Play Sportsbook allows you to place bets on real sports with virtual currency and track your  progress over time. You\'ll be gifted 1000 in virtual currency each week. Bet on sports over the week using the app. ',
                 style: TextStyle(color: Palette.cream),
               ),
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              const AutoSizeText(
                 'Earn as much as possible through your correct picks and climb the leaderboard to become the Vegas Lit Champion! The player with the highest profit each week will be declared the winner and awarded cold hard plastic! (Cash Card)',
                 style: TextStyle(color: Palette.cream),
               ),
@@ -84,7 +85,7 @@ class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              const AutoSizeText(
                 'Please Note: Apple is not a participant in or sponsor of this promotion.',
                 style: TextStyle(color: Palette.cream),
               ),
@@ -123,7 +124,7 @@ class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text('Let\'s Play!', style: Styles.normalTextBold),
+        child: AutoSizeText('Let\'s Play!', style: Styles.normalTextBold),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -186,12 +187,12 @@ class _OrderedListItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        AutoSizeText(
           '$index. ',
           style: const TextStyle(color: Palette.cream),
         ),
         Expanded(
-          child: Text(
+          child: AutoSizeText(
             rule,
             style: const TextStyle(color: Palette.cream),
           ),

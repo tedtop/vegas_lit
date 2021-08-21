@@ -1,14 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/olympics/olympics.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
-import 'package:vegas_lit/features/authentication/authentication.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/models/olympics_bet_slip_card_data.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/screens/bet_slip_card.dart';
+
+import '../../../../../../config/palette.dart';
+import '../../../../../../data/models/olympics/olympics.dart';
+import '../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../authentication/authentication.dart';
+import '../../../../../bet_slip/bet_slip.dart';
+import '../cubit/olympics_bet_button_cubit.dart';
+import '../models/olympics_bet_slip_card_data.dart';
+import 'bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);
@@ -49,7 +51,7 @@ class BetButton extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: Text(
+                  content: AutoSizeText(
                     "You've already placed a bet on this game.",
                   ),
                 ),
@@ -61,7 +63,7 @@ class BetButton extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
-                  content: Text('Your bet has been placed.'),
+                  content: AutoSizeText('Your bet has been placed.'),
                 ),
               );
             context
@@ -129,7 +131,7 @@ class BetButtonUnclicked extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text(
+                AutoSizeText(
                   countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.playerCountry
@@ -139,7 +141,7 @@ class BetButtonUnclicked extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(
+                  child: AutoSizeText(
                     betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.player
                         : betButtonState.game.rival,
@@ -205,7 +207,7 @@ class BetButtonClicked extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text(
+                AutoSizeText(
                   countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.playerCountry
@@ -215,7 +217,7 @@ class BetButtonClicked extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(
+                  child: AutoSizeText(
                     betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.player
                         : betButtonState.game.rival,
@@ -261,7 +263,7 @@ class BetButtonDone extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
           child: Center(
-            child: Text(
+            child: AutoSizeText(
               'BET PLACED',
               maxLines: 1,
               style: GoogleFonts.nunito(

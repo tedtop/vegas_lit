@@ -1,6 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/routes.dart';
+import '../config/routes.dart';
 
 final routeObserver = RouteObserver<PageRoute>();
 

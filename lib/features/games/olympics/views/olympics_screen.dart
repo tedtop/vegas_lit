@@ -1,12 +1,13 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/sports_repository.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/matchup_card/olympics_matchup_card.dart';
-import 'package:vegas_lit/utils/bottom_bar.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../data/repositories/sports_repository.dart';
+import '../../../../utils/bottom_bar.dart';
 import '../olympics.dart';
+import '../widgets/matchup_card/olympics_matchup_card.dart';
 
 class OlympicsScreen extends StatelessWidget {
   const OlympicsScreen._({Key key}) : super(key: key);
@@ -45,7 +46,7 @@ class OlympicsScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
-                    child: Text(
+                    child: AutoSizeText(
                       // ignore: lines_longer_than_80_chars
                       'No odds available for the league you have selected at this time.',
                       textAlign: TextAlign.center,

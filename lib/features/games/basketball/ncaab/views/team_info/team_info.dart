@@ -1,16 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_team_stats.dart';
-import 'package:vegas_lit/utils/app_bar.dart';
-import 'package:vegas_lit/utils/vl_image.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/ncaab/ncaab_player.dart';
+import '../../../../../../data/models/ncaab/ncaab_team_stats.dart';
 import '../../../../../../data/repositories/sports_repository.dart';
-
+import '../../../../../../utils/app_bar.dart';
+import '../../../../../../utils/vl_image.dart';
 import '../../models/ncaab_team.dart';
 import '../player_details/player_details.dart';
 import 'cubit/team_info_cubit.dart';
@@ -51,7 +51,7 @@ class TeamInfoView extends StatelessWidget {
     return ListView(
       children: [
         Center(
-          child: Text(
+          child: AutoSizeText(
             'TEAM STATS',
             style: GoogleFonts.nunito(
                 fontSize: 24,
@@ -98,11 +98,11 @@ class TeamInfoView extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Text(
+                  AutoSizeText(
                     'WINS',
                     style: Styles.teamStatsMain.copyWith(color: Palette.green),
                   ),
-                  Text(
+                  AutoSizeText(
                     stats.wins.toString(),
                     style: Styles.teamStatsMain.copyWith(color: Palette.green),
                   )
@@ -110,11 +110,11 @@ class TeamInfoView extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Text(
+                  AutoSizeText(
                     'FG%',
                     style: Styles.teamStatsMain.copyWith(color: Palette.cream),
                   ),
-                  Text(
+                  AutoSizeText(
                     stats.fieldGoalsPercentage.toString(),
                     style: Styles.teamStatsMain.copyWith(color: Palette.cream),
                   )
@@ -122,11 +122,11 @@ class TeamInfoView extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Text(
+                  AutoSizeText(
                     'LOSSES',
                     style: Styles.teamStatsMain.copyWith(color: Palette.red),
                   ),
-                  Text(
+                  AutoSizeText(
                     stats.losses.toString(),
                     style: Styles.teamStatsMain.copyWith(color: Palette.red),
                   )
@@ -178,7 +178,7 @@ class TeamInfoView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        AutoSizeText(
                           '${players[index].firstName} ${players[index].lastName}',
                           style: Styles.normalText,
                         ),
@@ -187,11 +187,11 @@ class TeamInfoView extends StatelessWidget {
                               horizontal: 8, vertical: 2),
                           child: Column(
                             children: [
-                              Text(
+                              AutoSizeText(
                                 'POSITION',
                                 style: Styles.greenText.copyWith(fontSize: 10),
                               ),
-                              Text(
+                              AutoSizeText(
                                 players[index].position.toString(),
                                 style:
                                     Styles.greenTextBold.copyWith(fontSize: 20),
@@ -235,7 +235,7 @@ class TeamInfoView extends StatelessWidget {
                     height: 100,
                     child: CircleAvatar(
                       backgroundColor: Palette.lightGrey,
-                      child: Text(
+                      child: AutoSizeText(
                         teamData.name.characters.first,
                         style: Styles.largeTextBold.copyWith(fontSize: 40),
                       ),
@@ -247,11 +247,11 @@ class TeamInfoView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              AutoSizeText(
                 teamData.name,
                 style: Styles.largeTextBold.copyWith(fontSize: 30),
               ),
-              Text(
+              AutoSizeText(
                 teamData.city.toUpperCase(),
                 style: Styles.normalText,
               ),

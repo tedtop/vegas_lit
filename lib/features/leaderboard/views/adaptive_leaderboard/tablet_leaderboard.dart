@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-              child: Text(
+              child: AutoSizeText(
                 'Current Leaderboard',
                 style: Styles.normalTextBold,
               ),
@@ -139,7 +140,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                         color: Palette.darkGrey,
                         height: 50.0,
                         width: 50.0,
-                        child: Text(
+                        child: AutoSizeText(
                             player.username.substring(0, 1).toUpperCase(),
                             style: Styles.leaderboardUsername),
                       ),
@@ -148,11 +149,11 @@ class TabletLeaderboardTile extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                AutoSizeText(
                   '${player.rank}. ${player.username}',
                   style: Styles.normalTextBold,
                 ),
-                Text(
+                AutoSizeText(
                   '${player.accountBalance + player.pendingRiskedAmount}',
                   style: GoogleFonts.nunito(
                     fontSize: 18,
@@ -165,11 +166,11 @@ class TabletLeaderboardTile extends StatelessWidget {
             subtitle: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                AutoSizeText(
                   'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
                   style: Styles.awayTeam,
                 ),
-                Text(
+                AutoSizeText(
                   leaderboardWinningBetsRatio(
                     player.totalBetsWon,
                     player.totalBetsLost,

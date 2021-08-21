@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_game.dart';
-import 'package:vegas_lit/data/repositories/device_repository.dart';
+import '../../../config/extensions.dart';
+import '../../../data/models/nfl/nfl_game.dart';
+import '../../../data/repositories/device_repository.dart';
 
 import '../../../data/repositories/sports_repository.dart';
 

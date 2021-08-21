@@ -1,14 +1,15 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/features/home/home.dart';
 
+import '../../../../config/extensions.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/group.dart';
+import '../../../../data/repositories/groups_repository.dart';
+import '../../../home/home.dart';
 import 'cubit/group_add_cubit.dart';
 
 class GroupAdd extends StatefulWidget {
@@ -49,7 +50,7 @@ class _GroupAddState extends State<GroupAdd> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: AutoSizeText(
           'NEW GROUP',
           style: Styles.pageTitle,
         ),
@@ -61,11 +62,11 @@ class _GroupAddState extends State<GroupAdd> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              Text(
+              AutoSizeText(
                 'Admin',
                 style: Styles.groupFieldHeading,
               ),
-              Text(
+              AutoSizeText(
                 'As the creator of this group, you are the admin.',
                 style: Styles.groupFieldDescription,
               ),
@@ -82,14 +83,14 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
+                  child: AutoSizeText(
                     userData.username,
                     style: Styles.normalText,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
+              AutoSizeText(
                 'Group Name',
                 style: Styles.groupFieldHeading,
               ),
@@ -119,7 +120,7 @@ class _GroupAddState extends State<GroupAdd> {
                 },
               ),
               const SizedBox(height: 10),
-              Text(
+              AutoSizeText(
                 'Group Type',
                 style: Styles.groupFieldHeading,
               ),
@@ -133,7 +134,7 @@ class _GroupAddState extends State<GroupAdd> {
                       onChanged: (val) => setState(() {
                         _isPublic = val;
                       }),
-                      title: Text(
+                      title: AutoSizeText(
                         'Public',
                         style: Styles.normalText,
                       ),
@@ -148,7 +149,7 @@ class _GroupAddState extends State<GroupAdd> {
                       onChanged: (val) => setState(() {
                         _isPublic = val;
                       }),
-                      title: Text(
+                      title: AutoSizeText(
                         'Private',
                         style: Styles.normalText,
                       ),
@@ -158,11 +159,11 @@ class _GroupAddState extends State<GroupAdd> {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(
+              AutoSizeText(
                 'Group Description or Motto',
                 style: Styles.groupFieldHeading,
               ),
-              Text(
+              AutoSizeText(
                 'Maximum 160 characters',
                 style: Styles.groupFieldDescription,
               ),
@@ -189,7 +190,7 @@ class _GroupAddState extends State<GroupAdd> {
                 },
               ),
               const SizedBox(height: 10),
-              Text('Maximum Size', style: Styles.groupFieldHeading),
+              AutoSizeText('Maximum Size', style: Styles.groupFieldHeading),
               RadioListTile(
                 value: true,
                 groupValue: _isUnlimitedSize,
@@ -198,7 +199,7 @@ class _GroupAddState extends State<GroupAdd> {
                     _isUnlimitedSize = val;
                   },
                 ),
-                title: Text(
+                title: AutoSizeText(
                   'Unlimited Members',
                   style: Styles.normalText,
                 ),
@@ -213,7 +214,8 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
                 title: Row(
                   children: [
-                    Text('Limit Members to: ', style: Styles.normalText),
+                    AutoSizeText('Limit Members to: ',
+                        style: Styles.normalText),
                     SizedBox(
                       width: 80,
                       child: TextFormField(
@@ -268,7 +270,7 @@ class _GroupAddState extends State<GroupAdd> {
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
                         const SnackBar(
-                          content: Text('Group Created Successfully!'),
+                          content: AutoSizeText('Group Created Successfully!'),
                         ),
                       );
                     Navigator.of(context).pop();
@@ -316,7 +318,7 @@ class _GroupAddState extends State<GroupAdd> {
                         width: 360,
                         color: Palette.green,
                         child: Center(
-                          child: Text(
+                          child: AutoSizeText(
                             'GROUP CREATED',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
@@ -374,7 +376,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
+          child: AutoSizeText(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

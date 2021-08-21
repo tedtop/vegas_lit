@@ -1,15 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/features/olympics/olympic_add.dart';
+
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../admin_vault/admin_vault_page.dart';
 import '../../authentication/authentication.dart';
 import '../../drawer_pages/rules.dart';
+import '../../olympics/olympic_add.dart';
 import '../../profile/cubit/profile_cubit.dart';
 import '../../profile/views/profile_page.dart';
 import '../cubit/home_cubit.dart';
@@ -57,7 +59,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           //..................................................................//
           ListTile(
-            title: Text('PROFILE', style: Styles.normalTextBold),
+            title: AutoSizeText('PROFILE', style: Styles.normalTextBold),
             onTap: () {
               Navigator.of(context).push(
                 Profile.route(currentUserId: currentUserId),
@@ -68,7 +70,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ? Column(
                   children: [
                     ListTile(
-                      title: Text('SPORTSBOOK', style: Styles.normalTextBold),
+                      title: AutoSizeText('SPORTSBOOK',
+                          style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(0);
                         Navigator.of(context).pop();
@@ -77,22 +80,24 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     width > 1000
                         ? const SizedBox()
                         : ListTile(
-                            title:
-                                Text('BET SLIP', style: Styles.normalTextBold),
+                            title: AutoSizeText('BET SLIP',
+                                style: Styles.normalTextBold),
                             onTap: () {
                               context.read<HomeCubit>().homeChange(1);
                               Navigator.of(context).pop();
                             },
                           ),
                     ListTile(
-                      title: Text('OPEN BETS', style: Styles.normalTextBold),
+                      title: AutoSizeText('OPEN BETS',
+                          style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(3);
                         Navigator.of(context).pop();
                       },
                     ),
                     ListTile(
-                      title: Text('HISTORY', style: Styles.normalTextBold),
+                      title:
+                          AutoSizeText('HISTORY', style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(4);
                         Navigator.of(context).pop();
@@ -102,7 +107,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 )
               : const SizedBox(),
           ListTile(
-            title: Text('LEADERBOARD', style: Styles.normalTextBold),
+            title: AutoSizeText('LEADERBOARD', style: Styles.normalTextBold),
             onTap: () {
               context.read<HomeCubit>().homeChange(2);
               Navigator.of(context).pop();
@@ -110,7 +115,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           isAdmin
               ? ListTile(
-                  title: Text('ADMIN VAULT', style: Styles.normalTextBold),
+                  title:
+                      AutoSizeText('ADMIN VAULT', style: Styles.normalTextBold),
                   onTap: () {
                     Navigator.of(context).push(AdminVaultScreen.route());
                   },
@@ -118,14 +124,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
               : Container(),
           isAdmin
               ? ListTile(
-                  title: Text('OLYMPICS', style: Styles.normalTextBold),
+                  title: AutoSizeText('OLYMPICS', style: Styles.normalTextBold),
                   onTap: () {
                     Navigator.of(context).push(OlympicsAddForm.route());
                   },
                 )
               : Container(),
           // ListTile(
-          //   leading: Text('GROUPS', style: Styles.normalTextBold),
+          //   leading:AutoSizeText('GROUPS', style: Styles.normalTextBold),
           //   onTap: () {
           //     Navigator.push(
           //       context,
@@ -136,7 +142,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           //   },
           // ),
           ListTile(
-            leading: Text('LOGOUT', style: Styles.normalTextBold),
+            leading: AutoSizeText('LOGOUT', style: Styles.normalTextBold),
             onTap: () {
               context
                   .read<AuthenticationBloc>()
@@ -151,11 +157,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           //..................................................................//
           ListTile(
-            title: Text('TUTORIAL', style: Styles.normalText),
+            title: AutoSizeText('TUTORIAL', style: Styles.normalText),
             onTap: _launchTutorialVideo,
           ),
           ListTile(
-            title: Text('RULES', style: Styles.normalText),
+            title: AutoSizeText('RULES', style: Styles.normalText),
             onTap: () {
               Navigator.of(context).push(
                 Rules.route(),
@@ -163,15 +169,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
             },
           ),
           ListTile(
-            title: Text('TERMS OF SERVICE', style: Styles.normalText),
+            title: AutoSizeText('TERMS OF SERVICE', style: Styles.normalText),
             onTap: _launchTermsAndConditions,
           ),
           ListTile(
-            title: Text('PRIVACY POLICY', style: Styles.normalText),
+            title: AutoSizeText('PRIVACY POLICY', style: Styles.normalText),
             onTap: _launchPrivacyPolicy,
           ),
           ListTile(
-            title: Text('CONTACT US', style: Styles.normalText),
+            title: AutoSizeText('CONTACT US', style: Styles.normalText),
             onTap: () {
               launch(
                 _emailLaunchUri.toString(),
@@ -183,7 +189,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           Builder(
             builder: (context) {
               return ListTile(
-                title: Text(
+                title: AutoSizeText(
                   'Version: $versionString ($buildNumber)',
                   style: Styles.versionText,
                 ),

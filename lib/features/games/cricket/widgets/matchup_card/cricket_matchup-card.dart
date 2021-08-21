@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,7 +68,7 @@ class CricketMatchupCard extends StatelessWidget {
                                     // height: 25,
                                     child: Column(
                                       children: [
-                                        // Text(
+                                        //AutoSizeText(
                                         //   state.awayTeamData.city,
                                         //   textAlign: TextAlign.center,
                                         //   style: GoogleFonts.nunito(
@@ -76,7 +77,7 @@ class CricketMatchupCard extends StatelessWidget {
                                         //     fontWeight: FontWeight.bold,
                                         //   ),
                                         // ),
-                                        Text(
+                                        AutoSizeText(
                                           state.awayTeamData.title
                                               .toUpperCase(),
                                           textAlign: TextAlign.center,
@@ -148,7 +149,7 @@ class CricketMatchupCard extends StatelessWidget {
                             ),
                             Column(
                               children: [
-                                Text(
+                                AutoSizeText(
                                   '@',
                                   style: Styles.matchupSeparator,
                                 ),
@@ -163,7 +164,7 @@ class CricketMatchupCard extends StatelessWidget {
                                 children: [
                                   Column(
                                     children: [
-                                      // Text(
+                                      //AutoSizeText(
                                       //   state.homeTeamData.city,
                                       //   textAlign: TextAlign.center,
                                       //   style: GoogleFonts.nunito(
@@ -172,7 +173,7 @@ class CricketMatchupCard extends StatelessWidget {
                                       //     color: Palette.green,
                                       //   ),
                                       // ),
-                                      Text(
+                                      AutoSizeText(
                                         state.homeTeamData.title.toUpperCase(),
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.nunito(
@@ -272,7 +273,7 @@ class CricketMatchupCard extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              AutoSizeText(
                                 DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
                                   state.game.commenceTime.toLocal(),
                                 ),
@@ -300,7 +301,7 @@ class CricketMatchupCard extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
-      child: Text(
+      child: AutoSizeText(
         text,
         maxLines: 1,
         textAlign: TextAlign.center,

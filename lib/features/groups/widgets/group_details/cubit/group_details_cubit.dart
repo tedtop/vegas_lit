@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/models/wallet.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
+import '../../../../../data/models/group.dart';
+import '../../../../../data/models/wallet.dart';
+import '../../../../../data/repositories/groups_repository.dart';
 
 part 'group_details_state.dart';
 

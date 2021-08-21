@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 
@@ -72,7 +74,7 @@ class TextBar extends StatelessWidget {
                         }
                         return DropdownMenuItem<String>(
                           value: weekValue,
-                          child: Text(
+                          child: AutoSizeText(
                             weekFormat.toString(),
                             textAlign: TextAlign.left,
                             style: Styles.leaderboardDropdown,

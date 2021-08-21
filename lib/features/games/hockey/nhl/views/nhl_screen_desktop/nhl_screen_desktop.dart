@@ -1,10 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/nhl/nhl_game.dart';
 import '../../../../../bet_slip/bet_slip.dart';
-
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNhlScreen extends StatelessWidget {
@@ -59,7 +60,7 @@ class DesktopNhlScreen extends StatelessWidget {
                           color: Palette.green,
                         ),
                         child: Center(
-                          child: Text(
+                          child: AutoSizeText(
                             'BET SLIP',
                             style: GoogleFonts.nunito(
                               fontSize: 16,
@@ -82,7 +83,7 @@ class DesktopNhlScreen extends StatelessWidget {
                               height: 40,
                               width: 42,
                               child: Center(
-                                child: Text(
+                                child: AutoSizeText(
                                   state.betSlipCard.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
@@ -114,7 +115,7 @@ class DesktopNhlScreen extends StatelessWidget {
                             ? AbstractCard(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 widgets: [
-                                  Text(
+                                  AutoSizeText(
                                     'Your Bet List is\ncurrently Empty.',
                                     style: GoogleFonts.nunito(
                                         fontSize: 24,
@@ -167,7 +168,7 @@ class DesktopNhlScreen extends StatelessWidget {
   Widget textPoints(String text) {
     return Column(
       children: [
-        Text(
+        AutoSizeText(
           text,
           style: GoogleFonts.nunito(
             fontSize: 18,

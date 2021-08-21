@@ -1,15 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
 
 import '../../../../../../../config/enum.dart';
+import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
+import '../../../../../../../data/models/nfl/nfl_bet.dart';
 import '../../../../../../../data/models/nfl/nfl_game.dart';
 import '../../../../../../../data/repositories/bets_repository.dart';
 import '../../../models/nfl_team.dart';
@@ -111,7 +112,7 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
           ..showSnackBar(
             const SnackBar(
               duration: Duration(milliseconds: 2000),
-              content: Text(
+              content: AutoSizeText(
                 'This game has already started.',
               ),
             ),
@@ -126,7 +127,7 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
               ..showSnackBar(
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
-                  content: Text(
+                  content: AutoSizeText(
                     // ignore: lines_longer_than_80_chars
                     "You're out of funds. Try watching the video in your bet slip.",
                   ),
@@ -185,7 +186,7 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
         ..showSnackBar(
           const SnackBar(
             duration: Duration(milliseconds: 2000),
-            content: Text(
+            content: AutoSizeText(
               'Please update your app to place bets.',
             ),
           ),

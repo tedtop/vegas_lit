@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -59,7 +60,7 @@ class _DesktopHistoryBoard extends StatelessWidget {
             break;
           case LeaderboardProfileStatus.failure:
             return const Center(
-              child: Text('Some error occured.'),
+              child: AutoSizeText('Some error occured.'),
             );
             break;
           default:
@@ -174,7 +175,7 @@ class _DesktopHistoryContent extends StatelessWidget {
             break;
           case LeaderboardProfileStatus.failure:
             return const Center(
-              child: Text('Some Error Occured'),
+              child: AutoSizeText('Some Error Occured'),
             );
             break;
           default:
@@ -194,7 +195,7 @@ class _DesktopBetHistoryTableEmpty extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 120),
-        child: Text(
+        child: AutoSizeText(
           'No bets resolved yet.',
           textAlign: TextAlign.center,
           style: Styles.betHistoryNormal,
@@ -273,7 +274,7 @@ class _DesktopHistoryHeading extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
+                child: AutoSizeText(
                   '${betHistoryState.userWallet.username}',
                   style: Styles.pageTitle,
                 ),
@@ -300,7 +301,8 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                child: Text(entry, style: Styles.betHistoryDesktopField),
+                child:
+                    AutoSizeText(entry, style: Styles.betHistoryDesktopField),
                 width: tableHeadingsWithWidth[entry].toDouble(),
               ),
             )
@@ -346,7 +348,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text(
+                              child: AutoSizeText(
                                   '${DateFormat('dd-MMM-yyyy').format(startTime)} at ${DateFormat('hh:mm a').format(
                                     startTime,
                                   )} EST',
@@ -356,14 +358,14 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text('${bet.league.toUpperCase()}',
+                              child: AutoSizeText('${bet.league.toUpperCase()}',
                                   style: Styles.betHistoryDesktopItem),
                             );
                           case 'Game':
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text(
+                              child: AutoSizeText(
                                   '${bet.awayTeamName.toUpperCase()} @ ${bet.homeTeamName.toUpperCase()}',
                                   style: Styles.betHistoryDesktopItem),
                             );
@@ -371,7 +373,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text(
+                              child: AutoSizeText(
                                   '${whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                   style: Styles.betHistoryDesktopItem),
                             );
@@ -379,13 +381,13 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 18),
-                                child: Text('${bet.betAmount}',
+                                child: AutoSizeText('${bet.betAmount}',
                                     style: Styles.betHistoryDesktopItem));
                           case 'Result':
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 18),
-                                child: Text(
+                                child: AutoSizeText(
                                     isWin
                                         ? '${bet.betProfit}'
                                         : '-${bet.betAmount}',

@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import '../../../../../data/repositories/user_repository.dart';
 
 part 'ads_state.dart';
 

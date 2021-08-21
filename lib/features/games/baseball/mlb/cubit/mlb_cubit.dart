@@ -5,11 +5,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
+import '../../../../../config/extensions.dart';
 import '../../../../../data/models/mlb/mlb_game.dart';
 import '../../../../../data/repositories/sports_repository.dart';
+import '../models/mlb_team.dart';
 
 part 'mlb_state.dart';
 

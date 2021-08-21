@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -77,15 +78,15 @@ class GolfTournamentCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    AutoSizeText(
                       tournamentName,
                       style: Styles.normalTextBold,
                     ),
-                    Text(
+                    AutoSizeText(
                       venue ?? '',
                       style: Styles.normalText.copyWith(fontSize: 14),
                     ),
-                    Text(
+                    AutoSizeText(
                       location ?? '',
                       style: Styles.normalText.copyWith(fontSize: 14),
                     )
@@ -106,15 +107,15 @@ class GolfTournamentCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    AutoSizeText(
                       '${startDate.day} ${DateFormat.MMM().format(startDate)}-${endDate.day} ${DateFormat.MMM().format(endDate)}, ${endDate.year}',
                       style: Styles.normalText.copyWith(fontSize: 12),
                     ),
-                    Text(
+                    AutoSizeText(
                       'Watch on CBS, GOLF',
                       style: Styles.normalTextBold.copyWith(fontSize: 12),
                     ),
-                    Text(
+                    AutoSizeText(
                       'Purse $purse',
                       style: Styles.normalTextBold.copyWith(fontSize: 14),
                     )

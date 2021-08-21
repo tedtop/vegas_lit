@@ -1,10 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/extensions.dart';
 
+import '../../../../config/extensions.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../utils/bottom_bar.dart';
@@ -35,7 +36,7 @@ class _DesktopOpenBetsHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
+          child: AutoSizeText(
             'OPEN BETS',
             style: Styles.pageTitle,
           ),
@@ -106,7 +107,7 @@ class _DesktopOpenBetsContent extends StatelessWidget {
         break;
       case OpenBetsStatus.failure:
         return const Center(
-          child: Text("Couldn't load bet history data"),
+          child: AutoSizeText("Couldn't load bet history data"),
         );
         break;
       default:
@@ -145,7 +146,7 @@ class _DesktopOpenBetsTableEmpty extends StatelessWidget {
                     color: Palette.green,
                   ),
                   const Center(
-                    child: Text('No Open Bets Found'),
+                    child: AutoSizeText('No Open Bets Found'),
                   ),
                   Container(
                     height: 8,
@@ -239,7 +240,7 @@ class _OpenBetsTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                child: Text(entry, style: Styles.openBetsDesktopField),
+                child: AutoSizeText(entry, style: Styles.openBetsDesktopField),
                 width: tableHeadingsWithWidth[entry].toDouble(),
               ),
             )
@@ -308,7 +309,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                           (tableHeadingsWithWidth[entry] / 2) -
                                               15,
                                       child: Center(
-                                        child: Text(
+                                        child: AutoSizeText(
                                           '${openBets.awayTeamName.toUpperCase()}',
                                           style: Styles.openBetsDesktopItem,
                                         ),
@@ -326,7 +327,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                           (tableHeadingsWithWidth[entry] / 2) -
                                               15,
                                       child: Center(
-                                        child: Text(
+                                        child: AutoSizeText(
                                           '${openBets.homeTeamName.toUpperCase()}',
                                           style: Styles.openBetsDesktopItem
                                               .copyWith(color: Palette.green),
@@ -339,7 +340,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                               const Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 23, vertical: 18),
-                                child: Center(child: Text('@')),
+                                child: Center(child: AutoSizeText('@')),
                               )
                             ],
                           );
@@ -347,7 +348,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                         //   return Padding(
                         //     padding: const EdgeInsets.symmetric(
                         //         horizontal: 23, vertical: 18),
-                        //     child: Text(openBets.betType,
+                        //     child:AutoSizeText(openBets.betType,
                         //         style: GoogleFonts.nunito(
                         //           fontSize: 18,
                         //           fontWeight: FontWeight.w300,
@@ -358,7 +359,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 18),
-                            child: Text(
+                            child: AutoSizeText(
                                 '${whichBetSystemFromString(openBets.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                 style: Styles.openBetsDesktopItem),
                           );
@@ -366,13 +367,13 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                           return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text('${openBets.betAmount}',
+                              child: AutoSizeText('${openBets.betAmount}',
                                   style: Styles.openBetsDesktopItem));
                         case 'To Win':
                           return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: Text('${openBets.betProfit}',
+                              child: AutoSizeText('${openBets.betProfit}',
                                   style: Styles.openBetsDesktopItem));
                         case 'Time Remaining':
                           return Padding(
@@ -387,7 +388,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                   final startTime = DateTime.parse(
                                       openBets.gameStartDateTime);
                                   return Center(
-                                    child: Text(
+                                    child: AutoSizeText(
                                       'Started at ${DateFormat('hh:mm a').format(
                                         startTime,
                                       )} EST',
@@ -397,7 +398,7 @@ class _DesktopOpenBetsTableRow extends StatelessWidget {
                                 }
 
                                 return Center(
-                                  child: Text(
+                                  child: AutoSizeText(
                                     'Starting in  ${getRemainingTimeText(time: time)}',
                                     style: Styles.openBetsDesktopTime,
                                   ),
