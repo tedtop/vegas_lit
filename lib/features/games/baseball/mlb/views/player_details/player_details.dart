@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 import 'package:vegas_lit/utils/app_bar.dart';
+import 'package:vegas_lit/utils/vl_image.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
@@ -91,10 +92,7 @@ class PlayerDetailsPage extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(100)),
             child: Center(
-              child: Image.network(
-                playerDetails.photoUrl,
-                height: 100,
-              ),
+              child: VLImage.network(playerDetails.photoUrl),
             ),
           ),
           const SizedBox(width: 24),

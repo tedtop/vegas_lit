@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_team_stats.dart';
 import 'package:vegas_lit/utils/app_bar.dart';
+import 'package:vegas_lit/utils/vl_image.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
@@ -229,11 +229,7 @@ class TeamInfoView extends StatelessWidget {
             width: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
             child: teamData.wikipediaLogoUrl != null
-                ? SvgPicture.network(
-                    teamData.wikipediaLogoUrl,
-                    fit: BoxFit.fill,
-                    height: 100,
-                  )
+                ? VLImage.network(teamData.wikipediaLogoUrl)
                 : SizedBox(
                     height: 100,
                     child: CircleAvatar(
