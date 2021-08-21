@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:vegas_lit/config/palette.dart';
 
 extension ESTDateTime on DateTime {
   static DateTime fetchTimeEST() {
@@ -79,4 +81,31 @@ extension TimeOfDayExtension on TimeOfDay {
       }
     }
   }
+}
+
+extension VLTextStyle on TextStyle {
+  static TextStyle get nunito => GoogleFonts.nunito();
+
+  TextStyle size(double s) => copyWith(fontSize: s);
+
+  TextStyle weight(FontWeight w) => copyWith(fontWeight: w);
+  TextStyle get w100 => weight(FontWeight.w100);
+  TextStyle get w200 => weight(FontWeight.w200);
+  TextStyle get w300 => weight(FontWeight.w300);
+  TextStyle get w400 => weight(FontWeight.w400);
+  TextStyle get w500 => weight(FontWeight.w500);
+  TextStyle get w600 => weight(FontWeight.w600);
+  TextStyle get w700 => weight(FontWeight.w700);
+  TextStyle get w800 => weight(FontWeight.w800);
+  TextStyle get w900 => weight(FontWeight.w900);
+  TextStyle get bold => w700;
+  TextStyle get semiBold => w500;
+  TextStyle get normal => w400;
+
+  TextStyle color(Color c) => copyWith(color: c);
+  TextStyle get creamColored => color(Palette.cream);
+  TextStyle get greenColored => color(Palette.green);
+  TextStyle get redColored => color(Palette.red);
+
+  TextStyle withShadows(List<Shadow> sh) => copyWith(shadows: sh);
 }

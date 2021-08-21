@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
 import 'palette.dart';
 
@@ -13,115 +13,51 @@ class Styles {
   static final ShapeBorder largeRadius = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(12.0),
   );
-  static final versionText = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 12,
-  );
-  static final pageTitle = GoogleFonts.nunito(
-    fontSize: 36,
-    color: Palette.green,
-    fontWeight: FontWeight.bold,
-    shadows: <Shadow>[
-      Shadow(
-        offset: const Offset(0, 4.0),
-        blurRadius: 4.0,
-        color: const Color(0xFF000000).withOpacity(0.25),
-      ),
-    ],
-  );
+  static final versionText = VLTextStyle.nunito.creamColored.size(12);
 
-  static final normalText = GoogleFonts.nunito(
-    fontSize: 18,
-    color: Palette.cream,
-    fontWeight: FontWeight.normal,
-  );
+  static final pageTitle =
+      VLTextStyle.nunito.greenColored.size(36).bold.withShadows(<Shadow>[
+    Shadow(
+      offset: const Offset(0, 4.0),
+      blurRadius: 4.0,
+      color: const Color(0xFF000000).withOpacity(0.25),
+    ),
+  ]);
 
-  static final normalTextBold = GoogleFonts.nunito(
-    fontSize: 18,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
+  static final normalText = VLTextStyle.nunito.creamColored.size(18);
 
-  static final largeTextBold = GoogleFonts.nunito(
-    fontSize: 24,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
+  static final normalTextBold = VLTextStyle.nunito.creamColored.size(18).bold;
 
-  static final greenText = GoogleFonts.nunito(
-    fontSize: 18,
-    color: Palette.green,
-  );
-  static final greenTextBold = GoogleFonts.nunito(
-    fontSize: 18,
-    color: Palette.green,
-    fontWeight: FontWeight.bold,
-  );
+  static final largeTextBold = VLTextStyle.nunito.creamColored.size(24).bold;
 
-  static final homeTeam = GoogleFonts.nunito(
-    fontSize: 16,
-    color: Palette.green,
-    fontWeight: FontWeight.w800,
-  );
+  static final greenText = VLTextStyle.nunito.greenColored.size(18);
 
-  static final awayTeam = GoogleFonts.nunito(
-    fontSize: 16,
-    color: Palette.cream,
-    // fontWeight: FontWeight.bold,
-  );
+  static final greenTextBold = VLTextStyle.nunito.greenColored.size(18).bold;
 
-  static final matchupTime = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-  );
+  static final homeTeam = VLTextStyle.nunito.greenColored.size(16).w800;
+
+  static final awayTeam = VLTextStyle.nunito.creamColored.size(16);
+
+  static final matchupTime = VLTextStyle.nunito.creamColored.size(14);
 
   /// Same as normalTextBold
-  static final matchupSeparator = GoogleFonts.nunito(
-    fontSize: 18,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
+  static final matchupSeparator = VLTextStyle.nunito.creamColored.size(18).bold;
 
   // FEATURE SPECIFIC CUSTOM STYLES
 
   /// --> ADMIN VAULT
-  static final adminVaultTitle = GoogleFonts.nunito(
-    fontSize: 28,
-    color: Palette.green,
-    fontWeight: FontWeight.bold,
-  );
+  static final adminVaultTitle = VLTextStyle.nunito.greenColored.size(28).bold;
 
   /// --> AUTHENTICATION
-  static final signUpFieldDescription = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.w200,
-  );
-  static final signUpFieldText = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.w300,
-  );
-  static final signUpFieldHint = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.w300,
-    color: Palette.cream,
-  );
-  static const authFieldError = TextStyle(
-    fontSize: 10,
-    // height: 0.3,
-  );
-  static final signUpAgreement =
-      GoogleFonts.nunito(fontSize: 11, color: Palette.cream);
-  static final authButtonText = GoogleFonts.nunito(
-    color: Palette.green,
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
-  );
-  static final authNormalText = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.w300,
-    color: Palette.cream,
-  );
+  static final signUpFieldDescription =
+      VLTextStyle.nunito.creamColored.size(18).w200;
 
+  static final signUpFieldText = VLTextStyle.nunito.creamColored.size(18).w300;
+  static final signUpFieldHint = VLTextStyle.nunito.creamColored.size(18).w300;
+  static final authFieldError = VLTextStyle.nunito.creamColored.size(10);
+  static final signUpAgreement = VLTextStyle.nunito.creamColored.size(11);
+  static final authButtonText = VLTextStyle.nunito.greenColored.size(18).bold;
+  static final authNormalText = VLTextStyle.nunito.creamColored.size(18).w300;
   static const signUpInputFieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(
       Radius.circular(4),
@@ -137,178 +73,90 @@ class Styles {
   );
 
   /// --> BET HISTORY
-  static final betHistoryCardNormal = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-  );
-  static final betHistoryTeamNotAway = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.green,
-  );
-  static final betHistoryTeamAway = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-  );
-  static final betHistoryAmount = GoogleFonts.nunito(
-    fontSize: 24,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
-  static final betHistoryDescription = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
-  static final betHistoryNormal = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 18,
-    fontWeight: FontWeight.w300,
-  );
-  static final betHistoryDropdown = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-    color: Palette.cream,
-  );
-  static final betHistoryDesktopItem = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.normal,
-  );
-  static final betHistoryDesktopField = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
-  static final betHistoryDesktopTime = GoogleFonts.nunito(
-    color: Palette.green,
-    fontWeight: FontWeight.w700,
-    fontSize: 14,
-  );
+  static final betHistoryCardNormal = VLTextStyle.nunito.creamColored.size(14);
+  static final betHistoryTeamNotAway = VLTextStyle.nunito.greenColored.size(14);
+  static final betHistoryTeamAway = VLTextStyle.nunito.creamColored.size(14);
+  static final betHistoryAmount = VLTextStyle.nunito.creamColored.size(24).bold;
+  static final betHistoryDescription =
+      VLTextStyle.nunito.creamColored.size(14).bold;
+  static final betHistoryNormal = VLTextStyle.nunito.creamColored.size(18).w300;
+  static final betHistoryDropdown =
+      VLTextStyle.nunito.creamColored.size(18).bold;
+  static final betHistoryDesktopItem = VLTextStyle.nunito.creamColored.size(14);
+  static final betHistoryDesktopField =
+      VLTextStyle.nunito.creamColored.size(14).bold;
+  static final betHistoryDesktopTime =
+      VLTextStyle.nunito.greenColored.size(14).bold;
 
   /// --> BET SLIP
-  static final betSlipBoxNormalText = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.w200,
-    color: Palette.cream,
-  );
-  static final betSlipBoxLargeText = GoogleFonts.nunito(
-      fontSize: 24, fontWeight: FontWeight.bold, color: Palette.cream);
+  static final betSlipBoxNormalText =
+      VLTextStyle.nunito.creamColored.size(18).w200;
+  static final betSlipBoxLargeText =
+      VLTextStyle.nunito.creamColored.size(24).bold;
 
   /// --> DRAWER PAGES
   /// --> GAMES
 
   /// // --> TEAM INFO
-  static final teamStatsMain = Styles.normalText.copyWith(fontSize: 28);
+  static final teamStatsMain = VLTextStyle.nunito.creamColored.size(28);
 
-  static final teamStatsText = GoogleFonts.nunito().copyWith(
-      color: Palette.cream, fontSize: 11, fontWeight: FontWeight.bold);
+  static final teamStatsText = VLTextStyle.nunito.creamColored.size(11).bold;
 
   /// --> HOME
 
   /// --> LEADERBOARD
-  static final leaderboardDropdown = GoogleFonts.nunito(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-    color: Palette.cream,
-  );
-  static final leaderboardUsername = GoogleFonts.nunito(
-    fontWeight: FontWeight.bold,
-    color: Palette.cream,
-    fontSize: 20,
-  );
-  static final leaderboardDesktopItem = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.normal,
-  );
-  static final leaderboardDesktopField = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
+  static final leaderboardDropdown =
+      VLTextStyle.nunito.creamColored.size(18).bold;
+  static final leaderboardUsername =
+      VLTextStyle.nunito.creamColored.size(20).bold;
+  static final leaderboardDesktopItem =
+      VLTextStyle.nunito.creamColored.size(14);
+  static final leaderboardDesktopField =
+      VLTextStyle.nunito.creamColored.size(14).bold;
 
   /// --> OPEN BETS
-  static final openBetsTextButton = GoogleFonts.nunito(
-    color: Palette.green,
-    fontWeight: FontWeight.bold,
-  );
-  static final openBetsNormalText = GoogleFonts.nunito(
-    fontSize: 16,
-    fontWeight: FontWeight.w300,
-    color: Palette.cream,
-  );
-  static final openBetsEmpty = GoogleFonts.nunito(
-    color: Palette.cream,
-    fontSize: 18,
-    fontWeight: FontWeight.w300,
-  );
-  static final openBetsCardNormal = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-  );
+  static final openBetsTextButton = VLTextStyle.nunito.greenColored.bold;
 
-  static final openBetsCardTime = GoogleFonts.nunito(
-    color: Palette.red,
-    fontSize: 14,
-    fontWeight: FontWeight.bold,
-  );
-  static final openBetsCardBetText = GoogleFonts.nunito(
-    fontSize: 14,
-    fontWeight: FontWeight.bold,
-  );
-  static final openBetsCardBetMoney = GoogleFonts.nunito(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  );
+  static final openBetsNormalText =
+      VLTextStyle.nunito.creamColored.size(16).w300;
 
-  static final openBetsDesktopField = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.bold,
-  );
-  static final openBetsDesktopItem = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.normal,
-  );
-  static final openBetsDesktopTime = GoogleFonts.nunito(
-    color: Palette.red,
-    fontSize: 14,
-  );
+  static final openBetsEmpty = VLTextStyle.nunito.creamColored.size(18).w300;
+  static final openBetsCardNormal = VLTextStyle.nunito.creamColored.size(14);
+
+  static final openBetsCardTime = VLTextStyle.nunito.redColored.size(14).bold;
+
+  static final openBetsCardBetText =
+      VLTextStyle.nunito.creamColored.size(14).bold;
+
+  static final openBetsCardBetMoney =
+      VLTextStyle.nunito.creamColored.size(24).bold;
+
+  static final openBetsDesktopField =
+      VLTextStyle.nunito.creamColored.size(14).bold;
+
+  static final openBetsDesktopItem = VLTextStyle.nunito.creamColored.size(14);
+  static final openBetsDesktopTime = VLTextStyle.nunito.redColored.size(14);
 
   /// --> PROFILE
-  static final profileUsernameLetter = GoogleFonts.nunito(
-    fontSize: 60,
-    fontWeight: FontWeight.bold,
-  );
-  static final profileUsername = GoogleFonts.nunito(
-      fontSize: 24, fontWeight: FontWeight.bold, color: Palette.cream);
-  static final profileFieldDescription = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.green,
-    shadows: <Shadow>[
-      Shadow(
-        offset: const Offset(0, 2.0),
-        blurRadius: 2.0,
-        color: const Color(0xFF000000).withOpacity(0.25),
-      ),
-    ],
-  );
-  static final profileFieldValue =
-      GoogleFonts.nunito(fontSize: 20, color: Palette.cream);
+  static final profileUsernameLetter =
+      VLTextStyle.nunito.creamColored.size(60).bold;
+  static final profileUsername = VLTextStyle.nunito.creamColored.size(24).bold;
+  static final profileFieldDescription =
+      VLTextStyle.nunito.greenColored.size(14).withShadows(<Shadow>[
+    Shadow(
+      offset: const Offset(0, 2.0),
+      blurRadius: 2.0,
+      color: const Color(0xFF000000).withOpacity(0.25),
+    ),
+  ]);
+
+  static final profileFieldValue = VLTextStyle.nunito.creamColored.size(20);
 
   /// --> GROUPS
   /// // --> CREATE GROUP
-  static final groupFieldHeading = GoogleFonts.nunito(
-    fontSize: 18,
-    color: Palette.cream,
-    fontWeight: FontWeight.w700,
-  );
-  static final groupFieldDescription = GoogleFonts.nunito(
-    fontSize: 14,
-    color: Palette.cream,
-    fontWeight: FontWeight.w400,
-  );
+  static final groupFieldHeading =
+      VLTextStyle.nunito.creamColored.size(18).w700;
+  static final groupFieldDescription = VLTextStyle.nunito.creamColored.size(14);
 
   static const groupFieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(
@@ -324,12 +172,10 @@ class Styles {
 
   /// --> SHARED WIDGETS
   /// // --> BOTTOM BAR
-  static final bottomBarHeading = GoogleFonts.nunito(
-      fontSize: 18, color: Palette.green, fontWeight: FontWeight.w600);
-  static final bottomBarType = GoogleFonts.nunito(
-      fontSize: 16, color: Palette.cream, fontWeight: FontWeight.w700);
-  static final bottomBarNormal = GoogleFonts.nunito(
-      fontSize: 16, color: Palette.cream, fontWeight: FontWeight.w500);
+  static final bottomBarHeading = VLTextStyle.nunito.greenColored.size(18).w600;
+  static final bottomBarType = VLTextStyle.nunito.creamColored.size(16).w700;
+  static final bottomBarNormal =
+      VLTextStyle.nunito.creamColored.size(16).semiBold;
 
   ///
 }
