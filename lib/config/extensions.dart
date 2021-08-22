@@ -85,6 +85,7 @@ extension TimeOfDayExtension on TimeOfDay {
 
 extension VLTextStyle on TextStyle {
   static TextStyle get nunito => GoogleFonts.nunito();
+  static TextStyle get emoji => GoogleFonts.notoColorEmojiCompat();
 
   TextStyle size(double s) => copyWith(fontSize: s);
 

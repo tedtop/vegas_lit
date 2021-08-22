@@ -4,6 +4,8 @@ import 'package:vegas_lit/config/extensions.dart';
 import 'palette.dart';
 
 class Styles {
+  static TextStyle emoji({double size = 18}) => VLTextStyle.emoji.size(size);
+
   static const double normalElevation = 4.0;
 
   static final ShapeBorder smallRadius = RoundedRectangleBorder(

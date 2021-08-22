@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/styles.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/olympics/olympics.dart';
@@ -136,7 +137,7 @@ class BetButtonUnclicked extends StatelessWidget {
                         ? betButtonState.game.playerCountry
                         : betButtonState.game.rivalCountry,
                   ),
-                  style: const TextStyle(fontSize: 18),
+                  style: Styles.emoji(),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -212,7 +213,7 @@ class BetButtonClicked extends StatelessWidget {
                         ? betButtonState.game.playerCountry
                         : betButtonState.game.rivalCountry,
                   ),
-                  style: const TextStyle(fontSize: 18),
+                  style: Styles.emoji(),
                 ),
                 const SizedBox(width: 10),
                 Expanded(

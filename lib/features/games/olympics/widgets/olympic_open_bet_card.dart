@@ -268,19 +268,19 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: openBets.eventType == 'gold'
-                                    ? const Text(
+                                    ? Text(
                                         '🥇',
-                                        style: TextStyle(fontSize: 14),
+                                        style: Styles.emoji(size: 14),
                                       )
                                     : openBets.eventType == 'silver'
-                                        ? const Text(
+                                        ? Text(
                                             '🥈',
-                                            style: TextStyle(fontSize: 14),
+                                            style: Styles.emoji(size: 14),
                                           )
                                         : openBets.eventType == 'bronze'
-                                            ? const Text(
+                                            ? Text(
                                                 '🥉',
-                                                style: TextStyle(fontSize: 14),
+                                                style: Styles.emoji(size: 14),
                                               )
                                             : const SizedBox(),
                               )

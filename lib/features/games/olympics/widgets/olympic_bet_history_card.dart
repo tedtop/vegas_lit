@@ -269,19 +269,19 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: betHistoryData.eventType == 'gold'
-                                    ? const Text(
+                                    ? Text(
                                         '🥇',
-                                        style: TextStyle(fontSize: 14),
+                                        style: Styles.emoji(size: 14),
                                       )
                                     : betHistoryData.eventType == 'silver'
-                                        ? const Text(
+                                        ? Text(
                                             '🥈',
-                                            style: TextStyle(fontSize: 14),
+                                            style: Styles.emoji(size: 14),
                                           )
                                         : betHistoryData.eventType == 'bronze'
-                                            ? const Text(
+                                            ? Text(
                                                 '🥉',
-                                                style: TextStyle(fontSize: 14),
+                                                style: Styles.emoji(size: 14),
                                               )
                                             : const SizedBox(),
                               )

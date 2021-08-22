@@ -1,4 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
 class RemoteConfigClient {
@@ -27,6 +28,7 @@ class RemoteConfigClient {
   }
 
   String get fetchRemoteLeague {
+    if (kIsWeb) return 'MLB';
     return _remoteConfig.getString('default_league');
   }
 }

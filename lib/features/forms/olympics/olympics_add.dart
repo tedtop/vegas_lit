@@ -367,7 +367,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     leading: playerCountry != null
                         ? Text(
                             countryFlagFromCode(countryCode: playerCountry),
-                            style: const TextStyle(fontSize: 25),
+                            style: Styles.emoji(size: 25),
                           )
                         : Text(
                             'No country selected.',
@@ -434,7 +434,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     leading: rivalCountry != null
                         ? Text(
                             countryFlagFromCode(countryCode: rivalCountry),
-                            style: const TextStyle(fontSize: 25),
+                            style: Styles.emoji(size: 25),
                           )
                         : Text(
                             'No country selected.',

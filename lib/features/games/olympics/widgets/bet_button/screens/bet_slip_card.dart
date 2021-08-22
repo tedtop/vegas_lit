@@ -99,12 +99,8 @@ class OlympicsBetSlipCard extends StatelessWidget {
                               countryFlagFromCode(
                                   countryCode:
                                       betButtonState.game.playerCountry),
+                              style: Styles.emoji(size: 25),
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 25,
-                                color: Palette.cream,
-                                fontWeight: FontWeight.bold,
-                              ),
                             ),
                             Text(
                               betButtonState.game.player,
@@ -262,12 +258,8 @@ class OlympicsBetSlipCard extends StatelessWidget {
                               countryFlagFromCode(
                                   countryCode:
                                       betButtonState.game.rivalCountry),
+                              style: Styles.emoji(size: 25),
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 25,
-                                color: Palette.green,
-                                fontWeight: FontWeight.bold,
-                              ),
                             ),
                             Text(
                               betButtonState.game.rival,
