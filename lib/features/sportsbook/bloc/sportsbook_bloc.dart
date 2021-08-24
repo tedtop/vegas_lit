@@ -47,7 +47,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     final list = <String>[
       'NFL',
       'NBA',
-      'OLYMPICS',
+      'PARALYMPICS',
       'MLB',
       'NHL',
       'NCAAF',
@@ -208,7 +208,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       case 'GOLF':
         return 0;
         break;
-      case 'OLYMPICS':
+      case 'PARALYMPICS':
         return await _sportsfeedRepository.fetchOlympicsGame().first.then(
           (value) {
             return kDebugMode

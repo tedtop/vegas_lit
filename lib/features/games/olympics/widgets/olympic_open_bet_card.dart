@@ -305,7 +305,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 AutoSizeText(
-                                  DateFormat('E, MMMM, c, y @ hh:mm a')
+                                  DateFormat('E, MMMM c, y @ hh:mm a')
                                       .format(openBets.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,

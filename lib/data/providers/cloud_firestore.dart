@@ -417,7 +417,7 @@ class CloudFirestoreClient {
   Stream<List<OlympicsGame>> fetchOlympicsGames() {
     final snapshots = _firebaseFirestore
         .collection('custom_matches')
-        .doc('olympics_2021_tokyo')
+        .doc('paralympics_2021_tokyo')
         .collection('matches')
         .where('isClosed', isEqualTo: false)
         .orderBy('startTime')
@@ -436,7 +436,7 @@ class CloudFirestoreClient {
   Future<void> addOlympicsGame({@required OlympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
-        .doc('olympics_2021_tokyo')
+        .doc('paralympics_2021_tokyo')
         .collection('matches')
         .doc(game.gameId);
 
@@ -446,7 +446,7 @@ class CloudFirestoreClient {
   Future<void> updateOlympicGame({@required OlympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
-        .doc('olympics_2021_tokyo')
+        .doc('paralympics_2021_tokyo')
         .collection('matches')
         .doc(game.gameId);
 

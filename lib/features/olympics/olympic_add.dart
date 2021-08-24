@@ -84,28 +84,37 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       final newStartTime = await showDatePicker(
                         context: context,
                         initialDate: startTime,
-                        firstDate: startTime.subtract(const Duration(days: 10)),
-                        lastDate: startTime.add(const Duration(days: 30)),
+                        firstDate: startTime.subtract(
+                          const Duration(days: 10),
+                        ),
+                        lastDate: startTime.add(
+                          const Duration(days: 30),
+                        ),
                       );
                       final timeOfDay = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay.fromDateTime(startTime));
 
                       if (newStartTime != null && timeOfDay != null) {
-                        setState(() {
-                          startTime = DateTime(
-                                  newStartTime.year,
-                                  newStartTime.month,
-                                  newStartTime.day,
-                                  timeOfDay.hour,
-                                  timeOfDay.minute)
-                              .subtract(const Duration(hours: 13));
-                        });
+                        setState(
+                          () {
+                            startTime = DateTime(
+                              newStartTime.year,
+                              newStartTime.month,
+                              newStartTime.day,
+                              timeOfDay.hour,
+                              timeOfDay.minute,
+                            ).subtract(
+                              const Duration(hours: 13),
+                            );
+                          },
+                        );
                       }
                     },
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Palette.lightGrey)),
+                      backgroundColor:
+                          MaterialStateProperty.all(Palette.lightGrey),
+                    ),
                     child: AutoSizeText(
                       'Change Start Time',
                       style: Styles.normalText,
@@ -122,35 +131,35 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: TextFormField(
-                  controller: venueController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                  cursorColor: Palette.cream,
-                  style: Styles.signUpFieldText,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 8,
-                    ),
-                    hintStyle: Styles.signUpFieldHint,
-                    errorStyle: Styles.authFieldError,
-                    filled: true,
-                    fillColor: Palette.lightGrey,
-                    border: Styles.signUpInputFieldBorder,
-                    focusedBorder: Styles.signUpInputFieldFocusedBorder,
-                    isDense: true,
-                    labelText: 'Venue',
-                    labelStyle: Styles.signUpFieldHint,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 10),
+              //   child: TextFormField(
+              //     controller: venueController,
+              //     validator: (value) {
+              //       if (value.isEmpty) {
+              //         return 'Please enter some text';
+              //       }
+              //       return null;
+              //     },
+              //     cursorColor: Palette.cream,
+              //     style: Styles.signUpFieldText,
+              //     decoration: InputDecoration(
+              //       contentPadding: const EdgeInsets.symmetric(
+              //         vertical: 5,
+              //         horizontal: 8,
+              //       ),
+              //       hintStyle: Styles.signUpFieldHint,
+              //       errorStyle: Styles.authFieldError,
+              //       filled: true,
+              //       fillColor: Palette.lightGrey,
+              //       border: Styles.signUpInputFieldBorder,
+              //       focusedBorder: Styles.signUpInputFieldFocusedBorder,
+              //       isDense: true,
+              //       labelText: 'Venue',
+              //       labelStyle: Styles.signUpFieldHint,
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: TextFormField(
@@ -203,35 +212,35 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   });
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: TextFormField(
-                  controller: matchCodeController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                  cursorColor: Palette.cream,
-                  style: Styles.signUpFieldText,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 8,
-                    ),
-                    hintStyle: Styles.signUpFieldHint,
-                    errorStyle: Styles.authFieldError,
-                    filled: true,
-                    fillColor: Palette.lightGrey,
-                    border: Styles.signUpInputFieldBorder,
-                    focusedBorder: Styles.signUpInputFieldFocusedBorder,
-                    isDense: true,
-                    labelText: 'Match Code',
-                    labelStyle: Styles.signUpFieldHint,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 10),
+              //   child: TextFormField(
+              //     controller: matchCodeController,
+              //     validator: (value) {
+              //       if (value.isEmpty) {
+              //         return 'Please enter some text';
+              //       }
+              //       return null;
+              //     },
+              //     cursorColor: Palette.cream,
+              //     style: Styles.signUpFieldText,
+              //     decoration: InputDecoration(
+              //       contentPadding: const EdgeInsets.symmetric(
+              //         vertical: 5,
+              //         horizontal: 8,
+              //       ),
+              //       hintStyle: Styles.signUpFieldHint,
+              //       errorStyle: Styles.authFieldError,
+              //       filled: true,
+              //       fillColor: Palette.lightGrey,
+              //       border: Styles.signUpInputFieldBorder,
+              //       focusedBorder: Styles.signUpInputFieldFocusedBorder,
+              //       isDense: true,
+              //       labelText: 'Match Code',
+              //       labelStyle: Styles.signUpFieldHint,
+              //     ),
+              //   ),
+              // ),
               DropdownButtonFormField(
                 hint: AutoSizeText(
                   'Game Name',
@@ -246,53 +255,80 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 style: Styles.signUpFieldText,
                 value: gameName,
                 items: <String>[
-                  '3x3 Basketball',
                   'Archery',
-                  'Artistic Gymnastics',
-                  'Artistic Swimming',
                   'Athletics',
                   'Badminton',
-                  'Baseball-Softball',
-                  'Basketball',
-                  'Beach Volleyball',
-                  'Boxing',
-                  'Canoe Slalom',
+                  'Boccia',
                   'Canoe Sprint',
-                  'Cycling BMX Freestyle',
-                  'Cycling BMX Racing',
-                  'Cycling Mountain Bike',
                   'Cycling Road',
                   'Cycling Track',
-                  'Diving',
                   'Equestrian',
-                  'Fencing',
-                  'Football',
-                  'Golf',
-                  'Handball',
-                  'Hockey',
+                  'Football 5-a-side',
+                  'Goalball',
                   'Judo',
-                  'Karate',
-                  'Marathon Swimming',
-                  'Modern Pentathlon',
-                  'Rhythmic Gymnastics',
+                  'Powerlifting',
                   'Rowing',
-                  'Rugby',
-                  'Sailing',
                   'Shooting',
-                  'Skateboarding',
-                  'Sport Climbing',
-                  'Surfing',
+                  'Sitting Volleyball',
                   'Swimming',
                   'Table Tennis',
                   'Taekwondo',
-                  'Tennis',
-                  'Trampoline Gymnastics',
                   'Triathlon',
-                  'Volleyball',
-                  'Water Polo',
-                  'Weightlifting',
-                  'Wrestling',
-                ].map<DropdownMenuItem<String>>((String value) {
+                  'Wheelchair Basketball',
+                  'Wheelchair Fencing',
+                  'Wheelchair Rugby',
+                  'Wheelchair Tennis',
+                ]
+
+                    //  <String>[
+                    //   '3x3 Basketball',
+                    //   'Archery',
+                    //   'Artistic Gymnastics',
+                    //   'Artistic Swimming',
+                    //   'Athletics',
+                    //   'Badminton',
+                    //   'Baseball-Softball',
+                    //   'Basketball',
+                    //   'Beach Volleyball',
+                    //   'Boxing',
+                    //   'Canoe Slalom',
+                    //   'Canoe Sprint',
+                    //   'Cycling BMX Freestyle',
+                    //   'Cycling BMX Racing',
+                    //   'Cycling Mountain Bike',
+                    //   'Cycling Road',
+                    //   'Cycling Track',
+                    //   'Diving',
+                    //   'Equestrian',
+                    //   'Fencing',
+                    //   'Football',
+                    //   'Golf',
+                    //   'Handball',
+                    //   'Hockey',
+                    //   'Judo',
+                    //   'Karate',
+                    //   'Marathon Swimming',
+                    //   'Modern Pentathlon',
+                    //   'Rhythmic Gymnastics',
+                    //   'Rowing',
+                    //   'Rugby',
+                    //   'Sailing',
+                    //   'Shooting',
+                    //   'Skateboarding',
+                    //   'Sport Climbing',
+                    //   'Surfing',
+                    //   'Swimming',
+                    //   'Table Tennis',
+                    //   'Taekwondo',
+                    //   'Tennis',
+                    //   'Trampoline Gymnastics',
+                    //   'Triathlon',
+                    //   'Volleyball',
+                    //   'Water Polo',
+                    //   'Weightlifting',
+                    //   'Wrestling',
+                    // ]
+                    .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                       value: value,
                       child: AutoSizeText(value, style: Styles.normalTextBold));
@@ -477,13 +513,13 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                             eventType: eventType,
                             gameName: gameName,
                             isClosed: false,
-                            matchCode: '#${matchCodeController.text}',
+                            matchCode: null,
                             player: playerController.text,
                             playerCountry: playerCountry,
                             rival: rivalController.text,
                             rivalCountry: rivalCountry,
                             startTime: startTime,
-                            venue: venueController.text,
+                            venue: null,
                             gameId:
                                 '${gameName.toUpperCase()}-${playerCountry.toUpperCase()}-${rivalCountry.toUpperCase()}-${startTime.toIso8601String()}',
                           );

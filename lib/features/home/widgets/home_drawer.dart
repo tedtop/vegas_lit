@@ -122,14 +122,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   },
                 )
               : Container(),
-          isAdmin
-              ? ListTile(
-                  title: AutoSizeText('OLYMPICS', style: Styles.normalTextBold),
-                  onTap: () {
-                    Navigator.of(context).push(OlympicsAddForm.route());
-                  },
-                )
-              : Container(),
+          // isAdmin
+          //     ?
+          ListTile(
+            title: AutoSizeText('OLYMPICS', style: Styles.normalTextBold),
+            onTap: () {
+              Navigator.of(context).push(OlympicsAddForm.route());
+            },
+          ),
+          // : Container(),
           // ListTile(
           //   leading:AutoSizeText('GROUPS', style: Styles.normalTextBold),
           //   onTap: () {

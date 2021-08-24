@@ -246,7 +246,7 @@ class _SportsBookViewState extends State<SportsBookView>
                     case 'MLB':
                       selectedIndex = 6;
                       break;
-                    case 'OLYMPICS':
+                    case 'PARALYMPICS':
                       selectedIndex = 7;
                       break;
                     default:
@@ -378,7 +378,7 @@ class _SportsBookViewState extends State<SportsBookView>
             items: <String>[
               'NFL',
               'NBA',
-              'OLYMPICS',
+              'PARALYMPICS',
               'MLB',
               'NHL',
               'NCAAF',
@@ -392,7 +392,7 @@ class _SportsBookViewState extends State<SportsBookView>
                   (key, newValue) {
                     if (key == 'GOLF') {
                       length = '$newValue';
-                    } else if (key == 'OLYMPICS' && key == value) {
+                    } else if (key == 'PARALYMPICS' && key == value) {
                       length = '$newValue Matches';
                     } else {
                       if (key == value) {
