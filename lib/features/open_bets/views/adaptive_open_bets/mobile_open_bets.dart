@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/open_bets/olympic_open_bet_card.dart';
 import 'package:vegas_lit/features/games/paralympics/widgets/paralympics_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
@@ -12,7 +13,6 @@ import '../../../games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
 import '../../../games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
 import '../../../games/football/nfl/widgets/nfl_open_bet_card.dart';
 import '../../../games/hockey/nhl/widgets/nhl_open_bet_card.dart';
-import '../../../games/olympics/widgets/olympic_open_bet_card.dart';
 import '../../../home/home.dart';
 import '../../cubit/open_bets_cubit.dart';
 

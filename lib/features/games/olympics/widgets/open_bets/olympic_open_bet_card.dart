@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../config/assets.dart';
-import '../../../../config/palette.dart';
-import '../../../../config/styles.dart';
-import '../../../../data/models/olympics/olympic_bet.dart';
+import '../../../../../config/assets.dart';
+import '../../../../../config/palette.dart';
+import '../../../../../config/styles.dart';
+import '../../../../../data/models/olympics/olympic_bet.dart';
 
 class OlympicsOpenBetCard extends StatelessWidget {
   const OlympicsOpenBetCard({
@@ -308,7 +308,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                       .format(openBets.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
-                                    fontSize: 10,
+                                    fontSize: 8,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
