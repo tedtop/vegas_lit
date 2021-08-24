@@ -56,6 +56,8 @@ class PlayerDetailsPage extends StatelessWidget {
           const SizedBox(height: 12),
           _playerBadge(size, playerDetails),
           _playerDescription(playerDetails),
+          const SizedBox(height: 12),
+          _playerInjury(playerDetails),
           BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
             builder: (context, state) {
               if (state is PlayerDetailsOpened) {
@@ -71,7 +73,6 @@ class PlayerDetailsPage extends StatelessWidget {
               }
             },
           ),
-          _playerInjury(playerDetails)
           //_buildProfileWidget(size),
         ],
       ),
