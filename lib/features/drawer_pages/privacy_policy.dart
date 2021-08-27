@@ -50,7 +50,7 @@ class _PrivacyPolicyHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AutoSizeText(
+        Text(
           'PRIVACY POLICY',
           style: Styles.pageTitle,
         ),
@@ -68,7 +68,7 @@ class _PrivacyPolicyContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
         'WORK IN PROGRESS\n Come Back Later.',
         textAlign: TextAlign.center,
         style: GoogleFonts.nunito(

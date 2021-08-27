@@ -41,7 +41,7 @@ class MobileBetHistory extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 160),
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                   "Couldn't load bet history data",
                   style: GoogleFonts.nunito(),
                 ),
@@ -59,7 +59,7 @@ class MobileBetHistory extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 160),
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                   'No Records Found',
                   style: GoogleFonts.nunito(),
                 ),
@@ -109,7 +109,7 @@ class _MobileHistoryBoard extends StatelessWidget {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: AutoSizeText(
+                child: Text(
                   "Couldn't load bet history data",
                   style: GoogleFonts.nunito(),
                 ),
@@ -149,7 +149,7 @@ class _MobileHistoryContent extends StatelessWidget {
         return const _MobileHistoryList();
       case HistoryStatus.failure:
         return Center(
-          child: AutoSizeText(
+          child: Text(
             "Couldn't load bet history data",
             style: GoogleFonts.nunito(),
           ),
@@ -214,7 +214,7 @@ class _MobileHistoryEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
         'No bets resolved yet.',
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
@@ -233,7 +233,7 @@ class _MobileHistoryHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: AutoSizeText(
+          child: Text(
             'BET HISTORY',
             style: Styles.pageTitle,
           ),
@@ -299,7 +299,7 @@ class _MobileHistoryDropdown extends StatelessWidget {
                         }
                         return DropdownMenuItem<String>(
                           value: weekValue,
-                          child: AutoSizeText(
+                          child: Text(
                             weekFormat.toString(),
                             textAlign: TextAlign.left,
                             style: Styles.leaderboardDropdown,

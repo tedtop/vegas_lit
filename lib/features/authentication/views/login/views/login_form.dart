@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  content: AutoSizeText(
+                  content: Text(
                     state.loginErrorMessage,
                   ),
                 ),
@@ -184,7 +184,7 @@ class _ResetPassword extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AutoSizeText(
+        Text(
           'Forgot Password?',
           style: Styles.authNormalText,
         ),
@@ -202,7 +202,7 @@ class _ResetPassword extends StatelessWidget {
               ),
             );
           },
-          child: AutoSizeText(
+          child: Text(
             'Reset',
             style: Styles.authButtonText,
           ),
@@ -218,7 +218,7 @@ class _LinkToSignup extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AutoSizeText(
+        Text(
           "Don't have an account yet? ",
           style: Styles.authNormalText,
         ),
@@ -226,7 +226,7 @@ class _LinkToSignup extends StatelessWidget {
           key: const Key('loginForm_createAccount_flatButton'),
           onPressed: () =>
               Navigator.of(context).pushReplacement(SignUpPage.route()),
-          child: AutoSizeText(
+          child: Text(
             'Sign Up',
             style: Styles.authButtonText,
           ),
@@ -265,7 +265,7 @@ class __ResetPageState extends State<_ResetPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            AutoSizeText(
+            Text(
               'Reset Password',
               textAlign: TextAlign.center,
               style: Styles.authNormalText.copyWith(fontSize: 26),
@@ -297,7 +297,7 @@ class __ResetPageState extends State<_ResetPage> {
             ),
             const SizedBox(height: 20),
             TextButton(
-              child: AutoSizeText(
+              child: Text(
                 'Done',
                 style: GoogleFonts.nunito(
                   color: Palette.cream,
@@ -323,7 +323,7 @@ class __ResetPageState extends State<_ResetPage> {
                           ..hideCurrentSnackBar()
                           ..showSnackBar(
                             const SnackBar(
-                              content: AutoSizeText(
+                              content: Text(
                                 'Password reset link has been sent.',
                               ),
                             ),
@@ -388,7 +388,7 @@ class _VersionNumberState extends State<VersionNumber> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return AutoSizeText('Version: $versionString ($buildNumber)',
+        return Text('Version: $versionString ($buildNumber)',
             style: Styles.versionText);
       },
     );
@@ -431,7 +431,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

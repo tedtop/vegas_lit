@@ -55,7 +55,7 @@ class MobileLeaderboard extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.symmetric(vertical: 120),
-                        child: AutoSizeText(
+                        child: Text(
                           // ignore: lines_longer_than_80_chars
                           'No records found',
                           textAlign: TextAlign.center,
@@ -81,7 +81,7 @@ class MobileLeaderboard extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.symmetric(vertical: 120),
-                        child: AutoSizeText(
+                        child: Text(
                           // ignore: lines_longer_than_80_chars
                           'No records found',
                           textAlign: TextAlign.center,
@@ -107,16 +107,16 @@ class MobileLeaderboard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AutoSizeText(
+              Text(
                 'Last Updated: ',
                 style: Styles.matchupTime,
               ),
-              AutoSizeText(
+              Text(
                 DateFormat('E, MMMM, c, y @ hh:00 a')
                     .format(ESTDateTime.fetchTimeEST()),
                 style: Styles.matchupTime,
               ),
-              AutoSizeText(
+              Text(
                 ' EST',
                 style: Styles.matchupTime,
               ),
@@ -190,8 +190,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                       color: Palette.darkGrey,
                       height: 50.0,
                       width: 50.0,
-                      child: AutoSizeText(
-                          player.username.substring(0, 1).toUpperCase(),
+                      child: Text(player.username.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -200,11 +199,11 @@ class MobileLeaderboardTile extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(
+              Text(
                 '${player.rank}. ${player.username}',
                 style: Styles.normalTextBold,
               ),
-              AutoSizeText(
+              Text(
                 '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
@@ -217,14 +216,14 @@ class MobileLeaderboardTile extends StatelessWidget {
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(
+              Text(
                 'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets - (player.totalBetsWon + player.totalBetsLost + player.totalOpenBets)}',
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   color: Palette.cream,
                 ),
               ),
-              AutoSizeText(
+              Text(
                 leaderboardWinningBetsRatio(
                   player.totalBetsWon,
                   player.totalBetsLost,

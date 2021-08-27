@@ -62,7 +62,7 @@ class MobileBetSlipUpper extends StatelessWidget {
         20,
         20,
       ),
-      child: AutoSizeText(
+      child: Text(
         'BET SLIP',
         textAlign: TextAlign.center,
         style: Styles.pageTitle,

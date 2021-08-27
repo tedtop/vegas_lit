@@ -48,7 +48,7 @@ class DummyMatchCard extends StatelessWidget {
                                 child:
                                     //  Column(
                                     //   children: [
-                                    //    AutoSizeText(
+                                    //    Text(
                                     //      'New York',
                                     //       textAlign: TextAlign.center,
                                     //       style: GoogleFonts.nunito(
@@ -57,7 +57,7 @@ class DummyMatchCard extends StatelessWidget {
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
                                     //     ),
-                                    AutoSizeText(
+                                    Text(
                                   'WARRIORS',
                                   textAlign: TextAlign.center,
                                   style: Styles.awayTeam,
@@ -81,7 +81,7 @@ class DummyMatchCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const SizedBox(height: 2),
-                            AutoSizeText(
+                            Text(
                               '@',
                               style: Styles.matchupSeparator,
                             ),
@@ -102,7 +102,7 @@ class DummyMatchCard extends StatelessWidget {
                                 child:
                                     //  Column(
                                     //   children: [
-                                    //    AutoSizeText(
+                                    //    Text(
                                     //      'New York',
                                     //       textAlign: TextAlign.center,
                                     //       style: GoogleFonts.nunito(
@@ -111,7 +111,7 @@ class DummyMatchCard extends StatelessWidget {
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
                                     //     ),
-                                    AutoSizeText(
+                                    Text(
                                   'LAKERS',
                                   textAlign: TextAlign.center,
                                   style: Styles.awayTeam,
@@ -141,14 +141,14 @@ class DummyMatchCard extends StatelessWidget {
                     //   child: Row(
                     //     mainAxisAlignment: MainAxisAlignment.center,
                     //     children: [
-                    //      AutoSizeText(
+                    //      Text(
                     //         'Sat, June, 26, 2021 @ 01:10 PM',
                     //         style: Styles.matchupTime,
                     //       ),
                     //     ],
                     //   ),
                     // ),
-                    //AutoSizeText(
+                    //Text(
                     //   'Starting in 3hr 46m 20s',
                     //   style: GoogleFonts.nunito(
                     //     fontSize: 15,
@@ -183,7 +183,7 @@ class DummyMatchCardButton extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6), color: color),
             child: Center(
-              child: AutoSizeText(
+              child: Text(
                 text,
                 style: GoogleFonts.nunito(
                   fontSize: 14,
@@ -201,7 +201,7 @@ class DummyMatchButtonSeperator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
-      child: AutoSizeText(
+      child: Text(
         text,
         maxLines: 1,
         textAlign: TextAlign.center,

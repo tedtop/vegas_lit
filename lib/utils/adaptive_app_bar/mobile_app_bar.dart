@@ -39,7 +39,7 @@ AppBar mobileAppBar({int balanceAmount}) {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              AutoSizeText(
+                              Text(
                                 'Balance',
                                 style: GoogleFonts.nunito(
                                   color: Palette.cream,
@@ -48,7 +48,7 @@ AppBar mobileAppBar({int balanceAmount}) {
                                 ),
                                 maxLines: 1,
                               ),
-                              AutoSizeText(
+                              Text(
                                 '$balanceAmount',
                                 style: GoogleFonts.nunito(
                                   color: Palette.cream,

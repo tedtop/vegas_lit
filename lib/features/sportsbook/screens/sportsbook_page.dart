@@ -112,7 +112,7 @@ class _SportsBookViewState extends State<SportsBookView>
             shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              AutoSizeText(
+              Text(
                 'SPORTSBOOK',
                 textAlign: TextAlign.center,
                 style: Styles.pageTitle,
@@ -134,7 +134,7 @@ class _SportsBookViewState extends State<SportsBookView>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    AutoSizeText(
+                                    Text(
                                       'BET SLIP',
                                       style: GoogleFonts.nunito(
                                         fontSize: 16,
@@ -155,7 +155,7 @@ class _SportsBookViewState extends State<SportsBookView>
                                               height: 40,
                                               width: 42,
                                               child: Center(
-                                                child: AutoSizeText(
+                                                child: Text(
                                                   state.betSlipCard.length
                                                       .toString(),
                                                   style: GoogleFonts.nunito(
@@ -202,7 +202,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AutoSizeText(
+                    Text(
                       'All games are based on Eastern Standard Time',
                       style: Styles.matchupTime,
                     ),
@@ -214,7 +214,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AutoSizeText(
+                    Text(
                       'Eastern Time: ${formatDate(widget.estTimeZone)}',
                       style: Styles.matchupTime,
                     ),
@@ -404,7 +404,7 @@ class _SportsBookViewState extends State<SportsBookView>
                 return DropdownMenuItem<String>(
                   value: value,
                   child: value == widget.league
-                      ? AutoSizeText(
+                      ? Text(
                           '$value ($length)',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.nunito(
@@ -414,7 +414,7 @@ class _SportsBookViewState extends State<SportsBookView>
                           ),
                           overflow: TextOverflow.ellipsis,
                         )
-                      : AutoSizeText(
+                      : Text(
                           '$value ($length)',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.nunito(

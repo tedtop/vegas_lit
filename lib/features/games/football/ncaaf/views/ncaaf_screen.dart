@@ -48,7 +48,7 @@ class NcaafScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 120),
-                    child: AutoSizeText(
+                    child: Text(
                       // ignore: lines_longer_than_80_chars
                       'No odds available for the league you have selected at this time.',
                       textAlign: TextAlign.center,

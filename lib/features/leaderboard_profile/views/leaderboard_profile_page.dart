@@ -33,7 +33,7 @@ class LeaderboardProfile extends StatefulWidget {
           child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: AutoSizeText(
+              title: Text(
                 'PROFILE',
                 style: GoogleFonts.nunito(
                   fontSize: 30,

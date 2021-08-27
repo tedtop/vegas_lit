@@ -84,7 +84,7 @@
 //             borderRadius: BorderRadius.circular(6),
 //           ),
 //           color: Palette.darkGrey,
-//           child:AutoSizeText(
+//           child:Text(
 //             betButtonState.text ?? '100',
 //             maxLines: 1,
 //             style: GoogleFonts.nunito(
@@ -120,7 +120,7 @@
 //             borderRadius: BorderRadius.circular(6),
 //           ),
 //           color: Palette.green,
-//           child:AutoSizeText(
+//           child:Text(
 //             betButtonState.text ?? '100',
 //             maxLines: 1,
 //             style: GoogleFonts.nunito(
@@ -156,7 +156,7 @@
 //             borderRadius: BorderRadius.circular(6),
 //           ),
 //           color: Palette.darkGrey,
-//           child:AutoSizeText(
+//           child:Text(
 //             'BET PLACED',
 //             maxLines: 1,
 //             style: GoogleFonts.nunito(

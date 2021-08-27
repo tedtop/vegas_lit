@@ -50,7 +50,7 @@ class _TermsOfServiceHeading extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AutoSizeText(
+        Text(
           'TERMS OF SERVICE',
           style: Styles.pageTitle,
         ),
@@ -68,7 +68,7 @@ class _TermsOfServiceContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
         // ignore: lines_longer_than_80_chars
         'WORK IN PROGRESS\n Come Back Later.',
         textAlign: TextAlign.center,

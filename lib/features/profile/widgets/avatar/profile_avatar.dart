@@ -38,7 +38,7 @@ class ProfileAvatar extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: AutoSizeText(
+                  content: Text(
                     'Your profile was updated.',
                   ),
                 ),
@@ -49,7 +49,7 @@ class ProfileAvatar extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: AutoSizeText(
+                  content: Text(
                     'An error occurred. Try again later.',
                   ),
                 ),
@@ -117,7 +117,7 @@ class ProfileAvatar extends StatelessWidget {
                             color: Palette.darkGrey,
                             height: 100.0,
                             width: 100.0,
-                            child: AutoSizeText(
+                            child: Text(
                               username.substring(0, 1).toUpperCase(),
                               style: GoogleFonts.nunito(
                                 fontSize: 60,
@@ -152,7 +152,7 @@ class ProfileAvatar extends StatelessWidget {
                             const SizedBox(
                               width: 2,
                             ),
-                            AutoSizeText(
+                            Text(
                               'Edit',
                               style: GoogleFonts.nunito(fontSize: 12),
                             )

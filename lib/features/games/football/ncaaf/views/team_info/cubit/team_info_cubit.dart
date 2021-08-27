@@ -17,8 +17,10 @@ class TeamInfoCubit extends Cubit<TeamInfoState> {
     );
     final teamStats = await sportsRepository.fetchNCAAFTeamStats(
         dateTime: ESTDateTime.fetchTimeEST());
-    emit(TeamInfoOpened(
-        players.where((element) => element.status == 'Active').toList(),
-        teamStats.where((element) => element.team == teamKey).first));
+    emit(
+      TeamInfoOpened(
+          players.where((element) => element.status == 'Active').toList(),
+          teamStats.where((element) => element.team == teamKey).first),
+    );
   }
 }

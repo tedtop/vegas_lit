@@ -49,9 +49,9 @@ class NotificationCubit extends Cubit<NotificationState> {
           );
 
           // showSimpleNotification(
-          //  AutoSizeText(_notificationInfo.title),
+          //  Text(_notificationInfo.title),
           //   leading: NotificationBadge(totalNotifications: _totalNotifications),
-          //   subtitle:AutoSizeText(_notificationInfo.body),
+          //   subtitle:Text(_notificationInfo.body),
           //   background: Colors.cyan.shade700,
           //   duration: Duration(seconds: 2),
           // );

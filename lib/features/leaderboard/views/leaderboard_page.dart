@@ -74,7 +74,7 @@ class _LeaderboardTopHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: AutoSizeText(
+          child: Text(
             'LEADERBOARD',
             style: Styles.pageTitle,
           ),

@@ -30,7 +30,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-              child: AutoSizeText(
+              child: Text(
                 'Current Leaderboard',
                 style: Styles.normalTextBold,
               ),
@@ -140,7 +140,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                         color: Palette.darkGrey,
                         height: 50.0,
                         width: 50.0,
-                        child: AutoSizeText(
+                        child: Text(
                             player.username.substring(0, 1).toUpperCase(),
                             style: Styles.leaderboardUsername),
                       ),
@@ -149,11 +149,11 @@ class TabletLeaderboardTile extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AutoSizeText(
+                Text(
                   '${player.rank}. ${player.username}',
                   style: Styles.normalTextBold,
                 ),
-                AutoSizeText(
+                Text(
                   '${player.accountBalance + player.pendingRiskedAmount}',
                   style: GoogleFonts.nunito(
                     fontSize: 18,
@@ -166,11 +166,11 @@ class TabletLeaderboardTile extends StatelessWidget {
             subtitle: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AutoSizeText(
+                Text(
                   'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
                   style: Styles.awayTeam,
                 ),
-                AutoSizeText(
+                Text(
                   leaderboardWinningBetsRatio(
                     player.totalBetsWon,
                     player.totalBetsLost,

@@ -50,7 +50,7 @@ class _GroupAddState extends State<GroupAdd> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: AutoSizeText(
+        title: Text(
           'NEW GROUP',
           style: Styles.pageTitle,
         ),
@@ -62,11 +62,11 @@ class _GroupAddState extends State<GroupAdd> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              AutoSizeText(
+              Text(
                 'Admin',
                 style: Styles.groupFieldHeading,
               ),
-              AutoSizeText(
+              Text(
                 'As the creator of this group, you are the admin.',
                 style: Styles.groupFieldDescription,
               ),
@@ -83,14 +83,14 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: AutoSizeText(
+                  child: Text(
                     userData.username,
                     style: Styles.normalText,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              AutoSizeText(
+              Text(
                 'Group Name',
                 style: Styles.groupFieldHeading,
               ),
@@ -120,7 +120,7 @@ class _GroupAddState extends State<GroupAdd> {
                 },
               ),
               const SizedBox(height: 10),
-              AutoSizeText(
+              Text(
                 'Group Type',
                 style: Styles.groupFieldHeading,
               ),
@@ -134,7 +134,7 @@ class _GroupAddState extends State<GroupAdd> {
                       onChanged: (val) => setState(() {
                         _isPublic = val;
                       }),
-                      title: AutoSizeText(
+                      title: Text(
                         'Public',
                         style: Styles.normalText,
                       ),
@@ -149,7 +149,7 @@ class _GroupAddState extends State<GroupAdd> {
                       onChanged: (val) => setState(() {
                         _isPublic = val;
                       }),
-                      title: AutoSizeText(
+                      title: Text(
                         'Private',
                         style: Styles.normalText,
                       ),
@@ -159,11 +159,11 @@ class _GroupAddState extends State<GroupAdd> {
                 ],
               ),
               const SizedBox(height: 10),
-              AutoSizeText(
+              Text(
                 'Group Description or Motto',
                 style: Styles.groupFieldHeading,
               ),
-              AutoSizeText(
+              Text(
                 'Maximum 160 characters',
                 style: Styles.groupFieldDescription,
               ),
@@ -190,7 +190,7 @@ class _GroupAddState extends State<GroupAdd> {
                 },
               ),
               const SizedBox(height: 10),
-              AutoSizeText('Maximum Size', style: Styles.groupFieldHeading),
+              Text('Maximum Size', style: Styles.groupFieldHeading),
               RadioListTile(
                 value: true,
                 groupValue: _isUnlimitedSize,
@@ -199,7 +199,7 @@ class _GroupAddState extends State<GroupAdd> {
                     _isUnlimitedSize = val;
                   },
                 ),
-                title: AutoSizeText(
+                title: Text(
                   'Unlimited Members',
                   style: Styles.normalText,
                 ),
@@ -214,8 +214,7 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
                 title: Row(
                   children: [
-                    AutoSizeText('Limit Members to: ',
-                        style: Styles.normalText),
+                    Text('Limit Members to: ', style: Styles.normalText),
                     SizedBox(
                       width: 80,
                       child: TextFormField(
@@ -270,7 +269,7 @@ class _GroupAddState extends State<GroupAdd> {
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
                         const SnackBar(
-                          content: AutoSizeText('Group Created Successfully!'),
+                          content: Text('Group Created Successfully!'),
                         ),
                       );
                     Navigator.of(context).pop();
@@ -318,7 +317,7 @@ class _GroupAddState extends State<GroupAdd> {
                         width: 360,
                         color: Palette.green,
                         child: Center(
-                          child: AutoSizeText(
+                          child: Text(
                             'GROUP CREATED',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
@@ -376,7 +375,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

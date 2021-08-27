@@ -44,7 +44,7 @@ class PlayerDetailsPage extends StatelessWidget {
       body: ListView(
         children: [
           Center(
-            child: AutoSizeText(
+            child: Text(
               'PLAYER STATS',
               style: GoogleFonts.nunito(
                 fontSize: 24,
@@ -101,17 +101,17 @@ class PlayerDetailsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AutoSizeText(
+                Text(
                   '${playerDetails.firstName} ${playerDetails.lastName}',
                   maxLines: 3,
                   softWrap: true,
                   style: Styles.largeTextBold.copyWith(fontSize: 30),
                 ),
-                //AutoSizeText(
+                //Text(
                 //   '${playerDetails.jersey != null ? '#${playerDetails.jersey}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
                 //   style: Styles.largeTextBold.copyWith(fontSize: 20),
                 // ),
-                //AutoSizeText(
+                //Text(
                 //   '${'${playerDetails.birthState ?? 'NA'}'.toUpperCase()} STATE',
                 //   style: Styles.normalText.copyWith(fontSize: 16),
                 // ),
@@ -129,11 +129,11 @@ class PlayerDetailsPage extends StatelessWidget {
       children: [
         Column(
           children: [
-            AutoSizeText(
+            Text(
               'HEIGHT',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             ),
-            AutoSizeText(
+            Text(
               playerDetails.height ?? 'NA',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             )
@@ -141,11 +141,11 @@ class PlayerDetailsPage extends StatelessWidget {
         ),
         Column(
           children: [
-            AutoSizeText(
+            Text(
               'WEIGHT',
               style: Styles.teamStatsMain.copyWith(color: Palette.cream),
             ),
-            AutoSizeText(
+            Text(
               '${playerDetails.weight ?? 'NA'}',
               style: Styles.teamStatsMain.copyWith(color: Palette.cream),
             )
@@ -153,11 +153,11 @@ class PlayerDetailsPage extends StatelessWidget {
         ),
         Column(
           children: [
-            AutoSizeText(
+            Text(
               'AGE',
               style: Styles.teamStatsMain.copyWith(color: Palette.red),
             ),
-            AutoSizeText(
+            Text(
               '${ESTDateTime.fetchTimeEST().difference(playerDetails.birthDate).inDays ~/ 365}',
               style: Styles.teamStatsMain.copyWith(color: Palette.red),
             )
@@ -185,11 +185,11 @@ class PlayerDetailsPage extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  AutoSizeText(
+                  Text(
                     'INJURY STATUS',
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
-                  AutoSizeText(
+                  Text(
                     playerDetails.injuryStatus.toString()?.toUpperCase() ??
                         'NONE',
                     style: Styles.normalText.copyWith(fontSize: 16),
@@ -198,11 +198,11 @@ class PlayerDetailsPage extends StatelessWidget {
               ),
               Column(
                 children: [
-                  AutoSizeText(
+                  Text(
                     'BODY PART',
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
-                  AutoSizeText(
+                  Text(
                     playerDetails.injuryBodyPart?.toUpperCase() ?? 'NONE',
                     style: Styles.normalText.copyWith(
                       fontSize: 16,
@@ -222,12 +222,12 @@ class PlayerDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AutoSizeText(
+                Text(
                   'INJURY NOTES',
                   style: Styles.normalText
                       .copyWith(color: Palette.red, fontSize: 16),
                 ),
-                AutoSizeText(
+                Text(
                   playerDetails.injuryNotes ?? 'NONE',
                   style: Styles.normalText.copyWith(fontSize: 12),
                 ),
@@ -302,13 +302,11 @@ class StatsText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-            width: 110,
-            child: AutoSizeText(leftText, style: Styles.teamStatsText)),
+            width: 110, child: Text(leftText, style: Styles.teamStatsText)),
         Expanded(
             child: Align(
                 alignment: Alignment.centerRight,
-                child:
-                    AutoSizeText('$rightText', style: Styles.teamStatsText))),
+                child: Text('$rightText', style: Styles.teamStatsText))),
       ],
     );
   }

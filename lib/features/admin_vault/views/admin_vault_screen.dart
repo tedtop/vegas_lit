@@ -48,7 +48,7 @@ class AdminVaultScreen extends StatelessWidget {
               return Column(
                 children: [
                   Center(
-                    child: AutoSizeText(
+                    child: Text(
                       'ADMIN VAULT',
                       style: Styles.adminVaultTitle,
                     ),
@@ -70,7 +70,7 @@ class AdminVaultScreen extends StatelessWidget {
               break;
             default:
               return Center(
-                child: AutoSizeText(
+                child: Text(
                   'Couldn\'t load admin vault',
                   style: GoogleFonts.nunito(),
                 ),

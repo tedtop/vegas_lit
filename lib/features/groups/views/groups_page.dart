@@ -34,21 +34,21 @@ class GroupsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: AutoSizeText('GROUPS', style: Styles.pageTitle),
+          title: Text('GROUPS', style: Styles.pageTitle),
           bottom: TabBar(
             indicatorColor: Palette.green,
             labelPadding:
                 const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             tabs: [
-              AutoSizeText(
+              Text(
                 'Public',
                 style: GoogleFonts.nunito(fontSize: 15),
               ),
-              AutoSizeText(
+              Text(
                 'Private',
                 style: GoogleFonts.nunito(fontSize: 15),
               ),
-              AutoSizeText(
+              Text(
                 'Requests',
                 style: GoogleFonts.nunito(fontSize: 15),
               ),
@@ -74,7 +74,7 @@ class GroupsPage extends StatelessWidget {
               ),
             );
           },
-          label: AutoSizeText('CREATE', style: Styles.normalTextBold),
+          label: Text('CREATE', style: Styles.normalTextBold),
           icon: const Icon(Icons.add),
         ),
       ),

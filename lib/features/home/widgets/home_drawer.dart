@@ -59,7 +59,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           //..................................................................//
           ListTile(
-            title: AutoSizeText('PROFILE', style: Styles.normalTextBold),
+            title: Text('PROFILE', style: Styles.normalTextBold),
             onTap: () {
               Navigator.of(context).push(
                 Profile.route(currentUserId: currentUserId),
@@ -70,8 +70,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ? Column(
                   children: [
                     ListTile(
-                      title: AutoSizeText('SPORTSBOOK',
-                          style: Styles.normalTextBold),
+                      title: Text('SPORTSBOOK', style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(0);
                         Navigator.of(context).pop();
@@ -80,24 +79,22 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     width > 1000
                         ? const SizedBox()
                         : ListTile(
-                            title: AutoSizeText('BET SLIP',
-                                style: Styles.normalTextBold),
+                            title:
+                                Text('BET SLIP', style: Styles.normalTextBold),
                             onTap: () {
                               context.read<HomeCubit>().homeChange(1);
                               Navigator.of(context).pop();
                             },
                           ),
                     ListTile(
-                      title: AutoSizeText('OPEN BETS',
-                          style: Styles.normalTextBold),
+                      title: Text('OPEN BETS', style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(3);
                         Navigator.of(context).pop();
                       },
                     ),
                     ListTile(
-                      title:
-                          AutoSizeText('HISTORY', style: Styles.normalTextBold),
+                      title: Text('HISTORY', style: Styles.normalTextBold),
                       onTap: () {
                         context.read<HomeCubit>().homeChange(4);
                         Navigator.of(context).pop();
@@ -107,7 +104,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 )
               : const SizedBox(),
           ListTile(
-            title: AutoSizeText('LEADERBOARD', style: Styles.normalTextBold),
+            title: Text('LEADERBOARD', style: Styles.normalTextBold),
             onTap: () {
               context.read<HomeCubit>().homeChange(2);
               Navigator.of(context).pop();
@@ -115,8 +112,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           isAdmin
               ? ListTile(
-                  title:
-                      AutoSizeText('ADMIN VAULT', style: Styles.normalTextBold),
+                  title: Text('ADMIN VAULT', style: Styles.normalTextBold),
                   onTap: () {
                     Navigator.of(context).push(AdminVaultScreen.route());
                   },
@@ -125,14 +121,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
           // isAdmin
           //     ?
           ListTile(
-            title: AutoSizeText('OLYMPICS', style: Styles.normalTextBold),
+            title: Text('OLYMPICS', style: Styles.normalTextBold),
             onTap: () {
               Navigator.of(context).push(OlympicsAddForm.route());
             },
           ),
           // : Container(),
           // ListTile(
-          //   leading:AutoSizeText('GROUPS', style: Styles.normalTextBold),
+          //   leading:Text('GROUPS', style: Styles.normalTextBold),
           //   onTap: () {
           //     Navigator.push(
           //       context,
@@ -143,7 +139,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           //   },
           // ),
           ListTile(
-            leading: AutoSizeText('LOGOUT', style: Styles.normalTextBold),
+            leading: Text('LOGOUT', style: Styles.normalTextBold),
             onTap: () {
               context
                   .read<AuthenticationBloc>()
@@ -158,11 +154,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ),
           //..................................................................//
           ListTile(
-            title: AutoSizeText('TUTORIAL', style: Styles.normalText),
+            title: Text('TUTORIAL', style: Styles.normalText),
             onTap: _launchTutorialVideo,
           ),
           ListTile(
-            title: AutoSizeText('RULES', style: Styles.normalText),
+            title: Text('RULES', style: Styles.normalText),
             onTap: () {
               Navigator.of(context).push(
                 Rules.route(),
@@ -170,15 +166,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
             },
           ),
           ListTile(
-            title: AutoSizeText('TERMS OF SERVICE', style: Styles.normalText),
+            title: Text('TERMS OF SERVICE', style: Styles.normalText),
             onTap: _launchTermsAndConditions,
           ),
           ListTile(
-            title: AutoSizeText('PRIVACY POLICY', style: Styles.normalText),
+            title: Text('PRIVACY POLICY', style: Styles.normalText),
             onTap: _launchPrivacyPolicy,
           ),
           ListTile(
-            title: AutoSizeText('CONTACT US', style: Styles.normalText),
+            title: Text('CONTACT US', style: Styles.normalText),
             onTap: () {
               launch(
                 _emailLaunchUri.toString(),
@@ -190,7 +186,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           Builder(
             builder: (context) {
               return ListTile(
-                title: AutoSizeText(
+                title: Text(
                   'Version: $versionString ($buildNumber)',
                   style: Styles.versionText,
                 ),

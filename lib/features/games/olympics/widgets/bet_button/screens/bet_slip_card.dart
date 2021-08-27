@@ -60,7 +60,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
-            AutoSizeText(
+            Text(
               '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game.playerCountry).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game.rivalCountry).name.toUpperCase()} TO WIN',
               maxLines: 3,
               style: GoogleFonts.nunito(
@@ -73,7 +73,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AutoSizeText(
+                Text(
                   betButtonState.game.gameName.replaceAll(RegExp('-'), '\/'),
                   style: GoogleFonts.nunito(
                     fontSize: 18,
@@ -95,7 +95,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            AutoSizeText(
+                            Text(
                               countryFlagFromCode(
                                   countryCode:
                                       betButtonState.game.playerCountry),
@@ -106,7 +106,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            AutoSizeText(
+                            Text(
                               betButtonState.game.player,
                               textAlign: TextAlign.center,
                               style: Styles.awayTeam,
@@ -157,7 +157,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                             bottom: 8.0,
                                           ),
-                                          child: AutoSizeText(
+                                          child: Text(
                                             // ignore: lines_longer_than_80_chars
                                             '${betButtonState.betAmount}',
                                             style: GoogleFonts.nunito(
@@ -191,7 +191,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                               height: 40,
                               width: 174,
                               child: Center(
-                                child: AutoSizeText(
+                                child: Text(
                                   'BET AMOUNT',
                                   style: GoogleFonts.nunito(
                                     fontSize: 18,
@@ -258,7 +258,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            AutoSizeText(
+                            Text(
                               countryFlagFromCode(
                                   countryCode:
                                       betButtonState.game.rivalCountry),
@@ -269,7 +269,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            AutoSizeText(
+                            Text(
                               betButtonState.game.rival,
                               textAlign: TextAlign.center,
                               style: Styles.homeTeam,
@@ -302,7 +302,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                           bottom: 8.0,
                                         ),
-                                        child: AutoSizeText(
+                                        child: Text(
                                           '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
@@ -334,7 +334,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                               height: 40,
                               width: 174,
                               child: Center(
-                                child: AutoSizeText(
+                                child: Text(
                                   'TO WIN',
                                   style: GoogleFonts.nunito(
                                     fontSize: 18,
@@ -376,7 +376,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                     DateFormat('E, MMMM, c, y @ hh:mm a').format(
                       betButtonState.game.startTime.toLocal(),
                     ),
@@ -486,7 +486,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 child: Center(
                                   child: FittedBox(
                                     fit: BoxFit.contain,
-                                    child: AutoSizeText(
+                                    child: Text(
                                       '$betValue',
                                       style: Styles.normalText,
                                     ),
@@ -575,14 +575,14 @@ class _BetAmountPageState extends State<BetAmountPage> {
                         const SizedBox(
                           height: 5,
                         ),
-                        AutoSizeText(
+                        Text(
                           'Bet Amount',
                           style: Styles.normalTextBold.copyWith(fontSize: 22),
                         ),
                         const SizedBox(
                           height: 12,
                         ),
-                        AutoSizeText(
+                        Text(
                           'Scroll to select your bet amount and press to confirm',
                           style: Styles.normalText,
                           textAlign: TextAlign.center,
@@ -617,17 +617,17 @@ Widget badgeFromEventTypeColumn({String eventType}) {
         height: 40,
       ),
       eventType == 'gold'
-          ? const AutoSizeText(
+          ? const Text(
               '🥇',
               style: TextStyle(fontSize: 20),
             )
           : eventType == 'silver'
-              ? const AutoSizeText(
+              ? const Text(
                   '🥈',
                   style: TextStyle(fontSize: 20),
                 )
               : eventType == 'bronze'
-                  ? const AutoSizeText(
+                  ? const Text(
                       '🥉',
                       style: TextStyle(fontSize: 20),
                     )
@@ -672,7 +672,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

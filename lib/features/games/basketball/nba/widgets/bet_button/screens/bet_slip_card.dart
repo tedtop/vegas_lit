@@ -78,7 +78,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
               children: [
                 betButtonState.winTeam == BetButtonWin.home
                     ? isMoneyline
-                        ? AutoSizeText(
+                        ? Text(
                             '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -89,7 +89,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                           )
                         : Container()
                     : isMoneyline
-                        ? AutoSizeText(
+                        ? Text(
                             '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -113,7 +113,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                       children: [
                         Column(
                           children: [
-                            AutoSizeText(
+                            Text(
                               betButtonState.awayTeamData.city,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
@@ -122,7 +122,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            AutoSizeText(
+                            Text(
                               betButtonState.awayTeamData.name.toUpperCase(),
                               textAlign: TextAlign.center,
                               style: Styles.awayTeam,
@@ -172,7 +172,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               bottom: 8.0),
-                                          child: AutoSizeText(
+                                          child: Text(
                                             // ignore: lines_longer_than_80_chars
                                             '${betButtonState.betAmount}',
                                             style: GoogleFonts.nunito(
@@ -206,7 +206,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                               height: 40,
                               width: 174,
                               child: Center(
-                                child: AutoSizeText(
+                                child: Text(
                                   'BET AMOUNT',
                                   style: GoogleFonts.nunito(
                                     fontSize: 18,
@@ -219,7 +219,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 11.0),
-                          child: AutoSizeText(
+                          child: Text(
                             (whichBetSystemFromEnum(betButtonState.betType)),
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -279,7 +279,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                   // ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 190),
-                    child: AutoSizeText(
+                    child: Text(
                       '@',
                       style: GoogleFonts.nunito(
                         fontSize: 18,
@@ -293,7 +293,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                       children: [
                         Column(
                           children: [
-                            AutoSizeText(
+                            Text(
                               betButtonState.homeTeamData.city,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
@@ -302,7 +302,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                 color: Palette.green,
                               ),
                             ),
-                            AutoSizeText(
+                            Text(
                               betButtonState.homeTeamData.name.toUpperCase(),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
@@ -338,7 +338,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(bottom: 8.0),
-                                        child: AutoSizeText(
+                                        child: Text(
                                           '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
@@ -370,7 +370,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                               height: 40,
                               width: 174,
                               child: Center(
-                                child: AutoSizeText(
+                                child: Text(
                                   'TO WIN',
                                   style: GoogleFonts.nunito(
                                     fontSize: 18,
@@ -383,7 +383,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: AutoSizeText(
+                          child: Text(
                             betButtonState.text,
                             maxLines: 1,
                             style: GoogleFonts.nunito(
@@ -420,7 +420,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                     DateFormat('E, MMMM, c, y @ hh:mm a').format(
                       betButtonState.game.dateTime.toLocal(),
                     ),
@@ -438,7 +438,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                       betButtonState.game.dateTime),
                   widgetBuilder: (_, CurrentRemainingTime time) {
                     if (time == null) {
-                      return AutoSizeText(
+                      return Text(
                         betButtonState.game.status,
                         style: GoogleFonts.nunito(
                           color: Palette.red,
@@ -447,7 +447,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                       );
                     }
 
-                    return AutoSizeText(
+                    return Text(
                       'Starting in  ${getRemainingTimeText(time: time)}',
                       style: GoogleFonts.nunito(
                         fontSize: 15,
@@ -564,7 +564,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 child: Center(
                                   child: FittedBox(
                                     fit: BoxFit.contain,
-                                    child: AutoSizeText(
+                                    child: Text(
                                       '$betValue',
                                       style: Styles.normalText,
                                     ),
@@ -665,14 +665,14 @@ class _BetAmountPageState extends State<BetAmountPage> {
                         const SizedBox(
                           height: 5,
                         ),
-                        AutoSizeText(
+                        Text(
                           'Bet Amount',
                           style: Styles.normalTextBold.copyWith(fontSize: 22),
                         ),
                         const SizedBox(
                           height: 12,
                         ),
-                        AutoSizeText(
+                        Text(
                           'Scroll to select your bet amount and press to confirm',
                           style: Styles.normalText,
                           textAlign: TextAlign.center,
@@ -749,7 +749,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

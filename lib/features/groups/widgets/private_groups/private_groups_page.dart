@@ -77,7 +77,7 @@ class PrivateGroups extends StatelessWidget {
                 case PrivateGroupsStatus.success:
                   if (state.privateGroups.isEmpty) {
                     return Center(
-                      child: AutoSizeText(
+                      child: Text(
                         'No Groups Found!',
                         style: GoogleFonts.nunito(),
                       ),
@@ -88,7 +88,7 @@ class PrivateGroups extends StatelessWidget {
                   break;
                 case PrivateGroupsStatus.failure:
                   return Center(
-                    child: AutoSizeText(
+                    child: Text(
                       'Couldn\'t open groups',
                       style: GoogleFonts.nunito(),
                     ),
@@ -159,17 +159,17 @@ class PrivateGroupListTile extends StatelessWidget {
           Icons.star,
           size: 35,
         ),
-        title: AutoSizeText(
+        title: Text(
           _group.name,
           style: Styles.leaderboardUsername,
         ),
-        subtitle: AutoSizeText(
+        subtitle: Text(
           _group.isPublic ? 'Public Group' : 'Private Group',
           style: Styles.normalText.copyWith(fontSize: 14),
         ),
         trailing: Column(
           children: [
-            AutoSizeText(
+            Text(
               '${_group.users.length}${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
@@ -178,7 +178,7 @@ class PrivateGroupListTile extends StatelessWidget {
                     : Palette.red,
               ),
             ),
-            AutoSizeText(
+            Text(
               'Users',
               style: Styles.normalText.copyWith(fontSize: 14),
             ),

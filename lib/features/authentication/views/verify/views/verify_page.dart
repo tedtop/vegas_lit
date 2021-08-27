@@ -20,10 +20,10 @@ class VerifyPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const AutoSizeText(
+              const Text(
                   'Your Email isn\'t verified. Please check your inbox.'),
               ElevatedButton(
-                child: const AutoSizeText('Go Back'),
+                child: const Text('Go Back'),
                 onPressed: () {
                   context.read<AuthenticationBloc>().add(
                         AuthenticationLogoutRequested(),

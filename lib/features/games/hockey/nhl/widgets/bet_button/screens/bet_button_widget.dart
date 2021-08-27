@@ -67,7 +67,7 @@ class BetButton extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: AutoSizeText(
+                  content: Text(
                     "You've already placed a bet on this game.",
                   ),
                 ),
@@ -79,7 +79,7 @@ class BetButton extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
-                  content: AutoSizeText('Your bet has been placed.'),
+                  content: Text('Your bet has been placed.'),
                 ),
               );
             context
@@ -144,7 +144,7 @@ class BetButtonUnclicked extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          child: AutoSizeText(
+          child: Text(
             betButtonState.text ?? '100',
             maxLines: 1,
             style: GoogleFonts.nunito(
@@ -200,7 +200,7 @@ class BetButtonClicked extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.green),
           ),
-          child: AutoSizeText(
+          child: Text(
             betButtonState.text ?? '100',
             maxLines: 1,
             style: GoogleFonts.nunito(
@@ -240,7 +240,7 @@ class BetButtonDone extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
-          child: AutoSizeText(
+          child: Text(
             'BET PLACED',
             maxLines: 1,
             style: GoogleFonts.nunito(

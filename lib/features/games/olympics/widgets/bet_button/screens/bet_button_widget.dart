@@ -51,7 +51,7 @@ class BetButton extends StatelessWidget {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
-                  content: AutoSizeText(
+                  content: Text(
                     "You've already placed a bet on this game.",
                   ),
                 ),
@@ -63,7 +63,7 @@ class BetButton extends StatelessWidget {
               ..showSnackBar(
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
-                  content: AutoSizeText('Your bet has been placed.'),
+                  content: Text('Your bet has been placed.'),
                 ),
               );
             context
@@ -131,7 +131,7 @@ class BetButtonUnclicked extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                AutoSizeText(
+                Text(
                   countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.playerCountry
@@ -141,7 +141,7 @@ class BetButtonUnclicked extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: AutoSizeText(
+                  child: Text(
                     betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.player
                         : betButtonState.game.rival,
@@ -207,7 +207,7 @@ class BetButtonClicked extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                AutoSizeText(
+                Text(
                   countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.playerCountry
@@ -217,7 +217,7 @@ class BetButtonClicked extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: AutoSizeText(
+                  child: Text(
                     betButtonState.winTeam == BetButtonWin.player
                         ? betButtonState.game.player
                         : betButtonState.game.rival,
@@ -263,7 +263,7 @@ class BetButtonDone extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
           child: Center(
-            child: AutoSizeText(
+            child: Text(
               'BET PLACED',
               maxLines: 1,
               style: GoogleFonts.nunito(

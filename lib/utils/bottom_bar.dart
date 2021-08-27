@@ -137,7 +137,7 @@ class BottomBar extends StatelessWidget {
                       //height: sizeInfo.isDesktop ? 20 : 0,
                       width: 5,
                     ),
-                    AutoSizeText(
+                    Text(
                       'Copyright © 2021 | VEGAS LIT',
                       style: Styles.bottomBarType,
                     ),
@@ -160,7 +160,7 @@ class BottomBarColumn extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AutoSizeText(heading, style: Styles.bottomBarHeading),
+          Text(heading, style: Styles.bottomBarHeading),
           const SizedBox(
             height: 10,
           ),
@@ -169,8 +169,7 @@ class BottomBarColumn extends StatelessWidget {
                     children: [
                       TextButton(
                           onPressed: content[text],
-                          child: AutoSizeText(text,
-                              style: Styles.bottomBarNormal)),
+                          child: Text(text, style: Styles.bottomBarNormal)),
                       const SizedBox(height: 5),
                     ],
                   ))
@@ -191,11 +190,11 @@ class InfoText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AutoSizeText(
+        Text(
           '$type: ',
           style: Styles.bottomBarType,
         ),
-        AutoSizeText(
+        Text(
           text,
           style: Styles.bottomBarNormal,
         )

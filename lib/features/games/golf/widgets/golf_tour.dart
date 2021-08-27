@@ -78,15 +78,15 @@ class GolfTournamentCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AutoSizeText(
+                    Text(
                       tournamentName,
                       style: Styles.normalTextBold,
                     ),
-                    AutoSizeText(
+                    Text(
                       venue ?? '',
                       style: Styles.normalText.copyWith(fontSize: 14),
                     ),
-                    AutoSizeText(
+                    Text(
                       location ?? '',
                       style: Styles.normalText.copyWith(fontSize: 14),
                     )
@@ -107,15 +107,15 @@ class GolfTournamentCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AutoSizeText(
+                    Text(
                       '${startDate.day} ${DateFormat.MMM().format(startDate)}-${endDate.day} ${DateFormat.MMM().format(endDate)}, ${endDate.year}',
                       style: Styles.normalText.copyWith(fontSize: 12),
                     ),
-                    AutoSizeText(
+                    Text(
                       'Watch on CBS, GOLF',
                       style: Styles.normalTextBold.copyWith(fontSize: 12),
                     ),
-                    AutoSizeText(
+                    Text(
                       'Purse $purse',
                       style: Styles.normalTextBold.copyWith(fontSize: 14),
                     )

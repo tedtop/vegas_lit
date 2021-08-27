@@ -27,7 +27,7 @@ class DesktopBetSlipPage extends StatelessWidget {
                       // AbstractCard(
                       //     crossAxisAlignment: CrossAxisAlignment.start,
                       //     widgets: [
-                      //      AutoSizeText(
+                      //      Text(
                       //         'Your Bet List is\ncurrently Empty.',
                       //         style: GoogleFonts.nunito(
                       //             fontSize: 24,
@@ -77,7 +77,7 @@ class DesktopBetSlipPage extends StatelessWidget {
   Widget textPoints(String text) {
     return Column(
       children: [
-        AutoSizeText(
+        Text(
           text,
           style: GoogleFonts.nunito(
             fontSize: 18,
@@ -110,7 +110,7 @@ class DesktopBetSlipUpper extends StatelessWidget {
               color: Palette.green,
             ),
             child: Center(
-              child: AutoSizeText(
+              child: Text(
                 'BET SLIP',
                 style: GoogleFonts.nunito(
                   fontSize: 16,
@@ -133,7 +133,7 @@ class DesktopBetSlipUpper extends StatelessWidget {
                   height: 40,
                   width: 42,
                   child: Center(
-                    child: AutoSizeText(
+                    child: Text(
                       state.betSlipCard.length.toString(),
                       style: GoogleFonts.nunito(
                         color: Palette.darkGrey,

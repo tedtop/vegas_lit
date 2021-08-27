@@ -51,7 +51,7 @@ class _RulesState extends State<Rules> with RouteAwareAnalytics {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AutoSizeText(
+                  Text(
                     'RULES',
                     style: Styles.pageTitle,
                   ),
@@ -59,20 +59,20 @@ class _RulesState extends State<Rules> with RouteAwareAnalytics {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
-                child: AutoSizeText(
+                child: Text(
                   'WEEKLY CONTEST RULES',
                   textAlign: TextAlign.start,
                   style: Styles.normalText.copyWith(fontSize: 28),
                 ),
               ),
-              const AutoSizeText(
+              const Text(
                 'The Vegas Lit Games Free2Play Sportsbook allows you to place bets on real sports with virtual currency and track your  progress over time. You\'ll be gifted 1000 in virtual currency each week. Bet on sports over the week using the app. ',
                 style: TextStyle(color: Palette.cream),
               ),
               const SizedBox(
                 height: 20,
               ),
-              const AutoSizeText(
+              const Text(
                 'Earn as much as possible through your correct picks and climb the leaderboard to become the Vegas Lit Champion! The player with the highest profit each week will be declared the winner and awarded cold hard plastic! (Cash Card)',
                 style: TextStyle(color: Palette.cream),
               ),
@@ -83,7 +83,7 @@ class _RulesState extends State<Rules> with RouteAwareAnalytics {
               const SizedBox(
                 height: 20,
               ),
-              const AutoSizeText(
+              const Text(
                 'Please Note: Apple is not a participant in or sponsor of this promotion.',
                 style: TextStyle(color: Palette.cream),
               ),
@@ -171,12 +171,12 @@ class _OrderedListItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        AutoSizeText(
+        Text(
           '$index. ',
           style: const TextStyle(color: Palette.cream),
         ),
         Expanded(
-          child: AutoSizeText(
+          child: Text(
             rule,
             style: const TextStyle(color: Palette.cream),
           ),

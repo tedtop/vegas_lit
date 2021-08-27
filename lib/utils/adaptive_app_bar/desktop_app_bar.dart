@@ -95,7 +95,7 @@ class _DesktopAppBarItemState extends State<DesktopAppBarItem> {
               },
               hoverColor: Colors.transparent,
               onTap: () => context.read<HomeCubit>().homeChange(widget.index),
-              child: AutoSizeText(
+              child: Text(
                 widget.title,
                 style: _isHovering || widget.isSelected
                     ? GoogleFonts.nunito(

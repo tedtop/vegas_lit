@@ -58,7 +58,7 @@ class BottomNavigation extends StatelessWidget {
                                   minWidth: 14,
                                   minHeight: 14,
                                 ),
-                                child: AutoSizeText(
+                                child: Text(
                                   '$betSlipBadgeCount',
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -91,7 +91,7 @@ class BottomNavigation extends StatelessWidget {
                                   minWidth: 14,
                                   minHeight: 14,
                                 ),
-                                child: AutoSizeText(
+                                child: Text(
                                   '$openBetsBadgeCount',
                                   style: const TextStyle(
                                     color: Colors.white,

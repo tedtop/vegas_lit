@@ -137,7 +137,7 @@ class PageNumberWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: AutoSizeText(
+            child: Text(
               '$number',
               style: selected ? Styles.normalText : Styles.greenText,
             ),

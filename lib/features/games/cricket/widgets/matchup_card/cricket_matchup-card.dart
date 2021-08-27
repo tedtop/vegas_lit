@@ -68,7 +68,7 @@ class CricketMatchupCard extends StatelessWidget {
                                     // height: 25,
                                     child: Column(
                                       children: [
-                                        //AutoSizeText(
+                                        //Text(
                                         //   state.awayTeamData.city,
                                         //   textAlign: TextAlign.center,
                                         //   style: GoogleFonts.nunito(
@@ -77,7 +77,7 @@ class CricketMatchupCard extends StatelessWidget {
                                         //     fontWeight: FontWeight.bold,
                                         //   ),
                                         // ),
-                                        AutoSizeText(
+                                        Text(
                                           state.awayTeamData.title
                                               .toUpperCase(),
                                           textAlign: TextAlign.center,
@@ -149,7 +149,7 @@ class CricketMatchupCard extends StatelessWidget {
                             ),
                             Column(
                               children: [
-                                AutoSizeText(
+                                Text(
                                   '@',
                                   style: Styles.matchupSeparator,
                                 ),
@@ -164,7 +164,7 @@ class CricketMatchupCard extends StatelessWidget {
                                 children: [
                                   Column(
                                     children: [
-                                      //AutoSizeText(
+                                      //Text(
                                       //   state.homeTeamData.city,
                                       //   textAlign: TextAlign.center,
                                       //   style: GoogleFonts.nunito(
@@ -173,7 +173,7 @@ class CricketMatchupCard extends StatelessWidget {
                                       //     color: Palette.green,
                                       //   ),
                                       // ),
-                                      AutoSizeText(
+                                      Text(
                                         state.homeTeamData.title.toUpperCase(),
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.nunito(
@@ -273,7 +273,7 @@ class CricketMatchupCard extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              AutoSizeText(
+                              Text(
                                 DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
                                   state.game.commenceTime.toLocal(),
                                 ),
@@ -301,7 +301,7 @@ class CricketMatchupCard extends StatelessWidget {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
-      child: AutoSizeText(
+      child: Text(
         text,
         maxLines: 1,
         textAlign: TextAlign.center,

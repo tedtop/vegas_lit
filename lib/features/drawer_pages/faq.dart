@@ -49,7 +49,7 @@ class _FaqContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
         'WORK IN PROGRESS\n Come Back Later.',
         textAlign: TextAlign.center,
         style: GoogleFonts.nunito(
@@ -70,7 +70,7 @@ class _FaqHeading extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AutoSizeText(
+        Text(
           'FAQ',
           style: Styles.pageTitle,
         ),

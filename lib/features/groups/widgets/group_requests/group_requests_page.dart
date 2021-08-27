@@ -76,7 +76,7 @@ class GroupRequests extends StatelessWidget {
                 case GroupRequestsStatus.success:
                   if (state.groups.isEmpty) {
                     return Center(
-                      child: AutoSizeText(
+                      child: Text(
                         'No Groups Found!',
                         style: GoogleFonts.nunito(),
                       ),
@@ -87,7 +87,7 @@ class GroupRequests extends StatelessWidget {
                   break;
                 case GroupRequestsStatus.failure:
                   return Center(
-                    child: AutoSizeText(
+                    child: Text(
                       'Couldn\'t open groups',
                       style: GoogleFonts.nunito(),
                     ),
@@ -158,17 +158,17 @@ class GroupRequestsListTile extends StatelessWidget {
           Icons.star,
           size: 35,
         ),
-        title: AutoSizeText(
+        title: Text(
           _group.name,
           style: Styles.leaderboardUsername,
         ),
-        subtitle: AutoSizeText(
+        subtitle: Text(
           _group.isPublic ? 'Public Group' : 'Private Group',
           style: Styles.normalText.copyWith(fontSize: 14),
         ),
         trailing: Column(
           children: [
-            AutoSizeText(
+            Text(
               '${_group.users.length}${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
@@ -177,7 +177,7 @@ class GroupRequestsListTile extends StatelessWidget {
                     : Palette.red,
               ),
             ),
-            AutoSizeText(
+            Text(
               'Users',
               style: Styles.normalText.copyWith(fontSize: 14),
             ),
@@ -199,7 +199,7 @@ class GroupRequestsListTile extends StatelessWidget {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: AutoSizeText(
+                  child: Text(
                     'Accept',
                     style: GoogleFonts.nunito(fontSize: 18),
                   ),
@@ -218,7 +218,7 @@ class GroupRequestsListTile extends StatelessWidget {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: AutoSizeText(
+                  child: Text(
                     'Reject',
                     style: GoogleFonts.nunito(fontSize: 18),
                   ),

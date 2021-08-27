@@ -34,7 +34,7 @@ class RewardedBetSlip extends StatelessWidget {
         children: [
           AbstractCard(
             widgets: [
-              AutoSizeText(
+              Text(
                 'Your bet was placed.',
                 style: Styles.betSlipBoxLargeText,
               ),
@@ -42,7 +42,7 @@ class RewardedBetSlip extends StatelessWidget {
                 height: 20,
               ),
               todayRewards >= 600
-                  ? AutoSizeText(
+                  ? Text(
                       "Sorry. You've exceeded the daily reward amount. Come back later.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nunito(fontSize: 20),
@@ -66,7 +66,7 @@ class RewardedBetSlip extends StatelessWidget {
                                     SnackBar(
                                       duration:
                                           const Duration(milliseconds: 2000),
-                                      content: AutoSizeText(
+                                      content: Text(
                                         'You just earned another ${state.rewardAmount} to play with!',
                                       ),
                                     ),
@@ -77,7 +77,7 @@ class RewardedBetSlip extends StatelessWidget {
                                   ..showSnackBar(
                                     const SnackBar(
                                       duration: Duration(milliseconds: 2000),
-                                      content: AutoSizeText(
+                                      content: Text(
                                         'There was an error displaying the ad.',
                                       ),
                                     ),
@@ -88,7 +88,7 @@ class RewardedBetSlip extends StatelessWidget {
                                   ..showSnackBar(
                                     const SnackBar(
                                       duration: Duration(milliseconds: 2000),
-                                      content: AutoSizeText(
+                                      content: Text(
                                         'Ad Reward Cancelled.',
                                       ),
                                     ),
@@ -136,14 +136,14 @@ class RewardedBetSlip extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                AutoSizeText(
+                                                Text(
                                                   'Watch',
                                                   style: GoogleFonts.nunito(
                                                     color: Palette.cream,
                                                     fontSize: 20,
                                                   ),
                                                 ),
-                                                AutoSizeText(
+                                                Text(
                                                   'Video',
                                                   style: GoogleFonts.nunito(
                                                     color: Palette.cream,
@@ -173,7 +173,7 @@ class RewardedBetSlip extends StatelessWidget {
   Widget textPoints(String text) {
     return Column(
       children: [
-        AutoSizeText(
+        Text(
           text,
           style: Styles.betSlipBoxNormalText,
         ),

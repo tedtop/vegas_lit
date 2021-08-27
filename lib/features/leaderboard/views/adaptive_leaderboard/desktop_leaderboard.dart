@@ -31,7 +31,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: AutoSizeText(
+                  child: Text(
                     'Current Leaderboard',
                     style: Styles.normalTextBold,
                   ),
@@ -67,7 +67,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
                   color: Palette.darkGrey,
                 ),
                 child: Center(
-                  child: AutoSizeText(
+                  child: Text(
                     'CONTEST WINNINGS',
                     style: Styles.largeTextBold,
                   ),
@@ -143,70 +143,70 @@ class LeaderboardColumns extends StatelessWidget {
           ),
           SizedBox(
             width: 60,
-            child: AutoSizeText(
+            child: Text(
               'Rank',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
-            child: AutoSizeText(
+            child: Text(
               'Player',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
-            child: AutoSizeText(
+            child: Text(
               'Profit',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 150,
-            child: AutoSizeText(
+            child: Text(
               'Account Balance',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 95,
-            child: AutoSizeText(
+            child: Text(
               '# of Bets',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 140,
-            child: AutoSizeText(
+            child: Text(
               '# of Correct Bets',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 110,
-            child: AutoSizeText(
+            child: Text(
               'Open Bets',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 145,
-            child: AutoSizeText(
+            child: Text(
               'Potential Winnings',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
-            child: AutoSizeText(
+            child: Text(
               'Biggest Win',
               style: Styles.leaderboardDesktopField,
             ),
           ),
           SizedBox(
             width: 120,
-            child: AutoSizeText(
+            child: Text(
               'Last Week\'s Rank',
               style: Styles.leaderboardDesktopField,
             ),
@@ -248,70 +248,70 @@ class WebLeaderboardItem extends StatelessWidget {
             ),
             SizedBox(
               width: 60,
-              child: AutoSizeText(
+              child: Text(
                 '$rank',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 120,
-              child: AutoSizeText(
+              child: Text(
                 '${player.username}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 120,
-              child: AutoSizeText(
+              child: Text(
                 '${player.totalProfit}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 150,
-              child: AutoSizeText(
+              child: Text(
                 '${player.accountBalance}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 95,
-              child: AutoSizeText(
+              child: Text(
                 '${player.totalBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 140,
-              child: AutoSizeText(
+              child: Text(
                 '${player.totalBetsWon}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 110,
-              child: AutoSizeText(
+              child: Text(
                 '${player.totalOpenBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 145,
-              child: AutoSizeText(
+              child: Text(
                 'N/A',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 120,
-              child: AutoSizeText(
+              child: Text(
                 'N/A',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 120,
-              child: AutoSizeText(
+              child: Text(
                 'N/A',
                 style: Styles.leaderboardDesktopItem,
               ),

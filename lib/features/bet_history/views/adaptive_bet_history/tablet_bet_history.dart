@@ -63,7 +63,7 @@ class _TabletHistoryBoard extends StatelessWidget {
             break;
           case HistoryStatus.failure:
             return const Center(
-              child: AutoSizeText('Some error occured.'),
+              child: Text('Some error occured.'),
             );
             break;
           default:
@@ -99,7 +99,7 @@ class _TabletHistoryContent extends StatelessWidget {
         return const _TabletHistoryList();
       case HistoryStatus.failure:
         return const Center(
-          child: AutoSizeText("Couldn't load bet history data"),
+          child: Text("Couldn't load bet history data"),
         );
       default:
         return const SizedBox();
@@ -185,7 +185,7 @@ class _TabletHistoryEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
         'No bets resolved yet.',
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
@@ -206,7 +206,7 @@ class _TabletHistoryHeading extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: AutoSizeText(
+                child: Text(
                   'BET HISTORY',
                   style: Styles.pageTitle,
                 ),

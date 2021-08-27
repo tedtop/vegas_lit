@@ -110,7 +110,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               Column(
                                 children: [
                                   isPlayerWin
-                                      ? AutoSizeText(
+                                      ? Text(
                                           '${countryFlagFromCode(countryCode: openBets.playerCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -120,7 +120,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
                                         )
-                                      : AutoSizeText(
+                                      : Text(
                                           '${countryFlagFromCode(countryCode: openBets.rivalCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -131,7 +131,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                         ),
                                   isPlayerWin
-                                      ? AutoSizeText(
+                                      ? Text(
                                           '${countryFlagFromCode(countryCode: openBets.rivalCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -141,7 +141,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
                                         )
-                                      : AutoSizeText(
+                                      : Text(
                                           '${countryFlagFromCode(countryCode: openBets.playerCountry)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -163,7 +163,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           Row(
                                             children: [
                                               Flexible(
-                                                child: AutoSizeText(
+                                                child: Text(
                                                   '${openBets.playerName.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
@@ -175,7 +175,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                                   softWrap: true,
                                                 ),
                                               ),
-                                              AutoSizeText(
+                                              Text(
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
@@ -188,7 +188,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                             height: 4,
                                           ),
                                           SizedBox(
-                                            child: AutoSizeText(
+                                            child: Text(
                                               '${openBets.rivalName.toUpperCase()}',
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
@@ -209,7 +209,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                           Row(
                                             children: [
                                               Flexible(
-                                                child: AutoSizeText(
+                                                child: Text(
                                                   '${openBets.rivalName.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
@@ -221,7 +221,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                                   softWrap: true,
                                                 ),
                                               ),
-                                              AutoSizeText(
+                                              Text(
                                                 ' TO WIN',
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
@@ -234,7 +234,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                                             height: 4,
                                           ),
                                           SizedBox(
-                                            child: AutoSizeText(
+                                            child: Text(
                                               '${openBets.playerName.toUpperCase()}',
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
@@ -257,7 +257,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: AutoSizeText(
+                                child: Text(
                                   '${openBets.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
@@ -269,17 +269,17 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: openBets.eventType == 'gold'
-                                    ? const AutoSizeText(
+                                    ? const Text(
                                         '🥇',
                                         style: TextStyle(fontSize: 14),
                                       )
                                     : openBets.eventType == 'silver'
-                                        ? const AutoSizeText(
+                                        ? const Text(
                                             '🥈',
                                             style: TextStyle(fontSize: 14),
                                           )
                                         : openBets.eventType == 'bronze'
-                                            ? const AutoSizeText(
+                                            ? const Text(
                                                 '🥉',
                                                 style: TextStyle(fontSize: 14),
                                               )
@@ -291,7 +291,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: AutoSizeText(
+                                child: Text(
                                   openBets.event,
                                   style: Styles.openBetsCardNormal,
                                   overflow: TextOverflow.ellipsis,
@@ -304,7 +304,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                AutoSizeText(
+                                Text(
                                   DateFormat('E, MMMM c, y @ hh:mm a')
                                       .format(openBets.gameStartDateTime),
                                   style: GoogleFonts.nunito(
@@ -342,9 +342,9 @@ class OlympicsOpenBetCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            AutoSizeText('ticket cost',
+                            Text('ticket cost',
                                 style: Styles.openBetsCardBetText),
-                            AutoSizeText('${openBets.betAmount}',
+                            Text('${openBets.betAmount}',
                                 style: Styles.openBetsCardBetMoney),
                           ],
                         ),
@@ -358,13 +358,13 @@ class OlympicsOpenBetCard extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            AutoSizeText(
+                            Text(
                               'max win',
                               style: Styles.openBetsCardBetText.copyWith(
                                 color: Palette.green,
                               ),
                             ),
-                            AutoSizeText(
+                            Text(
                               '${openBets.betProfit}',
                               style: Styles.openBetsCardBetMoney
                                   .copyWith(color: Palette.green),
@@ -392,7 +392,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
               height: 25,
               width: 80,
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                   'MONEYLINE',
                   style: GoogleFonts.nunito(
                     fontSize: 10,

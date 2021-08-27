@@ -14,7 +14,7 @@ class EmptyBetSlip extends StatelessWidget {
           AbstractCard(
             crossAxisAlignment: CrossAxisAlignment.start,
             widgets: [
-              AutoSizeText(
+              Text(
                 'Your Bet List is\ncurrently Empty.',
                 style: Styles.betSlipBoxLargeText,
               ),
@@ -41,7 +41,7 @@ class EmptyBetSlip extends StatelessWidget {
   Widget textPoints(String text) {
     return Column(
       children: [
-        AutoSizeText(
+        Text(
           text,
           style: Styles.betSlipBoxNormalText,
         ),

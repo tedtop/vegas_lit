@@ -42,7 +42,7 @@ class GroupDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: AutoSizeText(
+        title: Text(
           'GROUP DETAILS',
           style: Styles.normalTextBold,
         ),
@@ -77,7 +77,7 @@ class GroupDetails extends StatelessWidget {
               return SizedBox(
                 height: 100,
                 child: Center(
-                  child: AutoSizeText(
+                  child: Text(
                     'Couldn\'t load group details',
                     style: Styles.normalText,
                   ),
@@ -112,7 +112,7 @@ class GroupDetailsDescription extends StatelessWidget {
             return Column(
               children: [
                 Center(
-                  child: AutoSizeText(
+                  child: Text(
                     state.group.name,
                     style: Styles.pageTitle,
                   ),
@@ -136,12 +136,12 @@ class GroupDetailsDescription extends StatelessWidget {
                     children: [
                       TableRow(
                         children: [
-                          AutoSizeText(
+                          Text(
                             'Motto',
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
                           const SizedBox(),
-                          AutoSizeText(
+                          Text(
                             state.group.description.isEmpty
                                 ? 'None'
                                 : state.group.description,
@@ -151,12 +151,12 @@ class GroupDetailsDescription extends StatelessWidget {
                       ),
                       TableRow(
                         children: [
-                          AutoSizeText(
+                          Text(
                             'Type',
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
                           const SizedBox(),
-                          AutoSizeText(
+                          Text(
                             state.group.isPublic ? 'Public' : 'Private',
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
@@ -164,7 +164,7 @@ class GroupDetailsDescription extends StatelessWidget {
                       ),
                       TableRow(
                         children: [
-                          AutoSizeText(
+                          Text(
                             'People',
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
@@ -194,12 +194,12 @@ class GroupDetailsDescription extends StatelessWidget {
                       ),
                       TableRow(
                         children: [
-                          AutoSizeText(
+                          Text(
                             'Admin',
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
                           const SizedBox(),
-                          AutoSizeText(
+                          Text(
                             state.group.adminName,
                             style: Styles.greenTextBold.copyWith(fontSize: 15),
                           ),
@@ -215,7 +215,7 @@ class GroupDetailsDescription extends StatelessWidget {
             return SizedBox(
               height: 100,
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                   'Couldn\'t load group details',
                   style: Styles.normalText,
                 ),
@@ -254,7 +254,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
               replacement: SizedBox(
                 height: 60,
                 child: Center(
-                  child: AutoSizeText(
+                  child: Text(
                     'Group Members Limit Exceeded.',
                     style: Styles.normalText,
                   ),
@@ -281,7 +281,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
                               ..showSnackBar(
                                 SnackBar(
                                   duration: const Duration(milliseconds: 2000),
-                                  content: AutoSizeText(
+                                  content: Text(
                                     'User already added',
                                     style: GoogleFonts.nunito(),
                                   ),
@@ -300,7 +300,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
                               ..showSnackBar(
                                 SnackBar(
                                   duration: const Duration(milliseconds: 2000),
-                                  content: AutoSizeText(
+                                  content: Text(
                                     'Group request sent to ${selectedUser.username}',
                                     style: GoogleFonts.nunito(),
                                   ),
@@ -337,7 +337,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
             return SizedBox(
               height: 100,
               child: Center(
-                child: AutoSizeText(
+                child: Text(
                   'Couldn\'t load button',
                   style: Styles.normalText,
                 ),
@@ -358,7 +358,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
-          child: AutoSizeText(
+          child: Text(
             'LEADERBOARD',
             style: Styles.pageTitle.copyWith(fontSize: 18),
           ),
@@ -381,7 +381,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
                     ? SizedBox(
                         height: 100,
                         child: Center(
-                          child: AutoSizeText(
+                          child: Text(
                             'Place some bets first.',
                             style: Styles.normalText,
                           ),
@@ -404,7 +404,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
                 return SizedBox(
                   height: 100,
                   child: Center(
-                    child: AutoSizeText(
+                    child: Text(
                       'Not available at this time',
                       style: Styles.normalText,
                     ),
@@ -471,8 +471,7 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                       color: Palette.darkGrey,
                       height: 50.0,
                       width: 50.0,
-                      child: AutoSizeText(
-                          player.username.substring(0, 1).toUpperCase(),
+                      child: Text(player.username.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -481,11 +480,11 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(
+              Text(
                 '$index. ${player.username}',
                 style: Styles.normalTextBold,
               ),
-              AutoSizeText(
+              Text(
                 '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
@@ -498,11 +497,11 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(
+              Text(
                 'W/L/O/T: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}',
                 style: Styles.awayTeam,
               ),
-              AutoSizeText(
+              Text(
                 leaderboardWinningBetsRatio(
                   player.totalBetsWon,
                   player.totalBetsLost,
@@ -558,7 +557,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,
@@ -626,7 +625,7 @@ class UserSearch extends SearchDelegate<UserData> {
                               color: Palette.darkGrey,
                               height: 50.0,
                               width: 50.0,
-                              child: AutoSizeText(
+                              child: Text(
                                   userData.username
                                       .substring(0, 1)
                                       .toUpperCase(),
@@ -634,7 +633,7 @@ class UserSearch extends SearchDelegate<UserData> {
                             ),
                           ),
                         ),
-                  title: AutoSizeText(
+                  title: Text(
                     userData.username,
                     style: GoogleFonts.nunito(),
                   ),
@@ -651,7 +650,7 @@ class UserSearch extends SearchDelegate<UserData> {
 
             break;
           default:
-            return AutoSizeText(
+            return Text(
               'Error',
               style: GoogleFonts.nunito(),
             );
@@ -700,7 +699,7 @@ class UserSearch extends SearchDelegate<UserData> {
                               color: Palette.darkGrey,
                               height: 50.0,
                               width: 50.0,
-                              child: AutoSizeText(
+                              child: Text(
                                   userData.username
                                       .substring(0, 1)
                                       .toUpperCase(),
@@ -708,7 +707,7 @@ class UserSearch extends SearchDelegate<UserData> {
                             ),
                           ),
                         ),
-                  title: AutoSizeText(
+                  title: Text(
                     userData.username,
                     style: GoogleFonts.nunito(),
                   ),
@@ -725,7 +724,7 @@ class UserSearch extends SearchDelegate<UserData> {
 
             break;
           default:
-            return AutoSizeText(
+            return Text(
               'Error',
               style: GoogleFonts.nunito(),
             );

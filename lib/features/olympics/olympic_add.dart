@@ -69,7 +69,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: AutoSizeText(
+                      child: Text(
                         'Add Olympic Game',
                         style: Styles.pageTitle,
                       ),
@@ -115,7 +115,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       backgroundColor:
                           MaterialStateProperty.all(Palette.lightGrey),
                     ),
-                    child: AutoSizeText(
+                    child: Text(
                       'Change Start Time',
                       style: Styles.normalText,
                     ),
@@ -124,7 +124,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     width: 10,
                   ),
                   Expanded(
-                    child: AutoSizeText(
+                    child: Text(
                       '${DateFormat('dd-MM-yy HH:mm').format(startTime)} EST',
                       style: Styles.normalTextBold,
                     ),
@@ -190,7 +190,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 ),
               ),
               DropdownButtonFormField(
-                hint: AutoSizeText(
+                hint: Text(
                   'Event Type',
                   style: Styles.signUpFieldHint,
                 ),
@@ -204,7 +204,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                       value: value,
-                      child: AutoSizeText(value, style: Styles.normalTextBold));
+                      child: Text(value, style: Styles.normalTextBold));
                 }).toList(),
                 onChanged: (String value) {
                   setState(() {
@@ -242,7 +242,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
               //   ),
               // ),
               DropdownButtonFormField(
-                hint: AutoSizeText(
+                hint: Text(
                   'Game Name',
                   style: Styles.signUpFieldHint,
                 ),
@@ -331,7 +331,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                       value: value,
-                      child: AutoSizeText(value, style: Styles.normalTextBold));
+                      child: Text(value, style: Styles.normalTextBold));
                 }).toList(),
                 onChanged: (String value) {
                   setState(() {
@@ -385,7 +385,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Palette.lightGrey)),
-                    child: AutoSizeText(
+                    child: Text(
                       'Player Country',
                       style: Styles.normalText,
                     ),
@@ -393,16 +393,16 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   Expanded(
                       child: ListTile(
                     leading: playerCountry != null
-                        ? AutoSizeText(
+                        ? Text(
                             countryFlagFromCode(countryCode: playerCountry),
                             style: const TextStyle(fontSize: 25),
                           )
-                        : AutoSizeText(
+                        : Text(
                             'No country selected.',
                             style: Styles.normalTextBold
                                 .copyWith(color: Palette.red),
                           ),
-                    title: AutoSizeText(
+                    title: Text(
                       playerCountry ?? '',
                       style: Styles.normalTextBold,
                     ),
@@ -452,7 +452,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Palette.lightGrey)),
-                    child: AutoSizeText(
+                    child: Text(
                       'Rival Country',
                       style: Styles.normalText,
                     ),
@@ -460,16 +460,16 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   Expanded(
                       child: ListTile(
                     leading: rivalCountry != null
-                        ? AutoSizeText(
+                        ? Text(
                             countryFlagFromCode(countryCode: rivalCountry),
                             style: const TextStyle(fontSize: 25),
                           )
-                        : AutoSizeText(
+                        : Text(
                             'No country selected.',
                             style: Styles.normalTextBold
                                 .copyWith(color: Palette.red),
                           ),
-                    title: AutoSizeText(
+                    title: Text(
                       rivalCountry ?? '',
                       style: Styles.normalTextBold,
                     ),
@@ -485,7 +485,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       SnackBar(
-                        content: AutoSizeText(
+                        content: Text(
                           'Match added.',
                           style: GoogleFonts.nunito(color: Palette.cream),
                         ),
@@ -581,7 +581,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

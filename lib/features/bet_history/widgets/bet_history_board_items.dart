@@ -25,14 +25,14 @@ class BetHistoryBoardText extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            child: AutoSizeText(
+            child: Text(
               leftText,
               style: Styles.betHistoryNormal,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-            child: AutoSizeText(
+            child: Text(
               rightText,
               style: GoogleFonts.nunito(
                 fontSize: 18,
@@ -69,11 +69,11 @@ class DesktopBetHistoryBoardItem extends StatelessWidget {
           ]),
       child: Column(
         children: [
-          AutoSizeText(
+          Text(
             topText,
             style: Styles.pageTitle.copyWith(color: color),
           ),
-          AutoSizeText(
+          Text(
             bottomText,
             style: Styles.normalTextBold,
           )

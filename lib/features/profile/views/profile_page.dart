@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> with RouteAwareAnalytics {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                AutoSizeText(
+                Text(
                   'MY PROFILE',
                   textAlign: TextAlign.center,
                   style: Styles.pageTitle,
@@ -120,7 +120,7 @@ class _UsernameInput extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: AutoSizeText(
+                child: Text(
                   'Username',
                   style: Styles.signUpFieldDescription,
                 ),
@@ -188,7 +188,7 @@ class _EmailInput extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: AutoSizeText(
+                child: Text(
                   'Email Address',
                   style: Styles.signUpFieldDescription,
                 ),
@@ -304,7 +304,7 @@ class _StateInput extends StatelessWidget {
         return Row(
           children: [
             Expanded(
-              child: AutoSizeText(
+              child: Text(
                 'State',
                 style: Styles.signUpFieldDescription,
               ),
@@ -323,7 +323,7 @@ class _StateInput extends StatelessWidget {
                           isExpanded: true,
                           showUnderline: true,
                           items: stateList,
-                          hint: AutoSizeText(
+                          hint: Text(
                             'State',
                             style: GoogleFonts.nunito(),
                           ),
@@ -338,7 +338,7 @@ class _StateInput extends StatelessWidget {
                         //       width: 5,
                         //     ),
                         //     state.americanState.invalid
-                        //         ?AutoSizeText(
+                        //         ?Text(
                         //             'Required',
                         //             style: Styles.authFieldError
                         //                 .copyWith(color: Palette.red),
@@ -415,7 +415,7 @@ class _EditButton extends StatelessWidget {
 //         Expanded(
 //           child: Padding(
 //             padding: const EdgeInsets.only(bottom: 20),
-//             child:AutoSizeText(
+//             child:Text(
 //               'State',
 //               style: GoogleFonts.nunito(
 //                 fontSize: 18,
@@ -487,7 +487,7 @@ class _EditButton extends StatelessWidget {
 //         Expanded(
 //           child: Padding(
 //             padding: const EdgeInsets.only(bottom: 20),
-//             child:AutoSizeText(
+//             child:Text(
 //               'Mobile Number',
 //               style: GoogleFonts.nunito(
 //                 fontSize: 18,
@@ -597,7 +597,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
         child: (widget.customWidgets != null)
             ? widget.customWidgets[widget.items.indexOf(item)]
-            : AutoSizeText(
+            : Text(
                 item.toString(),
                 style: GoogleFonts.nunito(
                   fontWeight: FontWeight.w300,
@@ -643,7 +643,7 @@ class DefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: AutoSizeText(
+          child: Text(
             text,
             style: GoogleFonts.nunito(
               fontSize: 18,

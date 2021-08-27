@@ -62,7 +62,7 @@ class _DesktopHistoryBoard extends StatelessWidget {
             break;
           case HistoryStatus.failure:
             return const Center(
-              child: AutoSizeText("Couldn't load bet history data"),
+              child: Text("Couldn't load bet history data"),
             );
             break;
           default:
@@ -179,7 +179,7 @@ class _DesktopHistoryContent extends StatelessWidget {
             break;
           case HistoryStatus.failure:
             return const Center(
-              child: AutoSizeText("Couldn't load bet history data"),
+              child: Text("Couldn't load bet history data"),
             );
             break;
           default:
@@ -199,7 +199,7 @@ class _DesktopBetHistoryTableEmpty extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 120),
-        child: AutoSizeText(
+        child: Text(
           'No bets resolved yet.',
           textAlign: TextAlign.center,
           style: Styles.betHistoryNormal,
@@ -274,7 +274,7 @@ class _DesktopHistoryHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: AutoSizeText(
+          child: Text(
             'BET HISTORY',
             style: Styles.pageTitle,
           ),
@@ -300,8 +300,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                child:
-                    AutoSizeText(entry, style: Styles.betHistoryDesktopField),
+                child: Text(entry, style: Styles.betHistoryDesktopField),
                 width: tableHeadingsWithWidth[entry].toDouble(),
               ),
             )
@@ -347,7 +346,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: AutoSizeText(
+                              child: Text(
                                   '${DateFormat('dd-MMM-yyyy').format(startTime)} at ${DateFormat('hh:mm a').format(
                                     startTime,
                                   )} EST',
@@ -357,14 +356,14 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: AutoSizeText('${bet.league.toUpperCase()}',
+                              child: Text('${bet.league.toUpperCase()}',
                                   style: Styles.betHistoryDesktopItem),
                             );
                           case 'Game':
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: AutoSizeText(
+                              child: Text(
                                   '${bet.awayTeamName.toUpperCase()} @ ${bet.homeTeamName.toUpperCase()}',
                                   style: Styles.betHistoryDesktopItem),
                             );
@@ -372,7 +371,7 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 18),
-                              child: AutoSizeText(
+                              child: Text(
                                   '${whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
                                   style: Styles.betHistoryDesktopItem),
                             );
@@ -380,13 +379,13 @@ class _DesktopBetHistoryTableRow extends StatelessWidget {
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 18),
-                                child: AutoSizeText('${bet.betAmount}',
+                                child: Text('${bet.betAmount}',
                                     style: Styles.betHistoryDesktopItem));
                           case 'Result':
                             return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 18),
-                                child: AutoSizeText(
+                                child: Text(
                                     isWin
                                         ? '${bet.betProfit}'
                                         : '-${bet.betAmount}',

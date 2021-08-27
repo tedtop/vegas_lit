@@ -63,7 +63,7 @@ class _MobileHistoryBoard extends StatelessWidget {
             break;
           case LeaderboardProfileStatus.failure:
             return const Center(
-              child: AutoSizeText("Couldn't load bet history data"),
+              child: Text("Couldn't load bet history data"),
             );
             break;
           default:
@@ -101,7 +101,7 @@ class _MobileHistoryContent extends StatelessWidget {
         return const _MobileHistoryList();
       case LeaderboardProfileStatus.failure:
         return const Center(
-          child: AutoSizeText("Couldn't load bet history data"),
+          child: Text("Couldn't load bet history data"),
         );
       default:
         return const SizedBox();
@@ -159,7 +159,7 @@ class _MobileHistoryEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
         'No bets resolved yet.',
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
@@ -201,7 +201,7 @@ class _MobileHistoryHeading extends StatelessWidget {
                         color: Palette.darkGrey,
                         height: 100.0,
                         width: 100.0,
-                        child: AutoSizeText(
+                        child: Text(
                           betHistoryState.userWallet.username
                               .substring(0, 1)
                               .toUpperCase(),
@@ -222,7 +222,7 @@ class _MobileHistoryHeading extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: FittedBox(
                         fit: BoxFit.fitWidth,
-                        child: AutoSizeText(
+                        child: Text(
                           '${betHistoryState.userWallet.username}',
                           style: Styles.pageTitle,
                           softWrap: true,

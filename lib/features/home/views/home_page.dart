@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage>
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
                         SnackBar(
-                          content: AutoSizeText(
+                          content: Text(
                             state.errorMessage,
                           ),
                         ),
@@ -166,11 +166,11 @@ class _HomePageState extends State<HomePage>
                     break;
                   case NotificationStatus.success:
                     showSimpleNotification(
-                      AutoSizeText(
+                      Text(
                         state.notification.title,
                         style: GoogleFonts.nunito(color: Palette.cream),
                       ),
-                      subtitle: AutoSizeText(
+                      subtitle: Text(
                         state.notification.body,
                         style: GoogleFonts.nunito(color: Palette.cream),
                       ),

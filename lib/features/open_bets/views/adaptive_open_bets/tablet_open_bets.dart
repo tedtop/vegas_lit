@@ -41,7 +41,7 @@ class _TabletOpenBetsHeading extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: AutoSizeText(
+          child: Text(
             'OPEN BETS',
             style: Styles.pageTitle,
           ),
@@ -114,7 +114,7 @@ class _TabletOpenBetsContent extends StatelessWidget {
         break;
       case OpenBetsStatus.failure:
         return const Center(
-          child: AutoSizeText('Some Error Occured'),
+          child: Text('Some Error Occured'),
         );
         break;
       default:
@@ -204,7 +204,7 @@ class _TabletOpenBetsContentEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 120),
-      child: AutoSizeText(
+      child: Text(
           // ignore: lines_longer_than_80_chars
           'No bets placed. \nPlace some bets to show them here.',
           textAlign: TextAlign.center,

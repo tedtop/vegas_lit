@@ -53,7 +53,7 @@ class LeaderboardProfileDropdown extends StatelessWidget {
                 (String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: AutoSizeText(
+                    child: Text(
                       text,
                       textAlign: TextAlign.left,
                       style: Styles.betHistoryDropdown,

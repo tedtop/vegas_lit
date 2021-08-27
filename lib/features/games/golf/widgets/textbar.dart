@@ -54,7 +54,7 @@ class TextBar extends StatelessWidget {
               onChanged: onPress,
               items: textList.map<DropdownMenuItem<String>>((element) {
                 return DropdownMenuItem<String>(
-                  child: AutoSizeText(element),
+                  child: Text(element),
                   value: element,
                 );
               }).toList(),

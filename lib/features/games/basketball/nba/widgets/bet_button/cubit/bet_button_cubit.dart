@@ -111,7 +111,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
           ..showSnackBar(
             const SnackBar(
               duration: Duration(milliseconds: 2000),
-              content: AutoSizeText(
+              content: Text(
                 'This game has already started.',
               ),
             ),
@@ -126,7 +126,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
               ..showSnackBar(
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
-                  content: AutoSizeText(
+                  content: Text(
                     // ignore: lines_longer_than_80_chars
                     "You're out of funds. Try watching the video in your bet slip.",
                   ),
@@ -185,7 +185,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
         ..showSnackBar(
           const SnackBar(
             duration: Duration(milliseconds: 2000),
-            content: AutoSizeText(
+            content: Text(
               'Please update your app to place bets.',
             ),
           ),
