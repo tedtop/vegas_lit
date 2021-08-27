@@ -113,3 +113,52 @@ export interface NflGame {
   OverPayout?: number;
   UnderPayout?: number;
 }
+
+export interface NcaafGame {
+  GameID?: number;
+  Season?: number;
+  SeasonType?: number;
+  Week?: number;
+  Status?: string;
+  Day?: Date;
+  DateTime?: Date;
+  AwayTeam?: string;
+  HomeTeam?: string;
+  AwayTeamID?: number;
+  HomeTeamID?: number;
+  AwayTeamName?: string;
+  HomeTeamName?: string;
+  AwayTeamScore?: null;
+  HomeTeamScore?: null;
+  Period?: null;
+  TimeRemainingMinutes?: null;
+  TimeRemainingSeconds?: null;
+  PointSpread?: number;
+  OverUnder?: number;
+  AwayTeamMoneyLine?: number;
+  HomeTeamMoneyLine?: number;
+  Updated?: Date;
+  Created?: Date;
+  GlobalGameID?: number;
+  GlobalAwayTeamID?: number;
+  GlobalHomeTeamID?: number;
+  StadiumID?: number;
+  YardLine?: null;
+  YardLineTerritory?: null;
+  Down?: null;
+  Distance?: null;
+  Possession?: null;
+  IsClosed?: boolean;
+  GameEndDateTime?: null;
+  Title?: null;
+  HomeRotationNumber?: number;
+  AwayRotationNumber?: number;
+  Channel?: string;
+  NeutralVenue?: boolean;
+  AwayPointSpreadPayout?: number;
+  HomePointSpreadPayout?: number;
+  OverPayout?: number | null;
+  UnderPayout?: number | null;
+  Stadium?: null;
+  Periods?: any[];
+}
