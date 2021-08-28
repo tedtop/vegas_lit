@@ -40,7 +40,7 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              todayRewards >= 600
+              todayRewards >= 300
                   ? Text(
                       "Sorry. You've exceeded the daily reward amount. Come back later.",
                       textAlign: TextAlign.center,
