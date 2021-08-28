@@ -14,6 +14,7 @@ class Images {
       'assets/overlays/how_many_bets.png';
 
   static const String olympicsIconsPath = 'assets/images/olympics_icons/';
+  static const String paralympicsIconsPath = 'assets/images/paralympics_icons/';
 }
 
 class Json {
