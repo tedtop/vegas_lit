@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/games/olympics/olympics.dart';
 import 'package:vegas_lit/features/games/paralympics/paralympics.dart';
 
 import '../../../config/palette.dart';
@@ -248,8 +249,11 @@ class _SportsBookViewState extends State<SportsBookView>
                     case 'PARALYMPICS':
                       selectedIndex = 7;
                       break;
-                    default:
+                    case 'OLYMPICS':
                       selectedIndex = 8;
+                      break;
+                    default:
+                      selectedIndex = 9;
                       break;
                   }
                   return FadeIndexedStack(
@@ -298,6 +302,11 @@ class _SportsBookViewState extends State<SportsBookView>
                       Visibility(
                         maintainState: true,
                         visible: selectedIndex == 8,
+                        child: OlympicsScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 9,
                         child: Container(),
                       ),
                     ],
@@ -382,6 +391,7 @@ class _SportsBookViewState extends State<SportsBookView>
               'NHL',
               'NCAAF',
               'NCAAB',
+              'OLYMPICS',
               // 'GOLF',
               // 'CRICKET'
             ].map<DropdownMenuItem<String>>(
@@ -389,14 +399,12 @@ class _SportsBookViewState extends State<SportsBookView>
                 String length;
                 widget.gameNumberList.forEach(
                   (key, newValue) {
-                    if (key == 'GOLF') {
+                    if (key == 'GOLF' || key == 'OLYMPICS') {
                       length = '$newValue';
-                    } else if (key == 'PARALYMPICS' && key == value) {
+                    } else if (key == 'PARALYMPICS') {
                       length = '$newValue Matches';
-                    } else {
-                      if (key == value) {
-                        length = '$newValue Games';
-                      }
+                    } else if (key == value) {
+                      length = '$newValue Games';
                     }
                   },
                 );

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/forms/olympics/olympics_add.dart';
+import 'package:vegas_lit/features/forms/paralympics/paralympics_add.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -10,7 +12,6 @@ import '../../../config/styles.dart';
 import '../../admin_vault/admin_vault_page.dart';
 import '../../authentication/authentication.dart';
 import '../../drawer_pages/rules.dart';
-import '../../olympics/olympic_add.dart';
 import '../../profile/cubit/profile_cubit.dart';
 import '../../profile/views/profile_page.dart';
 import '../cubit/home_cubit.dart';
@@ -117,17 +118,24 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   },
                 )
               : Container(),
-          // isAdmin
-          //     ?
-          ListTile(
-            title: Text('OLYMPICS', style: Styles.normalTextBold),
-            onTap: () {
-              Navigator.of(context).push(OlympicsAddForm.route());
-            },
-          ),
-          // : Container(),
+          isAdmin
+              ? ListTile(
+                  title: Text('OLYMPICS', style: Styles.normalTextBold),
+                  onTap: () {
+                    Navigator.of(context).push(OlympicsAddForm.route());
+                  },
+                )
+              : Container(),
+          isAdmin
+              ? ListTile(
+                  title: Text('PARALYMPICS', style: Styles.normalTextBold),
+                  onTap: () {
+                    Navigator.of(context).push(ParalympicsAddForm.route());
+                  },
+                )
+              : Container(),
           // ListTile(
-          //   leading:Text('GROUPS', style: Styles.normalTextBold),
+          //   leading: Text('GROUPS', style: Styles.normalTextBold),
           //   onTap: () {
           //     Navigator.push(
           //       context,

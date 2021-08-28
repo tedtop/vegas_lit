@@ -25,7 +25,7 @@ class ParalympicsBetButtonState extends Equatable {
   });
 
   final ParalympicsBetButtonStatus status;
-  final OlympicsGame game;
+  final ParalympicsGame game;
   final String uniqueId;
   final String league;
   final String uid;
@@ -49,7 +49,7 @@ class ParalympicsBetButtonState extends Equatable {
 
   ParalympicsBetButtonState copyWith({
     ParalympicsBetButtonStatus status,
-    OlympicsGame game,
+    ParalympicsGame game,
     String uniqueId,
     String league,
     String uid,

@@ -7,7 +7,7 @@ version: 1.1.1+72
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
-dependencies: 
+dependencies:
   bloc: ^6.1.1
   cached_network_image: ^3.0.0
   carousel_slider: ^3.0.0
@@ -73,6 +73,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/olympics_icons/
+    - assets/images/paralympics_icons/
     - assets/json/
     - assets/overlays/
     - assets/svg/

@@ -16,7 +16,7 @@ class ParalympicsState extends Equatable {
   const ParalympicsState.initial() : this._();
 
   const ParalympicsState.opened({
-    @required List<OlympicsGame> games,
+    @required List<ParalympicsGame> games,
     @required String league,
     @required DateTime estTimeZone,
   }) : this._(
@@ -26,7 +26,7 @@ class ParalympicsState extends Equatable {
           status: ParalympicsStatus.opened,
         );
 
-  final List<OlympicsGame> games;
+  final List<ParalympicsGame> games;
   final String league;
   final DateTime estTimeZone;
   final ParalympicsStatus status;

@@ -3,35 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
-import '../../config/extensions.dart';
-import '../../config/palette.dart';
-import '../../config/styles.dart';
-import '../../data/models/olympics/olympics.dart';
-import '../../data/repositories/sports_repository.dart';
-import 'cubit/olympics_add_cubit.dart';
+import '../../../config/extensions.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../../data/repositories/sports_repository.dart';
+import 'cubit/paralympics_add_cubit.dart';
 
-class OlympicsAddForm extends StatefulWidget {
-  OlympicsAddForm._({Key key}) : super(key: key);
+class ParalympicsAddForm extends StatefulWidget {
+  ParalympicsAddForm._({Key key}) : super(key: key);
 
   static MaterialPageRoute route() {
     return MaterialPageRoute(
       builder: (context) {
         return BlocProvider(
-          create: (context) => OlympicsAddCubit(
+          create: (context) => ParalympicsAddCubit(
             sportsRepository: context.read<SportsRepository>(),
           ),
-          child: OlympicsAddForm._(),
+          child: ParalympicsAddForm._(),
         );
       },
     );
   }
 
   @override
-  _OlympicsAddFormState createState() => _OlympicsAddFormState();
+  _ParalympicsAddFormState createState() => _ParalympicsAddFormState();
 }
 
-class _OlympicsAddFormState extends State<OlympicsAddForm> {
+class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
   final _formKey = GlobalKey<FormState>();
 
   var startTime = ESTDateTime.fetchTimeEST();
@@ -69,7 +69,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(
-                        'Add Olympic Game',
+                        'Add Paralympic Games',
                         style: Styles.pageTitle,
                       ),
                     ),
@@ -130,35 +130,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   ),
                 ],
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 10),
-              //   child: TextFormField(
-              //     controller: venueController,
-              //     validator: (value) {
-              //       if (value.isEmpty) {
-              //         return 'Please enter some text';
-              //       }
-              //       return null;
-              //     },
-              //     cursorColor: Palette.cream,
-              //     style: Styles.signUpFieldText,
-              //     decoration: InputDecoration(
-              //       contentPadding: const EdgeInsets.symmetric(
-              //         vertical: 5,
-              //         horizontal: 8,
-              //       ),
-              //       hintStyle: Styles.signUpFieldHint,
-              //       errorStyle: Styles.authFieldError,
-              //       filled: true,
-              //       fillColor: Palette.lightGrey,
-              //       border: Styles.signUpInputFieldBorder,
-              //       focusedBorder: Styles.signUpInputFieldFocusedBorder,
-              //       isDense: true,
-              //       labelText: 'Venue',
-              //       labelStyle: Styles.signUpFieldHint,
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: TextFormField(
@@ -211,35 +182,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   });
                 },
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 10),
-              //   child: TextFormField(
-              //     controller: matchCodeController,
-              //     validator: (value) {
-              //       if (value.isEmpty) {
-              //         return 'Please enter some text';
-              //       }
-              //       return null;
-              //     },
-              //     cursorColor: Palette.cream,
-              //     style: Styles.signUpFieldText,
-              //     decoration: InputDecoration(
-              //       contentPadding: const EdgeInsets.symmetric(
-              //         vertical: 5,
-              //         horizontal: 8,
-              //       ),
-              //       hintStyle: Styles.signUpFieldHint,
-              //       errorStyle: Styles.authFieldError,
-              //       filled: true,
-              //       fillColor: Palette.lightGrey,
-              //       border: Styles.signUpInputFieldBorder,
-              //       focusedBorder: Styles.signUpInputFieldFocusedBorder,
-              //       isDense: true,
-              //       labelText: 'Match Code',
-              //       labelStyle: Styles.signUpFieldHint,
-              //     ),
-              //   ),
-              // ),
               DropdownButtonFormField(
                 hint: Text(
                   'Game Name',
@@ -277,57 +219,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   'Wheelchair Fencing',
                   'Wheelchair Rugby',
                   'Wheelchair Tennis',
-                ]
-
-                    //  <String>[
-                    //   '3x3 Basketball',
-                    //   'Archery',
-                    //   'Artistic Gymnastics',
-                    //   'Artistic Swimming',
-                    //   'Athletics',
-                    //   'Badminton',
-                    //   'Baseball-Softball',
-                    //   'Basketball',
-                    //   'Beach Volleyball',
-                    //   'Boxing',
-                    //   'Canoe Slalom',
-                    //   'Canoe Sprint',
-                    //   'Cycling BMX Freestyle',
-                    //   'Cycling BMX Racing',
-                    //   'Cycling Mountain Bike',
-                    //   'Cycling Road',
-                    //   'Cycling Track',
-                    //   'Diving',
-                    //   'Equestrian',
-                    //   'Fencing',
-                    //   'Football',
-                    //   'Golf',
-                    //   'Handball',
-                    //   'Hockey',
-                    //   'Judo',
-                    //   'Karate',
-                    //   'Marathon Swimming',
-                    //   'Modern Pentathlon',
-                    //   'Rhythmic Gymnastics',
-                    //   'Rowing',
-                    //   'Rugby',
-                    //   'Sailing',
-                    //   'Shooting',
-                    //   'Skateboarding',
-                    //   'Sport Climbing',
-                    //   'Surfing',
-                    //   'Swimming',
-                    //   'Table Tennis',
-                    //   'Taekwondo',
-                    //   'Tennis',
-                    //   'Trampoline Gymnastics',
-                    //   'Triathlon',
-                    //   'Volleyball',
-                    //   'Water Polo',
-                    //   'Weightlifting',
-                    //   'Wrestling',
-                    // ]
-                    .map<DropdownMenuItem<String>>((String value) {
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value, style: Styles.normalTextBold));
@@ -478,21 +370,23 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
               const SizedBox(
                 height: 15,
               ),
-              BlocConsumer<OlympicsAddCubit, OlympicsAddState>(
+              BlocConsumer<ParalympicsAddCubit, ParalympicsAddState>(
                 listener: (context, state) {
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Match added.',
-                          style: GoogleFonts.nunito(color: Palette.cream),
+                  if (state.status == ParalympicsAddStatus.complete) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Match added.',
+                            style: GoogleFonts.nunito(color: Palette.darkGrey),
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                  }
                 },
                 builder: (context, state) {
-                  if (state.status == OlympicsAddStatus.loading) {
+                  if (state.status == ParalympicsAddStatus.loading) {
                     return const SizedBox(
                         height: 50,
                         child: Center(
@@ -507,24 +401,22 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                         if (_formKey.currentState.validate() &&
                             playerCountry != null &&
                             rivalCountry != null) {
-                          final olympicGame = OlympicsGame(
+                          final olympicGame = ParalympicsGame(
                             event: eventController.text,
                             eventType: eventType,
                             gameName: gameName,
                             isClosed: false,
-                            matchCode: null,
                             player: playerController.text,
                             playerCountry: playerCountry,
                             rival: rivalController.text,
                             rivalCountry: rivalCountry,
                             startTime: startTime,
-                            venue: null,
                             gameId:
                                 '${gameName.toUpperCase()}-${playerCountry.toUpperCase()}-${rivalCountry.toUpperCase()}-${startTime.toIso8601String()}',
                           );
                           context
-                              .read<OlympicsAddCubit>()
-                              .addOlympicsGame(game: olympicGame);
+                              .read<ParalympicsAddCubit>()
+                              .addParalympicsGame(game: olympicGame);
                         }
                       },
                     );

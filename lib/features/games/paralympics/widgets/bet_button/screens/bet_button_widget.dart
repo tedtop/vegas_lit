@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../../../../../config/palette.dart';
-import '../../../../../../data/models/olympics/olympics.dart';
 import '../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
@@ -15,7 +15,7 @@ class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);
 
   static Builder route({
-    @required OlympicsGame game,
+    @required ParalympicsGame game,
     @required String league,
     @required BetButtonWin winTeam,
   }) {

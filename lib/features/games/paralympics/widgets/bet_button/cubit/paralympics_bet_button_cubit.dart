@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
 
 import '../../../../../../config/extensions.dart';
 import '../../../../../../data/models/bet.dart';
-import '../../../../../../data/models/olympics/olympic_bet.dart';
-import '../../../../../../data/models/olympics/olympics.dart';
 import '../../../../../../data/repositories/bets_repository.dart';
 
 part 'paralympics_bet_button_state.dart';
@@ -25,7 +25,7 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
   final BetsRepository _betsRepository;
 
   void openBetButton({
-    @required OlympicsGame game,
+    @required ParalympicsGame game,
     @required String uid,
     @required BetButtonWin winTeam,
     @required String league,
@@ -120,7 +120,7 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
             );
             await context.read<ParalympicsBetButtonCubit>().updateOpenBets(
                   betAmount: betButtonState.betAmount,
-                  betsData: OlympicsBetData(
+                  betsData: ParalympicsBetData(
                     username: username,
                     betAmount: betButtonState.betAmount,
                     isClosed: betButtonState.game.isClosed,
@@ -131,12 +131,11 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
                     dateTime: ESTDateTime.fetchTimeEST().toString(),
                     week: ESTDateTime.fetchTimeEST().weekStringVL,
                     clientVersion: await _getAppVersion(),
-                    dataProvider: 'olympics.com',
+                    dataProvider: 'paralympics.com',
                     gameName: state.game.gameName,
                     playerName: state.game.player,
                     rivalCountry: state.game.rivalCountry,
                     rivalName: state.game.rival,
-                    matchCode: state.game.matchCode,
                     eventType: state.game.eventType,
                     betTeam: state.winTeam == BetButtonWin.player
                         ? 'player'
@@ -145,7 +144,6 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
                     gameId: state.game.gameId,
                     playerCountry: state.game.playerCountry,
                     gameStartDateTime: state.game.startTime,
-                    venue: state.game.venue,
                     winner: null,
                   ),
                   currentUserId: currentUserId,

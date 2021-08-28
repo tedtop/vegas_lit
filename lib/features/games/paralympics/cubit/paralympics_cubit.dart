@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../../../config/extensions.dart';
-import '../../../../data/models/olympics/olympics.dart';
 import '../../../../data/repositories/sports_repository.dart';
 
 part 'paralympics_state.dart';
@@ -25,11 +25,11 @@ class ParalympicsCubit extends Cubit<ParalympicsState> {
   Future<void> fetchParalympicsGames() async {
     const league = 'PARALYMPICS';
     final estTimeZone = ESTDateTime.fetchTimeEST();
-    final todayGamesStream = _sportsRepository.fetchOlympicsGame();
+    final todayGamesStream = _sportsRepository.fetchParalympicsGame();
     await _gamesStream?.cancel();
     _gamesStream = todayGamesStream.listen(
       (games) {
-        var todayGames = <OlympicsGame>[];
+        var todayGames = <ParalympicsGame>[];
         if (games.isNotEmpty) {
           todayGames = games
               .where(
@@ -53,8 +53,8 @@ class ParalympicsCubit extends Cubit<ParalympicsState> {
     );
   }
 
-  Future<void> updateParalympicsGame({@required OlympicsGame game}) async {
-    await _sportsRepository.updateOlympicGame(game: game);
+  Future<void> updateParalympicsGame({@required ParalympicsGame game}) async {
+    await _sportsRepository.updateParalympicsGame(game: game);
   }
 
   @override

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
-import '../../../../../data/models/olympics/olympics.dart';
 import '../../../../profile/profile.dart';
 import '../../cubit/paralympics_cubit.dart';
 import '../bet_button/cubit/paralympics_bet_button_cubit.dart';
@@ -20,10 +20,10 @@ class ParalympicsMatchupCard extends StatefulWidget {
       : super(key: key);
 
   final String gameName;
-  final OlympicsGame game;
+  final ParalympicsGame game;
 
   static Builder route({
-    @required OlympicsGame game,
+    @required ParalympicsGame game,
     @required String gameName,
   }) {
     return Builder(
@@ -299,24 +299,24 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              widget.game.venue,
-                              style: GoogleFonts.nunito(
-                                fontSize: 14,
-                                color: Palette.cream,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(4.0),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Flexible(
+                    //         child: Text(
+                    //           widget.game.venue,
+                    //           style: GoogleFonts.nunito(
+                    //             fontSize: 14,
+                    //             color: Palette.cream,
+                    //           ),
+                    //           overflow: TextOverflow.ellipsis,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Row(

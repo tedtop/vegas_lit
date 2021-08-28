@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../config/extensions.dart';
 import '../models/bet.dart';
@@ -417,7 +418,7 @@ class CloudFirestoreClient {
   Stream<List<OlympicsGame>> fetchOlympicsGames() {
     final snapshots = _firebaseFirestore
         .collection('custom_matches')
-        .doc('paralympics_2021_tokyo')
+        .doc('olympics_2021_tokyo')
         .collection('matches')
         .where('isClosed', isEqualTo: false)
         .orderBy('startTime')
@@ -433,7 +434,36 @@ class CloudFirestoreClient {
     return gameList;
   }
 
+  Stream<List<ParalympicsGame>> fetchParalympicGames() {
+    final snapshots = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('paralympics_2021_tokyo')
+        .collection('matches')
+        .where('isClosed', isEqualTo: false)
+        .orderBy('startTime')
+        .snapshots();
+
+    final gameList = snapshots.map(
+      (event) => event.docs
+          .map(
+            (e) => ParalympicsGame.fromFirestore(e),
+          )
+          .toList(),
+    );
+    return gameList;
+  }
+
   Future<void> addOlympicsGame({@required OlympicsGame game}) async {
+    final olympicsCollectionRef = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('matches')
+        .doc(game.gameId);
+
+    await olympicsCollectionRef.set(game.toMap(), SetOptions(merge: true));
+  }
+
+  Future<void> addParalympicsGame({@required ParalympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('paralympics_2021_tokyo')
@@ -444,6 +474,16 @@ class CloudFirestoreClient {
   }
 
   Future<void> updateOlympicGame({@required OlympicsGame game}) async {
+    final olympicsCollectionRef = _firebaseFirestore
+        .collection('custom_matches')
+        .doc('olympics_2021_tokyo')
+        .collection('matches')
+        .doc(game.gameId);
+
+    await olympicsCollectionRef.update(game.toMap());
+  }
+
+  Future<void> updateParalympicsGame({@required ParalympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('paralympics_2021_tokyo')
