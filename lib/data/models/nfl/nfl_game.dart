@@ -93,8 +93,10 @@ class NflGame {
         awayScore: json['AwayScore'],
         homeScore: json['HomeScore'],
         channel: channelValues.map[json['Channel']],
-        pointSpread: json['PointSpread'].toDouble(),
-        overUnder: json['OverUnder'].toDouble(),
+        pointSpread:
+            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
+        overUnder:
+            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
         quarter: json['Quarter'],
         timeRemaining: json['TimeRemaining'],
         possession: json['Possession'],
