@@ -45,7 +45,7 @@ Future<void> main() async {
       sportsRepository: SportsRepository(),
       betsRepository: BetsRepository(),
       groupsRepository: GroupsRepository(),
-      deviceRepository: DeviceRepository(),
+      deviceRepository: await DeviceRepository.create(),
     ),
   );
 }

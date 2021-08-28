@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/app_review.dart';
 import '../providers/cloud_messaging.dart';
@@ -7,10 +8,19 @@ import '../providers/remote_config.dart';
 import '../providers/shared_prefs.dart';
 
 class DeviceRepository {
+  static Future<DeviceRepository> create() async {
+    final component = DeviceRepository();
+    await component.initSharedPrefs();
+    return component;
+  }
+
   final _messagingProvider = CloudMessagingClient();
   final _appReviewProvider = AppReviewClient();
   final _remoteConfigProvider = RemoteConfigClient();
-  final _sharedPreferencesProvider = SharedPreferencesClient();
+  SharedPreferencesClient _sharedPreferencesProvider;
+
+  Future<void> initSharedPrefs() async =>
+      _sharedPreferencesProvider = await SharedPreferencesClient.create();
 
   Future<void> handleBackgroundNotification() =>
       _messagingProvider.handleBackgroundNotification();

@@ -2,14 +2,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/extensions.dart';
 
 class SharedPreferencesClient {
-  SharedPreferencesClient({SharedPreferences sharedPreferences}) {
-    sharedPreferences != null
-        ? _sharedPreferences = sharedPreferences
-        : SharedPreferences.getInstance()
-            .then((instance) => _sharedPreferences = instance);
+  SharedPreferences _sharedPreferences;
+
+  static Future<SharedPreferencesClient> create() async {
+    final component = SharedPreferencesClient();
+    await component.initSharedPrefs();
+    return component;
   }
 
-  SharedPreferences _sharedPreferences;
+  Future<SharedPreferences> initSharedPrefs() async =>
+      _sharedPreferences = await SharedPreferences.getInstance();
 
   Future<bool> shouldAskReview() async {
     final today = ESTDateTime.fetchTimeEST();
