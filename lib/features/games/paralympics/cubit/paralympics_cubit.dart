@@ -25,7 +25,6 @@ class ParalympicsCubit extends Cubit<ParalympicsState> {
   Future<void> fetchParalympicsGames() async {
     const league = 'PARALYMPICS';
     final estTimeZone = ESTDateTime.fetchTimeEST();
-    //TODO: change to paralympics
     final todayGamesStream = _sportsRepository.fetchOlympicsGame();
     await _gamesStream?.cancel();
     _gamesStream = todayGamesStream.listen(
@@ -55,7 +54,6 @@ class ParalympicsCubit extends Cubit<ParalympicsState> {
   }
 
   Future<void> updateParalympicsGame({@required OlympicsGame game}) async {
-    //TODO: change to paralympics
     await _sportsRepository.updateOlympicGame(game: game);
   }
 
