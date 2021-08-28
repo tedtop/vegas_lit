@@ -8,7 +8,17 @@ enum SportsbookStatus {
 class SportsbookState extends Equatable {
   const SportsbookState._({
     this.league = 'OLYMPICS',
-    this.gameNumbers,
+    this.gameNumbers = const {
+      'NFL': 0,
+      'NBA': 0,
+      'PARALYMPICS': 0,
+      'MLB': 0,
+      'NHL': 0,
+      'NCAAF': 0,
+      'NCAAB': 0,
+      'GOLF': 0,
+      'CRICKET': 0,
+    },
     this.estTimeZone,
     this.status = SportsbookStatus.initial,
     this.isRulesShown = true,

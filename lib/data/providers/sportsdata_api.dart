@@ -384,7 +384,8 @@ class SportsdataApiClient {
             )
             .toList());
       } else {
-        throw FetchFailureNFL();
+        return [];
+        // throw FetchFailureNFL();
       }
     }
     return games;

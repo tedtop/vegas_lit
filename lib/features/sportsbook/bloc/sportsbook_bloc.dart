@@ -72,8 +72,11 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
           } else {
             final todayGamesLength =
                 await mapGameLength(dateTime: estTimeZone, league: e);
-
-            gameNumberMap[e] = todayGamesLength.toString();
+            if (todayGamesLength is int && todayGamesLength != null) {
+              gameNumberMap[e] = todayGamesLength.toString();
+            } else {
+              gameNumberMap[e] = 'OFFLINE';
+            }
           }
         },
       ).toList(),
@@ -115,7 +118,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) => element.closed == false)
                 .length;
           },
-        );
+        ).onError((error, stackTrace) => 0);
         break;
       case 'NBA':
         return await _sportsfeedRepository
@@ -132,7 +135,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) => element.isClosed == false)
                 .length;
           },
-        );
+        ).onError((error, stackTrace) => 0);
         break;
       case 'MLB':
         return await _sportsfeedRepository
@@ -149,7 +152,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) => element.isClosed == false)
                 .length;
           },
-        );
+        ).onError((error, stackTrace) => 0);
         break;
       case 'NHL':
         return await _sportsfeedRepository
@@ -166,7 +169,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) => element.isClosed == false)
                 .length;
           },
-        );
+        ).onError((error, stackTrace) => 0);
         break;
       case 'NCAAF':
         return await _sportsfeedRepository
@@ -183,7 +186,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) => element.isClosed == false)
                 .length;
           },
-        );
+        ).onError((error, stackTrace) => 0);
         break;
       case 'NCAAB':
         return await _sportsfeedRepository
@@ -200,7 +203,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) => element.isClosed == false)
                 .length;
           },
-        );
+        ).onError((error, stackTrace) => 0);
         break;
       case 'CRICKET':
         return 0;
