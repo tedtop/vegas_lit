@@ -48,7 +48,7 @@ export async function NcaabResolve(data: NcaabBet) {
 
   return await axios
     .get(
-      `https://fly.sportsdata.io/v3/${league}/scores/json/ScoresByDate/${dateTime}`,
+      `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
       {
         params: {
           key: apikey,
@@ -57,9 +57,7 @@ export async function NcaabResolve(data: NcaabBet) {
     )
     .then(async function (data: any) {
       const jsonData: NcaabGame[] = data["data"];
-      const specificGame = jsonData.filter(
-        (game) => game.GlobalGameID == gameId
-      )[0];
+      const specificGame = jsonData.filter((game) => game.GameID == gameId)[0];
       const isClosed = specificGame.IsClosed;
       const status = specificGame.Status;
       const homeTeamScore = specificGame.HomeTeamScore;

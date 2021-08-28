@@ -57,9 +57,7 @@ export async function NhlResolve(data: NhlBet) {
     )
     .then(async function (data: any) {
       const jsonData: NhlGame[] = data["data"];
-      const specificGame = jsonData.filter(
-        (game) => game.GlobalGameID == gameId
-      )[0];
+      const specificGame = jsonData.filter((game) => game.GameID == gameId)[0];
       const isClosed = specificGame.IsClosed;
       const status = specificGame.Status;
       const homeTeamScore = specificGame.HomeTeamScore;
