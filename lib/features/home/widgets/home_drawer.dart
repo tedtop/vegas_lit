@@ -118,14 +118,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   },
                 )
               : Container(),
-          isAdmin
-              ? ListTile(
-                  title: Text('OLYMPICS', style: Styles.normalTextBold),
-                  onTap: () {
-                    Navigator.of(context).push(OlympicsAddForm.route());
-                  },
-                )
-              : Container(),
+          // isAdmin
+          //     ? ListTile(
+          //         title: Text('OLYMPICS', style: Styles.normalTextBold),
+          //         onTap: () {
+          //           Navigator.of(context).push(OlympicsAddForm.route());
+          //         },
+          //       )
+          //     : Container(),
           isAdmin
               ? ListTile(
                   title: Text('PARALYMPICS', style: Styles.normalTextBold),

@@ -231,7 +231,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                     .length;
           },
         );
-
         break;
       case 'PARALYMPICS':
         return await _sportsfeedRepository.fetchParalympicsGame().first.then(
@@ -252,7 +251,6 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                     .length;
           },
         );
-
         break;
       default:
         return 0;

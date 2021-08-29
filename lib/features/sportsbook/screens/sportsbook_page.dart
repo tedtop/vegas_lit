@@ -75,7 +75,7 @@ class SportsBookView extends StatefulWidget {
 
   final String league;
   final DateTime estTimeZone;
-  final Map gameNumberList;
+  final Map<String, String> gameNumberList;
 
   @override
   _SportsBookViewState createState() => _SportsBookViewState();
@@ -95,6 +95,7 @@ class _SportsBookViewState extends State<SportsBookView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return Scaffold(
         body: RefreshIndicator(
           onRefresh: () async {
@@ -386,12 +387,12 @@ class _SportsBookViewState extends State<SportsBookView>
             items: <String>[
               'NFL',
               'NBA',
+              'OLYMPICS',
               'PARALYMPICS',
               'MLB',
               'NHL',
               'NCAAF',
               'NCAAB',
-              'OLYMPICS',
               // 'GOLF',
               // 'CRICKET'
             ].map<DropdownMenuItem<String>>(
@@ -399,15 +400,16 @@ class _SportsBookViewState extends State<SportsBookView>
                 String length;
                 widget.gameNumberList.forEach(
                   (key, newValue) {
-                    if (key == 'GOLF' || key == 'OLYMPICS') {
+                    if (key == 'GOLF' || key == 'OLYMPICS' && key == value) {
                       length = '$newValue';
-                    } else if (key == 'PARALYMPICS') {
+                    } else if (key == 'PARALYMPICS' && key == value) {
                       length = '$newValue Matches';
                     } else if (key == value) {
                       length = '$newValue Games';
                     }
                   },
                 );
+
                 return DropdownMenuItem<String>(
                   value: value,
                   child: value == widget.league
