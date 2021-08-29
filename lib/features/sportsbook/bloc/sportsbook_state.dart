@@ -12,6 +12,7 @@ class SportsbookState extends Equatable {
       'NFL': 0,
       'NBA': 0,
       'PARALYMPICS': 0,
+      'OLYMPICS': 0,
       'MLB': 0,
       'NHL': 0,
       'NCAAF': 0,

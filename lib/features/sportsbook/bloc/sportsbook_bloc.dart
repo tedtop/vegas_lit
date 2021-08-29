@@ -48,6 +48,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       'NFL',
       'NBA',
       'PARALYMPICS',
+      'OLYMPICS',
       'MLB',
       'NHL',
       'NCAAF',
@@ -67,7 +68,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     await Future.wait(
       list.map(
         (e) async {
-          if (e == 'GOLF') {
+          if (e == 'GOLF' || e == 'OLYMPICS') {
             gameNumberMap[e] = 'OFF-SEASON';
           } else {
             final todayGamesLength =
@@ -211,7 +212,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
       case 'GOLF':
         return 0;
         break;
-      case 'PARALYMPICS':
+      case 'OLYMPICS':
         return await _sportsfeedRepository.fetchOlympicsGame().first.then(
           (value) {
             return kDebugMode
@@ -230,7 +231,26 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                     .length;
           },
         );
-
+        break;
+      case 'PARALYMPICS':
+        return await _sportsfeedRepository.fetchParalympicsGame().first.then(
+          (value) {
+            return kDebugMode
+                ? value.length
+                : value
+                    .where(
+                      (game) =>
+                          game.startTime.isAfter(ESTDateTime.fetchTimeEST()) &&
+                          (ESTDateTime.fetchTimeEST()
+                                  .isSameDate(game.startTime) ||
+                              ESTDateTime.fetchTimeEST()
+                                  .add(const Duration(days: 1))
+                                  .isSameDate(game.startTime)),
+                    )
+                    .toList()
+                    .length;
+          },
+        );
         break;
       default:
         return 0;

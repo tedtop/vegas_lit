@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/games/olympics/olympics.dart';
+import 'package:vegas_lit/features/games/paralympics/paralympics.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -17,7 +19,6 @@ import '../../games/football/ncaaf/views/ncaaf_screen.dart';
 import '../../games/football/nfl/views/nfl_screen.dart';
 import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
-import '../../games/olympics/views/olympics_screen.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../bloc/sportsbook_bloc.dart';
 
@@ -74,7 +75,7 @@ class SportsBookView extends StatefulWidget {
 
   final String league;
   final DateTime estTimeZone;
-  final Map gameNumberList;
+  final Map<String, String> gameNumberList;
 
   @override
   _SportsBookViewState createState() => _SportsBookViewState();
@@ -94,6 +95,7 @@ class _SportsBookViewState extends State<SportsBookView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return Scaffold(
         body: RefreshIndicator(
           onRefresh: () async {
@@ -248,8 +250,11 @@ class _SportsBookViewState extends State<SportsBookView>
                     case 'PARALYMPICS':
                       selectedIndex = 7;
                       break;
-                    default:
+                    case 'OLYMPICS':
                       selectedIndex = 8;
+                      break;
+                    default:
+                      selectedIndex = 9;
                       break;
                   }
                   return FadeIndexedStack(
@@ -293,11 +298,16 @@ class _SportsBookViewState extends State<SportsBookView>
                       Visibility(
                         maintainState: true,
                         visible: selectedIndex == 7,
-                        child: OlympicsScreen.route(),
+                        child: ParalympicsScreen.route(),
                       ),
                       Visibility(
                         maintainState: true,
                         visible: selectedIndex == 8,
+                        child: OlympicsScreen.route(),
+                      ),
+                      Visibility(
+                        maintainState: true,
+                        visible: selectedIndex == 9,
                         child: Container(),
                       ),
                     ],
@@ -377,6 +387,7 @@ class _SportsBookViewState extends State<SportsBookView>
             items: <String>[
               'NFL',
               'NBA',
+              'OLYMPICS',
               'PARALYMPICS',
               'MLB',
               'NHL',
@@ -389,17 +400,16 @@ class _SportsBookViewState extends State<SportsBookView>
                 String length;
                 widget.gameNumberList.forEach(
                   (key, newValue) {
-                    if (key == 'GOLF') {
+                    if (key == 'GOLF' || key == 'OLYMPICS' && key == value) {
                       length = '$newValue';
                     } else if (key == 'PARALYMPICS' && key == value) {
                       length = '$newValue Matches';
-                    } else {
-                      if (key == value) {
-                        length = '$newValue Games';
-                      }
+                    } else if (key == value) {
+                      length = '$newValue Games';
                     }
                   },
                 );
+
                 return DropdownMenuItem<String>(
                   value: value,
                   child: value == widget.league

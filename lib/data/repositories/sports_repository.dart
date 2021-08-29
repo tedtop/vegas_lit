@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
@@ -148,4 +149,13 @@ class SportsRepository {
 
   Future<void> updateOlympicGame({OlympicsGame game}) =>
       _databaseProvider.updateOlympicGame(game: game);
+
+  Future<void> addParalympicsGame({ParalympicsGame game}) =>
+      _databaseProvider.addParalympicsGame(game: game);
+
+  Stream<List<ParalympicsGame>> fetchParalympicsGame() =>
+      _databaseProvider.fetchParalympicGames();
+
+  Future<void> updateParalympicsGame({ParalympicsGame game}) =>
+      _databaseProvider.updateParalympicsGame(game: game);
 }
