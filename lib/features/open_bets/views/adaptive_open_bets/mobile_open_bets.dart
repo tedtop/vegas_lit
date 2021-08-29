@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/features/games/paralympics/widgets/paralympics_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -157,6 +158,9 @@ class _MobileOpenBetsContentList extends StatelessWidget {
             break;
           case 'olympics':
             return OlympicsOpenBetCard(openBets: bets[index]);
+            break;
+          case 'paralympics':
+            return ParalympicsOpenBetCard(openBets: bets[index]);
             break;
           default:
             return const SizedBox();

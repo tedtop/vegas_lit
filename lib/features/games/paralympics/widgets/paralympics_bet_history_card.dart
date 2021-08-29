@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
 
 import '../../../../config/assets.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
-import '../../../../data/models/olympics/olympic_bet.dart';
 
 class ParalympicsBetHistoryCard extends StatelessWidget {
   const ParalympicsBetHistoryCard({
@@ -14,7 +14,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
   })  : assert(betHistoryData != null),
         super(key: key);
 
-  final OlympicsBetData betHistoryData;
+  final ParalympicsBetData betHistoryData;
 
   @override
   Widget build(BuildContext context) {
