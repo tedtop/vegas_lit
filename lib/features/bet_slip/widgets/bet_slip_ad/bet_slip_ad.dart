@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter_countdown_timer/index.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/extensions.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -41,11 +45,61 @@ class RewardedBetSlip extends StatelessWidget {
                 height: 20,
               ),
               todayRewards >= 300
-                  ? Text(
-                      "Sorry. You've exceeded the daily reward amount. Come back later.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.nunito(fontSize: 20),
-                    )
+                  ? Builder(builder: (context) {
+                      final timeNow = ESTDateTime.fetchTimeEST();
+                      // To find the reward hour {Ex: 3 AM, 6 AM,...}
+                      final nThRewardHour =
+                          Duration(hours: timeNow.hour, minutes: timeNow.minute)
+                                  .inHours ~/
+                              3;
+                      final nextRewardTime = DateTime(
+                          timeNow.year,
+                          timeNow.month,
+                          timeNow.day,
+                          (3 * (nThRewardHour + 1)));
+                      return CountdownTimer(
+                        endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+                            nextRewardTime),
+                        widgetBuilder: (_, CurrentRemainingTime time) {
+                          if (time == null) {
+                            return Center(
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  text: 'Last Reward at ',
+                                  style: Styles.normalText,
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: '${DateFormat('hh:mm a').format(
+                                          timeNow,
+                                        )}',
+                                        style: Styles.greenTextBold),
+                                    const TextSpan(text: ' EST')
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+
+                          return Center(
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: 'Check back in ',
+                                style: Styles.normalText,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text:
+                                          '${getRemainingTimeText(time: time)}',
+                                      style: Styles.greenTextBold),
+                                  const TextSpan(text: ' EST for more rewards')
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    })
                   : Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Column(
@@ -178,6 +232,13 @@ class RewardedBetSlip extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String getRemainingTimeText({CurrentRemainingTime time}) {
+    final hours = time.hours == null ? '' : '${time.hours}hr';
+    final min = time.min == null ? '' : ' ${time.min}m';
+    final sec = time.sec == null ? '' : ' ${time.sec}s';
+    return hours + min + sec;
   }
 }
 
