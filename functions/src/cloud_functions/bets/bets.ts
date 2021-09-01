@@ -17,6 +17,8 @@ import { OlympicsBet } from "./models/bets/olympics_bet";
 import { OlympicsResolve } from "./bets_resolve/olympics_resolve";
 import { rankLeaderboard } from "./rank_leaderboard";
 import { Bet } from "./models/bets/bet";
+import { ParalympicsBet } from "./models/bets/paralympics_bet";
+import { ParalympicsResolve } from "./bets_resolve/paralympics_resolve";
 const performance = require("perf_hooks").performance;
 
 export const resolveBets = functions.pubsub
@@ -62,6 +64,9 @@ export const resolveBets = functions.pubsub
             } else if (league == "cbb") {
               const ncaabBet: NcaabBet = data as NcaabBet;
               await NcaabResolve(ncaabBet);
+            } else if (league == "paralympics") {
+              const paralympicsBet: ParalympicsBet = data as ParalympicsBet;
+              await ParalympicsResolve(paralympicsBet);
             } else {
               console.log("Undefined Bet Type");
             }
