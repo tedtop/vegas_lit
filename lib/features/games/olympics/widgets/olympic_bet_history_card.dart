@@ -305,7 +305,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  DateFormat('E, MMMM, c, y @ hh:mm a')
+                                  DateFormat('E, MMM c, y @ hh:mm a')
                                       .format(betHistoryData.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
