@@ -65,9 +65,10 @@ class BetButton extends StatelessWidget {
                   content: Text('Your bet has been placed.'),
                 ),
               );
-            context
-                .read<BetSlipCubit>()
-                .removeBetSlip(uniqueId: state.uniqueId);
+            context.read<BetSlipCubit>().removeBetSlip(
+                  singleBetSlipId: state.uniqueId,
+                  parlayBetSlipId: state.uniqueId,
+                );
             break;
           default:
             break;
@@ -163,7 +164,20 @@ class BetButtonUnclicked extends StatelessWidget {
                 // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
-                      betSlipCard: BlocProvider.value(
+                      singleBetSlipCard: BlocProvider.value(
+                        key: Key(betButtonState.uniqueId),
+                        value: context.read<ParalympicsBetButtonCubit>(),
+                        child: ParalympicsBetSlipCard.route(
+                          betSlipCardData: ParalympicsBetSlipCardData(
+                            league: betButtonState.league,
+                            id: betButtonState.uniqueId,
+                            betButtonCubit:
+                                context.read<ParalympicsBetButtonCubit>(),
+                            odds: betButtonState.mainOdds,
+                          ),
+                        ),
+                      ),
+                      parlayBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<ParalympicsBetButtonCubit>(),
                         child: ParalympicsBetSlipCard.route(
@@ -235,7 +249,8 @@ class BetButtonClicked extends StatelessWidget {
           onPressed: () {
             context.read<ParalympicsBetButtonCubit>().unclickBetButton();
             context.read<BetSlipCubit>().removeBetSlip(
-                  uniqueId: betButtonState.uniqueId,
+                  singleBetSlipId: betButtonState.uniqueId,
+                  parlayBetSlipId: betButtonState.uniqueId,
                 );
           },
         ),

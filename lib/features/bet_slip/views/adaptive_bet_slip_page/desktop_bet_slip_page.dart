@@ -21,7 +21,7 @@ class DesktopBetSlipPage extends StatelessWidget {
             builder: (context, state) {
               switch (state.status) {
                 case BetSlipStatus.opened:
-                  return state.betSlipCard.isEmpty
+                  return state.singleBetSlipCard.isEmpty
                       ? EmptyBetSlip()
                       // AbstractCard(
                       //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class DesktopBetSlipPage extends StatelessWidget {
                       //     ],
                       //   )
 
-                      : BetSlipList();
+                      : SingleBetSlipList();
                   // ListView.builder(
                   //     reverse: true,
                   //     shrinkWrap: true,
@@ -133,7 +133,7 @@ class DesktopBetSlipUpper extends StatelessWidget {
                   width: 42,
                   child: Center(
                     child: Text(
-                      state.betSlipCard.length.toString(),
+                      state.singleBetSlipCard.length.toString(),
                       style: GoogleFonts.nunito(
                         color: Palette.darkGrey,
                         fontSize: 18,

@@ -361,7 +361,8 @@ class ParalympicsBetSlipCard extends StatelessWidget {
                                     .read<ParalympicsBetButtonCubit>()
                                     .unclickBetButton();
                                 context.read<BetSlipCubit>().removeBetSlip(
-                                      uniqueId: betButtonState.uniqueId,
+                                      singleBetSlipId: betButtonState.uniqueId,
+                                      parlayBetSlipId: betButtonState.uniqueId,
                                     );
                               },
                             ),

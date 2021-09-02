@@ -394,7 +394,8 @@ class MlbBetSlipCard extends StatelessWidget {
                                   .read<MlbBetButtonCubit>()
                                   .unclickBetButton();
                               context.read<BetSlipCubit>().removeBetSlip(
-                                    uniqueId: betButtonState.uniqueId,
+                                    singleBetSlipId: betButtonState.uniqueId,
+                                    parlayBetSlipId: betButtonState.uniqueId,
                                   );
                             },
                           ),

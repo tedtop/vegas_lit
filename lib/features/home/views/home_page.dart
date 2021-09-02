@@ -87,7 +87,8 @@ class HomePage extends StatefulWidget {
             BlocProvider<BetSlipCubit>(
               create: (_) => BetSlipCubit()
                 ..openBetSlip(
-                  betSlipGames: [],
+                  singleBetSlipGames: [],
+                  parlayBetSlipGames: [],
                 ),
             ),
             BlocProvider<HomeCubit>(

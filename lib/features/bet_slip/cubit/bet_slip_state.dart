@@ -4,22 +4,30 @@ enum BetSlipStatus { loading, empty, opened, added, removed }
 
 class BetSlipState extends Equatable {
   const BetSlipState._({
-    this.betSlipCard,
+    this.singleBetSlipCard,
+    this.parlayBetSlipCard,
     this.status = BetSlipStatus.loading,
   });
 
   const BetSlipState.loading() : this._();
 
   const BetSlipState.opened({
-    @required List<Widget> betSlipCard,
+    @required List<Widget> singleBetSlipCard,
+    @required List<Widget> parlayBetSlipCard,
   }) : this._(
           status: BetSlipStatus.opened,
-          betSlipCard: betSlipCard,
+          singleBetSlipCard: singleBetSlipCard,
+          parlayBetSlipCard: parlayBetSlipCard,
         );
 
-  final List<Widget> betSlipCard;
+  final List<Widget> singleBetSlipCard;
+  final List<Widget> parlayBetSlipCard;
   final BetSlipStatus status;
 
   @override
-  List<Object> get props => [betSlipCard, status];
+  List<Object> get props => [
+        singleBetSlipCard,
+        parlayBetSlipCard,
+        status,
+      ];
 }

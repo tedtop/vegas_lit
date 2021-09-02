@@ -406,7 +406,8 @@ class _BetSlipCardState extends State<NcaafBetSlipCard> {
                                   .read<NcaafBetButtonCubit>()
                                   .unclickBetButton();
                               context.read<BetSlipCubit>().removeBetSlip(
-                                    uniqueId: betButtonState.uniqueId,
+                                    singleBetSlipId: betButtonState.uniqueId,
+                                    parlayBetSlipId: betButtonState.uniqueId,
                                   );
                             },
                           ),

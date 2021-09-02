@@ -83,7 +83,7 @@ class DesktopNcaabScreen extends StatelessWidget {
                               width: 42,
                               child: Center(
                                 child: Text(
-                                  state.betSlipCard.length.toString(),
+                                  state.singleBetSlipCard.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
                                     fontSize: 18,
@@ -110,7 +110,7 @@ class DesktopNcaabScreen extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.status) {
                       case BetSlipStatus.opened:
-                        return state.betSlipCard.isEmpty
+                        return state.singleBetSlipCard.isEmpty
                             ? AbstractCard(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 widgets: [
@@ -140,9 +140,10 @@ class DesktopNcaabScreen extends StatelessWidget {
                                 reverse: true,
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
-                                itemCount: betSlipState.betSlipCard.length,
+                                itemCount:
+                                    betSlipState.singleBetSlipCard.length,
                                 itemBuilder: (context, index) {
-                                  return betSlipState.betSlipCard[index];
+                                  return betSlipState.singleBetSlipCard[index];
                                 },
                               );
                         break;
