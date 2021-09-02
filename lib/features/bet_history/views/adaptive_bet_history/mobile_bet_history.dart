@@ -192,7 +192,7 @@ class _MobileHistoryList extends StatelessWidget {
             return NhlBetHistoryCard(betHistoryData: bets[index]);
             break;
           case 'olympics':
-            return OlympicsBetHistoryCard(betHistoryData: bets[index]);
+            return ParalympicsBetHistoryCard(betHistoryData: bets[index]);
             break;
           case 'paralympics':
             return ParalympicsBetHistoryCard(betHistoryData: bets[index]);
