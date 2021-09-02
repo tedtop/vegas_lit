@@ -64,7 +64,7 @@ export const resolveBets = functions.pubsub
             } else if (league == "cbb") {
               const ncaabBet: NcaabBet = data as NcaabBet;
               await NcaabResolve(ncaabBet);
-            } else if (league == "paralympics") {
+            } else if (league == "paralympics" || league == "olympics") {
               const paralympicsBet: ParalympicsBet = data as ParalympicsBet;
               await ParalympicsResolve(paralympicsBet);
             } else {
