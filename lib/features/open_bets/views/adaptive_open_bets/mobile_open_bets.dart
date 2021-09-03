@@ -157,7 +157,7 @@ class _MobileOpenBetsContentList extends StatelessWidget {
             return NhlOpenBetCard(openBets: bets[index]);
             break;
           case 'olympics':
-            return ParalympicsOpenBetCard(openBets: bets[index]);
+            return OlympicsOpenBetCard(openBets: bets[index]);
             break;
           case 'paralympics':
             return ParalympicsOpenBetCard(openBets: bets[index]);
