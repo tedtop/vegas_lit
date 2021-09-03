@@ -7,6 +7,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/features/games/olympics/olympics.dart';
 import 'package:vegas_lit/features/games/paralympics/paralympics.dart';
+import 'package:vegas_lit/features/sportsbook/widgets/banner_ad_card/banner_ad.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -222,6 +223,7 @@ class _SportsBookViewState extends State<SportsBookView>
                   ],
                 ),
               ),
+              !kIsWeb ? BannerAdCard.instance() : const SizedBox(),
               Builder(
                 builder: (context) {
                   var selectedIndex = 7;

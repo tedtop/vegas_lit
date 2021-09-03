@@ -388,7 +388,7 @@ Widget badgeFromEventType({String eventType}) {
                     )
                   : const SizedBox.shrink(),
       Image.asset(
-        '${Images.olympicsIconsPath}Olympics.png',
+        '${Images.paralympicsIconsPath}Paralympics.png',
         height: 18,
       )
     ],

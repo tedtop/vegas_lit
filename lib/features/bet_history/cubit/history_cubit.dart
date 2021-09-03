@@ -4,8 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../../config/extensions.dart';
+import 'package:vegas_lit/utils/logger.dart';
 
+import '../../../config/extensions.dart';
 import '../../../data/models/bet.dart';
 import '../../../data/models/wallet.dart';
 import '../../../data/repositories/user_repository.dart';
@@ -59,8 +60,7 @@ class HistoryCubit extends Cubit<HistoryState> {
           );
         },
       ).listen(
-        // ignore: avoid_print
-        print,
+        logger.d,
       );
     } on Exception {
       emit(

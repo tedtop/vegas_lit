@@ -60,7 +60,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                               height: 10,
                             ),
                             Image.asset(
-                              '${Images.olympicsIconsPath}Olympics.png',
+                              '${Images.paralympicsIconsPath}Paralympics.png',
                               height: 20,
                             ),
                           ],

@@ -61,7 +61,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                               height: 10,
                             ),
                             Image.asset(
-                              '${Images.olympicsIconsPath}Olympics.png',
+                              '${Images.paralympicsIconsPath}Paralympics.png',
                               height: 20,
                             ),
                           ],
@@ -305,7 +305,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  DateFormat('E, MMMM, c, y @ hh:mm a')
+                                  DateFormat('E, MMM c, y @ hh:mm a')
                                       .format(betHistoryData.gameStartDateTime),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,

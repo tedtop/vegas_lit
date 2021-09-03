@@ -610,7 +610,7 @@ Widget badgeFromEventTypeColumn({String eventType}) {
   return Column(
     children: [
       Image.asset(
-        '${Images.olympicsIconsPath}Olympics.png',
+        '${Images.paralympicsIconsPath}Paralympics.png',
         height: 18,
       ),
       const SizedBox(
