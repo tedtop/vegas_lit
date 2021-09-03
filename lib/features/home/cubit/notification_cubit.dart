@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/utils/logger.dart';
+
 import '../../../data/models/notification.dart';
 import '../../../data/repositories/device_repository.dart';
 
@@ -28,12 +30,12 @@ class NotificationCubit extends Cubit<NotificationState> {
     await _deviceRepository.handleBackgroundNotification();
     final settings = await _deviceRepository.requestNotificationPermission();
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      logger.i('User granted permission');
       final pushNotiStream = _deviceRepository.handleForegroundNotification();
       await _foregroundNotification?.cancel();
       _foregroundNotification = pushNotiStream.listen(
         (message) {
-          print(
+          logger.i(
               'Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
 
           emit(
@@ -59,8 +61,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       final initialMessage = await _deviceRepository.checkInitialPushMessage();
       if (initialMessage != null) {
-        // ignore: avoid_print
-        print('Initial Message Found!');
+        logger.i('Initial Message Found!');
         emit(
           NotificationState(
             status: NotificationStatus.success,
@@ -73,19 +74,16 @@ class NotificationCubit extends Cubit<NotificationState> {
           ),
         );
       } else {
-        // ignore: avoid_print
-        print('Initial Message Not Found!');
+        logger.i('Initial Message Not Found!');
       }
       final backgroundMessageOpened =
           _deviceRepository.handleOpenBackgroundNotification();
       await _backgroundNotificationOpened?.cancel();
       _backgroundNotificationOpened = backgroundMessageOpened.listen((event) {
-        // ignore: avoid_print
-        print('Background Notification Clicked');
+        logger.i('Background Notification Clicked');
       });
     } else {
-      // ignore: avoid_print
-      print('User declined or has not accepted permission');
+      logger.i('User declined or has not accepted permission');
       emit(
         const NotificationState(
           status: NotificationStatus.failure,

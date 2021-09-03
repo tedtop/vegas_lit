@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:vegas_lit/utils/logger.dart';
+
 import '../../../data/models/wallet.dart';
 import '../../../data/repositories/user_repository.dart';
 
@@ -42,8 +44,7 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
         );
       },
     ).listen(
-      // ignore: avoid_print
-      print,
+      logger.d,
     );
   }
 
