@@ -12,8 +12,8 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
+import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/models/olympics_bet_slip_card_data.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
@@ -22,7 +22,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
       : super(key: key);
 
   static Builder route({
-    @required OlympicsBetSlipCardData betSlipCardData,
+    @required BetSlipCardData betSlipCardData,
   }) {
     return Builder(
       builder: (context) {
@@ -33,7 +33,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
     );
   }
 
-  final OlympicsBetSlipCardData betSlipCardData;
+  final BetSlipCardData betSlipCardData;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -409,7 +409,7 @@ class BetAmountPage extends StatefulWidget {
     @required this.betAmount,
   }) : super(key: key);
 
-  final OlympicsBetSlipCardData betSlipCardData;
+  final BetSlipCardData betSlipCardData;
   final int betAmount;
 
   @override

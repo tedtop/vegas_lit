@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/enum.dart';
+import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/olympics/olympics.dart';
@@ -8,7 +10,6 @@ import '../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
 import '../cubit/olympics_bet_button_cubit.dart';
-import '../models/olympics_bet_slip_card_data.dart';
 import 'bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
@@ -166,12 +167,13 @@ class BetButtonUnclicked extends StatelessWidget {
                         key: Key(betButtonState.uniqueId),
                         value: context.read<OlympicsBetButtonCubit>(),
                         child: OlympicsBetSlipCard.route(
-                          betSlipCardData: OlympicsBetSlipCardData(
+                          betSlipCardData: BetSlipCardData(
                             league: betButtonState.league,
                             id: betButtonState.uniqueId,
+                            betType: Bet.ml,
                             betButtonCubit:
                                 context.read<OlympicsBetButtonCubit>(),
-                            odds: betButtonState.mainOdds,
+                            odds: betButtonState.mainOdds.toString(),
                           ),
                         ),
                       ),
@@ -179,12 +181,13 @@ class BetButtonUnclicked extends StatelessWidget {
                         key: Key(betButtonState.uniqueId),
                         value: context.read<OlympicsBetButtonCubit>(),
                         child: OlympicsBetSlipCard.route(
-                          betSlipCardData: OlympicsBetSlipCardData(
+                          betSlipCardData: BetSlipCardData(
                             league: betButtonState.league,
                             id: betButtonState.uniqueId,
+                            betType: Bet.ml,
                             betButtonCubit:
                                 context.read<OlympicsBetButtonCubit>(),
-                            odds: betButtonState.mainOdds,
+                            odds: betButtonState.mainOdds.toString(),
                           ),
                         ),
                       ),
