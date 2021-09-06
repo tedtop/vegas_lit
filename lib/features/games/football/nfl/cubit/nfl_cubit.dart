@@ -34,7 +34,7 @@ class NflCubit extends Cubit<NflState> {
         )
         .then(
           (value) => value
-              .where((element) => element.status == Status.SCHEDULED)
+              .where((element) => element.status == 'Scheduled')
               .where((element) =>
                   element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.closed == false)

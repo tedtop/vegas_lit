@@ -12,29 +12,11 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
 import 'package:vegas_lit/features/games/paralympics/widgets/bet_button/cubit/paralympics_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
-class ParalympicsBetSlipCard extends StatelessWidget {
-  ParalympicsBetSlipCard._({Key key, @required this.betSlipCardData})
-      : super(key: key);
-
-  static Builder route({
-    @required BetSlipCardData betSlipCardData,
-  }) {
-    return Builder(
-      builder: (context) {
-        return ParalympicsBetSlipCard._(
-          betSlipCardData: betSlipCardData,
-        );
-      },
-    );
-  }
-
-  final BetSlipCardData betSlipCardData;
-
+class ParalympicsSingleBetSlipCard extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -131,7 +113,6 @@ class ParalympicsBetSlipCard extends StatelessWidget {
                                     ],
                                     child: BetAmountPage(
                                       betAmount: betButtonState.betAmount,
-                                      betSlipCardData: betSlipCardData,
                                     ),
                                   ),
                                 );
@@ -361,8 +342,7 @@ class ParalympicsBetSlipCard extends StatelessWidget {
                                     .read<ParalympicsBetButtonCubit>()
                                     .unclickBetButton();
                                 context.read<BetSlipCubit>().removeBetSlip(
-                                      singleBetSlipId: betButtonState.uniqueId,
-                                      parlayBetSlipId: betButtonState.uniqueId,
+                                      betSlipDataId: betButtonState.uniqueId,
                                     );
                               },
                             ),
@@ -405,11 +385,9 @@ class ParalympicsBetSlipCard extends StatelessWidget {
 class BetAmountPage extends StatefulWidget {
   BetAmountPage({
     Key key,
-    @required this.betSlipCardData,
     @required this.betAmount,
   }) : super(key: key);
 
-  final BetSlipCardData betSlipCardData;
   final int betAmount;
 
   @override

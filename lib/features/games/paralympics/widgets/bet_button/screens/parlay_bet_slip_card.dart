@@ -12,29 +12,11 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
+import 'package:vegas_lit/features/games/paralympics/widgets/bet_button/cubit/paralympics_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
-class OlympicsBetSlipCard extends StatelessWidget {
-  OlympicsBetSlipCard._({Key key, @required this.betSlipCardData})
-      : super(key: key);
-
-  static Builder route({
-    @required BetSlipCardData betSlipCardData,
-  }) {
-    return Builder(
-      builder: (context) {
-        return OlympicsBetSlipCard._(
-          betSlipCardData: betSlipCardData,
-        );
-      },
-    );
-  }
-
-  final BetSlipCardData betSlipCardData;
-
+class ParalympicsParlayBetSlipCard extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -43,7 +25,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
+        final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
@@ -126,12 +108,11 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                     providers: [
                                       BlocProvider.value(
                                         value: context
-                                            .read<OlympicsBetButtonCubit>(),
+                                            .read<ParalympicsBetButtonCubit>(),
                                       ),
                                     ],
                                     child: BetAmountPage(
                                       betAmount: betButtonState.betAmount,
-                                      betSlipCardData: betSlipCardData,
                                     ),
                                   ),
                                 );
@@ -209,7 +190,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                           ),
                           child: Visibility(
                             visible: betButtonState.status ==
-                                    OlympicsBetButtonStatus.placing
+                                    ParalympicsBetButtonStatus.placing
                                 ? false
                                 : true,
                             replacement: Padding(
@@ -230,7 +211,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                 text: 'PLACE BET',
                                 action: () async {
                                   await context
-                                      .read<OlympicsBetButtonCubit>()
+                                      .read<ParalympicsBetButtonCubit>()
                                       .placeBet(
                                         isMinimumVersion: isMinimumVersion,
                                         betButtonState: betButtonState,
@@ -358,11 +339,10 @@ class OlympicsBetSlipCard extends StatelessWidget {
                               text: 'CANCEL',
                               action: () {
                                 context
-                                    .read<OlympicsBetButtonCubit>()
+                                    .read<ParalympicsBetButtonCubit>()
                                     .unclickBetButton();
                                 context.read<BetSlipCubit>().removeBetSlip(
-                                      singleBetSlipId: betButtonState.uniqueId,
-                                      parlayBetSlipId: betButtonState.uniqueId,
+                                      betSlipDataId: betButtonState.uniqueId,
                                     );
                               },
                             ),
@@ -405,11 +385,9 @@ class OlympicsBetSlipCard extends StatelessWidget {
 class BetAmountPage extends StatefulWidget {
   BetAmountPage({
     Key key,
-    @required this.betSlipCardData,
     @required this.betAmount,
   }) : super(key: key);
 
-  final BetSlipCardData betSlipCardData;
   final int betAmount;
 
   @override
@@ -422,7 +400,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -518,7 +496,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                   .abs();
 
                           context
-                              .read<OlympicsBetButtonCubit>()
+                              .read<ParalympicsBetButtonCubit>()
                               .updateBetAmount(
                                 toWinAmount: toWinAmount,
                                 betAmount: betValues[i],
@@ -611,7 +589,7 @@ Widget badgeFromEventTypeColumn({String eventType}) {
   return Column(
     children: [
       Image.asset(
-        '${Images.olympicsIconsPath}Olympics.png',
+        '${Images.paralympicsIconsPath}Paralympics.png',
         height: 18,
       ),
       const SizedBox(

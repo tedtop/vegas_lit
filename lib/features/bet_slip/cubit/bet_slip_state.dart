@@ -6,6 +6,7 @@ class BetSlipState extends Equatable {
   const BetSlipState._({
     this.singleBetSlipCard,
     this.parlayBetSlipCard,
+    this.betDataList,
     this.status = BetSlipStatus.loading,
   });
 
@@ -14,20 +15,24 @@ class BetSlipState extends Equatable {
   const BetSlipState.opened({
     @required List<Widget> singleBetSlipCard,
     @required List<Widget> parlayBetSlipCard,
+    @required List<BetData> betDataList,
   }) : this._(
           status: BetSlipStatus.opened,
           singleBetSlipCard: singleBetSlipCard,
           parlayBetSlipCard: parlayBetSlipCard,
+          betDataList: betDataList,
         );
 
   final List<Widget> singleBetSlipCard;
   final List<Widget> parlayBetSlipCard;
+  final List<BetData> betDataList;
   final BetSlipStatus status;
 
   @override
   List<Object> get props => [
         singleBetSlipCard,
         parlayBetSlipCard,
+        betDataList,
         status,
       ];
 }

@@ -106,6 +106,7 @@ class _SportsBookViewState extends State<SportsBookView>
               ..openBetSlip(
                 singleBetSlipGames: [],
                 parlayBetSlipGames: [],
+                betDataList: [],
               );
           },
           color: Palette.cream,

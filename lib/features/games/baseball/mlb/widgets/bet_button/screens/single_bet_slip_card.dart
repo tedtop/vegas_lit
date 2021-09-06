@@ -16,38 +16,14 @@ import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
 import '../../../../../../authentication/authentication.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
-import '../../../../../../bet_slip/models/bet_slip_card.dart';
 import '../../../../../../home/cubit/version_cubit.dart';
 import '../../../../../../home/home.dart';
 import '../cubit/bet_button_cubit.dart';
 
-// ignore: must_be_immutable
-class NbaBetSlipCard extends StatefulWidget {
-  const NbaBetSlipCard._({Key key, @required this.betSlipCardData})
-      : super(key: key);
+class MlbSingleBetSlipCard extends StatelessWidget {
+  MlbSingleBetSlipCard({Key key}) : super(key: key);
 
-  static Builder route({
-    @required BetSlipCardData betSlipCardData,
-  }) {
-    return Builder(
-      builder: (context) {
-        return NbaBetSlipCard._(
-          betSlipCardData: betSlipCardData,
-        );
-      },
-    );
-  }
-
-  final BetSlipCardData betSlipCardData;
-
-  @override
-  _BetSlipCardState createState() => _BetSlipCardState();
-}
-
-class _BetSlipCardState extends State<NbaBetSlipCard> {
   final _formKey = GlobalKey<FormState>();
-
-  bool isBetPlaced = true;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +31,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState = context.watch<NbaBetButtonCubit>().state;
+        final betButtonState = context.watch<MlbBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
@@ -141,12 +117,11 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                     providers: [
                                       BlocProvider.value(
                                         value:
-                                            context.read<NbaBetButtonCubit>(),
+                                            context.read<MlbBetButtonCubit>(),
                                       ),
                                     ],
                                     child: BetAmountPage(
                                       betAmount: betButtonState.betAmount,
-                                      betSlipCardData: widget.betSlipCardData,
                                     ),
                                   ),
                                 );
@@ -235,7 +210,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                           ),
                           child: Visibility(
                             visible: betButtonState.status ==
-                                    NbaBetButtonStatus.placing
+                                    MlbBetButtonStatus.placing
                                 ? false
                                 : true,
                             replacement: Padding(
@@ -256,7 +231,7 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                                 text: 'PLACE BET',
                                 action: () async {
                                   await context
-                                      .read<NbaBetButtonCubit>()
+                                      .read<MlbBetButtonCubit>()
                                       .placeBet(
                                         isMinimumVersion: isMinimumVersion,
                                         betButtonState: betButtonState,
@@ -273,9 +248,6 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 18,
-                  // ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 190),
                     child: Text(
@@ -402,11 +374,10 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                             text: 'CANCEL',
                             action: () {
                               context
-                                  .read<NbaBetButtonCubit>()
+                                  .read<MlbBetButtonCubit>()
                                   .unclickBetButton();
                               context.read<BetSlipCubit>().removeBetSlip(
-                                    singleBetSlipId: betButtonState.uniqueId,
-                                    parlayBetSlipId: betButtonState.uniqueId,
+                                    betSlipDataId: betButtonState.uniqueId,
                                   );
                             },
                           ),
@@ -458,12 +429,6 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(bottom: 5),
-            //   child: CountdownTimer(
-            //     endDateTime: betButtonState.game.dateTime,
-            //   ),
-            // ),
           ],
         );
       },
@@ -482,11 +447,9 @@ class _BetSlipCardState extends State<NbaBetSlipCard> {
 class BetAmountPage extends StatefulWidget {
   BetAmountPage({
     Key key,
-    @required this.betSlipCardData,
     @required this.betAmount,
   }) : super(key: key);
 
-  final BetSlipCardData betSlipCardData;
   final int betAmount;
 
   @override
@@ -499,7 +462,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<NbaBetButtonCubit>().state;
+    final betButtonState = context.watch<MlbBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -595,7 +558,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 .round()
                                 .abs();
 
-                            context.read<NbaBetButtonCubit>().updateBetAmount(
+                            context.read<MlbBetButtonCubit>().updateBetAmount(
                                   toWinAmount: toWinAmount,
                                   betAmount: betValues[i],
                                 );
@@ -607,7 +570,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                     .round()
                                     .abs();
 
-                            context.read<NbaBetButtonCubit>().updateBetAmount(
+                            context.read<MlbBetButtonCubit>().updateBetAmount(
                                   toWinAmount: toWinAmount,
                                   betAmount: betValues[i],
                                 );

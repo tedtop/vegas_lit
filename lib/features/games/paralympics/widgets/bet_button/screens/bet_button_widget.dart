@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/enum.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-import 'package:vegas_lit/features/bet_slip/models/bet_slip_card.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
 import '../cubit/paralympics_bet_button_cubit.dart';
-import 'bet_slip_card.dart';
+import 'parlay_bet_slip_card.dart';
+import 'single_bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);
@@ -67,8 +70,7 @@ class BetButton extends StatelessWidget {
                 ),
               );
             context.read<BetSlipCubit>().removeBetSlip(
-                  singleBetSlipId: state.uniqueId,
-                  parlayBetSlipId: state.uniqueId,
+                  betSlipDataId: state.uniqueId,
                 );
             break;
           default:
@@ -113,6 +115,14 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
+    final currentUserId = context.select(
+      (AuthenticationBloc authenticationBloc) =>
+          authenticationBloc.state.user?.uid,
+    );
+    final username = context.select(
+      (HomeCubit authenticationBloc) =>
+          authenticationBloc.state.userData.username,
+    );
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -165,33 +175,41 @@ class BetButtonUnclicked extends StatelessWidget {
                 // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
+                      betData: ParalympicsBetData(
+                        username: username,
+                        betAmount: betButtonState.betAmount,
+                        isClosed: betButtonState.game.isClosed,
+                        league: betButtonState.league.toLowerCase(),
+                        id: betButtonState.uniqueId,
+                        betProfit: betButtonState.toWinAmount,
+                        uid: currentUserId,
+                        dateTime: ESTDateTime.fetchTimeEST().toString(),
+                        week: ESTDateTime.fetchTimeEST().weekStringVL,
+                        clientVersion: await _getAppVersion(),
+                        dataProvider: 'paralympics.com',
+                        gameName: betButtonState.game.gameName,
+                        playerName: betButtonState.game.player,
+                        rivalCountry: betButtonState.game.rivalCountry,
+                        rivalName: betButtonState.game.rival,
+                        eventType: betButtonState.game.eventType,
+                        betTeam: betButtonState.winTeam == BetButtonWin.player
+                            ? 'player'
+                            : 'rival',
+                        event: betButtonState.game.event,
+                        gameId: betButtonState.game.gameId,
+                        playerCountry: betButtonState.game.playerCountry,
+                        gameStartDateTime: betButtonState.game.startTime,
+                        winner: null,
+                      ),
                       singleBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<ParalympicsBetButtonCubit>(),
-                        child: ParalympicsBetSlipCard.route(
-                          betSlipCardData: BetSlipCardData(
-                            league: betButtonState.league,
-                            id: betButtonState.uniqueId,
-                            betType: Bet.ml,
-                            betButtonCubit:
-                                context.read<ParalympicsBetButtonCubit>(),
-                            odds: betButtonState.mainOdds.toString(),
-                          ),
-                        ),
+                        child: ParalympicsSingleBetSlipCard(),
                       ),
                       parlayBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<ParalympicsBetButtonCubit>(),
-                        child: ParalympicsBetSlipCard.route(
-                          betSlipCardData: BetSlipCardData(
-                            league: betButtonState.league,
-                            id: betButtonState.uniqueId,
-                            betType: Bet.ml,
-                            betButtonCubit:
-                                context.read<ParalympicsBetButtonCubit>(),
-                            odds: betButtonState.mainOdds.toString(),
-                          ),
-                        ),
+                        child: ParalympicsParlayBetSlipCard(),
                       ),
                     );
           },
@@ -252,8 +270,7 @@ class BetButtonClicked extends StatelessWidget {
           onPressed: () {
             context.read<ParalympicsBetButtonCubit>().unclickBetButton();
             context.read<BetSlipCubit>().removeBetSlip(
-                  singleBetSlipId: betButtonState.uniqueId,
-                  parlayBetSlipId: betButtonState.uniqueId,
+                  betSlipDataId: betButtonState.uniqueId,
                 );
           },
         ),
@@ -302,4 +319,9 @@ class BetButtonDone extends StatelessWidget {
 String countryFlagFromCode({String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
+}
+
+Future<String> _getAppVersion() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.version;
 }

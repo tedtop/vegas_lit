@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/config/extensions.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
@@ -8,10 +12,10 @@ import '../../../../../../../data/models/nba/nba_game.dart';
 import '../../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../../authentication/bloc/authentication_bloc.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
-import '../../../../../../bet_slip/models/bet_slip_card.dart';
 import '../../../models/nba_team.dart';
 import '../cubit/bet_button_cubit.dart';
-import 'bet_slip_card.dart';
+import 'parlay_bet_slip_card.dart';
+import 'single_bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);
@@ -82,8 +86,7 @@ class BetButton extends StatelessWidget {
                 ),
               );
             context.read<BetSlipCubit>().removeBetSlip(
-                  singleBetSlipId: state.uniqueId,
-                  parlayBetSlipId: state.uniqueId,
+                  betSlipDataId: state.uniqueId,
                 );
             break;
           default:
@@ -127,6 +130,14 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<NbaBetButtonCubit>().state;
+    final currentUserId = context.select(
+      (AuthenticationBloc authenticationBloc) =>
+          authenticationBloc.state.user?.uid,
+    );
+    final username = context.select(
+      (HomeCubit authenticationBloc) =>
+          authenticationBloc.state.userData.username,
+    );
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -158,31 +169,52 @@ class BetButtonUnclicked extends StatelessWidget {
                 // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
+                      betData: NbaBetData(
+                        stillOpen: false,
+                        username: username,
+                        homeTeamCity: betButtonState.homeTeamData.city,
+                        awayTeamCity: betButtonState.awayTeamData.city,
+                        betAmount: betButtonState.betAmount,
+                        gameId: betButtonState.game.gameId,
+                        isClosed: betButtonState.game.isClosed,
+                        homeTeam: betButtonState.game.homeTeam,
+                        awayTeam: betButtonState.game.awayTeam,
+                        winningTeam: null,
+                        winningTeamName: null,
+                        status: betButtonState.game.status,
+                        league: betButtonState.league,
+                        betOverUnder: betButtonState.game.overUnder,
+                        betPointSpread: betButtonState.game.pointSpread,
+                        awayTeamName: betButtonState.awayTeamData.name,
+                        homeTeamName: betButtonState.homeTeamData.name,
+                        totalGameScore: null,
+                        id: betButtonState.uniqueId,
+                        betType: whichBetSystemToSave(
+                            betType: betButtonState.betType),
+                        odds: int.parse(betButtonState.mainOdds),
+                        betProfit: betButtonState.toWinAmount,
+                        gameStartDateTime:
+                            betButtonState.game.dateTime.toString(),
+                        awayTeamScore: betButtonState.game.awayTeamScore,
+                        homeTeamScore: betButtonState.game.homeTeamScore,
+                        uid: currentUserId,
+                        betTeam: betButtonState.winTeam == BetButtonWin.home
+                            ? 'home'
+                            : 'away',
+                        dateTime: ESTDateTime.fetchTimeEST().toString(),
+                        week: ESTDateTime.fetchTimeEST().weekStringVL,
+                        clientVersion: await _getAppVersion(),
+                        dataProvider: 'sportsdata.io',
+                      ),
                       singleBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<NbaBetButtonCubit>(),
-                        child: NbaBetSlipCard.route(
-                          betSlipCardData: BetSlipCardData(
-                            odds: betButtonState.mainOdds,
-                            league: betButtonState.league,
-                            id: betButtonState.uniqueId,
-                            betType: betButtonState.betType,
-                            betButtonCubit: context.read<NbaBetButtonCubit>(),
-                          ),
-                        ),
+                        child: const NbaSingleBetSlipCard(),
                       ),
                       parlayBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<NbaBetButtonCubit>(),
-                        child: NbaBetSlipCard.route(
-                          betSlipCardData: BetSlipCardData(
-                            odds: betButtonState.mainOdds,
-                            league: betButtonState.league,
-                            id: betButtonState.uniqueId,
-                            betType: betButtonState.betType,
-                            betButtonCubit: context.read<NbaBetButtonCubit>(),
-                          ),
-                        ),
+                        child: NbaParlayBetSlipCard(),
                       ),
                     );
           },
@@ -224,8 +256,7 @@ class BetButtonClicked extends StatelessWidget {
           onPressed: () {
             context.read<NbaBetButtonCubit>().unclickBetButton();
             context.read<BetSlipCubit>().removeBetSlip(
-                  singleBetSlipId: betButtonState.uniqueId,
-                  parlayBetSlipId: betButtonState.uniqueId,
+                  betSlipDataId: betButtonState.uniqueId,
                 );
           },
         ),
@@ -266,5 +297,24 @@ class BetButtonDone extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<String> _getAppVersion() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.version;
+}
+
+String whichBetSystemToSave({@required Bet betType}) {
+  if (betType == Bet.ml) {
+    return 'moneyline';
+  }
+  if (betType == Bet.pts) {
+    return 'pointspread';
+  }
+  if (betType == Bet.tot) {
+    return 'total';
+  } else {
+    return 'error';
   }
 }
