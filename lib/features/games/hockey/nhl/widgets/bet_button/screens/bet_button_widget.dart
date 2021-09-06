@@ -131,13 +131,8 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<NhlBetButtonCubit>().state;
-    final currentUserId = context.select(
-      (AuthenticationBloc authenticationBloc) =>
-          authenticationBloc.state.user?.uid,
-    );
     final username = context.select(
-      (HomeCubit authenticationBloc) =>
-          authenticationBloc.state.userData.username,
+      (HomeCubit homeBloc) => homeBloc.state?.userData?.username,
     );
 
     return Padding(
@@ -167,6 +162,7 @@ class BetButtonUnclicked extends StatelessWidget {
           onPressed: () async {
             final isBetExist =
                 await context.read<NhlBetButtonCubit>().clickBetButton();
+            final appVersion = await _getAppVersion();
             isBetExist
                 // ignore: unnecessary_statements
                 ? null
@@ -199,13 +195,13 @@ class BetButtonUnclicked extends StatelessWidget {
                             betButtonState.game.dateTime.toString(),
                         awayTeamScore: betButtonState.game.awayTeamScore,
                         homeTeamScore: betButtonState.game.homeTeamScore,
-                        uid: currentUserId,
+                        uid: betButtonState.uid,
                         betTeam: betButtonState.winTeam == BetButtonWin.home
                             ? 'home'
                             : 'away',
                         dateTime: ESTDateTime.fetchTimeEST().toString(),
                         week: ESTDateTime.fetchTimeEST().weekStringVL,
-                        clientVersion: await _getAppVersion(),
+                        clientVersion: appVersion,
                         dataProvider: 'sportsdata.io',
                       ),
                       singleBetSlipCard: BlocProvider.value(

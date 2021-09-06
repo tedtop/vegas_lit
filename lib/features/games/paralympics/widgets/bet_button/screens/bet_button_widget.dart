@@ -115,14 +115,10 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
-    final currentUserId = context.select(
-      (AuthenticationBloc authenticationBloc) =>
-          authenticationBloc.state.user?.uid,
-    );
     final username = context.select(
-      (HomeCubit authenticationBloc) =>
-          authenticationBloc.state.userData.username,
+      (HomeCubit homeBloc) => homeBloc.state?.userData?.username,
     );
+
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -171,6 +167,7 @@ class BetButtonUnclicked extends StatelessWidget {
             final isBetExist = await context
                 .read<ParalympicsBetButtonCubit>()
                 .clickBetButton();
+            final appVersion = await _getAppVersion();
             isBetExist
                 // ignore: unnecessary_statements
                 ? null
@@ -182,10 +179,10 @@ class BetButtonUnclicked extends StatelessWidget {
                         league: betButtonState.league.toLowerCase(),
                         id: betButtonState.uniqueId,
                         betProfit: betButtonState.toWinAmount,
-                        uid: currentUserId,
+                        uid: betButtonState.uid,
                         dateTime: ESTDateTime.fetchTimeEST().toString(),
                         week: ESTDateTime.fetchTimeEST().weekStringVL,
-                        clientVersion: await _getAppVersion(),
+                        clientVersion: appVersion,
                         dataProvider: 'paralympics.com',
                         gameName: betButtonState.game.gameName,
                         playerName: betButtonState.game.player,
