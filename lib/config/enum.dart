@@ -1,1 +1,1 @@
-enum Bet { ml, pts, tot }
+enum Bet { ml, pts, tot, parlay }
