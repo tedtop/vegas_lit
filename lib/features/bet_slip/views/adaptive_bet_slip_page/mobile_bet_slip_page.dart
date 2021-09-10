@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/parlay_bet_button.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -106,6 +107,7 @@ class ParlayBetSlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isBetPlaced = context.watch<OpenBetsCubit>().state.bets.isNotEmpty;
+    final parlayBetList = context.watch<BetSlipCubit>().state.betDataList;
     return ListView(
       padding: const EdgeInsets.only(top: 10),
       children: [
@@ -119,7 +121,14 @@ class ParlayBetSlip extends StatelessWidget {
                         ? isBetPlaced
                             ? RewardedBetSlip.route()
                             : EmptyBetSlip()
-                        : const ParlayBetSlipList(),
+                        : Column(
+                            children: [
+                              ParlayBetSlipButton.route(
+                                betDataList: parlayBetList,
+                              ),
+                              const ParlayBetSlipList(),
+                            ],
+                          ),
                     const BottomBar()
                   ],
                 );

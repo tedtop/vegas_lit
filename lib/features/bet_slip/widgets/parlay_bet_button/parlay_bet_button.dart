@@ -9,6 +9,8 @@ import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/models/bet.dart';
+import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
 import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
@@ -17,9 +19,31 @@ import 'package:vegas_lit/features/home/home.dart';
 import '../../bet_slip.dart';
 
 class ParlayBetSlipButton extends StatelessWidget {
-  ParlayBetSlipButton({Key key}) : super(key: key);
+  ParlayBetSlipButton._({Key key, @required this.betList}) : super(key: key);
 
-  final _formKey = GlobalKey<FormState>();
+  static Builder route({
+    @required List<BetData> betDataList,
+  }) {
+    return Builder(
+      builder: (context) {
+        final uid = context.watch<HomeCubit>().state.userData.uid;
+        return BlocProvider(
+          create: (_) => ParlayBetButtonCubit(
+            betsRepository: context.read<BetsRepository>(),
+          )..openParlay(
+              betDataList: betDataList,
+              league: 'Parlay',
+              uid: uid,
+            ),
+          child: ParlayBetSlipButton._(
+            betList: betDataList,
+          ),
+        );
+      },
+    );
+  }
+
+  final List<BetData> betList;
 
   @override
   Widget build(BuildContext context) {
@@ -44,147 +68,32 @@ class ParlayBetSlipButton extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           crossAxisAlignment: CrossAxisAlignment.start,
           widgets: [
-            Form(
-              key: _formKey,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => MultiBlocProvider(
-                                    providers: [
-                                      BlocProvider.value(
-                                        value: context
-                                            .read<ParlayBetButtonCubit>(),
-                                      ),
-                                    ],
-                                    child: BetAmountPage(
-                                      betAmount: betButtonState.betAmount,
+            Row(
+              children: [
+                Flexible(
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider.value(
+                                      value:
+                                          context.read<ParlayBetButtonCubit>(),
                                     ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Palette.cream,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                height: 90,
-                                width: 170,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Expanded(
-                                        child: SizedBox(),
-                                      ),
-                                      Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: Text(
-                                            // ignore: lines_longer_than_80_chars
-                                            '${betButtonState.betAmount}',
-                                            style: GoogleFonts.nunito(
-                                              color: Palette.green,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                  ],
+                                  child: BetAmountPage(
+                                    betList: betList,
+                                    betAmount: betButtonState.betAmount,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Palette.darkGrey,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(6),
-                                  topRight: Radius.circular(6),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
-                                  ),
-                                ],
-                              ),
-                              height: 40,
-                              width: 174,
-                              child: Center(
-                                child: Text(
-                                  'BET AMOUNT',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 18,
-                                    color: Palette.cream,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          width: 174,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Visibility(
-                            visible: betButtonState.status ==
-                                    ParlayBetButtonStatus.placing
-                                ? false
-                                : true,
-                            replacement: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 6.5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const CircularProgressIndicator(
-                                    color: Palette.cream,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 9),
-                              child: DefaultButton(
-                                text: 'PLACE BET',
-                                action: () async {
-                                  await context
-                                      .read<ParlayBetButtonCubit>()
-                                      .placeBet(
-                                        isMinimumVersion: isMinimumVersion,
-                                        context: context,
-                                        balanceAmount: balanceAmount,
-                                        username: username,
-                                        currentUserId: currentUserId,
-                                      );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
+                              );
+                            },
+                            child: Container(
                               decoration: BoxDecoration(
                                 color: Palette.cream,
                                 borderRadius: BorderRadius.circular(6),
@@ -205,7 +114,8 @@ class ParlayBetSlipButton extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(bottom: 8.0),
                                         child: Text(
-                                          '${betButtonState.toWinAmount}',
+                                          // ignore: lines_longer_than_80_chars
+                                          '${betButtonState.betAmount}',
                                           style: GoogleFonts.nunito(
                                             color: Palette.green,
                                             fontSize: 18,
@@ -218,56 +128,168 @@ class ParlayBetSlipButton extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Palette.darkGrey,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(6),
-                                  topRight: Radius.circular(6),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Palette.darkGrey,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(6),
+                                topRight: Radius.circular(6),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Palette.darkGrey,
+                                  blurRadius: 10.0,
+                                  offset: Offset(0.0, 0.75),
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                              ],
+                            ),
+                            height: 40,
+                            width: 174,
+                            child: Center(
+                              child: Text(
+                                'BET AMOUNT',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 18,
+                                  color: Palette.cream,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: 174,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Visibility(
+                          visible: betButtonState.status ==
+                                  ParlayBetButtonStatus.placing
+                              ? false
+                              : true,
+                          replacement: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 20, bottom: 6.5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const CircularProgressIndicator(
+                                  color: Palette.cream,
+                                ),
+                              ],
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 9),
+                            child: DefaultButton(
+                              text: 'PLACE BET',
+                              action: () async {
+                                // await context
+                                //     .read<ParlayBetButtonCubit>()
+                                //     .placeBet(
+                                //       isMinimumVersion: isMinimumVersion,
+                                //       context: context,
+                                //       balanceAmount: balanceAmount,
+                                //       username: username,
+                                //       currentUserId: currentUserId,
+                                //     );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Palette.cream,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            height: 90,
+                            width: 170,
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Expanded(
+                                    child: SizedBox(),
+                                  ),
+                                  Center(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: Text(
+                                        '${betButtonState.toWinAmount}',
+                                        style: GoogleFonts.nunito(
+                                          color: Palette.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                              height: 40,
-                              width: 174,
-                              child: Center(
-                                child: Text(
-                                  'TO WIN',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 18,
-                                    color: Palette.cream,
-                                  ),
+                            ),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: Palette.darkGrey,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(6),
+                                topRight: Radius.circular(6),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Palette.darkGrey,
+                                  blurRadius: 10.0,
+                                  offset: Offset(0.0, 0.75),
+                                ),
+                              ],
+                            ),
+                            height: 40,
+                            width: 174,
+                            child: Center(
+                              child: Text(
+                                'TO WIN',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 18,
+                                  color: Palette.cream,
                                 ),
                               ),
-                            )
-                          ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: 174,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        Container(
-                          width: 174,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: DefaultButton(
-                            color: Palette.red,
-                            elevation: 0,
-                            text: 'CANCEL',
-                            action: () {
-                              context.read<BetSlipCubit>().removeBetSlip(
-                                    betSlipDataId: betButtonState.uniqueId,
-                                  );
-                            },
-                          ),
+                        child: DefaultButton(
+                          color: Palette.red,
+                          elevation: 0,
+                          text: 'CANCEL',
+                          action: () {
+                            context.read<BetSlipCubit>().removeBetSlip(
+                                  betSlipDataId: betButtonState.uniqueId,
+                                );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         );
@@ -281,9 +303,11 @@ class BetAmountPage extends StatefulWidget {
   BetAmountPage({
     Key key,
     @required this.betAmount,
+    @required this.betList,
   }) : super(key: key);
 
   final int betAmount;
+  final List<BetData> betList;
 
   @override
   _BetAmountPageState createState() => _BetAmountPageState();
@@ -389,6 +413,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
                           context.read<ParlayBetButtonCubit>().updateBetAmount(
                                 betAmount: betValues[i],
+                                betList: widget.betList,
                               );
                         },
                       ),

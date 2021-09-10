@@ -156,9 +156,12 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     );
   }
 
-  void updateBetAmount({@required int betAmount}) async {
+  void updateBetAmount(
+      {@required int betAmount, @required List<BetData> betList}) async {
     final toWinAmount = await parlayWinAmountCalculation(
-        betDataList: state.betList, betAmount: betAmount);
+      betDataList: betList,
+      betAmount: betAmount,
+    );
     emit(
       state.copyWith(betAmount: betAmount, toWinAmount: toWinAmount),
     );
@@ -176,7 +179,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     final decimalOddsList = betDataList.map((bet) {
       if (bet is MlbBetData) {
         if (bet.odds.isNegative) {
-          final decimalOdds = (100 / bet.odds) + 1;
+          final decimalOdds = (100 / bet.odds.abs()) + 1;
           return double.parse(decimalOdds.abs().toStringAsFixed(2));
         } else {
           final decimalOdds = (bet.odds / 100) + 1;
@@ -184,7 +187,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
         }
       } else if (bet is NbaBetData) {
         if (bet.odds.isNegative) {
-          final decimalOdds = (100 / bet.odds) + 1;
+          final decimalOdds = (100 / bet.odds.abs()) + 1;
           return double.parse(decimalOdds.abs().toStringAsFixed(2));
         } else {
           final decimalOdds = (bet.odds / 100) + 1;
@@ -192,7 +195,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
         }
       } else if (bet is NcaabBetData) {
         if (bet.odds.isNegative) {
-          final decimalOdds = (100 / bet.odds) + 1;
+          final decimalOdds = (100 / bet.odds.abs()) + 1;
           return double.parse(decimalOdds.abs().toStringAsFixed(2));
         } else {
           final decimalOdds = (bet.odds / 100) + 1;
@@ -200,7 +203,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
         }
       } else if (bet is NcaafBetData) {
         if (bet.odds.isNegative) {
-          final decimalOdds = (100 / bet.odds) + 1;
+          final decimalOdds = (100 / bet.odds.abs()) + 1;
           return double.parse(decimalOdds.abs().toStringAsFixed(2));
         } else {
           final decimalOdds = (bet.odds / 100) + 1;
@@ -208,7 +211,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
         }
       } else if (bet is NflBetData) {
         if (bet.odds.isNegative) {
-          final decimalOdds = (100 / bet.odds) + 1;
+          final decimalOdds = (100 / bet.odds.abs()) + 1;
           return double.parse(decimalOdds.abs().toStringAsFixed(2));
         } else {
           final decimalOdds = (bet.odds / 100) + 1;
@@ -216,7 +219,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
         }
       } else if (bet is NhlBetData) {
         if (bet.odds.isNegative) {
-          final decimalOdds = (100 / bet.odds) + 1;
+          final decimalOdds = (100 / bet.odds.abs()) + 1;
           return double.parse(decimalOdds.abs().toStringAsFixed(2));
         } else {
           final decimalOdds = (bet.odds / 100) + 1;
@@ -239,6 +242,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     );
     final grossProfit = multiplyValue * betAmount;
     final parlayProfit = grossProfit - betAmount;
+
     return parlayProfit.toInt();
   }
 
