@@ -44,6 +44,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
         betAmount: state.betAmount,
         toWinAmount: toWinAmount,
         league: league,
+        betList: betDataList,
         uid: uid,
         uniqueId: uniqueId,
       ));
@@ -155,7 +156,9 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     );
   }
 
-  void updateBetAmount({@required int toWinAmount, @required int betAmount}) {
+  void updateBetAmount({@required int betAmount}) async {
+    final toWinAmount = await parlayWinAmountCalculation(
+        betDataList: state.betList, betAmount: betAmount);
     emit(
       state.copyWith(betAmount: betAmount, toWinAmount: toWinAmount),
     );

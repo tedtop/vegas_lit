@@ -14,6 +14,7 @@ class ParlayBetButtonState extends Equatable {
     this.betAmount = 100,
     this.toWinAmount,
     this.league,
+    this.betList = const [],
     this.uid,
     this.uniqueId,
   });
@@ -23,6 +24,7 @@ class ParlayBetButtonState extends Equatable {
   final int toWinAmount;
   final String league;
   final String uid;
+  final List<BetData> betList;
   final String uniqueId;
 
   @override
@@ -32,6 +34,7 @@ class ParlayBetButtonState extends Equatable {
       betAmount,
       toWinAmount,
       league,
+      betList,
       uid,
       uniqueId,
     ];
@@ -43,12 +46,14 @@ class ParlayBetButtonState extends Equatable {
     int toWinAmount,
     String league,
     String uid,
+    List<BetData> betList,
     String uniqueId,
   }) {
     return ParlayBetButtonState(
       status: status ?? this.status,
       betAmount: betAmount ?? this.betAmount,
       toWinAmount: toWinAmount ?? this.toWinAmount,
+      betList: betList ?? this.betList,
       league: league ?? this.league,
       uid: uid ?? this.uid,
       uniqueId: uniqueId ?? this.uniqueId,
