@@ -206,7 +206,7 @@ class BetButtonUnclicked extends StatelessWidget {
                       singleBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<NbaBetButtonCubit>(),
-                        child: const NbaSingleBetSlipCard(),
+                        child: NbaSingleBetSlipCard(),
                       ),
                       parlayBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),

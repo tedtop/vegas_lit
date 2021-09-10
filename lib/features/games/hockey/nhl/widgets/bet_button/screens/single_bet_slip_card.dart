@@ -4,14 +4,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../../../config/enum.dart';
-import '../../../../../../../config/extensions.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
 import '../../../../../../authentication/authentication.dart';
@@ -20,17 +17,7 @@ import '../../../../../../home/cubit/version_cubit.dart';
 import '../../../../../../home/home.dart';
 import '../cubit/bet_button_cubit.dart';
 
-// ignore: must_be_immutable
-class NhlSingleBetSlipCard extends StatefulWidget {
-  @override
-  _BetSlipCardState createState() => _BetSlipCardState();
-}
-
-class _BetSlipCardState extends State<NhlSingleBetSlipCard> {
-  final _formKey = GlobalKey<FormState>();
-
-  bool isBetPlaced = true;
-
+class NhlSingleBetSlipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -50,395 +37,224 @@ class _BetSlipCardState extends State<NhlSingleBetSlipCard> {
         final balanceAmount = context.select(
             (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
         final isMoneyline = betButtonState.betType == Bet.ml;
-        return AbstractCard(
-          padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-          crossAxisAlignment: CrossAxisAlignment.start,
-          widgets: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                betButtonState.winTeam == BetButtonWin.home
-                    ? isMoneyline
-                        ? Text(
-                            '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              color: Palette.cream,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Container()
-                    : isMoneyline
-                        ? Text(
-                            '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              color: Palette.cream,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Container(),
-              ],
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Form(
-              key: _formKey,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              betButtonState.awayTeamData.city,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 12,
-                                color: Palette.cream,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              betButtonState.awayTeamData.name.toUpperCase(),
-                              textAlign: TextAlign.center,
-                              style: Styles.awayTeam,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 11,
-                        ),
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => MultiBlocProvider(
-                                    providers: [
-                                      BlocProvider.value(
-                                        value:
-                                            context.read<NhlBetButtonCubit>(),
-                                      ),
-                                    ],
-                                    child: BetAmountPage(
-                                      betAmount: betButtonState.betAmount,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Palette.cream,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                height: 90,
-                                width: 170,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Expanded(
-                                        child: SizedBox(),
-                                      ),
-                                      Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: Text(
-                                            // ignore: lines_longer_than_80_chars
-                                            '${betButtonState.betAmount}',
-                                            style: GoogleFonts.nunito(
-                                              color: Palette.green,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Palette.darkGrey,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(6),
-                                  topRight: Radius.circular(6),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
-                                  ),
-                                ],
-                              ),
-                              height: 40,
-                              width: 174,
-                              child: Center(
-                                child: Text(
-                                  'BET AMOUNT',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 18,
-                                    color: Palette.cream,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 11.0),
-                          child: Text(
-                            (whichBetSystemFromEnum(betButtonState.betType)),
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 16,
-                              color: Palette.cream,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 174,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Visibility(
-                            visible: betButtonState.status ==
-                                    NhlBetButtonStatus.placing
-                                ? false
-                                : true,
-                            replacement: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 6.5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const CircularProgressIndicator(
-                                    color: Palette.cream,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 9),
-                              child: DefaultButton(
-                                text: 'PLACE BET',
-                                action: () async {
-                                  await context
-                                      .read<NhlBetButtonCubit>()
-                                      .placeBet(
-                                        isMinimumVersion: isMinimumVersion,
-                                        betButtonState: betButtonState,
-                                        context: context,
-                                        balanceAmount: balanceAmount,
-                                        username: username,
-                                        currentUserId: currentUserId,
-                                      );
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+        final isPointSpread = betButtonState.betType == Bet.pts;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+          child: Stack(
+            children: [
+              Container(
+                  width: 390,
+                  margin: const EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Palette.cream,
                     ),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  // SizedBox(
-                  //   width: 18,
-                  // ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 190),
-                    child: Text(
-                      '@',
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.cream,
-                      ),
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    color: Palette.lightGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Column(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              betButtonState.homeTeamData.city,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.green,
-                              ),
-                            ),
-                            Text(
-                              betButtonState.homeTeamData.name.toUpperCase(),
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.green,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Palette.cream,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              height: 90,
-                              width: 170,
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Expanded(
-                                      child: SizedBox(),
-                                    ),
-                                    Center(
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: Text(
-                                          '${betButtonState.toWinAmount}',
-                                          style: GoogleFonts.nunito(
-                                            color: Palette.green,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                            Center(
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                text: TextSpan(
+                                  text: betButtonState.winTeam ==
+                                          BetButtonWin.home
+                                      ? betButtonState.homeTeamData.name
+                                          .toUpperCase()
+                                      : betButtonState.awayTeamData.name
+                                          .toUpperCase(),
+                                  style: Styles.homeTeam,
+                                  children: <TextSpan>[
+                                    isMoneyline
+                                        ? const TextSpan(
+                                            text: ' (ML)',
+                                          )
+                                        : isPointSpread
+                                            ? TextSpan(
+                                                text:
+                                                    ' ${betButtonState.text.split(' ').first} (PTS)',
+                                              )
+                                            : TextSpan(
+                                                text:
+                                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                                style: Styles.awayTeam,
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                    text:
+                                                        ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT)',
+                                                    style: Styles.homeTeam,
+                                                  ),
+                                                ],
+                                              ),
                                   ],
                                 ),
                               ),
                             ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Palette.darkGrey,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(6),
-                                  topRight: Radius.circular(6),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
-                                  ),
-                                ],
+                            Center(
+                              child: Text(
+                                betButtonState.league.toUpperCase(),
+                                style: Styles.betSlipBoxNormalText,
                               ),
-                              height: 40,
-                              width: 174,
-                              child: Center(
-                                child: Text(
-                                  'TO WIN',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 18,
-                                    color: Palette.cream,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Visibility(
+                                    visible: betButtonState.status ==
+                                            NhlBetButtonStatus.placing
+                                        ? false
+                                        : true,
+                                    replacement: const Padding(
+                                      padding: EdgeInsets.only(bottom: 5),
+                                      child: Center(
+                                        child: SizedBox(
+                                          height: 25,
+                                          width: 25,
+                                          child: CircularProgressIndicator(
+                                            color: Palette.cream,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 9),
+                                      child: DefaultButton(
+                                        text: 'PLACE BET',
+                                        action: () async {
+                                          await context
+                                              .read<NhlBetButtonCubit>()
+                                              .placeBet(
+                                                isMinimumVersion:
+                                                    isMinimumVersion,
+                                                betButtonState: betButtonState,
+                                                context: context,
+                                                balanceAmount: balanceAmount,
+                                                username: username,
+                                                currentUserId: currentUserId,
+                                              );
+                                        },
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
+                                const Expanded(child: SizedBox()),
+                                const SizedBox(width: 10),
+                                Text(
+                                  '@ ${betButtonState.text.split(' ').last}',
+                                  style: Styles.betSlipSmallBoldText,
+                                ),
+                                const SizedBox(width: 10),
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => MultiBlocProvider(
+                                        providers: [
+                                          BlocProvider.value(
+                                            value: context
+                                                .read<NhlBetButtonCubit>(),
+                                          ),
+                                        ],
+                                        child: BetAmountPage(
+                                          betAmount: betButtonState.betAmount,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Palette.cream,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    height: 35,
+                                    width: 60,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Text(
+                                        '\$ ${betButtonState.betAmount}',
+                                        style: Styles.greenTextBold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  '\$ ${betButtonState.toWinAmount}',
+                                  style: Styles.betSlipBoxNormalText,
+                                ),
+                                const SizedBox(width: 15),
+                              ],
+                            ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            betButtonState.text,
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 16,
-                              color: Palette.cream,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 174,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: DefaultButton(
-                            color: Palette.red,
-                            elevation: 0,
-                            text: 'CANCEL',
-                            action: () {
-                              context
-                                  .read<NhlBetButtonCubit>()
-                                  .unclickBetButton();
-                              context.read<BetSlipCubit>().removeBetSlip(
-                                    betSlipDataId: betButtonState.uniqueId,
-                                  );
-                            },
-                          ),
-                        ),
-                      ],
+                      ),
+                    ),
+                  )),
+              Positioned(
+                top: 0,
+                right: 8,
+                child: InkWell(
+                  onTap: () {
+                    context.read<NhlBetButtonCubit>().unclickBetButton();
+                    context.read<BetSlipCubit>().removeBetSlip(
+                          betSlipDataId: betButtonState.uniqueId,
+                        );
+                  },
+                  child: const CircleAvatar(
+                    radius: 10,
+                    backgroundColor: Palette.cream,
+                    child: Icon(
+                      Icons.close,
+                      color: Palette.darkGrey,
+                      size: 16,
                     ),
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: Center(
-                child: Text(
-                    DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                      betButtonState.game.dateTime.toLocal(),
-                    ),
-                    style: GoogleFonts.nunito(
-                      color: Palette.cream,
-                      fontSize: 14,
-                    )),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: CountdownTimer(
-                  endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                      betButtonState.game.dateTime),
-                  widgetBuilder: (_, CurrentRemainingTime time) {
-                    if (time == null) {
-                      return Text(
-                        betButtonState.game.status,
-                        style: GoogleFonts.nunito(
-                          color: Palette.red,
-                          fontSize: 15,
-                        ),
-                      );
-                    }
-
-                    return Text(
-                      'Starting in  ${getRemainingTimeText(time: time)}',
-                      style: GoogleFonts.nunito(
-                        fontSize: 15,
-                        color: Palette.red,
-                      ),
-                    );
-                  },
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: 0,
+                left: 15,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Palette.cream,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Palette.darkGrey,
+                  ),
+                  height: 20,
+                  width: 85,
+                  child: Center(
+                    child: Text(
+                      (whichBetSystemFromEnum(betButtonState.betType)),
+                      style: GoogleFonts.nunito(
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         );
       },
     );
@@ -704,7 +520,7 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: 174,
+      width: 110,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
         child: ElevatedButton(
@@ -723,62 +539,9 @@ class DefaultButton extends StatelessWidget {
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
           child: Text(
             text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Styles.betSlipButtonText,
           ),
           onPressed: action,
-        ),
-      ),
-    );
-  }
-}
-
-class AbstractCard extends StatelessWidget {
-  const AbstractCard({
-    Key key,
-    @required this.widgets,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.padding = const EdgeInsets.symmetric(
-      horizontal: 12.5,
-      vertical: 12.0,
-    ),
-  }) : super(key: key);
-
-  final List<Widget> widgets;
-  final CrossAxisAlignment crossAxisAlignment;
-  final EdgeInsetsGeometry padding;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      child: Container(
-        width: 390,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Palette.cream,
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Card(
-          margin: EdgeInsets.zero,
-          color: Palette.lightGrey,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Container(
-              padding: padding,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: crossAxisAlignment,
-                children: widgets,
-              ),
-            ),
-          ),
         ),
       ),
     );

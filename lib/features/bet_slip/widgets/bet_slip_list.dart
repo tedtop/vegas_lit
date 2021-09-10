@@ -49,15 +49,26 @@ class ParlayBetSlipList extends StatelessWidget {
         key: Key(
           '${betSlipState.parlayBetSlipCard.length}',
         ),
-        reverse: true,
+        //reverse: true,
         shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: betSlipState.parlayBetSlipCard.length,
         itemBuilder: (context, index) {
-          return Center(
+          if (index == betSlipState.parlayBetSlipCard.length - 1)
+            return Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 380),
+                child: betSlipState.parlayBetSlipCard[
+                    betSlipState.parlayBetSlipCard.length - index - 1],
+              ),
+            );
+          return Align(
+            alignment: Alignment.topCenter,
+            heightFactor: 0.88,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 380),
-              child: betSlipState.parlayBetSlipCard[index],
+              child: betSlipState.parlayBetSlipCard[
+                  betSlipState.parlayBetSlipCard.length - index - 1],
             ),
           );
         },
