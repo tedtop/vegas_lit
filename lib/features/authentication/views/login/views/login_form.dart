@@ -93,7 +93,9 @@ class _EmailInput extends StatelessWidget {
         return SizedBox(
           width: width > 500 ? 333.34 : width / 1.5,
           child: Theme(
-            data: Theme.of(context).copyWith(accentColor: Colors.white),
+            data: Theme.of(context).copyWith(
+                colorScheme:
+                    ColorScheme.fromSwatch().copyWith(secondary: Colors.white)),
             child: TextField(
                 inputFormatters: [
                   FilteringTextInputFormatter.deny(RegExp(r'\s')),
@@ -132,7 +134,9 @@ class _PasswordInput extends StatelessWidget {
         return SizedBox(
           width: width > 500 ? 333.34 : width / 1.5,
           child: Theme(
-            data: Theme.of(context).copyWith(accentColor: Colors.white),
+            data: Theme.of(context).copyWith(
+                colorScheme:
+                    ColorScheme.fromSwatch().copyWith(secondary: Colors.white)),
             child: TextField(
                 cursorColor: Palette.cream,
                 key: const Key('loginForm_passwordInput_textField'),
