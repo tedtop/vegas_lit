@@ -582,6 +582,20 @@ class CloudFirestoreClient {
     );
   }
 
+  Future<void> updateGroupAvatar(
+      {@required String avatarUrl, @required String groupId}) async {
+    final updateGroupAvatarBatch = _firebaseFirestore.batch();
+    final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
+
+    updateGroupAvatarBatch.set(
+        groupRef,
+        {
+          'avatarUrl': avatarUrl,
+        },
+        SetOptions(merge: true));
+    await updateGroupAvatarBatch.commit();
+  }
+
   Future<void> addNewUserToGroup({
     @required String groupId,
     @required Map<String, bool> users,

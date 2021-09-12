@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -187,6 +188,7 @@ class PrivateGroupListTile extends StatelessWidget {
           Navigator.push(
             context,
             GroupDetails.route(
+              storageRepository: context.read<StorageRepository>(),
               groupId: _group.id,
               userId: userId,
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -16,9 +17,12 @@ class GroupsPage extends StatelessWidget {
   static MaterialPageRoute route({@required HomeCubit cubit}) {
     return MaterialPageRoute(
       builder: (context) {
-        return BlocProvider.value(
-          value: cubit,
-          child: const GroupsPage._(),
+        return RepositoryProvider(
+          create: (context) => StorageRepository(),
+          child: BlocProvider.value(
+            value: cubit,
+            child: const GroupsPage._(),
+          ),
         );
       },
     );
@@ -70,6 +74,7 @@ class GroupsPage extends StatelessWidget {
               context,
               GroupAdd.route(
                 homeCubit: context.read<HomeCubit>(),
+                storageRepository: context.read<StorageRepository>(),
               ),
             );
           },

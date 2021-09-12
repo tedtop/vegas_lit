@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -38,7 +39,7 @@ class PublicGroups extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
             child: RichText(
               text: TextSpan(
-                text: 'You can join or ',
+                text: 'Join or ',
                 style: Styles.openBetsNormalText,
                 children: [
                   TextSpan(
@@ -50,12 +51,14 @@ class PublicGroups extends StatelessWidget {
                             context,
                             GroupAdd.route(
                               homeCubit: context.read<HomeCubit>(),
+                              storageRepository:
+                                  context.read<StorageRepository>(),
                             ),
                           );
                         }),
                   const TextSpan(
                       text:
-                          ' to play with your friends together or to make new friends by playing together.')
+                          ' to play with your friends in a private or public leaderboard. Send out invites to your friends or choose public to allow new friends join freely!')
                 ],
               ),
             ),
@@ -187,6 +190,7 @@ class PublicGroupListTile extends StatelessWidget {
           Navigator.push(
             context,
             GroupDetails.route(
+              storageRepository: context.read<StorageRepository>(),
               groupId: _group.id,
               userId: userId,
             ),

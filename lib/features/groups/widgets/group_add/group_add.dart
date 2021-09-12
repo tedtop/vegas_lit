@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../../config/extensions.dart';
 import '../../../../config/palette.dart';
@@ -14,7 +15,9 @@ import 'cubit/group_add_cubit.dart';
 class GroupAdd extends StatefulWidget {
   GroupAdd._({Key key}) : super(key: key);
 
-  static MaterialPageRoute route({@required HomeCubit homeCubit}) {
+  static MaterialPageRoute route(
+      {@required HomeCubit homeCubit,
+      @required StorageRepository storageRepository}) {
     return MaterialPageRoute(
       builder: (context) {
         return BlocProvider.value(
@@ -22,6 +25,7 @@ class GroupAdd extends StatefulWidget {
           child: BlocProvider(
             create: (context) => GroupAddCubit(
               groupsRepository: context.read<GroupsRepository>(),
+              storageRepository: storageRepository,
             ),
             child: GroupAdd._(),
           ),
@@ -125,36 +129,78 @@ class _GroupAddState extends State<GroupAdd> {
               ),
               Row(
                 children: [
-                  SizedBox(
-                    width: 150,
-                    child: RadioListTile(
-                      value: true,
-                      groupValue: _isPublic,
-                      onChanged: (val) => setState(() {
-                        _isPublic = val;
-                      }),
-                      title: Text(
-                        'Public',
-                        style: Styles.normalText,
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 150,
+                        child: RadioListTile(
+                          value: true,
+                          groupValue: _isPublic,
+                          onChanged: (val) => setState(() {
+                            _isPublic = val;
+                          }),
+                          title: Text(
+                            'Public',
+                            style: Styles.normalText,
+                          ),
+                          activeColor: Palette.green,
+                        ),
                       ),
-                      activeColor: Palette.green,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 150,
-                    child: RadioListTile(
-                      value: false,
-                      groupValue: _isPublic,
-                      onChanged: (val) => setState(() {
-                        _isPublic = val;
-                      }),
-                      title: Text(
-                        'Private',
-                        style: Styles.normalText,
+                      SizedBox(
+                        width: 150,
+                        child: RadioListTile(
+                          value: false,
+                          groupValue: _isPublic,
+                          onChanged: (val) => setState(() {
+                            _isPublic = val;
+                          }),
+                          title: Text(
+                            'Private',
+                            style: Styles.normalText,
+                          ),
+                          activeColor: Palette.green,
+                        ),
                       ),
-                      activeColor: Palette.green,
-                    ),
+                    ],
                   ),
+                  const SizedBox(width: 50),
+                  BlocBuilder<GroupAddCubit, GroupAddState>(
+                    builder: (context, state) {
+                      if (state.avatarUrl != null)
+                        return SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                              child: Image.network(state.avatarUrl)),
+                        );
+                      return InkWell(
+                        onTap: () {
+                          context.read<GroupAddCubit>().pickAvatar();
+                        },
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Palette.cream),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Upload Icon',
+                              style: Styles.normalTextBold,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )
                 ],
               ),
               const SizedBox(height: 10),
@@ -285,6 +331,7 @@ class _GroupAddState extends State<GroupAdd> {
                                   group: Group(
                                     adminId: userData.uid,
                                     adminName: userData.username,
+                                    avatarUrl: state.avatarUrl,
                                     createdBy: userData.uid,
                                     createdAt: ESTDateTime.fetchTimeEST(),
                                     description:

@@ -19,6 +19,11 @@ class GroupsRepository {
   Future<void> addNewGroup({@required Group group}) =>
       _databaseProvider.addNewGroup(group: group);
 
+  Future<void> updateGroupAvatar(
+          {@required String avatarUrl, @required String groupId}) =>
+      _databaseProvider.updateGroupAvatar(
+          avatarUrl: avatarUrl, groupId: groupId);
+
   Stream<Group> fetchGroupDetails({@required String groupId}) =>
       _databaseProvider.fetchGroupDetails(groupId: groupId);
 

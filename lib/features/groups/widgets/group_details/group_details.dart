@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -15,26 +16,37 @@ import 'cubit/group_details_cubit.dart';
 import 'cubit/user_search_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
-  GroupDetails._({Key key}) : super(key: key);
+  GroupDetails._({Key key, @required this.userId}) : super(key: key);
 
   static MaterialPageRoute route(
-      {@required String groupId, @required String userId}) {
+      {@required StorageRepository storageRepository,
+      @required String groupId,
+      @required String userId}) {
     return MaterialPageRoute(
       builder: (context) {
-        return BlocProvider(
-          create: (context) => GroupDetailsCubit(
-            groupsRepository: context.read<GroupsRepository>(),
-          )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
-          child: BlocProvider(
-            create: (context) => UserSearchCubit(
-              userRepository: context.read<UserRepository>(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => GroupDetailsCubit(
+                groupsRepository: context.read<GroupsRepository>(),
+                storageRepository: storageRepository,
+              )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
             ),
-            child: GroupDetails._(),
+            BlocProvider(
+              create: (context) => UserSearchCubit(
+                userRepository: context.read<UserRepository>(),
+              ),
+            ),
+          ],
+          child: GroupDetails._(
+            userId: userId,
           ),
         );
       },
     );
   }
+
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +75,7 @@ class GroupDetails extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    const GroupDetailsDescription(),
+                    GroupDetailsDescription(userId: userId),
                     const SizedBox(height: 10),
                     const GroupDetailsJoinButton(),
                     const SizedBox(height: 10),
@@ -90,7 +102,10 @@ class GroupDetails extends StatelessWidget {
 }
 
 class GroupDetailsDescription extends StatelessWidget {
-  const GroupDetailsDescription({Key key}) : super(key: key);
+  const GroupDetailsDescription({Key key, @required this.userId})
+      : super(key: key);
+
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +131,62 @@ class GroupDetailsDescription extends StatelessWidget {
                     style: Styles.pageTitle,
                   ),
                 ),
-                const Center(
-                  child: Icon(
-                    Icons.star,
-                    size: 50,
-                  ),
+                const SizedBox(height: 10),
+                Stack(
+                  children: [
+                    state.group.avatarUrl != null
+                        ? SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                                child: Image.network(state.group.avatarUrl)),
+                          )
+                        : const Center(
+                            child: Icon(
+                              Icons.star,
+                              size: 50,
+                            ),
+                          ),
+                    Positioned(
+                      bottom: 5,
+                      right: 0,
+                      child: state.group.adminId == userId
+                          ? InkWell(
+                              onTap: () {
+                                context
+                                    .read<GroupDetailsCubit>()
+                                    .pickAvatar(groupId: state.group.id);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Palette.darkGrey,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: Palette.cream)),
+                                padding: const EdgeInsets.all(3),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.edit,
+                                      color: Palette.cream,
+                                      size: 12,
+                                    ),
+                                    const SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text(
+                                      'Edit',
+                                      style: GoogleFonts.nunito(fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 Padding(

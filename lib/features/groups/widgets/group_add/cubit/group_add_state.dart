@@ -8,11 +8,10 @@ enum GroupAddStatus {
 }
 
 class GroupAddState extends Equatable {
-  GroupAddState({
-    this.status = GroupAddStatus.initial,
-  });
+  GroupAddState({this.status = GroupAddStatus.initial, this.avatarUrl});
 
   final GroupAddStatus status;
+  final String avatarUrl;
 
   @override
   List<Object> get props => [status];
