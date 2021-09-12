@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/data/models/bet.dart';
@@ -15,6 +15,8 @@ import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
 import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/data/repositories/bets_repository.dart';
+
+import '../../../../../../../config/extensions.dart';
 
 part 'parlay_bet_button_state.dart';
 
@@ -38,7 +40,11 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
       final toWinAmount = await parlayWinAmountCalculation(
           betDataList: betDataList, betAmount: state.betAmount);
       final betIdList = betDataList.map((e) => e.id).toList()..sort();
-      final uniqueId = '${league.toUpperCase()}-$betIdList-$uid';
+      var allIdString = '';
+      await Future.wait(
+        betIdList.map((e) async => allIdString = '$allIdString-$e'),
+      );
+      final uniqueId = '${league.toUpperCase()}-$allIdString';
 
       emit(ParlayBetButtonState(
         betAmount: state.betAmount,
@@ -56,11 +62,49 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     @required BuildContext context,
     @required int balanceAmount,
     @required String username,
+    @required List<BetData> betList,
     @required String currentUserId,
   }) async {
+    // final isBetExists = await _betsRepository.isBetExist(
+    //   betId: state.uniqueId,
+    //   uid: state.uid,
+    // );
+
+    final isStartTimeList = betList.map(
+      (bet) {
+        if (bet is MlbBetData) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        } else if (bet is NbaBetData) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        } else if (bet is NcaabBetData) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        } else if (bet is NcaafBetData) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        } else if (bet is NflBetData) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        } else if (bet is NhlBetData) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        } else {
+          return false;
+        }
+      },
+    ).toList();
+    final isTimeExceeds = isStartTimeList.contains(true);
+
     if (isMinimumVersion) {
-      if (true) {
-        // if (state.game.dateTime.isBefore(ESTDateTime.fetchTimeEST())) {
+      if (isTimeExceeds) {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(
@@ -82,13 +126,12 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
                 const SnackBar(
                   duration: Duration(milliseconds: 2000),
                   content: Text(
-                    // ignore: lines_longer_than_80_chars
                     "You're out of funds. Try watching the video in your bet slip.",
                   ),
                 ),
               );
           } else {
-            // emit(state.copyWith(status: ParlayBetButtonCubit.placing));
+            emit(state.copyWith(status: ParlayBetButtonStatus.placing));
             await context.read<ParlayBetButtonCubit>().updateOpenBets(
                   betAmount: state.betAmount,
                   betsData: ParlayBets(
@@ -103,12 +146,12 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
                     week: ESTDateTime.fetchTimeEST().weekStringVL,
                     clientVersion: await _getAppVersion(),
                     dataProvider: 'sportsdata.io',
-                    bets: [],
+                    bets: betList,
                   ),
                   currentUserId: currentUserId,
                 );
 
-            // emit(state.copyWith(status: MlbBetButtonStatus.placed));
+            emit(state.copyWith(status: ParlayBetButtonStatus.placed));
           }
         }
       }
@@ -126,24 +169,6 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     }
   }
 
-  Future<bool> clickBetButton() async {
-    final isBetExists = await _betsRepository.isBetExist(
-      betId: state.uniqueId,
-      uid: state.uid,
-    );
-    // if (isBetExists) {
-    //   emit(
-    //     state.copyWith(status: MlbBetButtonStatus.alreadyPlaced),
-    //   );
-    //   return true;
-    // } else {
-    //   emit(
-    //     state.copyWith(status: MlbBetButtonStatus.clicked),
-    //   );
-    //   return false;
-    // }
-  }
-
   Future<void> updateOpenBets({
     @required String currentUserId,
     @required BetData betsData,
@@ -156,7 +181,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     );
   }
 
-  void updateBetAmount(
+  Future<void> updateBetAmount(
       {@required int betAmount, @required List<BetData> betList}) async {
     final toWinAmount = await parlayWinAmountCalculation(
       betDataList: betList,
@@ -243,7 +268,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     final grossProfit = multiplyValue * betAmount;
     final parlayProfit = grossProfit - betAmount;
 
-    return parlayProfit.toInt();
+    return parlayProfit.toInt().abs();
   }
 
   String whichBetSystemToSave({@required Bet betType}) {

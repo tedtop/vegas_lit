@@ -78,7 +78,7 @@ class ParlayBets extends BetData {
 
   @override
   Map<String, dynamic> toMap() => {
-        'bets': bets,
+        'bets': bets.map((e) => e.toMap()).toList(),
         'id': id,
         'uid': uid,
         'betAmount': betAmount,

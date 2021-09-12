@@ -1,6 +1,6 @@
 part of 'bet_slip_cubit.dart';
 
-enum BetSlipStatus { loading, empty, opened, added, removed }
+enum BetSlipStatus { loading, opened }
 
 class BetSlipState extends Equatable {
   const BetSlipState._({
