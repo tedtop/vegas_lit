@@ -150,17 +150,18 @@ class NbaParlayBetSlipCard extends StatelessWidget {
                     color: Palette.darkGrey,
                   ),
                   height: 20,
-                  width: 85,
+                  width: 90,
                   child: Center(
                     child: Text(
                       (whichBetSystemFromEnum(betButtonState.betType)),
                       style: GoogleFonts.nunito(
                         fontSize: 10,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );

@@ -126,11 +126,12 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                         ? false
                                         : true,
                                     replacement: const Padding(
-                                      padding: EdgeInsets.only(bottom: 5),
+                                      padding:
+                                          EdgeInsets.only(top: 10, bottom: 15),
                                       child: Center(
                                         child: SizedBox(
-                                          height: 25,
-                                          width: 25,
+                                          height: 30,
+                                          width: 30,
                                           child: CircularProgressIndicator(
                                             color: Palette.cream,
                                           ),
@@ -244,17 +245,18 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                     color: Palette.darkGrey,
                   ),
                   height: 20,
-                  width: 85,
+                  width: 90,
                   child: Center(
                     child: Text(
                       (whichBetSystemFromEnum(betButtonState.betType)),
                       style: GoogleFonts.nunito(
                         fontSize: 10,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );

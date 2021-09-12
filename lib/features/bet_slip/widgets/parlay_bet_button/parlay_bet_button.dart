@@ -106,96 +106,107 @@ class ParlayBetSlipButton extends StatelessWidget {
                   break;
               }
             },
-            child: AbstractCard(
-              padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-              crossAxisAlignment: CrossAxisAlignment.start,
-              widgets: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Visibility(
-                        visible: betButtonState.status ==
-                                ParlayBetButtonStatus.placing
-                            ? false
-                            : true,
-                        replacement: const Padding(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: Center(
-                            child: SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: CircularProgressIndicator(
-                                color: Palette.cream,
-                              ),
-                            ),
-                          ),
-                        ),
-                        child: DefaultButton(
-                          text: 'PLACE BET',
-                          action: () async {
-                            await context.read<ParlayBetButtonCubit>().placeBet(
-                                  isMinimumVersion: isMinimumVersion,
-                                  context: context,
-                                  balanceAmount: balanceAmount,
-                                  username: username,
-                                  currentUserId: currentUserId,
-                                  betList: betList,
-                                );
-                          },
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => MultiBlocProvider(
-                            providers: [
-                              BlocProvider.value(
-                                value: context.read<ParlayBetButtonCubit>(),
-                              ),
-                            ],
-                            child: BetAmountPage(
-                              betAmount: betButtonState.betAmount,
-                              betList: betList,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 2,
+                bottom: 15,
+                left: 6,
+                right: 6,
+              ),
+              child: AbstractCard(
+                padding: const EdgeInsets.fromLTRB(12.5, 8, 12.5, 0),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                widgets: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100,
                         decoration: BoxDecoration(
-                          color: Palette.cream,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        margin: const EdgeInsets.only(bottom: 8),
-                        height: 35,
-                        width: 60,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text(
-                            '\$ ${betButtonState.betAmount}',
-                            style: Styles.greenTextBold,
+                        child: Visibility(
+                          visible: betButtonState.status ==
+                                  ParlayBetButtonStatus.placing
+                              ? false
+                              : true,
+                          replacement: const Padding(
+                            padding: EdgeInsets.only(top: 10, bottom: 15),
+                            child: Center(
+                              child: SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: CircularProgressIndicator(
+                                  color: Palette.cream,
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: DefaultButton(
+                            text: 'PLACE BET',
+                            action: () async {
+                              await context
+                                  .read<ParlayBetButtonCubit>()
+                                  .placeBet(
+                                    isMinimumVersion: isMinimumVersion,
+                                    context: context,
+                                    balanceAmount: balanceAmount,
+                                    username: username,
+                                    currentUserId: currentUserId,
+                                    betList: betList,
+                                  );
+                            },
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Text(
-                        '\$ ${betButtonState.toWinAmount}',
-                        style: Styles.betSlipBoxNormalText,
+                      const SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider.value(
+                                  value: context.read<ParlayBetButtonCubit>(),
+                                ),
+                              ],
+                              child: BetAmountPage(
+                                betAmount: betButtonState.betAmount,
+                                betList: betList,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Palette.cream,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          margin: const EdgeInsets.only(bottom: 8),
+                          height: 35,
+                          width: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Text(
+                              '\$ ${betButtonState.betAmount}',
+                              style: Styles.greenTextBold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const Expanded(child: SizedBox()),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Text(
+                          '\$ ${betButtonState.toWinAmount}',
+                          style: Styles.betSlipBoxNormalText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
