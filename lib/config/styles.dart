@@ -74,6 +74,12 @@ class Styles {
 
   /// --> BET HISTORY
   static final betHistoryCardNormal = VLTextStyle.nunito.creamColored.size(14);
+  static final betHistoryCardBold =
+      VLTextStyle.nunito.creamColored.size(12).bold;
+  static final betHistoryCardBoldGreen =
+      VLTextStyle.nunito.greenColored.size(12).bold;
+  static final betHistoryCardBoldRed =
+      VLTextStyle.nunito.redColored.size(12).bold;
   static final betHistoryTeamNotAway = VLTextStyle.nunito.greenColored.size(14);
   static final betHistoryTeamAway = VLTextStyle.nunito.creamColored.size(14);
   static final betHistoryAmount = VLTextStyle.nunito.creamColored.size(24).bold;
