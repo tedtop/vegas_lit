@@ -132,7 +132,11 @@ class Styles {
 
   static final openBetsEmpty = VLTextStyle.nunito.creamColored.size(18).w300;
   static final openBetsCardNormal = VLTextStyle.nunito.creamColored.size(14);
-
+  static final openBetsCardBold = VLTextStyle.nunito.creamColored.size(12).bold;
+  static final openBetsCardBoldGreen =
+      VLTextStyle.nunito.greenColored.size(12).bold;
+  static final openBetsCardBoldRed =
+      VLTextStyle.nunito.redColored.size(12).bold;
   static final openBetsCardTime = VLTextStyle.nunito.redColored.size(14).bold;
 
   static final openBetsCardBetText =
