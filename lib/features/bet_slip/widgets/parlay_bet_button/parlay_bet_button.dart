@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -113,6 +112,7 @@ class ParlayBetSlipButton extends StatelessWidget {
               widgets: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       width: 100,
@@ -136,23 +136,18 @@ class ParlayBetSlipButton extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 9),
-                          child: DefaultButton(
-                            text: 'PLACE BET',
-                            action: () async {
-                              await context
-                                  .read<ParlayBetButtonCubit>()
-                                  .placeBet(
-                                    isMinimumVersion: isMinimumVersion,
-                                    context: context,
-                                    balanceAmount: balanceAmount,
-                                    username: username,
-                                    currentUserId: currentUserId,
-                                    betList: betList,
-                                  );
-                            },
-                          ),
+                        child: DefaultButton(
+                          text: 'PLACE BET',
+                          action: () async {
+                            await context.read<ParlayBetButtonCubit>().placeBet(
+                                  isMinimumVersion: isMinimumVersion,
+                                  context: context,
+                                  balanceAmount: balanceAmount,
+                                  username: username,
+                                  currentUserId: currentUserId,
+                                  betList: betList,
+                                );
+                          },
                         ),
                       ),
                     ),
@@ -178,6 +173,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                           color: Palette.cream,
                           borderRadius: BorderRadius.circular(6),
                         ),
+                        margin: const EdgeInsets.only(bottom: 8),
                         height: 35,
                         width: 60,
                         child: Padding(
@@ -190,9 +186,12 @@ class ParlayBetSlipButton extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Text(
-                      '\$ ${betButtonState.toWinAmount}',
-                      style: Styles.betSlipBoxNormalText,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        '\$ ${betButtonState.toWinAmount}',
+                        style: Styles.betSlipBoxNormalText,
+                      ),
                     ),
                   ],
                 ),
@@ -444,7 +443,7 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: 174,
+      width: 110,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
         child: ElevatedButton(
@@ -463,10 +462,7 @@ class DefaultButton extends StatelessWidget {
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
           child: Text(
             text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Styles.betSlipButtonText,
           ),
           onPressed: action,
         ),
@@ -493,7 +489,7 @@ class AbstractCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Container(
         width: 390,
         decoration: BoxDecoration(
