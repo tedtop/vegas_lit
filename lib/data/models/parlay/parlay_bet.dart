@@ -1,5 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 import '../bet.dart';
 
@@ -41,7 +47,30 @@ class ParlayBets extends BetData {
     final map = snapshot.data();
 
     return ParlayBets(
-      bets: map['bets'] != null ? List<BetData>.from(map['bets']) : null,
+      bets: map['bets'] != null
+          ? List<BetData>.from(map['bets'].map((bet) {
+              switch (bet['league'] as String) {
+                case 'mlb':
+                  return MlbBetData.fromFirestore(snapshot);
+                  break;
+                case 'nba':
+                  return NbaBetData.fromFirestore(snapshot);
+                  break;
+                case 'cbb':
+                  return NcaabBetData.fromFirestore(snapshot);
+                  break;
+                case 'cfb':
+                  return NcaafBetData.fromFirestore(snapshot);
+                  break;
+                case 'nfl':
+                  return NflBetData.fromFirestore(snapshot);
+                  break;
+                case 'nhl':
+                  return NhlBetData.fromFirestore(snapshot);
+                  break;
+              }
+            }))
+          : null,
       id: map['id'],
       gameStartDateTime: map['gameStartDateTime'] as String,
       uid: map['uid'],
