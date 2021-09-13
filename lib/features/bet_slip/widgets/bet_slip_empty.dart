@@ -70,11 +70,13 @@ class ParlayBetSlipWarning extends StatelessWidget {
               isMinimum
                   ? Text(
                       'A minimum of 2 picks are required to create a parlay',
-                      style: Styles.betSlipBoxLargeText,
+                      style: Styles.normalTextBold,
+                      textAlign: TextAlign.center,
                     )
                   : Text(
                       'A maximum of 3 picks are required to create a parlay',
-                      style: Styles.betSlipBoxLargeText,
+                      style: Styles.normalTextBold,
+                      textAlign: TextAlign.center,
                     ),
             ],
           ),

@@ -34,7 +34,7 @@ class ParlayBetHistoryCard extends StatelessWidget {
             return Align(
               alignment: Alignment.topCenter,
               heightFactor:
-                  betHistoryData.bets.length - 1 == index ? 1.0 : 0.80,
+                  index == betHistoryData.bets.length - 1 ? 1.0 : 0.80,
               child: Builder(builder: (context) {
                 switch (betHistoryData
                     .bets[betHistoryData.bets.length - index - 1].league) {

@@ -134,7 +134,7 @@ class NcaafOpenBetCard extends StatelessWidget {
                                     'Started at ${DateFormat('hh:mm a').format(
                                       startTime,
                                     )} EST',
-                                    style: Styles.openBetsCardTime,
+                                    style: Styles.openBetsCardBoldRed,
                                   ),
                                 );
                               }

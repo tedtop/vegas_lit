@@ -103,6 +103,8 @@ class Styles {
       VLTextStyle.nunito.creamColored.size(12).bold;
   static final betSlipButtonText =
       VLTextStyle.nunito.creamColored.size(13).bold;
+  static final betSlipHomeTeam = VLTextStyle.nunito.greenColored.size(14).bold;
+  static final betSlipAwayTeam = VLTextStyle.nunito.creamColored.size(14);
 
   /// --> DRAWER PAGES
   /// --> GAMES

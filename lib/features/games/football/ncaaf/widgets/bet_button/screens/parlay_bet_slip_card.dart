@@ -58,7 +58,7 @@ class NcaafParlayBetSlipCard extends StatelessWidget {
                                             .toUpperCase()
                                         : betButtonState.awayTeamData.name
                                             .toUpperCase(),
-                                style: Styles.homeTeam,
+                                style: Styles.betSlipHomeTeam,
                                 children: <TextSpan>[
                                   isMoneyline
                                       ? const TextSpan(
@@ -72,12 +72,12 @@ class NcaafParlayBetSlipCard extends StatelessWidget {
                                           : TextSpan(
                                               text:
                                                   ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
-                                              style: Styles.awayTeam,
+                                              style: Styles.betSlipAwayTeam,
                                               children: <TextSpan>[
                                                 TextSpan(
                                                   text:
                                                       ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT)',
-                                                  style: Styles.homeTeam,
+                                                  style: Styles.betSlipHomeTeam,
                                                 ),
                                               ],
                                             ),

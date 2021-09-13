@@ -22,7 +22,7 @@ class ParlayOpenBetCard extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Align(
               alignment: Alignment.topCenter,
-              heightFactor: openBets.bets.length - 1 == index ? 1.0 : 0.80,
+              heightFactor: index == openBets.bets.length - 1 ? 1.0 : 0.80,
               child: Builder(builder: (context) {
                 switch (
                     openBets.bets[openBets.bets.length - index - 1].league) {
