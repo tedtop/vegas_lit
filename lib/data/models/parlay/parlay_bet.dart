@@ -51,22 +51,22 @@ class ParlayBets extends BetData {
           ? List<BetData>.from(map['bets'].map((bet) {
               switch (bet['league'] as String) {
                 case 'mlb':
-                  return MlbBetData.fromFirestore(snapshot);
+                  return MlbBetData.fromMap(bet);
                   break;
                 case 'nba':
-                  return NbaBetData.fromFirestore(snapshot);
+                  return NbaBetData.fromMap(bet);
                   break;
                 case 'cbb':
-                  return NcaabBetData.fromFirestore(snapshot);
+                  return NcaabBetData.fromMap(bet);
                   break;
                 case 'cfb':
-                  return NcaafBetData.fromFirestore(snapshot);
+                  return NcaafBetData.fromMap(bet);
                   break;
                 case 'nfl':
-                  return NflBetData.fromFirestore(snapshot);
+                  return NflBetData.fromMap(bet);
                   break;
                 case 'nhl':
-                  return NhlBetData.fromFirestore(snapshot);
+                  return NhlBetData.fromMap(bet);
                   break;
               }
             }))

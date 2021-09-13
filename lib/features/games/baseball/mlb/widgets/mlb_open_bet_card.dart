@@ -9,13 +9,13 @@ import '../../../../../config/styles.dart';
 import '../../../../../data/models/mlb/mlb_bet.dart';
 
 class MlbOpenBetCard extends StatelessWidget {
-  const MlbOpenBetCard({
-    Key key,
-    @required this.openBets,
-  })  : assert(openBets != null),
+  const MlbOpenBetCard(
+      {Key key, @required this.openBets, this.isParlayBet = false})
+      : assert(openBets != null),
         super(key: key);
 
   final MlbBetData openBets;
+  final bool isParlayBet;
 
   @override
   Widget build(BuildContext context) {
@@ -155,14 +155,16 @@ class MlbOpenBetCard extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            right: 8,
-            bottom: 10,
-            child: Text(
-              '\$${openBets.betProfit}',
-              style: Styles.openBetsNormalText,
-            ),
-          ),
+          !isParlayBet
+              ? Positioned(
+                  right: 8,
+                  bottom: 10,
+                  child: Text(
+                    '\$${openBets.betProfit}',
+                    style: Styles.openBetsNormalText,
+                  ),
+                )
+              : const SizedBox(),
           Positioned(
             top: -12,
             left: 15,
