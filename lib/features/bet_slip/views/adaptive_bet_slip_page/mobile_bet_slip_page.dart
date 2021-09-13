@@ -121,18 +121,19 @@ class ParlayBetSlip extends StatelessWidget {
                         ? isBetPlaced
                             ? RewardedBetSlip.route()
                             : EmptyBetSlip()
-                        : state.parlayBetSlipCard.length < 2
-                            ? const ParlayBetSlipWarning(isMinimum: true)
-                            : state.parlayBetSlipCard.length > 3
-                                ? const ParlayBetSlipWarning(isMinimum: false)
-                                : Column(
-                                    children: [
-                                      ParlayBetSlipButton.route(
-                                        betDataList: parlayBetList,
-                                      ),
-                                      const ParlayBetSlipList(),
-                                    ],
-                                  ),
+                        : Column(
+                            children: [
+                              state.parlayBetSlipCard.length < 2
+                                  ? const ParlayBetSlipWarning(isMinimum: true)
+                                  : state.parlayBetSlipCard.length > 3
+                                      ? const ParlayBetSlipWarning(
+                                          isMinimum: false)
+                                      : ParlayBetSlipButton.route(
+                                          betDataList: parlayBetList,
+                                        ),
+                              const ParlayBetSlipList(),
+                            ],
+                          ),
                     const BottomBar()
                   ],
                 );

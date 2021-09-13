@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
+import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 
 import '../../config/extensions.dart';
 import '../models/bet.dart';
@@ -126,6 +127,8 @@ class CloudFirestoreClient {
                   break;
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
+                case 'parlay':
+                  return ParlayBets.fromFirestore(snapshot);
                 default:
                   return BetData.fromFirestore(snapshot);
               }
@@ -173,6 +176,8 @@ class CloudFirestoreClient {
                   break;
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
+                case 'parlay':
+                  return ParlayBets.fromFirestore(snapshot);
                 default:
                   return BetData.fromFirestore(snapshot);
               }

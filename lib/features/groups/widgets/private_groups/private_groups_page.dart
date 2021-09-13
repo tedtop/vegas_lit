@@ -50,6 +50,8 @@ class PrivateGroups extends StatelessWidget {
                           Navigator.push(
                             context,
                             GroupAdd.route(
+                              storageRepository:
+                                  context.read<StorageRepository>(),
                               homeCubit: context.read<HomeCubit>(),
                             ),
                           );

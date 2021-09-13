@@ -328,54 +328,62 @@ class GroupDetailsJoinButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 150,
-                    child: DefaultButton(
-                      text: 'Add',
-                      action: () async {
-                        final selectedUser = await showSearch(
-                          context: context,
-                          delegate: UserSearch(
-                            context.read<UserSearchCubit>(),
-                          ),
-                        );
-                        if (selectedUser != null) {
-                          if (state.group.users.containsKey(selectedUser.uid)) {
-                            ScaffoldMessenger.of(context)
-                              ..removeCurrentSnackBar()
-                              ..showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(milliseconds: 2000),
-                                  content: Text(
-                                    'User already added',
-                                    style: GoogleFonts.nunito(),
-                                  ),
+                  state.group.adminId == userId
+                      ? SizedBox(
+                          width: 150,
+                          child: DefaultButton(
+                            text: 'Add',
+                            action: () async {
+                              final selectedUser = await showSearch(
+                                context: context,
+                                delegate: UserSearch(
+                                  context.read<UserSearchCubit>(),
                                 ),
                               );
-                          } else {
-                            final updatedUsers = state.group.users;
-                            updatedUsers[selectedUser.uid] = false;
-                            await context.read<GroupDetailsCubit>().addNewUser(
-                                  groupId: state.group.id,
-                                  users: updatedUsers,
-                                );
+                              if (selectedUser != null) {
+                                if (state.group.users
+                                    .containsKey(selectedUser.uid)) {
+                                  ScaffoldMessenger.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(
+                                      SnackBar(
+                                        duration:
+                                            const Duration(milliseconds: 2000),
+                                        content: Text(
+                                          'User already added',
+                                          style: GoogleFonts.nunito(),
+                                        ),
+                                      ),
+                                    );
+                                } else {
+                                  final updatedUsers = state.group.users;
+                                  updatedUsers[selectedUser.uid] = false;
+                                  await context
+                                      .read<GroupDetailsCubit>()
+                                      .addNewUser(
+                                        groupId: state.group.id,
+                                        users: updatedUsers,
+                                      );
 
-                            ScaffoldMessenger.of(context)
-                              ..removeCurrentSnackBar()
-                              ..showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(milliseconds: 2000),
-                                  content: Text(
-                                    'Group request sent to ${selectedUser.username}',
-                                    style: GoogleFonts.nunito(),
-                                  ),
-                                ),
-                              );
-                          }
-                        }
-                      },
-                    ),
-                  ),
+                                  ScaffoldMessenger.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(
+                                      SnackBar(
+                                        duration:
+                                            const Duration(milliseconds: 2000),
+                                        content: Text(
+                                          'Group request sent to ${selectedUser.username}',
+                                          style: GoogleFonts.nunito(),
+                                        ),
+                                      ),
+                                    );
+                                }
+                              }
+                            },
+                          ),
+                        )
+                      : Container(),
+                  const SizedBox(width: 20),
                   Center(
                     child: state.isMember
                         ? const SizedBox()

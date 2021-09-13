@@ -17,7 +17,7 @@ class NcaabBetData extends BetData {
     @required isClosed,
     @required league,
     @required this.betType,
-    @required this.gameStartDateTime,
+    @required gameStartDateTime,
     @required this.status,
     @required this.stillOpen,
     @required this.odds,
@@ -38,6 +38,7 @@ class NcaabBetData extends BetData {
     @required this.gameId,
   }) : super(
           id: id,
+          gameStartDateTime: gameStartDateTime,
           betAmount: betAmount,
           betProfit: betProfit,
           username: username,
@@ -104,7 +105,6 @@ class NcaabBetData extends BetData {
   final int gameId;
   final String betType;
   final bool stillOpen;
-  final String gameStartDateTime;
   final String status;
   final int odds;
   final String winningTeam;

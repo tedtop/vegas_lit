@@ -305,8 +305,10 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  DateFormat('E, MMM c, y @ hh:mm a')
-                                      .format(betHistoryData.gameStartDateTime),
+                                  DateFormat('E, MMM c, y @ hh:mm a').format(
+                                    DateTime.parse(
+                                        betHistoryData.gameStartDateTime),
+                                  ),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
                                     fontSize: 10,

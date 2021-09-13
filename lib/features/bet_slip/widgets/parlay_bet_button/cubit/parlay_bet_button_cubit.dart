@@ -44,7 +44,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
       await Future.wait(
         betIdList.map((e) async => allIdString = '$allIdString-$e'),
       );
-      final uniqueId = '${league.toUpperCase()}-$allIdString';
+      final uniqueId = '${league.toUpperCase()}$allIdString';
 
       emit(ParlayBetButtonState(
         betAmount: state.betAmount,
@@ -65,107 +65,108 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     @required List<BetData> betList,
     @required String currentUserId,
   }) async {
-    // final isBetExists = await _betsRepository.isBetExist(
-    //   betId: state.uniqueId,
-    //   uid: state.uid,
-    // );
-
-    final isStartTimeList = betList.map(
-      (bet) {
-        if (bet is MlbBetData) {
-          return DateTime.parse(bet.gameStartDateTime).isBefore(
-            ESTDateTime.fetchTimeEST(),
-          );
-        } else if (bet is NbaBetData) {
-          return DateTime.parse(bet.gameStartDateTime).isBefore(
-            ESTDateTime.fetchTimeEST(),
-          );
-        } else if (bet is NcaabBetData) {
-          return DateTime.parse(bet.gameStartDateTime).isBefore(
-            ESTDateTime.fetchTimeEST(),
-          );
-        } else if (bet is NcaafBetData) {
-          return DateTime.parse(bet.gameStartDateTime).isBefore(
-            ESTDateTime.fetchTimeEST(),
-          );
-        } else if (bet is NflBetData) {
-          return DateTime.parse(bet.gameStartDateTime).isBefore(
-            ESTDateTime.fetchTimeEST(),
-          );
-        } else if (bet is NhlBetData) {
-          return DateTime.parse(bet.gameStartDateTime).isBefore(
-            ESTDateTime.fetchTimeEST(),
-          );
-        } else {
-          return false;
-        }
-      },
-    ).toList();
-    final isTimeExceeds = isStartTimeList.contains(true);
-
-    if (isMinimumVersion) {
-      if (isTimeExceeds) {
-        ScaffoldMessenger.of(context)
-          ..removeCurrentSnackBar()
-          ..showSnackBar(
-            const SnackBar(
-              duration: Duration(milliseconds: 2000),
-              content: Text(
-                'This game has already started.',
-              ),
-            ),
-          );
-      } else {
-        if (state.betAmount != null &&
-            state.betAmount != 0 &&
-            state.toWinAmount != 0) {
-          if (balanceAmount - state.betAmount < 0) {
-            ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  duration: Duration(milliseconds: 2000),
-                  content: Text(
-                    "You're out of funds. Try watching the video in your bet slip.",
-                  ),
-                ),
-              );
-          } else {
-            emit(state.copyWith(status: ParlayBetButtonStatus.placing));
-            await context.read<ParlayBetButtonCubit>().updateOpenBets(
-                  betAmount: state.betAmount,
-                  betsData: ParlayBets(
-                    username: username,
-                    betAmount: state.betAmount,
-                    isClosed: false,
-                    league: state.league,
-                    id: state.uniqueId,
-                    betProfit: state.toWinAmount,
-                    uid: currentUserId,
-                    dateTime: ESTDateTime.fetchTimeEST().toString(),
-                    week: ESTDateTime.fetchTimeEST().weekStringVL,
-                    clientVersion: await _getAppVersion(),
-                    dataProvider: 'sportsdata.io',
-                    bets: betList,
-                  ),
-                  currentUserId: currentUserId,
-                );
-
-            emit(state.copyWith(status: ParlayBetButtonStatus.placed));
-          }
-        }
-      }
-    } else {
+    emit(state.copyWith(status: ParlayBetButtonStatus.placing));
+    final isBetExists = await _betsRepository.isBetExist(
+      betId: state.uniqueId,
+      uid: state.uid,
+    );
+    if (isBetExists) {
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
             duration: Duration(milliseconds: 2000),
             content: Text(
-              'Please update your app to place bets.',
+              'Bet already Placed',
             ),
           ),
         );
+      emit(state.copyWith(status: ParlayBetButtonStatus.alreadyPlaced));
+    } else {
+      final isStartTimeList = betList.map(
+        (bet) {
+          return DateTime.parse(bet.gameStartDateTime).isBefore(
+            ESTDateTime.fetchTimeEST(),
+          );
+        },
+      ).toList();
+      final isTimeExceeds = isStartTimeList.contains(true);
+
+      if (isMinimumVersion) {
+        if (isTimeExceeds) {
+          ScaffoldMessenger.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                duration: Duration(milliseconds: 2000),
+                content: Text(
+                  'This game has already started.',
+                ),
+              ),
+            );
+          emit(state.copyWith(status: ParlayBetButtonStatus.initial));
+        } else {
+          if (state.betAmount != null &&
+              state.betAmount != 0 &&
+              state.toWinAmount != 0) {
+            if (balanceAmount - state.betAmount < 0) {
+              ScaffoldMessenger.of(context)
+                ..removeCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    duration: Duration(milliseconds: 2000),
+                    content: Text(
+                      "You're out of funds. Try watching the video in your bet slip.",
+                    ),
+                  ),
+                );
+              emit(state.copyWith(status: ParlayBetButtonStatus.initial));
+            } else {
+              final gameStartDateTimeInEpoch = betList
+                  .map((e) => DateTime.parse(e.gameStartDateTime)
+                      .millisecondsSinceEpoch)
+                  .toList()
+                    ..sort((a, b) => a.compareTo(b));
+
+              await context.read<ParlayBetButtonCubit>().updateOpenBets(
+                    betAmount: state.betAmount,
+                    betsData: ParlayBets(
+                      username: username,
+                      betAmount: state.betAmount,
+                      isClosed: false,
+                      league: state.league.toLowerCase(),
+                      id: state.uniqueId,
+                      betProfit: state.toWinAmount,
+                      gameStartDateTime: DateTime.fromMillisecondsSinceEpoch(
+                        gameStartDateTimeInEpoch.first,
+                      ).toString(),
+                      uid: currentUserId,
+                      dateTime: ESTDateTime.fetchTimeEST().toString(),
+                      week: ESTDateTime.fetchTimeEST().weekStringVL,
+                      clientVersion: await _getAppVersion(),
+                      dataProvider: 'sportsdata.io',
+                      bets: betList,
+                    ),
+                    currentUserId: currentUserId,
+                  );
+
+              emit(state.copyWith(status: ParlayBetButtonStatus.placed));
+            }
+          }
+        }
+      } else {
+        ScaffoldMessenger.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              duration: Duration(milliseconds: 2000),
+              content: Text(
+                'Please update your app to place bets.',
+              ),
+            ),
+          );
+        emit(state.copyWith(status: ParlayBetButtonStatus.initial));
+      }
     }
   }
 

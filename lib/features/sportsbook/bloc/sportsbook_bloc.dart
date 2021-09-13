@@ -67,7 +67,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     await Future.wait(
       list.map(
         (e) async {
-          if (e == 'GOLF' || e == 'OLYMPICS') {
+          if (e == 'GOLF' || e == 'OLYMPICS' || e == 'PARALYMPICS') {
             gameNumberMap[e] = 'OFF-SEASON';
           } else {
             final todayGamesLength =

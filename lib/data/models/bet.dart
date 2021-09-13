@@ -7,6 +7,7 @@ class BetData extends Equatable {
     @required this.id,
     @required this.betAmount,
     @required this.betProfit,
+    @required this.gameStartDateTime,
     @required this.username,
     @required this.dataProvider,
     @required this.clientVersion,
@@ -21,6 +22,7 @@ class BetData extends Equatable {
     final Map data = snapshot.data();
     return BetData(
       id: data['id'] as String,
+      gameStartDateTime: data['gameStartDateTime'] as String,
       betAmount: data['betAmount'] as int,
       betProfit: data['betProfit'] as int,
       uid: data['uid'] as String,
@@ -42,6 +44,7 @@ class BetData extends Equatable {
   final String clientVersion;
   final String dataProvider;
   final String dateTime;
+  final String gameStartDateTime;
   final String week;
   final bool isClosed;
   final String league;
@@ -51,6 +54,7 @@ class BetData extends Equatable {
       'id': id,
       'betAmount': betAmount,
       'betProfit': betProfit,
+      'gameStartDateTime': gameStartDateTime,
       'uid': uid,
       'username': username,
       'clientVersion': clientVersion,
@@ -67,6 +71,7 @@ class BetData extends Equatable {
     return [
       id,
       betAmount,
+      gameStartDateTime,
       uid,
       betProfit,
       username,

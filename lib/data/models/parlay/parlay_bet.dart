@@ -16,6 +16,7 @@ class ParlayBets extends BetData {
     @required week,
     @required isClosed,
     @required league,
+    @required gameStartDateTime,
     @required this.bets,
     this.snapshot,
     this.reference,
@@ -28,6 +29,7 @@ class ParlayBets extends BetData {
           dataProvider: dataProvider,
           clientVersion: clientVersion,
           uid: uid,
+          gameStartDateTime: gameStartDateTime,
           dateTime: dateTime,
           week: week,
           isClosed: isClosed,
@@ -41,6 +43,7 @@ class ParlayBets extends BetData {
     return ParlayBets(
       bets: map['bets'] != null ? List<BetData>.from(map['bets']) : null,
       id: map['id'],
+      gameStartDateTime: map['gameStartDateTime'] as String,
       uid: map['uid'],
       betAmount: map['betAmount'],
       betProfit: map['betProfit'],
@@ -63,6 +66,7 @@ class ParlayBets extends BetData {
     return ParlayBets(
       bets: map['bets'] != null ? List<BetData>.from(map['bets']) : null,
       id: map['id'],
+      gameStartDateTime: map['gameStartDateTime'] as String,
       uid: map['uid'],
       betAmount: map['betAmount'],
       betProfit: map['betProfit'],
@@ -84,6 +88,7 @@ class ParlayBets extends BetData {
         'betAmount': betAmount,
         'betProfit': betProfit,
         'username': username,
+        'gameStartDateTime': gameStartDateTime,
         'clientVersion': clientVersion,
         'dataProvider': dataProvider,
         'dateTime': dateTime,
@@ -99,6 +104,7 @@ class ParlayBets extends BetData {
     int betAmount,
     int betProfit,
     String username,
+    String gameStartDateTime,
     String clientVersion,
     String dataProvider,
     String dateTime,
@@ -108,6 +114,7 @@ class ParlayBets extends BetData {
   }) {
     return ParlayBets(
       bets: bets ?? this.bets,
+      gameStartDateTime: gameStartDateTime ?? this.gameStartDateTime,
       id: id ?? this.id,
       uid: uid ?? this.uid,
       betAmount: betAmount ?? this.betAmount,

@@ -143,7 +143,7 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
                     event: state.game.event,
                     gameId: state.game.gameId,
                     playerCountry: state.game.playerCountry,
-                    gameStartDateTime: state.game.startTime,
+                    gameStartDateTime: state.game.startTime.toString(),
                     winner: null,
                   ),
                   currentUserId: currentUserId,

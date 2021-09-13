@@ -17,7 +17,7 @@ class NbaBetData extends BetData {
     @required isClosed,
     @required league,
     @required this.betType,
-    @required this.gameStartDateTime,
+    @required gameStartDateTime,
     @required this.status,
     @required this.stillOpen,
     @required this.odds,
@@ -40,6 +40,7 @@ class NbaBetData extends BetData {
           id: id,
           betAmount: betAmount,
           betProfit: betProfit,
+          gameStartDateTime: gameStartDateTime,
           username: username,
           dataProvider: dataProvider,
           clientVersion: clientVersion,
@@ -104,7 +105,6 @@ class NbaBetData extends BetData {
   final int gameId;
   final String betType;
   final bool stillOpen;
-  final String gameStartDateTime;
   final String status;
   final int odds;
   final String winningTeam;

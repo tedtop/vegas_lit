@@ -6,7 +6,7 @@ class ParalympicsBetData extends BetData {
   ParalympicsBetData({
     @required this.betTeam,
     @required this.winner,
-    @required this.gameStartDateTime,
+    @required gameStartDateTime,
     @required this.event,
     @required this.eventType,
     @required this.gameName,
@@ -39,6 +39,7 @@ class ParalympicsBetData extends BetData {
           uid: uid,
           dateTime: dateTime,
           week: week,
+          gameStartDateTime: gameStartDateTime,
           isClosed: isClosed,
           league: league,
         );
@@ -61,9 +62,7 @@ class ParalympicsBetData extends BetData {
       league: map['league'] as String,
       betTeam: map['betTeam'],
       winner: map['winner'],
-      gameStartDateTime: map['gameStartDateTime'] == null
-          ? null
-          : DateTime.parse(map['gameStartDateTime']),
+      gameStartDateTime: map['gameStartDateTime'].toString(),
       event: map['event'],
       eventType: map['eventType'],
       gameName: map['gameName'],
@@ -106,7 +105,6 @@ class ParalympicsBetData extends BetData {
 
   final String betTeam;
   final String winner;
-  final DateTime gameStartDateTime;
   final String event;
   final String eventType;
 
