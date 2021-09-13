@@ -7,13 +7,13 @@ import '../../../../../config/styles.dart';
 import '../../../../../data/models/nfl/nfl_bet.dart';
 
 class NflBetHistoryCard extends StatelessWidget {
-  const NflBetHistoryCard({
-    Key key,
-    @required this.betHistoryData,
-  })  : assert(betHistoryData != null),
+  const NflBetHistoryCard(
+      {Key key, @required this.betHistoryData, this.isParlayBet = false})
+      : assert(betHistoryData != null),
         super(key: key);
 
   final NflBetData betHistoryData;
+  final bool isParlayBet;
 
   @override
   Widget build(BuildContext context) {

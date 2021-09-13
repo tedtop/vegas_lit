@@ -17,6 +17,7 @@ class ParlayOpenBetCard extends StatelessWidget {
       children: [
         ListView.builder(
           shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
           itemCount: openBets.bets.length,
           itemBuilder: (BuildContext context, int index) {
             return Align(
@@ -69,11 +70,11 @@ class ParlayOpenBetCard extends StatelessWidget {
           },
         ),
         Positioned(
-          right: 15,
+          right: 18,
           bottom: 12,
           child: Text(
             '\$${openBets.betProfit}',
-            style: Styles.greenTextBold,
+            style: Styles.openBetsNormalText,
           ),
         ),
       ],

@@ -8,14 +8,13 @@ import '../../../../../config/styles.dart';
 import '../../../../../data/models/mlb/mlb_bet.dart';
 
 class MlbBetHistoryCard extends StatelessWidget {
-  const MlbBetHistoryCard({
-    Key key,
-    @required this.betHistoryData,
-  })  : assert(betHistoryData != null),
+  const MlbBetHistoryCard(
+      {Key key, @required this.betHistoryData, this.isParlayBet = false})
+      : assert(betHistoryData != null),
         super(key: key);
 
   final MlbBetData betHistoryData;
-
+  final bool isParlayBet;
   @override
   Widget build(BuildContext context) {
     final isWin = betHistoryData.winningTeam == betHistoryData.betTeam;
