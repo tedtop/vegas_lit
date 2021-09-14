@@ -87,32 +87,39 @@ class MlbParlayBetSlipCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Center(
-                            child: Text(
-                              betButtonState.league.toUpperCase(),
-                              style: Styles.betSlipBoxNormalText,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  betButtonState.league.toUpperCase(),
+                                  style: Styles.betSlipBoxNormalText,
+                                ),
+                                Text(
+                                  '@ ${betButtonState.text.split(' ').last}',
+                                  style: Styles.betSlipSmallBoldText,
+                                ),
+                              ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                '\$ xxx',
-                                style: Styles.betSlipSmallBoldText,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                '@ ${betButtonState.text.split(' ').last}',
-                                style: Styles.betSlipSmallBoldText,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                '\$ PAYOUT',
-                                style: Styles.awayTeam,
-                              ),
-                              const SizedBox(width: 15),
-                            ],
-                          ),
+
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     // Text(
+                          //     //   '\$ xxx',
+                          //     //   style: Styles.betSlipSmallBoldText,
+                          //     // ),
+                          //     // const SizedBox(width: 10),
+
+                          //     // Text(
+                          //     //   '\$ PAYOUT',
+                          //     //   style: Styles.awayTeam,
+                          //     // ),
+                          //     // const SizedBox(width: 15),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
