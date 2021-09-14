@@ -166,15 +166,16 @@ class _GroupAddState extends State<GroupAdd> {
                   const SizedBox(width: 50),
                   BlocBuilder<GroupAddCubit, GroupAddState>(
                     builder: (context, state) {
-                      if (state.avatarUrl != null)
+                      if (state.avatarFile != null)
                         return SizedBox(
                           height: 100,
                           width: 100,
                           child: ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              child: Image.network(state.avatarUrl)),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                            child: Image.file(state.avatarFile),
+                          ),
                         );
                       return InkWell(
                         onTap: () {
@@ -323,31 +324,41 @@ class _GroupAddState extends State<GroupAdd> {
                 builder: (context, state) {
                   switch (state.status) {
                     case GroupAddStatus.initial:
-                      return DefaultButton(
-                        text: 'CREATE GROUP',
-                        action: () {
-                          if (_formKey.currentState.validate()) {
-                            context.read<GroupAddCubit>().addGroup(
-                                  group: Group(
-                                    adminId: userData.uid,
-                                    adminName: userData.username,
-                                    avatarUrl: state.avatarUrl,
-                                    createdBy: userData.uid,
-                                    createdAt: ESTDateTime.fetchTimeEST(),
-                                    description:
-                                        _groupDescriptionController.text,
-                                    isPublic: _isPublic,
-                                    name: _groupNameController.text,
-                                    userLimit:
-                                        _isUnlimitedSize ? 0 : _userLimit,
-                                    users: {userData.uid: true},
-                                    id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
-                                    isUnlimited: _isUnlimitedSize,
-                                  ),
-                                );
-                          }
-                        },
-                      );
+                      return userData.groups.length >= 10
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: Text(
+                                  'You have reached the limit of creating groups.',
+                                  style: GoogleFonts.nunito(fontSize: 16),
+                                ),
+                              ),
+                            )
+                          : DefaultButton(
+                              text: 'CREATE GROUP',
+                              action: () {
+                                if (_formKey.currentState.validate()) {
+                                  context.read<GroupAddCubit>().addGroup(
+                                        group: Group(
+                                          adminId: userData.uid,
+                                          adminName: userData.username,
+                                          avatarUrl: null,
+                                          createdBy: userData.uid,
+                                          createdAt: ESTDateTime.fetchTimeEST(),
+                                          description:
+                                              _groupDescriptionController.text,
+                                          isPublic: _isPublic,
+                                          name: _groupNameController.text,
+                                          userLimit:
+                                              _isUnlimitedSize ? 0 : _userLimit,
+                                          users: {userData.uid: true},
+                                          id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
+                                          isUnlimited: _isUnlimitedSize,
+                                        ),
+                                      );
+                                }
+                              },
+                            );
                       break;
                     case GroupAddStatus.loading:
                       return const SizedBox(

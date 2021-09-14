@@ -16,8 +16,17 @@ class GroupsRepository {
   Stream<List<Group>> fetchGroupRequests({@required String uid}) =>
       _databaseProvider.fetchGroupRequests(uid: uid);
 
-  Future<void> addNewGroup({@required Group group}) =>
+  Future<String> addNewGroup({@required Group group}) =>
       _databaseProvider.addNewGroup(group: group);
+
+  Future<void> updateGroup({
+    @required String avatarLink,
+    @required String groupId,
+  }) =>
+      _databaseProvider.updateGroup(
+        avatarLink: avatarLink,
+        groupId: groupId,
+      );
 
   Future<void> updateGroupAvatar(
           {@required String avatarUrl, @required String groupId}) =>

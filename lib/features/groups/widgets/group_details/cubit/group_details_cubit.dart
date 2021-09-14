@@ -91,7 +91,7 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
       try {
         final avatarUrl = await _storageRepository.uploadFile(
           file: avatarImageFile,
-          path: 'groups',
+          path: 'groups/$groupId/',
         );
         await _groupsRepository.updateGroupAvatar(
           avatarUrl: avatarUrl,

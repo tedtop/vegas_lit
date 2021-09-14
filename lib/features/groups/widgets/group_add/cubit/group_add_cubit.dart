@@ -32,12 +32,12 @@ class GroupAddCubit extends Cubit<GroupAddState> {
     if (avatarPickedFile != null) {
       final avatarImageFile = File(avatarPickedFile.path);
       try {
-        final avatarUrl = await _storageRepository.uploadFile(
-          file: avatarImageFile,
-          path: 'groups',
+        emit(
+          GroupAddState(
+            status: GroupAddStatus.initial,
+            avatarFile: avatarImageFile,
+          ),
         );
-        emit(GroupAddState(
-            status: GroupAddStatus.initial, avatarUrl: avatarUrl));
       } catch (e) {
         print('Failed to upload icon!');
       }
@@ -45,8 +45,29 @@ class GroupAddCubit extends Cubit<GroupAddState> {
   }
 
   void addGroup({@required Group group}) async {
-    emit(GroupAddState(status: GroupAddStatus.loading));
-    await _groupsRepository.addNewGroup(group: group);
+    emit(state.copyWith(status: GroupAddStatus.loading));
+
+    await _groupsRepository.addNewGroup(group: group).then(
+      (id) async {
+        if (state.avatarFile != null) {
+          try {
+            final avatarUrl = await _storageRepository.uploadFile(
+              file: state.avatarFile,
+              path: 'groups/$id/',
+            );
+            await _groupsRepository.updateGroup(
+              avatarLink: avatarUrl,
+              groupId: id,
+            );
+          } catch (e) {
+            print('Failed to upload icon!');
+          }
+        } else {
+          print('No icon added!');
+        }
+      },
+    );
+
     emit(GroupAddState(status: GroupAddStatus.success));
   }
 }

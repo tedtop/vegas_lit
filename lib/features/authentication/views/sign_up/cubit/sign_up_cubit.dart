@@ -166,6 +166,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         userData: UserData(
           location: state.americanState.value,
           email: state.email.value,
+          groups: [],
           uid: currentUser.uid,
           username: state.username.value,
         ),

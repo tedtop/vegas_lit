@@ -572,18 +572,41 @@ class CloudFirestoreClient {
     return walletList;
   }
 
-  Future<void> addNewGroup({@required Group group}) async {
-    await _firebaseFirestore
+  Future<String> addNewGroup({@required Group group}) async {
+    final addNewGroupBatch = _firebaseFirestore.batch();
+    final userRef = _firebaseFirestore.collection('users').doc(group.adminId);
+    final groupId = await _firebaseFirestore
         .collection('groups')
         .add(
           group.toMap(),
         )
         .then(
       (value) async {
-        await value.update(
+        addNewGroupBatch.update(
+          value,
           {'id': value.id},
         );
+        return value.id;
       },
+    );
+    addNewGroupBatch.update(
+      userRef,
+      {
+        'groups': FieldValue.arrayUnion(
+          [groupId],
+        ),
+      },
+    );
+    await addNewGroupBatch.commit();
+    return groupId;
+  }
+
+  Future<void> updateGroup({
+    @required String avatarLink,
+    @required String groupId,
+  }) async {
+    await _firebaseFirestore.collection('groups').doc(groupId).update(
+      {'avatarUrl': avatarLink},
     );
   }
 
