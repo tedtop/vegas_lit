@@ -225,7 +225,7 @@ class _SportsBookViewState extends State<SportsBookView>
                   ],
                 ),
               ),
-              !kIsWeb ? BannerAdCard.instance() : const SizedBox(),
+              // !kIsWeb ? BannerAdCard.instance() : const SizedBox(),
               Builder(
                 builder: (context) {
                   var selectedIndex = 7;
