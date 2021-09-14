@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import '../../../config/extensions.dart';
-import '../../../data/models/nfl/nfl_game.dart';
 import '../../../data/repositories/device_repository.dart';
 
 import '../../../data/repositories/sports_repository.dart';
@@ -70,7 +69,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
     await Future.wait(
       list.map(
         (e) async {
-          if (e == 'GOLF' || e == 'OLYMPICS') {
+          if (e == 'GOLF' || e == 'OLYMPICS' || e == 'PARALYMPICS') {
             gameNumberMap[e] = 'OFF-SEASON';
           } else {
             final todayGamesLength =
@@ -115,7 +114,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             .then(
           (value) {
             return value
-                .where((element) => element.status == Status.SCHEDULED)
+                .where((element) => element.status == 'Scheduled')
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.closed == false)

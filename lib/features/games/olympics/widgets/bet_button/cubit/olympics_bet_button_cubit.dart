@@ -144,7 +144,7 @@ class OlympicsBetButtonCubit extends Cubit<OlympicsBetButtonState> {
                     event: state.game.event,
                     gameId: state.game.gameId,
                     playerCountry: state.game.playerCountry,
-                    gameStartDateTime: state.game.startTime,
+                    gameStartDateTime: state.game.startTime.toString(),
                     venue: state.game.venue,
                     winner: null,
                   ),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:vegas_lit/config/extensions.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/olympics/olympics.dart';
@@ -9,8 +13,8 @@ import '../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
 import '../cubit/olympics_bet_button_cubit.dart';
-import '../models/olympics_bet_slip_card_data.dart';
-import 'bet_slip_card.dart';
+import 'parlay_bet_slip_Card.dart';
+import 'single_bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);
@@ -66,9 +70,9 @@ class BetButton extends StatelessWidget {
                   content: Text('Your bet has been placed.'),
                 ),
               );
-            context
-                .read<BetSlipCubit>()
-                .removeBetSlip(uniqueId: state.uniqueId);
+            context.read<BetSlipCubit>().removeBetSlip(
+                  betSlipDataId: state.uniqueId,
+                );
             break;
           default:
             break;
@@ -111,6 +115,10 @@ class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
+    final username = context.select(
+      (HomeCubit homeBloc) => homeBloc.state?.userData?.username,
+    );
+
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -158,22 +166,48 @@ class BetButtonUnclicked extends StatelessWidget {
           onPressed: () async {
             final isBetExist =
                 await context.read<OlympicsBetButtonCubit>().clickBetButton();
+            final appVersion = await _getAppVersion();
             isBetExist
                 // ignore: unnecessary_statements
                 ? null
                 : context.read<BetSlipCubit>().addBetSlip(
-                      betSlipCard: BlocProvider.value(
+                      betData: OlympicsBetData(
+                        username: username,
+                        betAmount: betButtonState.betAmount,
+                        isClosed: betButtonState.game.isClosed,
+                        league: betButtonState.league.toLowerCase(),
+                        id: betButtonState.uniqueId,
+                        betProfit: betButtonState.toWinAmount,
+                        uid: betButtonState.uid,
+                        dateTime: ESTDateTime.fetchTimeEST().toString(),
+                        week: ESTDateTime.fetchTimeEST().weekStringVL,
+                        clientVersion: appVersion,
+                        dataProvider: 'olympics.com',
+                        gameName: betButtonState.game.gameName,
+                        playerName: betButtonState.game.player,
+                        rivalCountry: betButtonState.game.rivalCountry,
+                        rivalName: betButtonState.game.rival,
+                        matchCode: betButtonState.game.matchCode,
+                        eventType: betButtonState.game.eventType,
+                        betTeam: betButtonState.winTeam == BetButtonWin.player
+                            ? 'player'
+                            : 'rival',
+                        event: betButtonState.game.event,
+                        gameId: betButtonState.game.gameId,
+                        playerCountry: betButtonState.game.playerCountry,
+                        gameStartDateTime: betButtonState.game.startTime,
+                        venue: betButtonState.game.venue,
+                        winner: null,
+                      ),
+                      singleBetSlipCard: BlocProvider.value(
                         key: Key(betButtonState.uniqueId),
                         value: context.read<OlympicsBetButtonCubit>(),
-                        child: OlympicsBetSlipCard.route(
-                          betSlipCardData: OlympicsBetSlipCardData(
-                            league: betButtonState.league,
-                            id: betButtonState.uniqueId,
-                            betButtonCubit:
-                                context.read<OlympicsBetButtonCubit>(),
-                            odds: betButtonState.mainOdds,
-                          ),
-                        ),
+                        child: OlympicsSingleBetSlipCard(),
+                      ),
+                      parlayBetSlipCard: BlocProvider.value(
+                        key: Key(betButtonState.uniqueId),
+                        value: context.read<OlympicsBetButtonCubit>(),
+                        child: OlympicsParlayBetSlipCard(),
                       ),
                     );
           },
@@ -234,7 +268,7 @@ class BetButtonClicked extends StatelessWidget {
           onPressed: () {
             context.read<OlympicsBetButtonCubit>().unclickBetButton();
             context.read<BetSlipCubit>().removeBetSlip(
-                  uniqueId: betButtonState.uniqueId,
+                  betSlipDataId: betButtonState.uniqueId,
                 );
           },
         ),
@@ -283,4 +317,9 @@ class BetButtonDone extends StatelessWidget {
 String countryFlagFromCode({String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
+}
+
+Future<String> _getAppVersion() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.version;
 }

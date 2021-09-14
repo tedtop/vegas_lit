@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/parlay_bet_button.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -16,36 +18,135 @@ class MobileBetSlipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isBetPlaced = context.watch<OpenBetsCubit>().state.bets.isNotEmpty;
-    return Scaffold(
-      body: ListView(
-        children: [
-          const MobileBetSlipUpper(),
-          BlocBuilder<BetSlipCubit, BetSlipState>(
-            builder: (context, state) {
-              switch (state.status) {
-                case BetSlipStatus.opened:
-                  return Column(
-                    children: [
-                      state.betSlipCard.isEmpty
-                          ? isBetPlaced
-                              ? RewardedBetSlip.route()
-                              : EmptyBetSlip()
-                          : BetSlipList(),
-                      const BottomBar()
-                    ],
-                  );
-                  break;
-                default:
-                  return const CircularProgressIndicator(
-                    color: Palette.cream,
-                  );
-                  break;
-              }
-            },
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            indicatorColor: Palette.green,
+            indicatorSize: TabBarIndicatorSize.label,
+            tabs: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    'SINGLE',
+                    style: GoogleFonts.nunito(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    'PARLAY',
+                    style: GoogleFonts.nunito(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+          centerTitle: true,
+          title: const MobileBetSlipUpper(),
+        ),
+        body: const TabBarView(
+          children: [
+            SingleBetSlip(),
+            ParlayBetSlip(),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class SingleBetSlip extends StatelessWidget {
+  const SingleBetSlip({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final isBetPlaced = context.watch<OpenBetsCubit>().state.bets.isNotEmpty;
+    return ListView(
+      padding: const EdgeInsets.only(top: 10),
+      children: [
+        BlocBuilder<BetSlipCubit, BetSlipState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case BetSlipStatus.opened:
+                return Column(
+                  children: [
+                    state.singleBetSlipCard.isEmpty
+                        ? isBetPlaced
+                            ? RewardedBetSlip.route()
+                            : EmptyBetSlip()
+                        : SingleBetSlipList(),
+                    const BottomBar()
+                  ],
+                );
+                break;
+              default:
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
+                break;
+            }
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class ParlayBetSlip extends StatelessWidget {
+  const ParlayBetSlip({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final isBetPlaced = context.watch<OpenBetsCubit>().state.bets.isNotEmpty;
+    final parlayBetList = context.watch<BetSlipCubit>().state.betDataList;
+    return ListView(
+      padding: const EdgeInsets.only(top: 10),
+      children: [
+        BlocBuilder<BetSlipCubit, BetSlipState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case BetSlipStatus.opened:
+                return Column(
+                  children: [
+                    state.parlayBetSlipCard.isEmpty
+                        ? isBetPlaced
+                            ? RewardedBetSlip.route()
+                            : EmptyBetSlip()
+                        : Column(
+                            children: [
+                              state.parlayBetSlipCard.length < 2
+                                  ? const ParlayBetSlipWarning(isMinimum: true)
+                                  : state.parlayBetSlipCard.length > 3
+                                      ? const ParlayBetSlipWarning(
+                                          isMinimum: false)
+                                      : ParlayBetSlipButton.route(
+                                          betDataList: parlayBetList,
+                                        ),
+                              const ParlayBetSlipList(),
+                            ],
+                          ),
+                    const BottomBar()
+                  ],
+                );
+                break;
+              default:
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
+                break;
+            }
+          },
+        ),
+      ],
     );
   }
 }
@@ -54,18 +155,10 @@ class MobileBetSlipUpper extends StatelessWidget {
   const MobileBetSlipUpper({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        20,
-        0,
-        20,
-        20,
-      ),
-      child: Text(
-        'BET SLIP',
-        textAlign: TextAlign.center,
-        style: Styles.pageTitle,
-      ),
+    return Text(
+      'BET SLIP',
+      textAlign: TextAlign.center,
+      style: Styles.pageTitle,
     );
   }
 }

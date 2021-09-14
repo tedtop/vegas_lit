@@ -76,6 +76,12 @@ class Styles {
 
   /// --> BET HISTORY
   static final betHistoryCardNormal = VLTextStyle.nunito.creamColored.size(14);
+  static final betHistoryCardBold =
+      VLTextStyle.nunito.creamColored.size(12).bold;
+  static final betHistoryCardBoldGreen =
+      VLTextStyle.nunito.greenColored.size(12).bold;
+  static final betHistoryCardBoldRed =
+      VLTextStyle.nunito.redColored.size(12).bold;
   static final betHistoryTeamNotAway = VLTextStyle.nunito.greenColored.size(14);
   static final betHistoryTeamAway = VLTextStyle.nunito.creamColored.size(14);
   static final betHistoryAmount = VLTextStyle.nunito.creamColored.size(24).bold;
@@ -95,6 +101,12 @@ class Styles {
       VLTextStyle.nunito.creamColored.size(18).w200;
   static final betSlipBoxLargeText =
       VLTextStyle.nunito.creamColored.size(24).bold;
+  static final betSlipSmallBoldText =
+      VLTextStyle.nunito.creamColored.size(12).bold;
+  static final betSlipButtonText =
+      VLTextStyle.nunito.creamColored.size(13).bold;
+  static final betSlipHomeTeam = VLTextStyle.nunito.greenColored.size(14).bold;
+  static final betSlipAwayTeam = VLTextStyle.nunito.creamColored.size(14);
 
   /// --> DRAWER PAGES
   /// --> GAMES
@@ -124,7 +136,11 @@ class Styles {
 
   static final openBetsEmpty = VLTextStyle.nunito.creamColored.size(18).w300;
   static final openBetsCardNormal = VLTextStyle.nunito.creamColored.size(14);
-
+  static final openBetsCardBold = VLTextStyle.nunito.creamColored.size(12).bold;
+  static final openBetsCardBoldGreen =
+      VLTextStyle.nunito.greenColored.size(12).bold;
+  static final openBetsCardBoldRed =
+      VLTextStyle.nunito.redColored.size(12).bold;
   static final openBetsCardTime = VLTextStyle.nunito.redColored.size(14).bold;
 
   static final openBetsCardBetText =

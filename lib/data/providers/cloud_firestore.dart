@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
+import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 
 import '../../config/extensions.dart';
 import '../models/bet.dart';
@@ -126,6 +127,8 @@ class CloudFirestoreClient {
                   break;
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
+                case 'parlay':
+                  return ParlayBets.fromFirestore(snapshot);
                 default:
                   return BetData.fromFirestore(snapshot);
               }
@@ -173,6 +176,8 @@ class CloudFirestoreClient {
                   break;
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
+                case 'parlay':
+                  return ParlayBets.fromFirestore(snapshot);
                 default:
                   return BetData.fromFirestore(snapshot);
               }
@@ -567,19 +572,56 @@ class CloudFirestoreClient {
     return walletList;
   }
 
-  Future<void> addNewGroup({@required Group group}) async {
-    await _firebaseFirestore
+  Future<String> addNewGroup({@required Group group}) async {
+    final addNewGroupBatch = _firebaseFirestore.batch();
+    final userRef = _firebaseFirestore.collection('users').doc(group.adminId);
+    final groupId = await _firebaseFirestore
         .collection('groups')
         .add(
           group.toMap(),
         )
         .then(
       (value) async {
-        await value.update(
+        addNewGroupBatch.update(
+          value,
           {'id': value.id},
         );
+        return value.id;
       },
     );
+    addNewGroupBatch.update(
+      userRef,
+      {
+        'groups': FieldValue.arrayUnion(
+          [groupId],
+        ),
+      },
+    );
+    await addNewGroupBatch.commit();
+    return groupId;
+  }
+
+  Future<void> updateGroup({
+    @required String avatarLink,
+    @required String groupId,
+  }) async {
+    await _firebaseFirestore.collection('groups').doc(groupId).update(
+      {'avatarUrl': avatarLink},
+    );
+  }
+
+  Future<void> updateGroupAvatar(
+      {@required String avatarUrl, @required String groupId}) async {
+    final updateGroupAvatarBatch = _firebaseFirestore.batch();
+    final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
+
+    updateGroupAvatarBatch.set(
+        groupRef,
+        {
+          'avatarUrl': avatarUrl,
+        },
+        SetOptions(merge: true));
+    await updateGroupAvatarBatch.commit();
   }
 
   Future<void> addNewUserToGroup({

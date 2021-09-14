@@ -8,6 +8,7 @@ class UserData extends Equatable {
     @required this.username,
     @required this.email,
     @required this.location,
+    @required this.groups,
     this.isAdmin,
     this.avatarUrl,
   });
@@ -15,6 +16,7 @@ class UserData extends Equatable {
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final Map data = documentSnapshot.data();
     return UserData(
+        groups: data['groups'] != null ? data['groups'] as List : [],
         isAdmin: data['isAdmin'] ?? false,
         uid: data['uid'] as String,
         email: data['email'] as String,
@@ -30,6 +32,7 @@ class UserData extends Equatable {
       'username': username,
       'location': location,
       'uid': uid,
+      'groups': groups,
       'isAdmin': false,
       'avatarUrl': avatarUrl
     };
@@ -40,14 +43,16 @@ class UserData extends Equatable {
   final String email;
   final String location;
   final bool isAdmin;
+  final List groups;
   final String avatarUrl;
 
   @override
   List<Object> get props =>
-      [uid, username, email, location, isAdmin, avatarUrl];
+      [uid, username, email, location, isAdmin, avatarUrl, groups];
 
   UserData copyWith({
     String uid,
+    List groups,
     String username,
     String email,
     String location,
@@ -55,6 +60,7 @@ class UserData extends Equatable {
     String avatarUrl,
   }) {
     return UserData(
+      groups: groups ?? this.groups,
       uid: uid ?? this.uid,
       username: username ?? this.username,
       email: email ?? this.email,

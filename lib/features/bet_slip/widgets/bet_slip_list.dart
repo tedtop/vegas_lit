@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bet_slip.dart';
 
-class BetSlipList extends StatelessWidget {
+class SingleBetSlipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width / 10;
@@ -15,17 +15,53 @@ class BetSlipList extends StatelessWidget {
       },
       child: ListView.builder(
         key: Key(
-          '${betSlipState.betSlipCard.length}',
+          '${betSlipState.singleBetSlipCard.length}',
         ),
         reverse: true,
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
-        itemCount: betSlipState.betSlipCard.length,
+        itemCount: betSlipState.singleBetSlipCard.length,
         itemBuilder: (context, index) {
           return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 380),
-              child: betSlipState.betSlipCard[index],
+              child: betSlipState.singleBetSlipCard[index],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ParlayBetSlipList extends StatelessWidget {
+  const ParlayBetSlipList({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // final width = MediaQuery.of(context).size.width / 10;
+    final betSlipState = context.watch<BetSlipCubit>().state;
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: ListView.builder(
+        key: Key(
+          '${betSlipState.parlayBetSlipCard.length}',
+        ),
+        //reverse: true,
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemCount: betSlipState.parlayBetSlipCard.length,
+        itemBuilder: (context, index) {
+          return Align(
+            alignment: Alignment.topCenter,
+            heightFactor:
+                index == betSlipState.parlayBetSlipCard.length - 1 ? 1.0 : 0.88,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 380),
+              child: betSlipState.parlayBetSlipCard[
+                  betSlipState.parlayBetSlipCard.length - index - 1],
             ),
           );
         },

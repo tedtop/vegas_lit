@@ -13,28 +13,10 @@ import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/models/olympics_bet_slip_card_data.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
-class OlympicsBetSlipCard extends StatelessWidget {
-  OlympicsBetSlipCard._({Key key, @required this.betSlipCardData})
-      : super(key: key);
-
-  static Builder route({
-    @required OlympicsBetSlipCardData betSlipCardData,
-  }) {
-    return Builder(
-      builder: (context) {
-        return OlympicsBetSlipCard._(
-          betSlipCardData: betSlipCardData,
-        );
-      },
-    );
-  }
-
-  final OlympicsBetSlipCardData betSlipCardData;
-
+class OlympicsParlayBetSlipCard extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -127,7 +109,6 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                     ],
                                     child: BetAmountPage(
                                       betAmount: betButtonState.betAmount,
-                                      betSlipCardData: betSlipCardData,
                                     ),
                                   ),
                                 );
@@ -353,7 +334,7 @@ class OlympicsBetSlipCard extends StatelessWidget {
                                     .read<OlympicsBetButtonCubit>()
                                     .unclickBetButton();
                                 context.read<BetSlipCubit>().removeBetSlip(
-                                      uniqueId: betButtonState.uniqueId,
+                                      betSlipDataId: betButtonState.uniqueId,
                                     );
                               },
                             ),
@@ -396,11 +377,9 @@ class OlympicsBetSlipCard extends StatelessWidget {
 class BetAmountPage extends StatefulWidget {
   BetAmountPage({
     Key key,
-    @required this.betSlipCardData,
     @required this.betAmount,
   }) : super(key: key);
 
-  final OlympicsBetSlipCardData betSlipCardData;
   final int betAmount;
 
   @override

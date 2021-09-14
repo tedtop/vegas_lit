@@ -52,6 +52,40 @@ class EmptyBetSlip extends StatelessWidget {
   }
 }
 
+class ParlayBetSlipWarning extends StatelessWidget {
+  const ParlayBetSlipWarning({Key key, @required this.isMinimum})
+      : super(key: key);
+
+  final bool isMinimum;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          //BetSlipUpper(),
+          AbstractCard(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            widgets: [
+              isMinimum
+                  ? Text(
+                      'A minimum of 2 picks are required to create a parlay',
+                      style: Styles.normalTextBold,
+                      textAlign: TextAlign.center,
+                    )
+                  : Text(
+                      'A maximum of 3 picks are required to create a parlay',
+                      style: Styles.normalTextBold,
+                      textAlign: TextAlign.center,
+                    ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
     Key key,

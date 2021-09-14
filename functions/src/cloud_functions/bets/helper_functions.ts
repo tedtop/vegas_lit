@@ -86,20 +86,20 @@ export function whichTeamWin(
           return betTeam == "home" ? "away" : "home";
         }
       } else {
-        return betTeam == "home" ? "away" : "home";
+        return betTeam == "home" ? "home" : "away";
       }
     } else {
       // Negative value
       // Favorite betting team
-      if (betTeam == finalWinTeam) {
-        if (Math.abs(scoreDifference) >= Math.abs(gameNumber)) {
-          return betTeam == "home" ? "home" : "away";
-        } else {
-          return betTeam == "home" ? "away" : "home";
-        }
+      // if (betTeam == finalWinTeam) {
+      if (Math.abs(scoreDifference) >= Math.abs(gameNumber)) {
+        return betTeam == "home" ? "home" : "away";
       } else {
         return betTeam == "home" ? "away" : "home";
       }
+      // } else {
+      //   return betTeam == "home" ? "away" : "home";
+      // }
     }
   }
   // Total type calculation

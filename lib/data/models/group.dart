@@ -6,6 +6,7 @@ class Group extends Equatable {
   Group({
     @required this.adminId,
     @required this.adminName,
+    @required this.avatarUrl,
     @required this.createdAt,
     @required this.createdBy,
     @required this.description,
@@ -27,6 +28,7 @@ class Group extends Equatable {
     return Group(
       adminId: map['adminId'],
       adminName: map['adminName'],
+      avatarUrl: map['avatarUrl'],
       createdAt: map['createdAt']?.toDate(),
       createdBy: map['createdBy'],
       description: map['description'],
@@ -48,6 +50,7 @@ class Group extends Equatable {
     return Group(
       adminId: map['adminId'],
       adminName: map['adminName'],
+      avatarUrl: map['avatarUrl'],
       createdAt: map['createdAt']?.toDate(),
       createdBy: map['createdBy'],
       description: map['description'],
@@ -63,6 +66,7 @@ class Group extends Equatable {
   Map<String, dynamic> toMap() => {
         'adminId': adminId,
         'adminName': adminName,
+        'avatarUrl': avatarUrl,
         'createdAt': createdAt,
         'createdBy': createdBy,
         'description': description,
@@ -77,6 +81,7 @@ class Group extends Equatable {
   Group copyWith({
     String adminId,
     String adminName,
+    String avatarUrl,
     DateTime createdAt,
     String createdBy,
     String description,
@@ -90,6 +95,7 @@ class Group extends Equatable {
     return Group(
       adminId: adminId ?? this.adminId,
       adminName: adminName ?? this.adminName,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
       createdAt: createdAt ?? this.createdAt,
       createdBy: createdBy ?? this.createdBy,
       description: description ?? this.description,
@@ -104,6 +110,7 @@ class Group extends Equatable {
 
   final String adminId;
   final String adminName;
+  final String avatarUrl;
   final DateTime createdAt;
   final String createdBy;
   final String description;
@@ -122,6 +129,7 @@ class Group extends Equatable {
     return [
       adminId,
       adminName,
+      avatarUrl,
       createdAt,
       createdBy,
       description,

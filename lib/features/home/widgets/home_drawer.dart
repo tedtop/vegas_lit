@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/features/forms/paralympics/paralympics_add.dart';
+import 'package:vegas_lit/features/groups/views/groups_page.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -103,6 +103,17 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 )
               : const SizedBox(),
           ListTile(
+            leading: Text('GROUPS', style: Styles.normalTextBold),
+            onTap: () {
+              Navigator.push(
+                context,
+                GroupsPage.route(
+                  cubit: context.read<HomeCubit>(),
+                ),
+              );
+            },
+          ),
+          ListTile(
             title: Text('LEADERBOARD', style: Styles.normalTextBold),
             onTap: () {
               context.read<HomeCubit>().homeChange(2);
@@ -125,25 +136,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           //         },
           //       )
           //     : Container(),
-          isAdmin
-              ? ListTile(
-                  title: Text('PARALYMPICS', style: Styles.normalTextBold),
-                  onTap: () {
-                    Navigator.of(context).push(ParalympicsAddForm.route());
-                  },
-                )
-              : Container(),
-          // ListTile(
-          //   leading: Text('GROUPS', style: Styles.normalTextBold),
-          //   onTap: () {
-          //     Navigator.push(
-          //       context,
-          //       GroupsPage.route(
-          //         cubit: context.read<HomeCubit>(),
-          //       ),
-          //     );
-          //   },
-          // ),
+
           ListTile(
             leading: Text('LOGOUT', style: Styles.normalTextBold),
             onTap: () {

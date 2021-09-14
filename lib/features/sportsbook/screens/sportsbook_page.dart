@@ -105,7 +105,9 @@ class _SportsBookViewState extends State<SportsBookView>
                 );
             context.read<BetSlipCubit>()
               ..openBetSlip(
-                betSlipGames: [],
+                singleBetSlipGames: [],
+                parlayBetSlipGames: [],
+                betDataList: [],
               );
           },
           color: Palette.cream,
@@ -158,7 +160,7 @@ class _SportsBookViewState extends State<SportsBookView>
                                               width: 42,
                                               child: Center(
                                                 child: Text(
-                                                  state.betSlipCard.length
+                                                  state.singleBetSlipCard.length
                                                       .toString(),
                                                   style: GoogleFonts.nunito(
                                                     color: Palette.darkGrey,

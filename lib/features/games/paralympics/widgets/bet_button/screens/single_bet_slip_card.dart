@@ -1,44 +1,22 @@
-import 'dart:ui';
+// ignore: must_be_immutable
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+import 'package:vegas_lit/config/assets.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
+import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
+import 'package:vegas_lit/features/games/paralympics/widgets/bet_button/cubit/paralympics_bet_button_cubit.dart';
+import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
-import '../../../../../../../config/enum.dart';
-import '../../../../../../../config/extensions.dart';
-import '../../../../../../../config/palette.dart';
-import '../../../../../../../config/styles.dart';
-import '../../../../../../authentication/authentication.dart';
-import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
-import '../../../../../../bet_slip/models/bet_slip_card.dart';
-import '../../../../../../home/cubit/version_cubit.dart';
-import '../../../../../../home/home.dart';
-import '../cubit/bet_button_cubit.dart';
-
-// ignore: must_be_immutable
-class MlbBetSlipCard extends StatelessWidget {
-  MlbBetSlipCard._({Key key, @required this.betSlipCardData}) : super(key: key);
-
-  static Builder route({
-    @required BetSlipCardData betSlipCardData,
-  }) {
-    return Builder(
-      builder: (context) {
-        return MlbBetSlipCard._(
-          betSlipCardData: betSlipCardData,
-        );
-      },
-    );
-  }
-
-  final BetSlipCardData betSlipCardData;
-
+class ParalympicsSingleBetSlipCard extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -47,7 +25,7 @@ class MlbBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState = context.watch<MlbBetButtonCubit>().state;
+        final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
@@ -59,37 +37,31 @@ class MlbBetSlipCard extends StatelessWidget {
 
         final balanceAmount = context.select(
             (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
-        final isMoneyline = betButtonState.betType == Bet.ml;
+
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
+            Text(
+              '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game.playerCountry).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game.rivalCountry).name.toUpperCase()} TO WIN',
+              maxLines: 3,
+              style: GoogleFonts.nunito(
+                fontSize: 24,
+                color: Palette.cream,
+                // fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                betButtonState.winTeam == BetButtonWin.home
-                    ? isMoneyline
-                        ? Text(
-                            '${betButtonState.homeTeamData.name.toUpperCase()} TO WIN',
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              color: Palette.cream,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Container()
-                    : isMoneyline
-                        ? Text(
-                            '${betButtonState.awayTeamData.name.toUpperCase()} TO WIN',
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 24,
-                              color: Palette.cream,
-                              // fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Container(),
+                Text(
+                  betButtonState.game.gameName.replaceAll(RegExp('-'), '\/'),
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    color: Palette.cream,
+                  ),
+                ),
               ],
             ),
             const SizedBox(
@@ -98,6 +70,7 @@ class MlbBetSlipCard extends StatelessWidget {
             Form(
               key: _formKey,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Flexible(
                     child: Column(
@@ -105,23 +78,25 @@ class MlbBetSlipCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              betButtonState.awayTeamData.city,
+                              countryFlagFromCode(
+                                  countryCode:
+                                      betButtonState.game.playerCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
-                                fontSize: 12,
+                                fontSize: 25,
                                 color: Palette.cream,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              betButtonState.awayTeamData.name.toUpperCase(),
+                              betButtonState.game.player,
                               textAlign: TextAlign.center,
                               style: Styles.awayTeam,
                             ),
                           ],
                         ),
                         const SizedBox(
-                          height: 11,
+                          height: 10,
                         ),
                         Stack(
                           children: [
@@ -132,13 +107,12 @@ class MlbBetSlipCard extends StatelessWidget {
                                   builder: (_) => MultiBlocProvider(
                                     providers: [
                                       BlocProvider.value(
-                                        value:
-                                            context.read<MlbBetButtonCubit>(),
+                                        value: context
+                                            .read<ParalympicsBetButtonCubit>(),
                                       ),
                                     ],
                                     child: BetAmountPage(
                                       betAmount: betButtonState.betAmount,
-                                      betSlipCardData: betSlipCardData,
                                     ),
                                   ),
                                 );
@@ -162,7 +136,8 @@ class MlbBetSlipCard extends StatelessWidget {
                                       Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              bottom: 8.0),
+                                            bottom: 8.0,
+                                          ),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
                                             '${betButtonState.betAmount}',
@@ -208,18 +183,6 @@ class MlbBetSlipCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 11.0),
-                          child: Text(
-                            (whichBetSystemFromEnum(betButtonState.betType)),
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 16,
-                              color: Palette.cream,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
                         Container(
                           width: 174,
                           decoration: BoxDecoration(
@@ -227,7 +190,7 @@ class MlbBetSlipCard extends StatelessWidget {
                           ),
                           child: Visibility(
                             visible: betButtonState.status ==
-                                    MlbBetButtonStatus.placing
+                                    ParalympicsBetButtonStatus.placing
                                 ? false
                                 : true,
                             replacement: Padding(
@@ -243,12 +206,12 @@ class MlbBetSlipCard extends StatelessWidget {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 9),
+                              padding: const EdgeInsets.only(top: 8),
                               child: DefaultButton(
                                 text: 'PLACE BET',
                                 action: () async {
                                   await context
-                                      .read<MlbBetButtonCubit>()
+                                      .read<ParalympicsBetButtonCubit>()
                                       .placeBet(
                                         isMinimumVersion: isMinimumVersion,
                                         betButtonState: betButtonState,
@@ -266,15 +229,10 @@ class MlbBetSlipCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 190),
-                    child: Text(
-                      '@',
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Palette.cream,
-                      ),
-                    ),
+                    padding:
+                        const EdgeInsets.only(bottom: 120, left: 5, right: 5),
+                    child: badgeFromEventTypeColumn(
+                        eventType: betButtonState.game.eventType),
                   ),
                   Flexible(
                     child: Column(
@@ -282,27 +240,25 @@ class MlbBetSlipCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              betButtonState.homeTeamData.city,
+                              countryFlagFromCode(
+                                  countryCode:
+                                      betButtonState.game.rivalCountry),
                               textAlign: TextAlign.center,
                               style: GoogleFonts.nunito(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
                                 color: Palette.green,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              betButtonState.homeTeamData.name.toUpperCase(),
+                              betButtonState.game.rival,
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.nunito(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Palette.green,
-                              ),
+                              style: Styles.homeTeam,
                             ),
                           ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 10,
                         ),
                         Stack(
                           children: [
@@ -324,8 +280,9 @@ class MlbBetSlipCard extends StatelessWidget {
                                     ),
                                     Center(
                                       child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(
+                                          bottom: 8.0,
+                                        ),
                                         child: Text(
                                           '${betButtonState.toWinAmount}',
                                           style: GoogleFonts.nunito(
@@ -369,34 +326,26 @@ class MlbBetSlipCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            betButtonState.text,
-                            maxLines: 1,
-                            style: GoogleFonts.nunito(
-                              fontSize: 16,
-                              color: Palette.cream,
-                            ),
-                          ),
-                        ),
                         Container(
                           width: 174,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                          child: DefaultButton(
-                            color: Palette.red,
-                            elevation: 0,
-                            text: 'CANCEL',
-                            action: () {
-                              context
-                                  .read<MlbBetButtonCubit>()
-                                  .unclickBetButton();
-                              context.read<BetSlipCubit>().removeBetSlip(
-                                    uniqueId: betButtonState.uniqueId,
-                                  );
-                            },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: DefaultButton(
+                              color: Palette.red,
+                              elevation: 0,
+                              text: 'CANCEL',
+                              action: () {
+                                context
+                                    .read<ParalympicsBetButtonCubit>()
+                                    .unclickBetButton();
+                                context.read<BetSlipCubit>().removeBetSlip(
+                                      betSlipDataId: betButtonState.uniqueId,
+                                    );
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -410,40 +359,12 @@ class MlbBetSlipCard extends StatelessWidget {
               child: Center(
                 child: Text(
                     DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                      betButtonState.game.dateTime.toLocal(),
+                      betButtonState.game.startTime.toLocal(),
                     ),
                     style: GoogleFonts.nunito(
                       color: Palette.cream,
                       fontSize: 14,
                     )),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: CountdownTimer(
-                  endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                      betButtonState.game.dateTime),
-                  widgetBuilder: (_, CurrentRemainingTime time) {
-                    if (time == null) {
-                      return Text(
-                        betButtonState.game.status,
-                        style: GoogleFonts.nunito(
-                          color: Palette.red,
-                          fontSize: 15,
-                        ),
-                      );
-                    }
-
-                    return Text(
-                      'Starting in  ${getRemainingTimeText(time: time)}',
-                      style: GoogleFonts.nunito(
-                        fontSize: 15,
-                        color: Palette.red,
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
           ],
@@ -464,11 +385,9 @@ class MlbBetSlipCard extends StatelessWidget {
 class BetAmountPage extends StatefulWidget {
   BetAmountPage({
     Key key,
-    @required this.betSlipCardData,
     @required this.betAmount,
   }) : super(key: key);
 
-  final BetSlipCardData betSlipCardData;
   final int betAmount;
 
   @override
@@ -481,7 +400,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<MlbBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -570,30 +489,18 @@ class _BetAmountPageState extends State<BetAmountPage> {
                               newBetAmount = betValues[i];
                             },
                           );
-                          if (int.parse(betButtonState.mainOdds).isNegative) {
-                            final toWinAmount = (100 /
-                                    int.parse(betButtonState.mainOdds) *
-                                    betValues[i])
-                                .round()
-                                .abs();
 
-                            context.read<MlbBetButtonCubit>().updateBetAmount(
-                                  toWinAmount: toWinAmount,
-                                  betAmount: betValues[i],
-                                );
-                          } else {
-                            final toWinAmount =
-                                (int.parse(betButtonState.mainOdds) /
-                                        100 *
-                                        betValues[i])
-                                    .round()
-                                    .abs();
+                          final toWinAmount =
+                              (betButtonState.mainOdds / 100 * betValues[i])
+                                  .round()
+                                  .abs();
 
-                            context.read<MlbBetButtonCubit>().updateBetAmount(
-                                  toWinAmount: toWinAmount,
-                                  betAmount: betValues[i],
-                                );
-                          }
+                          context
+                              .read<ParalympicsBetButtonCubit>()
+                              .updateBetAmount(
+                                toWinAmount: toWinAmount,
+                                betAmount: betValues[i],
+                              );
                         },
                       ),
                     ),
@@ -673,26 +580,39 @@ class _BetAmountPageState extends State<BetAmountPage> {
   }
 }
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
-  final days = time.days == null ? '' : '${time.days}d ';
-  final hours = time.hours == null ? '' : '${time.hours}hr';
-  final min = time.min == null ? '' : ' ${time.min}m';
-  final sec = time.sec == null ? '' : ' ${time.sec}s';
-  return days + hours + min + sec;
+String countryFlagFromCode({String countryCode}) {
+  return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
+      String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }
 
-String whichBetSystemFromEnum(Bet betType) {
-  if (betType == Bet.ml) {
-    return 'MONEYLINE';
-  }
-  if (betType == Bet.pts) {
-    return 'POINT SPREAD';
-  }
-  if (betType == Bet.tot) {
-    return 'TOTAL O/U';
-  } else {
-    return 'Error';
-  }
+Widget badgeFromEventTypeColumn({String eventType}) {
+  return Column(
+    children: [
+      Image.asset(
+        '${Images.paralympicsIconsPath}Paralympics.png',
+        height: 18,
+      ),
+      const SizedBox(
+        height: 40,
+      ),
+      eventType == 'gold'
+          ? const Text(
+              '🥇',
+              style: TextStyle(fontSize: 20),
+            )
+          : eventType == 'silver'
+              ? const Text(
+                  '🥈',
+                  style: TextStyle(fontSize: 20),
+                )
+              : eventType == 'bronze'
+                  ? const Text(
+                      '🥉',
+                      style: TextStyle(fontSize: 20),
+                    )
+                  : const SizedBox.shrink(),
+    ],
+  );
 }
 
 class DefaultButton extends StatelessWidget {

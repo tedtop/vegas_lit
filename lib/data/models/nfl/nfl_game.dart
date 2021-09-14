@@ -149,7 +149,7 @@ class NflGame {
         pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
         pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
         scoreId: json['ScoreID'],
-        status: statusValues.map[json['Status']],
+        status: json['Status'],
         gameEndDateTime: json['GameEndDateTime'],
         homeRotationNumber: json['HomeRotationNumber'],
         awayRotationNumber: json['AwayRotationNumber'],
@@ -224,7 +224,7 @@ class NflGame {
   final int pointSpreadAwayTeamMoneyLine;
   final int pointSpreadHomeTeamMoneyLine;
   final int scoreId;
-  final Status status;
+  final String status;
   final dynamic gameEndDateTime;
   final int homeRotationNumber;
   final int awayRotationNumber;
@@ -299,7 +299,7 @@ class NflGame {
     int pointSpreadAwayTeamMoneyLine,
     int pointSpreadHomeTeamMoneyLine,
     int scoreId,
-    Status status,
+    String status,
     dynamic gameEndDateTime,
     int homeRotationNumber,
     int awayRotationNumber,
@@ -454,7 +454,7 @@ class NflGame {
         'PointSpreadAwayTeamMoneyLine': pointSpreadAwayTeamMoneyLine,
         'PointSpreadHomeTeamMoneyLine': pointSpreadHomeTeamMoneyLine,
         'ScoreID': scoreId,
-        'Status': statusValues.reverse[status],
+        'Status': status,
         'GameEndDateTime': gameEndDateTime,
         'HomeRotationNumber': homeRotationNumber,
         'AwayRotationNumber': awayRotationNumber,
@@ -571,11 +571,6 @@ final typeValues = EnumValues({
   'Outdoor': Type.OUTDOOR,
   'RetractableDome': Type.RETRACTABLE_DOME
 });
-
-// ignore: constant_identifier_names
-enum Status { SCHEDULED }
-
-final statusValues = EnumValues({'Scheduled': Status.SCHEDULED});
 
 class EnumValues<T> {
   EnumValues(this.map);

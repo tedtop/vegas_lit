@@ -7,7 +7,7 @@ class OlympicsBetData extends BetData {
   OlympicsBetData({
     @required this.betTeam,
     @required this.winner,
-    @required this.gameStartDateTime,
+    @required gameStartDateTime,
     @required this.venue,
     @required this.event,
     @required this.eventType,
@@ -33,6 +33,7 @@ class OlympicsBetData extends BetData {
     @required isClosed,
     @required league,
   }) : super(
+          gameStartDateTime: gameStartDateTime,
           id: id,
           betAmount: betAmount,
           betProfit: betProfit,
@@ -64,9 +65,7 @@ class OlympicsBetData extends BetData {
       league: map['league'] as String,
       betTeam: map['betTeam'],
       winner: map['winner'],
-      gameStartDateTime: map['gameStartDateTime'] == null
-          ? null
-          : DateTime.parse(map['gameStartDateTime']),
+      gameStartDateTime: map['gameStartDateTime'].toString(),
       venue: map['venue'],
       event: map['event'],
       eventType: map['eventType'],
@@ -113,7 +112,6 @@ class OlympicsBetData extends BetData {
 
   final String betTeam;
   final String winner;
-  final DateTime gameStartDateTime;
   final String venue;
   final String event;
   final String eventType;

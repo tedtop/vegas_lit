@@ -1,25 +1,38 @@
 part of 'bet_slip_cubit.dart';
 
-enum BetSlipStatus { loading, empty, opened, added, removed }
+enum BetSlipStatus { loading, opened }
 
 class BetSlipState extends Equatable {
   const BetSlipState._({
-    this.betSlipCard,
+    this.singleBetSlipCard,
+    this.parlayBetSlipCard,
+    this.betDataList,
     this.status = BetSlipStatus.loading,
   });
 
   const BetSlipState.loading() : this._();
 
   const BetSlipState.opened({
-    @required List<Widget> betSlipCard,
+    @required List<Widget> singleBetSlipCard,
+    @required List<Widget> parlayBetSlipCard,
+    @required List<BetData> betDataList,
   }) : this._(
           status: BetSlipStatus.opened,
-          betSlipCard: betSlipCard,
+          singleBetSlipCard: singleBetSlipCard,
+          parlayBetSlipCard: parlayBetSlipCard,
+          betDataList: betDataList,
         );
 
-  final List<Widget> betSlipCard;
+  final List<Widget> singleBetSlipCard;
+  final List<Widget> parlayBetSlipCard;
+  final List<BetData> betDataList;
   final BetSlipStatus status;
 
   @override
-  List<Object> get props => [betSlipCard, status];
+  List<Object> get props => [
+        singleBetSlipCard,
+        parlayBetSlipCard,
+        betDataList,
+        status,
+      ];
 }

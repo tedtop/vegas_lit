@@ -17,7 +17,7 @@ class NhlBetData extends BetData {
     @required isClosed,
     @required league,
     @required this.betType,
-    @required this.gameStartDateTime,
+    @required gameStartDateTime,
     @required this.status,
     @required this.stillOpen,
     @required this.odds,
@@ -39,6 +39,7 @@ class NhlBetData extends BetData {
   }) : super(
           id: id,
           betAmount: betAmount,
+          gameStartDateTime: gameStartDateTime,
           betProfit: betProfit,
           username: username,
           dataProvider: dataProvider,
@@ -53,6 +54,42 @@ class NhlBetData extends BetData {
   @override
   factory NhlBetData.fromFirestore(DocumentSnapshot snapshot) {
     final Map data = snapshot.data();
+    return NhlBetData(
+      id: data['id'] as String,
+      winningTeam: data['winningTeam'] as String,
+      betAmount: data['betAmount'] as int,
+      betProfit: data['betProfit'] as int,
+      uid: data['uid'] as String,
+      stillOpen: data['stillOpen'] as bool,
+      betType: data['betType'] as String,
+      awayTeamCity: data['awayTeamCity'] as String,
+      homeTeamCity: data['homeTeamCity'] as String,
+      homeTeam: data['homeTeam'] as String,
+      awayTeam: data['awayTeam'] as String,
+      betTeam: data['betTeam'] as String,
+      winningTeamName: data['winningTeamName'] as String,
+      username: data['username'] as String,
+      dataProvider: data['dataProvider'] as String,
+      clientVersion: data['clientVersion'] as String,
+      betPointSpread: double.tryParse(data['betPointSpread'].toString()),
+      betOverUnder: double.tryParse(data['betOverUnder'].toString()),
+      awayTeamScore: data['awayTeamScore'] as int,
+      homeTeamScore: data['homeTeamScore'] as int,
+      totalGameScore: data['totalGameScore'] as int,
+      homeTeamName: data['homeTeamName'] as String,
+      awayTeamName: data['awayTeamName'] as String,
+      gameStartDateTime: data['gameStartDateTime'] as String,
+      dateTime: data['dateTime'] as String,
+      week: data['week'] as String,
+      status: data['status'] as String,
+      gameId: data['gameId'] as int,
+      isClosed: data['isClosed'] as bool,
+      league: data['league'] as String,
+      odds: data['odds'] as int,
+    );
+  }
+
+  factory NhlBetData.fromMap(DocumentSnapshot data) {
     return NhlBetData(
       id: data['id'] as String,
       winningTeam: data['winningTeam'] as String,
@@ -104,7 +141,6 @@ class NhlBetData extends BetData {
   final int gameId;
   final String betType;
   final bool stillOpen;
-  final String gameStartDateTime;
   final String status;
   final int odds;
   final String winningTeam;
