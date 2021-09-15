@@ -14,6 +14,7 @@ import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart'
 import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
+import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 
 import '../../bet_slip.dart';
 
@@ -60,15 +61,19 @@ class ParlayBetSlipButton extends StatelessWidget {
               authenticationBloc.state.userData.username,
         );
 
+        final currentLeague =
+            context.select((SportsbookBloc bloc) => bloc.state?.league);
+
         final balanceAmount = context.select(
             (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
 
         return BlocListener<BetSlipCubit, BetSlipState>(
           listener: (context, state) async {
             if (state.status == BetSlipStatus.opened) {
-              await context.read<ParlayBetButtonCubit>().updateBetAmount(
-                    betAmount: betButtonState.betAmount,
-                    betList: state.betDataList,
+              await context.read<ParlayBetButtonCubit>().openParlay(
+                    league: 'Parlay',
+                    betDataList: state.betDataList,
+                    uid: currentUserId,
                   );
             }
           },
@@ -96,11 +101,15 @@ class ParlayBetSlipButton extends StatelessWidget {
                       ),
                     );
 
-                  context.read<BetSlipCubit>().openBetSlip(
-                    singleBetSlipGames: [],
-                    parlayBetSlipGames: [],
-                    betDataList: [],
-                  );
+                  context.read<SportsbookBloc>().add(
+                        SportsbookOpen(league: currentLeague),
+                      );
+                  context.read<BetSlipCubit>()
+                    ..openBetSlip(
+                      singleBetSlipGames: [],
+                      parlayBetSlipGames: [],
+                      betDataList: [],
+                    );
                   break;
                 default:
                   break;

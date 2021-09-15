@@ -35,26 +35,25 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
     @required String league,
     @required String uid,
   }) async {
-    if (betDataList.length > 3) {
-    } else {
-      final toWinAmount = await parlayWinAmountCalculation(
-          betDataList: betDataList, betAmount: state.betAmount);
-      final betIdList = betDataList.map((e) => e.id).toList()..sort();
-      var allIdString = '';
-      await Future.wait(
-        betIdList.map((e) async => allIdString = '$allIdString-$e'),
-      );
-      final uniqueId = '${league.toUpperCase()}$allIdString';
+    final toWinAmount = await parlayWinAmountCalculation(
+        betDataList: betDataList, betAmount: state.betAmount);
+    final betIdList = betDataList.map((e) => e.id).toList()..sort();
+    var allIdString = '';
+    await Future.wait(
+      betIdList.map((e) async => allIdString = '$allIdString-$e'),
+    );
+    final uniqueId = '${league.toUpperCase()}$allIdString';
 
-      emit(ParlayBetButtonState(
+    emit(
+      ParlayBetButtonState(
         betAmount: state.betAmount,
         toWinAmount: toWinAmount,
         league: league,
         betList: betDataList,
         uid: uid,
         uniqueId: uniqueId,
-      ));
-    }
+      ),
+    );
   }
 
   Future<void> placeBet({
@@ -126,7 +125,7 @@ class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
                   .map((e) => DateTime.parse(e.gameStartDateTime)
                       .millisecondsSinceEpoch)
                   .toList()
-                    ..sort((a, b) => a.compareTo(b));
+                ..sort((a, b) => a.compareTo(b));
 
               await context.read<ParlayBetButtonCubit>().updateOpenBets(
                     betAmount: state.betAmount,

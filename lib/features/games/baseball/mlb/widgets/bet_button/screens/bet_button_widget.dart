@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -253,9 +252,4 @@ String whichBetSystemToSave({@required Bet betType}) {
   } else {
     return 'error';
   }
-}
-
-Future<String> _getAppVersion() async {
-  final packageInfo = await PackageInfo.fromPlatform();
-  return packageInfo.version;
 }
