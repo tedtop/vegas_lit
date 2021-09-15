@@ -391,8 +391,8 @@ class _SportsBookViewState extends State<SportsBookView>
             items: <String>[
               'NFL',
               'NBA',
-              'OLYMPICS',
-              'PARALYMPICS',
+              // 'OLYMPICS',
+              // 'PARALYMPICS',
               'MLB',
               'NHL',
               'NCAAF',
