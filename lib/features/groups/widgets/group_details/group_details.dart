@@ -123,6 +123,9 @@ class GroupDetailsDescription extends StatelessWidget {
             );
             break;
           case GroupDetailsStatus.complete:
+            final groupUsersLength = state.group.users.values
+                .where((element) => element == true)
+                .length;
             return Column(
               children: [
                 Center(
@@ -252,7 +255,7 @@ class GroupDetailsDescription extends StatelessWidget {
                           RichText(
                             text: TextSpan(
                               text:
-                                  '${state.group.users.length}${state.group.userLimit == 0 ? '' : '/${state.group.userLimit}'}',
+                                  '$groupUsersLength${state.group.userLimit == 0 ? '' : '/${state.group.userLimit}'}',
                               style: Styles.normalTextBold.copyWith(
                                 fontSize: 14.5,
                                 color: state.group.userLimit == 0 ||
