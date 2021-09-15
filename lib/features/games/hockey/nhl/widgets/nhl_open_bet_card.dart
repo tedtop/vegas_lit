@@ -24,6 +24,10 @@ class NhlOpenBetCard extends StatelessWidget {
     final odds = openBets?.odds?.isNegative ?? 0.isNegative
         ? openBets.odds.toString()
         : '+${openBets.odds}';
+    final pointSpread = openBets?.betPointSpread?.isNegative ?? 0.isNegative
+        ? openBets.betPointSpread.toString()
+        : '+${openBets.betPointSpread}';
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
       child: Stack(
@@ -72,7 +76,7 @@ class NhlOpenBetCard extends StatelessWidget {
                                   )
                                 : isPointSpread
                                     ? TextSpan(
-                                        text: ' $odds (PTS)',
+                                        text: ' $pointSpread (PTS)',
                                       )
                                     : TextSpan(
                                         text:
@@ -80,7 +84,7 @@ class NhlOpenBetCard extends StatelessWidget {
                                         children: <TextSpan>[
                                           TextSpan(
                                             text:
-                                                ' ${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} $odds (TOT)',
+                                                ' ${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder} (TOT)',
                                           ),
                                         ],
                                       ),

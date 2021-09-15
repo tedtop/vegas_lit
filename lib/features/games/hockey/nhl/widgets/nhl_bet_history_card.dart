@@ -23,6 +23,11 @@ class NhlBetHistoryCard extends StatelessWidget {
     final odds = betHistoryData?.odds?.isNegative ?? 0.isNegative
         ? betHistoryData.odds.toString()
         : '+${betHistoryData.odds}';
+    final pointSpread =
+        betHistoryData?.betPointSpread?.isNegative ?? 0.isNegative
+            ? betHistoryData.betPointSpread.toString()
+            : '+${betHistoryData.betPointSpread}';
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
       child: Stack(
@@ -73,7 +78,7 @@ class NhlBetHistoryCard extends StatelessWidget {
                                   )
                                 : isPointSpread
                                     ? TextSpan(
-                                        text: ' $odds (PTS)',
+                                        text: ' $pointSpread (PTS)',
                                       )
                                     : TextSpan(
                                         text:
@@ -81,7 +86,7 @@ class NhlBetHistoryCard extends StatelessWidget {
                                         children: <TextSpan>[
                                           TextSpan(
                                             text:
-                                                ' ${betHistoryData.betTeam == 'away' ? 'OVER' : 'UNDER'} $odds (TOT)',
+                                                ' ${betHistoryData.betTeam == 'away' ? 'OVER' : 'UNDER'} ${betHistoryData.betOverUnder} (TOT)',
                                           ),
                                         ],
                                       ),
