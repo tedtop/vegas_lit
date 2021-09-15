@@ -116,9 +116,24 @@ class MlbOpenBetCard extends StatelessWidget {
                       ),
                     ),
 
-                    Text(
-                      'You bet \$${openBets.betAmount} @ $odds',
-                      style: Styles.openBetsCardBold,
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          isParlayBet
+                              ? TextSpan(
+                                  text: '',
+                                  style: Styles.openBetsCardBold,
+                                )
+                              : TextSpan(
+                                  text: 'You bet \$${openBets.betAmount} @ ',
+                                  style: Styles.openBetsCardBold,
+                                ),
+                          TextSpan(
+                            text: '$odds',
+                            style: Styles.openBetsCardBold,
+                          ),
+                        ],
+                      ),
                     ),
 
                     // Last Row
