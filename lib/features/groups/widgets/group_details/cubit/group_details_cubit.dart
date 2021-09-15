@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vegas_lit/data/repositories/storage_repository.dart';
+import 'package:vegas_lit/utils/logger.dart';
 
 import '../../../../../data/models/group.dart';
 import '../../../../../data/models/wallet.dart';
@@ -104,7 +105,7 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
           players: state.players,
         ));
       } catch (e) {
-        print('Unable to update group avatar!');
+        logger.i('Unable to update group avatar!');
         GroupDetailsState(
           status: GroupDetailsStatus.complete,
           group: state.group,

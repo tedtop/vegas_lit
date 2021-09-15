@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vegas_lit/data/repositories/storage_repository.dart';
+import 'package:vegas_lit/utils/logger.dart';
 
 import '../../../../../data/models/group.dart';
 import '../../../../../data/repositories/groups_repository.dart';
@@ -39,7 +40,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
           ),
         );
       } catch (e) {
-        print('Failed to upload icon!');
+        logger.i('Failed to upload icon!');
       }
     }
   }
@@ -60,10 +61,10 @@ class GroupAddCubit extends Cubit<GroupAddState> {
               groupId: id,
             );
           } catch (e) {
-            print('Failed to upload icon!');
+            logger.i('Failed to upload icon!');
           }
         } else {
-          print('No icon added!');
+          logger.i('No icon added!');
         }
       },
     );
