@@ -114,7 +114,7 @@ class GroupDetailsDescription extends StatelessWidget {
         switch (state.status) {
           case GroupDetailsStatus.loading:
             return const SizedBox(
-              height: 100,
+              height: 200,
               child: Center(
                 child: CircularProgressIndicator(
                   color: Palette.cream,
@@ -142,12 +142,27 @@ class GroupDetailsDescription extends StatelessWidget {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(12),
                                 ),
-                                child: Image.network(state.group.avatarUrl)),
+                                child: CachedNetworkImage(
+                                    imageUrl: state.group.avatarUrl,
+                                    placeholder: (context, url) => const Center(
+                                          child: SizedBox(
+                                            width: 35,
+                                            height: 35,
+                                            child: CircularProgressIndicator(
+                                              color: Palette.cream,
+                                            ),
+                                          ),
+                                        ),
+                                    imageRenderMethodForWeb:
+                                        ImageRenderMethodForWeb.HttpGet)),
                           )
                         : const Center(
-                            child: Icon(
-                              Icons.star,
-                              size: 50,
+                            child: SizedBox(
+                              width: 70,
+                              child: Icon(
+                                Icons.star,
+                                size: 50,
+                              ),
                             ),
                           ),
                     Positioned(

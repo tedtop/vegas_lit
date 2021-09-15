@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,6 +103,7 @@ class PrivateGroups extends StatelessWidget {
               }
             },
           ),
+          const SizedBox(height: 70),
         ],
       ),
     );
@@ -157,10 +159,18 @@ class PrivateGroupListTile extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        leading: const Icon(
-          Icons.star,
-          size: 35,
-        ),
+        leading: _group.avatarUrl != null
+            ? CircleAvatar(
+                radius: 25,
+                backgroundImage: CachedNetworkImageProvider(_group.avatarUrl,
+                    imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet))
+            : const SizedBox(
+                width: 50,
+                child: Icon(
+                  Icons.star,
+                  size: 35,
+                ),
+              ),
         title: Text(
           _group.name,
           style: Styles.leaderboardUsername,
