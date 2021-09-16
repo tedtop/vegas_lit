@@ -74,32 +74,10 @@ export function whichTeamWin(
   }
   // Point spread type calculation
   if (betType == "pointspread") {
-    const finalWinTeam = homeTeamScore > awayTeamScore ? "home" : "away";
-    const scoreDifference = homeTeamScore - awayTeamScore;
-    if (gameNumber >= 0) {
-      // Positive value
-      // Underdog betting team
-      if (betTeam != finalWinTeam) {
-        if (Math.abs(scoreDifference) <= Math.abs(gameNumber)) {
-          return betTeam == "home" ? "home" : "away";
-        } else {
-          return betTeam == "home" ? "away" : "home";
-        }
-      } else {
-        return betTeam == "home" ? "home" : "away";
-      }
+    if (betTeam == "home") {
+      return homeTeamScore + gameNumber > awayTeamScore ? "home" : "away";
     } else {
-      // Negative value
-      // Favorite betting team
-      // if (betTeam == finalWinTeam) {
-      if (Math.abs(scoreDifference) >= Math.abs(gameNumber)) {
-        return betTeam == "home" ? "home" : "away";
-      } else {
-        return betTeam == "home" ? "away" : "home";
-      }
-      // } else {
-      //   return betTeam == "home" ? "away" : "home";
-      // }
+      return awayTeamScore + gameNumber > homeTeamScore ? "away" : "home";
     }
   }
   // Total type calculation
