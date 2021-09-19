@@ -13,12 +13,14 @@ import { NhlResolve } from "./bets_resolve/nhl_resolve";
 import { NhlBet } from "./models/bets/nhl_bet";
 import { NcaabResolve } from "./bets_resolve/cbb_resolve";
 import { NcaabBet } from "./models/bets/cbb_bet";
-import { OlympicsBet } from "./models/bets/olympics_bet";
-import { OlympicsResolve } from "./bets_resolve/olympics_resolve";
+// import { OlympicsBet } from "./models/bets/olympics_bet";
+// import { OlympicsResolve } from "./bets_resolve/olympics_resolve";
 import { rankLeaderboard } from "./rank_leaderboard";
 import { Bet } from "./models/bets/bet";
 import { ParalympicsBet } from "./models/bets/paralympics_bet";
 import { ParalympicsResolve } from "./bets_resolve/paralympics_resolve";
+import { ParlayBet } from "./models/bets/parlay_bet";
+import { ParlayResolve } from "./bets_resolve/parlay_resolve";
 const performance = require("perf_hooks").performance;
 
 export const resolveBets = functions.pubsub
@@ -43,10 +45,11 @@ export const resolveBets = functions.pubsub
             const data: Bet = bet.data() as Bet;
             const league = data.league.toLowerCase();
 
-            if (league == "olympics") {
-              const olympicsBet: OlympicsBet = data as OlympicsBet;
-              await OlympicsResolve(olympicsBet);
-            } else if (league == "nfl") {
+            // if (league == "olympics") {
+            //   const olympicsBet: OlympicsBet = data as OlympicsBet;
+            //   await OlympicsResolve(olympicsBet);
+            // } else
+            if (league == "nfl") {
               const nflBet: NflBet = data as NflBet;
               await NflResolve(nflBet);
             } else if (league == "cfb") {
@@ -67,6 +70,9 @@ export const resolveBets = functions.pubsub
             } else if (league == "paralympics" || league == "olympics") {
               const paralympicsBet: ParalympicsBet = data as ParalympicsBet;
               await ParalympicsResolve(paralympicsBet);
+            } else if (league == "parlay") {
+              const parlayBet: ParlayBet = data as ParlayBet;
+              await ParlayResolve(parlayBet);
             } else {
               console.log("Undefined Bet Type");
             }

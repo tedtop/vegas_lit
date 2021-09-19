@@ -21,7 +21,7 @@ export interface NflBet {
   betType: string;
   betProfit: number;
   betAmount: number;
-  isClosed: boolean;
+  isClosed: any;
   homeTeamScore: number;
   betOverUnder: number;
   awayTeamName: string;
