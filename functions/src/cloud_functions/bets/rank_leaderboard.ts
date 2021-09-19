@@ -1,8 +1,6 @@
 import * as admin from "firebase-admin";
-import { sendMessageToSlack } from "../slack";
 
 export async function rankLeaderboard() {
-  await sendMessageToSlack(":rocket: Updating leaderboard...");
   await admin
     .firestore()
     .collection("wallets")

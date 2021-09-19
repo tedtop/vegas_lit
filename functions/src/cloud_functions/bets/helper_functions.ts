@@ -3,16 +3,14 @@ import moment = require("moment-timezone");
 // Get current week in format
 export function getCurrentWeek(): string {
   const currentDate = moment().tz("America/New_York");
+  const todayWeekNumber = currentDate.format("w");
+  const todayWeekFormat = currentDate.format("YYYY");
   if (currentDate.day() <= 3) {
-    const todayWeekNumber = currentDate.format("w");
-    const todayWeekFormat = currentDate.format("YYYY");
     const weekFormatFirst = Number.parseInt(todayWeekNumber) - 1;
     const weekFormatSecond = Number.parseInt(todayWeekNumber);
     const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
     return leaderboardWeekName;
   } else {
-    const todayWeekNumber = currentDate.format("w");
-    const todayWeekFormat = currentDate.format("YYYY");
     const weekFormatFirst = Number.parseInt(todayWeekNumber);
     const weekFormatSecond = Number.parseInt(todayWeekNumber) + 1;
     const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
@@ -23,16 +21,14 @@ export function getCurrentWeek(): string {
 // Get current week in format
 export function getCurrentWeekByDate(date: Date): string {
   const currentDate = moment(date);
+  const todayWeekNumber = currentDate.format("w");
+  const todayWeekFormat = currentDate.format("YYYY");
   if (currentDate.day() <= 3) {
-    const todayWeekNumber = currentDate.format("w");
-    const todayWeekFormat = currentDate.format("YYYY");
     const weekFormatFirst = Number.parseInt(todayWeekNumber) - 1;
     const weekFormatSecond = Number.parseInt(todayWeekNumber);
     const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;
     return leaderboardWeekName;
   } else {
-    const todayWeekNumber = currentDate.format("w");
-    const todayWeekFormat = currentDate.format("YYYY");
     const weekFormatFirst = Number.parseInt(todayWeekNumber);
     const weekFormatSecond = Number.parseInt(todayWeekNumber) + 1;
     const leaderboardWeekName = `${todayWeekFormat}-${weekFormatFirst}-${weekFormatSecond}`;

@@ -10,7 +10,6 @@ import {
 import * as admin from "firebase-admin";
 import moment = require("moment");
 import { NbaGame } from "../models/games/nba_game";
-import { sendMessageToSlack } from "../../slack";
 const axios = require("axios").default;
 
 export async function NbaResolve(data: NbaBet) {
@@ -23,7 +22,6 @@ export async function NbaResolve(data: NbaBet) {
   const uid = data.uid;
   const betPlacedTime = data.dateTime;
   const amountWin = data.betProfit;
-  const username = data.username;
   const documentId = data.id;
   const totalWinAmount = amountWin + amountBet;
   const dateTime = formatTime(data.gameStartDateTime);
@@ -104,9 +102,6 @@ export async function NbaResolve(data: NbaBet) {
               -amountWin
             ),
           });
-          await sendMessageToSlack(
-            `:hourglass_flowing_sand: Postponed match bet refunded to *${username}*`
-          );
         } else {
           const walletRef = admin
             .firestore()
@@ -127,9 +122,6 @@ export async function NbaResolve(data: NbaBet) {
               -amountWin
             ),
           });
-          await sendMessageToSlack(
-            `:hourglass_flowing_sand: Postponed match bet refunded to *${username}*`
-          );
         }
         await batch.commit();
         // betsResolved++;
@@ -184,9 +176,7 @@ export async function NbaResolve(data: NbaBet) {
                     -amountWin
                   ),
                 });
-                await sendMessageToSlack(
-                  `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                );
+
                 batch.set(
                   cumulativeVaultRef,
                   {
@@ -216,9 +206,6 @@ export async function NbaResolve(data: NbaBet) {
                     -amountBet
                   ),
                 });
-                await sendMessageToSlack(
-                  `:moneybag: *${username}* lost their bet for $${amountBet}`
-                );
               }
             } else {
               const walletRef = admin
@@ -243,9 +230,6 @@ export async function NbaResolve(data: NbaBet) {
                     -amountWin
                   ),
                 });
-                await sendMessageToSlack(
-                  `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                );
 
                 batch.set(
                   cumulativeVaultRef,
@@ -276,9 +260,6 @@ export async function NbaResolve(data: NbaBet) {
                     -amountBet
                   ),
                 });
-                await sendMessageToSlack(
-                  `:moneybag: *${username}* lost their bet for $${amountBet}`
-                );
               }
             }
             await batch.commit();

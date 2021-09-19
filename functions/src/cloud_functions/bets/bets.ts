@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { sendMessageToSlack } from "../slack";
 import { NflResolve } from "./bets_resolve/nfl_resolve";
 import { NflBet } from "./models/bets/nfl_bet";
 import { NcaafBet } from "./models/bets/cfb_bet";
@@ -13,27 +12,17 @@ import { NhlResolve } from "./bets_resolve/nhl_resolve";
 import { NhlBet } from "./models/bets/nhl_bet";
 import { NcaabResolve } from "./bets_resolve/cbb_resolve";
 import { NcaabBet } from "./models/bets/cbb_bet";
-// import { OlympicsBet } from "./models/bets/olympics_bet";
-// import { OlympicsResolve } from "./bets_resolve/olympics_resolve";
 import { rankLeaderboard } from "./rank_leaderboard";
 import { Bet } from "./models/bets/bet";
 import { ParalympicsBet } from "./models/bets/paralympics_bet";
 import { ParalympicsResolve } from "./bets_resolve/paralympics_resolve";
 import { ParlayBet } from "./models/bets/parlay_bet";
 import { ParlayResolve } from "./bets_resolve/parlay_resolve";
-const performance = require("perf_hooks").performance;
 
 export const resolveBets = functions.pubsub
   .schedule("*/30 * * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
-    // Send slack notification and start timer
-    const startTime = performance.now();
-    await sendMessageToSlack(`:mega: Resolving bets...`);
-
-    // let betsResolved = 0;
-    // let betsRemainOpen = 0;
-
     await admin
       .firestore()
       .collection("bets")
@@ -83,40 +72,8 @@ export const resolveBets = functions.pubsub
         console.log(error);
       })
       .then(async function () {
-        // await sendMessageToSlack(
-        //   `:white_check_mark: ${betsResolved} bets resolved, ${betsRemainOpen} bets remain open`
-        // );
-        // Rank Leaderboard after resolving bets
         await rankLeaderboard();
       });
 
-    const endTime = performance.now();
-    const timeTakeInExecution = endTime - startTime;
-    await sendMessageToSlack(
-      `:checkered_flag: Bet resolutions finished in ${timeTakeInExecution.toFixed(
-        1
-      )}ms`
-    );
-
-    // await sendLeaderboardToSlack();
-
     return true;
-
-    // // Sending top 5 leaderboard players
-    // async function sendLeaderboardToSlack() {
-    //   await admin
-    //     .firestore()
-    //     .collection("wallets")
-    //     .orderBy("rank", "desc")
-    //     .limit(5)
-    //     .get()
-    //     .then(async (snapshots) => {
-    //       var rankNumber = 1;
-
-    //       for (const docs of snapshots.docs) {
-    //         await sendMessageToSlack(`${rankNumber}. ${docs.data().username}`);
-    //         rankNumber++;
-    //       }
-    //     });
-    // }
   });

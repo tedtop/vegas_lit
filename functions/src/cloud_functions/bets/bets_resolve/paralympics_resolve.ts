@@ -1,5 +1,4 @@
 import moment = require("moment");
-import { sendMessageToSlack } from "../../slack";
 import * as admin from "firebase-admin";
 import { getCurrentWeek, getCurrentWeekByDate } from "../helper_functions";
 import { ParalympicsBet } from "../models/bets/paralympics_bet";
@@ -15,7 +14,6 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
   const uid = data.uid;
   const betPlacedTime = data.dateTime;
   const amountWin = data.betProfit;
-  const username = data.username;
   const documentId = data.id;
   const totalWinAmount = amountWin + amountBet;
 
@@ -91,9 +89,6 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
                   -amountWin
                 ),
               });
-              await sendMessageToSlack(
-                `:hourglass_flowing_sand: Postponed match bet refunded to *${username}*`
-              );
             } else {
               const walletRef = admin
                 .firestore()
@@ -114,9 +109,6 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
                   -amountWin
                 ),
               });
-              await sendMessageToSlack(
-                `:hourglass_flowing_sand: Postponed match bet refunded to *${username}*`
-              );
             }
             await batch.commit();
             // betsResolved++;
@@ -150,9 +142,7 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
                     -amountWin
                   ),
                 });
-                await sendMessageToSlack(
-                  `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                );
+
                 batch.set(
                   cumulativeVaultRef,
                   {
@@ -182,9 +172,6 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
                     -amountBet
                   ),
                 });
-                await sendMessageToSlack(
-                  `:moneybag: *${username}* lost their bet for $${amountBet}`
-                );
               }
             } else {
               const walletRef = admin
@@ -209,9 +196,6 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
                     -amountWin
                   ),
                 });
-                await sendMessageToSlack(
-                  `:dart: *${username}* won their $${amountBet} bet and won $${amountWin}`
-                );
 
                 batch.set(
                   cumulativeVaultRef,
@@ -242,9 +226,6 @@ export async function ParalympicsResolve(data: ParalympicsBet) {
                     -amountBet
                   ),
                 });
-                await sendMessageToSlack(
-                  `:moneybag: *${username}* lost their bet for $${amountBet}`
-                );
               }
             }
             await batch.commit();
