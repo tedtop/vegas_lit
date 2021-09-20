@@ -88,9 +88,6 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
         state.copyWith(status: MlbBetButtonStatus.alreadyPlaced),
       );
     } else {
-      emit(
-        state.copyWith(status: MlbBetButtonStatus.clicked),
-      );
       final appVersion = await _getAppVersion();
       context.read<BetSlipCubit>().addBetSlip(
             betData: MlbBetData(
@@ -137,6 +134,9 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
               child: const MlbParlayBetSlipCard(),
             ),
           );
+      emit(
+        state.copyWith(status: MlbBetButtonStatus.clicked),
+      );
     }
   }
 
