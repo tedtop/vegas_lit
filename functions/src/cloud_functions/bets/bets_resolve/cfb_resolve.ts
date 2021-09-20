@@ -62,7 +62,7 @@ export async function NcaafResolve(data: NcaafBet) {
       const awayTeamScore = specificGame.AwayTeamScore;
 
       const pointSpread = pointSpreadAssign(specificGame.PointSpread, betTeam);
-      if (status == "Postponed") {
+      if (status == "Postponed" || status == "Canceled") {
         const betRef = admin.firestore().collection("bets").doc(documentId);
 
         batch.update(betRef, {
