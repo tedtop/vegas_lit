@@ -160,14 +160,16 @@ class MlbBetHistoryCard extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            right: 8,
-            bottom: 10,
-            child: Text(
-              isWin ? '\$${betHistoryData.betProfit}' : 'LOST',
-              style: Styles.betHistoryNormal,
-            ),
-          ),
+          !isParlayBet
+              ? Positioned(
+                  right: 8,
+                  bottom: 10,
+                  child: Text(
+                    '\$${betHistoryData.betProfit}',
+                    style: Styles.betHistoryNormal,
+                  ),
+                )
+              : const SizedBox(),
           Positioned(
             top: -12,
             left: 15,
