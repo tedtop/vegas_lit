@@ -48,10 +48,12 @@ export async function ParlayResolve(data: ParlayBet) {
     .collection("daily")
     .doc(betDateInVaultFormat);
 
+  const betListUpdateBatch = admin.firestore().batch();
+
   const betList = await Promise.all(
     data.bets.map(async (bet: any, index: number) => {
-      const batch = admin.firestore().batch();
       const league = bet.league.toLowerCase();
+      const betRef = admin.firestore().collection("bets").doc(documentId);
       if (league == "nfl") {
         const nflBet: NflBet = bet as NflBet;
 
@@ -84,16 +86,12 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           nflBet.betTeam
         );
-        if (status == "Postponed") {
-          const betRef = admin.firestore().collection("bets").doc(documentId);
-
+        if (status == "Postponed" || status == "Canceled") {
+          // Update Bet
           nflBet.isClosed = null;
-
           data.bets[index] = nflBet;
+          betListUpdateBatch.update(betRef, data);
 
-          batch.update(betRef, data);
-
-          await batch.commit();
           return "cancelled" as string;
         } else {
           if (homeTeamScore != null && awayTeamScore != null) {
@@ -102,6 +100,8 @@ export async function ParlayResolve(data: ParlayBet) {
                 ? pointSpread
                 : specificGame.OverUnder;
 
+            const totalGameScore = homeTeamScore + awayTeamScore;
+
             const finalWinTeam = whichTeamWin(
               homeTeamScore,
               awayTeamScore,
@@ -109,7 +109,25 @@ export async function ParlayResolve(data: ParlayBet) {
               gameNumber,
               nflBet.betTeam
             );
+            const finalWinTeamName =
+              finalWinTeam == "away"
+                ? specificGame.AwayTeam
+                : specificGame.HomeTeam;
+
             const isWin = nflBet.betTeam == finalWinTeam;
+
+            // Update Bet
+            nflBet.isClosed = true;
+            nflBet.homeTeamScore = homeTeamScore;
+            nflBet.awayTeamScore = awayTeamScore;
+            finalWinTeamName != null
+              ? (nflBet.winningTeamName = finalWinTeamName)
+              : finalWinTeamName;
+            nflBet.totalGameScore = totalGameScore;
+            nflBet.winningTeam = finalWinTeam;
+            data.bets[index] = nflBet;
+            betListUpdateBatch.update(betRef, data);
+
             return isWin ? ("won" as string) : ("lose" as string);
           } else {
             return "null" as string;
@@ -147,16 +165,12 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           ncaafBet.betTeam
         );
-        if (status == "Postponed") {
-          const betRef = admin.firestore().collection("bets").doc(documentId);
-
+        if (status == "Postponed" || status == "Canceled") {
+          // Update Bet
           ncaafBet.isClosed = null;
-
           data.bets[index] = ncaafBet;
+          betListUpdateBatch.update(betRef, data);
 
-          batch.update(betRef, data);
-
-          await batch.commit();
           return "cancelled" as string;
         } else {
           if (homeTeamScore != null && awayTeamScore != null) {
@@ -165,6 +179,8 @@ export async function ParlayResolve(data: ParlayBet) {
                 ? pointSpread
                 : specificGame.OverUnder;
 
+            const totalGameScore = homeTeamScore + awayTeamScore;
+
             const finalWinTeam = whichTeamWin(
               homeTeamScore,
               awayTeamScore,
@@ -172,7 +188,24 @@ export async function ParlayResolve(data: ParlayBet) {
               gameNumber,
               ncaafBet.betTeam
             );
+            const finalWinTeamName =
+              finalWinTeam == "away"
+                ? specificGame.AwayTeam
+                : specificGame.HomeTeam;
             const isWin = ncaafBet.betTeam == finalWinTeam;
+
+            // Update Bet
+            ncaafBet.isClosed = true;
+            ncaafBet.homeTeamScore = homeTeamScore;
+            ncaafBet.awayTeamScore = awayTeamScore;
+            finalWinTeamName != null
+              ? (ncaafBet.winningTeamName = finalWinTeamName)
+              : finalWinTeamName;
+            ncaafBet.totalGameScore = totalGameScore;
+            ncaafBet.winningTeam = finalWinTeam;
+            data.bets[index] = ncaafBet;
+            betListUpdateBatch.update(betRef, data);
+
             return isWin ? ("won" as string) : ("lose" as string);
           } else {
             return "null" as string;
@@ -210,16 +243,12 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           mlbBet.betTeam
         );
-        if (status == "Postponed") {
-          const betRef = admin.firestore().collection("bets").doc(documentId);
-
+        if (status == "Postponed" || status == "Canceled") {
+          // Update Bet
           mlbBet.isClosed = null;
-
           data.bets[index] = mlbBet;
+          betListUpdateBatch.update(betRef, data);
 
-          batch.update(betRef, data);
-
-          await batch.commit();
           return "cancelled" as string;
         } else {
           if (homeTeamScore != null && awayTeamScore != null) {
@@ -243,8 +272,7 @@ export async function ParlayResolve(data: ParlayBet) {
                 : specificGame.HomeTeam;
             const isWin = mlbBet.betTeam == finalWinTeam;
 
-            const betRef = admin.firestore().collection("bets").doc(documentId);
-
+            // Update Bet
             mlbBet.isClosed = true;
             mlbBet.homeTeamScore = homeTeamScore;
             mlbBet.awayTeamScore = awayTeamScore;
@@ -253,12 +281,9 @@ export async function ParlayResolve(data: ParlayBet) {
               : finalWinTeamName;
             mlbBet.totalGameScore = totalGameScore;
             mlbBet.winningTeam = finalWinTeam;
-
             data.bets[index] = mlbBet;
+            betListUpdateBatch.update(betRef, data);
 
-            batch.update(betRef, data);
-
-            await batch.commit();
             return isWin ? ("won" as string) : ("lose" as string);
           } else {
             return "null" as string;
@@ -296,16 +321,12 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           nbaBet.betTeam
         );
-        if (status == "Postponed") {
-          const betRef = admin.firestore().collection("bets").doc(documentId);
-
+        if (status == "Postponed" || status == "Canceled") {
+          // Update Bet
           nbaBet.isClosed = null;
-
           data.bets[index] = nbaBet;
+          betListUpdateBatch.update(betRef, data);
 
-          batch.update(betRef, data);
-
-          await batch.commit();
           return "cancelled" as string;
         } else {
           if (homeTeamScore != null && awayTeamScore != null) {
@@ -314,6 +335,8 @@ export async function ParlayResolve(data: ParlayBet) {
                 ? pointSpread
                 : specificGame.OverUnder;
 
+            const totalGameScore = homeTeamScore + awayTeamScore;
+
             const finalWinTeam = whichTeamWin(
               homeTeamScore,
               awayTeamScore,
@@ -321,7 +344,24 @@ export async function ParlayResolve(data: ParlayBet) {
               gameNumber,
               nbaBet.betTeam
             );
+            const finalWinTeamName =
+              finalWinTeam == "away"
+                ? specificGame.AwayTeam
+                : specificGame.HomeTeam;
             const isWin = nbaBet.betTeam == finalWinTeam;
+
+            // Update Bet
+            nbaBet.isClosed = true;
+            nbaBet.homeTeamScore = homeTeamScore;
+            nbaBet.awayTeamScore = awayTeamScore;
+            finalWinTeamName != null
+              ? (nbaBet.winningTeamName = finalWinTeamName)
+              : finalWinTeamName;
+            nbaBet.totalGameScore = totalGameScore;
+            nbaBet.winningTeam = finalWinTeam;
+            data.bets[index] = nbaBet;
+            betListUpdateBatch.update(betRef, data);
+
             return isWin ? ("won" as string) : ("lose" as string);
           } else {
             return "null" as string;
@@ -359,16 +399,12 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           nhlBet.betTeam
         );
-        if (status == "Postponed") {
-          const betRef = admin.firestore().collection("bets").doc(documentId);
-
+        if (status == "Postponed" || status == "Canceled") {
+          // Update Bet
           nhlBet.isClosed = null;
-
           data.bets[index] = nhlBet;
+          betListUpdateBatch.update(betRef, data);
 
-          batch.update(betRef, data);
-
-          await batch.commit();
           return "cancelled" as string;
         } else {
           if (homeTeamScore != null && awayTeamScore != null) {
@@ -377,6 +413,8 @@ export async function ParlayResolve(data: ParlayBet) {
                 ? pointSpread
                 : specificGame.OverUnder;
 
+            const totalGameScore = homeTeamScore + awayTeamScore;
+
             const finalWinTeam = whichTeamWin(
               homeTeamScore,
               awayTeamScore,
@@ -384,7 +422,24 @@ export async function ParlayResolve(data: ParlayBet) {
               gameNumber,
               nhlBet.betTeam
             );
+            const finalWinTeamName =
+              finalWinTeam == "away"
+                ? specificGame.AwayTeam
+                : specificGame.HomeTeam;
             const isWin = nhlBet.betTeam == finalWinTeam;
+
+            // Update Bet
+            nhlBet.isClosed = true;
+            nhlBet.homeTeamScore = homeTeamScore;
+            nhlBet.awayTeamScore = awayTeamScore;
+            finalWinTeamName != null
+              ? (nhlBet.winningTeamName = finalWinTeamName)
+              : finalWinTeamName;
+            nhlBet.totalGameScore = totalGameScore;
+            nhlBet.winningTeam = finalWinTeam;
+            data.bets[index] = nhlBet;
+            betListUpdateBatch.update(betRef, data);
+
             return isWin ? ("won" as string) : ("lose" as string);
           } else {
             return "null" as string;
@@ -422,16 +477,12 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           ncaabBet.betTeam
         );
-        if (status == "Postponed") {
-          const betRef = admin.firestore().collection("bets").doc(documentId);
-
+        if (status == "Postponed" || status == "Canceled") {
+          // Update Bet
           ncaabBet.isClosed = null;
-
           data.bets[index] = ncaabBet;
+          betListUpdateBatch.update(betRef, data);
 
-          batch.update(betRef, data);
-
-          await batch.commit();
           return "cancelled" as string;
         } else {
           if (homeTeamScore != null && awayTeamScore != null) {
@@ -440,6 +491,8 @@ export async function ParlayResolve(data: ParlayBet) {
                 ? pointSpread
                 : specificGame.OverUnder;
 
+            const totalGameScore = homeTeamScore + awayTeamScore;
+
             const finalWinTeam = whichTeamWin(
               homeTeamScore,
               awayTeamScore,
@@ -447,7 +500,24 @@ export async function ParlayResolve(data: ParlayBet) {
               gameNumber,
               ncaabBet.betTeam
             );
+            const finalWinTeamName =
+              finalWinTeam == "away"
+                ? specificGame.AwayTeam
+                : specificGame.HomeTeam;
             const isWin = ncaabBet.betTeam == finalWinTeam;
+
+            // Update Bet
+            ncaabBet.isClosed = true;
+            ncaabBet.homeTeamScore = homeTeamScore;
+            ncaabBet.awayTeamScore = awayTeamScore;
+            finalWinTeamName != null
+              ? (ncaabBet.winningTeamName = finalWinTeamName)
+              : finalWinTeamName;
+            ncaabBet.totalGameScore = totalGameScore;
+            ncaabBet.winningTeam = finalWinTeam;
+            data.bets[index] = ncaabBet;
+            betListUpdateBatch.update(betRef, data);
+
             return isWin ? ("won" as string) : ("lose" as string);
           } else {
             return "null" as string;
@@ -465,7 +535,6 @@ export async function ParlayResolve(data: ParlayBet) {
   if (betList.includes("null")) {
     console.log("Not updated yet!");
   } else {
-    const batch = admin.firestore().batch();
     const betRef = admin.firestore().collection("bets").doc(documentId);
     const walletRef =
       week == getCurrentWeek()
@@ -479,11 +548,11 @@ export async function ParlayResolve(data: ParlayBet) {
             .collection("wallets")
             .doc(uid);
     if (betList.includes("cancelled")) {
-      batch.update(betRef, {
+      betListUpdateBatch.update(betRef, {
         isClosed: null,
       });
 
-      batch.set(
+      betListUpdateBatch.set(
         cumulativeVaultRef,
         {
           moneyIn: admin.firestore.FieldValue.increment(-amountBet),
@@ -492,7 +561,7 @@ export async function ParlayResolve(data: ParlayBet) {
         { merge: true }
       );
 
-      batch.set(
+      betListUpdateBatch.set(
         dailyVaultRef,
         {
           moneyIn: admin.firestore.FieldValue.increment(-amountBet),
@@ -501,7 +570,7 @@ export async function ParlayResolve(data: ParlayBet) {
         { merge: true }
       );
 
-      batch.update(walletRef, {
+      betListUpdateBatch.update(walletRef, {
         totalOpenBets: admin.firestore.FieldValue.increment(-1),
 
         accountBalance: admin.firestore.FieldValue.increment(amountBet),
@@ -509,14 +578,15 @@ export async function ParlayResolve(data: ParlayBet) {
         potentialWinAmount: admin.firestore.FieldValue.increment(-amountWin),
       });
 
-      await batch.commit();
+      await betListUpdateBatch.commit();
     } else {
       if (betList.includes("lose")) {
-        batch.update(betRef, {
+        // Loss
+        betListUpdateBatch.update(betRef, {
           isClosed: true,
         });
 
-        batch.update(walletRef, {
+        betListUpdateBatch.update(walletRef, {
           totalOpenBets: admin.firestore.FieldValue.increment(-1),
           totalLoss: admin.firestore.FieldValue.increment(amountBet),
           totalBetsLost: admin.firestore.FieldValue.increment(1),
@@ -524,13 +594,14 @@ export async function ParlayResolve(data: ParlayBet) {
           pendingRiskedAmount: admin.firestore.FieldValue.increment(-amountBet),
         });
 
-        await batch.commit();
+        await betListUpdateBatch.commit();
       } else {
-        batch.update(betRef, {
+        // Win
+        betListUpdateBatch.update(betRef, {
           isClosed: true,
         });
 
-        batch.update(walletRef, {
+        betListUpdateBatch.update(walletRef, {
           totalOpenBets: admin.firestore.FieldValue.increment(-1),
           totalProfit: admin.firestore.FieldValue.increment(amountWin),
           accountBalance: admin.firestore.FieldValue.increment(totalWinAmount),
@@ -539,7 +610,7 @@ export async function ParlayResolve(data: ParlayBet) {
           potentialWinAmount: admin.firestore.FieldValue.increment(-amountWin),
         });
 
-        batch.set(
+        betListUpdateBatch.set(
           cumulativeVaultRef,
           {
             moneyOut: admin.firestore.FieldValue.increment(totalWinAmount),
@@ -547,7 +618,7 @@ export async function ParlayResolve(data: ParlayBet) {
           { merge: true }
         );
 
-        batch.set(
+        betListUpdateBatch.set(
           dailyVaultRef,
           {
             moneyOut: admin.firestore.FieldValue.increment(totalWinAmount),
@@ -555,7 +626,7 @@ export async function ParlayResolve(data: ParlayBet) {
           { merge: true }
         );
 
-        await batch.commit();
+        await betListUpdateBatch.commit();
       }
     }
   }
