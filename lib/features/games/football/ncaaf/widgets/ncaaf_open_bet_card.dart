@@ -24,9 +24,18 @@ class NcaafOpenBetCard extends StatelessWidget {
     final odds = openBets?.odds?.isNegative ?? 0.isNegative
         ? openBets.odds.toString()
         : '+${openBets.odds}';
-    final pointSpread = openBets?.betPointSpread?.isNegative ?? 0.isNegative
-        ? openBets.betPointSpread.toString()
-        : '+${openBets.betPointSpread}';
+    final isPointSpreadNegative = openBets?.betPointSpread == null
+        ? true
+        : openBets?.betPointSpread?.isNegative;
+    final pointSpread = openBets.betPointSpread != null
+        ? (openBets.betTeam == 'home'
+            ? (isPointSpreadNegative
+                ? '-${openBets.betPointSpread.abs()}'
+                : '+${openBets.betPointSpread.abs()}')
+            : (isPointSpreadNegative
+                ? '+${openBets.betPointSpread.abs()}'
+                : '-${openBets.betPointSpread.abs()}'))
+        : '';
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),

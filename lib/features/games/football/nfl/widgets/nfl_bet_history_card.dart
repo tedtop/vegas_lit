@@ -23,10 +23,18 @@ class NflBetHistoryCard extends StatelessWidget {
     final odds = betHistoryData?.odds?.isNegative ?? 0.isNegative
         ? betHistoryData.odds.toString()
         : '+${betHistoryData.odds}';
-    final pointSpread =
-        betHistoryData?.betPointSpread?.isNegative ?? 0.isNegative
-            ? betHistoryData.betPointSpread.toString()
-            : '+${betHistoryData.betPointSpread}';
+    final isPointSpreadNegative = betHistoryData?.betPointSpread == null
+        ? true
+        : betHistoryData?.betPointSpread?.isNegative;
+    final pointSpread = betHistoryData.betPointSpread != null
+        ? (betHistoryData.betTeam == 'home'
+            ? (isPointSpreadNegative
+                ? '-${betHistoryData.betPointSpread.abs()}'
+                : '+${betHistoryData.betPointSpread.abs()}')
+            : (isPointSpreadNegative
+                ? '+${betHistoryData.betPointSpread.abs()}'
+                : '-${betHistoryData.betPointSpread.abs()}'))
+        : '';
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
       child: Stack(
