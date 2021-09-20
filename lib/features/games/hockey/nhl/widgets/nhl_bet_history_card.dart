@@ -117,14 +117,14 @@ class NhlBetHistoryCard extends StatelessWidget {
                         children: [
                           TextSpan(
                             text:
-                                '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore}',
+                                '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}',
                           ),
                           const TextSpan(
                             text: '  vs  ',
                           ),
                           TextSpan(
                             text:
-                                '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore}',
+                                '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}',
                           ),
                         ],
                       ),
