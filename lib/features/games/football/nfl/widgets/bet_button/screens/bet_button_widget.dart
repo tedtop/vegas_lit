@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -14,8 +11,6 @@ import '../../../../../../authentication/bloc/authentication_bloc.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../models/nfl_team.dart';
 import '../cubit/bet_button_cubit.dart';
-import 'parlay_bet_slip_card.dart';
-import 'single_bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
   const BetButton._({Key key}) : super(key: key);
@@ -159,61 +154,10 @@ class BetButtonUnclicked extends StatelessWidget {
             ),
           ),
           onPressed: () async {
-            final isBetExist =
-                await context.read<NflBetButtonCubit>().clickBetButton();
-            final appVersion = await _getAppVersion();
-            isBetExist
-                // ignore: unnecessary_statements
-                ? null
-                : context.read<BetSlipCubit>().addBetSlip(
-                      betData: NflBetData(
-                        stillOpen: false,
-                        username: username,
-                        homeTeamCity: betButtonState.homeTeamData.city,
-                        awayTeamCity: betButtonState.awayTeamData.city,
-                        betAmount: betButtonState.betAmount,
-                        gameId: betButtonState.game.globalGameId,
-                        isClosed: betButtonState.game.closed,
-                        homeTeam: betButtonState.game.homeTeam,
-                        awayTeam: betButtonState.game.awayTeam,
-                        winningTeam: null,
-                        winningTeamName: null,
-                        status: betButtonState.game.status.toString(),
-                        league: betButtonState.league,
-                        betOverUnder: betButtonState.game.overUnder,
-                        betPointSpread: betButtonState.game.pointSpread,
-                        awayTeamName: betButtonState.awayTeamData.name,
-                        homeTeamName: betButtonState.homeTeamData.name,
-                        totalGameScore: null,
-                        id: betButtonState.uniqueId,
-                        betType: whichBetSystemToSave(
-                            betType: betButtonState.betType),
-                        odds: int.parse(betButtonState.mainOdds),
-                        betProfit: betButtonState.toWinAmount,
-                        gameStartDateTime:
-                            betButtonState.game.dateTime.toString(),
-                        awayTeamScore: betButtonState.game.awayScore,
-                        homeTeamScore: betButtonState.game.homeScore,
-                        uid: betButtonState.uid,
-                        betTeam: betButtonState.winTeam == BetButtonWin.home
-                            ? 'home'
-                            : 'away',
-                        dateTime: ESTDateTime.fetchTimeEST().toString(),
-                        week: ESTDateTime.fetchTimeEST().weekStringVL,
-                        clientVersion: appVersion,
-                        dataProvider: 'sportsdata.io',
-                      ),
-                      singleBetSlipCard: BlocProvider.value(
-                        key: Key(betButtonState.uniqueId),
-                        value: context.read<NflBetButtonCubit>(),
-                        child: NflSingleBetSlipCard(),
-                      ),
-                      parlayBetSlipCard: BlocProvider.value(
-                        key: Key(betButtonState.uniqueId),
-                        value: context.read<NflBetButtonCubit>(),
-                        child: NflParlayBetSlipCard(),
-                      ),
-                    );
+            await context.read<NflBetButtonCubit>().clickBetButton(
+                  context: context,
+                  username: username,
+                );
           },
         ),
       ),
@@ -295,11 +239,6 @@ class BetButtonDone extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<String> _getAppVersion() async {
-  final packageInfo = await PackageInfo.fromPlatform();
-  return packageInfo.version;
 }
 
 String whichBetSystemToSave({@required Bet betType}) {

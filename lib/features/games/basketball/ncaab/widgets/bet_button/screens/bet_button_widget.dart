@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_button/screens/parlay_bet_slip_card.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_button/screens/single_bet_slip_card.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -160,61 +155,10 @@ class BetButtonUnclicked extends StatelessWidget {
             ),
           ),
           onPressed: () async {
-            final isBetExist =
-                await context.read<NcaabBetButtonCubit>().clickBetButton();
-            final appVersion = await _getAppVersion();
-            isBetExist
-                // ignore: unnecessary_statements
-                ? null
-                : context.read<BetSlipCubit>().addBetSlip(
-                      betData: NcaabBetData(
-                        stillOpen: false,
-                        username: username,
-                        homeTeamCity: betButtonState.homeTeamData.city,
-                        awayTeamCity: betButtonState.awayTeamData.city,
-                        betAmount: betButtonState.betAmount,
-                        gameId: betButtonState.game.gameId,
-                        isClosed: betButtonState.game.isClosed,
-                        homeTeam: betButtonState.game.homeTeam,
-                        awayTeam: betButtonState.game.awayTeam,
-                        winningTeam: null,
-                        winningTeamName: null,
-                        status: betButtonState.game.status,
-                        league: betButtonState.league,
-                        betOverUnder: betButtonState.game.overUnder,
-                        betPointSpread: betButtonState.game.pointSpread,
-                        awayTeamName: betButtonState.awayTeamData.name,
-                        homeTeamName: betButtonState.homeTeamData.name,
-                        totalGameScore: null,
-                        id: betButtonState.uniqueId,
-                        betType: whichBetSystemToSave(
-                            betType: betButtonState.betType),
-                        odds: int.parse(betButtonState.mainOdds),
-                        betProfit: betButtonState.toWinAmount,
-                        gameStartDateTime:
-                            betButtonState.game.dateTime.toString(),
-                        awayTeamScore: betButtonState.game.awayTeamScore,
-                        homeTeamScore: betButtonState.game.homeTeamScore,
-                        uid: betButtonState.uid,
-                        betTeam: betButtonState.winTeam == BetButtonWin.home
-                            ? 'home'
-                            : 'away',
-                        dateTime: ESTDateTime.fetchTimeEST().toString(),
-                        week: ESTDateTime.fetchTimeEST().weekStringVL,
-                        clientVersion: appVersion,
-                        dataProvider: 'sportsdata.io',
-                      ),
-                      singleBetSlipCard: BlocProvider.value(
-                        key: Key(betButtonState.uniqueId),
-                        value: context.read<NcaabBetButtonCubit>(),
-                        child: NcaabSingleBetSlipCard(),
-                      ),
-                      parlayBetSlipCard: BlocProvider.value(
-                        key: Key(betButtonState.uniqueId),
-                        value: context.read<NcaabBetButtonCubit>(),
-                        child: NcaabParlayBetSlipCard(),
-                      ),
-                    );
+            await context.read<NcaabBetButtonCubit>().clickBetButton(
+                  context: context,
+                  username: username,
+                );
           },
         ),
       ),
@@ -296,11 +240,6 @@ class BetButtonDone extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<String> _getAppVersion() async {
-  final packageInfo = await PackageInfo.fromPlatform();
-  return packageInfo.version;
 }
 
 String whichBetSystemToSave({@required Bet betType}) {
