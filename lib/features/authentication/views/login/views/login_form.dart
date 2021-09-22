@@ -116,6 +116,7 @@ class _EmailInput extends StatelessWidget {
                   helperText: '',
                   errorText: state.email.invalid ? 'Invalid email' : null,
                   focusedBorder: Styles.logInInputFocusedBorder,
+                  enabledBorder: Styles.logInInputEnabledBorder,
                 )),
           ),
         );
@@ -152,6 +153,7 @@ class _PasswordInput extends StatelessWidget {
                   helperText: '',
                   errorText: state.password.invalid ? 'Invalid password' : null,
                   focusedBorder: Styles.logInInputFocusedBorder,
+                  enabledBorder: Styles.logInInputEnabledBorder,
                 )),
           ),
         );

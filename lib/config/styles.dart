@@ -73,6 +73,14 @@ class Styles {
     borderRadius: BorderRadius.all(Radius.circular(10)),
     borderSide: BorderSide(color: Palette.cream),
   );
+  // static final signUpInputFieldEnabledBorder = OutlineInputBorder(
+  //   borderRadius: const BorderRadius.all(Radius.circular(4)),
+  //   borderSide: BorderSide(color: Palette.cream.withAlpha(150)),
+  // );
+  static final logInInputEnabledBorder = UnderlineInputBorder(
+    borderRadius: const BorderRadius.all(Radius.circular(10)),
+    borderSide: BorderSide(color: Palette.cream.withAlpha(150)),
+  );
 
   /// --> BET HISTORY
   static final betHistoryCardNormal = VLTextStyle.nunito.creamColored.size(14);
