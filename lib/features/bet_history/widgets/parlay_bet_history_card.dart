@@ -24,78 +24,87 @@ class ParlayBetHistoryCard extends StatelessWidget {
         isWin = isWin && (bet.winningTeam == bet.betTeam);
     }
 
-    return Stack(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemCount: betHistoryData.bets.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Align(
-              alignment: Alignment.topCenter,
-              heightFactor:
-                  index == betHistoryData.bets.length - 1 ? 1.0 : 0.80,
-              child: Builder(builder: (context) {
-                switch (betHistoryData
-                    .bets[betHistoryData.bets.length - index - 1].league) {
-                  case 'mlb':
-                    return MlbBetHistoryCard(
-                      betHistoryData: betHistoryData
-                          .bets[betHistoryData.bets.length - index - 1],
-                      isParlayBet: true,
-                    );
-                    break;
-                  case 'nba':
-                    return NbaBetHistoryCard(
-                      betHistoryData: betHistoryData
-                          .bets[betHistoryData.bets.length - index - 1],
-                      isParlayBet: true,
-                    );
-                    break;
-                  case 'cbb':
-                    return NcaabBetHistoryCard(
-                      betHistoryData: betHistoryData
-                          .bets[betHistoryData.bets.length - index - 1],
-                      isParlayBet: true,
-                    );
-                    break;
-                  case 'cfb':
-                    return NcaafBetHistoryCard(
-                      betHistoryData: betHistoryData
-                          .bets[betHistoryData.bets.length - index - 1],
-                      isParlayBet: true,
-                    );
-                    break;
-                  case 'nfl':
-                    return NflBetHistoryCard(
-                      betHistoryData: betHistoryData
-                          .bets[betHistoryData.bets.length - index - 1],
-                      isParlayBet: true,
-                    );
-                    break;
-                  case 'nhl':
-                    return NhlBetHistoryCard(
-                      betHistoryData: betHistoryData
-                          .bets[betHistoryData.bets.length - index - 1],
-                      isParlayBet: true,
-                    );
-                    break;
-                  default:
-                    return const SizedBox();
-                }
-              }),
-            );
-          },
-        ),
-        Positioned(
-          right: 15,
-          bottom: 12,
-          child: Text(
-            isWin ? '\$${betHistoryData.betProfit}' : 'LOST',
-            style: Styles.betHistoryNormal,
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: betHistoryData.bets.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Align(
+          alignment: Alignment.topCenter,
+          heightFactor: index == betHistoryData.bets.length - 1 ? 1.0 : 0.80,
+          child: Builder(
+            builder: (context) {
+              Widget betCard;
+              switch (betHistoryData
+                  .bets[betHistoryData.bets.length - index - 1].league) {
+                case 'mlb':
+                  betCard = MlbBetHistoryCard(
+                    betHistoryData: betHistoryData
+                        .bets[betHistoryData.bets.length - index - 1],
+                    isParlayBet: true,
+                  );
+                  break;
+                case 'nba':
+                  betCard = NbaBetHistoryCard(
+                    betHistoryData: betHistoryData
+                        .bets[betHistoryData.bets.length - index - 1],
+                    isParlayBet: true,
+                  );
+                  break;
+                case 'cbb':
+                  betCard = NcaabBetHistoryCard(
+                    betHistoryData: betHistoryData
+                        .bets[betHistoryData.bets.length - index - 1],
+                    isParlayBet: true,
+                  );
+                  break;
+                case 'cfb':
+                  betCard = NcaafBetHistoryCard(
+                    betHistoryData: betHistoryData
+                        .bets[betHistoryData.bets.length - index - 1],
+                    isParlayBet: true,
+                  );
+                  break;
+                case 'nfl':
+                  betCard = NflBetHistoryCard(
+                    betHistoryData: betHistoryData
+                        .bets[betHistoryData.bets.length - index - 1],
+                    isParlayBet: true,
+                  );
+                  break;
+                case 'nhl':
+                  betCard = NhlBetHistoryCard(
+                    betHistoryData: betHistoryData
+                        .bets[betHistoryData.bets.length - index - 1],
+                    isParlayBet: true,
+                  );
+                  break;
+                default:
+                  betCard = const SizedBox();
+              }
+              if (index == betHistoryData.bets.length - 1) {
+                betCard = Stack(
+                  children: [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 410),
+                      child: betCard,
+                    ),
+                    Positioned(
+                      right: 15,
+                      bottom: 12,
+                      child: Text(
+                        isWin ? '\$${betHistoryData.betProfit}' : 'LOST',
+                        style: Styles.betHistoryNormal,
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return betCard;
+            },
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }
