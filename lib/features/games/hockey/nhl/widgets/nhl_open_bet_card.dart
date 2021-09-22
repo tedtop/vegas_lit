@@ -37,187 +37,189 @@ class NhlOpenBetCard extends StatelessWidget {
                 : '-${openBets.betPointSpread.abs()}'))
         : '';
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: 390,
-            height: 100,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Palette.cream,
-              ),
-              borderRadius: BorderRadius.circular(12),
-              color: Palette.cream,
-            ),
-            child: Card(
-              margin: EdgeInsets.zero,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12),
-                ),
-              ),
-              color: Palette.darkGrey,
-              child: Container(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 2,
-                  left: 6,
-                  right: 6,
-                ),
-                child: Column(
-                  children: [
-                    Center(
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        text: TextSpan(
-                          text: openBets.betTeam == 'home'
-                              ? openBets.homeTeamName.toUpperCase()
-                              : openBets.awayTeamName.toUpperCase(),
-                          style: Styles.openBetsCardBoldGreen,
-                          children: <TextSpan>[
-                            isMoneyline
-                                ? const TextSpan(
-                                    text: ' (ML)',
-                                  )
-                                : isPointSpread
-                                    ? TextSpan(
-                                        text: ' $pointSpread (PTS)',
-                                      )
-                                    : TextSpan(
-                                        text:
-                                            ' @ ${openBets.betTeam == 'away' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}',
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text:
-                                                ' ${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder} (TOT)',
-                                          ),
-                                        ],
-                                      ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        openBets.league.toUpperCase(),
-                        style: Styles.openBetsCardBold,
-                      ),
-                    ),
-
-                    RichText(
-                      text: TextSpan(
-                        style: Styles.openBetsCardBoldGreen,
-                        children: [
-                          TextSpan(
-                            text: '${openBets.awayTeamName.toUpperCase()}',
-                          ),
-                          const TextSpan(
-                            text: '  vs  ',
-                          ),
-                          TextSpan(
-                            text: '${openBets.homeTeamName.toUpperCase()}',
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          isParlayBet
-                              ? TextSpan(
-                                  text: '',
-                                  style: Styles.openBetsCardBold,
-                                )
-                              : TextSpan(
-                                  text: 'You bet \$${openBets.betAmount} @ ',
-                                  style: Styles.openBetsCardBold,
-                                ),
-                          TextSpan(
-                            text: '$odds',
-                            style: Styles.openBetsCardBold,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Last Row
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CountdownTimer(
-                            endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                              DateTime.parse(openBets.gameStartDateTime),
-                            ),
-                            widgetBuilder: (_, CurrentRemainingTime time) {
-                              if (time == null) {
-                                final startTime =
-                                    DateTime.parse(openBets.gameStartDateTime);
-                                return Center(
-                                  child: Text(
-                                    'Started at ${DateFormat('hh:mm a').format(
-                                      startTime,
-                                    )} EST',
-                                    style: Styles.openBetsCardBoldRed,
-                                  ),
-                                );
-                              }
-
-                              return Center(
-                                child: Text(
-                                  'Starting in  ${getRemainingTimeText(time: time)}',
-                                  style: Styles.openBetsCardBold,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          !isParlayBet
-              ? Positioned(
-                  right: 8,
-                  bottom: 10,
-                  child: Text(
-                    '\$${openBets.betProfit}',
-                    style: Styles.openBetsNormalText,
-                  ),
-                )
-              : const SizedBox(),
-          Positioned(
-            top: -12,
-            left: 15,
-            child: Container(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width: 390,
+              height: 100,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Palette.cream,
                 ),
                 borderRadius: BorderRadius.circular(12),
-                color: Palette.green,
+                color: Palette.cream,
               ),
-              height: 22,
-              width: 90,
-              child: Center(
-                child: Text(
-                  whichBetSystemFromString(openBets.betType),
-                  style: GoogleFonts.nunito(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+              child: Card(
+                margin: EdgeInsets.zero,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
+                color: Palette.darkGrey,
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    bottom: 2,
+                    left: 6,
+                    right: 6,
+                  ),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          text: TextSpan(
+                            text: openBets.betTeam == 'home'
+                                ? openBets.homeTeamName.toUpperCase()
+                                : openBets.awayTeamName.toUpperCase(),
+                            style: Styles.openBetsCardBoldGreen,
+                            children: <TextSpan>[
+                              isMoneyline
+                                  ? const TextSpan(
+                                      text: ' (ML)',
+                                    )
+                                  : isPointSpread
+                                      ? TextSpan(
+                                          text: ' $pointSpread (PTS)',
+                                        )
+                                      : TextSpan(
+                                          text:
+                                              ' @ ${openBets.betTeam == 'away' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}',
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text:
+                                                  ' ${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder} (TOT)',
+                                            ),
+                                          ],
+                                        ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          openBets.league.toUpperCase(),
+                          style: Styles.openBetsCardBold,
+                        ),
+                      ),
+
+                      RichText(
+                        text: TextSpan(
+                          style: Styles.openBetsCardBoldGreen,
+                          children: [
+                            TextSpan(
+                              text: '${openBets.awayTeamName.toUpperCase()}',
+                            ),
+                            const TextSpan(
+                              text: '  vs  ',
+                            ),
+                            TextSpan(
+                              text: '${openBets.homeTeamName.toUpperCase()}',
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            isParlayBet
+                                ? TextSpan(
+                                    text: '',
+                                    style: Styles.openBetsCardBold,
+                                  )
+                                : TextSpan(
+                                    text: 'You bet \$${openBets.betAmount} @ ',
+                                    style: Styles.openBetsCardBold,
+                                  ),
+                            TextSpan(
+                              text: '$odds',
+                              style: Styles.openBetsCardBold,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Last Row
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CountdownTimer(
+                              endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+                                DateTime.parse(openBets.gameStartDateTime),
+                              ),
+                              widgetBuilder: (_, CurrentRemainingTime time) {
+                                if (time == null) {
+                                  final startTime = DateTime.parse(
+                                      openBets.gameStartDateTime);
+                                  return Center(
+                                    child: Text(
+                                      'Started at ${DateFormat('hh:mm a').format(
+                                        startTime,
+                                      )} EST',
+                                      style: Styles.openBetsCardBoldRed,
+                                    ),
+                                  );
+                                }
+
+                                return Center(
+                                  child: Text(
+                                    'Starting in  ${getRemainingTimeText(time: time)}',
+                                    style: Styles.openBetsCardBold,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          )
-        ],
+            !isParlayBet
+                ? Positioned(
+                    right: 8,
+                    bottom: 10,
+                    child: Text(
+                      '\$${openBets.betProfit}',
+                      style: Styles.openBetsNormalText,
+                    ),
+                  )
+                : const SizedBox(),
+            Positioned(
+              top: -12,
+              left: 15,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Palette.cream,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  color: Palette.green,
+                ),
+                height: 22,
+                width: 90,
+                child: Center(
+                  child: Text(
+                    whichBetSystemFromString(openBets.betType),
+                    style: GoogleFonts.nunito(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
