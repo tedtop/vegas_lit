@@ -62,7 +62,11 @@ export async function MlbResolve(data: MlbBet) {
       const awayTeamScore = specificGame.AwayTeamRuns;
 
       const pointSpread = pointSpreadAssign(specificGame.PointSpread, betTeam);
-      if (status == "Postponed" || status == "Canceled") {
+      if (
+        status == "Postponed" ||
+        status == "Canceled" ||
+        status == "Suspended"
+      ) {
         const betRef = admin.firestore().collection("bets").doc(documentId);
 
         batch.update(betRef, {

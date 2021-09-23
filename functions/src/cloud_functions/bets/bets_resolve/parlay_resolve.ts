@@ -86,7 +86,11 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           nflBet.betTeam
         );
-        if (status == "Postponed" || status == "Canceled") {
+        if (
+          status == "Postponed" ||
+          status == "Canceled" ||
+          status == "Suspended"
+        ) {
           // Update Bet
           nflBet.isClosed = null;
           data.bets[index] = nflBet;
@@ -165,7 +169,11 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           ncaafBet.betTeam
         );
-        if (status == "Postponed" || status == "Canceled") {
+        if (
+          status == "Postponed" ||
+          status == "Canceled" ||
+          status == "Suspended"
+        ) {
           // Update Bet
           ncaafBet.isClosed = null;
           data.bets[index] = ncaafBet;
@@ -243,7 +251,11 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           mlbBet.betTeam
         );
-        if (status == "Postponed" || status == "Canceled") {
+        if (
+          status == "Postponed" ||
+          status == "Canceled" ||
+          status == "Suspended"
+        ) {
           // Update Bet
           mlbBet.isClosed = null;
           data.bets[index] = mlbBet;
@@ -321,7 +333,11 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           nbaBet.betTeam
         );
-        if (status == "Postponed" || status == "Canceled") {
+        if (
+          status == "Postponed" ||
+          status == "Canceled" ||
+          status == "Suspended"
+        ) {
           // Update Bet
           nbaBet.isClosed = null;
           data.bets[index] = nbaBet;
@@ -399,7 +415,11 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           nhlBet.betTeam
         );
-        if (status == "Postponed" || status == "Canceled") {
+        if (
+          status == "Postponed" ||
+          status == "Canceled" ||
+          status == "Suspended"
+        ) {
           // Update Bet
           nhlBet.isClosed = null;
           data.bets[index] = nhlBet;
@@ -477,7 +497,11 @@ export async function ParlayResolve(data: ParlayBet) {
           specificGame.PointSpread,
           ncaabBet.betTeam
         );
-        if (status == "Postponed" || status == "Canceled") {
+        if (
+          status == "Postponed" ||
+          status == "Canceled" ||
+          status == "Suspended"
+        ) {
           // Update Bet
           ncaabBet.isClosed = null;
           data.bets[index] = ncaabBet;
