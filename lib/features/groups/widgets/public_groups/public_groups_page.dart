@@ -145,6 +145,8 @@ class PublicGroupListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userId = context.watch<AuthenticationBloc>().state.user.uid;
+    final groupUsersLength =
+        _group.users.values.where((element) => element == true).length;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -182,7 +184,7 @@ class PublicGroupListTile extends StatelessWidget {
         trailing: Column(
           children: [
             Text(
-              '${_group.users.length}${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
+              '$groupUsersLength${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
                         _group.userLimit > _group.users.length
