@@ -75,7 +75,8 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
   }
 
   Future<void> clickBetButton({
-    @required BuildContext context,
+    @required BetSlipCubit betSlipCubit,
+    @required NbaBetButtonCubit nbaBetButtonCubit,
     @required String username,
   }) async {
     final isBetExists = await _betsRepository.isBetExist(
@@ -88,54 +89,58 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
       );
     } else {
       final appVersion = await _getAppVersion();
-      context.read<BetSlipCubit>().addBetSlip(
-            betData: NbaBetData(
-              stillOpen: false,
-              username: username,
-              homeTeamCity: state.homeTeamData.city,
-              awayTeamCity: state.awayTeamData.city,
-              betAmount: state.betAmount,
-              gameId: state.game.gameId,
-              isClosed: state.game.isClosed,
-              homeTeam: state.game.homeTeam,
-              awayTeam: state.game.awayTeam,
-              winningTeam: null,
-              winningTeamName: null,
-              status: state.game.status,
-              league: state.league,
-              betOverUnder: state.game.overUnder,
-              betPointSpread: state.game.pointSpread,
-              awayTeamName: state.awayTeamData.name,
-              homeTeamName: state.homeTeamData.name,
-              totalGameScore: null,
-              id: state.uniqueId,
-              betType: whichBetSystemToSave(betType: state.betType),
-              odds: int.parse(state.mainOdds),
-              betProfit: state.toWinAmount,
-              gameStartDateTime: state.game.dateTime.toString(),
-              awayTeamScore: state.game.awayTeamScore,
-              homeTeamScore: state.game.homeTeamScore,
-              uid: state.uid,
-              betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
-              dateTime: ESTDateTime.fetchTimeEST().toString(),
-              week: ESTDateTime.fetchTimeEST().weekStringVL,
-              clientVersion: appVersion,
-              dataProvider: 'sportsdata.io',
-            ),
-            singleBetSlipCard: BlocProvider.value(
-              key: Key(state.uniqueId),
-              value: context.read<NbaBetButtonCubit>(),
-              child: NbaSingleBetSlipCard(),
-            ),
-            parlayBetSlipCard: BlocProvider.value(
-              key: Key(state.uniqueId),
-              value: context.read<NbaBetButtonCubit>(),
-              child: NbaParlayBetSlipCard(),
-            ),
-          );
-      emit(
-        state.copyWith(status: NbaBetButtonStatus.clicked),
-      );
+      final betSlipListExists = betSlipCubit.state.betDataList
+          .where((element) => element.id == state.uniqueId);
+      if (betSlipListExists.isEmpty) {
+        betSlipCubit.addBetSlip(
+          betData: NbaBetData(
+            stillOpen: false,
+            username: username,
+            homeTeamCity: state.homeTeamData.city,
+            awayTeamCity: state.awayTeamData.city,
+            betAmount: state.betAmount,
+            gameId: state.game.gameId,
+            isClosed: state.game.isClosed,
+            homeTeam: state.game.homeTeam,
+            awayTeam: state.game.awayTeam,
+            winningTeam: null,
+            winningTeamName: null,
+            status: state.game.status,
+            league: state.league,
+            betOverUnder: state.game.overUnder,
+            betPointSpread: state.game.pointSpread,
+            awayTeamName: state.awayTeamData.name,
+            homeTeamName: state.homeTeamData.name,
+            totalGameScore: null,
+            id: state.uniqueId,
+            betType: whichBetSystemToSave(betType: state.betType),
+            odds: int.parse(state.mainOdds),
+            betProfit: state.toWinAmount,
+            gameStartDateTime: state.game.dateTime.toString(),
+            awayTeamScore: state.game.awayTeamScore,
+            homeTeamScore: state.game.homeTeamScore,
+            uid: state.uid,
+            betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
+            dateTime: ESTDateTime.fetchTimeEST().toString(),
+            week: ESTDateTime.fetchTimeEST().weekStringVL,
+            clientVersion: appVersion,
+            dataProvider: 'sportsdata.io',
+          ),
+          singleBetSlipCard: BlocProvider.value(
+            key: Key(state.uniqueId),
+            value: nbaBetButtonCubit,
+            child: NbaSingleBetSlipCard(),
+          ),
+          parlayBetSlipCard: BlocProvider.value(
+            key: Key(state.uniqueId),
+            value: nbaBetButtonCubit,
+            child: NbaParlayBetSlipCard(),
+          ),
+        );
+        emit(
+          state.copyWith(status: NbaBetButtonStatus.clicked),
+        );
+      }
     }
   }
 

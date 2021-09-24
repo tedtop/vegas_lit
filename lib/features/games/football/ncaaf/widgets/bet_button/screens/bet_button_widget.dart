@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -157,8 +156,9 @@ class BetButtonUnclicked extends StatelessWidget {
           ),
           onPressed: () async {
             await context.read<NcaafBetButtonCubit>().clickBetButton(
-                  context: context,
                   username: username,
+                  betSlipCubit: context.read<BetSlipCubit>(),
+                  ncaafBetButtonCubit: context.read<NcaafBetButtonCubit>(),
                 );
           },
         ),

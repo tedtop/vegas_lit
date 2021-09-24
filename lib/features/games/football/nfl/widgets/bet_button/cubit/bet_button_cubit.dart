@@ -76,7 +76,8 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
   }
 
   Future<void> clickBetButton({
-    @required BuildContext context,
+    @required BetSlipCubit betSlipCubit,
+    @required NflBetButtonCubit nflBetButtonCubit,
     @required String username,
   }) async {
     final isBetExists = await _betsRepository.isBetExist(
@@ -89,54 +90,58 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
       );
     } else {
       final appVersion = await _getAppVersion();
-      context.read<BetSlipCubit>().addBetSlip(
-            betData: NflBetData(
-              stillOpen: false,
-              username: username,
-              homeTeamCity: state.homeTeamData.city,
-              awayTeamCity: state.awayTeamData.city,
-              betAmount: state.betAmount,
-              gameId: state.game.globalGameId,
-              isClosed: state.game.closed,
-              homeTeam: state.game.homeTeam,
-              awayTeam: state.game.awayTeam,
-              winningTeam: null,
-              winningTeamName: null,
-              status: state.game.status.toString(),
-              league: state.league,
-              betOverUnder: state.game.overUnder,
-              betPointSpread: state.game.pointSpread,
-              awayTeamName: state.awayTeamData.name,
-              homeTeamName: state.homeTeamData.name,
-              totalGameScore: null,
-              id: state.uniqueId,
-              betType: whichBetSystemToSave(betType: state.betType),
-              odds: int.parse(state.mainOdds),
-              betProfit: state.toWinAmount,
-              gameStartDateTime: state.game.dateTime.toString(),
-              awayTeamScore: state.game.awayScore,
-              homeTeamScore: state.game.homeScore,
-              uid: state.uid,
-              betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
-              dateTime: ESTDateTime.fetchTimeEST().toString(),
-              week: ESTDateTime.fetchTimeEST().weekStringVL,
-              clientVersion: appVersion,
-              dataProvider: 'sportsdata.io',
-            ),
-            singleBetSlipCard: BlocProvider.value(
-              key: Key(state.uniqueId),
-              value: context.read<NflBetButtonCubit>(),
-              child: NflSingleBetSlipCard(),
-            ),
-            parlayBetSlipCard: BlocProvider.value(
-              key: Key(state.uniqueId),
-              value: context.read<NflBetButtonCubit>(),
-              child: NflParlayBetSlipCard(),
-            ),
-          );
-      emit(
-        state.copyWith(status: NflBetButtonStatus.clicked),
-      );
+      final betSlipListExists = betSlipCubit.state.betDataList
+          .where((element) => element.id == state.uniqueId);
+      if (betSlipListExists.isEmpty) {
+        betSlipCubit.addBetSlip(
+          betData: NflBetData(
+            stillOpen: false,
+            username: username,
+            homeTeamCity: state.homeTeamData.city,
+            awayTeamCity: state.awayTeamData.city,
+            betAmount: state.betAmount,
+            gameId: state.game.globalGameId,
+            isClosed: state.game.closed,
+            homeTeam: state.game.homeTeam,
+            awayTeam: state.game.awayTeam,
+            winningTeam: null,
+            winningTeamName: null,
+            status: state.game.status.toString(),
+            league: state.league,
+            betOverUnder: state.game.overUnder,
+            betPointSpread: state.game.pointSpread,
+            awayTeamName: state.awayTeamData.name,
+            homeTeamName: state.homeTeamData.name,
+            totalGameScore: null,
+            id: state.uniqueId,
+            betType: whichBetSystemToSave(betType: state.betType),
+            odds: int.parse(state.mainOdds),
+            betProfit: state.toWinAmount,
+            gameStartDateTime: state.game.dateTime.toString(),
+            awayTeamScore: state.game.awayScore,
+            homeTeamScore: state.game.homeScore,
+            uid: state.uid,
+            betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
+            dateTime: ESTDateTime.fetchTimeEST().toString(),
+            week: ESTDateTime.fetchTimeEST().weekStringVL,
+            clientVersion: appVersion,
+            dataProvider: 'sportsdata.io',
+          ),
+          singleBetSlipCard: BlocProvider.value(
+            key: Key(state.uniqueId),
+            value: nflBetButtonCubit,
+            child: NflSingleBetSlipCard(),
+          ),
+          parlayBetSlipCard: BlocProvider.value(
+            key: Key(state.uniqueId),
+            value: nflBetButtonCubit,
+            child: NflParlayBetSlipCard(),
+          ),
+        );
+        emit(
+          state.copyWith(status: NflBetButtonStatus.clicked),
+        );
+      }
     }
   }
 

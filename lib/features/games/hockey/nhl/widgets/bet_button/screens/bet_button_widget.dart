@@ -156,8 +156,9 @@ class BetButtonUnclicked extends StatelessWidget {
           ),
           onPressed: () async {
             await context.read<NhlBetButtonCubit>().clickBetButton(
-                  context: context,
                   username: username,
+                  betSlipCubit: context.read<BetSlipCubit>(),
+                  nhlBetButtonCubit: context.read<NhlBetButtonCubit>(),
                 );
           },
         ),
