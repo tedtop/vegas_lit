@@ -19,6 +19,7 @@ class NcaabOpenBetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTotal = openBets.betType == 'total';
     final isMoneyline = openBets.betType == 'moneyline';
     final isPointSpread = openBets.betType == 'pointspread';
     final odds = openBets?.odds?.isNegative ?? 0.isNegative
@@ -109,22 +110,26 @@ class NcaabOpenBetCard extends StatelessWidget {
                         ),
                       ),
 
-                      RichText(
-                        text: TextSpan(
-                          style: Styles.openBetsCardBoldGreen,
-                          children: [
-                            TextSpan(
-                              text: '${openBets.awayTeamName.toUpperCase()}',
+                      isTotal
+                          ? Container()
+                          : RichText(
+                              text: TextSpan(
+                                style: Styles.openBetsCardBoldGreen,
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        '${openBets.awayTeamName.toUpperCase()}',
+                                  ),
+                                  const TextSpan(
+                                    text: '  vs  ',
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        '${openBets.homeTeamName.toUpperCase()}',
+                                  ),
+                                ],
+                              ),
                             ),
-                            const TextSpan(
-                              text: '  vs  ',
-                            ),
-                            TextSpan(
-                              text: '${openBets.homeTeamName.toUpperCase()}',
-                            ),
-                          ],
-                        ),
-                      ),
 
                       RichText(
                         text: TextSpan(
