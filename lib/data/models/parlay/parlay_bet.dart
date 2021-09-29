@@ -48,28 +48,33 @@ class ParlayBets extends BetData {
 
     return ParlayBets(
       bets: map['bets'] != null
-          ? List<BetData>.from(map['bets'].map((bet) {
-              switch (bet['league'] as String) {
-                case 'mlb':
-                  return MlbBetData.fromMap(bet);
-                  break;
-                case 'nba':
-                  return NbaBetData.fromMap(bet);
-                  break;
-                case 'cbb':
-                  return NcaabBetData.fromMap(bet);
-                  break;
-                case 'cfb':
-                  return NcaafBetData.fromMap(bet);
-                  break;
-                case 'nfl':
-                  return NflBetData.fromMap(bet);
-                  break;
-                case 'nhl':
-                  return NhlBetData.fromMap(bet);
-                  break;
-              }
-            }))
+          ? List<BetData>.from(
+              map['bets'].map(
+                (betValue) {
+                  final bet = Map<String, dynamic>.from(betValue);
+                  switch (bet['league'] as String) {
+                    case 'mlb':
+                      return MlbBetData.fromMap(bet);
+                      break;
+                    case 'nba':
+                      return NbaBetData.fromMap(bet);
+                      break;
+                    case 'cbb':
+                      return NcaabBetData.fromMap(bet);
+                      break;
+                    case 'cfb':
+                      return NcaafBetData.fromMap(bet);
+                      break;
+                    case 'nfl':
+                      return NflBetData.fromMap(bet);
+                      break;
+                    case 'nhl':
+                      return NhlBetData.fromMap(bet);
+                      break;
+                  }
+                },
+              ),
+            )
           : null,
       id: map['id'],
       gameStartDateTime: map['gameStartDateTime'] as String,

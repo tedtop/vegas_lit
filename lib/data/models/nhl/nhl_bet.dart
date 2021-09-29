@@ -89,7 +89,7 @@ class NhlBetData extends BetData {
     );
   }
 
-  factory NhlBetData.fromMap(DocumentSnapshot data) {
+  factory NhlBetData.fromMap(Map data) {
     return NhlBetData(
       id: data['id'] as String,
       winningTeam: data['winningTeam'] as String,

@@ -127,10 +127,13 @@ class CloudFirestoreClient {
                   break;
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
+                  break;
                 case 'parlay':
                   return ParlayBets.fromFirestore(snapshot);
+                  break;
                 default:
                   return BetData.fromFirestore(snapshot);
+                  break;
               }
             },
           ).toList(),
@@ -176,10 +179,13 @@ class CloudFirestoreClient {
                   break;
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
+                  break;
                 case 'parlay':
                   return ParlayBets.fromFirestore(snapshot);
+                  break;
                 default:
                   return BetData.fromFirestore(snapshot);
+                  break;
               }
             },
           ).toList(),
