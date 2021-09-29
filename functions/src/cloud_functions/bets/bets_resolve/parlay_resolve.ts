@@ -98,7 +98,11 @@ export async function ParlayResolve(data: ParlayBet) {
 
           return "cancelled" as string;
         } else {
-          if (homeTeamScore != null && awayTeamScore != null) {
+          if (
+            homeTeamScore != null &&
+            awayTeamScore != null &&
+            specificGame.Closed == true
+          ) {
             const gameNumber =
               nflBet.betType == "pointspread"
                 ? pointSpread
@@ -181,7 +185,11 @@ export async function ParlayResolve(data: ParlayBet) {
 
           return "cancelled" as string;
         } else {
-          if (homeTeamScore != null && awayTeamScore != null) {
+          if (
+            homeTeamScore != null &&
+            awayTeamScore != null &&
+            specificGame.IsClosed == true
+          ) {
             const gameNumber =
               ncaafBet.betType == "pointspread"
                 ? pointSpread
@@ -263,7 +271,11 @@ export async function ParlayResolve(data: ParlayBet) {
 
           return "cancelled" as string;
         } else {
-          if (homeTeamScore != null && awayTeamScore != null) {
+          if (
+            homeTeamScore != null &&
+            awayTeamScore != null &&
+            specificGame.IsClosed == true
+          ) {
             const gameNumber =
               mlbBet.betType == "pointspread"
                 ? pointSpread
@@ -345,7 +357,11 @@ export async function ParlayResolve(data: ParlayBet) {
 
           return "cancelled" as string;
         } else {
-          if (homeTeamScore != null && awayTeamScore != null) {
+          if (
+            homeTeamScore != null &&
+            awayTeamScore != null &&
+            specificGame.IsClosed == true
+          ) {
             const gameNumber =
               nbaBet.betType == "pointspread"
                 ? pointSpread
@@ -427,7 +443,11 @@ export async function ParlayResolve(data: ParlayBet) {
 
           return "cancelled" as string;
         } else {
-          if (homeTeamScore != null && awayTeamScore != null) {
+          if (
+            homeTeamScore != null &&
+            awayTeamScore != null &&
+            specificGame.IsClosed == true
+          ) {
             const gameNumber =
               nhlBet.betType == "pointspread"
                 ? pointSpread
@@ -509,7 +529,11 @@ export async function ParlayResolve(data: ParlayBet) {
 
           return "cancelled" as string;
         } else {
-          if (homeTeamScore != null && awayTeamScore != null) {
+          if (
+            homeTeamScore != null &&
+            awayTeamScore != null &&
+            specificGame.IsClosed == true
+          ) {
             const gameNumber =
               ncaabBet.betType == "pointspread"
                 ? pointSpread
