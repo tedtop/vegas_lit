@@ -391,7 +391,7 @@ export async function ParlayResolve(data: ParlayBet) {
 
         const apiData = await axios
           .get(
-            `https://fly.sportsdata.io/v3/${league}/scores/json/ScoresByDate/${dateTime}`,
+            `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
             {
               params: {
                 key: apikey,

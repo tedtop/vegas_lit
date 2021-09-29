@@ -46,7 +46,7 @@ export async function NhlResolve(data: NhlBet) {
 
   return await axios
     .get(
-      `https://fly.sportsdata.io/v3/${league}/scores/json/ScoresByDate/${dateTime}`,
+      `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
       {
         params: {
           key: apikey,
