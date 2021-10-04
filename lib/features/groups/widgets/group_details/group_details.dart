@@ -682,6 +682,7 @@ class UserSearch extends SearchDelegate<UserData> {
 
   @override
   Widget buildResults(BuildContext context) {
+    print('This is the query! $query');
     userSearchCubit.searchUserResults(query: query);
     return BlocBuilder<UserSearchCubit, UserSearchState>(
       cubit: userSearchCubit,
@@ -752,6 +753,7 @@ class UserSearch extends SearchDelegate<UserData> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    print('This is the query! $query');
     userSearchCubit.searchUserSuggestions(query: query);
     return BlocBuilder<UserSearchCubit, UserSearchState>(
       cubit: userSearchCubit,

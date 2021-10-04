@@ -49,13 +49,19 @@ class UserSearchCubit extends Cubit<UserSearchState> {
     );
 
     try {
-      final users = await _userRepository.searchUserSuggestions(query: query);
-      emit(
-        UserSearchState(
-          status: UserSearchStatus.success,
-          users: users,
-        ),
-      );
+      if (query.isEmpty) {
+        emit(
+          const UserSearchState(),
+        );
+      } else {
+        final users = await _userRepository.searchUserSuggestions(query: query);
+        emit(
+          UserSearchState(
+            status: UserSearchStatus.success,
+            users: users,
+          ),
+        );
+      }
     } catch (_) {
       emit(
         const UserSearchState(
