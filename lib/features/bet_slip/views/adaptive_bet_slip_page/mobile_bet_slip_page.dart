@@ -125,7 +125,7 @@ class ParlayBetSlip extends StatelessWidget {
                             children: [
                               state.parlayBetSlipCard.length < 2
                                   ? const ParlayBetSlipWarning(isMinimum: true)
-                                  : state.parlayBetSlipCard.length > 3
+                                  : state.parlayBetSlipCard.length > 6
                                       ? const ParlayBetSlipWarning(
                                           isMinimum: false)
                                       : ParlayBetSlipButton.route(
