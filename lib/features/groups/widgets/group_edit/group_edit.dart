@@ -37,6 +37,7 @@ class GroupEdit extends StatefulWidget {
 
 class _GroupEditState extends State<GroupEdit> {
   final _formKey = GlobalKey<FormState>();
+  final _groupNameController = TextEditingController();
   final _groupDescriptionController = TextEditingController();
   bool _isUnlimitedSize = true;
   bool _isPublic = true;
@@ -44,6 +45,7 @@ class _GroupEditState extends State<GroupEdit> {
 
   @override
   void initState() {
+    _groupNameController.text = widget.group.name;
     _groupDescriptionController.text = widget.group.description;
     _isUnlimitedSize = widget.group.isUnlimited;
     _isPublic = widget.group.isPublic;
@@ -53,6 +55,7 @@ class _GroupEditState extends State<GroupEdit> {
 
   @override
   void dispose() {
+    _groupNameController.dispose();
     _groupDescriptionController.dispose();
     super.dispose();
   }
@@ -74,11 +77,34 @@ class _GroupEditState extends State<GroupEdit> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              Center(
-                child: Text(
-                  widget.group.name,
-                  style: Styles.pageTitle,
+              Text(
+                'Group Name',
+                style: Styles.groupFieldHeading,
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                style: Styles.normalText,
+                decoration: const InputDecoration(
+                  hintText: 'Group Name',
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 2.5,
+                    horizontal: 10,
+                  ),
+                  fillColor: Palette.lightGrey,
+                  filled: true,
+                  border: Styles.groupFieldBorder,
+                  focusedBorder: Styles.groupFieldFocusedBorder,
                 ),
+                controller: _groupNameController,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a Group Name.';
+                  } else if (!RegExp(r'^[a-zA-Z0-9_ \-=,\.]+$')
+                      .hasMatch(value)) {
+                    return 'Please enter a valid Group Name.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20),
               Text(
@@ -245,78 +271,6 @@ class _GroupEditState extends State<GroupEdit> {
                   return null;
                 },
               ),
-              const SizedBox(height: 10),
-              Text('Maximum Size', style: Styles.groupFieldHeading),
-              RadioListTile(
-                value: true,
-                groupValue: _isUnlimitedSize,
-                onChanged: (val) => setState(
-                  () {
-                    _isUnlimitedSize = val;
-                  },
-                ),
-                title: Text(
-                  'Unlimited Members',
-                  style: Styles.normalText,
-                ),
-              ),
-              RadioListTile(
-                value: false,
-                groupValue: _isUnlimitedSize,
-                onChanged: (val) => setState(
-                  () {
-                    _isUnlimitedSize = val;
-                  },
-                ),
-                title: Row(
-                  children: [
-                    Text('Limit Members to: ', style: Styles.normalText),
-                    SizedBox(
-                      width: 80,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Size',
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 10,
-                          ),
-                          fillColor: Palette.lightGrey,
-                          filled: true,
-                          isDense: true,
-                          border: Styles.groupFieldBorder,
-                          focusedBorder: Styles.groupFieldFocusedBorder,
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        ],
-                        validator: (value) {
-                          if (!_isUnlimitedSize) {
-                            if (value.isEmpty) {
-                              return 'Required';
-                            } else if (int.tryParse(value) <= 1) {
-                              return 'Invalid value';
-                            } else if (int.parse(value) > 250) {
-                              return 'Maximum 250 members allowed';
-                            }
-                          }
-                          return null;
-                        },
-                        onTap: () {
-                          setState(() {
-                            _isUnlimitedSize = false;
-                          });
-                        },
-                        onChanged: (val) {
-                          setState(() {
-                            _userLimit = int.tryParse(val);
-                          });
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
               const SizedBox(height: 20),
               BlocConsumer<GroupEditCubit, GroupEditState>(
                 listener: (context, state) {
@@ -348,7 +302,7 @@ class _GroupEditState extends State<GroupEdit> {
                                     description:
                                         _groupDescriptionController.text,
                                     isPublic: _isPublic,
-                                    name: widget.group.name,
+                                    name: _groupNameController.text,
                                     userLimit:
                                         _isUnlimitedSize ? 0 : _userLimit,
                                     users: widget.group.users,
