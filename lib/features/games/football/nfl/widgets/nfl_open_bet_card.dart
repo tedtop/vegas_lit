@@ -106,63 +106,85 @@ class NflOpenBetCard extends StatelessWidget {
                             Center(
                               child: Text(
                                 openBets.league.toUpperCase(),
-                                style: Styles.betSlipBoxNormalText,
+                                style: Styles.betSlipButtonText,
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(top: 9),
-                                    child: Center(
-                                      child: DisabledDefaultButton(
-                                          text: 'BET PLACED'),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Palette.darkGrey,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  height: 35,
-                                  width: 80,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Center(
+                            isParlayBet
+                                ? Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: 8, right: 25),
                                       child: Text(
-                                        '\$ ${openBets.betAmount}',
-                                        style: Styles.greenTextBold,
+                                        'XXX @ $odds = YYY',
+                                        style: Styles.betSlipBoxNormalText,
                                       ),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                  )
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        '@ $odds',
-                                        style: Styles.betSlipSmallBoldText,
+                                      Container(
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(top: 9),
+                                          child: Center(
+                                            child: DisabledDefaultButton(
+                                                text: 'BET PLACED'),
+                                          ),
+                                        ),
                                       ),
-                                      RichText(
-                                        text: TextSpan(
-                                          style: Styles.betSlipSmallText,
-                                          text: 'Payout ',
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text:
-                                                  openBets.betProfit.toString(),
-                                              style: Styles.betSlipBoxNormalText
-                                                  .copyWith(
-                                                color: Palette.green,
-                                                fontWeight: FontWeight.bold,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Palette.darkGrey,
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        height: 35,
+                                        width: 80,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: Center(
+                                            child: Text(
+                                              '\$ ${openBets.betAmount}',
+                                              style: Styles.greenTextBold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              '@ $odds',
+                                              style:
+                                                  Styles.betSlipSmallBoldText,
+                                            ),
+                                            RichText(
+                                              text: TextSpan(
+                                                style: Styles.betSlipSmallText,
+                                                text: 'Payout ',
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                    text: openBets.betProfit
+                                                        .toString(),
+                                                    style: Styles
+                                                        .betSlipBoxNormalText
+                                                        .copyWith(
+                                                      color: Palette.green,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
@@ -170,9 +192,6 @@ class NflOpenBetCard extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),

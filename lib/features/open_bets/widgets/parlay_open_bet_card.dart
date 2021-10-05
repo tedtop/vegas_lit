@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
 import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
@@ -63,24 +62,24 @@ class ParlayOpenBetCard extends StatelessWidget {
               default:
                 betCard = const SizedBox();
             }
-            if (index == openBets.bets.length - 1) {
-              betCard = Stack(
-                children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 410),
-                    child: betCard,
-                  ),
-                  Positioned(
-                    right: 18,
-                    bottom: 12,
-                    child: Text(
-                      '\$${openBets.betProfit}',
-                      style: Styles.openBetsNormalText,
-                    ),
-                  ),
-                ],
-              );
-            }
+            // if (index == openBets.bets.length - 1) {
+            //   betCard = Stack(
+            //     children: [
+            //       ConstrainedBox(
+            //         constraints: const BoxConstraints(maxWidth: 410),
+            //         child: betCard,
+            //       ),
+            //       Positioned(
+            //         right: 18,
+            //         bottom: 12,
+            //         child: Text(
+            //           '\$${openBets.betProfit}',
+            //           style: Styles.openBetsNormalText,
+            //         ),
+            //       ),
+            //     ],
+            //   );
+            // }
             return betCard;
           }),
         );
