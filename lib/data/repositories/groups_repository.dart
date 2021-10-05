@@ -20,11 +20,11 @@ class GroupsRepository {
       _databaseProvider.addNewGroup(group: group);
 
   Future<void> updateGroup({
-    @required String avatarLink,
+    @required Group group,
     @required String groupId,
   }) =>
       _databaseProvider.updateGroup(
-        avatarLink: avatarLink,
+        group: group,
         groupId: groupId,
       );
 

@@ -2,60 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/models/group.dart';
+import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
-import '../../../../config/extensions.dart';
-import '../../../../config/palette.dart';
-import '../../../../config/styles.dart';
-import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
-import '../../../home/home.dart';
-import 'cubit/group_add_cubit.dart';
+import 'cubit/group_edit_cubit.dart';
 
-class GroupAdd extends StatefulWidget {
-  GroupAdd._({Key key}) : super(key: key);
+class GroupEdit extends StatefulWidget {
+  GroupEdit._({Key key, @required this.group}) : super(key: key);
+
+  final Group group;
 
   static MaterialPageRoute route(
-      {@required HomeCubit homeCubit,
-      @required StorageRepository storageRepository}) {
+      {@required StorageRepository storageRepository, @required Group group}) {
     return MaterialPageRoute(
       builder: (context) {
-        return BlocProvider.value(
-          value: homeCubit,
-          child: BlocProvider(
-            create: (context) => GroupAddCubit(
-              groupsRepository: context.read<GroupsRepository>(),
-              storageRepository: storageRepository,
-            ),
-            child: GroupAdd._(),
+        return BlocProvider(
+          create: (context) => GroupEditCubit(
+            groupsRepository: context.read<GroupsRepository>(),
+            storageRepository: storageRepository,
           ),
+          child: GroupEdit._(group: group),
         );
       },
     );
   }
 
   @override
-  _GroupAddState createState() => _GroupAddState();
+  _GroupEditState createState() => _GroupEditState();
 }
 
-class _GroupAddState extends State<GroupAdd> {
+class _GroupEditState extends State<GroupEdit> {
   final _formKey = GlobalKey<FormState>();
-
-  final _groupNameController = TextEditingController();
   final _groupDescriptionController = TextEditingController();
   bool _isUnlimitedSize = true;
   bool _isPublic = true;
   int _userLimit;
 
   @override
+  void initState() {
+    _groupDescriptionController.text = widget.group.description;
+    _isUnlimitedSize = widget.group.isUnlimited;
+    _isPublic = widget.group.isPublic;
+    _userLimit = widget.group.userLimit;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _groupDescriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final userData = context.select((HomeCubit cubit) => cubit.state.userData);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'NEW GROUP',
+          widget.group.name.toUpperCase(),
           style: Styles.pageTitle,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
       body: Padding(
@@ -65,64 +74,7 @@ class _GroupAddState extends State<GroupAdd> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              Text(
-                'Admin',
-                style: Styles.groupFieldHeading,
-              ),
-              Text(
-                'As the creator of this group, you are the admin.',
-                style: Styles.groupFieldDescription,
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 45,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: Palette.lightGrey,
-                  border: Border.all(color: Palette.cream, width: 0.5),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(6),
-                  ),
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    userData.username,
-                    style: Styles.normalText,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Group Name',
-                style: Styles.groupFieldHeading,
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                style: Styles.normalText,
-                decoration: const InputDecoration(
-                  hintText: 'Group Name',
-                  contentPadding: EdgeInsets.symmetric(
-                    vertical: 2.5,
-                    horizontal: 10,
-                  ),
-                  fillColor: Palette.lightGrey,
-                  filled: true,
-                  border: Styles.groupFieldBorder,
-                  focusedBorder: Styles.groupFieldFocusedBorder,
-                ),
-                controller: _groupNameController,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter a Group Name.';
-                  } else if (!RegExp(r'^[a-zA-Z0-9_ \-=,\.]+$')
-                      .hasMatch(value)) {
-                    return 'Please enter a valid Group Name.';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Text(
                 'Group Type',
                 style: Styles.groupFieldHeading,
@@ -164,7 +116,7 @@ class _GroupAddState extends State<GroupAdd> {
                     ],
                   ),
                   const SizedBox(width: 50),
-                  BlocBuilder<GroupAddCubit, GroupAddState>(
+                  BlocBuilder<GroupEditCubit, GroupEditState>(
                     builder: (context, state) {
                       if (state.avatarFile != null)
                         return Stack(
@@ -184,7 +136,7 @@ class _GroupAddState extends State<GroupAdd> {
                               right: 0,
                               child: InkWell(
                                 onTap: () {
-                                  context.read<GroupAddCubit>().pickAvatar();
+                                  context.read<GroupEditCubit>().pickAvatar();
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -215,7 +167,7 @@ class _GroupAddState extends State<GroupAdd> {
                         );
                       return InkWell(
                         onTap: () {
-                          context.read<GroupAddCubit>().pickAvatar();
+                          context.read<GroupEditCubit>().pickAvatar();
                         },
                         child: Container(
                           height: 100,
@@ -344,14 +296,14 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
               ),
               const SizedBox(height: 20),
-              BlocConsumer<GroupAddCubit, GroupAddState>(
+              BlocConsumer<GroupEditCubit, GroupEditState>(
                 listener: (context, state) {
-                  if (state.status == GroupAddStatus.success) {
+                  if (state.status == GroupEditStatus.success) {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
                         const SnackBar(
-                          content: Text('Group Created Successfully!'),
+                          content: Text('Group Updated Successfully!'),
                         ),
                       );
                     Navigator.of(context).pop();
@@ -359,44 +311,34 @@ class _GroupAddState extends State<GroupAdd> {
                 },
                 builder: (context, state) {
                   switch (state.status) {
-                    case GroupAddStatus.initial:
-                      return userData.groups.length >= 10
-                          ? Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 16),
-                                child: Text(
-                                  'You have reached the limit of creating groups.',
-                                  style: GoogleFonts.nunito(fontSize: 16),
-                                ),
-                              ),
-                            )
-                          : DefaultButton(
-                              text: 'CREATE GROUP',
-                              action: () {
-                                if (_formKey.currentState.validate()) {
-                                  context.read<GroupAddCubit>().addGroup(
-                                        group: Group(
-                                          adminId: userData.uid,
-                                          adminName: userData.username,
-                                          avatarUrl: null,
-                                          createdBy: userData.uid,
-                                          createdAt: ESTDateTime.fetchTimeEST(),
-                                          description:
-                                              _groupDescriptionController.text,
-                                          isPublic: _isPublic,
-                                          name: _groupNameController.text,
-                                          userLimit:
-                                              _isUnlimitedSize ? 0 : _userLimit,
-                                          users: {userData.uid: true},
-                                          id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
-                                          isUnlimited: _isUnlimitedSize,
-                                        ),
-                                      );
-                                }
-                              },
-                            );
+                    case GroupEditStatus.initial:
+                      return DefaultButton(
+                        text: 'UPDATE GROUP',
+                        action: () {
+                          if (_formKey.currentState.validate()) {
+                            context.read<GroupEditCubit>().editGroup(
+                                  group: Group(
+                                    adminId: widget.group.adminId,
+                                    adminName: widget.group.adminName,
+                                    avatarUrl: widget.group.avatarUrl,
+                                    createdBy: widget.group.createdBy,
+                                    createdAt: widget.group.createdAt,
+                                    description:
+                                        _groupDescriptionController.text,
+                                    isPublic: _isPublic,
+                                    name: widget.group.name,
+                                    userLimit:
+                                        _isUnlimitedSize ? 0 : _userLimit,
+                                    users: widget.group.users,
+                                    id: widget.group.id,
+                                    isUnlimited: _isUnlimitedSize,
+                                  ),
+                                );
+                          }
+                        },
+                      );
                       break;
-                    case GroupAddStatus.loading:
+                    case GroupEditStatus.loading:
                       return const SizedBox(
                           height: 50,
                           child: Center(
@@ -404,14 +346,14 @@ class _GroupAddState extends State<GroupAdd> {
                               color: Palette.cream,
                             ),
                           ));
-                    case GroupAddStatus.success:
+                    case GroupEditStatus.success:
                       return Container(
                         height: 80,
                         width: 360,
                         color: Palette.green,
                         child: Center(
                           child: Text(
-                            'GROUP CREATED',
+                            'GROUP UPDATED',
                             style: GoogleFonts.nunito(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

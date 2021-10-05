@@ -608,12 +608,12 @@ class CloudFirestoreClient {
   }
 
   Future<void> updateGroup({
-    @required String avatarLink,
+    @required Group group,
     @required String groupId,
   }) async {
     await _firebaseFirestore.collection('groups').doc(groupId).update(
-      {'avatarUrl': avatarLink},
-    );
+          group.toMap(),
+        );
   }
 
   Future<void> updateGroupAvatar(

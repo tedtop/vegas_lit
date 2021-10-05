@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vegas_lit/data/repositories/storage_repository.dart';
+import 'package:vegas_lit/features/groups/widgets/group_edit/group_edit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -16,7 +17,9 @@ import 'cubit/group_details_cubit.dart';
 import 'cubit/user_search_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
-  GroupDetails._({Key key, @required this.userId}) : super(key: key);
+  GroupDetails._(
+      {Key key, @required this.storageRepository, @required this.userId})
+      : super(key: key);
 
   static MaterialPageRoute route(
       {@required StorageRepository storageRepository,
@@ -29,7 +32,6 @@ class GroupDetails extends StatelessWidget {
             BlocProvider(
               create: (context) => GroupDetailsCubit(
                 groupsRepository: context.read<GroupsRepository>(),
-                storageRepository: storageRepository,
               )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
             ),
             BlocProvider(
@@ -39,6 +41,7 @@ class GroupDetails extends StatelessWidget {
             ),
           ],
           child: GroupDetails._(
+            storageRepository: storageRepository,
             userId: userId,
           ),
         );
@@ -47,6 +50,7 @@ class GroupDetails extends StatelessWidget {
   }
 
   final String userId;
+  final StorageRepository storageRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +80,23 @@ class GroupDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     GroupDetailsDescription(userId: userId),
+                    state.group.adminId == userId
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DefaultButton(
+                                  text: 'Update Group',
+                                  action: () {
+                                    Navigator.push(
+                                      context,
+                                      GroupEdit.route(
+                                          storageRepository: storageRepository,
+                                          group: state.group),
+                                    );
+                                  }),
+                            ),
+                          )
+                        : const SizedBox(),
                     const SizedBox(height: 10),
                     const GroupDetailsJoinButton(),
                     const SizedBox(height: 10),
@@ -110,7 +131,7 @@ class GroupDetailsDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GroupDetailsCubit, GroupDetailsState>(
-      builder: (context, state) {
+      builder: (cntxt, state) {
         switch (state.status) {
           case GroupDetailsStatus.loading:
             return const SizedBox(
@@ -135,77 +156,37 @@ class GroupDetailsDescription extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Stack(
-                  children: [
-                    state.group.avatarUrl != null
-                        ? SizedBox(
-                            height: 100,
-                            width: 100,
-                            child: ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                child: CachedNetworkImage(
-                                    imageUrl: state.group.avatarUrl,
-                                    placeholder: (context, url) => const Center(
-                                          child: SizedBox(
-                                            width: 35,
-                                            height: 35,
-                                            child: CircularProgressIndicator(
-                                              color: Palette.cream,
-                                            ),
-                                          ),
-                                        ),
-                                    imageRenderMethodForWeb:
-                                        ImageRenderMethodForWeb.HttpGet)),
-                          )
-                        : const Center(
-                            child: SizedBox(
-                              width: 70,
-                              child: Icon(
-                                Icons.star,
-                                size: 50,
-                              ),
+                state.group.avatarUrl != null
+                    ? SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
                             ),
+                            child: CachedNetworkImage(
+                                imageUrl: state.group.avatarUrl,
+                                placeholder: (context, url) => const Center(
+                                      child: SizedBox(
+                                        width: 35,
+                                        height: 35,
+                                        child: CircularProgressIndicator(
+                                          color: Palette.cream,
+                                        ),
+                                      ),
+                                    ),
+                                imageRenderMethodForWeb:
+                                    ImageRenderMethodForWeb.HttpGet)),
+                      )
+                    : const Center(
+                        child: SizedBox(
+                          width: 70,
+                          child: Icon(
+                            Icons.star,
+                            size: 50,
                           ),
-                    Positioned(
-                      bottom: 5,
-                      right: 0,
-                      child: state.group.adminId == userId
-                          ? InkWell(
-                              onTap: () {
-                                context
-                                    .read<GroupDetailsCubit>()
-                                    .pickAvatar(groupId: state.group.id);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Palette.darkGrey,
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: Palette.cream)),
-                                padding: const EdgeInsets.all(3),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.edit,
-                                      color: Palette.cream,
-                                      size: 12,
-                                    ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    Text(
-                                      'Edit',
-                                      style: GoogleFonts.nunito(fontSize: 12),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          : const SizedBox(),
-                    ),
-                  ],
-                ),
+                        ),
+                      ),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -349,55 +330,57 @@ class GroupDetailsJoinButton extends StatelessWidget {
                   state.group.adminId == userId
                       ? SizedBox(
                           width: 150,
-                          child: DefaultButton(
-                            text: 'Add',
-                            action: () async {
-                              final selectedUser = await showSearch(
-                                context: context,
-                                delegate: UserSearch(
-                                  context.read<UserSearchCubit>(),
-                                ),
-                              );
-                              if (selectedUser != null) {
-                                if (state.group.users
-                                    .containsKey(selectedUser.uid)) {
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      SnackBar(
-                                        duration:
-                                            const Duration(milliseconds: 2000),
-                                        content: Text(
-                                          'User already added',
-                                          style: GoogleFonts.nunito(),
+                          child: Center(
+                            child: DefaultButton(
+                              text: 'Add',
+                              action: () async {
+                                final selectedUser = await showSearch(
+                                  context: context,
+                                  delegate: UserSearch(
+                                    context.read<UserSearchCubit>(),
+                                  ),
+                                );
+                                if (selectedUser != null) {
+                                  if (state.group.users
+                                      .containsKey(selectedUser.uid)) {
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        SnackBar(
+                                          duration: const Duration(
+                                              milliseconds: 2000),
+                                          content: Text(
+                                            'User already added',
+                                            style: GoogleFonts.nunito(),
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                } else {
-                                  final updatedUsers = state.group.users;
-                                  updatedUsers[selectedUser.uid] = false;
-                                  await context
-                                      .read<GroupDetailsCubit>()
-                                      .addNewUser(
-                                        groupId: state.group.id,
-                                        users: updatedUsers,
                                       );
+                                  } else {
+                                    final updatedUsers = state.group.users;
+                                    updatedUsers[selectedUser.uid] = false;
+                                    await context
+                                        .read<GroupDetailsCubit>()
+                                        .addNewUser(
+                                          groupId: state.group.id,
+                                          users: updatedUsers,
+                                        );
 
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      SnackBar(
-                                        duration:
-                                            const Duration(milliseconds: 2000),
-                                        content: Text(
-                                          'Group request sent to ${selectedUser.username}',
-                                          style: GoogleFonts.nunito(),
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        SnackBar(
+                                          duration: const Duration(
+                                              milliseconds: 2000),
+                                          content: Text(
+                                            'Group request sent to ${selectedUser.username}',
+                                            style: GoogleFonts.nunito(),
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                  }
                                 }
-                              }
-                            },
+                              },
+                            ),
                           ),
                         )
                       : Container(),

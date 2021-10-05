@@ -32,16 +32,14 @@ class GroupAddCubit extends Cubit<GroupAddState> {
         .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile != null) {
       final avatarImageFile = File(avatarPickedFile.path);
-      try {
-        emit(
-          GroupAddState(
-            status: GroupAddStatus.initial,
-            avatarFile: avatarImageFile,
-          ),
-        );
-      } catch (e) {
-        logger.i('Failed to upload icon!');
-      }
+      emit(
+        GroupAddState(
+          status: GroupAddStatus.initial,
+          avatarFile: avatarImageFile,
+        ),
+      );
+    } else {
+      logger.i('Failed to pick icon!');
     }
   }
 
@@ -56,8 +54,8 @@ class GroupAddCubit extends Cubit<GroupAddState> {
               file: state.avatarFile,
               path: 'groups/$id/',
             );
-            await _groupsRepository.updateGroup(
-              avatarLink: avatarUrl,
+            await _groupsRepository.updateGroupAvatar(
+              avatarUrl: avatarUrl,
               groupId: id,
             );
           } catch (e) {
