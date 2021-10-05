@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 import '../../../data/models/notification.dart';
 import '../../../data/repositories/device_repository.dart';
@@ -30,12 +29,12 @@ class NotificationCubit extends Cubit<NotificationState> {
     await _deviceRepository.handleBackgroundNotification();
     final settings = await _deviceRepository.requestNotificationPermission();
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      logger.i('User granted permission');
+      print('User granted permission');
       final pushNotiStream = _deviceRepository.handleForegroundNotification();
       await _foregroundNotification?.cancel();
       _foregroundNotification = pushNotiStream.listen(
         (message) {
-          logger.i(
+          print(
               'Message title: ${message.notification?.title}, body: ${message.notification?.body}, data: ${message.data}');
 
           emit(
@@ -61,7 +60,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       final initialMessage = await _deviceRepository.checkInitialPushMessage();
       if (initialMessage != null) {
-        logger.i('Initial Message Found!');
+        print('Initial Message Found!');
         emit(
           NotificationState(
             status: NotificationStatus.success,
@@ -74,16 +73,16 @@ class NotificationCubit extends Cubit<NotificationState> {
           ),
         );
       } else {
-        logger.i('Initial Message Not Found!');
+        print('Initial Message Not Found!');
       }
       final backgroundMessageOpened =
           _deviceRepository.handleOpenBackgroundNotification();
       await _backgroundNotificationOpened?.cancel();
       _backgroundNotificationOpened = backgroundMessageOpened.listen((event) {
-        logger.i('Background Notification Clicked');
+        print('Background Notification Clicked');
       });
     } else {
-      logger.i('User declined or has not accepted permission');
+      print('User declined or has not accepted permission');
       emit(
         const NotificationState(
           status: NotificationStatus.failure,

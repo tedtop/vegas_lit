@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_bet_history_card.dart';
 import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_bet_history_card.dart';

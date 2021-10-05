@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -55,51 +56,64 @@ class BetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MlbBetButtonCubit, MlbBetButtonState>(
+    final betId =
+        context.select((MlbBetButtonCubit cubit) => cubit.state.uniqueId);
+    return BlocListener<ParlayBetButtonCubit, ParlayBetButtonState>(
       listener: (context, state) {
-        switch (state.status) {
-          case MlbBetButtonStatus.placed:
-            ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  duration: Duration(milliseconds: 2000),
-                  content: Text('Your bet has been placed.'),
-                ),
-              );
-            context.read<BetSlipCubit>().removeBetSlip(
-                  betSlipDataId: state.uniqueId,
-                );
-            break;
-          default:
-            break;
+        if (state.status == ParlayBetButtonStatus.placed) {
+          final betList =
+              state.betList.where((element) => element.id == betId).toList();
+          if (betList.isNotEmpty) {
+            context.read<MlbBetButtonCubit>().unclickBetButton();
+          }
         }
       },
-      child: Builder(
-        builder: (context) {
-          final betButtonState = context.watch<MlbBetButtonCubit>().state;
-          switch (betButtonState.status) {
-            case MlbBetButtonStatus.unclicked:
-              return BetButtonUnclicked();
-              break;
-            case MlbBetButtonStatus.clicked:
-              return BetButtonClicked();
-              break;
+      child: BlocListener<MlbBetButtonCubit, MlbBetButtonState>(
+        listener: (context, state) {
+          switch (state.status) {
             case MlbBetButtonStatus.placed:
-              return BetButtonUnclicked();
-              break;
-            case MlbBetButtonStatus.placing:
-              return const CircularProgressIndicator(
-                color: Palette.green,
-              );
+              ScaffoldMessenger.of(context)
+                ..removeCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    duration: Duration(milliseconds: 2000),
+                    content: Text('Your bet has been placed.'),
+                  ),
+                );
+              context.read<BetSlipCubit>().removeBetSlip(
+                    betSlipDataId: state.uniqueId,
+                  );
               break;
             default:
-              return const CircularProgressIndicator(
-                color: Palette.cream,
-              );
               break;
           }
         },
+        child: Builder(
+          builder: (context) {
+            final betButtonState = context.watch<MlbBetButtonCubit>().state;
+            switch (betButtonState.status) {
+              case MlbBetButtonStatus.unclicked:
+                return BetButtonUnclicked();
+                break;
+              case MlbBetButtonStatus.clicked:
+                return BetButtonClicked();
+                break;
+              case MlbBetButtonStatus.placed:
+                return BetButtonUnclicked();
+                break;
+              case MlbBetButtonStatus.placing:
+                return const CircularProgressIndicator(
+                  color: Palette.green,
+                );
+                break;
+              default:
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
+                break;
+            }
+          },
+        ),
       ),
     );
   }

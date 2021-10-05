@@ -1,7 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 class RemoteConfigClient {
   RemoteConfigClient({RemoteConfig remoteConfig})
@@ -20,10 +19,9 @@ class RemoteConfigClient {
   Future<void> fetchAndActivateRemote() async {
     final updated = await _remoteConfig.fetchAndActivate();
     if (updated) {
-      logger.i(
-          'The config has been updated, new parameter values are available.');
+      print('The config has been updated, new parameter values are available.');
     } else {
-      logger.i('The config values were previously updated.');
+      print('The config values were previously updated.');
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -73,6 +74,11 @@ class HomePage extends StatefulWidget {
               create: (context) => OpenBetsCubit(
                 betsRepository: context.read<BetsRepository>(),
               )..fetchAllBets(uid: uid),
+            ),
+            BlocProvider(
+              create: (context) => ParlayBetButtonCubit(
+                betsRepository: context.read<BetsRepository>(),
+              ),
             ),
             BlocProvider<HistoryCubit>(
               create: (context) => HistoryCubit(

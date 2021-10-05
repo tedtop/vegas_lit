@@ -9,12 +9,10 @@ import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
 import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
 import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
-import 'package:vegas_lit/features/sportsbook/bloc/sportsbook_bloc.dart';
 
 import '../../bet_slip.dart';
 
@@ -27,17 +25,13 @@ class ParlayBetSlipButton extends StatelessWidget {
     return Builder(
       builder: (context) {
         final uid = context.watch<HomeCubit>().state.userData.uid;
-        return BlocProvider(
-          create: (_) => ParlayBetButtonCubit(
-            betsRepository: context.read<BetsRepository>(),
-          )..openParlay(
+        context.read<ParlayBetButtonCubit>().openParlay(
               betDataList: betDataList,
               league: 'Parlay',
               uid: uid,
-            ),
-          child: ParlayBetSlipButton._(
-            betList: betDataList,
-          ),
+            );
+        return ParlayBetSlipButton._(
+          betList: betDataList,
         );
       },
     );
@@ -61,9 +55,6 @@ class ParlayBetSlipButton extends StatelessWidget {
               authenticationBloc.state.userData.username,
         );
 
-        final currentLeague =
-            context.select((SportsbookBloc bloc) => bloc.state?.league);
-
         final balanceAmount = context.select(
             (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
 
@@ -80,17 +71,6 @@ class ParlayBetSlipButton extends StatelessWidget {
           child: BlocListener<ParlayBetButtonCubit, ParlayBetButtonState>(
             listener: (context, state) {
               switch (state.status) {
-                case ParlayBetButtonStatus.alreadyPlaced:
-                  return ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          "You've already placed a bet on this game.",
-                        ),
-                      ),
-                    );
-                  break;
                 case ParlayBetButtonStatus.placed:
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
@@ -101,9 +81,6 @@ class ParlayBetSlipButton extends StatelessWidget {
                       ),
                     );
 
-                  context.read<SportsbookBloc>().add(
-                        SportsbookOpen(league: currentLeague),
-                      );
                   context.read<BetSlipCubit>()
                     ..openBetSlip(
                       singleBetSlipGames: [],

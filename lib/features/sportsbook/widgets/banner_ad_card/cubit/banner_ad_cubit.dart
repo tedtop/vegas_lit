@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 part 'banner_ad_state.dart';
 
@@ -28,7 +27,7 @@ class BannerAdCubit extends Cubit<BannerAdState> {
           emit(BannerAdState.success(bannerAd: _bannerAd));
         },
         onAdFailedToLoad: (ad, err) {
-          logger.e('Failed to load a banner ad: ${err.message}');
+          print('Failed to load a banner ad: ${err.message}');
           emit(const BannerAdState.failure());
           ad.dispose();
         },

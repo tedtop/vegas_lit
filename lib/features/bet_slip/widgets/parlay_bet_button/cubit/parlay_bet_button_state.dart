@@ -5,7 +5,6 @@ enum ParlayBetButtonStatus {
   loading,
   placing,
   placed,
-  alreadyPlaced,
 }
 
 class ParlayBetButtonState extends Equatable {

@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meta/meta.dart';
 import 'package:vegas_lit/config/ads.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 import '../../../../../data/repositories/user_repository.dart';
 
@@ -31,27 +30,27 @@ class AdsCubit extends Cubit<AdsState> {
         onAdLoaded: (InterstitialAd interstitialAd) async {
           interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
             onAdShowedFullScreenContent: (InterstitialAd ad) {
-              logger.i('$ad onAdShowedFullScreenContent.');
+              print('$ad onAdShowedFullScreenContent.');
             },
             onAdDismissedFullScreenContent: (InterstitialAd ad) {
-              logger.i('$ad onAdDismissedFullScreenContent.');
+              print('$ad onAdDismissedFullScreenContent.');
               ad.dispose();
             },
             onAdWillDismissFullScreenContent: (InterstitialAd ad) {
-              logger.i('$ad onAdWillDismissFullScreenContent.');
+              print('$ad onAdWillDismissFullScreenContent.');
             },
             onAdFailedToShowFullScreenContent:
                 (InterstitialAd ad, AdError error) {
-              logger.i('$ad onAdFailedToShowFullScreenContent: $error');
+              print('$ad onAdFailedToShowFullScreenContent: $error');
               ad.dispose();
             },
             onAdImpression: (InterstitialAd ad) =>
-                logger.i('$ad impression occurred.'),
+                print('$ad impression occurred.'),
           );
           await interstitialAd.show();
         },
         onAdFailedToLoad: (LoadAdError error) {
-          logger.i('InterstitialAd failed to load: $error');
+          print('InterstitialAd failed to load: $error');
           emit(
             const AdsState.failure(),
           );
@@ -72,36 +71,36 @@ class AdsCubit extends Cubit<AdsState> {
       adManagerRequest: const AdManagerAdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd rewardedAd) async {
-          logger.i('_rewardedADs $rewardedAd');
+          print('_rewardedADs $rewardedAd');
           rewardedAd.fullScreenContentCallback = FullScreenContentCallback(
             onAdShowedFullScreenContent: (RewardedAd ad) {
-              logger.i('$ad onAdShowedFullScreenContent.');
+              print('$ad onAdShowedFullScreenContent.');
               emit(
                 const AdsState.initial(),
               );
             },
             onAdDismissedFullScreenContent: (RewardedAd ad) {
-              logger.i('$ad onAdDismissedFullScreenContent.');
+              print('$ad onAdDismissedFullScreenContent.');
 
               ad.dispose();
             },
             onAdWillDismissFullScreenContent: (RewardedAd ad) {
-              logger.i('$ad onAdWillDismissFullScreenContent.');
+              print('$ad onAdWillDismissFullScreenContent.');
             },
             onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
-              logger.i('$ad onAdFailedToShowFullScreenContent: $error');
+              print('$ad onAdFailedToShowFullScreenContent: $error');
               ad.dispose();
               emit(
                 const AdsState.failure(),
               );
             },
             onAdImpression: (RewardedAd ad) =>
-                logger.i('$ad impression occurred.'),
+                print('$ad impression occurred.'),
           );
           await rewardedAd.show(
             onUserEarnedReward:
                 (RewardedAd rewardedAd, RewardItem rewardItem) async {
-              logger.i(
+              print(
                   'Reward Amount ${rewardItem.amount}\n Reward Type ${rewardItem.type}');
               await _userRepository
                   .rewardForVideoAd(
@@ -119,7 +118,7 @@ class AdsCubit extends Cubit<AdsState> {
           );
         },
         onAdFailedToLoad: (LoadAdError error) {
-          logger.i('RewardedAd failed to load: ${error.message}');
+          print('RewardedAd failed to load: ${error.message}');
 
           emit(
             const AdsState.failure(),

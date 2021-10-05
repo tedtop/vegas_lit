@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 import '../../../data/models/user.dart';
 import '../../../data/models/wallet.dart';
@@ -54,7 +53,7 @@ class HomeCubit extends Cubit<HomeState> {
         );
       },
     ).listen(
-      logger.d,
+      print,
     );
   }
 

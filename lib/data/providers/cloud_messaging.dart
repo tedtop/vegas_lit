@@ -1,8 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  logger.i('Handling a background message: ${message.messageId}');
+  print('Handling a background message: ${message.messageId}');
 }
 
 class CloudMessagingClient {

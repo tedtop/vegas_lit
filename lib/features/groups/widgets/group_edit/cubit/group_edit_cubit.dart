@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:vegas_lit/data/models/group.dart';
 import 'package:vegas_lit/data/repositories/groups_repository.dart';
 import 'package:vegas_lit/data/repositories/storage_repository.dart';
-import 'package:vegas_lit/utils/logger.dart';
 
 part 'group_edit_state.dart';
 
@@ -38,7 +37,7 @@ class GroupEditCubit extends Cubit<GroupEditState> {
         ),
       );
     } else {
-      logger.i('Failed to pick icon!');
+      print('Failed to pick icon!');
     }
   }
 
@@ -53,10 +52,10 @@ class GroupEditCubit extends Cubit<GroupEditState> {
         );
         group = group.copyWith(avatarUrl: avatarUrl);
       } catch (e) {
-        logger.i('Failed to upload icon!');
+        print('Failed to upload icon!');
       }
     } else {
-      logger.i('No icon added!');
+      print('No icon added!');
     }
 
     await _groupsRepository.updateGroup(group: group, groupId: group.id);

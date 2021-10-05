@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -57,53 +58,66 @@ class BetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NcaafBetButtonCubit, NcaafBetButtonState>(
+    final betId =
+        context.select((NcaafBetButtonCubit cubit) => cubit.state.uniqueId);
+    return BlocListener<ParlayBetButtonCubit, ParlayBetButtonState>(
       listener: (context, state) {
-        switch (state.status) {
-          case NcaafBetButtonStatus.placed:
-            ScaffoldMessenger.of(context)
-              ..removeCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  duration: Duration(milliseconds: 2000),
-                  content: Text('Your bet has been placed.'),
-                ),
-              );
-            context.read<BetSlipCubit>().removeBetSlip(
-                  betSlipDataId: state.uniqueId,
-                );
-            break;
-          default:
-            break;
+        if (state.status == ParlayBetButtonStatus.placed) {
+          final betList =
+              state.betList.where((element) => element.id == betId).toList();
+          if (betList.isNotEmpty) {
+            context.read<NcaafBetButtonCubit>().unclickBetButton();
+          }
         }
       },
-      child: Builder(
-        builder: (context) {
-          final betButtonState = context.watch<NcaafBetButtonCubit>().state;
-          switch (betButtonState.status) {
-            case NcaafBetButtonStatus.unclicked:
-              return BetButtonUnclicked();
-              break;
-            case NcaafBetButtonStatus.clicked:
-              return BetButtonClicked();
-              break;
-
+      child: BlocListener<NcaafBetButtonCubit, NcaafBetButtonState>(
+        listener: (context, state) {
+          switch (state.status) {
             case NcaafBetButtonStatus.placed:
-              return BetButtonUnclicked();
-              break;
-
-            case NcaafBetButtonStatus.placing:
-              return const CircularProgressIndicator(
-                color: Palette.green,
-              );
+              ScaffoldMessenger.of(context)
+                ..removeCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    duration: Duration(milliseconds: 2000),
+                    content: Text('Your bet has been placed.'),
+                  ),
+                );
+              context.read<BetSlipCubit>().removeBetSlip(
+                    betSlipDataId: state.uniqueId,
+                  );
               break;
             default:
-              return const CircularProgressIndicator(
-                color: Palette.cream,
-              );
               break;
           }
         },
+        child: Builder(
+          builder: (context) {
+            final betButtonState = context.watch<NcaafBetButtonCubit>().state;
+            switch (betButtonState.status) {
+              case NcaafBetButtonStatus.unclicked:
+                return BetButtonUnclicked();
+                break;
+              case NcaafBetButtonStatus.clicked:
+                return BetButtonClicked();
+                break;
+
+              case NcaafBetButtonStatus.placed:
+                return BetButtonUnclicked();
+                break;
+
+              case NcaafBetButtonStatus.placing:
+                return const CircularProgressIndicator(
+                  color: Palette.green,
+                );
+                break;
+              default:
+                return const CircularProgressIndicator(
+                  color: Palette.cream,
+                );
+                break;
+            }
+          },
+        ),
       ),
     );
   }
