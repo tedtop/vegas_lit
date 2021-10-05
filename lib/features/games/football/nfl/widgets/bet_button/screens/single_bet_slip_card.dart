@@ -113,7 +113,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
                             Center(
                               child: Text(
                                 betButtonState.league.toUpperCase(),
-                                style: Styles.betSlipBoxNormalText,
+                                style: Styles.betSlipButtonText,
                               ),
                             ),
                             Row(

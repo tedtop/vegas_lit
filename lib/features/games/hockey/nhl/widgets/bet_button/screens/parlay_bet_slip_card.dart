@@ -53,52 +53,59 @@ class NhlParlayBetSlipCard extends StatelessWidget {
                               maxLines: 2,
                               text: TextSpan(
                                 text:
-                                    betButtonState.winTeam == BetButtonWin.home
+                                    '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                style: Styles.betSlipHomeTeam,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text:
+                                        ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()} ',
+                                    style: Styles.betSlipAwayTeam,
+                                  ),
+                                  TextSpan(
+                                    text: betButtonState.winTeam ==
+                                            BetButtonWin.home
                                         ? betButtonState.homeTeamData.name
                                             .toUpperCase()
                                         : betButtonState.awayTeamData.name
                                             .toUpperCase(),
-                                style: Styles.betSlipHomeTeam,
-                                children: <TextSpan>[
+                                    style: Styles.betSlipHomeTeam,
+                                  ),
                                   isMoneyline
-                                      ? const TextSpan(
-                                          text: ' (ML)',
+                                      ? TextSpan(
+                                          text:
+                                              ' (ML) ${betButtonState.text.split(' ').last}',
+                                          style: Styles.betSlipHomeTeam,
                                         )
                                       : isPointSpread
                                           ? TextSpan(
                                               text:
-                                                  ' ${betButtonState.text.split(' ').first} (PTS)',
+                                                  ' ${betButtonState.text.split(' ').first} (PTS) ${betButtonState.text.split(' ').last}',
+                                              style: Styles.betSlipHomeTeam,
                                             )
                                           : TextSpan(
                                               text:
-                                                  ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
-                                              style: Styles.betSlipAwayTeam,
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text:
-                                                      ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT)',
-                                                  style: Styles.betSlipHomeTeam,
-                                                ),
-                                              ],
+                                                  ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT) ${betButtonState.text.split(' ').last}',
+                                              style: Styles.betSlipHomeTeam,
                                             ),
                                 ],
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  betButtonState.league.toUpperCase(),
-                                  style: Styles.betSlipBoxNormalText,
-                                ),
-                                Text(
-                                  '@ ${betButtonState.text.split(' ').last}',
-                                  style: Styles.betSlipSmallBoldText,
-                                ),
-                              ],
+                          Center(
+                            child: Text(
+                              betButtonState.league.toUpperCase(),
+                              style: Styles.betSlipButtonText,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 8, right: 25),
+                              child: Text(
+                                'XXX @ ${betButtonState.text.split(' ').last} = YYY',
+                                style: Styles.betSlipBoxNormalText,
+                              ),
                             ),
                           ),
                         ],
