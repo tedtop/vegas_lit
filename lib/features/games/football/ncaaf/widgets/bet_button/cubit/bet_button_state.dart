@@ -6,7 +6,6 @@ enum NcaafBetButtonStatus {
   unclicked,
   placing,
   placed,
-  alreadyPlaced,
 }
 
 enum BetButtonWin { away, home }

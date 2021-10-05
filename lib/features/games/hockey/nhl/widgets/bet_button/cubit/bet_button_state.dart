@@ -6,7 +6,6 @@ enum NhlBetButtonStatus {
   unclicked,
   placing,
   placed,
-  alreadyPlaced,
 }
 
 enum BetButtonWin { away, home }

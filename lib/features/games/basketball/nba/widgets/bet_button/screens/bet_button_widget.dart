@@ -60,17 +60,6 @@ class BetButton extends StatelessWidget {
     return BlocListener<NbaBetButtonCubit, NbaBetButtonState>(
       listener: (context, state) {
         switch (state.status) {
-          case NbaBetButtonStatus.alreadyPlaced:
-            return ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  content: Text(
-                    "You've already placed a bet on this game.",
-                  ),
-                ),
-              );
-            break;
           case NbaBetButtonStatus.placed:
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
@@ -99,11 +88,9 @@ class BetButton extends StatelessWidget {
               return BetButtonClicked();
               break;
             case NbaBetButtonStatus.placed:
-              return BetButtonDone();
+              return BetButtonUnclicked();
               break;
-            case NbaBetButtonStatus.alreadyPlaced:
-              return BetButtonDone();
-              break;
+
             case NbaBetButtonStatus.placing:
               return const CircularProgressIndicator(
                 color: Palette.green,
@@ -201,41 +188,6 @@ class BetButtonClicked extends StatelessWidget {
                   betSlipDataId: betButtonState.uniqueId,
                 );
           },
-        ),
-      ),
-    );
-  }
-}
-
-class BetButtonDone extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: Container(
-        width: 150,
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: ElevatedButton(
-          style: ButtonStyle(
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            elevation: MaterialStateProperty.all(4),
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
-          ),
-          child: Text(
-            'BET PLACED',
-            maxLines: 1,
-            style: GoogleFonts.nunito(
-              fontSize: 14,
-              color: Palette.cream,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () {},
         ),
       ),
     );
