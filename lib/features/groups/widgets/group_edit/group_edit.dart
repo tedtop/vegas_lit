@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,9 +63,8 @@ class _GroupEditState extends State<GroupEdit> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          widget.group.name.toUpperCase(),
-          style: Styles.pageTitle,
-          overflow: TextOverflow.ellipsis,
+          'EDIT GROUP',
+          style: Styles.normalTextBold,
         ),
       ),
       body: Padding(
@@ -74,6 +74,12 @@ class _GroupEditState extends State<GroupEdit> {
           child: ListView(
             shrinkWrap: true,
             children: [
+              Center(
+                child: Text(
+                  widget.group.name,
+                  style: Styles.pageTitle,
+                ),
+              ),
               const SizedBox(height: 20),
               Text(
                 'Group Type',
@@ -118,18 +124,34 @@ class _GroupEditState extends State<GroupEdit> {
                   const SizedBox(width: 50),
                   BlocBuilder<GroupEditCubit, GroupEditState>(
                     builder: (context, state) {
-                      if (state.avatarFile != null)
+                      if (widget.group.avatarUrl != null ||
+                          state.avatarFile != null)
                         return Stack(
                           children: [
                             SizedBox(
                               height: 100,
                               width: 100,
                               child: ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                child: Image.file(state.avatarFile),
-                              ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
+                                  child: state.avatarFile != null
+                                      ? Image.file(state.avatarFile)
+                                      : CachedNetworkImage(
+                                          imageUrl: widget.group.avatarUrl,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                child: SizedBox(
+                                                  width: 35,
+                                                  height: 35,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: Palette.cream,
+                                                  ),
+                                                ),
+                                              ),
+                                          imageRenderMethodForWeb:
+                                              ImageRenderMethodForWeb.HttpGet)),
                             ),
                             Positioned(
                               bottom: 5,

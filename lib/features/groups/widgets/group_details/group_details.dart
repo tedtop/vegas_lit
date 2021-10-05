@@ -85,7 +85,7 @@ class GroupDetails extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: DefaultButton(
-                                  text: 'Update Group',
+                                  text: 'Edit Group',
                                   action: () {
                                     Navigator.push(
                                       context,
@@ -330,61 +330,59 @@ class GroupDetailsJoinButton extends StatelessWidget {
                   state.group.adminId == userId
                       ? SizedBox(
                           width: 150,
-                          child: Center(
-                            child: DefaultButton(
-                              text: 'Add',
-                              action: () async {
-                                final selectedUser = await showSearch(
-                                  context: context,
-                                  delegate: UserSearch(
-                                    context.read<UserSearchCubit>(),
-                                  ),
-                                );
-                                if (selectedUser != null) {
-                                  if (state.group.users
-                                      .containsKey(selectedUser.uid)) {
-                                    ScaffoldMessenger.of(context)
-                                      ..removeCurrentSnackBar()
-                                      ..showSnackBar(
-                                        SnackBar(
-                                          duration: const Duration(
-                                              milliseconds: 2000),
-                                          content: Text(
-                                            'User already added',
-                                            style: GoogleFonts.nunito(),
-                                          ),
+                          child: DefaultButton(
+                            text: 'Add',
+                            action: () async {
+                              final selectedUser = await showSearch(
+                                context: context,
+                                delegate: UserSearch(
+                                  context.read<UserSearchCubit>(),
+                                ),
+                              );
+                              if (selectedUser != null) {
+                                if (state.group.users
+                                    .containsKey(selectedUser.uid)) {
+                                  ScaffoldMessenger.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(
+                                      SnackBar(
+                                        duration:
+                                            const Duration(milliseconds: 2000),
+                                        content: Text(
+                                          'User already added',
+                                          style: GoogleFonts.nunito(),
                                         ),
+                                      ),
+                                    );
+                                } else {
+                                  final updatedUsers = state.group.users;
+                                  updatedUsers[selectedUser.uid] = false;
+                                  await context
+                                      .read<GroupDetailsCubit>()
+                                      .addNewUser(
+                                        groupId: state.group.id,
+                                        users: updatedUsers,
                                       );
-                                  } else {
-                                    final updatedUsers = state.group.users;
-                                    updatedUsers[selectedUser.uid] = false;
-                                    await context
-                                        .read<GroupDetailsCubit>()
-                                        .addNewUser(
-                                          groupId: state.group.id,
-                                          users: updatedUsers,
-                                        );
 
-                                    ScaffoldMessenger.of(context)
-                                      ..removeCurrentSnackBar()
-                                      ..showSnackBar(
-                                        SnackBar(
-                                          duration: const Duration(
-                                              milliseconds: 2000),
-                                          content: Text(
-                                            'Group request sent to ${selectedUser.username}',
-                                            style: GoogleFonts.nunito(),
-                                          ),
+                                  ScaffoldMessenger.of(context)
+                                    ..removeCurrentSnackBar()
+                                    ..showSnackBar(
+                                      SnackBar(
+                                        duration:
+                                            const Duration(milliseconds: 2000),
+                                        content: Text(
+                                          'Group request sent to ${selectedUser.username}',
+                                          style: GoogleFonts.nunito(),
                                         ),
-                                      );
-                                  }
+                                      ),
+                                    );
                                 }
-                              },
-                            ),
+                              }
+                            },
                           ),
                         )
                       : Container(),
-                  const SizedBox(width: 20),
+                  SizedBox(width: state.isMember ? 0 : 20),
                   Center(
                     child: state.isMember
                         ? const SizedBox()
