@@ -73,35 +73,40 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 maxLines: 2,
                                 text: TextSpan(
-                                  text: betButtonState.winTeam ==
-                                          BetButtonWin.home
-                                      ? betButtonState.homeTeamData.name
-                                          .toUpperCase()
-                                      : betButtonState.awayTeamData.name
-                                          .toUpperCase(),
+                                  text:
+                                      '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
                                   style: Styles.betSlipHomeTeam,
                                   children: <TextSpan>[
+                                    TextSpan(
+                                      text:
+                                          ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()} ',
+                                      style: Styles.betSlipAwayTeam,
+                                    ),
+                                    TextSpan(
+                                      text: betButtonState.winTeam ==
+                                              BetButtonWin.home
+                                          ? betButtonState.homeTeamData.name
+                                              .toUpperCase()
+                                          : betButtonState.awayTeamData.name
+                                              .toUpperCase(),
+                                      style: Styles.betSlipHomeTeam,
+                                    ),
                                     isMoneyline
-                                        ? const TextSpan(
-                                            text: ' (ML)',
+                                        ? TextSpan(
+                                            text:
+                                                ' (ML) ${betButtonState.text.split(' ').last}',
+                                            style: Styles.betSlipHomeTeam,
                                           )
                                         : isPointSpread
                                             ? TextSpan(
                                                 text:
-                                                    ' ${betButtonState.text.split(' ').first} (PTS)',
+                                                    ' ${betButtonState.text.split(' ').first} (PTS) ${betButtonState.text.split(' ').last}',
+                                                style: Styles.betSlipHomeTeam,
                                               )
                                             : TextSpan(
                                                 text:
-                                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
-                                                style: Styles.betSlipAwayTeam,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text:
-                                                        ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT)',
-                                                    style:
-                                                        Styles.betSlipHomeTeam,
-                                                  ),
-                                                ],
+                                                    ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT) ${betButtonState.text.split(' ').last}',
+                                                style: Styles.betSlipHomeTeam,
                                               ),
                                   ],
                                 ),
@@ -114,7 +119,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                               ),
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   width: 100,
@@ -160,13 +165,6 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const Expanded(child: SizedBox()),
-                                const SizedBox(width: 10),
-                                Text(
-                                  '@ ${betButtonState.text.split(' ').last}',
-                                  style: Styles.betSlipSmallBoldText,
-                                ),
-                                const SizedBox(width: 10),
                                 GestureDetector(
                                   onTap: () {
                                     showDialog(
@@ -190,22 +188,47 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     height: 35,
-                                    width: 60,
+                                    width: 80,
                                     child: Padding(
                                       padding: const EdgeInsets.all(6.0),
-                                      child: Text(
-                                        '\$ ${betButtonState.betAmount}',
-                                        style: Styles.greenTextBold,
+                                      child: Center(
+                                        child: Text(
+                                          '\$ ${betButtonState.betAmount}',
+                                          style: Styles.greenTextBold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  '\$ ${betButtonState.toWinAmount}',
-                                  style: Styles.betSlipBoxNormalText,
+                                SizedBox(
+                                  width: 100,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '@ ${betButtonState.text.split(' ').last}',
+                                        style: Styles.betSlipSmallBoldText,
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          style: Styles.betSlipSmallText,
+                                          text: 'Payout ',
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: betButtonState.toWinAmount
+                                                  .toString(),
+                                              style: Styles.betSlipBoxNormalText
+                                                  .copyWith(
+                                                color: Palette.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(width: 15),
                               ],
                             ),
                           ],
@@ -257,7 +280,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         );

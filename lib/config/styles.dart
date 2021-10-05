@@ -109,6 +109,7 @@ class Styles {
       VLTextStyle.nunito.creamColored.size(18).w200;
   static final betSlipBoxLargeText =
       VLTextStyle.nunito.creamColored.size(24).bold;
+  static final betSlipSmallText = VLTextStyle.nunito.creamColored.size(16);
   static final betSlipSmallBoldText =
       VLTextStyle.nunito.creamColored.size(12).bold;
   static final betSlipButtonText =
