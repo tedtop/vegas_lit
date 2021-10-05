@@ -192,8 +192,8 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
               ),
             );
         } else {
-          if (betButtonState.betAmount == null &&
-              betButtonState.betAmount == 0 &&
+          if (betButtonState.betAmount == null ||
+              betButtonState.betAmount == 0 ||
               betButtonState.toWinAmount == 0) {
             emit(state.copyWith(status: NflBetButtonStatus.clicked));
             ScaffoldMessenger.of(context)

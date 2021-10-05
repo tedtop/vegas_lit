@@ -192,8 +192,8 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
               ),
             );
         } else {
-          if (betButtonState.betAmount == null &&
-              betButtonState.betAmount == 0 &&
+          if (betButtonState.betAmount == null ||
+              betButtonState.betAmount == 0 ||
               betButtonState.toWinAmount == 0) {
             emit(state.copyWith(status: NcaabBetButtonStatus.clicked));
             ScaffoldMessenger.of(context)
