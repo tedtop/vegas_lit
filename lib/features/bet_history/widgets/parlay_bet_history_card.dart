@@ -82,24 +82,24 @@ class ParlayBetHistoryCard extends StatelessWidget {
                 default:
                   betCard = const SizedBox();
               }
-              if (index == betHistoryData.bets.length - 1) {
-                betCard = Stack(
-                  children: [
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 410),
-                      child: betCard,
-                    ),
-                    Positioned(
-                      right: 15,
-                      bottom: 12,
-                      child: Text(
-                        isWin ? '\$${betHistoryData.betProfit}' : 'LOST',
-                        style: Styles.betHistoryNormal,
-                      ),
-                    ),
-                  ],
-                );
-              }
+              // if (index == betHistoryData.bets.length - 1) {
+              //   betCard = Stack(
+              //     children: [
+              //       ConstrainedBox(
+              //         constraints: const BoxConstraints(maxWidth: 410),
+              //         child: betCard,
+              //       ),
+              //       Positioned(
+              //         right: 15,
+              //         bottom: 12,
+              //         child: Text(
+              //           isWin ? '\$${betHistoryData.betProfit}' : 'LOST',
+              //           style: Styles.betHistoryNormal,
+              //         ),
+              //       ),
+              //     ],
+              //   );
+              // }
               return betCard;
             },
           ),

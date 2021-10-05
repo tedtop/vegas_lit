@@ -163,16 +163,23 @@ class NhlBetHistoryCard extends StatelessWidget {
                 ),
               ),
             ),
-            !isParlayBet
+            isParlayBet
                 ? Positioned(
+                    right: 8,
+                    bottom: 10,
+                    child: Text(
+                      'XXX',
+                      style: Styles.betHistoryNormal,
+                    ),
+                  )
+                : Positioned(
                     right: 8,
                     bottom: 10,
                     child: Text(
                       '\$${betHistoryData.betProfit}',
                       style: Styles.betHistoryNormal,
                     ),
-                  )
-                : const SizedBox(),
+                  ),
             Positioned(
               top: -12,
               left: 15,
