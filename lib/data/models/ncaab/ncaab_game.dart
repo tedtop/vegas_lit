@@ -71,8 +71,8 @@ class NcaabGame {
         overUnder: json['OverUnder'] == null
             ? null
             : double.tryParse(json['OverUnder'].toString()),
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'] ?? 100,
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'] ?? -100,
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'],
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'],
         globalGameId: json['GlobalGameID'],
         globalAwayTeamId: json['GlobalAwayTeamID'],
         globalHomeTeamId: json['GlobalHomeTeamID'],

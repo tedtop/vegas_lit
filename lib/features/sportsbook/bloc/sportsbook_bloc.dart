@@ -118,7 +118,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.closed == false)
-                .length;
+                .where((element) {
+              return element.awayTeamMoneyLine != null ||
+                  element.pointSpreadAwayTeamMoneyLine != null ||
+                  element.overPayout != null ||
+                  element.homeTeamMoneyLine != null ||
+                  element.pointSpreadHomeTeamMoneyLine != null ||
+                  element.underPayout != null;
+            }).length;
           },
         ).onError((error, stackTrace) => 0);
         break;
@@ -135,7 +142,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
-                .length;
+                .where((element) {
+              return element.awayTeamMoneyLine != null ||
+                  element.pointSpreadAwayTeamMoneyLine != null ||
+                  element.overPayout != null ||
+                  element.homeTeamMoneyLine != null ||
+                  element.pointSpreadHomeTeamMoneyLine != null ||
+                  element.underPayout != null;
+            }).length;
           },
         ).onError((error, stackTrace) => 0);
         break;
@@ -152,7 +166,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
-                .length;
+                .where((element) {
+              return element.awayTeamMoneyLine != null ||
+                  element.pointSpreadAwayTeamMoneyLine != null ||
+                  element.overPayout != null ||
+                  element.homeTeamMoneyLine != null ||
+                  element.pointSpreadHomeTeamMoneyLine != null ||
+                  element.underPayout != null;
+            }).length;
           },
         ).onError((error, stackTrace) => 0);
         break;
@@ -169,7 +190,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
-                .length;
+                .where((element) {
+              return element.awayTeamMoneyLine != null ||
+                  element.pointSpreadAwayTeamMoneyLine != null ||
+                  element.overPayout != null ||
+                  element.homeTeamMoneyLine != null ||
+                  element.pointSpreadHomeTeamMoneyLine != null ||
+                  element.underPayout != null;
+            }).length;
           },
         ).onError((error, stackTrace) => 0);
         break;
@@ -186,7 +214,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
-                .length;
+                .where((element) {
+              return element.awayTeamMoneyLine != null ||
+                  element.awayPointSpreadPayout != null ||
+                  element.overPayout != null ||
+                  element.homeTeamMoneyLine != null ||
+                  element.homePointSpreadPayout != null ||
+                  element.underPayout != null;
+            }).length;
           },
         ).onError((error, stackTrace) => 0);
         break;
@@ -203,7 +238,14 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 .where((element) =>
                     element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
-                .length;
+                .where((element) {
+              return element.awayTeamMoneyLine != null ||
+                  element.pointSpreadAwayTeamMoneyLine != null ||
+                  element.overPayout != null ||
+                  element.homeTeamMoneyLine != null ||
+                  element.pointSpreadHomeTeamMoneyLine != null ||
+                  element.underPayout != null;
+            }).length;
           },
         ).onError((error, stackTrace) => 0);
         break;

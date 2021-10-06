@@ -39,7 +39,14 @@ class NcaafCubit extends Cubit<NcaafState> {
               .where((element) =>
                   element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.isClosed == false)
-              .toList(),
+              .where((element) {
+            return element.awayTeamMoneyLine != null ||
+                element.awayPointSpreadPayout != null ||
+                element.overPayout != null ||
+                element.homeTeamMoneyLine != null ||
+                element.homePointSpreadPayout != null ||
+                element.underPayout != null;
+          }).toList(),
         );
     totalGames = todayGames;
 

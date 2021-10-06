@@ -38,7 +38,14 @@ class NhlCubit extends Cubit<NhlState> {
               .where((element) =>
                   element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.isClosed == false)
-              .toList(),
+              .where((element) {
+            return element.awayTeamMoneyLine != null ||
+                element.pointSpreadAwayTeamMoneyLine != null ||
+                element.overPayout != null ||
+                element.homeTeamMoneyLine != null ||
+                element.pointSpreadHomeTeamMoneyLine != null ||
+                element.underPayout != null;
+          }).toList(),
         );
 
     totalGames = todayGames;
