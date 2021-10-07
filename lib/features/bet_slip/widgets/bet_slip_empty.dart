@@ -74,7 +74,7 @@ class ParlayBetSlipWarning extends StatelessWidget {
                       textAlign: TextAlign.center,
                     )
                   : Text(
-                      'A maximum of 3 picks are required to create a parlay',
+                      'A maximum of 6 picks are required to create a parlay',
                       style: Styles.normalTextBold,
                       textAlign: TextAlign.center,
                     ),

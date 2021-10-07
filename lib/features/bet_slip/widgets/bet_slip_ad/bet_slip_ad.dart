@@ -74,7 +74,6 @@ class RewardedBetSlip extends StatelessWidget {
                                           timeNow,
                                         )}',
                                         style: Styles.greenTextBold),
-                                    const TextSpan(text: ' EST')
                                   ],
                                 ),
                               ),
@@ -92,7 +91,7 @@ class RewardedBetSlip extends StatelessWidget {
                                       text:
                                           '${getRemainingTimeText(time: time)}',
                                       style: Styles.greenTextBold),
-                                  const TextSpan(text: ' EST for more rewards')
+                                  const TextSpan(text: ' for more rewards')
                                 ],
                               ),
                             ),
