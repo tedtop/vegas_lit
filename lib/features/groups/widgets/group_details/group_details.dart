@@ -1,8 +1,13 @@
+import 'dart:async';
+import 'dart:ui' as ui;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vegas_lit/data/repositories/storage_repository.dart';
 import 'package:vegas_lit/features/groups/widgets/group_edit/group_edit.dart';
 
@@ -54,8 +59,96 @@ class GroupDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final groupDetailsState = context.watch<GroupDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.qr_code),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  switch (groupDetailsState.status) {
+                    case GroupDetailsStatus.loading:
+                      return const SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Palette.cream,
+                          ),
+                        ),
+                      );
+                      break;
+                    case GroupDetailsStatus.complete:
+                      return Material(
+                        // color: Palette.cream,
+                        child: SafeArea(
+                          top: true,
+                          bottom: true,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Center(
+                                  child: SizedBox(
+                                    width: 280,
+                                    child: FutureBuilder<ui.Image>(
+                                      future: _loadOverlayImage(),
+                                      builder: (ctx, snapshot) {
+                                        const size = 280.0;
+                                        if (!snapshot.hasData) {
+                                          return const SizedBox(
+                                              width: size, height: size);
+                                        }
+                                        return CustomPaint(
+                                          size: const Size.square(size),
+                                          painter: QrPainter(
+                                            gapless: true,
+                                            data: groupDetailsState.group.id,
+                                            version: QrVersions.auto,
+                                            eyeStyle: const QrEyeStyle(
+                                              eyeShape: QrEyeShape.square,
+                                              color: Palette.green,
+                                            ),
+                                            dataModuleStyle:
+                                                const QrDataModuleStyle(
+                                              dataModuleShape:
+                                                  QrDataModuleShape.square,
+                                              color: Palette.cream,
+                                            ),
+                                            embeddedImage: snapshot.data,
+                                            embeddedImageStyle:
+                                                QrEmbeddedImageStyle(
+                                              size: const Size.square(50),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                      break;
+                    default:
+                      return SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: Text(
+                            'Couldn\'t load QR code',
+                            style: Styles.normalText,
+                          ),
+                        ),
+                      );
+                  }
+                },
+              );
+            },
+          ),
+        ],
         centerTitle: true,
         title: Text(
           'GROUP DETAILS',
@@ -119,6 +212,13 @@ class GroupDetails extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<ui.Image> _loadOverlayImage() async {
+    final completer = Completer<ui.Image>();
+    final byteData = await rootBundle.load('assets/images/open_bets_logo.png');
+    ui.decodeImageFromList(byteData.buffer.asUint8List(), completer.complete);
+    return completer.future;
   }
 }
 
