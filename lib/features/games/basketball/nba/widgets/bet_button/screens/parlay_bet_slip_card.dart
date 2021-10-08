@@ -97,17 +97,7 @@ class NbaParlayBetSlipCard extends StatelessWidget {
                               style: Styles.betSlipButtonText,
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 8, right: 25),
-                              child: Text(
-                                'XXX @ ${betButtonState.text.split(' ').last} = YYY',
-                                style: Styles.betSlipBoxNormalText,
-                              ),
-                            ),
-                          ),
+                          const SizedBox(height: 25),
                         ],
                       ),
                     ),

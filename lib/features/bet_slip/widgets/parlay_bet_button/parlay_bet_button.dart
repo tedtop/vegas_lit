@@ -174,9 +174,11 @@ class ParlayBetSlipButton extends StatelessWidget {
                           width: 60,
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
-                            child: Text(
-                              '\$ ${betButtonState.betAmount}',
-                              style: Styles.greenTextBold,
+                            child: Center(
+                              child: Text(
+                                '${betButtonState.betAmount}',
+                                style: Styles.greenTextBold,
+                              ),
                             ),
                           ),
                         ),
@@ -185,7 +187,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Text(
-                          '\$ ${betButtonState.toWinAmount}',
+                          'payout ${betButtonState.toWinAmount}',
                           style: Styles.betSlipBoxNormalText,
                         ),
                       ),

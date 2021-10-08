@@ -110,17 +110,7 @@ class MlbOpenBetCard extends StatelessWidget {
                               ),
                             ),
                             isParlayBet
-                                ? Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 8, right: 25),
-                                      child: Text(
-                                        'XXX @ $odds = YYY',
-                                        style: Styles.betSlipBoxNormalText,
-                                      ),
-                                    ),
-                                  )
+                                ? const SizedBox(height: 25)
                                 : Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -151,7 +141,7 @@ class MlbOpenBetCard extends StatelessWidget {
                                           padding: const EdgeInsets.all(6.0),
                                           child: Center(
                                             child: Text(
-                                              '\$ ${openBets.betAmount}',
+                                              '${openBets.betAmount}',
                                               style: Styles.greenTextBold,
                                             ),
                                           ),

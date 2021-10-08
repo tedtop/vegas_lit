@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
 import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
@@ -19,7 +20,7 @@ class ParlayOpenBetCard extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Align(
           alignment: Alignment.topCenter,
-          heightFactor: index == openBets.bets.length - 1 ? 1.0 : 0.80,
+          heightFactor: index == openBets.bets.length - 1 ? 1.0 : 0.75,
           child: Builder(builder: (context) {
             Widget betCard;
             switch (openBets.bets[openBets.bets.length - index - 1].league) {
@@ -62,24 +63,22 @@ class ParlayOpenBetCard extends StatelessWidget {
               default:
                 betCard = const SizedBox();
             }
-            // if (index == openBets.bets.length - 1) {
-            //   betCard = Stack(
-            //     children: [
-            //       ConstrainedBox(
-            //         constraints: const BoxConstraints(maxWidth: 410),
-            //         child: betCard,
-            //       ),
-            //       Positioned(
-            //         right: 18,
-            //         bottom: 12,
-            //         child: Text(
-            //           '\$${openBets.betProfit}',
-            //           style: Styles.openBetsNormalText,
-            //         ),
-            //       ),
-            //     ],
-            //   );
-            // }
+            if (index == openBets.bets.length - 1)
+              betCard = Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  betCard,
+                  Positioned(
+                    bottom: 5,
+                    child: Center(
+                      child: Text(
+                        '${openBets.bets.length} leg parlay with a payout of ${openBets.bets[openBets.bets.length - index - 1].betProfit}',
+                        style: Styles.betSlipButtonText.copyWith(fontSize: 16),
+                      ),
+                    ),
+                  )
+                ],
+              );
             return betCard;
           }),
         );

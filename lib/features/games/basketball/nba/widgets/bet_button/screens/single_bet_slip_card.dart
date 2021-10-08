@@ -193,7 +193,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                       padding: const EdgeInsets.all(6.0),
                                       child: Center(
                                         child: Text(
-                                          '\$ ${betButtonState.betAmount}',
+                                          '${betButtonState.betAmount}',
                                           style: Styles.greenTextBold,
                                         ),
                                       ),
