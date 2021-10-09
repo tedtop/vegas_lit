@@ -28,6 +28,9 @@ class GroupsRepository {
         groupId: groupId,
       );
 
+  Future<bool> isGroupExists({@required String groupId}) =>
+      _databaseProvider.isGroupExists(groupId: groupId);
+
   Future<void> updateGroupAvatar(
           {@required String avatarUrl, @required String groupId}) =>
       _databaseProvider.updateGroupAvatar(

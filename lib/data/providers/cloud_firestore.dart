@@ -524,6 +524,12 @@ class CloudFirestoreClient {
     return snapshotRef;
   }
 
+  Future<bool> isGroupExists({@required String groupId}) async {
+    final snapshotRef =
+        await _firebaseFirestore.collection('groups').doc(groupId).get();
+    return snapshotRef.exists;
+  }
+
   Stream<List<Group>> fetchPrivateGroups({@required String uid}) {
     final snapshotRef = _firebaseFirestore
         .collection('groups')
