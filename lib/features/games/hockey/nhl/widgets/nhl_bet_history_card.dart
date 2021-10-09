@@ -44,7 +44,7 @@ class NhlBetHistoryCard extends StatelessWidget {
           children: [
             Container(
               width: 390,
-              height: 100,
+              height: isParlayBet ? 125 : 100,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Palette.cream,
@@ -133,11 +133,15 @@ class NhlBetHistoryCard extends StatelessWidget {
 
                       isWin
                           ? Text(
-                              'You bet \$${betHistoryData.betAmount} @ $odds and won',
+                              isParlayBet
+                                  ? '$odds (WON)'
+                                  : 'You bet ${betHistoryData.betAmount} @ $odds and won',
                               style: Styles.betHistoryCardBold,
                             )
                           : Text(
-                              'You lost \$${betHistoryData.betAmount} @ $odds',
+                              isParlayBet
+                                  ? '$odds (LOST)'
+                                  : 'You lost ${betHistoryData.betAmount} @ $odds',
                               style: Styles.betHistoryCardBold,
                             ),
 
@@ -164,19 +168,12 @@ class NhlBetHistoryCard extends StatelessWidget {
               ),
             ),
             isParlayBet
-                ? Positioned(
-                    right: 8,
-                    bottom: 10,
-                    child: Text(
-                      'XXX',
-                      style: Styles.betHistoryNormal,
-                    ),
-                  )
+                ? const SizedBox()
                 : Positioned(
                     right: 8,
                     bottom: 10,
                     child: Text(
-                      '\$${betHistoryData.betProfit}',
+                      '${betHistoryData.betProfit}',
                       style: Styles.betHistoryNormal,
                     ),
                   ),

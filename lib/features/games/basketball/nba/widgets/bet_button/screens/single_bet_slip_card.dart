@@ -79,7 +79,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                   children: <TextSpan>[
                                     TextSpan(
                                       text:
-                                          ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()} ',
+                                          ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}\n',
                                       style: Styles.betSlipAwayTeam,
                                     ),
                                     TextSpan(
@@ -207,7 +207,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                     children: [
                                       Text(
                                         '@ ${betButtonState.text.split(' ').last}',
-                                        style: Styles.betSlipSmallBoldText,
+                                        style: Styles.betSlipSmallText,
                                       ),
                                       RichText(
                                         text: TextSpan(

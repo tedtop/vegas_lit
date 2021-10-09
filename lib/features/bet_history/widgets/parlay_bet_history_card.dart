@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/config/palette.dart';
+import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_bet_history_card.dart';
 import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_bet_history_card.dart';
@@ -30,7 +32,7 @@ class ParlayBetHistoryCard extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Align(
           alignment: Alignment.topCenter,
-          heightFactor: index == betHistoryData.bets.length - 1 ? 1.0 : 0.80,
+          heightFactor: index == betHistoryData.bets.length - 1 ? 1.0 : 0.70,
           child: Builder(
             builder: (context) {
               Widget betCard;
@@ -81,24 +83,50 @@ class ParlayBetHistoryCard extends StatelessWidget {
                 default:
                   betCard = const SizedBox();
               }
-              // if (index == betHistoryData.bets.length - 1) {
-              //   betCard = Stack(
-              //     children: [
-              //       ConstrainedBox(
-              //         constraints: const BoxConstraints(maxWidth: 410),
-              //         child: betCard,
-              //       ),
-              //       Positioned(
-              //         right: 15,
-              //         bottom: 12,
-              //         child: Text(
-              //           isWin ? '\$${betHistoryData.betProfit}' : 'LOST',
-              //           style: Styles.betHistoryNormal,
-              //         ),
-              //       ),
-              //     ],
-              //   );
-              // }
+              if (index == betHistoryData.bets.length - 1)
+                betCard = Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    betCard,
+                    Positioned(
+                      bottom: 10,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                style: Styles.betDescriptionText,
+                                text: 'you',
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    style: Styles.betDescriptionText.copyWith(
+                                        color: isWin
+                                            ? Palette.green
+                                            : Palette.red),
+                                    text: isWin ? ' won ' : ' lost ',
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        '${betHistoryData.bets.length} leg parlay ',
+                                  ),
+                                  TextSpan(
+                                    style: Styles.betNumbersText,
+                                    text: '(${betHistoryData.betAmount})',
+                                  ),
+                                  const TextSpan(text: ' of with a payout of '),
+                                  TextSpan(
+                                    style: Styles.betNumbersText,
+                                    text: '${betHistoryData.betProfit}',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
               return betCard;
             },
           ),

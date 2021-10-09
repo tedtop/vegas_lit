@@ -38,180 +38,184 @@ class NcaabOpenBetCard extends StatelessWidget {
 
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
-          child: Stack(
-            children: [
-              Container(
-                  width: 390,
-                  margin: const EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Palette.cream,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    color: Palette.lightGrey,
-                    shape: RoundedRectangleBorder(
+          child: Center(
+            child: Stack(
+              children: [
+                Container(
+                    width: 390,
+                    margin: const EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Palette.cream,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                text: TextSpan(
-                                  text:
-                                      '${openBets.betTeam == 'home' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}',
-                                  style: Styles.betSlipHomeTeam,
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                          ' @ ${openBets.betTeam == 'away' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()} ',
-                                      style: Styles.betSlipAwayTeam,
-                                    ),
-                                    TextSpan(
-                                      text: openBets.betTeam == 'home'
-                                          ? openBets.homeTeamName.toUpperCase()
-                                          : openBets.awayTeamName.toUpperCase(),
-                                      style: Styles.betSlipHomeTeam,
-                                    ),
-                                    isMoneyline
-                                        ? TextSpan(
-                                            text: ' (ML) $odds',
-                                            style: Styles.betSlipHomeTeam,
-                                          )
-                                        : isPointSpread
-                                            ? TextSpan(
-                                                text:
-                                                    ' $pointSpread (PTS) $odds',
-                                                style: Styles.betSlipHomeTeam,
-                                              )
-                                            : TextSpan(
-                                                text:
-                                                    ' ${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder} (TOT) $odds',
-                                                style: Styles.betSlipHomeTeam,
-                                              ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                openBets.league.toUpperCase(),
-                                style: Styles.betSlipButtonText,
-                              ),
-                            ),
-                            isParlayBet
-                                ? const SizedBox(height: 25)
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.only(top: 9),
-                                          child: Center(
-                                            child: DisabledDefaultButton(
-                                                text: 'BET PLACED'),
-                                          ),
-                                        ),
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      color: Palette.lightGrey,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: RichText(
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  text: TextSpan(
+                                    text:
+                                        '${openBets.betTeam == 'home' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}',
+                                    style: Styles.betSlipHomeTeam,
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                            ' @ ${openBets.betTeam == 'away' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}\n',
+                                        style: Styles.betSlipAwayTeam,
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Palette.darkGrey,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        height: 35,
-                                        width: 80,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(6.0),
-                                          child: Center(
-                                            child: Text(
-                                              '${openBets.betAmount}',
-                                              style: Styles.greenTextBold,
-                                            ),
-                                          ),
-                                        ),
+                                      TextSpan(
+                                        text: openBets.betTeam == 'home'
+                                            ? openBets.homeTeamName
+                                                .toUpperCase()
+                                            : openBets.awayTeamName
+                                                .toUpperCase(),
+                                        style: Styles.betSlipHomeTeam,
                                       ),
-                                      SizedBox(
-                                        width: 100,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              '@ $odds',
-                                              style:
-                                                  Styles.betSlipSmallBoldText,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                style: Styles.betSlipSmallText,
-                                                text: 'Payout ',
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: openBets.betProfit
-                                                        .toString(),
-                                                    style: Styles
-                                                        .betSlipBoxNormalText
-                                                        .copyWith(
-                                                      color: Palette.green,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      isMoneyline
+                                          ? TextSpan(
+                                              text: ' (ML) $odds',
+                                              style: Styles.betSlipHomeTeam,
+                                            )
+                                          : isPointSpread
+                                              ? TextSpan(
+                                                  text:
+                                                      ' $pointSpread (PTS) $odds',
+                                                  style: Styles.betSlipHomeTeam,
+                                                )
+                                              : TextSpan(
+                                                  text:
+                                                      ' ${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder} (TOT) $odds',
+                                                  style: Styles.betSlipHomeTeam,
+                                                ),
                                     ],
                                   ),
-                          ],
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  openBets.league.toUpperCase(),
+                                  style: Styles.betSlipButtonText,
+                                ),
+                              ),
+                              isParlayBet
+                                  ? const SizedBox(height: 25)
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(top: 9),
+                                            child: Center(
+                                              child: DisabledDefaultButton(
+                                                  text: 'BET PLACED'),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Palette.darkGrey,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          height: 35,
+                                          width: 80,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Center(
+                                              child: Text(
+                                                '${openBets.betAmount}',
+                                                style: Styles.greenTextBold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 100,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                '@ $odds',
+                                                style: Styles.betSlipSmallText,
+                                              ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  style:
+                                                      Styles.betSlipSmallText,
+                                                  text: 'Payout ',
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text: openBets.betProfit
+                                                          .toString(),
+                                                      style: Styles
+                                                          .betSlipBoxNormalText
+                                                          .copyWith(
+                                                        color: Palette.green,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )),
+                Positioned(
+                  top: 0,
+                  left: 15,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Palette.cream,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      color: Palette.darkGrey,
+                    ),
+                    height: 20,
+                    width: 90,
+                    child: Center(
+                      child: Text(
+                        (whichBetSystemFromString(openBets.betType)),
+                        style: GoogleFonts.nunito(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  )),
-              Positioned(
-                top: 0,
-                left: 15,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Palette.cream,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                    color: Palette.darkGrey,
                   ),
-                  height: 20,
-                  width: 90,
-                  child: Center(
-                    child: Text(
-                      (whichBetSystemFromString(openBets.betType)),
-                      style: GoogleFonts.nunito(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         );
       },
@@ -249,13 +253,11 @@ class DisabledDefaultButton extends StatelessWidget {
     Key key,
     @required this.text,
     this.color = Palette.darkGrey,
-    this.elevation = Styles.normalElevation,
   })  : assert(text != null),
         super(key: key);
 
   final String text;
   final Color color;
-  final double elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +266,7 @@ class DisabledDefaultButton extends StatelessWidget {
       width: 110,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
+        child: TextButton(
           style: ButtonStyle(
               enableFeedback: false,
               padding: MaterialStateProperty.all(
@@ -272,8 +274,6 @@ class DisabledDefaultButton extends StatelessWidget {
                   vertical: 10,
                 ),
               ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
               textStyle: MaterialStateProperty.all(
                 const TextStyle(color: Palette.cream),
               ),

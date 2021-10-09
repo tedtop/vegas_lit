@@ -71,12 +71,23 @@ class ParlayOpenBetCard extends StatelessWidget {
                   Positioned(
                     bottom: 5,
                     child: Center(
-                      child: Text(
-                        '${openBets.bets.length} leg parlay with a payout of ${openBets.bets[openBets.bets.length - index - 1].betProfit}',
-                        style: Styles.betSlipButtonText.copyWith(fontSize: 16),
+                      child: RichText(
+                        text: TextSpan(
+                          style: Styles.betDescriptionText,
+                          text: '${openBets.bets.length} leg parlay ',
+                          children: <TextSpan>[
+                            TextSpan(
+                                style: Styles.betNumbersText,
+                                text: '(${openBets.betAmount})'),
+                            const TextSpan(text: ' of with a payout of '),
+                            TextSpan(
+                                style: Styles.betNumbersText,
+                                text: '${openBets.betProfit}'),
+                          ],
+                        ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               );
             return betCard;

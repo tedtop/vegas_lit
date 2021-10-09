@@ -76,9 +76,21 @@ class ParlayBetSlipList extends StatelessWidget {
                 Positioned(
                   bottom: 5,
                   child: Center(
-                    child: Text(
-                      '${betSlipState.parlayBetSlipCard.length} leg parlay with a payout of ${betButtonState.toWinAmount}',
-                      style: Styles.betSlipButtonText.copyWith(fontSize: 16),
+                    child: RichText(
+                      text: TextSpan(
+                        style: Styles.betDescriptionText,
+                        text:
+                            '${betSlipState.parlayBetSlipCard.length} leg parlay ',
+                        children: <TextSpan>[
+                          TextSpan(
+                              style: Styles.betNumbersText,
+                              text: '(${betButtonState.betAmount})'),
+                          const TextSpan(text: ' of with a payout of '),
+                          TextSpan(
+                              style: Styles.betNumbersText,
+                              text: '${betButtonState.toWinAmount}'),
+                        ],
+                      ),
                     ),
                   ),
                 )

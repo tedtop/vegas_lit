@@ -173,25 +173,33 @@ class GroupDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     GroupDetailsDescription(userId: userId),
-                    state.group.adminId == userId
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DefaultButton(
-                                  text: 'Edit Group',
-                                  action: () {
-                                    Navigator.push(
-                                      context,
-                                      GroupEdit.route(
-                                          storageRepository: storageRepository,
-                                          group: state.group),
-                                    );
-                                  }),
-                            ),
-                          )
-                        : const SizedBox(),
-                    const SizedBox(height: 10),
-                    const GroupDetailsJoinButton(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        state.group.adminId == userId
+                            ? Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    width: 150,
+                                    child: DefaultButton(
+                                        text: 'Edit Group',
+                                        action: () {
+                                          Navigator.push(
+                                            context,
+                                            GroupEdit.route(
+                                                storageRepository:
+                                                    storageRepository,
+                                                group: state.group),
+                                          );
+                                        }),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                        const GroupDetailsJoinButton(),
+                      ],
+                    ),
                     const SizedBox(height: 10),
                     const GroupDetailsLeaderboard(),
                   ],
