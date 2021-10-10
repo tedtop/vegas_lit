@@ -74,12 +74,12 @@ class ParlayOpenBetCard extends StatelessWidget {
                       child: RichText(
                         text: TextSpan(
                           style: Styles.betDescriptionText,
-                          text: '${openBets.bets.length} leg parlay ',
+                          text: '${openBets.bets.length} leg parlay @ ',
                           children: <TextSpan>[
                             TextSpan(
                                 style: Styles.betNumbersText,
-                                text: '(${openBets.betAmount})'),
-                            const TextSpan(text: ' of with a payout of '),
+                                text: '${openBets.betAmount}'),
+                            const TextSpan(text: ' with a payout of '),
                             TextSpan(
                                 style: Styles.betNumbersText,
                                 text: '${openBets.betProfit}'),

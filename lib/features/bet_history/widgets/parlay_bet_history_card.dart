@@ -107,16 +107,15 @@ class ParlayBetHistoryCard extends StatelessWidget {
                                   ),
                                   TextSpan(
                                     text:
-                                        '${betHistoryData.bets.length} leg parlay ',
+                                        '${betHistoryData.bets.length} leg parlay',
                                   ),
                                   TextSpan(
-                                    style: Styles.betNumbersText,
-                                    text: '(${betHistoryData.betAmount})',
-                                  ),
-                                  const TextSpan(text: ' of with a payout of '),
+                                      text: isWin ? ' with a payout of ' : ''),
                                   TextSpan(
                                     style: Styles.betNumbersText,
-                                    text: '${betHistoryData.betProfit}',
+                                    text: isWin
+                                        ? '${betHistoryData.betProfit}'
+                                        : '',
                                   ),
                                 ],
                               ),
