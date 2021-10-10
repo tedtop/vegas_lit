@@ -96,10 +96,14 @@ class GroupScanner extends StatelessWidget {
                                 .changeCameraPosition();
                           },
                           icon: describeEnum(state.camera) == 'front'
-                              ? const Icon(Icons.camera_rear,
-                                  color: Palette.cream)
-                              : const Icon(Icons.camera_front,
-                                  color: Palette.cream),
+                              ? const Icon(
+                                  Icons.camera_rear,
+                                  color: Palette.cream,
+                                )
+                              : const Icon(
+                                  Icons.camera_front,
+                                  color: Palette.cream,
+                                ),
                         )
                       ],
                     ),

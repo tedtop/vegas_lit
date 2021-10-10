@@ -82,7 +82,7 @@ class GroupDetails extends StatelessWidget {
                       break;
                     case GroupDetailsStatus.complete:
                       return Material(
-                        // color: Palette.cream,
+                        color: Palette.cream,
                         child: SafeArea(
                           top: true,
                           bottom: true,
@@ -108,13 +108,13 @@ class GroupDetails extends StatelessWidget {
                                             version: QrVersions.auto,
                                             eyeStyle: const QrEyeStyle(
                                               eyeShape: QrEyeShape.square,
-                                              color: Palette.green,
+                                              color: Palette.lightGrey,
                                             ),
                                             dataModuleStyle:
                                                 const QrDataModuleStyle(
                                               dataModuleShape:
                                                   QrDataModuleShape.square,
-                                              color: Palette.cream,
+                                              color: Palette.darkGrey,
                                             ),
                                             embeddedImage: snapshot.data,
                                             embeddedImageStyle:
@@ -173,33 +173,28 @@ class GroupDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     GroupDetailsDescription(userId: userId),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        state.group.adminId == userId
-                            ? Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                    width: 150,
-                                    child: DefaultButton(
-                                        text: 'Edit Group',
-                                        action: () {
-                                          Navigator.push(
-                                            context,
-                                            GroupEdit.route(
-                                                storageRepository:
-                                                    storageRepository,
-                                                group: state.group),
-                                          );
-                                        }),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox(),
-                        const GroupDetailsJoinButton(),
-                      ],
-                    ),
+                    state.group.adminId == userId
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 150,
+                                child: DefaultButton(
+                                    text: 'Edit Group',
+                                    action: () {
+                                      Navigator.push(
+                                        context,
+                                        GroupEdit.route(
+                                          storageRepository: storageRepository,
+                                          group: state.group,
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                    const GroupDetailsJoinButton(),
                     const SizedBox(height: 10),
                     const GroupDetailsLeaderboard(),
                   ],
