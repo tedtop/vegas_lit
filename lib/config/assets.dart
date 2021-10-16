@@ -15,6 +15,8 @@ class Images {
 
   static const String olympicsIconsPath = 'assets/images/olympics_icons/';
   static const String paralympicsIconsPath = 'assets/images/paralympics_icons/';
+
+  static const String betGameBGPath = 'assets/images/bet_game_bg/';
 }
 
 class Json {
