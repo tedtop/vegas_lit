@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meta/meta.dart';
+import 'package:vegas_lit/config/assets.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
@@ -20,95 +21,18 @@ class MlbParlayBetSlipCard extends StatelessWidget {
     return Builder(
       builder: (context) {
         final betButtonState = context.watch<MlbBetButtonCubit>().state;
+
         final isMoneyline = betButtonState.betType == Bet.ml;
         final isPointSpread = betButtonState.betType == Bet.pts;
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Stack(
+
+        return Container(
+          width: 390,
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 390,
-                margin: const EdgeInsets.only(top: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Palette.cream,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Card(
-                  margin: EdgeInsets.zero,
-                  color: Palette.lightGrey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              text: TextSpan(
-                                text:
-                                    '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
-                                style: Styles.betSlipHomeTeam,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text:
-                                        ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}\n',
-                                    style: Styles.betSlipAwayTeam,
-                                  ),
-                                  TextSpan(
-                                    text: betButtonState.winTeam ==
-                                            BetButtonWin.home
-                                        ? betButtonState.homeTeamData.name
-                                            .toUpperCase()
-                                        : betButtonState.awayTeamData.name
-                                            .toUpperCase(),
-                                    style: Styles.betSlipHomeTeam,
-                                  ),
-                                  isMoneyline
-                                      ? TextSpan(
-                                          text:
-                                              ' (ML) ${betButtonState.text.split(' ').last}',
-                                          style: Styles.betSlipHomeTeam,
-                                        )
-                                      : isPointSpread
-                                          ? TextSpan(
-                                              text:
-                                                  ' ${betButtonState.text.split(' ').first} (PTS) ${betButtonState.text.split(' ').last}',
-                                              style: Styles.betSlipHomeTeam,
-                                            )
-                                          : TextSpan(
-                                              text:
-                                                  ' ${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)} (TOT) ${betButtonState.text.split(' ').last}',
-                                              style: Styles.betSlipHomeTeam,
-                                            ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Text(
-                              betButtonState.league.toUpperCase(),
-                              style: Styles.betSlipButtonText,
-                            ),
-                          ),
-                          const SizedBox(height: 25),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                right: 8,
+              Padding(
+                padding: const EdgeInsets.only(right: 4.0),
                 child: InkWell(
                   onTap: () {
                     context.read<MlbBetButtonCubit>().unclickBetButton();
@@ -127,26 +51,79 @@ class MlbParlayBetSlipCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: 0,
-                left: 15,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Palette.cream,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                    color: Palette.darkGrey,
-                  ),
-                  height: 20,
-                  width: 90,
-                  child: Center(
-                    child: Text(
-                      (whichBetSystemFromEnum(betButtonState.betType)),
-                      style: GoogleFonts.nunito(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+              Expanded(
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(8, 6, 8, 6),
+                    decoration: BoxDecoration(
+                      backgroundBlendMode: BlendMode.srcOver,
+                      image: const DecorationImage(
+                          image: AssetImage('${Images.betGameBGPath}mlb.png'),
+                          fit: BoxFit.fitHeight,
+                          alignment: Alignment.centerRight,
+                          centerSlice: Rect.fromLTRB(0, 1, 0, 1)),
+                      color: Palette.lightGrey,
+                      border: Border.all(
+                        color: Palette.cream,
                       ),
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          bottomLeft: Radius.circular(12)),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: isMoneyline || isPointSpread
+                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData.city ?? ''} ${betButtonState.homeTeamData.name}' : '${betButtonState.awayTeamData.city ?? ''} ${betButtonState.awayTeamData.name}'}'
+                                : '',
+                            style: Styles.betSlipAwayTeam,
+                            children: <TextSpan>[
+                              isMoneyline
+                                  ? TextSpan(
+                                      text:
+                                          ' (${betButtonState.text.split(' ').last})',
+                                      //style: Styles.betSlipHomeTeam,
+                                    )
+                                  : isPointSpread
+                                      ? TextSpan(
+                                          text:
+                                              ' (${betButtonState.text.split(' ').first})'
+                                          //     PTS (${betButtonState.text.split(' ').last})',
+                                          //style: Styles.betSlipHomeTeam,
+                                          )
+                                      : TextSpan(
+                                          text:
+                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)}',
+                                          //     TOT ${betButtonState.text.split(' ').last}',
+                                          style: Styles.betSlipHomeTeam,
+                                        ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          whichBetSystemFromEnum(betButtonState.betType)
+                              .toUpperCase(),
+                          style: Styles.betSlipHomeTeam,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text:
+                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                            style: Styles.betSlipHomeTeam,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                style: Styles.betSlipAwayTeam,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

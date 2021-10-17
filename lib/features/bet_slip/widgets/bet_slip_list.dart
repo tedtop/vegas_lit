@@ -43,7 +43,6 @@ class ParlayBetSlipList extends StatelessWidget {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width / 10;
     final betSlipState = context.watch<BetSlipCubit>().state;
-    final betButtonState = context.watch<ParlayBetButtonCubit>().state;
 
     return GestureDetector(
       onTap: () {
@@ -51,52 +50,19 @@ class ParlayBetSlipList extends StatelessWidget {
       },
       child: ListView.builder(
         key: Key(
-          '${betSlipState.parlayBetSlipCard.length}',
+          '${betSlipState.singleBetSlipCard.length}',
         ),
-        //reverse: true,
+        reverse: true,
         shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemCount: betSlipState.parlayBetSlipCard.length,
+        physics: const ClampingScrollPhysics(),
+        itemCount: betSlipState.singleBetSlipCard.length,
         itemBuilder: (context, index) {
-          Widget betSlipCard = Align(
-            alignment: Alignment.topCenter,
-            heightFactor:
-                index == betSlipState.parlayBetSlipCard.length - 1 ? 1.0 : 0.75,
+          return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 380),
-              child: betSlipState.parlayBetSlipCard[
-                  betSlipState.parlayBetSlipCard.length - index - 1],
+              child: betSlipState.parlayBetSlipCard[index],
             ),
           );
-          if (index == betSlipState.parlayBetSlipCard.length - 1)
-            betSlipCard = Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                betSlipCard,
-                Positioned(
-                  bottom: 5,
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        style: Styles.betDescriptionText,
-                        text:
-                            '${betSlipState.parlayBetSlipCard.length} leg parlay @ ',
-                        children: <TextSpan>[
-                          TextSpan(
-                              style: Styles.betNumbersText,
-                              text: '${betButtonState.betAmount}'),
-                          const TextSpan(text: ' with a payout of '),
-                          TextSpan(
-                              style: Styles.betNumbersText,
-                              text: '${betButtonState.toWinAmount}'),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            );
-          return betSlipCard;
         },
       ),
     );
