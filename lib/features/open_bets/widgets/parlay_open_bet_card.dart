@@ -15,7 +15,7 @@ class ParlayOpenBetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 2, top: 4),
+      padding: const EdgeInsets.only(bottom: 8, top: 6),
       child: Column(
         children: [
           Container(
