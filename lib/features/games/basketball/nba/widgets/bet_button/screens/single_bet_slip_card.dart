@@ -114,7 +114,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                           )
                                       : TextSpan(
                                           text:
-                                              ' (${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)})', //     TOT ${betButtonState.text.split(' ').last}',
+                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)}', //     TOT ${betButtonState.text.split(' ').last}',
                                           style: Styles.betSlipHomeTeam,
                                         ),
                             ],
