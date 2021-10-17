@@ -25,112 +25,104 @@ class ParlayBetHistoryCard extends StatelessWidget {
         isWin = isWin && (bet.winningTeam == bet.betTeam);
     }
 
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: betHistoryData.bets.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Align(
-          alignment: Alignment.topCenter,
-          heightFactor: index == betHistoryData.bets.length - 1 ? 1.0 : 0.70,
-          child: Builder(
-            builder: (context) {
-              Widget betCard;
-              switch (betHistoryData
-                  .bets[betHistoryData.bets.length - index - 1].league) {
-                case 'mlb':
-                  betCard = MlbBetHistoryCard(
-                    betHistoryData: betHistoryData
-                        .bets[betHistoryData.bets.length - index - 1],
-                    isParlayBet: true,
-                  );
-                  break;
-                case 'nba':
-                  betCard = NbaBetHistoryCard(
-                    betHistoryData: betHistoryData
-                        .bets[betHistoryData.bets.length - index - 1],
-                    isParlayBet: true,
-                  );
-                  break;
-                case 'cbb':
-                  betCard = NcaabBetHistoryCard(
-                    betHistoryData: betHistoryData
-                        .bets[betHistoryData.bets.length - index - 1],
-                    isParlayBet: true,
-                  );
-                  break;
-                case 'cfb':
-                  betCard = NcaafBetHistoryCard(
-                    betHistoryData: betHistoryData
-                        .bets[betHistoryData.bets.length - index - 1],
-                    isParlayBet: true,
-                  );
-                  break;
-                case 'nfl':
-                  betCard = NflBetHistoryCard(
-                    betHistoryData: betHistoryData
-                        .bets[betHistoryData.bets.length - index - 1],
-                    isParlayBet: true,
-                  );
-                  break;
-                case 'nhl':
-                  betCard = NhlBetHistoryCard(
-                    betHistoryData: betHistoryData
-                        .bets[betHistoryData.bets.length - index - 1],
-                    isParlayBet: true,
-                  );
-                  break;
-                default:
-                  betCard = const SizedBox();
-              }
-              if (index == betHistoryData.bets.length - 1)
-                betCard = Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    betCard,
-                    Positioned(
-                      bottom: 10,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                style: Styles.betDescriptionText,
-                                text: 'you',
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    style: Styles.betDescriptionText.copyWith(
-                                        color: isWin
-                                            ? Palette.green
-                                            : Palette.red),
-                                    text: isWin ? ' won ' : ' lost ',
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${betHistoryData.bets.length} leg parlay',
-                                  ),
-                                  TextSpan(
-                                      text: isWin ? ' with a payout of ' : ''),
-                                  TextSpan(
-                                    style: Styles.betNumbersText,
-                                    text: isWin
-                                        ? '${betHistoryData.betProfit}'
-                                        : '',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+    return Container(
+      padding: const EdgeInsets.only(bottom: 8, top: 6),
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+            width: 390,
+            decoration: BoxDecoration(
+                color: Palette.lightGrey,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  topLeft: Radius.circular(12),
+                ),
+                border: Border.all(color: Palette.cream)),
+            child: Column(
+              children: [
+                Text(
+                  '${betHistoryData.bets.length} leg parlay',
+                  style: Styles.betHistoryNormal,
+                ),
+                isWin
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: Text(
+                          'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit + betHistoryData.betAmount}',
+                          style: Styles.betHistoryCardBoldGreen,
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: Text(
+                          'YOU LOST ${betHistoryData.betAmount}',
+                          style: Styles.betHistoryCardBoldRed,
                         ),
                       ),
-                    ),
-                  ],
-                );
-              return betCard;
+              ],
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            reverse: true,
+            itemCount: betHistoryData.bets.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Builder(builder: (context) {
+                switch (betHistoryData
+                    .bets[betHistoryData.bets.length - index - 1].league) {
+                  case 'mlb':
+                    return MlbBetHistoryCard(
+                      betHistoryData: betHistoryData
+                          .bets[betHistoryData.bets.length - index - 1],
+                      isParlayLeg: true,
+                    );
+                    break;
+                  case 'nba':
+                    return NbaBetHistoryCard(
+                      betHistoryData: betHistoryData
+                          .bets[betHistoryData.bets.length - index - 1],
+                      isParlayLeg: true,
+                    );
+                    break;
+                  case 'cbb':
+                    return NcaabBetHistoryCard(
+                      betHistoryData: betHistoryData
+                          .bets[betHistoryData.bets.length - index - 1],
+                      isParlayLeg: true,
+                    );
+                    break;
+                  case 'cfb':
+                    return NcaafBetHistoryCard(
+                      betHistoryData: betHistoryData
+                          .bets[betHistoryData.bets.length - index - 1],
+                      isParlayLeg: true,
+                    );
+                    break;
+                  case 'nfl':
+                    return NflBetHistoryCard(
+                      betHistoryData: betHistoryData
+                          .bets[betHistoryData.bets.length - index - 1],
+                      isParlayLeg: true,
+                    );
+                    break;
+                  case 'nhl':
+                    return NhlBetHistoryCard(
+                      betHistoryData: betHistoryData
+                          .bets[betHistoryData.bets.length - index - 1],
+                      isParlayLeg: true,
+                    );
+                    break;
+                  default:
+                    return const SizedBox();
+                }
+              });
             },
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

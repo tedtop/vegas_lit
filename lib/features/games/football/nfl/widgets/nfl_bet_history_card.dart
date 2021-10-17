@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/config/assets.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
@@ -8,12 +9,12 @@ import '../../../../../data/models/nfl/nfl_bet.dart';
 
 class NflBetHistoryCard extends StatelessWidget {
   const NflBetHistoryCard(
-      {Key key, @required this.betHistoryData, this.isParlayBet = false})
+      {Key key, @required this.betHistoryData, this.isParlayLeg = false})
       : assert(betHistoryData != null),
         super(key: key);
 
   final NflBetData betHistoryData;
-  final bool isParlayBet;
+  final bool isParlayLeg;
 
   @override
   Widget build(BuildContext context) {
@@ -35,172 +36,100 @@ class NflBetHistoryCard extends StatelessWidget {
                 ? '+${betHistoryData.betPointSpread.abs()}'
                 : '-${betHistoryData.betPointSpread.abs()}'))
         : '';
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 16, 10, 2),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              width: 390,
-              height: isParlayBet ? 125 : 100,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Palette.cream,
-                ),
-                borderRadius: BorderRadius.circular(12),
-                color: Palette.cream,
-              ),
-              child: Card(
-                margin: EdgeInsets.zero,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-                color: Palette.darkGrey,
-                child: Container(
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                    bottom: 2,
-                    left: 6,
-                    right: 6,
-                  ),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          text: TextSpan(
-                            text: betHistoryData.betTeam == 'home'
-                                ? betHistoryData.homeTeamName.toUpperCase()
-                                : betHistoryData.awayTeamName.toUpperCase(),
-                            style: isWin
-                                ? Styles.betHistoryCardBoldGreen
-                                : Styles.betHistoryCardBoldRed,
-                            children: <TextSpan>[
-                              isMoneyline
-                                  ? const TextSpan(
-                                      text: ' (ML)',
-                                    )
-                                  : isPointSpread
-                                      ? TextSpan(
-                                          text: ' $pointSpread (PTS)',
-                                        )
-                                      : TextSpan(
-                                          text:
-                                              ' @ ${betHistoryData.betTeam == 'away' ? betHistoryData.homeTeamName.toUpperCase() : betHistoryData.awayTeamName.toUpperCase()}',
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text:
-                                                  ' ${betHistoryData.betTeam == 'away' ? 'OVER' : 'UNDER'} ${betHistoryData.betOverUnder} (TOT)',
-                                            ),
-                                          ],
-                                        ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          betHistoryData.league.toUpperCase(),
-                          style: Styles.betHistoryCardBold,
-                        ),
-                      ),
-
-                      RichText(
-                        text: TextSpan(
-                          style: isWin
-                              ? Styles.betHistoryCardBoldGreen
-                              : Styles.betHistoryCardBoldRed,
-                          children: [
-                            TextSpan(
-                              text:
-                                  '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}',
-                            ),
-                            const TextSpan(
-                              text: '  vs  ',
-                            ),
-                            TextSpan(
-                              text:
-                                  '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}',
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      isWin
-                          ? Text(
-                              isParlayBet
-                                  ? '$odds (WON)'
-                                  : 'You bet ${betHistoryData.betAmount} @ $odds and won',
-                              style: Styles.betHistoryCardBold,
-                            )
-                          : Text(
-                              isParlayBet
-                                  ? '$odds (LOST)'
-                                  : 'You lost ${betHistoryData.betAmount} @ $odds',
-                              style: Styles.betHistoryCardBold,
-                            ),
-
-                      // Last Row
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                DateFormat('E, MMMM, c, y').format(
-                                  DateTime.parse(
-                                          betHistoryData.gameStartDateTime)
-                                      .toLocal(),
-                                ),
-                                style: Styles.betHistoryCardBold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(vertical: isParlayLeg ? 0 : 2, horizontal: 12),
+      child: Card(
+        margin: EdgeInsets.zero,
+        child: Container(
+          width: 390,
+          padding: const EdgeInsets.fromLTRB(8, 6, 8, 0),
+          decoration: BoxDecoration(
+            backgroundBlendMode: BlendMode.srcOver,
+            image: DecorationImage(
+              image: const AssetImage('${Images.betGameBGPath}nfl.png'),
+              fit: isParlayLeg ? BoxFit.fill : BoxFit.scaleDown,
+              centerSlice:
+                  isParlayLeg ? const Rect.fromLTRB(0, 1, 0, 1) : Rect.zero,
+              alignment: Alignment.centerRight,
             ),
-            isParlayBet
-                ? const SizedBox()
-                : Positioned(
-                    right: 8,
-                    bottom: 10,
-                    child: Text(
-                      '${betHistoryData.betProfit}',
-                      style: Styles.betHistoryNormal,
-                    ),
-                  ),
-            Positioned(
-              top: -12,
-              left: 15,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Palette.cream,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                  color: isWin ? Palette.green : Palette.red,
-                ),
-                height: 20,
-                width: 90,
-                child: Center(
-                  child: Text(
-                    whichBetSystemFromString(betHistoryData.betType),
-                    style: GoogleFonts.nunito(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            color: Palette.lightGrey,
+            border: Border.all(
+              color: Palette.cream,
+            ),
+            borderRadius: isParlayLeg
+                ? const BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomLeft: Radius.circular(12))
+                : const BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: isMoneyline || isPointSpread
+                      ? '${betHistoryData.betTeam == 'home' ? '${betHistoryData.homeTeamCity ?? ''} ${betHistoryData.homeTeamName}' : '${betHistoryData.awayTeamCity ?? ''} ${betHistoryData.awayTeamName}'}'
+                      : '',
+                  style: Styles.betSlipAwayTeam,
+                  children: <TextSpan>[
+                    isMoneyline
+                        ? TextSpan(
+                            text: ' ($odds)',
+                          )
+                        : isPointSpread
+                            ? TextSpan(text: ' ($pointSpread)')
+                            : TextSpan(
+                                text:
+                                    '${betHistoryData.betTeam == 'away' ? 'OVER' : 'UNDER'} ${betHistoryData.betOverUnder}', //     TOT ${betHistoryData.text.split(' ').last}',
+                                style: Styles.betSlipHomeTeam,
+                              ),
+                  ],
                 ),
               ),
-            )
-          ],
+              Text(
+                whichBetSystemFromString(betHistoryData.betType).toUpperCase(),
+                style: isWin
+                    ? Styles.betSlipHomeTeam
+                    : Styles.betHistoryCardBoldRed,
+              ),
+              RichText(
+                text: TextSpan(
+                  text:
+                      '${betHistoryData.betTeam == 'home' ? '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
+                  style: Styles.betSlipHomeTeam,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                          ' @ ${betHistoryData.betTeam == 'away' ? '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
+                      style: Styles.betSlipAwayTeam,
+                    ),
+                  ],
+                ),
+              ),
+              isParlayLeg
+                  ? const SizedBox()
+                  : isWin
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Text(
+                            'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit + betHistoryData.betAmount}',
+                            style: Styles.betHistoryCardBold,
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Text(
+                            'YOU LOST ${betHistoryData.betAmount}',
+                            style: Styles.betHistoryCardBoldRed,
+                          ),
+                        ),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );
