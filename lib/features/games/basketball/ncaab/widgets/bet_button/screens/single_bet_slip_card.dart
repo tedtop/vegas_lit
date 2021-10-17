@@ -92,8 +92,9 @@ class NcaabSingleBetSlipCard extends StatelessWidget {
                       children: [
                         RichText(
                           text: TextSpan(
-                            text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData.city ?? ''} ${betButtonState.homeTeamData.name}' : '${betButtonState.awayTeamData.city ?? ''} ${betButtonState.awayTeamData.name}'}',
+                            text: isMoneyline || isPointSpread
+                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData.city ?? ''} ${betButtonState.homeTeamData.name}' : '${betButtonState.awayTeamData.city ?? ''} ${betButtonState.awayTeamData.name}'}'
+                                : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
                               isMoneyline
@@ -111,10 +112,9 @@ class NcaabSingleBetSlipCard extends StatelessWidget {
                                           )
                                       : TextSpan(
                                           text:
-                                              ' (${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)})'
-                                          //     TOT ${betButtonState.text.split(' ').last}',
-                                          //style: Styles.betSlipHomeTeam,
-                                          ),
+                                              ' (${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)})', //     TOT ${betButtonState.text.split(' ').last}',
+                                          style: Styles.betSlipHomeTeam,
+                                        ),
                             ],
                           ),
                         ),
