@@ -191,7 +191,8 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                     ),
                                     Text(
                                       'Payout ${betButtonState.toWinAmount + betButtonState.betAmount}',
-                                      style: Styles.betSlipSmallBoldText,
+                                      style: Styles.betSlipSmallBoldText
+                                          .copyWith(color: Palette.green),
                                     ),
                                   ],
                                 ),
