@@ -24,7 +24,6 @@ import { NhlGame } from "../models/games/nhl_game";
 import { NcaabGame } from "../models/games/cbb_game";
 
 export async function ParlayResolve(data: ParlayBet) {
-  const dateTime = formatTime(data.gameStartDateTime);
   const week = getCurrentWeekByDate(data.dateTime);
   const amountBet = data.betAmount;
   const uid = data.uid;
@@ -56,7 +55,7 @@ export async function ParlayResolve(data: ParlayBet) {
       const betRef = admin.firestore().collection("bets").doc(documentId);
       if (league == "nfl") {
         const nflBet: NflBet = bet as NflBet;
-
+        const dateTime = formatTime(nflBet.gameStartDateTime);
         const apikey = whichKey(league);
         const gameId = nflBet.gameId;
 
@@ -143,7 +142,7 @@ export async function ParlayResolve(data: ParlayBet) {
         }
       } else if (league == "cfb") {
         const ncaafBet: NcaafBet = bet as NcaafBet;
-
+        const dateTime = formatTime(ncaafBet.gameStartDateTime);
         const apikey = whichKey(league);
         const gameId = ncaafBet.gameId;
 
@@ -232,7 +231,7 @@ export async function ParlayResolve(data: ParlayBet) {
 
         const apikey = whichKey(league);
         const gameId = mlbBet.gameId;
-
+        const dateTime = formatTime(mlbBet.gameStartDateTime);
         const apiData = await axios
           .get(
             `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
@@ -318,7 +317,7 @@ export async function ParlayResolve(data: ParlayBet) {
 
         const apikey = whichKey(league);
         const gameId = nbaBet.gameId;
-
+        const dateTime = formatTime(nbaBet.gameStartDateTime);
         const apiData = await axios
           .get(
             `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
@@ -404,7 +403,7 @@ export async function ParlayResolve(data: ParlayBet) {
 
         const apikey = whichKey(league);
         const gameId = nhlBet.gameId;
-
+        const dateTime = formatTime(nhlBet.gameStartDateTime);
         const apiData = await axios
           .get(
             `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
@@ -490,7 +489,7 @@ export async function ParlayResolve(data: ParlayBet) {
 
         const apikey = whichKey(league);
         const gameId = ncaabBet.gameId;
-
+        const dateTime = formatTime(ncaabBet.gameStartDateTime);
         const apiData = await axios
           .get(
             `https://fly.sportsdata.io/v3/${league}/scores/json/GamesByDate/${dateTime}`,
