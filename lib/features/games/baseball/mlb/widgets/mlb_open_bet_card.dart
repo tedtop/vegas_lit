@@ -49,9 +49,7 @@ class MlbOpenBetCard extends StatelessWidget {
                 image: DecorationImage(
                   image: AssetImage(
                       '${Images.betGameBGPath}mlb-${isParlayLeg ? 'parlay' : 'single'}.png'),
-                  fit: isParlayLeg ? BoxFit.fill : BoxFit.scaleDown,
-                  centerSlice:
-                      isParlayLeg ? const Rect.fromLTRB(0, 1, 0, 1) : Rect.zero,
+                  fit: BoxFit.fitHeight,
                   alignment: Alignment.centerRight,
                 ),
                 color: Palette.lightGrey,
