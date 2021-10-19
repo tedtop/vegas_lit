@@ -114,7 +114,7 @@ class NflBetHistoryCard extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
                             'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit + betHistoryData.betAmount}',
-                            style: Styles.betHistoryCardBold,
+                            style: Styles.betHistoryCardBoldGreen,
                           ),
                         )
                       : Padding(
