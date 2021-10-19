@@ -27,7 +27,7 @@ class MlbParlayBetSlipCard extends StatelessWidget {
 
         return Container(
           width: 390,
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+          padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,9 +67,7 @@ class MlbParlayBetSlipCard extends StatelessWidget {
                       border: Border.all(
                         color: Palette.cream,
                       ),
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(12),
-                          bottomLeft: Radius.circular(12)),
+                      borderRadius: BorderRadius.zero,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

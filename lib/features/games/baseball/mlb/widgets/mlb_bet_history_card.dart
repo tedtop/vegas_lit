@@ -56,9 +56,7 @@ class MlbBetHistoryCard extends StatelessWidget {
               color: Palette.cream,
             ),
             borderRadius: isParlayLeg
-                ? const BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomLeft: Radius.circular(12))
+                ? BorderRadius.zero
                 : const BorderRadius.only(
                     topRight: Radius.circular(12),
                     bottomRight: Radius.circular(12)),
