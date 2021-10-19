@@ -76,7 +76,8 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       backgroundBlendMode: BlendMode.srcOver,
                       image: const DecorationImage(
-                        image: AssetImage('${Images.betGameBGPath}mlb.png'),
+                        image:
+                            AssetImage('${Images.betGameBGPath}mlb-single.png'),
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerRight,
                       ),

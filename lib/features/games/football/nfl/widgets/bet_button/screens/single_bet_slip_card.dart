@@ -74,7 +74,8 @@ class NflSingleBetSlipCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       backgroundBlendMode: BlendMode.srcOver,
                       image: const DecorationImage(
-                        image: AssetImage('${Images.betGameBGPath}nfl.png'),
+                        image:
+                            AssetImage('${Images.betGameBGPath}nfl-single.png'),
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerRight,
                       ),

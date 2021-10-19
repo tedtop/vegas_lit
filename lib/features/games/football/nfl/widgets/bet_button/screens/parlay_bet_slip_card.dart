@@ -57,7 +57,8 @@ class NflParlayBetSlipCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       backgroundBlendMode: BlendMode.srcOver,
                       image: const DecorationImage(
-                          image: AssetImage('${Images.betGameBGPath}nfl.png'),
+                          image: AssetImage(
+                              '${Images.betGameBGPath}nfl-parlay.png'),
                           fit: BoxFit.fitHeight,
                           alignment: Alignment.centerRight,
                           centerSlice: Rect.fromLTRB(0, 1, 0, 1)),

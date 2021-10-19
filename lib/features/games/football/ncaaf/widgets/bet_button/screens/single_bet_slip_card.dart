@@ -74,7 +74,8 @@ class NcaafSingleBetSlipCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       backgroundBlendMode: BlendMode.srcOver,
                       image: const DecorationImage(
-                        image: AssetImage('${Images.betGameBGPath}cfb.png'),
+                        image:
+                            AssetImage('${Images.betGameBGPath}cfb-single.png'),
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerRight,
                       ),

@@ -47,7 +47,8 @@ class NbaBetHistoryCard extends StatelessWidget {
           decoration: BoxDecoration(
             backgroundBlendMode: BlendMode.srcOver,
             image: DecorationImage(
-              image: const AssetImage('${Images.betGameBGPath}nba.png'),
+              image: AssetImage(
+                  '${Images.betGameBGPath}nba-${isParlayLeg ? 'parlay' : 'single'}.png'),
               fit: isParlayLeg ? BoxFit.fill : BoxFit.scaleDown,
               centerSlice:
                   isParlayLeg ? const Rect.fromLTRB(0, 1, 0, 1) : Rect.zero,

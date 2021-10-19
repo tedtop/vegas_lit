@@ -59,7 +59,8 @@ class MlbParlayBetSlipCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       backgroundBlendMode: BlendMode.srcOver,
                       image: const DecorationImage(
-                          image: AssetImage('${Images.betGameBGPath}mlb.png'),
+                          image: AssetImage(
+                              '${Images.betGameBGPath}mlb-parlay.png'),
                           fit: BoxFit.fitHeight,
                           alignment: Alignment.centerRight,
                           centerSlice: Rect.fromLTRB(0, 1, 0, 1)),
