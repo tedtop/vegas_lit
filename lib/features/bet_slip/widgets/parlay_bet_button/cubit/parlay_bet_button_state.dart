@@ -11,7 +11,7 @@ class ParlayBetButtonState extends Equatable {
   const ParlayBetButtonState({
     this.status = ParlayBetButtonStatus.initial,
     this.betAmount = 100,
-    this.toWinAmount,
+    this.toWinAmount = 0,
     this.league,
     this.betList = const [],
     this.uid,

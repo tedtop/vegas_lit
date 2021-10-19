@@ -44,7 +44,7 @@ class ParlayBetSlipButton extends StatelessWidget {
     return Builder(
       builder: (context) {
         final isMinimumVersion = context
-            .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
+            .select((VersionCubit cubit) => cubit?.state?.isMinimumVersion);
         final betButtonState = context.watch<ParlayBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
