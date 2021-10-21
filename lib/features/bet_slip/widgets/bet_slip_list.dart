@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/config/styles.dart';
 
 import '../bet_slip.dart';
-import 'parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 
 class SingleBetSlipList extends StatelessWidget {
   @override
