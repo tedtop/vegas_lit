@@ -104,7 +104,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                 width: 380,
                 decoration: BoxDecoration(
                     color: Palette.lightGrey,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
                     border: Border.all(color: Palette.cream)),
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 child: Row(
@@ -147,35 +147,42 @@ class ParlayBetSlipButton extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 2.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Win ${betButtonState.toWinAmount}',
-                              style: Styles.betSlipSmallBoldText,
-                            ),
-                            Text(
-                              'Payout ${betButtonState.toWinAmount + betButtonState.betAmount}',
-                              style: Styles.betSlipSmallBoldText
-                                  .copyWith(color: Palette.green),
-                            ),
-                          ],
+                    Expanded(
+                      flex: 5,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 2.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Win ${betButtonState.toWinAmount}',
+                                style: Styles.betSlipSmallBoldText,
+                              ),
+                              Text(
+                                'Payout ${betButtonState.toWinAmount + betButtonState.betAmount}',
+                                style: Styles.betSlipSmallBoldText
+                                    .copyWith(color: Palette.green),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 6),
-                        child: Text(
-                          '${betButtonState.betList.length} leg',
-                          style: Styles.betSlipBoxNormalText,
+                    Expanded(
+                      flex: 3,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 6),
+                          child: Text(
+                            '${betButtonState.betList.length} leg',
+                            style: Styles.betSlipBoxNormalText,
+                          ),
                         ),
                       ),
                     ),
