@@ -29,6 +29,7 @@ class GroupScanner extends StatelessWidget {
         ? 200.0
         : 400.0;
     return Scaffold(
+      appBar: AppBar(),
       body: Column(
         children: <Widget>[
           Expanded(
