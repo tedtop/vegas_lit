@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class Wallet extends Equatable {
-  Wallet({
+  const Wallet({
     @required this.uid,
     @required this.username,
     @required this.totalProfit,
@@ -28,46 +28,48 @@ class Wallet extends Equatable {
     final map = snapshot.data() as Map;
 
     return Wallet(
-        uid: map['uid'],
-        username: map['username'],
-        totalRewards: map['totalRewards'],
-        totalLoss: map['totalLoss'],
-        rank: map['rank'],
-        totalProfit: map['totalProfit'],
-        accountBalance: map['accountBalance'],
-        totalBets: map['totalBets'],
-        pendingRiskedAmount: map['pendingRiskedAmount'],
-        totalBetsWon: map['totalBetsWon'],
-        totalBetsLost: map['totalBetsLost'],
-        totalOpenBets: map['totalOpenBets'],
-        todayRewards: map['todayRewards'],
-        potentialWinAmount: map['potentialWinAmount'],
-        biggestWinAmount: map['biggestWinAmount'],
-        totalRiskedAmount: map['totalRiskedAmount'],
-        avatarUrl: map['avatarUrl']);
+      uid: map['uid'] as String,
+      username: map['username'] as String,
+      totalRewards: map['totalRewards'] as int,
+      totalLoss: map['totalLoss'] as int,
+      rank: map['rank'] as int,
+      totalProfit: map['totalProfit'] as int,
+      accountBalance: map['accountBalance'] as int,
+      totalBets: map['totalBets'] as int,
+      pendingRiskedAmount: map['pendingRiskedAmount'] as int,
+      totalBetsWon: map['totalBetsWon'] as int,
+      totalBetsLost: map['totalBetsLost'] as int,
+      totalOpenBets: map['totalOpenBets'] as int,
+      todayRewards: map['todayRewards'] as int,
+      potentialWinAmount: map['potentialWinAmount'] as int,
+      biggestWinAmount: map['biggestWinAmount'] as int,
+      totalRiskedAmount: map['totalRiskedAmount'] as int,
+      avatarUrl: map['avatarUrl'] as String,
+    );
   }
 
   factory Wallet.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
     return Wallet(
-        uid: map['uid'],
-        username: map['username'],
-        totalLoss: map['totalLoss'],
-        totalProfit: map['totalProfit'],
-        totalRewards: map['totalRewards'],
-        accountBalance: map['accountBalance'],
-        pendingRiskedAmount: map['pendingRiskedAmount'],
-        rank: map['rank'],
-        todayRewards: map['todayRewards'],
-        totalBets: map['totalBets'],
-        totalBetsWon: map['totalBetsWon'],
-        totalBetsLost: map['totalBetsLost'],
-        totalOpenBets: map['totalOpenBets'],
-        potentialWinAmount: map['potentialWinAmount'],
-        biggestWinAmount: map['biggestWinAmount'],
-        totalRiskedAmount: map['totalRiskedAmount'],
-        avatarUrl: map['avatarUrl']);
+      uid: map['uid'] as String,
+      username: map['username'] as String,
+      totalLoss: map['totalLoss'] as int,
+      totalProfit: map['totalProfit'] as int,
+      totalRewards: map['totalRewards'] as int,
+      accountBalance: map['accountBalance'] as int,
+      pendingRiskedAmount: map['pendingRiskedAmount'] as int,
+      rank: map['rank'] as int,
+      todayRewards: map['todayRewards'] as int,
+      totalBets: map['totalBets'] as int,
+      totalBetsWon: map['totalBetsWon'] as int,
+      totalBetsLost: map['totalBetsLost'] as int,
+      totalOpenBets: map['totalOpenBets'] as int,
+      potentialWinAmount: map['potentialWinAmount'] as int,
+      biggestWinAmount: map['biggestWinAmount'] as int,
+      totalRiskedAmount: map['totalRiskedAmount'] as int,
+      avatarUrl: map['avatarUrl'] as String,
+    );
   }
 
   final String uid;
@@ -88,7 +90,7 @@ class Wallet extends Equatable {
   final int todayRewards;
   final String avatarUrl;
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'uid': uid,
         'username': username,
         'totalProfit': totalProfit,

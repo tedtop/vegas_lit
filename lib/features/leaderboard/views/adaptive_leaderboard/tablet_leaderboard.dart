@@ -115,7 +115,7 @@ class TabletLeaderboardTile extends StatelessWidget {
             onTap: () {
               currentUserUid == player.uid
                   ? context.read<HomeCubit>().homeChange(4)
-                  : Navigator.of(context).push(
+                  : Navigator.of(context).push<void>(
                       LeaderboardProfile.route(
                         uid: player.uid,
                         homeCubit: context.read<HomeCubit>(),

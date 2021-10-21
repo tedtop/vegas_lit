@@ -196,7 +196,7 @@ class _ResetPassword extends StatelessWidget {
         TextButton(
           key: const Key('loginForm_resetPassword_flatButton'),
           onPressed: () {
-            showModalBottomSheet(
+            showModalBottomSheet<void>(
               context: parentContext,
               isScrollControlled: true,
               builder: (context) => BlocProvider.value(
@@ -229,8 +229,8 @@ class _LinkToSignup extends StatelessWidget {
         ),
         TextButton(
           key: const Key('loginForm_createAccount_flatButton'),
-          onPressed: () =>
-              Navigator.of(context).pushReplacement(SignUpPage.route()),
+          onPressed: () => Navigator.of(context)
+              .pushReplacement<void, void>(SignUpPage.route()),
           child: Text(
             'Sign Up',
             style: Styles.authButtonText,
@@ -443,7 +443,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

@@ -11,14 +11,16 @@ import '../../../home/home.dart';
 import '../../cubit/open_bets_cubit.dart';
 
 class DesktopOpenBets extends StatelessWidget {
+  const DesktopOpenBets({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        const _DesktopOpenBetsHeading(),
-        const _DesktopOpenBetsDescription(),
-        const _DesktopOpenBetsContent(),
-        const BottomBar()
+      children: const [
+        _DesktopOpenBetsHeading(),
+        _DesktopOpenBetsDescription(),
+        _DesktopOpenBetsContent(),
+        BottomBar()
       ],
     );
   }
@@ -206,9 +208,9 @@ class _DesktopOpenBetsTable extends StatelessWidget {
           // case 'nhl':
           //   return NhlOpenBetCard(openBets: bets[index]);
           //   break;
-          case 'olympics':
-            return OlympicsOpenBetTile(openBets: bets[index]);
-            break;
+          // case 'olympics':
+          //   return OlympicsOpenBetTile(openBets: bets[index]);
+          //   break;
           default:
             return const SizedBox();
         }

@@ -98,7 +98,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                showDialog(
+                                showDialog<void>(
                                   context: context,
                                   builder: (_) => MultiBlocProvider(
                                     providers: [
@@ -650,7 +650,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

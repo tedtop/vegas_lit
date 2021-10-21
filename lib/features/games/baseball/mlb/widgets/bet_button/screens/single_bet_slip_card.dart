@@ -145,7 +145,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                showDialog(
+                                showDialog<void>(
                                   context: context,
                                   builder: (_) => MultiBlocProvider(
                                     providers: [
@@ -542,7 +542,7 @@ class DefaultButton extends StatelessWidget {
             text,
             style: Styles.betSlipButtonText,
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

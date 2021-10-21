@@ -51,7 +51,7 @@ class TextBar extends StatelessWidget {
               style: GoogleFonts.nunito(
                 fontSize: 18,
               ),
-              onChanged: onPress,
+              onChanged: (String text) => onPress,
               items: textList.isNotEmpty == true
                   ? textList.map<DropdownMenuItem<String>>(
                       (String weekValue) {

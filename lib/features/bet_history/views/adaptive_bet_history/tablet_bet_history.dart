@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -121,58 +127,43 @@ class _TabletHistoryList extends StatelessWidget {
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
-      children: bets.map((betData) {
-        switch (betData.league) {
-          case 'mlb':
+      children: bets.map(
+        (betData) {
+          if (betData is MlbBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: MlbBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'nba':
+          } else if (betData is NbaBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NbaBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'cbb':
+          } else if (betData is NcaabBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NcaabBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'cfb':
+          } else if (betData is NcaafBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NcaafBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'nfl':
+          } else if (betData is NflBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NflBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'nhl':
+          } else if (betData is NhlBetData) {
             return FittedBox(
-              child: NhlBetHistoryCard(betHistoryData: betData),
               fit: BoxFit.scaleDown,
+              child: NhlBetHistoryCard(betHistoryData: betData),
             );
-            break;
-          // case 'olympic':
-          //   return FittedBox(
-          //     child: OlympicOpenBetCard(openBets:betData),
-          //     fit: BoxFit.scaleDown,
-          //   );
-          //   break;
-          default:
+          } else {
             return const SizedBox();
-        }
-        // return FittedBox(
-        //   child: BetHistorySlip(betHistoryData:betDatas),
-        //   fit: BoxFit.scaleDown,
-        // );
-      }).toList(),
+          }
+        },
+      ).toList(),
     );
   }
 }

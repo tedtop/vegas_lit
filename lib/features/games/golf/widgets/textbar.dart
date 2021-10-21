@@ -50,11 +50,11 @@ class TextBar extends StatelessWidget {
               style: GoogleFonts.nunito(
                 fontSize: 18,
               ),
-              onChanged: onPress,
+              onChanged: () => onPress,
               items: textList.map<DropdownMenuItem<String>>((element) {
                 return DropdownMenuItem<String>(
-                  child: Text(element),
                   value: element,
+                  child: Text(element),
                 );
               }).toList(),
             ),

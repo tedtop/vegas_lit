@@ -166,7 +166,7 @@ class MobileLeaderboardTile extends StatelessWidget {
               context.read<HistoryCubit>().changeWeek(week: week);
               context.read<HomeCubit>().homeChange(4);
             } else {
-              Navigator.of(context).push(
+              Navigator.of(context).push<void>(
                 LeaderboardProfile.route(
                   uid: player.uid,
                   homeCubit: context.read<HomeCubit>(),

@@ -422,7 +422,7 @@ class NflPlayer {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'PlayerID': playerId,
         'Team': teamValues.reverse[team],
         'Number': number,

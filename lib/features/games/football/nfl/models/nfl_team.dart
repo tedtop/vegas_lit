@@ -19,28 +19,30 @@ class NflTeam {
     this.globalTeamId,
   });
 
-  factory NflTeam.fromJson(String str) => NflTeam.fromMap(json.decode(str));
+  factory NflTeam.fromJson(String str) => NflTeam.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
 
   factory NflTeam.fromMap(Map<String, dynamic> json) => NflTeam(
-        teamId: json['TeamID'],
-        key: json['Key'],
-        active: json['Active'],
-        city: json['City'],
-        name: json['Name'],
-        stadiumId: json['StadiumID'],
+        teamId: json['TeamID'] as int,
+        key: json['Key'] as String,
+        active: json['Active'] as bool,
+        city: json['City'] as String,
+        name: json['Name'] as String,
+        stadiumId: json['StadiumID'] as int,
         conference: json['Conference'] == null
             ? null
             : conferenceValues.map[json['Conference']],
         division: json['Division'] == null
             ? null
             : divisionValues.map[json['Division']],
-        primaryColor: json['PrimaryColor'],
-        secondaryColor: json['SecondaryColor'],
-        tertiaryColor: json['TertiaryColor'],
-        quaternaryColor: json['QuaternaryColor'],
-        wikipediaLogoUrl: json['WikipediaLogoUrl'],
-        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'],
-        globalTeamId: json['GlobalTeamID'],
+        primaryColor: json['PrimaryColor'] as String,
+        secondaryColor: json['SecondaryColor'] as String,
+        tertiaryColor: json['TertiaryColor'] as String,
+        quaternaryColor: json['QuaternaryColor'] as String,
+        wikipediaLogoUrl: json['WikipediaLogoUrl'] as String,
+        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] as String,
+        globalTeamId: json['GlobalTeamID'] as int,
       );
 
   final int teamId;
@@ -96,7 +98,7 @@ class NflTeam {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'TeamID': teamId,
         'Key': key,
         'Active': active,

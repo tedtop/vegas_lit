@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class OlympicsGame extends Equatable {
-  OlympicsGame({
+  const OlympicsGame({
     this.startTime,
     this.venue,
     this.event,
@@ -26,20 +26,21 @@ class OlympicsGame extends Equatable {
     final map = snapshot.data() as Map;
 
     return OlympicsGame(
-      startTime:
-          map['startTime'] == null ? null : DateTime.parse(map['startTime']),
-      venue: map['venue'],
-      event: map['event'],
-      gameName: map['gameName'],
-      eventType: map['eventType'],
-      matchCode: map['matchCode'],
-      player: map['player'],
-      playerCountry: map['playerCountry'],
-      rival: map['rival'],
-      rivalCountry: map['rivalCountry'],
-      winner: map['winner'],
-      gameId: map['gameId'],
-      isClosed: map['isClosed'],
+      startTime: map['startTime'] == null
+          ? null
+          : DateTime.parse(map['startTime'] as String),
+      venue: map['venue'] as String,
+      event: map['event'] as String,
+      gameName: map['gameName'] as String,
+      eventType: map['eventType'] as String,
+      matchCode: map['matchCode'] as String,
+      player: map['player'] as String,
+      playerCountry: map['playerCountry'] as String,
+      rival: map['rival'] as String,
+      rivalCountry: map['rivalCountry'] as String,
+      winner: map['winner'] as String,
+      gameId: map['gameId'] as String,
+      isClosed: map['isClosed'] as bool,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -50,24 +51,25 @@ class OlympicsGame extends Equatable {
     if (map == null) return null;
 
     return OlympicsGame(
-      startTime:
-          map['startTime'] == null ? null : DateTime.parse(map['startTime']),
-      venue: map['venue'],
-      event: map['event'],
-      gameName: map['gameName'],
-      eventType: map['eventType'],
-      matchCode: map['matchCode'],
-      player: map['player'],
-      playerCountry: map['playerCountry'],
-      rival: map['rival'],
-      rivalCountry: map['rivalCountry'],
-      winner: map['winner'],
-      gameId: map['gameId'],
-      isClosed: map['isClosed'],
+      startTime: map['startTime'] == null
+          ? null
+          : DateTime.parse(map['startTime'] as String),
+      venue: map['venue'] as String,
+      event: map['event'] as String,
+      gameName: map['gameName'] as String,
+      eventType: map['eventType'] as String,
+      matchCode: map['matchCode'] as String,
+      player: map['player'] as String,
+      playerCountry: map['playerCountry'] as String,
+      rival: map['rival'] as String,
+      rivalCountry: map['rivalCountry'] as String,
+      winner: map['winner'] as String,
+      gameId: map['gameId'] as String,
+      isClosed: map['isClosed'] as bool,
     );
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'startTime': startTime.toString(),
         'venue': venue,
         'event': event,
@@ -88,7 +90,6 @@ class OlympicsGame extends Equatable {
   final String event;
   final String gameName;
   final String eventType;
-
   final String matchCode;
   final String player;
   final String playerCountry;

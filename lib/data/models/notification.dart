@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class PushNotification extends Equatable {
-  PushNotification({
+  const PushNotification({
     @required this.title,
     @required this.body,
     this.dataTitle,
@@ -11,10 +11,10 @@ class PushNotification extends Equatable {
 
   factory PushNotification.fromMap(Map<String, dynamic> map) {
     return PushNotification(
-      title: map['title'],
-      body: map['body'],
-      dataTitle: map['dataTitle'],
-      dataBody: map['dataBody'],
+      title: map['title'] as String,
+      body: map['body'] as String,
+      dataTitle: map['dataTitle'] as String,
+      dataBody: map['dataBody'] as String,
     );
   }
 
@@ -32,7 +32,7 @@ class PushNotification extends Equatable {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toMap() {
     return {
       'title': title,
       'body': body,

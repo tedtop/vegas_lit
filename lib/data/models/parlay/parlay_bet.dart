@@ -11,18 +11,18 @@ import '../bet.dart';
 
 class ParlayBets extends BetData {
   ParlayBets({
-    @required id,
-    @required uid,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required clientVersion,
-    @required dataProvider,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
-    @required gameStartDateTime,
+    @required String id,
+    @required int betAmount,
+    @required int betProfit,
+    @required String username,
+    @required String dataProvider,
+    @required String clientVersion,
+    @required String uid,
+    @required String dateTime,
+    @required String week,
+    @required bool isClosed,
+    @required String league,
+    @required String gameStartDateTime,
     @required this.bets,
     this.snapshot,
     this.reference,
@@ -50,7 +50,7 @@ class ParlayBets extends BetData {
       bets: map['bets'] != null
           ? List<BetData>.from(
               map['bets'].map(
-                (betValue) {
+                (Map<dynamic, dynamic> betValue) {
                   final bet = Map<String, dynamic>.from(betValue);
                   switch (bet['league'] as String) {
                     case 'mlb':
@@ -73,21 +73,21 @@ class ParlayBets extends BetData {
                       break;
                   }
                 },
-              ),
+              ) as Iterable<dynamic>,
             )
           : null,
-      id: map['id'],
+      id: map['id'] as String,
       gameStartDateTime: map['gameStartDateTime'] as String,
-      uid: map['uid'],
-      betAmount: map['betAmount'],
-      betProfit: map['betProfit'],
-      username: map['username'],
-      clientVersion: map['clientVersion'],
-      dataProvider: map['dataProvider'],
-      dateTime: map['dateTime'],
-      week: map['week'],
-      isClosed: map['isClosed'],
-      league: map['league'],
+      uid: map['uid'] as String,
+      betAmount: map['betAmount'] as int,
+      betProfit: map['betProfit'] as int,
+      username: map['username'] as String,
+      clientVersion: map['clientVersion'] as String,
+      dataProvider: map['dataProvider'] as String,
+      dateTime: map['dateTime'] as String,
+      week: map['week'] as String,
+      isClosed: map['isClosed'] as bool,
+      league: map['league'] as String,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -98,24 +98,34 @@ class ParlayBets extends BetData {
     if (map == null) return null;
 
     return ParlayBets(
-      bets: map['bets'] != null ? List<BetData>.from(map['bets']) : null,
-      id: map['id'],
+      bets: map['bets'] != null
+          ? List<BetData>.from(
+              map['bets'] as Iterable<dynamic>,
+            )
+          : null,
+      id: map['id'] as String,
       gameStartDateTime: map['gameStartDateTime'] as String,
-      uid: map['uid'],
-      betAmount: map['betAmount'],
-      betProfit: map['betProfit'],
-      username: map['username'],
-      clientVersion: map['clientVersion'],
-      dataProvider: map['dataProvider'],
-      dateTime: map['dateTime'],
-      week: map['week'],
-      isClosed: map['isClosed'],
-      league: map['league'],
+      uid: map['uid'] as String,
+      betAmount: map['betAmount'] as int,
+      betProfit: map['betProfit'] as int,
+      username: map['username'] as String,
+      clientVersion: map['clientVersion'] as String,
+      dataProvider: map['dataProvider'] as String,
+      dateTime: map['dateTime'] as String,
+      week: map['week'] as String,
+      isClosed: map['isClosed'] as bool,
+      league: map['league'] as String,
     );
   }
 
+  final List<BetData> bets;
+
+  final DocumentSnapshot snapshot;
+  final DocumentReference reference;
+  final String documentID;
+
   @override
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'bets': bets.map((e) => e.toMap()).toList(),
         'id': id,
         'uid': uid,
@@ -162,10 +172,4 @@ class ParlayBets extends BetData {
       league: league ?? this.league,
     );
   }
-
-  final List<BetData> bets;
-
-  final DocumentSnapshot snapshot;
-  final DocumentReference reference;
-  final String documentID;
 }

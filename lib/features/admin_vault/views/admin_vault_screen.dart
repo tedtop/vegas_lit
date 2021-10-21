@@ -13,7 +13,7 @@ class AdminVaultScreen extends StatelessWidget {
   const AdminVaultScreen._({Key key}) : super(key: key);
 
   static MaterialPageRoute route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (_) {
         return BlocProvider(
           create: (context) => AdminVaultCubit(

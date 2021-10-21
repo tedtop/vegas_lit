@@ -212,7 +212,7 @@ class MlbGame {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'GameID': gameId,
         'Season': season,
         'SeasonType': seasonType,
@@ -251,6 +251,10 @@ class MlbGame {
         'UnderPayout': underPayout,
         'Quarters': quarters == null
             ? null
-            : List<dynamic>.from(quarters.map((x) => x)),
+            : List<dynamic>.from(
+                quarters.map(
+                  (x) => x,
+                ),
+              ),
       };
 }

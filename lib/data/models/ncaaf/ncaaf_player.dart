@@ -286,7 +286,7 @@ class NcaafPlayer {
       );
 
   String toJson() => json.encode(toMap());
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'PlayerID': playerId,
         'SportsDataID': sportsDataId,
         'Status': status,

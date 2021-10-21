@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class ParalympicsGame extends Equatable {
-  ParalympicsGame({
+  const ParalympicsGame({
     this.startTime,
     this.event,
     this.gameName,
@@ -24,18 +24,21 @@ class ParalympicsGame extends Equatable {
     final map = snapshot.data() as Map;
 
     return ParalympicsGame(
-      startTime:
-          map['startTime'] == null ? null : DateTime.parse(map['startTime']),
-      event: map['event'],
-      gameName: map['gameName'],
-      eventType: map['eventType'],
-      player: map['player'],
-      playerCountry: map['playerCountry'],
-      rival: map['rival'],
-      rivalCountry: map['rivalCountry'],
-      winner: map['winner'],
-      gameId: map['gameId'],
-      isClosed: map['isClosed'],
+      startTime: map['startTime'] == null
+          ? null
+          : DateTime.parse(
+              map['startTime'] as String,
+            ),
+      event: map['event'] as String,
+      gameName: map['gameName'] as String,
+      eventType: map['eventType'] as String,
+      player: map['player'] as String,
+      playerCountry: map['playerCountry'] as String,
+      rival: map['rival'] as String,
+      rivalCountry: map['rivalCountry'] as String,
+      winner: map['winner'] as String,
+      gameId: map['gameId'] as String,
+      isClosed: map['isClosed'] as bool,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -46,22 +49,40 @@ class ParalympicsGame extends Equatable {
     if (map == null) return null;
 
     return ParalympicsGame(
-      startTime:
-          map['startTime'] == null ? null : DateTime.parse(map['startTime']),
-      event: map['event'],
-      gameName: map['gameName'],
-      eventType: map['eventType'],
-      player: map['player'],
-      playerCountry: map['playerCountry'],
-      rival: map['rival'],
-      rivalCountry: map['rivalCountry'],
-      winner: map['winner'],
-      gameId: map['gameId'],
-      isClosed: map['isClosed'],
+      startTime: map['startTime'] == null
+          ? null
+          : DateTime.parse(
+              map['startTime'] as String,
+            ),
+      event: map['event'] as String,
+      gameName: map['gameName'] as String,
+      eventType: map['eventType'] as String,
+      player: map['player'] as String,
+      playerCountry: map['playerCountry'] as String,
+      rival: map['rival'] as String,
+      rivalCountry: map['rivalCountry'] as String,
+      winner: map['winner'] as String,
+      gameId: map['gameId'] as String,
+      isClosed: map['isClosed'] as bool,
     );
   }
 
-  Map<String, dynamic> toMap() => {
+  final DateTime startTime;
+  final String event;
+  final String gameName;
+  final String eventType;
+  final String player;
+  final String playerCountry;
+  final String rival;
+  final String rivalCountry;
+  final String winner;
+  final String gameId;
+  final bool isClosed;
+  final DocumentSnapshot snapshot;
+  final DocumentReference reference;
+  final String documentID;
+
+  Map<String, Object> toMap() => {
         'startTime': startTime.toString(),
         'event': event,
         'gameName': gameName,
@@ -74,22 +95,6 @@ class ParalympicsGame extends Equatable {
         'gameId': gameId,
         'isClosed': isClosed,
       };
-
-  final DateTime startTime;
-  final String event;
-  final String gameName;
-  final String eventType;
-
-  final String player;
-  final String playerCountry;
-  final String rival;
-  final String rivalCountry;
-  final String winner;
-  final String gameId;
-  final bool isClosed;
-  final DocumentSnapshot snapshot;
-  final DocumentReference reference;
-  final String documentID;
 
   ParalympicsGame copyWith({
     DateTime startTime,

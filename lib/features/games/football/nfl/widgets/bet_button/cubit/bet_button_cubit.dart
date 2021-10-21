@@ -109,8 +109,8 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
           odds: int.parse(state.mainOdds),
           betProfit: state.toWinAmount,
           gameStartDateTime: state.game.dateTime.toString(),
-          awayTeamScore: state.game.awayScore,
-          homeTeamScore: state.game.homeScore,
+          awayTeamScore: state.game.awayScore as int,
+          homeTeamScore: state.game.homeScore as int,
           uid: state.uid,
           betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
           dateTime: ESTDateTime.fetchTimeEST().toString(),
@@ -249,8 +249,8 @@ class NflBetButtonCubit extends Cubit<NflBetButtonState> {
                       betProfit: betButtonState.toWinAmount,
                       gameStartDateTime:
                           betButtonState.game.dateTime.toString(),
-                      awayTeamScore: betButtonState.game.awayScore,
-                      homeTeamScore: betButtonState.game.homeScore,
+                      awayTeamScore: betButtonState.game.awayScore as int,
+                      homeTeamScore: betButtonState.game.homeScore as int,
                       uid: currentUserId,
                       betTeam: betButtonState.winTeam == BetButtonWin.home
                           ? 'home'

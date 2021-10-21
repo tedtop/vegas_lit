@@ -52,58 +52,65 @@ class NhlPlayerStats {
     this.fantasyPointsFantasyDraft,
   });
 
-  factory NhlPlayerStats.fromJson(String str) =>
-      NhlPlayerStats.fromMap(json.decode(str));
+  factory NhlPlayerStats.fromJson(String str) => NhlPlayerStats.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
 
   factory NhlPlayerStats.fromMap(Map<String, dynamic> json) => NhlPlayerStats(
-        statId: json['StatID']?.toInt(),
-        teamId: json['TeamID']?.toInt(),
-        playerId: json['PlayerID']?.toInt(),
-        seasonType: json['SeasonType']?.toInt(),
-        season: json['Season']?.toInt(),
-        name: json['Name'],
-        team: json['Team'],
-        position: json['Position'],
-        globalTeamId: json['GlobalTeamID']?.toInt(),
-        updated: DateTime.parse(json['Updated']),
-        games: json['Games']?.toInt(),
-        fantasyPoints: json['FantasyPoints']?.toInt(),
-        fantasyPointsFanDuel: json['FantasyPointsFanDuel']?.toDouble(),
-        fantasyPointsDraftKings: json['FantasyPointsDraftKings']?.toDouble(),
-        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toInt(),
-        minutes: json['Minutes']?.toInt(),
-        seconds: json['Seconds']?.toInt(),
-        goals: json['Goals']?.toInt(),
-        assists: json['Assists']?.toInt(),
-        shotsOnGoal: json['ShotsOnGoal']?.toInt(),
-        powerPlayGoals: json['PowerPlayGoals']?.toInt(),
-        shortHandedGoals: json['ShortHandedGoals']?.toInt(),
-        emptyNetGoals: json['EmptyNetGoals']?.toInt(),
-        powerPlayAssists: json['PowerPlayAssists']?.toInt(),
-        shortHandedAssists: json['ShortHandedAssists']?.toInt(),
-        hatTricks: json['HatTricks']?.toInt(),
-        shootoutGoals: json['ShootoutGoals']?.toInt(),
-        plusMinus: json['PlusMinus']?.toInt(),
-        penaltyMinutes: json['PenaltyMinutes']?.toInt(),
-        blocks: json['Blocks']?.toInt(),
-        hits: json['Hits']?.toInt(),
-        takeaways: json['Takeaways']?.toInt(),
-        giveaways: json['Giveaways']?.toInt(),
-        faceoffsWon: json['FaceoffsWon']?.toInt(),
-        faceoffsLost: json['FaceoffsLost']?.toInt(),
-        shifts: json['Shifts']?.toInt(),
-        goaltendingMinutes: json['GoaltendingMinutes']?.toInt(),
-        goaltendingSeconds: json['GoaltendingSeconds']?.toInt(),
-        goaltendingShotsAgainst: json['GoaltendingShotsAgainst']?.toInt(),
-        goaltendingGoalsAgainst: json['GoaltendingGoalsAgainst']?.toInt(),
-        goaltendingSaves: json['GoaltendingSaves']?.toInt(),
-        goaltendingWins: json['GoaltendingWins']?.toInt(),
-        goaltendingLosses: json['GoaltendingLosses']?.toInt(),
-        goaltendingShutouts: json['GoaltendingShutouts']?.toInt(),
-        started: json['Started']?.toInt(),
-        benchPenaltyMinutes: json['BenchPenaltyMinutes'],
-        goaltendingOvertimeLosses: json['GoaltendingOvertimeLosses']?.toInt(),
-        fantasyPointsFantasyDraft: json['FantasyPointsFantasyDraft']?.toInt(),
+        statId: json['StatID']?.toInt() as int,
+        teamId: json['TeamID']?.toInt() as int,
+        playerId: json['PlayerID']?.toInt() as int,
+        seasonType: json['SeasonType']?.toInt() as int,
+        season: json['Season']?.toInt() as int,
+        name: json['Name'] as String,
+        team: json['Team'] as String,
+        position: json['Position'] as String,
+        globalTeamId: json['GlobalTeamID']?.toInt() as int,
+        updated: DateTime.parse(json['Updated'] as String) as DateTime,
+        games: json['Games']?.toInt() as int,
+        fantasyPoints: json['FantasyPoints']?.toInt() as int,
+        fantasyPointsFanDuel:
+            json['FantasyPointsFanDuel']?.toDouble() as double,
+        fantasyPointsDraftKings:
+            json['FantasyPointsDraftKings']?.toDouble() as double,
+        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toInt() as int,
+        minutes: json['Minutes']?.toInt() as int,
+        seconds: json['Seconds']?.toInt() as int,
+        goals: json['Goals']?.toInt() as int,
+        assists: json['Assists']?.toInt() as int,
+        shotsOnGoal: json['ShotsOnGoal']?.toInt() as int,
+        powerPlayGoals: json['PowerPlayGoals']?.toInt() as int,
+        shortHandedGoals: json['ShortHandedGoals']?.toInt() as int,
+        emptyNetGoals: json['EmptyNetGoals']?.toInt() as int,
+        powerPlayAssists: json['PowerPlayAssists']?.toInt() as int,
+        shortHandedAssists: json['ShortHandedAssists']?.toInt() as int,
+        hatTricks: json['HatTricks']?.toInt() as int,
+        shootoutGoals: json['ShootoutGoals']?.toInt() as int,
+        plusMinus: json['PlusMinus']?.toInt() as int,
+        penaltyMinutes: json['PenaltyMinutes']?.toInt() as int,
+        blocks: json['Blocks']?.toInt() as int,
+        hits: json['Hits']?.toInt() as int,
+        takeaways: json['Takeaways']?.toInt() as int,
+        giveaways: json['Giveaways']?.toInt() as int,
+        faceoffsWon: json['FaceoffsWon']?.toInt() as int,
+        faceoffsLost: json['FaceoffsLost']?.toInt() as int,
+        shifts: json['Shifts']?.toInt() as int,
+        goaltendingMinutes: json['GoaltendingMinutes']?.toInt() as int,
+        goaltendingSeconds: json['GoaltendingSeconds']?.toInt() as int,
+        goaltendingShotsAgainst:
+            json['GoaltendingShotsAgainst']?.toInt() as int,
+        goaltendingGoalsAgainst:
+            json['GoaltendingGoalsAgainst']?.toInt() as int,
+        goaltendingSaves: json['GoaltendingSaves']?.toInt() as int,
+        goaltendingWins: json['GoaltendingWins']?.toInt() as int,
+        goaltendingLosses: json['GoaltendingLosses']?.toInt() as int,
+        goaltendingShutouts: json['GoaltendingShutouts']?.toInt() as int,
+        started: json['Started']?.toInt() as int,
+        benchPenaltyMinutes: json['BenchPenaltyMinutes'] as int,
+        goaltendingOvertimeLosses:
+            json['GoaltendingOvertimeLosses']?.toInt() as int,
+        fantasyPointsFantasyDraft:
+            json['FantasyPointsFantasyDraft']?.toInt() as int,
       );
 
   final int statId;
@@ -262,7 +269,7 @@ class NhlPlayerStats {
       );
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'StatID': statId,
         'TeamID': teamId,
         'PlayerID': playerId,
@@ -313,7 +320,7 @@ class NhlPlayerStats {
         'FantasyPointsFantasyDraft': fantasyPointsFantasyDraft,
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, Object> toStatOnlyMap() => {
         'Fantasy Points Fan Duel': fantasyPointsFanDuel,
         'Fantasy Points Draft Kings': fantasyPointsDraftKings,
         'Fantasy Points Yahoo': fantasyPointsYahoo,

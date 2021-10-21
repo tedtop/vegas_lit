@@ -17,7 +17,7 @@ class VaultItem extends Equatable {
     return VaultItem(
       moneyIn: moneyIn,
       moneyOut: moneyOut,
-      totalBets: data['totalBets'],
+      totalBets: data['totalBets'] as int,
       totalProfit: moneyIn - moneyOut,
       date: documentSnapshot.id,
     );

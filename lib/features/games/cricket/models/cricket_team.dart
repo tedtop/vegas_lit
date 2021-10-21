@@ -13,8 +13,9 @@ class CricketTeam {
     this.sex,
   });
 
-  factory CricketTeam.fromJson(String str) =>
-      CricketTeam.fromMap(json.decode(str));
+  factory CricketTeam.fromJson(String str) => CricketTeam.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
 
   factory CricketTeam.fromMap(Map<String, dynamic> json) => CricketTeam(
         tid: json['tid'] as int,
@@ -63,7 +64,7 @@ class CricketTeam {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'tid': tid,
         'title': title,
         'abbr': abbr,

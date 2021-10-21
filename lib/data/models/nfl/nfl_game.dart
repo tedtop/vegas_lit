@@ -389,7 +389,7 @@ class NflGame {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'GameKey': gameKey,
         'SeasonType': seasonType,
         'Season': season,
@@ -486,17 +486,17 @@ class StadiumDetails {
     this.type,
   });
   factory StadiumDetails.fromJson(String str) =>
-      StadiumDetails.fromMap(json.decode(str));
+      StadiumDetails.fromMap(json.decode(str) as Map<String, dynamic>);
   factory StadiumDetails.fromMap(Map<String, dynamic> json) => StadiumDetails(
-        stadiumId: json['StadiumID'],
-        name: json['Name'],
-        city: json['City'],
-        state: json['State'],
+        stadiumId: json['StadiumID'] as int,
+        name: json['Name'] as String,
+        city: json['City'] as String,
+        state: json['State'] as String,
         country: countryValues.map[json['Country']],
-        capacity: json['Capacity'],
+        capacity: json['Capacity'] as int,
         playingSurface: playingSurfaceValues.map[json['PlayingSurface']],
-        geoLat: json['GeoLat'].toDouble(),
-        geoLong: json['GeoLong'].toDouble(),
+        geoLat: json['GeoLat'].toDouble() as double,
+        geoLong: json['GeoLong'].toDouble() as double,
         type: typeValues.map[json['Type']],
       );
 
@@ -538,7 +538,7 @@ class StadiumDetails {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'StadiumID': stadiumId,
         'Name': name,
         'City': city,

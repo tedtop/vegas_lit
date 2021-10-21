@@ -30,7 +30,7 @@ class NhlMatchupCardCubit extends Cubit<NhlMatchupCardState> {
   }
 
   List<NhlTeam> getData({@required dynamic parsedTeamData}) {
-    final teamData = parsedTeamData
+    final List<NhlTeam> teamData = parsedTeamData
         .map<NhlTeam>(
           (json) => NhlTeam.fromMap(json),
         )

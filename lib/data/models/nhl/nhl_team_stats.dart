@@ -280,7 +280,7 @@ class NhlTeamStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'StatID': statId,
         'TeamID': teamId,
         'SeasonType': seasonType,
@@ -334,7 +334,7 @@ class NhlTeamStats {
         'OpponentStat': opponentStat == null ? null : opponentStat.toMap(),
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, Object> toStatOnlyMap() => {
         'Overtime Losses': overtimeLosses,
         'Opponent Position': opponentPosition,
         'Fantasy Points Fan Duel': fantasyPointsFanDuel,

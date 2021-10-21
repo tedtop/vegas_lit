@@ -59,6 +59,6 @@ class NbaCubit extends Cubit<NbaState> {
 
 dynamic getNBAParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/nba.json');
-  final parsedTeamData = await json.decode(jsonData);
+  final dynamic parsedTeamData = await json.decode(jsonData);
   return parsedTeamData;
 }

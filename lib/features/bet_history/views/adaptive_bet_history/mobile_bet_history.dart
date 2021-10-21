@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
+import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/bet_history/widgets/parlay_bet_history_card.dart';
 import 'package:vegas_lit/features/games/paralympics/widgets/paralympics_bet_history_card.dart';
 
@@ -172,43 +181,30 @@ class _MobileHistoryList extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
       itemCount: bets.length,
+      // ignore: missing_return
       itemBuilder: (context, index) {
-        switch (bets[index].league) {
-          case 'mlb':
-            return MlbBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'nba':
-            return NbaBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'cbb':
-            return NcaabBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'cfb':
-            return NcaafBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'nfl':
-            return NflBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'nhl':
-            return NhlBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'olympics':
-            return OlympicsBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'paralympics':
-            return ParalympicsBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          case 'parlay':
-            return ParlayBetHistoryCard(betHistoryData: bets[index]);
-            break;
-          default:
-            return const SizedBox();
+        final betData = bets[index];
+        if (betData is MlbBetData) {
+          return MlbBetHistoryCard(betHistoryData: betData);
+        } else if (betData is NbaBetData) {
+          return NbaBetHistoryCard(betHistoryData: betData);
+        } else if (betData is NcaabBetData) {
+          return NcaabBetHistoryCard(betHistoryData: betData);
+        } else if (betData is NcaafBetData) {
+          return NcaafBetHistoryCard(betHistoryData: betData);
+        } else if (betData is NflBetData) {
+          return NflBetHistoryCard(betHistoryData: betData);
+        } else if (betData is NhlBetData) {
+          return NhlBetHistoryCard(betHistoryData: betData);
+        } else if (betData is OlympicsBetData) {
+          return OlympicsBetHistoryCard(betHistoryData: betData);
+        } else if (betData is ParalympicsBetData) {
+          return ParalympicsBetHistoryCard(betHistoryData: betData);
+        } else if (betData is ParlayBets) {
+          return ParlayBetHistoryCard(betHistoryData: betData);
+        } else {
+          return const SizedBox();
         }
-        // return Center(
-        //   child: BetHistorySlip(
-        //     betHistoryData: bets[index],
-        //   ),
-        // );
       },
     );
   }

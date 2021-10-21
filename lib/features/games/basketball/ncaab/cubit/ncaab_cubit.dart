@@ -62,6 +62,6 @@ class NcaabCubit extends Cubit<NcaabState> {
 
 dynamic getNcaabParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/cbb.json');
-  final parsedTeamData = await json.decode(jsonData);
+  final dynamic parsedTeamData = await json.decode(jsonData);
   return parsedTeamData;
 }

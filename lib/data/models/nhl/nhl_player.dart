@@ -54,7 +54,9 @@ class NhlPlayer {
     this.usaTodayHeadshotUpdated,
     this.usaTodayHeadshotNoBackgroundUpdated,
   });
-  factory NhlPlayer.fromJson(String str) => NhlPlayer.fromMap(json.decode(str));
+  factory NhlPlayer.fromJson(String str) => NhlPlayer.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
 
   factory NhlPlayer.fromMap(Map<String, dynamic> json) => NhlPlayer(
         playerId: json['PlayerID'],
@@ -285,7 +287,7 @@ class NhlPlayer {
       );
 
   String toJson() => json.encode(toMap());
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'PlayerID': playerId,
         'SportsDataID': sportsDataId,
         'Status': status,

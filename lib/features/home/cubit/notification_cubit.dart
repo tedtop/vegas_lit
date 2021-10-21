@@ -43,8 +43,8 @@ class NotificationCubit extends Cubit<NotificationState> {
               notification: PushNotification(
                 title: message.notification?.title,
                 body: message.notification?.body,
-                dataTitle: message.data['title'],
-                dataBody: message.data['body'],
+                dataTitle: message.data['title'] as String,
+                dataBody: message.data['body'] as String,
               ),
             ),
           );
@@ -67,8 +67,8 @@ class NotificationCubit extends Cubit<NotificationState> {
             notification: PushNotification(
               title: initialMessage.notification?.title,
               body: initialMessage.notification?.body,
-              dataTitle: initialMessage.data['title'],
-              dataBody: initialMessage.data['body'],
+              dataTitle: initialMessage.data['title'] as String,
+              dataBody: initialMessage.data['body'] as String,
             ),
           ),
         );

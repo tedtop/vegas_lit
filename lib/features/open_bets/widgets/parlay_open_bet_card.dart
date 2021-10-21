@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
 import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
@@ -78,48 +84,44 @@ class ParlayOpenBetCard extends StatelessWidget {
             reverse: true,
             itemCount: openBets.bets.length,
             itemBuilder: (BuildContext context, int index) {
-              return Builder(builder: (context) {
-                switch (openBets.bets[index].league) {
-                  case 'mlb':
+              return Builder(
+                builder: (context) {
+                  final betData = openBets.bets[index];
+                  if (betData is MlbBetData) {
                     return MlbOpenBetCard(
-                      openBets: openBets.bets[index],
+                      openBets: betData,
                       isParlayLeg: true,
                     );
-                    break;
-                  case 'nba':
+                  } else if (betData is NbaBetData) {
                     return NbaOpenBetCard(
-                      openBets: openBets.bets[index],
+                      openBets: betData,
                       isParlayLeg: true,
                     );
-                    break;
-                  case 'cbb':
+                  } else if (betData is NcaabBetData) {
                     return NcaabOpenBetCard(
-                      openBets: openBets.bets[index],
+                      openBets: betData,
                       isParlayLeg: true,
                     );
-                    break;
-                  case 'cfb':
+                  } else if (betData is NcaafBetData) {
                     return NcaafOpenBetCard(
-                      openBets: openBets.bets[index],
+                      openBets: betData,
                       isParlayLeg: true,
                     );
-                    break;
-                  case 'nfl':
+                  } else if (betData is NflBetData) {
                     return NflOpenBetCard(
-                      openBets: openBets.bets[index],
+                      openBets: betData,
                       isParlayLeg: true,
                     );
-                    break;
-                  case 'nhl':
+                  } else if (betData is NhlBetData) {
                     return NhlOpenBetCard(
-                      openBets: openBets.bets[index],
+                      openBets: betData,
                       isParlayLeg: true,
                     );
-                    break;
-                  default:
+                  } else {
                     return const SizedBox();
-                }
-              });
+                  }
+                },
+              );
             },
           ),
         ],

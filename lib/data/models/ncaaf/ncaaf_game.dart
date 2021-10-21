@@ -100,7 +100,9 @@ class NcaafGame {
         overPayout: json['OverPayout'],
         underPayout: json['UnderPayout'],
         stadium: json['Stadium'],
-        periods: List<dynamic>.from(json['Periods'].map((x) => x)),
+        periods: List<dynamic>.from(
+          json['Periods'].map((dynamic x) => x) as Iterable<dynamic>,
+        ),
       );
 
   final int gameId;
@@ -250,7 +252,7 @@ class NcaafGame {
       );
 
   String toJson() => json.encode(toMap());
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'GameID': gameId,
         'Season': season,
         'SeasonType': seasonType,
@@ -296,6 +298,6 @@ class NcaafGame {
         'OverPayout': overPayout,
         'UnderPayout': underPayout,
         'Stadium': stadium,
-        'Periods': List<dynamic>.from(periods.map((x) => x)),
+        'Periods': List<dynamic>.from(periods.map<void>((dynamic x) => x)),
       };
 }

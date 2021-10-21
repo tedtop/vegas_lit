@@ -5,9 +5,20 @@ import '../bet.dart';
 
 class OlympicsBetData extends BetData {
   OlympicsBetData({
+    @required String id,
+    @required int betAmount,
+    @required int betProfit,
+    @required String username,
+    @required String dataProvider,
+    @required String clientVersion,
+    @required String uid,
+    @required String dateTime,
+    @required String week,
+    @required bool isClosed,
+    @required String league,
+    @required String gameStartDateTime,
     @required this.betTeam,
     @required this.winner,
-    @required gameStartDateTime,
     @required this.venue,
     @required this.event,
     @required this.eventType,
@@ -21,17 +32,6 @@ class OlympicsBetData extends BetData {
     this.snapshot,
     this.reference,
     this.documentID,
-    @required id,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required dataProvider,
-    @required clientVersion,
-    @required uid,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
   }) : super(
           gameStartDateTime: gameStartDateTime,
           id: id,
@@ -63,19 +63,19 @@ class OlympicsBetData extends BetData {
       week: map['week'] as String,
       isClosed: map['isClosed'] as bool,
       league: map['league'] as String,
-      betTeam: map['betTeam'],
-      winner: map['winner'],
+      betTeam: map['betTeam'] as String,
+      winner: map['winner'] as String,
       gameStartDateTime: map['gameStartDateTime'].toString(),
-      venue: map['venue'],
-      event: map['event'],
-      eventType: map['eventType'],
-      matchCode: map['matchCode'],
-      gameName: map['gameName'],
-      playerName: map['playerName'],
-      playerCountry: map['playerCountry'],
-      rivalName: map['rivalName'],
-      rivalCountry: map['rivalCountry'],
-      gameId: map['gameId'],
+      venue: map['venue'] as String,
+      event: map['event'] as String,
+      eventType: map['eventType'] as String,
+      matchCode: map['matchCode'] as String,
+      gameName: map['gameName'] as String,
+      playerName: map['playerName'] as String,
+      playerCountry: map['playerCountry'] as String,
+      rivalName: map['rivalName'] as String,
+      rivalCountry: map['rivalCountry'] as String,
+      gameId: map['gameId'] as String,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -83,7 +83,7 @@ class OlympicsBetData extends BetData {
   }
 
   @override
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'id': id,
         'betAmount': betAmount,
         'betProfit': betProfit,
@@ -115,7 +115,6 @@ class OlympicsBetData extends BetData {
   final String venue;
   final String event;
   final String eventType;
-
   final String matchCode;
   final String gameName;
   final String playerName;

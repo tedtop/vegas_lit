@@ -14,10 +14,10 @@ class UserData extends Equatable {
   });
 
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
-    final Map data = documentSnapshot.data();
+    final data = documentSnapshot.data() as Map;
     return UserData(
-        groups: data['groups'] != null ? data['groups'] as List : [],
-        isAdmin: data['isAdmin'] ?? false,
+        groups: data['groups'] != null ? data['groups'] as List : <String>[],
+        isAdmin: data['isAdmin'] as bool ?? false,
         uid: data['uid'] as String,
         email: data['email'] as String,
         username: data['username'] as String,
@@ -26,7 +26,7 @@ class UserData extends Equatable {
             data['avatarUrl'] != null ? data['avatarUrl'] as String : null);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toMap() {
     return {
       'email': email,
       'username': username,

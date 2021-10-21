@@ -229,10 +229,11 @@ class NflTeamStats {
     this.teamStatId,
   });
 
-  factory NflTeamStats.fromJson(String str) =>
-      NflTeamStats.fromMap(json.decode(str));
+  factory NflTeamStats.fromJson(String str) => NflTeamStats.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
   factory NflTeamStats.fromMap(Map<String, dynamic> json) => NflTeamStats(
-        seasonType: json['SeasonType']?.toInt(),
+        seasonType: json['SeasonType']?.toInt() as int,
         season: json['Season']?.toInt(),
         team: json['Team'],
         score: json['Score']?.toInt(),
@@ -1304,7 +1305,7 @@ class NflTeamStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'SeasonType': seasonType,
         'Season': season,
         'Team': team,
@@ -1540,7 +1541,7 @@ class NflTeamStats {
         'TeamStatID': teamStatId,
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, Object> toStatOnlyMap() => {
         'Over Under': overUnder,
         'Point Spread': pointSpread,
         'Score Overtime': scoreOvertime,

@@ -29,7 +29,7 @@ class GolfLeaderboard {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'Tournament': tournament.toMap(),
         'Players': List<dynamic>.from(players.map((x) => x.toMap())),
       };
@@ -159,7 +159,7 @@ class GolfPlayer {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'PlayerTournamentID': playerTournamentId,
         'PlayerID': playerId,
         'TournamentID': tournamentId,
@@ -541,7 +541,7 @@ class PlayerRound {
         holes: holes ?? this.holes,
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'PlayerRoundID': playerRoundId,
         'PlayerTournamentID': playerTournamentId,
         'Number': number,
@@ -660,7 +660,7 @@ class Hole {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'PlayerRoundID': playerRoundId,
         'Number': number,
         'Par': par,
@@ -809,7 +809,7 @@ class GolfTournament {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'TournamentID': tournamentId,
         'Name': name,
         'StartDate': startDate.toIso8601String(),
@@ -882,7 +882,7 @@ class Round {
   final int number;
   final DateTime day;
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'TournamentID': tournamentId,
         'RoundID': roundId,
         'Number': number,

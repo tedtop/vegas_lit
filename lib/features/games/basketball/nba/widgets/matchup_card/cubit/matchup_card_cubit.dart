@@ -30,7 +30,7 @@ class NbaMatchupCardCubit extends Cubit<NbaMatchupCardState> {
   }
 
   List<NbaTeam> getData({@required dynamic parsedTeamData}) {
-    final teamData = parsedTeamData
+    final List<NbaTeam> teamData = parsedTeamData
         .map<NbaTeam>(
           (json) => NbaTeam.fromMap(json),
         )

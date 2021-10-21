@@ -96,7 +96,7 @@ class NcaabTeam {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'TeamID': teamId,
         'Key': key,
         'Active': active,

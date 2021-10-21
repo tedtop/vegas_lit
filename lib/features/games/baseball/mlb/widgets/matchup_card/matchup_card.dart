@@ -95,7 +95,7 @@ class MatchupCard extends StatelessWidget {
                                       // height: 25,
 
                                       child: GestureDetector(
-                                        onTap: () => Navigator.push(
+                                        onTap: () => Navigator.push<void>(
                                             context,
                                             TeamInfo.route(
                                                 teamData: state.awayTeamData,
@@ -217,7 +217,7 @@ class MatchupCard extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     GestureDetector(
-                                      onTap: () => Navigator.push(
+                                      onTap: () => Navigator.push<void>(
                                           context,
                                           TeamInfo.route(
                                               teamData: state.homeTeamData,

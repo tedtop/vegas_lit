@@ -321,8 +321,9 @@ class _ExistingAccountSignIn extends StatelessWidget {
           ),
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
-            onPressed: () =>
-                Navigator.of(context).pushReplacement(LoginPage.route()),
+            onPressed: () => Navigator.of(context).pushReplacement<void, void>(
+              LoginPage.route(),
+            ),
             child: Text(
               'Log In',
               style: Styles.authButtonText,
@@ -747,7 +748,7 @@ class DropDown<T> extends StatefulWidget {
   final bool showUnderline;
 
   @override
-  _DropDownState createState() => _DropDownState();
+  _DropDownState createState() => _DropDownState<T>();
 }
 
 class _DropDownState<T> extends State<DropDown<T>> {
@@ -833,7 +834,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed:() => action,
         ),
       ),
     );

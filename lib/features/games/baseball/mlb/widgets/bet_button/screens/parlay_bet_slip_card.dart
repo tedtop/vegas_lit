@@ -207,7 +207,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed:() => action,
         ),
       ),
     );

@@ -102,7 +102,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                showDialog(
+                                showDialog<void>(
                                   context: context,
                                   builder: (_) => MultiBlocProvider(
                                     providers: [
@@ -595,22 +595,23 @@ Widget badgeFromEventTypeColumn({String eventType}) {
       const SizedBox(
         height: 40,
       ),
-      eventType == 'gold'
-          ? const Text(
-              '🥇',
-              style: TextStyle(fontSize: 20),
-            )
-          : eventType == 'silver'
-              ? const Text(
-                  '🥈',
-                  style: TextStyle(fontSize: 20),
-                )
-              : eventType == 'bronze'
-                  ? const Text(
-                      '🥉',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  : const SizedBox.shrink(),
+      if (eventType == 'gold')
+        const Text(
+          '🥇',
+          style: TextStyle(fontSize: 20),
+        )
+      else
+        eventType == 'silver'
+            ? const Text(
+                '🥈',
+                style: TextStyle(fontSize: 20),
+              )
+            : eventType == 'bronze'
+                ? const Text(
+                    '🥉',
+                    style: TextStyle(fontSize: 20),
+                  )
+                : const SizedBox.shrink(),
     ],
   );
 }
@@ -658,7 +659,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

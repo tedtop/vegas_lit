@@ -335,7 +335,7 @@ class OverallBetBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () => onPressed,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
@@ -363,7 +363,7 @@ class RoundNumberBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () => onPressed,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
@@ -394,7 +394,7 @@ class RoundBetBox extends StatelessWidget {
           color: isSelected ? Palette.green : Palette.lightGrey),
       child: GestureDetector(
         child: Center(child: text),
-        onTap: onPressed,
+        onTap: () => onPressed,
       ),
     );
   }

@@ -33,7 +33,7 @@ class CricketModel {
         data: data ?? this.data,
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'success': success,
         'data': List<dynamic>.from(data.map((x) => x.toMap())),
       };
@@ -97,7 +97,7 @@ class CricketDatum {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'id': id,
         'sport_key': sportKey,
         'sport_nice': sportNice,
@@ -148,7 +148,7 @@ class Site {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'site_key': siteKey,
         'site_nice': siteNice,
         'last_update': lastUpdate.toIso8601String(),

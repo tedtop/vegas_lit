@@ -153,7 +153,7 @@ class TeamInfoView extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.push<void>(
                   context,
                   PlayerDetailsPage.route(
                       gameName: gameName,

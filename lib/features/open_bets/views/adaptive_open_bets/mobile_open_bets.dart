@@ -1,6 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
+import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
 import 'package:vegas_lit/features/games/olympics/widgets/open_bets/olympic_open_bet_card.dart';
 import 'package:vegas_lit/features/games/paralympics/widgets/paralympics_open_bet_card.dart';
 import 'package:vegas_lit/features/open_bets/widgets/parlay_open_bet_card.dart';
@@ -137,43 +146,30 @@ class _MobileOpenBetsContentList extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
       itemCount: bets.length,
+      // ignore: missing_return
       itemBuilder: (context, index) {
-        switch (bets[index].league) {
-          case 'mlb':
-            return MlbOpenBetCard(openBets: bets[index]);
-            break;
-          case 'nba':
-            return NbaOpenBetCard(openBets: bets[index]);
-            break;
-          case 'cbb':
-            return NcaabOpenBetCard(openBets: bets[index]);
-            break;
-          case 'cfb':
-            return NcaafOpenBetCard(openBets: bets[index]);
-            break;
-          case 'nfl':
-            return NflOpenBetCard(openBets: bets[index]);
-            break;
-          case 'nhl':
-            return NhlOpenBetCard(openBets: bets[index]);
-            break;
-          case 'olympics':
-            return OlympicsOpenBetCard(openBets: bets[index]);
-            break;
-          case 'paralympics':
-            return ParalympicsOpenBetCard(openBets: bets[index]);
-            break;
-          case 'parlay':
-            return ParlayOpenBetCard(openBets: bets[index]);
-            break;
-          default:
-            return const SizedBox();
+        final bet = bets[index];
+        if (bet is MlbBetData) {
+          return MlbOpenBetCard(openBets: bet);
+        } else if (bet is NbaBetData) {
+          return NbaOpenBetCard(openBets: bet);
+        } else if (bet is NcaabBetData) {
+          return NcaabOpenBetCard(openBets: bet);
+        } else if (bet is NcaafBetData) {
+          return NcaafOpenBetCard(openBets: bet);
+        } else if (bet is NflBetData) {
+          return NflOpenBetCard(openBets: bet);
+        } else if (bet is NhlBetData) {
+          return NhlOpenBetCard(openBets: bet);
+        } else if (bet is OlympicsBetData) {
+          return OlympicsOpenBetCard(openBets: bet);
+        } else if (bet is ParalympicsBetData) {
+          return ParalympicsOpenBetCard(openBets: bet);
+        } else if (bet is ParlayBets) {
+          return ParlayOpenBetCard(openBets: bet);
+        } else {
+          return const SizedBox();
         }
-        // return Center(
-        //   child: OpenBetsSlip(
-        //     openBets: bets[index],
-        //   ),
-        // );
       },
     );
   }

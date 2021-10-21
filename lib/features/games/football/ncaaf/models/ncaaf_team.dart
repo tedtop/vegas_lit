@@ -24,30 +24,32 @@ class NcaafTeam {
     this.rankSeason,
     this.rankSeasonType,
   });
-  factory NcaafTeam.fromJson(String str) => NcaafTeam.fromMap(json.decode(str));
+  factory NcaafTeam.fromJson(String str) => NcaafTeam.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
 
   factory NcaafTeam.fromMap(Map<String, dynamic> json) => NcaafTeam(
-        teamId: json['TeamID'],
-        key: json['Key'],
-        active: json['Active'],
-        school: json['School'],
-        name: json['Name'],
-        stadiumId: json['StadiumID'],
-        apRank: json['ApRank'],
-        wins: json['Wins'],
-        losses: json['Losses'],
-        conferenceWins: json['ConferenceWins'],
-        conferenceLosses: json['ConferenceLosses'],
-        globalTeamId: json['GlobalTeamID'],
-        coachesRank: json['CoachesRank'],
-        playoffRank: json['PlayoffRank'],
-        teamLogoUrl: json['TeamLogoUrl'],
-        conferenceId: json['ConferenceID'],
-        conference: json['Conference'],
-        shortDisplayName: json['ShortDisplayName'],
-        rankWeek: json['RankWeek'],
-        rankSeason: json['RankSeason'],
-        rankSeasonType: json['RankSeasonType'],
+        teamId: json['TeamID'] as int,
+        key: json['Key'] as String,
+        active: json['Active'] as bool,
+        school: json['School'] as String,
+        name: json['Name'] as String,
+        stadiumId: json['StadiumID'] as int,
+        apRank: json['ApRank'] as int,
+        wins: json['Wins'] as int,
+        losses: json['Losses'] as int,
+        conferenceWins: json['ConferenceWins'] as int,
+        conferenceLosses: json['ConferenceLosses'] as int,
+        globalTeamId: json['GlobalTeamID'] as int,
+        coachesRank: json['CoachesRank'] as int,
+        playoffRank: json['PlayoffRank'] as int,
+        teamLogoUrl: json['TeamLogoUrl'] as String,
+        conferenceId: json['ConferenceID'] as int,
+        conference: json['Conference'] as String,
+        shortDisplayName: json['ShortDisplayName'] as String,
+        rankWeek: json['RankWeek'] as int,
+        rankSeason: json['RankSeason'] as int,
+        rankSeasonType: json['RankSeasonType'] as int,
       );
 
   final int teamId;
@@ -121,7 +123,7 @@ class NcaafTeam {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'TeamID': teamId,
         'Key': key,
         'Active': active,

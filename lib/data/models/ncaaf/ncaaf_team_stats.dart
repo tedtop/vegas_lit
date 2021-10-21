@@ -480,7 +480,7 @@ class NcaafTeamStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'StatID': statId,
         'TeamID': teamId,
         'SeasonType': seasonType,
