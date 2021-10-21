@@ -50,7 +50,7 @@ class OlympicsBetData extends BetData {
   @override
   factory OlympicsBetData.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
     return OlympicsBetData(
       id: map['id'] as String,
       betAmount: map['betAmount'] as int,

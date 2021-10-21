@@ -244,7 +244,7 @@ class CloudFirestoreClient {
       ..set(betsReference, betsData.toMap(), SetOptions(merge: true))
       ..update(
         walletReference,
-        {
+        <String, Object>{
           'totalBets': FieldValue.increment(1),
           'totalOpenBets': FieldValue.increment(1),
           'accountBalance': FieldValue.increment(-cutBalance),
@@ -596,17 +596,15 @@ class CloudFirestoreClient {
       (value) async {
         addNewGroupBatch.update(
           value,
-          {'id': value.id},
+          <String, Object>{'id': value.id},
         );
         return value.id;
       },
     );
     addNewGroupBatch.update(
       userRef,
-      {
-        'groups': FieldValue.arrayUnion(
-          [groupId],
-        ),
+      <String, Object>{
+        'groups': FieldValue.arrayUnion(<String>[groupId]),
       },
     );
     await addNewGroupBatch.commit();
@@ -643,7 +641,7 @@ class CloudFirestoreClient {
     final addNewUserBatch = _firebaseFirestore.batch();
     final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
 
-    addNewUserBatch.update(groupRef, {'users': users});
+    addNewUserBatch.update(groupRef, <String, Object>{'users': users});
 
     await addNewUserBatch.commit();
   }

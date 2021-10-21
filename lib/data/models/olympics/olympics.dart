@@ -23,7 +23,7 @@ class OlympicsGame extends Equatable {
 
   factory OlympicsGame.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
 
     return OlympicsGame(
       startTime:

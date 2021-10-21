@@ -19,7 +19,7 @@ class GroupsPage extends StatelessWidget {
   const GroupsPage._({Key key}) : super(key: key);
 
   static MaterialPageRoute route({@required HomeCubit cubit}) {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider(
           create: (_) => GroupScannerCubit(
@@ -49,7 +49,7 @@ class GroupsPage extends StatelessWidget {
               .read<GroupScannerCubit>()
               .isGroupExists(groupId: state.result.code);
           if (isExist) {
-            await Navigator.pushReplacement(
+            await Navigator.pushReplacement<void, void>(
               context,
               GroupDetails.route(
                 storageRepository: context.read<StorageRepository>(),
@@ -80,7 +80,7 @@ class GroupsPage extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.push<void>(
                     context,
                     GroupScanner.route(
                       cubit: context.read<GroupScannerCubit>(),
@@ -122,7 +122,7 @@ class GroupsPage extends StatelessWidget {
               backgroundColor: MaterialStateProperty.all(Palette.green),
             ),
             onPressed: () {
-              Navigator.push(
+              Navigator.push<void>(
                 context,
                 GroupAdd.route(
                   homeCubit: context.read<HomeCubit>(),

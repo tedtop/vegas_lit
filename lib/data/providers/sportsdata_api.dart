@@ -47,14 +47,17 @@ class SportsdataApiClient {
       formattedDates.add(
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
-    final responses =
-        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-            )));
+    final responses = await Future.wait(
+      formattedDates.map(
+        (formattedDate) => _dio.get(
+          'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+        ),
+      ),
+    );
     final games = <MlbGame>[];
     for (final response in responses) {
       if (response.statusCode == 200) {
-        final parsed = json.decode(json.encode(response.data));
+        final dynamic parsed = json.decode(json.encode(response.data));
 
         games.addAll(parsed
             .map<MlbGame>(
@@ -128,7 +131,7 @@ class SportsdataApiClient {
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
     final responses =
-        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+        await Future.wait(formattedDates.map((formattedDate) => _dio.get(
               'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NbaGame>[];
@@ -208,7 +211,7 @@ class SportsdataApiClient {
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
     final responses =
-        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+        await Future.wait(formattedDates.map((formattedDate) => _dio.get(
               'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NcaabGame>[];
@@ -289,7 +292,7 @@ class SportsdataApiClient {
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
     final responses =
-        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+        await Future.wait(formattedDates.map((formattedDate) => _dio.get(
               'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NcaafGame>[];
@@ -370,7 +373,7 @@ class SportsdataApiClient {
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
     final responses =
-        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+        await Future.wait(formattedDates.map((formattedDate) => _dio.get(
               'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/ScoresByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NflGame>[];
@@ -451,7 +454,7 @@ class SportsdataApiClient {
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
     final responses =
-        await Future.wait((formattedDates).map((formattedDate) => _dio.get(
+        await Future.wait(formattedDates.map((formattedDate) => _dio.get(
               'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NhlGame>[];
@@ -553,7 +556,7 @@ class SportsdataApiClient {
       'https://fly.sportsdata.io/golf/v2/json/Tournaments/$formattedYear?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data));
+      final dynamic parsed = json.decode(json.encode(response.data));
       final filteredTournaments = <GolfTournament>[];
       parsed
           .map<GolfTournament>((json) {

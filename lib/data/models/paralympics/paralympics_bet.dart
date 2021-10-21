@@ -4,9 +4,20 @@ import '../bet.dart';
 
 class ParalympicsBetData extends BetData {
   ParalympicsBetData({
+    @required String id,
+    @required int betAmount,
+    @required int betProfit,
+    @required String username,
+    @required String dataProvider,
+    @required String clientVersion,
+    @required String uid,
+    @required String dateTime,
+    @required String week,
+    @required bool isClosed,
+    @required String league,
+    @required String gameStartDateTime,
     @required this.betTeam,
     @required this.winner,
-    @required gameStartDateTime,
     @required this.event,
     @required this.eventType,
     @required this.gameName,
@@ -18,17 +29,6 @@ class ParalympicsBetData extends BetData {
     this.snapshot,
     this.reference,
     this.documentID,
-    @required id,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required dataProvider,
-    @required clientVersion,
-    @required uid,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
   }) : super(
           id: id,
           betAmount: betAmount,
@@ -47,7 +47,7 @@ class ParalympicsBetData extends BetData {
   @override
   factory ParalympicsBetData.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
     return ParalympicsBetData(
       id: map['id'] as String,
       betAmount: map['betAmount'] as int,
@@ -78,7 +78,7 @@ class ParalympicsBetData extends BetData {
   }
 
   @override
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'id': id,
         'betAmount': betAmount,
         'betProfit': betProfit,
@@ -92,7 +92,7 @@ class ParalympicsBetData extends BetData {
         'league': league,
         'betTeam': betTeam,
         'winner': winner,
-        'gameStartDateTime': gameStartDateTime.toString(),
+        'gameStartDateTime': gameStartDateTime,
         'event': event,
         'eventType': eventType,
         'gameName': gameName,
@@ -107,7 +107,6 @@ class ParalympicsBetData extends BetData {
   final String winner;
   final String event;
   final String eventType;
-
   final String gameName;
   final String playerName;
   final String playerCountry;

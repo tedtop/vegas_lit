@@ -27,7 +27,7 @@ class GroupEditCubit extends Cubit<GroupEditState> {
 
   Future<void> pickAvatar() async {
     final avatarPickedFile = await ImagePicker()
-        .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+        .pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile != null) {
       final avatarImageFile = File(avatarPickedFile.path);
       emit(

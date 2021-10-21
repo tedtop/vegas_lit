@@ -203,9 +203,8 @@ class TeamInfoView extends StatelessWidget {
                     radius: 30,
                     backgroundColor: Color(teamColor).withOpacity(1),
                     foregroundImage: CachedNetworkImageProvider(
-                        players[index].photoUrl,
-                        imageRenderMethodForWeb:
-                            ImageRenderMethodForWeb.HttpGet),
+                      players[index].photoUrl,
+                    ), //Image for web configuration.
                   )
                 ],
               ),

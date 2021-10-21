@@ -30,7 +30,7 @@ class GroupDetails extends StatelessWidget {
       {@required StorageRepository storageRepository,
       @required String groupId,
       @required String userId}) {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return MultiBlocProvider(
           providers: [
@@ -66,7 +66,7 @@ class GroupDetails extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.qr_code),
             onPressed: () {
-              showModalBottomSheet(
+              showModalBottomSheet<void>(
                 context: context,
                 builder: (context) {
                   switch (groupDetailsState.status) {
@@ -182,7 +182,7 @@ class GroupDetails extends StatelessWidget {
                                 child: DefaultButton(
                                     text: 'Edit Group',
                                     action: () {
-                                      Navigator.push(
+                                      Navigator.push<void>(
                                         context,
                                         GroupEdit.route(
                                           storageRepository: storageRepository,
@@ -264,22 +264,22 @@ class GroupDetailsDescription extends StatelessWidget {
                         height: 100,
                         width: 100,
                         child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(12),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: state.group.avatarUrl,
+                            placeholder: (context, url) => const Center(
+                              child: SizedBox(
+                                width: 35,
+                                height: 35,
+                                child: CircularProgressIndicator(
+                                  color: Palette.cream,
+                                ),
+                              ),
                             ),
-                            child: CachedNetworkImage(
-                                imageUrl: state.group.avatarUrl,
-                                placeholder: (context, url) => const Center(
-                                      child: SizedBox(
-                                        width: 35,
-                                        height: 35,
-                                        child: CircularProgressIndicator(
-                                          color: Palette.cream,
-                                        ),
-                                      ),
-                                    ),
-                                imageRenderMethodForWeb:
-                                    ImageRenderMethodForWeb.HttpGet)),
+                          ), //Image for web configuration.
+                        ),
                       )
                     : const Center(
                         child: SizedBox(
@@ -635,8 +635,9 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
           leading: player.avatarUrl != null && !kIsWeb
               ? CircleAvatar(
                   radius: 25,
-                  backgroundImage: CachedNetworkImageProvider(player.avatarUrl,
-                      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet),
+                  backgroundImage: CachedNetworkImageProvider(
+                    player.avatarUrl,
+                  ), //Image for web configuration.
                 )
               : CircleAvatar(
                   radius: 25,
@@ -739,7 +740,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );
@@ -768,7 +769,7 @@ class UserSearch extends SearchDelegate<UserData> {
   Widget buildResults(BuildContext context) {
     userSearchCubit.searchUserResults(query: query);
     return BlocBuilder<UserSearchCubit, UserSearchState>(
-      cubit: userSearchCubit,
+      bloc: userSearchCubit,
       builder: (context, state) {
         switch (state.status) {
           case UserSearchStatus.initial:
@@ -788,9 +789,8 @@ class UserSearch extends SearchDelegate<UserData> {
                       ? CircleAvatar(
                           radius: 25,
                           backgroundImage: CachedNetworkImageProvider(
-                              userData.avatarUrl,
-                              imageRenderMethodForWeb:
-                                  ImageRenderMethodForWeb.HttpGet),
+                            userData.avatarUrl,
+                          ), //Image for web configuration.
                         )
                       : CircleAvatar(
                           radius: 25,
@@ -838,7 +838,7 @@ class UserSearch extends SearchDelegate<UserData> {
   Widget buildSuggestions(BuildContext context) {
     userSearchCubit.searchUserSuggestions(query: query);
     return BlocBuilder<UserSearchCubit, UserSearchState>(
-      cubit: userSearchCubit,
+      bloc: userSearchCubit,
       builder: (context, state) {
         switch (state.status) {
           case UserSearchStatus.initial:
@@ -862,9 +862,8 @@ class UserSearch extends SearchDelegate<UserData> {
                       ? CircleAvatar(
                           radius: 25,
                           backgroundImage: CachedNetworkImageProvider(
-                              userData.avatarUrl,
-                              imageRenderMethodForWeb:
-                                  ImageRenderMethodForWeb.HttpGet),
+                            userData.avatarUrl,
+                          ), //Image for web configuration.
                         )
                       : CircleAvatar(
                           radius: 25,

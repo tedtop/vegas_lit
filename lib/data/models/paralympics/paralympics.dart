@@ -21,7 +21,7 @@ class ParalympicsGame extends Equatable {
 
   factory ParalympicsGame.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
 
     return ParalympicsGame(
       startTime:

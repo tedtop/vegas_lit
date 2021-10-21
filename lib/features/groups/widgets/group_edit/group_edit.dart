@@ -17,7 +17,7 @@ class GroupEdit extends StatefulWidget {
 
   static MaterialPageRoute route(
       {@required StorageRepository storageRepository, @required Group group}) {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider(
           create: (context) => GroupEditCubit(
@@ -119,7 +119,7 @@ class _GroupEditState extends State<GroupEdit> {
                         child: RadioListTile(
                           value: true,
                           groupValue: _isPublic,
-                          onChanged: (val) => setState(() {
+                          onChanged: (bool val) => setState(() {
                             _isPublic = val;
                           }),
                           title: Text(
@@ -134,7 +134,7 @@ class _GroupEditState extends State<GroupEdit> {
                         child: RadioListTile(
                           value: false,
                           groupValue: _isPublic,
-                          onChanged: (val) => setState(() {
+                          onChanged: (bool val) => setState(() {
                             _isPublic = val;
                           }),
                           title: Text(
@@ -157,26 +157,25 @@ class _GroupEditState extends State<GroupEdit> {
                               height: 100,
                               width: 100,
                               child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  child: state.avatarFile != null
-                                      ? Image.file(state.avatarFile)
-                                      : CachedNetworkImage(
-                                          imageUrl: widget.group.avatarUrl,
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                                child: SizedBox(
-                                                  width: 35,
-                                                  height: 35,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: Palette.cream,
-                                                  ),
-                                                ),
-                                              ),
-                                          imageRenderMethodForWeb:
-                                              ImageRenderMethodForWeb.HttpGet)),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                                child: state.avatarFile != null
+                                    ? Image.file(state.avatarFile)
+                                    : CachedNetworkImage(
+                                        imageUrl: widget.group.avatarUrl,
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                          child: SizedBox(
+                                            width: 35,
+                                            height: 35,
+                                            child: CircularProgressIndicator(
+                                              color: Palette.cream,
+                                            ),
+                                          ),
+                                        ),
+                                      ), //Image for web configuration.
+                              ),
                             ),
                             Positioned(
                               bottom: 5,
@@ -392,7 +391,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

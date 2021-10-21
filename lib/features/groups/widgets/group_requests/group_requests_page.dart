@@ -46,7 +46,7 @@ class GroupRequests extends StatelessWidget {
                       style: Styles.greenTextBold,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(
+                          Navigator.push<void>(
                             context,
                             GroupAdd.route(
                               storageRepository:

@@ -5,19 +5,19 @@ import '../bet.dart';
 
 class NflBetData extends BetData {
   NflBetData({
-    @required id,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required dataProvider,
-    @required clientVersion,
-    @required uid,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
+    @required String id,
+    @required int betAmount,
+    @required int betProfit,
+    @required String username,
+    @required String dataProvider,
+    @required String clientVersion,
+    @required String uid,
+    @required String dateTime,
+    @required String week,
+    @required bool isClosed,
+    @required String league,
+    @required String gameStartDateTime,
     @required this.betType,
-    @required gameStartDateTime,
     @required this.status,
     @required this.stillOpen,
     @required this.odds,
@@ -53,7 +53,7 @@ class NflBetData extends BetData {
 
   @override
   factory NflBetData.fromFirestore(DocumentSnapshot snapshot) {
-    final Map data = snapshot.data();
+    final data = snapshot.data() as Map;
     return NflBetData(
       id: data['id'] as String,
       winningTeam: data['winningTeam'] as String,
@@ -146,7 +146,7 @@ class NflBetData extends BetData {
   final String winningTeam;
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toMap() {
     return {
       'id': id,
       'betAmount': betAmount,

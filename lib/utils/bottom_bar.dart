@@ -54,13 +54,13 @@ class BottomBar extends StatelessWidget {
                                 heading: 'COMPANY',
                                 content: {
                                   'Rules': () {
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).push<void>(
                                       Rules.route(),
                                     );
                                   },
                                   'Privacy Policy': _launchPrivacyPolicy,
                                   'FAQ': () {
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).push<void>(
                                       FAQ.route(),
                                     );
                                   },
@@ -155,9 +155,8 @@ class BottomBarColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(heading, style: Styles.bottomBarHeading),
           const SizedBox(
@@ -167,8 +166,11 @@ class BottomBarColumn extends StatelessWidget {
               .map((text) => Column(
                     children: [
                       TextButton(
-                          onPressed: content[text],
-                          child: Text(text, style: Styles.bottomBarNormal)),
+                        onPressed: () {
+                          content[text];
+                        },
+                        child: Text(text, style: Styles.bottomBarNormal),
+                      ),
                       const SizedBox(height: 5),
                     ],
                   ))
@@ -236,7 +238,8 @@ void _launchLinkedIn() async => await canLaunch(_linkedInUrl)
 final Uri _emailLaunchUri = Uri(
   scheme: 'mailto',
   path: 'support@vegaslit.com',
-  queryParameters: {'subject': 'Question about Vegas Lit app'},
+  queryParameters:
+      {'subject': 'Question about Vegas Lit app'} as Map<String, String>,
 );
 
 class TermsAndConditionsUrlFailure implements Exception {}

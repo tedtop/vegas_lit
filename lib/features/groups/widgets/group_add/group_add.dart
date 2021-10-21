@@ -18,7 +18,7 @@ class GroupAdd extends StatefulWidget {
   static MaterialPageRoute route(
       {@required HomeCubit homeCubit,
       @required StorageRepository storageRepository}) {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider.value(
           value: homeCubit,
@@ -136,7 +136,7 @@ class _GroupAddState extends State<GroupAdd> {
                         child: RadioListTile(
                           value: true,
                           groupValue: _isPublic,
-                          onChanged: (val) => setState(() {
+                          onChanged: (bool val) => setState(() {
                             _isPublic = val;
                           }),
                           title: Text(
@@ -151,7 +151,7 @@ class _GroupAddState extends State<GroupAdd> {
                         child: RadioListTile(
                           value: false,
                           groupValue: _isPublic,
-                          onChanged: (val) => setState(() {
+                          onChanged: (bool val) => setState(() {
                             _isPublic = val;
                           }),
                           title: Text(
@@ -276,7 +276,7 @@ class _GroupAddState extends State<GroupAdd> {
               RadioListTile(
                 value: true,
                 groupValue: _isUnlimitedSize,
-                onChanged: (val) => setState(
+                onChanged: (bool val) => setState(
                   () {
                     _isUnlimitedSize = val;
                   },
@@ -289,7 +289,7 @@ class _GroupAddState extends State<GroupAdd> {
               RadioListTile(
                 value: false,
                 groupValue: _isUnlimitedSize,
-                onChanged: (val) => setState(
+                onChanged: (bool val) => setState(
                   () {
                     _isUnlimitedSize = val;
                   },
@@ -475,7 +475,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

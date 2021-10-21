@@ -44,7 +44,7 @@ class ParlayBets extends BetData {
 
   factory ParlayBets.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
 
     return ParlayBets(
       bets: map['bets'] != null

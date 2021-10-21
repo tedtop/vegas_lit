@@ -19,7 +19,7 @@ class BetData extends Equatable {
   });
 
   factory BetData.fromFirestore(DocumentSnapshot snapshot) {
-    final Map data = snapshot.data();
+    final data = snapshot.data() as Map;
     return BetData(
       id: data['id'] as String,
       gameStartDateTime: data['gameStartDateTime'] as String,
@@ -49,7 +49,7 @@ class BetData extends Equatable {
   final bool isClosed;
   final String league;
 
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toMap() {
     return {
       'id': id,
       'betAmount': betAmount,

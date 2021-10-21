@@ -14,7 +14,7 @@ import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';
 
 class Profile extends StatefulWidget {
-  Profile._({Key key, @required this.currentUserId}) : super(key: key);
+  const Profile._({Key key, @required this.currentUserId}) : super(key: key);
 
   final String currentUserId;
 
@@ -101,7 +101,7 @@ class _AvatarInput extends StatelessWidget {
 }
 
 class _UsernameInput extends StatelessWidget {
-  _UsernameInput({Key key}) : super(key: key);
+  const _UsernameInput({Key key}) : super(key: key);
 
   final usernameFieldKey = const Key('UsernameField');
 
@@ -356,7 +356,7 @@ class _StateInput extends StatelessWidget {
 }
 
 class _EditButton extends StatelessWidget {
-  _EditButton({@required this.currentUserId});
+  const _EditButton({@required this.currentUserId});
   final String currentUserId;
   @override
   Widget build(BuildContext context) {
@@ -539,7 +539,8 @@ class _EditButton extends StatelessWidget {
 // }
 
 class DropDown<T> extends StatefulWidget {
-  DropDown({
+  const DropDown({
+    Key key,
     @required this.items,
     this.customWidgets,
     this.initialValue,
@@ -548,10 +549,11 @@ class DropDown<T> extends StatefulWidget {
     this.isExpanded = false,
     this.isCleared = false,
     this.showUnderline = true,
-  })  : assert(items != null && !(items is Widget)),
+  })  : assert(items != null && items is! Widget),
         assert((customWidgets != null)
             ? items.length == customWidgets.length
-            : (customWidgets == null));
+            : (customWidgets == null)),
+        super(key: key);
 
   final List<T> items;
   final List<Widget> customWidgets;
@@ -563,7 +565,7 @@ class DropDown<T> extends StatefulWidget {
   final bool showUnderline;
 
   @override
-  _DropDownState createState() => _DropDownState();
+  _DropDownState createState() => _DropDownState<T>();
 }
 
 class _DropDownState<T> extends State<DropDown<T>> {
@@ -649,7 +651,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

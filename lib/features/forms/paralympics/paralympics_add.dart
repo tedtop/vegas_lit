@@ -15,7 +15,7 @@ class ParalympicsAddForm extends StatefulWidget {
   ParalympicsAddForm._({Key key}) : super(key: key);
 
   static MaterialPageRoute route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider(
           create: (context) => ParalympicsAddCubit(
@@ -187,7 +187,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                   'Game Name',
                   style: Styles.signUpFieldHint,
                 ),
-                validator: (value) {
+                validator: (String value) {
                   if (value == null) {
                     return 'Please select a game';
                   }
@@ -479,7 +479,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

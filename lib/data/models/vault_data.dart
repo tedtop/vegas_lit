@@ -11,7 +11,7 @@ class VaultItem extends Equatable {
   });
 
   factory VaultItem.fromFirestore(DocumentSnapshot documentSnapshot) {
-    final data = documentSnapshot.data();
+    final data = documentSnapshot.data() as Map;
     final moneyIn = data['moneyIn'] as int ?? 0;
     final moneyOut = data['moneyOut'] as int ?? 0;
     return VaultItem(

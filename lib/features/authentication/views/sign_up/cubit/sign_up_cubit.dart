@@ -166,7 +166,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         userData: UserData(
           location: state.americanState.value,
           email: state.email.value,
-          groups: [],
+          groups: const <Object>[],
           uid: currentUser.uid,
           username: state.username.value,
         ),
@@ -184,7 +184,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> usernameChanged(String value) async {
-    await Future.delayed(
+    await Future<void>.delayed(
       const Duration(seconds: 1),
     );
     final isUsernameExist =

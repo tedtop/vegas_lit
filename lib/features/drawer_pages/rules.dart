@@ -19,10 +19,10 @@ class Rules extends StatefulWidget {
   }
 
   @override
-  _RulesState createState() => _RulesState();
+  RulesState createState() => RulesState();
 }
 
-class _RulesState extends State<Rules> with RouteAwareAnalytics {
+class RulesState extends State<Rules> with RouteAwareAnalytics {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

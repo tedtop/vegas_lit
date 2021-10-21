@@ -23,7 +23,7 @@ class Group extends Equatable {
 
   factory Group.fromFirestore(DocumentSnapshot snapshot) {
     if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
 
     return Group(
       adminId: map['adminId'],
@@ -63,7 +63,7 @@ class Group extends Equatable {
     );
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'adminId': adminId,
         'adminName': adminName,
         'avatarUrl': avatarUrl,

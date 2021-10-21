@@ -104,9 +104,9 @@ class ProfileAvatar extends StatelessWidget {
                 avatarUrl != null
                     ? CircleAvatar(
                         radius: 50,
-                        backgroundImage: CachedNetworkImageProvider(avatarUrl,
-                            imageRenderMethodForWeb:
-                                ImageRenderMethodForWeb.HttpGet),
+                        backgroundImage: CachedNetworkImageProvider(
+                          avatarUrl,
+                        ), //Image for web configuration.
                       )
                     : CircleAvatar(
                         radius: 50,

@@ -29,7 +29,7 @@ class Sportsbook extends StatelessWidget {
       listener: (context, state) {
         if (state.status == SportsbookStatus.initial) {
           if (!state.isRulesShown) {
-            Navigator.push(
+            Navigator.push<void>(
               context,
               RulesDialog.route(),
             );
@@ -69,9 +69,7 @@ class SportsBookView extends StatefulWidget {
     @required this.league,
     @required this.estTimeZone,
     @required this.gameNumberList,
-  })  : assert(league != null),
-        assert(gameNumberList != null),
-        super(key: key);
+  }) : super(key: key);
 
   final String league;
   final DateTime estTimeZone;
@@ -102,12 +100,11 @@ class _SportsBookViewState extends State<SportsBookView>
             context.read<SportsbookBloc>().add(
                   SportsbookOpen(league: widget.league),
                 );
-            context.read<BetSlipCubit>()
-              ..openBetSlip(
-                singleBetSlipGames: [],
-                parlayBetSlipGames: [],
-                betDataList: [],
-              );
+            context.read<BetSlipCubit>().openBetSlip(
+              singleBetSlipGames: [],
+              parlayBetSlipGames: [],
+              betDataList: [],
+            );
           },
           color: Palette.cream,
           child: ListView(
@@ -126,64 +123,64 @@ class _SportsBookViewState extends State<SportsBookView>
                   child: Row(
                     children: [
                       Expanded(flex: 2, child: _selectGameDropdown()),
-                      kIsWeb
-                          ? const SizedBox()
-                          : Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  context.read<HomeCubit>().homeChange(1);
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      'BET SLIP',
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Palette.cream,
-                                      ),
-                                    ),
-                                    BlocBuilder<BetSlipCubit, BetSlipState>(
-                                      builder: (context, state) {
-                                        switch (state.status) {
-                                          case BetSlipStatus.opened:
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Palette.cream,
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
-                                              ),
-                                              height: 40,
-                                              width: 42,
-                                              child: Center(
-                                                child: Text(
-                                                  state.singleBetSlipCard.length
-                                                      .toString(),
-                                                  style: GoogleFonts.nunito(
-                                                    color: Palette.darkGrey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                            break;
-                                          default:
-                                            return const Center(
-                                              child: CircularProgressIndicator(
-                                                color: Palette.cream,
-                                              ),
-                                            );
-                                            break;
-                                        }
-                                      },
-                                    ),
-                                  ],
+                      if (kIsWeb)
+                        const SizedBox()
+                      else
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<HomeCubit>().homeChange(1);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  'BET SLIP',
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Palette.cream,
+                                  ),
                                 ),
-                              ),
+                                BlocBuilder<BetSlipCubit, BetSlipState>(
+                                  builder: (context, state) {
+                                    switch (state.status) {
+                                      case BetSlipStatus.opened:
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: Palette.cream,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          height: 40,
+                                          width: 42,
+                                          child: Center(
+                                            child: Text(
+                                              state.singleBetSlipCard.length
+                                                  .toString(),
+                                              style: GoogleFonts.nunito(
+                                                color: Palette.darkGrey,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                        break;
+                                      default:
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: Palette.cream,
+                                          ),
+                                        );
+                                        break;
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -327,12 +324,12 @@ class _SportsBookViewState extends State<SportsBookView>
                 !(widget.gameNumberList[widget.league] == '0') &&
                 !(widget.gameNumberList[widget.league] == 'OFF-SEASON')) {
               return FloatingActionButton(
+                onPressed: _launchTutorialVideo,
                 child: const Icon(
                   Icons.help_outlined,
                   size: 40,
                   color: Palette.cream,
                 ),
-                onPressed: _launchTutorialVideo,
                 // await _scrollController.animateTo(
                 //   _scrollController.initialScrollOffset,
                 //   duration: const Duration(milliseconds: 300),
@@ -367,7 +364,7 @@ class _SportsBookViewState extends State<SportsBookView>
             key: _key2,
             dropdownColor: Palette.green,
             isDense: true,
-            value: '${widget.league}',
+            value: widget.league,
             icon: const Icon(
               Icons.arrow_circle_down,
               color: Palette.cream,

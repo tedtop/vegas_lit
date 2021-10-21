@@ -108,12 +108,11 @@ class ParlayBetSlipButton extends StatelessWidget {
                     border: Border.all(color: Palette.cream)),
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
                       onTap: () {
-                        showDialog(
+                        showDialog<void>(
                           context: context,
                           builder: (_) => MultiBlocProvider(
                             providers: [
@@ -321,7 +320,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,
@@ -494,7 +492,7 @@ class DefaultButton extends StatelessWidget {
             text,
             style: Styles.betSlipButtonText,
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

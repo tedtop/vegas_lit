@@ -12,16 +12,16 @@ import '../../../data/repositories/sports_repository.dart';
 import 'cubit/olympics_add_cubit.dart';
 
 class OlympicsAddForm extends StatefulWidget {
-  OlympicsAddForm._({Key key}) : super(key: key);
+  const OlympicsAddForm._({Key key}) : super(key: key);
 
   static MaterialPageRoute route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider(
           create: (context) => OlympicsAddCubit(
             sportsRepository: context.read<SportsRepository>(),
           ),
-          child: OlympicsAddForm._(),
+          child: const OlympicsAddForm._(),
         );
       },
     );
@@ -34,10 +34,10 @@ class OlympicsAddForm extends StatefulWidget {
 class _OlympicsAddFormState extends State<OlympicsAddForm> {
   final _formKey = GlobalKey<FormState>();
 
-  var startTime = ESTDateTime.fetchTimeEST();
+  DateTime startTime = ESTDateTime.fetchTimeEST();
   final venueController = TextEditingController();
   final eventController = TextEditingController();
-  var eventType = 'normal';
+  String eventType = 'normal';
 
   final matchCodeController = TextEditingController();
   String gameName;
@@ -245,7 +245,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   'Game Name',
                   style: Styles.signUpFieldHint,
                 ),
-                validator: (value) {
+                validator: (String value) {
                   if (value == null) {
                     return 'Please select a game';
                   }
@@ -560,7 +560,7 @@ class DefaultButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: action,
+          onPressed: () => action,
         ),
       ),
     );

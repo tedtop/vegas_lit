@@ -127,9 +127,8 @@ class TabletLeaderboardTile extends StatelessWidget {
                 ? CircleAvatar(
                     radius: 25,
                     backgroundImage: CachedNetworkImageProvider(
-                        player.avatarUrl,
-                        imageRenderMethodForWeb:
-                            ImageRenderMethodForWeb.HttpGet),
+                      player.avatarUrl,
+                    ), //Image for web configuration.
                   )
                 : CircleAvatar(
                     radius: 25,

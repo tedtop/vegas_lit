@@ -17,15 +17,15 @@ class CricketTeam {
       CricketTeam.fromMap(json.decode(str));
 
   factory CricketTeam.fromMap(Map<String, dynamic> json) => CricketTeam(
-        tid: json['tid'],
-        title: json['title'],
-        abbr: json['abbr'],
-        thumbUrl: json['thumb_url'],
-        logoUrl: json['logo_url'],
-        type: json['type'],
-        country: json['country'],
-        altName: json['alt_name'],
-        sex: json['sex'],
+        tid: json['tid'] as int,
+        title: json['title'] as String,
+        abbr: json['abbr'] as String,
+        thumbUrl: json['thumb_url'] as String,
+        logoUrl: json['logo_url'] as String,
+        type: json['type'] as String,
+        country: json['country'] as String,
+        altName: json['alt_name'] as String,
+        sex: json['sex'] as String,
       );
 
   final int tid;

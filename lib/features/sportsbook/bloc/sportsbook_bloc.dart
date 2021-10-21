@@ -127,7 +127,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                   element.underPayout != null;
             }).length;
           },
-        ).onError((error, stackTrace) => 0);
+        ).onError((Object error, stackTrace) => 0);
         break;
       case 'NBA':
         return await _sportsfeedRepository
@@ -151,7 +151,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                   element.underPayout != null;
             }).length;
           },
-        ).onError((error, stackTrace) => 0);
+        ).onError((Object error, stackTrace) => 0);
         break;
       case 'MLB':
         return await _sportsfeedRepository
@@ -175,7 +175,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                   element.underPayout != null;
             }).length;
           },
-        ).onError((error, stackTrace) => 0);
+        ).onError((Object error, stackTrace) => 0);
         break;
       case 'NHL':
         return await _sportsfeedRepository
@@ -199,7 +199,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                   element.underPayout != null;
             }).length;
           },
-        ).onError((error, stackTrace) => 0);
+        ).onError((Object error, stackTrace) => 0);
         break;
       case 'NCAAF':
         return await _sportsfeedRepository
@@ -223,7 +223,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                   element.underPayout != null;
             }).length;
           },
-        ).onError((error, stackTrace) => 0);
+        ).onError((Object error, stackTrace) => 0);
         break;
       case 'NCAAB':
         return await _sportsfeedRepository
@@ -247,7 +247,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                   element.underPayout != null;
             }).length;
           },
-        ).onError((error, stackTrace) => 0);
+        ).onError((Object error, stackTrace) => 0);
         break;
       case 'CRICKET':
         return 0;

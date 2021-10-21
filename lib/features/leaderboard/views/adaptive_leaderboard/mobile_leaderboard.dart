@@ -178,8 +178,9 @@ class MobileLeaderboardTile extends StatelessWidget {
           leading: player.avatarUrl != null && !kIsWeb
               ? CircleAvatar(
                   radius: 25,
-                  backgroundImage: CachedNetworkImageProvider(player.avatarUrl,
-                      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet),
+                  backgroundImage: CachedNetworkImageProvider(
+                    player.avatarUrl,
+                  ), //Image for web configuration.
                 )
               : CircleAvatar(
                   radius: 25,

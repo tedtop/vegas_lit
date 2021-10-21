@@ -11,7 +11,7 @@ mixin RouteAwareAnalytics<T extends StatefulWidget> on State<T>
 
   @override
   void didChangeDependencies() {
-    routeObserver.subscribe(this, ModalRoute.of(context));
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
     super.didChangeDependencies();
   }
 

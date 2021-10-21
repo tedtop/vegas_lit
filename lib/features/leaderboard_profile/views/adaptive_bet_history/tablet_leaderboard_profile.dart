@@ -223,9 +223,8 @@ class _TabletHistoryHeading extends StatelessWidget {
                 ? CircleAvatar(
                     radius: 50,
                     backgroundImage: CachedNetworkImageProvider(
-                        betHistoryState.userWallet.avatarUrl,
-                        imageRenderMethodForWeb:
-                            ImageRenderMethodForWeb.HttpGet),
+                      betHistoryState.userWallet.avatarUrl,
+                    ), //Image for web configuration.
                   )
                 : CircleAvatar(
                     radius: 50,

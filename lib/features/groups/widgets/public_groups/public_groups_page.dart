@@ -48,7 +48,7 @@ class PublicGroups extends StatelessWidget {
                       style: Styles.greenTextBold,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(
+                          Navigator.push<void>(
                             context,
                             GroupAdd.route(
                               homeCubit: context.read<HomeCubit>(),
@@ -164,8 +164,10 @@ class PublicGroupListTile extends StatelessWidget {
         leading: _group.avatarUrl != null
             ? CircleAvatar(
                 radius: 25,
-                backgroundImage: CachedNetworkImageProvider(_group.avatarUrl,
-                    imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet))
+                backgroundImage: CachedNetworkImageProvider(
+                  _group.avatarUrl,
+                ), //Image for web configuration.
+              )
             : const SizedBox(
                 width: 50,
                 child: Icon(
@@ -199,7 +201,7 @@ class PublicGroupListTile extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.push(
+          Navigator.push<void>(
             context,
             GroupDetails.route(
               storageRepository: context.read<StorageRepository>(),

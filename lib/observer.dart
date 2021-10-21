@@ -13,23 +13,23 @@ class SimpleBlocObserver extends BlocObserver {
     super.onTransition(bloc, transition);
   }
 
-  @override
-  void onClose(Cubit cubit) {
-    print('Closed: $cubit');
-    super.onClose(cubit);
-  }
+  // @override
+  // void onClose(Cubit cubit) {
+  //   print('Closed: $cubit');
+  //   super.onClose(cubit);
+  // }
 
-  @override
-  void onChange(Cubit cubit, Change change) {
-    if (cubit is! Bloc) {
-      print('${cubit.runtimeType} $change');
-    }
-    super.onChange(cubit, change);
-  }
+  // @override
+  // void onChange(Cubit cubit, Change change) {
+  //   if (cubit is! Bloc) {
+  //     print('${cubit.runtimeType} $change');
+  //   }
+  //   super.onChange(cubit, change);
+  // }
 
-  @override
-  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
-    print('${cubit.runtimeType} $error $stackTrace');
-    super.onError(cubit, error, stackTrace);
-  }
+  // @override
+  // void onError(Cubit cubit, Object error, StackTrace stackTrace) {
+  //   print('${cubit.runtimeType} $error $stackTrace');
+  //   super.onError(cubit, error, stackTrace);
+  // }
 }
