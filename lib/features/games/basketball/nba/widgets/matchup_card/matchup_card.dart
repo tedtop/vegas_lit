@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,13 +18,13 @@ import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  MatchupCard._({Key key, this.gameName}) : super(key: key);
-  final String gameName;
+  MatchupCard._({Key? key, this.gameName}) : super(key: key);
+  final String? gameName;
 
   static Builder route({
-    @required NbaGame game,
-    @required String gameName,
-    @required List parsedTeamData,
+    required NbaGame game,
+    required String? gameName,
+    required List? parsedTeamData,
   }) {
     return Builder(
       builder: (_) {
@@ -31,7 +33,7 @@ class MatchupCard extends StatelessWidget {
             ..openMatchupCard(
               game: game,
               gameName: gameName,
-              parsedTeamData: parsedTeamData,
+              parsedTeamData: parsedTeamData!,
             ),
           child: MatchupCard._(gameName: gameName),
         );
@@ -47,16 +49,16 @@ class MatchupCard extends StatelessWidget {
           final gameData = state.game;
           final isPointSpreadNegative = state.game.pointSpread == null
               ? true
-              : state.game.pointSpread.isNegative;
-          String awayTeamPointSpread;
-          String homeTeamPointSpread;
+              : state.game.pointSpread!.isNegative;
+          late String awayTeamPointSpread;
+          late String homeTeamPointSpread;
           if (state.game.pointSpread != null) {
             awayTeamPointSpread = isPointSpreadNegative
-                ? '+${state.game.pointSpread.abs()}'
-                : '-${state.game.pointSpread.abs()}';
+                ? '+${state.game.pointSpread!.abs()}'
+                : '-${state.game.pointSpread!.abs()}';
             homeTeamPointSpread = isPointSpreadNegative
-                ? '-${state.game.pointSpread.abs()}'
-                : '+${state.game.pointSpread.abs()}';
+                ? '-${state.game.pointSpread!.abs()}'
+                : '+${state.game.pointSpread!.abs()}';
           }
           return Padding(
             padding: const EdgeInsets.symmetric(
@@ -103,7 +105,7 @@ class MatchupCard extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              state.awayTeamData.city,
+                                              state.awayTeamData.city!,
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.nunito(
                                                 fontSize: 12,
@@ -112,7 +114,7 @@ class MatchupCard extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              state.awayTeamData.name
+                                              state.awayTeamData.name!
                                                   .toUpperCase(),
                                               textAlign: TextAlign.center,
                                               style: Styles.awayTeam,
@@ -140,7 +142,7 @@ class MatchupCard extends StatelessWidget {
                                                 homeTeamData:
                                                     state.homeTeamData,
                                                 text: positiveNumber(
-                                                    gameData.awayTeamMoneyLine),
+                                                    gameData.awayTeamMoneyLine!),
                                                 game: state.game,
                                                 league: whichGame(
                                                   gameName: state.league,
@@ -168,7 +170,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine)}',
+                                                    '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine!)}',
                                               ),
                                         gameData.overPayout == null
                                             ? Container()
@@ -179,7 +181,7 @@ class MatchupCard extends StatelessWidget {
                                                 league: whichGame(
                                                   gameName: state.league,
                                                 ),
-                                                spread: gameData.overUnder
+                                                spread: gameData.overUnder!
                                                     .toDouble() as double,
                                                 mainOdds: gameData.overPayout
                                                     .toString(),
@@ -190,7 +192,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout)}',
+                                                    'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout!)}',
                                               ),
                                       ],
                                     ),
@@ -231,7 +233,7 @@ class MatchupCard extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            state.homeTeamData.city,
+                                            state.homeTeamData.city!,
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.nunito(
                                               fontSize: 12,
@@ -240,7 +242,7 @@ class MatchupCard extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            state.homeTeamData.name
+                                            state.homeTeamData.name!
                                                 .toUpperCase(),
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.nunito(
@@ -275,7 +277,7 @@ class MatchupCard extends StatelessWidget {
                                                 homeTeamData:
                                                     state.homeTeamData,
                                                 text: positiveNumber(
-                                                    gameData.homeTeamMoneyLine),
+                                                    gameData.homeTeamMoneyLine!),
                                               ),
                                         gameData.pointSpreadHomeTeamMoneyLine ==
                                                 null
@@ -299,7 +301,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine)}',
+                                                    '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine!)}',
                                               ),
                                         gameData.underPayout == null
                                             ? Container()
@@ -313,7 +315,7 @@ class MatchupCard extends StatelessWidget {
                                                 mainOdds: gameData.underPayout
                                                     .toString(),
                                                 betType: Bet.tot,
-                                                spread: gameData.overUnder
+                                                spread: gameData.overUnder!
                                                     .toDouble() as double,
                                                 awayTeamData:
                                                     state.awayTeamData,
@@ -321,7 +323,7 @@ class MatchupCard extends StatelessWidget {
                                                     state.homeTeamData,
                                                 game: state.game,
                                                 text:
-                                                    'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout)}',
+                                                    'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout!)}',
                                               ),
                                       ],
                                     ),
@@ -337,7 +339,7 @@ class MatchupCard extends StatelessWidget {
                               children: [
                                 Text(
                                   DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                                    state.game.dateTime.toLocal(),
+                                    state.game.dateTime!.toLocal(),
                                   ),
                                   style: Styles.matchupTime,
                                 ),
@@ -346,11 +348,11 @@ class MatchupCard extends StatelessWidget {
                           ),
                           CountdownTimer(
                             endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                                state.game.dateTime),
-                            widgetBuilder: (_, CurrentRemainingTime time) {
+                                state.game.dateTime!),
+                            widgetBuilder: (_, CurrentRemainingTime? time) {
                               if (time == null) {
                                 return Text(
-                                  gameData.status,
+                                  gameData.status!,
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
                                     fontSize: 15,
@@ -414,7 +416,7 @@ class MatchupCard extends StatelessWidget {
   }
 
   Widget _betButtonSeparator({
-    String text,
+    required String text,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
@@ -432,7 +434,7 @@ class MatchupCard extends StatelessWidget {
   }
 }
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
+String getRemainingTimeText({required CurrentRemainingTime time}) {
   final days = time.days == null ? '' : '${time.days}d ';
   final hours = time.hours == null ? '' : '${time.hours}hr';
   final min = time.min == null ? '' : ' ${time.min}m';
@@ -440,7 +442,7 @@ String getRemainingTimeText({CurrentRemainingTime time}) {
   return days + hours + min + sec;
 }
 
-String whichGame({String gameName}) {
+String whichGame({String? gameName}) {
   switch (gameName) {
     case 'NBA':
       return 'nba';

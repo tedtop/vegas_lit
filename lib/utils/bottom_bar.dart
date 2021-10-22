@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -10,7 +12,7 @@ import '../features/drawer_pages/rules.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -149,8 +151,8 @@ class BottomBar extends StatelessWidget {
 
 class BottomBarColumn extends StatelessWidget {
   const BottomBarColumn({this.heading, this.content});
-  final String heading;
-  final Map<String, Function> content;
+  final String? heading;
+  final Map<String, Function>? content;
 
   @override
   Widget build(BuildContext context) {
@@ -158,16 +160,16 @@ class BottomBarColumn extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          Text(heading, style: Styles.bottomBarHeading),
+          Text(heading!, style: Styles.bottomBarHeading),
           const SizedBox(
             height: 10,
           ),
-          ...content.keys
+          ...content!.keys
               .map((text) => Column(
                     children: [
                       TextButton(
                         onPressed: () {
-                          content[text];
+                          content![text];
                         },
                         child: Text(text, style: Styles.bottomBarNormal),
                       ),
@@ -182,9 +184,9 @@ class BottomBarColumn extends StatelessWidget {
 }
 
 class InfoText extends StatelessWidget {
-  const InfoText({Key key, this.type, this.text}) : super(key: key);
-  final String type;
-  final String text;
+  const InfoText({Key? key, this.type, this.text}) : super(key: key);
+  final String? type;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +198,7 @@ class InfoText extends StatelessWidget {
           style: Styles.bottomBarType,
         ),
         Text(
-          text,
+          text!,
           style: Styles.bottomBarNormal,
         )
       ],

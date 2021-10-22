@@ -15,8 +15,8 @@ import '../../../models/username.dart';
 import '../../login/login.dart';
 import '../sign_up.dart';
 
-String confirmedPasswordError(
-    ConfirmedPasswordValidationError validationError) {
+String? confirmedPasswordError(
+    ConfirmedPasswordValidationError? validationError) {
   if (validationError == ConfirmedPasswordValidationError.invalid) {
     return 'Passwords do not match';
   } else if (validationError == ConfirmedPasswordValidationError.empty) {
@@ -26,7 +26,7 @@ String confirmedPasswordError(
   }
 }
 
-String emailError(EmailValidationError validationError) {
+String? emailError(EmailValidationError? validationError) {
   if (validationError == EmailValidationError.invalid) {
     return 'Invalid email address';
   } else if (validationError == EmailValidationError.empty) {
@@ -36,7 +36,7 @@ String emailError(EmailValidationError validationError) {
   }
 }
 
-String passwordError(PasswordValidationError validationError) {
+String? passwordError(PasswordValidationError? validationError) {
   if (validationError == PasswordValidationError.invalid) {
     return 'Must be a combination of at least 6 letters and numbers';
   } else if (validationError == PasswordValidationError.empty) {
@@ -46,7 +46,7 @@ String passwordError(PasswordValidationError validationError) {
   }
 }
 
-String usernameError(UsernameValidationError validationError) {
+String? usernameError(UsernameValidationError? validationError) {
   if (validationError == UsernameValidationError.invalid) {
     return 'Invalid Format';
   } else if (validationError == UsernameValidationError.empty) {
@@ -71,7 +71,7 @@ class SignUpForm extends StatelessWidget {
             ..showSnackBar(
               SnackBar(
                 content: Text(
-                  state.signUpErrorMessage,
+                  state.signUpErrorMessage!,
                 ),
               ),
             );
@@ -725,7 +725,7 @@ class _UsernameInput extends StatelessWidget {
 
 class DropDown<T> extends StatefulWidget {
   DropDown({
-    @required this.items,
+    required this.items,
     this.customWidgets,
     this.initialValue,
     this.hint,
@@ -739,10 +739,10 @@ class DropDown<T> extends StatefulWidget {
             : (customWidgets == null));
 
   final List<T> items;
-  final List<Widget> customWidgets;
-  final T initialValue;
-  final Widget hint;
-  final Function onChanged;
+  final List<Widget>? customWidgets;
+  final T? initialValue;
+  final Widget? hint;
+  final Function? onChanged;
   final bool isExpanded;
   final bool isCleared;
   final bool showUnderline;
@@ -752,7 +752,7 @@ class DropDown<T> extends StatefulWidget {
 }
 
 class _DropDownState<T> extends State<DropDown<T>> {
-  T selectedValue;
+  T? selectedValue;
 
   @override
   void initState() {
@@ -764,9 +764,9 @@ class _DropDownState<T> extends State<DropDown<T>> {
   Widget build(BuildContext context) {
     final dropdown = DropdownButton<T>(
       isExpanded: widget.isExpanded,
-      onChanged: (T value) {
+      onChanged: (T? value) {
         setState(() => selectedValue = value);
-        if (widget.onChanged != null) widget.onChanged(value);
+        if (widget.onChanged != null) widget.onChanged!(value);
       },
       value: widget.isCleared ? null : selectedValue,
       items: widget.items.map<DropdownMenuItem<T>>(buildDropDownItem).toList(),
@@ -780,7 +780,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
 
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
         child: (widget.customWidgets != null)
-            ? widget.customWidgets[widget.items.indexOf(item)]
+            ? widget.customWidgets![widget.items.indexOf(item)]
             : Text(
                 item.toString(),
                 style: GoogleFonts.nunito(
@@ -793,9 +793,9 @@ class _DropDownState<T> extends State<DropDown<T>> {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),

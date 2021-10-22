@@ -25,24 +25,25 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
+        final OlympicsBetButtonState betButtonState =
+            context.watch<OlympicsBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
           (HomeCubit authenticationBloc) =>
-              authenticationBloc.state.userData.username,
+              authenticationBloc.state.userData!.username,
         );
 
-        final balanceAmount = context.select(
-            (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
+        final balanceAmount = context.select((HomeCubit homeCubit) =>
+            homeCubit.state.userWallet!.accountBalance);
 
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
           widgets: [
             Text(
-              '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game.playerCountry).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game.rivalCountry).name.toUpperCase()} TO WIN',
+              '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game!.playerCountry!).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game!.rivalCountry!).name.toUpperCase()} TO WIN',
               maxLines: 3,
               style: GoogleFonts.nunito(
                 fontSize: 24,
@@ -55,7 +56,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  betButtonState.game.gameName.replaceAll(RegExp('-'), '/'),
+                  betButtonState.game!.gameName!.replaceAll(RegExp('-'), '/'),
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.cream,
@@ -79,12 +80,12 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                             Text(
                               countryFlagFromCode(
                                   countryCode:
-                                      betButtonState.game.playerCountry),
+                                      betButtonState.game!.playerCountry!),
                               style: Styles.emoji(size: 25),
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              betButtonState.game.player,
+                              betButtonState.game!.player!,
                               textAlign: TextAlign.center,
                               style: Styles.awayTeam,
                             ),
@@ -208,7 +209,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                                   await context
                                       .read<OlympicsBetButtonCubit>()
                                       .placeBet(
-                                        isMinimumVersion: isMinimumVersion,
+                                        isMinimumVersion: isMinimumVersion!,
                                         betButtonState: betButtonState,
                                         context: context,
                                         balanceAmount: balanceAmount,
@@ -227,7 +228,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(bottom: 120, left: 5, right: 5),
                     child: badgeFromEventTypeColumn(
-                        eventType: betButtonState.game.eventType),
+                        eventType: betButtonState.game!.eventType),
                   ),
                   Flexible(
                     child: Column(
@@ -237,12 +238,12 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                             Text(
                               countryFlagFromCode(
                                   countryCode:
-                                      betButtonState.game.rivalCountry),
+                                      betButtonState.game!.rivalCountry!),
                               style: Styles.emoji(size: 25),
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              betButtonState.game.rival,
+                              betButtonState.game!.rival!,
                               textAlign: TextAlign.center,
                               style: Styles.homeTeam,
                             ),
@@ -350,7 +351,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
               child: Center(
                 child: Text(
                     DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                      betButtonState.game.startTime.toLocal(),
+                      betButtonState.game!.startTime!.toLocal(),
                     ),
                     style: GoogleFonts.nunito(
                       color: Palette.cream,
@@ -375,8 +376,8 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
   const BetAmountPage({
-    Key key,
-    @required this.betAmount,
+    Key? key,
+    required this.betAmount,
   }) : super(key: key);
 
   final int betAmount;
@@ -386,12 +387,13 @@ class BetAmountPage extends StatefulWidget {
 }
 
 class _BetAmountPageState extends State<BetAmountPage> {
-  int newBetAmount;
+  int? newBetAmount;
   final carouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
+    final OlympicsBetButtonState betButtonState =
+        context.watch<OlympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -468,7 +470,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                       carouselController: carouselController,
                       options: CarouselOptions(
                         initialPage: newBetAmount != null
-                            ? betValues.indexOf(newBetAmount)
+                            ? betValues.indexOf(newBetAmount!)
                             : betValues.indexOf(widget.betAmount),
                         scrollDirection: Axis.vertical,
                         viewportFraction: 0.36,
@@ -570,12 +572,12 @@ class _BetAmountPageState extends State<BetAmountPage> {
   }
 }
 
-String countryFlagFromCode({String countryCode}) {
+String countryFlagFromCode({required String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }
 
-Widget badgeFromEventTypeColumn({String eventType}) {
+Widget badgeFromEventTypeColumn({String? eventType}) {
   return Column(
     children: [
       Image.asset(
@@ -608,9 +610,9 @@ Widget badgeFromEventTypeColumn({String eventType}) {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),
@@ -658,8 +660,8 @@ class DefaultButton extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

@@ -1,3 +1,5 @@
+
+
 part of 'leaderboard_profile_cubit.dart';
 
 enum LeaderboardProfileStatus { initial, loading, success, failure }
@@ -11,8 +13,8 @@ class LeaderboardProfileState extends Equatable {
 
   final LeaderboardProfileStatus status;
   final List<BetData> bets;
-  final Wallet userWallet;
+  final Wallet? userWallet;
 
   @override
-  List<Object> get props => [status, bets, userWallet];
+  List<Object?> get props => [status, bets, userWallet];
 }

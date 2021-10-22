@@ -16,13 +16,14 @@ import '../../cubit/leaderboard_cubit.dart';
 import '../../widgets/textbar.dart';
 
 class MobileLeaderboard extends StatelessWidget {
-  const MobileLeaderboard({Key key, @required this.players}) : super(key: key);
+  const MobileLeaderboard({Key? key, required this.players}) : super(key: key);
 
   final List<Wallet> players;
 
   @override
   Widget build(BuildContext context) {
-    final leaderboardState = context.watch<LeaderboardCubit>().state;
+    final LeaderboardState leaderboardState =
+        context.watch<LeaderboardCubit>().state;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,14 +138,14 @@ class MobileLeaderboard extends StatelessWidget {
 }
 
 class MobileLeaderboardTile extends StatelessWidget {
-  MobileLeaderboardTile({@required this.player, @required this.rank});
+  MobileLeaderboardTile({required this.player, required this.rank});
   final Wallet player;
   final int rank;
 
   @override
   Widget build(BuildContext context) {
     final currentUserUid =
-        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+        context.select((HomeCubit cubit) => cubit.state.userWallet?.uid);
     final week = context.watch<LeaderboardCubit>().state.day;
     return Container(
       width: 380,
@@ -179,7 +180,7 @@ class MobileLeaderboardTile extends StatelessWidget {
               ? CircleAvatar(
                   radius: 25,
                   backgroundImage: CachedNetworkImageProvider(
-                    player.avatarUrl,
+                    player.avatarUrl!,
                   ), //Image for web configuration.
                 )
               : CircleAvatar(
@@ -190,7 +191,8 @@ class MobileLeaderboardTile extends StatelessWidget {
                       color: Palette.darkGrey,
                       height: 50.0,
                       width: 50.0,
-                      child: Text(player.username.substring(0, 1).toUpperCase(),
+                      child: Text(
+                          player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -204,7 +206,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
+                '${player.accountBalance! + player.pendingRiskedAmount! - player.totalRewards!}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,
@@ -217,7 +219,7 @@ class MobileLeaderboardTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets - (player.totalBetsWon + player.totalBetsLost + player.totalOpenBets)}',
+                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets! - (player.totalBetsWon! + player.totalBetsLost! + player.totalOpenBets!)}',
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   color: Palette.cream,
@@ -225,8 +227,8 @@ class MobileLeaderboardTile extends StatelessWidget {
               ),
               Text(
                 leaderboardWinningBetsRatio(
-                  player.totalBetsWon,
-                  player.totalBetsLost,
+                  player.totalBetsWon!,
+                  player.totalBetsLost!,
                 ),
                 style: GoogleFonts.nunito(
                   fontSize: 15,

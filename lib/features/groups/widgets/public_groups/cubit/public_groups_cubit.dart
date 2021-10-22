@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -9,14 +11,14 @@ import '../../../../../data/repositories/groups_repository.dart';
 part 'public_groups_state.dart';
 
 class PublicGroupsCubit extends Cubit<PublicGroupsState> {
-  PublicGroupsCubit({@required GroupsRepository groupsRepository})
+  PublicGroupsCubit({required GroupsRepository groupsRepository})
       : assert(groupsRepository != null),
         _groupsRepository = groupsRepository,
         super(
           const PublicGroupsState(),
         );
   final GroupsRepository _groupsRepository;
-  StreamSubscription _publicGroupsSubscription;
+  StreamSubscription? _publicGroupsSubscription;
 
   Future<void> openPublicGroups() async {
     emit(

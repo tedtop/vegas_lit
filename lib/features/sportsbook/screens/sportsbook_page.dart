@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,14 +67,14 @@ class Sportsbook extends StatelessWidget {
 
 class SportsBookView extends StatefulWidget {
   SportsBookView({
-    Key key,
-    @required this.league,
-    @required this.estTimeZone,
-    @required this.gameNumberList,
+    Key? key,
+    required this.league,
+    required this.estTimeZone,
+    required this.gameNumberList,
   }) : super(key: key);
 
-  final String league;
-  final DateTime estTimeZone;
+  final String? league;
+  final DateTime? estTimeZone;
   final Map<String, String> gameNumberList;
 
   @override
@@ -156,7 +158,7 @@ class _SportsBookViewState extends State<SportsBookView>
                                           width: 42,
                                           child: Center(
                                             child: Text(
-                                              state.singleBetSlipCard.length
+                                              state.singleBetSlipCard!.length
                                                   .toString(),
                                               style: GoogleFonts.nunito(
                                                 color: Palette.darkGrey,
@@ -215,7 +217,7 @@ class _SportsBookViewState extends State<SportsBookView>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Eastern Time: ${formatDate(widget.estTimeZone)}',
+                      'Eastern Time: ${formatDate(widget.estTimeZone!)}',
                       style: Styles.matchupTime,
                     ),
                   ],
@@ -321,8 +323,8 @@ class _SportsBookViewState extends State<SportsBookView>
           builder: (context, sizeInfo) {
             if (sizeInfo.isMobile &&
                 !kIsWeb &&
-                !(widget.gameNumberList[widget.league] == '0') &&
-                !(widget.gameNumberList[widget.league] == 'OFF-SEASON')) {
+                !(widget.gameNumberList[widget.league!] == '0') &&
+                !(widget.gameNumberList[widget.league!] == 'OFF-SEASON')) {
               return FloatingActionButton(
                 onPressed: _launchTutorialVideo,
                 child: const Icon(
@@ -377,7 +379,7 @@ class _SportsBookViewState extends State<SportsBookView>
             style: GoogleFonts.nunito(
               fontSize: 18,
             ),
-            onChanged: (String newValue) {
+            onChanged: (String? newValue) {
               if (newValue != widget.league) {
                 context.read<SportsbookBloc>().add(
                       SportsbookLeagueChange(league: newValue),
@@ -397,7 +399,7 @@ class _SportsBookViewState extends State<SportsBookView>
               // 'CRICKET'
             ].map<DropdownMenuItem<String>>(
               (String value) {
-                String length;
+                String? length;
                 widget.gameNumberList.forEach(
                   (key, newValue) {
                     if (key == 'GOLF' || key == 'OLYMPICS' && key == value) {
@@ -447,7 +449,7 @@ class _SportsBookViewState extends State<SportsBookView>
 
 class FadeIndexedStack extends StatefulWidget {
   const FadeIndexedStack({
-    Key key,
+    Key? key,
     this.index,
     this.children,
     this.duration = const Duration(
@@ -455,8 +457,8 @@ class FadeIndexedStack extends StatefulWidget {
     ),
   }) : super(key: key);
 
-  final int index;
-  final List<Widget> children;
+  final int? index;
+  final List<Widget>? children;
   final Duration duration;
 
   @override
@@ -465,7 +467,7 @@ class FadeIndexedStack extends StatefulWidget {
 
 class _FadeIndexedStackState extends State<FadeIndexedStack>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void didUpdateWidget(FadeIndexedStack oldWidget) {
@@ -494,7 +496,7 @@ class _FadeIndexedStackState extends State<FadeIndexedStack>
       opacity: _controller,
       child: IndexedStack(
         index: widget.index,
-        children: widget.children,
+        children: widget.children!,
       ),
     );
   }

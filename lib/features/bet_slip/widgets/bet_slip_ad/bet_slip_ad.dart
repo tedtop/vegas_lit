@@ -13,7 +13,7 @@ import '../../../home/cubit/home_cubit.dart';
 import 'cubit/ads_cubit.dart';
 
 class RewardedBetSlip extends StatelessWidget {
-  const RewardedBetSlip._({Key key}) : super(key: key);
+  const RewardedBetSlip._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(builder: (context) {
@@ -31,7 +31,7 @@ class RewardedBetSlip extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final buttonWidthHeight = size.width * .30;
     final todayRewards = context
-        .select((HomeCubit cubit) => cubit.state?.userWallet?.todayRewards);
+        .select((HomeCubit cubit) => cubit.state.userWallet?.todayRewards!);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -44,177 +44,171 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              todayRewards >= 300
-                  ? Builder(builder: (context) {
-                      final timeNow = ESTDateTime.fetchTimeEST();
-                      // To find the reward hour {Ex: 3 AM, 6 AM,...}
-                      final nThRewardHour =
-                          Duration(hours: timeNow.hour, minutes: timeNow.minute)
-                                  .inHours ~/
-                              3;
-                      final nextRewardTime = DateTime(
-                          timeNow.year,
-                          timeNow.month,
-                          timeNow.day,
-                          (3 * (nThRewardHour + 1)));
-                      return CountdownTimer(
-                        endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                            nextRewardTime),
-                        widgetBuilder: (_, CurrentRemainingTime time) {
-                          if (time == null) {
-                            return Center(
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  text: 'Last Reward at ',
-                                  style: Styles.normalText,
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: '${DateFormat('hh:mm a').format(
-                                          timeNow,
-                                        )}',
-                                        style: Styles.greenTextBold),
+              if (todayRewards! >= 300)
+                Builder(builder: (context) {
+                  final timeNow = ESTDateTime.fetchTimeEST();
+                  // To find the reward hour {Ex: 3 AM, 6 AM,...}
+                  final nThRewardHour =
+                      Duration(hours: timeNow.hour, minutes: timeNow.minute)
+                              .inHours ~/
+                          3;
+                  final nextRewardTime = DateTime(timeNow.year, timeNow.month,
+                      timeNow.day, 3 * (nThRewardHour + 1));
+                  return CountdownTimer(
+                    endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+                        nextRewardTime),
+                    widgetBuilder: (_, CurrentRemainingTime? time) {
+                      if (time == null) {
+                        return Center(
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: 'Last Reward at ',
+                              style: Styles.normalText,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: DateFormat('hh:mm a').format(
+                                      timeNow,
+                                    ),
+                                    style: Styles.greenTextBold),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+
+                      return Center(
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: 'Check back in ',
+                            style: Styles.normalText,
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: getRemainingTimeText(time: time),
+                                  style: Styles.greenTextBold),
+                              const TextSpan(text: ' for more rewards')
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                })
+              else
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Column(
+                    children: [
+                      textPoints(
+                        'Need more funds to play?',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      BlocConsumer<AdsCubit, AdsState>(
+                        listener: (context, state) {
+                          if (state.status == AdsStatus.success) {
+                            ScaffoldMessenger.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  duration: const Duration(milliseconds: 2000),
+                                  content: Text(
+                                    'You just earned another ${state.rewardAmount} to play with!',
+                                  ),
+                                ),
+                              );
+                          } else if (state.status == AdsStatus.failure) {
+                            ScaffoldMessenger.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                const SnackBar(
+                                  duration: Duration(milliseconds: 2000),
+                                  content: Text(
+                                    'There was an error displaying the ad.',
+                                  ),
+                                ),
+                              );
+                          } else if (state.status == AdsStatus.cancelled) {
+                            ScaffoldMessenger.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                const SnackBar(
+                                  duration: Duration(milliseconds: 2000),
+                                  content: Text(
+                                    'Ad Reward Cancelled.',
+                                  ),
+                                ),
+                              );
+                          }
+                        },
+                        builder: (context, state) {
+                          switch (state.status) {
+                            case AdsStatus.loading:
+                              return const CircularProgressIndicator(
+                                color: Palette.cream,
+                              );
+                              break;
+                            default:
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(buttonWidthHeight),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(.25),
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 4,
+                                    )
                                   ],
                                 ),
-                              ),
-                            );
-                          }
-
-                          return Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                text: 'Check back in ',
-                                style: Styles.normalText,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text:
-                                          '${getRemainingTimeText(time: time)}',
-                                      style: Styles.greenTextBold),
-                                  const TextSpan(text: ' for more rewards')
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    })
-                  : Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Column(
-                        children: [
-                          textPoints(
-                            'Need more funds to play?',
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          BlocConsumer<AdsCubit, AdsState>(
-                            listener: (context, state) {
-                              if (state.status == AdsStatus.success) {
-                                ScaffoldMessenger.of(context)
-                                  ..removeCurrentSnackBar()
-                                  ..showSnackBar(
-                                    SnackBar(
-                                      duration:
-                                          const Duration(milliseconds: 2000),
-                                      content: Text(
-                                        'You just earned another ${state.rewardAmount} to play with!',
-                                      ),
-                                    ),
-                                  );
-                              } else if (state.status == AdsStatus.failure) {
-                                ScaffoldMessenger.of(context)
-                                  ..removeCurrentSnackBar()
-                                  ..showSnackBar(
-                                    const SnackBar(
-                                      duration: Duration(milliseconds: 2000),
-                                      content: Text(
-                                        'There was an error displaying the ad.',
-                                      ),
-                                    ),
-                                  );
-                              } else if (state.status == AdsStatus.cancelled) {
-                                ScaffoldMessenger.of(context)
-                                  ..removeCurrentSnackBar()
-                                  ..showSnackBar(
-                                    const SnackBar(
-                                      duration: Duration(milliseconds: 2000),
-                                      content: Text(
-                                        'Ad Reward Cancelled.',
-                                      ),
-                                    ),
-                                  );
-                              }
-                            },
-                            builder: (context, state) {
-                              switch (state.status) {
-                                case AdsStatus.loading:
-                                  return const CircularProgressIndicator(
-                                    color: Palette.cream,
-                                  );
-                                  break;
-                                default:
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          buttonWidthHeight),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(.25),
-                                          offset: const Offset(0, 4),
-                                          blurRadius: 4,
-                                        )
-                                      ],
-                                    ),
-                                    width: buttonWidthHeight,
-                                    height: buttonWidthHeight,
-                                    clipBehavior: Clip.antiAlias,
-                                    child: Material(
-                                      child: InkWell(
-                                        //customBorder: const CircleBorder(),
-                                        // borderRadius: BorderRadius.circular(
-                                        //     buttonWidthHeight),
-                                        splashColor: Palette.cream,
-                                        onTap: () {
-                                          context
-                                              .read<AdsCubit>()
-                                              .openRewardedAd();
-                                        },
-                                        child: Ink(
-                                          color: Palette.green,
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'Watch',
-                                                  style: GoogleFonts.nunito(
-                                                    color: Palette.cream,
-                                                    fontSize: 20,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Video',
-                                                  style: GoogleFonts.nunito(
-                                                    color: Palette.cream,
-                                                    fontSize: 20,
-                                                  ),
-                                                )
-                                              ],
+                                width: buttonWidthHeight,
+                                height: buttonWidthHeight,
+                                clipBehavior: Clip.antiAlias,
+                                child: Material(
+                                  child: InkWell(
+                                    //customBorder: const CircleBorder(),
+                                    // borderRadius: BorderRadius.circular(
+                                    //     buttonWidthHeight),
+                                    splashColor: Palette.cream,
+                                    onTap: () {
+                                      context.read<AdsCubit>().openRewardedAd();
+                                    },
+                                    child: Ink(
+                                      color: Palette.green,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Watch',
+                                              style: GoogleFonts.nunito(
+                                                color: Palette.cream,
+                                                fontSize: 20,
+                                              ),
                                             ),
-                                          ),
+                                            Text(
+                                              'Video',
+                                              style: GoogleFonts.nunito(
+                                                color: Palette.cream,
+                                                fontSize: 20,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  );
-                              }
-                            },
-                          )
-                        ],
-                      ),
-                    ),
+                                  ),
+                                ),
+                              );
+                          }
+                        },
+                      )
+                    ],
+                  ),
+                ),
             ],
           ),
         ],
@@ -233,7 +227,7 @@ class RewardedBetSlip extends StatelessWidget {
     );
   }
 
-  String getRemainingTimeText({CurrentRemainingTime time}) {
+  String getRemainingTimeText({required CurrentRemainingTime time}) {
     final hours = time.hours == null ? '' : '${time.hours}hr';
     final min = time.min == null ? '' : ' ${time.min}m';
     final sec = time.sec == null ? '' : ' ${time.sec}s';
@@ -243,8 +237,8 @@ class RewardedBetSlip extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

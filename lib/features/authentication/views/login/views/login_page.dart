@@ -8,7 +8,7 @@ import '../cubit/login_cubit.dart';
 import 'login_form.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage._({Key key}) : super(key: key);
+  const LoginPage._({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(

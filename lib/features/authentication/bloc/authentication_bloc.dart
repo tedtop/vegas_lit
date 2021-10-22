@@ -17,8 +17,8 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc(
-      {@required UserRepository userRepository,
-      @required DeviceRepository deviceRepository})
+      {required UserRepository userRepository,
+      required DeviceRepository deviceRepository})
       : assert(userRepository != null),
         assert(deviceRepository != null),
         _userRepository = userRepository,
@@ -35,7 +35,7 @@ class AuthenticationBloc
 
   final UserRepository _userRepository;
   final DeviceRepository _deviceRepository;
-  StreamSubscription<User> _userSubscription;
+  StreamSubscription<User?>? _userSubscription;
 
   @override
   Stream<AuthenticationState> mapEventToState(

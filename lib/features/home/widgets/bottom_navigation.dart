@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -14,14 +16,14 @@ class BottomNavigation extends StatelessWidget {
     return Builder(
       builder: (context) {
         final betSlipStatus = context.watch<BetSlipCubit>().state;
-        final openBetsStatus = context.watch<OpenBetsCubit>().state;
+        final OpenBetsState openBetsStatus = context.watch<OpenBetsCubit>().state;
         final pageIndex =
             context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
         if (betSlipStatus.status == BetSlipStatus.opened &&
             openBetsStatus.status == OpenBetsStatus.success) {
-          final showBetSlipBadge = betSlipStatus.singleBetSlipCard.isNotEmpty;
+          final showBetSlipBadge = betSlipStatus.singleBetSlipCard!.isNotEmpty;
           final showOpenBetsBadge = openBetsStatus.bets.isNotEmpty;
-          final betSlipBadgeCount = betSlipStatus.singleBetSlipCard.length;
+          final betSlipBadgeCount = betSlipStatus.singleBetSlipCard!.length;
           final openBetsBadgeCount = openBetsStatus.bets.length;
           return BottomNavigationBar(
             selectedLabelStyle: GoogleFonts.nunito(),

@@ -1,3 +1,5 @@
+
+
 part of 'group_details_cubit.dart';
 
 enum GroupDetailsStatus { initial, loading, complete, error }
@@ -11,10 +13,10 @@ class GroupDetailsState extends Equatable {
   });
 
   final GroupDetailsStatus status;
-  final Group group;
+  final Group? group;
   final bool isMember;
   final List<Wallet> players;
 
   @override
-  List<Object> get props => [status, players, group, isMember];
+  List<Object?> get props => [status, players, group, isMember];
 }

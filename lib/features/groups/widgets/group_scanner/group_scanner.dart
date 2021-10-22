@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,9 +10,9 @@ import 'package:vegas_lit/config/palette.dart';
 import 'cubit/group_scanner_cubit.dart';
 
 class GroupScanner extends StatelessWidget {
-  GroupScanner._({Key key}) : super(key: key);
+  GroupScanner._({Key? key}) : super(key: key);
 
-  static Route route({@required GroupScannerCubit cubit}) {
+  static Route route({required GroupScannerCubit cubit}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'GroupScanner'),
       builder: (context) => BlocProvider.value(
@@ -84,7 +86,7 @@ class GroupScanner extends StatelessWidget {
                                 .read<GroupScannerCubit>()
                                 .changeFlashStatus();
                           },
-                          icon: state.flash
+                          icon: state.flash!
                               ? const Icon(Icons.flash_on, color: Palette.cream)
                               : const Icon(Icons.flash_off,
                                   color: Palette.cream),
@@ -96,7 +98,7 @@ class GroupScanner extends StatelessWidget {
                                 .read<GroupScannerCubit>()
                                 .changeCameraPosition();
                           },
-                          icon: describeEnum(state.camera) == 'front'
+                          icon: describeEnum(state.camera!) == 'front'
                               ? const Icon(
                                   Icons.camera_rear,
                                   color: Palette.cream,

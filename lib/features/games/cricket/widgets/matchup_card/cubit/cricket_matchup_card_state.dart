@@ -1,3 +1,5 @@
+
+
 part of 'cricket_matchup_card_cubit.dart';
 
 @immutable
@@ -9,10 +11,10 @@ class CricketMatchupCardInitial extends CricketMatchupCardState {}
 
 class CricketMatchupCardOpened extends CricketMatchupCardState {
   CricketMatchupCardOpened({
-    @required this.game,
-    @required this.league,
-    @required this.awayTeamData,
-    @required this.homeTeamData,
+    required this.game,
+    required this.league,
+    required this.awayTeamData,
+    required this.homeTeamData,
   });
 
   final CricketDatum game;

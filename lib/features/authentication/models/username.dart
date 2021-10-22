@@ -11,10 +11,10 @@ class Username extends FormzInput<String, UsernameValidationError> {
   // static final RegExp _usernameRegExp =
   //     RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
 
-  final UsernameValidationError externalError;
+  final UsernameValidationError? externalError;
 
   @override
-  UsernameValidationError validator(String value) {
+  UsernameValidationError? validator(String value) {
     if (externalError != null) {
       return externalError;
     } else if (value.isUsername()) {

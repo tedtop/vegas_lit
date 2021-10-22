@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NcaafTeam {
@@ -29,73 +31,73 @@ class NcaafTeam {
       );
 
   factory NcaafTeam.fromMap(Map<String, dynamic> json) => NcaafTeam(
-        teamId: json['TeamID'] as int,
-        key: json['Key'] as String,
-        active: json['Active'] as bool,
-        school: json['School'] as String,
-        name: json['Name'] as String,
-        stadiumId: json['StadiumID'] as int,
-        apRank: json['ApRank'] as int,
-        wins: json['Wins'] as int,
-        losses: json['Losses'] as int,
-        conferenceWins: json['ConferenceWins'] as int,
-        conferenceLosses: json['ConferenceLosses'] as int,
-        globalTeamId: json['GlobalTeamID'] as int,
-        coachesRank: json['CoachesRank'] as int,
-        playoffRank: json['PlayoffRank'] as int,
-        teamLogoUrl: json['TeamLogoUrl'] as String,
-        conferenceId: json['ConferenceID'] as int,
-        conference: json['Conference'] as String,
-        shortDisplayName: json['ShortDisplayName'] as String,
-        rankWeek: json['RankWeek'] as int,
-        rankSeason: json['RankSeason'] as int,
-        rankSeasonType: json['RankSeasonType'] as int,
+        teamId: json['TeamID'] as int?,
+        key: json['Key'] as String?,
+        active: json['Active'] as bool?,
+        school: json['School'] as String?,
+        name: json['Name'] as String?,
+        stadiumId: json['StadiumID'] as int?,
+        apRank: json['ApRank'] as int?,
+        wins: json['Wins'] as int?,
+        losses: json['Losses'] as int?,
+        conferenceWins: json['ConferenceWins'] as int?,
+        conferenceLosses: json['ConferenceLosses'] as int?,
+        globalTeamId: json['GlobalTeamID'] as int?,
+        coachesRank: json['CoachesRank'] as int?,
+        playoffRank: json['PlayoffRank'] as int?,
+        teamLogoUrl: json['TeamLogoUrl'] as String?,
+        conferenceId: json['ConferenceID'] as int?,
+        conference: json['Conference'] as String?,
+        shortDisplayName: json['ShortDisplayName'] as String?,
+        rankWeek: json['RankWeek'] as int?,
+        rankSeason: json['RankSeason'] as int?,
+        rankSeasonType: json['RankSeasonType'] as int?,
       );
 
-  final int teamId;
-  final String key;
-  final bool active;
-  final String school;
-  final String name;
-  final int stadiumId;
-  final int apRank;
-  final int wins;
-  final int losses;
-  final int conferenceWins;
-  final int conferenceLosses;
-  final int globalTeamId;
-  final int coachesRank;
-  final int playoffRank;
-  final String teamLogoUrl;
-  final int conferenceId;
-  final String conference;
-  final String shortDisplayName;
-  final int rankWeek;
-  final int rankSeason;
-  final int rankSeasonType;
+  final int? teamId;
+  final String? key;
+  final bool? active;
+  final String? school;
+  final String? name;
+  final int? stadiumId;
+  final int? apRank;
+  final int? wins;
+  final int? losses;
+  final int? conferenceWins;
+  final int? conferenceLosses;
+  final int? globalTeamId;
+  final int? coachesRank;
+  final int? playoffRank;
+  final String? teamLogoUrl;
+  final int? conferenceId;
+  final String? conference;
+  final String? shortDisplayName;
+  final int? rankWeek;
+  final int? rankSeason;
+  final int? rankSeasonType;
 
   NcaafTeam copyWith({
-    int teamId,
-    String key,
-    bool active,
-    String school,
-    String name,
-    int stadiumId,
-    int apRank,
-    int wins,
-    int losses,
-    int conferenceWins,
-    int conferenceLosses,
-    int globalTeamId,
-    int coachesRank,
-    int playoffRank,
-    String teamLogoUrl,
-    int conferenceId,
-    String conference,
-    String shortDisplayName,
-    int rankWeek,
-    int rankSeason,
-    int rankSeasonType,
+    int? teamId,
+    String? key,
+    bool? active,
+    String? school,
+    String? name,
+    int? stadiumId,
+    int? apRank,
+    int? wins,
+    int? losses,
+    int? conferenceWins,
+    int? conferenceLosses,
+    int? globalTeamId,
+    int? coachesRank,
+    int? playoffRank,
+    String? teamLogoUrl,
+    int? conferenceId,
+    String? conference,
+    String? shortDisplayName,
+    int? rankWeek,
+    int? rankSeason,
+    int? rankSeasonType,
   }) =>
       NcaafTeam(
         teamId: teamId ?? this.teamId,
@@ -123,7 +125,7 @@ class NcaafTeam {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, Object> toMap() => {
+  Map<String, Object?> toMap() => {
         'TeamID': teamId,
         'Key': key,
         'Active': active,

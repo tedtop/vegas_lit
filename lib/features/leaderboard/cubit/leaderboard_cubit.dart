@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -11,7 +13,7 @@ import '../../../data/repositories/user_repository.dart';
 part 'leaderboard_state.dart';
 
 class LeaderboardCubit extends Cubit<LeaderboardState> {
-  LeaderboardCubit({@required UserRepository userRepository})
+  LeaderboardCubit({required UserRepository userRepository})
       : assert(userRepository != null),
         _userRepository = userRepository,
         super(
@@ -19,7 +21,7 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
         );
 
   final UserRepository _userRepository;
-  StreamSubscription _leaderboardSubscription;
+  StreamSubscription? _leaderboardSubscription;
 
   Future<void> openLeaderboard() async {
     final currentWeek = <String>['Current Week'];
@@ -33,7 +35,7 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
         weeks.sort((a, b) => b.compareTo(a));
         final totalWeek = currentWeek + weeks;
         users.sort(
-          (a, b) => (a.rank).compareTo(b.rank),
+          (a, b) => a.rank!.compareTo(b.rank!),
         );
         emit(
           LeaderboardState.opened(
@@ -47,7 +49,7 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
     );
   }
 
-  Future<void> changeWeek({@required String week}) async {
+  Future<void> changeWeek({required String week}) async {
     if (week == 'Current Week') {
       await openLeaderboard();
     } else {
@@ -57,7 +59,7 @@ class LeaderboardCubit extends Cubit<LeaderboardState> {
       final userDataList =
           await _userRepository.fetchLeaderboardDaysUserData(week: week)
             ..sort(
-              (a, b) => (a.rank).compareTo(b.rank),
+              (a, b) => a.rank!.compareTo(b.rank!),
             );
       emit(
         LeaderboardState.weekChanged(

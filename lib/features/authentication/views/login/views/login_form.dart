@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    state.loginErrorMessage,
+                    state.loginErrorMessage!,
                   ),
                 ),
               );
@@ -247,12 +247,12 @@ class _ResetPage extends StatefulWidget {
 }
 
 class __ResetPageState extends State<_ResetPage> {
-  String email;
+  String? email;
 
   final emailValid = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
-  String isEmailValid;
+  String? isEmailValid;
 
   @override
   Widget build(BuildContext context) {
@@ -313,15 +313,15 @@ class __ResetPageState extends State<_ResetPage> {
               ),
               onPressed: () async {
                 if (email != null) {
-                  if (email.isNotEmpty) {
-                    if (emailValid.hasMatch(email)) {
+                  if (email!.isNotEmpty) {
+                    if (emailValid.hasMatch(email!)) {
                       setState(() {
                         isEmailValid = null;
                       });
                       try {
                         await context
                             .read<LoginCubit>()
-                            .resetPassword(email: email);
+                            .resetPassword(email: email!);
                         FocusScope.of(context).unfocus();
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context)
@@ -372,8 +372,8 @@ class VersionNumber extends StatefulWidget {
 }
 
 class _VersionNumberState extends State<VersionNumber> {
-  String versionString;
-  String buildNumber;
+  String? versionString;
+  String? buildNumber;
 
   @override
   void initState() {
@@ -402,9 +402,9 @@ class _VersionNumberState extends State<VersionNumber> {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),

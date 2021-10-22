@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +16,11 @@ import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';
 
 class Profile extends StatefulWidget {
-  const Profile._({Key key, @required this.currentUserId}) : super(key: key);
+  const Profile._({Key? key, required this.currentUserId}) : super(key: key);
 
-  final String currentUserId;
+  final String? currentUserId;
 
-  static Route route({@required String currentUserId}) {
+  static Route route({required String? currentUserId}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'Profile'),
       builder: (context) => BlocProvider<ProfileCubit>(
@@ -101,7 +103,7 @@ class _AvatarInput extends StatelessWidget {
 }
 
 class _UsernameInput extends StatelessWidget {
-  const _UsernameInput({Key key}) : super(key: key);
+  const _UsernameInput({Key? key}) : super(key: key);
 
   final usernameFieldKey = const Key('UsernameField');
 
@@ -112,7 +114,7 @@ class _UsernameInput extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userData.username != current.userData.username,
+          previous.userData!.username != current.userData!.username,
       builder: (context, state) {
         return Row(
           children: [
@@ -169,7 +171,7 @@ class _UsernameInput extends StatelessWidget {
 }
 
 class _EmailInput extends StatelessWidget {
-  const _EmailInput({Key key}) : super(key: key);
+  const _EmailInput({Key? key}) : super(key: key);
 
   final emailFieldKey = const Key('EmailField');
 
@@ -180,7 +182,7 @@ class _EmailInput extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userData.email != current.userData.email,
+          previous.userData!.email != current.userData!.email,
       builder: (context, state) {
         return Row(
           children: [
@@ -298,7 +300,7 @@ class _StateInput extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userData.location != current.userData.location,
+          previous.userData!.location != current.userData!.location,
       builder: (context, state) {
         return Row(
           children: [
@@ -318,7 +320,7 @@ class _StateInput extends StatelessWidget {
                   : Column(
                       children: [
                         DropDown(
-                          initialValue: state.userData.location,
+                          initialValue: state.userData!.location,
                           isExpanded: true,
                           showUnderline: true,
                           items: stateList,
@@ -356,7 +358,7 @@ class _StateInput extends StatelessWidget {
 }
 
 class _EditButton extends StatelessWidget {
-  const _EditButton({@required this.currentUserId});
+  const _EditButton({required this.currentUserId});
   final String currentUserId;
   @override
   Widget build(BuildContext context) {
@@ -368,7 +370,7 @@ class _EditButton extends StatelessWidget {
           child: DefaultButton(
             action: () {
               context.read<ProfileCubit>().updateProfile(
-                  currentUserId: currentUserId, user: state.userData);
+                  currentUserId: currentUserId, user: state.userData!);
             },
             text: 'Update Profile',
           ),
@@ -540,8 +542,8 @@ class _EditButton extends StatelessWidget {
 
 class DropDown<T> extends StatefulWidget {
   const DropDown({
-    Key key,
-    @required this.items,
+    Key? key,
+    required this.items,
     this.customWidgets,
     this.initialValue,
     this.hint,
@@ -556,10 +558,10 @@ class DropDown<T> extends StatefulWidget {
         super(key: key);
 
   final List<T> items;
-  final List<Widget> customWidgets;
-  final T initialValue;
-  final Widget hint;
-  final Function onChanged;
+  final List<Widget>? customWidgets;
+  final T? initialValue;
+  final Widget? hint;
+  final Function? onChanged;
   final bool isExpanded;
   final bool isCleared;
   final bool showUnderline;
@@ -569,7 +571,7 @@ class DropDown<T> extends StatefulWidget {
 }
 
 class _DropDownState<T> extends State<DropDown<T>> {
-  T selectedValue;
+  T? selectedValue;
 
   @override
   void initState() {
@@ -581,9 +583,9 @@ class _DropDownState<T> extends State<DropDown<T>> {
   Widget build(BuildContext context) {
     final dropdown = DropdownButton<T>(
       isExpanded: widget.isExpanded,
-      onChanged: (T value) {
+      onChanged: (T? value) {
         setState(() => selectedValue = value);
-        if (widget.onChanged != null) widget.onChanged(value);
+        if (widget.onChanged != null) widget.onChanged!(value);
       },
       value: widget.isCleared ? null : selectedValue,
       items: widget.items.map<DropdownMenuItem<T>>(buildDropDownItem).toList(),
@@ -597,7 +599,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
 
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
         child: (widget.customWidgets != null)
-            ? widget.customWidgets[widget.items.indexOf(item)]
+            ? widget.customWidgets![widget.items.indexOf(item)]
             : Text(
                 item.toString(),
                 style: GoogleFonts.nunito(
@@ -610,9 +612,9 @@ class _DropDownState<T> extends State<DropDown<T>> {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),
@@ -660,8 +662,8 @@ class DefaultButton extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

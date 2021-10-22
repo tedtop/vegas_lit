@@ -11,7 +11,7 @@ import '../../widgets/textbar.dart';
 
 class DesktopLeaderboard extends StatefulWidget {
   const DesktopLeaderboard({this.players});
-  final List<Wallet> players;
+  final List<Wallet>? players;
   @override
   _DesktopLeaderboardState createState() => _DesktopLeaderboardState();
 }
@@ -19,7 +19,8 @@ class DesktopLeaderboard extends StatefulWidget {
 class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
   @override
   Widget build(BuildContext context) {
-    final leaderboardState = context.watch<LeaderboardCubit>().state;
+    final LeaderboardState leaderboardState =
+        context.watch<LeaderboardCubit>().state;
     return Column(
       children: [
         Container(
@@ -85,7 +86,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
                     children: [
                       LeaderboardColumns(),
                       Column(
-                        children: widget.players
+                        children: widget.players!
                             .asMap()
                             .entries
                             .map(
@@ -217,21 +218,22 @@ class LeaderboardColumns extends StatelessWidget {
 }
 
 class WebLeaderboardItem extends StatelessWidget {
-  const WebLeaderboardItem({Key key, this.player, this.rank}) : super(key: key);
-  final Wallet player;
-  final int rank;
+  const WebLeaderboardItem({Key? key, this.player, this.rank})
+      : super(key: key);
+  final Wallet? player;
+  final int? rank;
   @override
   Widget build(BuildContext context) {
     final currentUserUid =
-        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+        context.select((HomeCubit cubit) => cubit.state.userWallet?.uid);
     final week = context.watch<LeaderboardCubit>().state.day;
     return InkWell(
       onTap: () {
-        currentUserUid == player.uid
+        currentUserUid == player!.uid
             ? context.read<HomeCubit>().homeChange(4)
             : Navigator.of(context).push<void>(
                 LeaderboardProfile.route(
-                  uid: player.uid,
+                  uid: player!.uid,
                   homeCubit: context.read<HomeCubit>(),
                   week: week,
                 ),
@@ -255,42 +257,42 @@ class WebLeaderboardItem extends StatelessWidget {
             SizedBox(
               width: 120,
               child: Text(
-                '${player.username}',
+                '${player!.username}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 120,
               child: Text(
-                '${player.totalProfit}',
+                '${player!.totalProfit}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 150,
               child: Text(
-                '${player.accountBalance}',
+                '${player!.accountBalance}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 95,
               child: Text(
-                '${player.totalBets}',
+                '${player!.totalBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 140,
               child: Text(
-                '${player.totalBetsWon}',
+                '${player!.totalBetsWon}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 110,
               child: Text(
-                '${player.totalOpenBets}',
+                '${player!.totalOpenBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),

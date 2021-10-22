@@ -14,8 +14,8 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(
-      {@required UserRepository userRepository,
-      @required DeviceRepository deviceRepository})
+      {required UserRepository userRepository,
+      required DeviceRepository deviceRepository})
       : assert(userRepository != null),
         assert(deviceRepository != null),
         _deviceRepository = deviceRepository,
@@ -26,9 +26,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   final UserRepository _userRepository;
   final DeviceRepository _deviceRepository;
-  StreamSubscription _homeDataSubscription;
+  StreamSubscription? _homeDataSubscription;
 
-  Future<void> openHome({@required String uid}) async {
+  Future<void> openHome({required String uid}) async {
     final userStream = _userRepository.fetchUserData(uid: uid);
     final walletStream = _userRepository.fetchWalletData(uid: uid);
     await _homeDataSubscription?.cancel();
@@ -37,7 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
       walletStream,
       (UserData userData, Wallet userWallet) async {
         var askReview = false;
-        if (userWallet.totalBets > 25) {
+        if (userWallet.totalBets! > 25) {
           final shouldAskReview = await _deviceRepository.shouldAskReview();
           if (shouldAskReview) {
             askReview = true;

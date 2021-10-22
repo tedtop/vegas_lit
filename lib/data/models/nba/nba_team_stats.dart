@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NbaTeamStats {
@@ -68,56 +70,56 @@ class NbaTeamStats {
       NbaTeamStats.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NbaTeamStats.fromMap(Map<String, dynamic> json) => NbaTeamStats(
-        statId: json['StatID']?.toInt() as int,
-        teamId: json['TeamID']?.toInt() as int,
-        seasonType: json['SeasonType']?.toInt() as int,
-        season: json['Season']?.toInt() as int,
-        name: json['Name'] as String,
-        team: json['Team'] as String,
-        wins: json['Wins']?.toInt() as int,
-        losses: json['Losses']?.toInt() as int,
+        statId: json['StatID']?.toInt() as int?,
+        teamId: json['TeamID']?.toInt() as int?,
+        seasonType: json['SeasonType']?.toInt() as int?,
+        season: json['Season']?.toInt() as int?,
+        name: json['Name'] as String?,
+        team: json['Team'] as String?,
+        wins: json['Wins']?.toInt() as int?,
+        losses: json['Losses']?.toInt() as int?,
         opponentPosition: json['OpponentPosition'],
-        possessions: json['Possessions']?.toDouble() as double,
-        globalTeamId: json['GlobalTeamID']?.toInt() as int,
+        possessions: json['Possessions']?.toDouble() as double?,
+        globalTeamId: json['GlobalTeamID']?.toInt() as int?,
         updated: DateTime.parse(json['Updated'] as String),
-        games: json['Games']?.toInt() as int,
-        fantasyPoints: json['FantasyPoints']?.toDouble() as double,
-        minutes: json['Minutes']?.toInt() as int,
-        seconds: json['Seconds']?.toInt() as int,
-        fieldGoalsMade: json['FieldGoalsMade']?.toInt() as int,
-        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt() as int,
+        games: json['Games']?.toInt() as int?,
+        fantasyPoints: json['FantasyPoints']?.toDouble() as double?,
+        minutes: json['Minutes']?.toInt() as int?,
+        seconds: json['Seconds']?.toInt() as int?,
+        fieldGoalsMade: json['FieldGoalsMade']?.toInt() as int?,
+        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt() as int?,
         fieldGoalsPercentage:
-            json['FieldGoalsPercentage']?.toDouble() as double,
+            json['FieldGoalsPercentage']?.toDouble() as double?,
         effectiveFieldGoalsPercentage:
-            json['EffectiveFieldGoalsPercentage']?.toDouble() as double,
-        twoPointersMade: json['TwoPointersMade']?.toInt() as int,
-        twoPointersAttempted: json['TwoPointersAttempted']?.toInt() as int,
+            json['EffectiveFieldGoalsPercentage']?.toDouble() as double?,
+        twoPointersMade: json['TwoPointersMade']?.toInt() as int?,
+        twoPointersAttempted: json['TwoPointersAttempted']?.toInt() as int?,
         twoPointersPercentage:
-            json['TwoPointersPercentage']?.toDouble() as double,
-        threePointersMade: json['ThreePointersMade']?.toInt() as int,
-        threePointersAttempted: json['ThreePointersAttempted']?.toInt() as int,
+            json['TwoPointersPercentage']?.toDouble() as double?,
+        threePointersMade: json['ThreePointersMade']?.toInt() as int?,
+        threePointersAttempted: json['ThreePointersAttempted']?.toInt() as int?,
         threePointersPercentage:
-            json['ThreePointersPercentage']?.toDouble() as double,
-        freeThrowsMade: json['FreeThrowsMade']?.toInt() as int,
-        freeThrowsAttempted: json['FreeThrowsAttempted']?.toInt() as int,
+            json['ThreePointersPercentage']?.toDouble() as double?,
+        freeThrowsMade: json['FreeThrowsMade']?.toInt() as int?,
+        freeThrowsAttempted: json['FreeThrowsAttempted']?.toInt() as int?,
         freeThrowsPercentage:
-            json['FreeThrowsPercentage']?.toDouble() as double,
-        offensiveRebounds: json['OffensiveRebounds']?.toInt() as int,
-        defensiveRebounds: json['DefensiveRebounds']?.toInt() as int,
-        rebounds: json['Rebounds']?.toInt() as int,
+            json['FreeThrowsPercentage']?.toDouble() as double?,
+        offensiveRebounds: json['OffensiveRebounds']?.toInt() as int?,
+        defensiveRebounds: json['DefensiveRebounds']?.toInt() as int?,
+        rebounds: json['Rebounds']?.toInt() as int?,
         offensiveReboundsPercentage: json['OffensiveReboundsPercentage'],
         defensiveReboundsPercentage: json['DefensiveReboundsPercentage'],
         totalReboundsPercentage: json['TotalReboundsPercentage'],
-        assists: json['Assists']?.toInt() as int,
-        steals: json['Steals']?.toInt() as int,
-        blockedShots: json['BlockedShots']?.toInt() as int,
-        turnovers: json['Turnovers']?.toInt() as int,
-        personalFouls: json['PersonalFouls']?.toInt() as int,
-        points: json['Points']?.toInt() as int,
+        assists: json['Assists']?.toInt() as int?,
+        steals: json['Steals']?.toInt() as int?,
+        blockedShots: json['BlockedShots']?.toInt() as int?,
+        turnovers: json['Turnovers']?.toInt() as int?,
+        personalFouls: json['PersonalFouls']?.toInt() as int?,
+        points: json['Points']?.toInt() as int?,
         trueShootingAttempts:
-            json['TrueShootingAttempts']?.toDouble() as double,
+            json['TrueShootingAttempts']?.toDouble() as double?,
         trueShootingPercentage:
-            json['TrueShootingPercentage']?.toDouble() as double,
+            json['TrueShootingPercentage']?.toDouble() as double?,
         playerEfficiencyRating: json['PlayerEfficiencyRating'],
         assistsPercentage: json['AssistsPercentage'],
         stealsPercentage: json['StealsPercentage'],
@@ -125,16 +127,16 @@ class NbaTeamStats {
         turnOversPercentage: json['TurnOversPercentage'],
         usageRatePercentage: json['UsageRatePercentage'],
         fantasyPointsFanDuel:
-            json['FantasyPointsFanDuel']?.toDouble() as double,
+            json['FantasyPointsFanDuel']?.toDouble() as double?,
         fantasyPointsDraftKings:
-            json['FantasyPointsDraftKings']?.toDouble() as double,
-        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toDouble() as double,
-        plusMinus: json['PlusMinus']?.toInt() as int,
-        doubleDoubles: json['DoubleDoubles']?.toInt() as int,
-        tripleDoubles: json['TripleDoubles']?.toInt() as int,
+            json['FantasyPointsDraftKings']?.toDouble() as double?,
+        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toDouble() as double?,
+        plusMinus: json['PlusMinus']?.toInt() as int?,
+        doubleDoubles: json['DoubleDoubles']?.toInt() as int?,
+        tripleDoubles: json['TripleDoubles']?.toInt() as int?,
         fantasyPointsFantasyDraft:
-            json['FantasyPointsFantasyDraft']?.toDouble() as double,
-        isClosed: json['IsClosed'] as bool,
+            json['FantasyPointsFantasyDraft']?.toDouble() as double?,
+        isClosed: json['IsClosed'] as bool?,
         lineupConfirmed: json['LineupConfirmed'],
         lineupStatus: json['LineupStatus'],
         opponentStat: json['OpponentStat'] == null
@@ -144,128 +146,128 @@ class NbaTeamStats {
               ),
       );
 
-  final int statId;
-  final int teamId;
-  final int seasonType;
-  final int season;
-  final String name;
-  final String team;
-  final int wins;
-  final int losses;
+  final int? statId;
+  final int? teamId;
+  final int? seasonType;
+  final int? season;
+  final String? name;
+  final String? team;
+  final int? wins;
+  final int? losses;
   final dynamic opponentPosition;
-  final double possessions;
-  final int globalTeamId;
-  final DateTime updated;
-  final int games;
-  final double fantasyPoints;
-  final int minutes;
-  final int seconds;
-  final int fieldGoalsMade;
-  final int fieldGoalsAttempted;
-  final double fieldGoalsPercentage;
-  final double effectiveFieldGoalsPercentage;
-  final int twoPointersMade;
-  final int twoPointersAttempted;
-  final double twoPointersPercentage;
-  final int threePointersMade;
-  final int threePointersAttempted;
-  final double threePointersPercentage;
-  final int freeThrowsMade;
-  final int freeThrowsAttempted;
-  final double freeThrowsPercentage;
-  final int offensiveRebounds;
-  final int defensiveRebounds;
-  final int rebounds;
+  final double? possessions;
+  final int? globalTeamId;
+  final DateTime? updated;
+  final int? games;
+  final double? fantasyPoints;
+  final int? minutes;
+  final int? seconds;
+  final int? fieldGoalsMade;
+  final int? fieldGoalsAttempted;
+  final double? fieldGoalsPercentage;
+  final double? effectiveFieldGoalsPercentage;
+  final int? twoPointersMade;
+  final int? twoPointersAttempted;
+  final double? twoPointersPercentage;
+  final int? threePointersMade;
+  final int? threePointersAttempted;
+  final double? threePointersPercentage;
+  final int? freeThrowsMade;
+  final int? freeThrowsAttempted;
+  final double? freeThrowsPercentage;
+  final int? offensiveRebounds;
+  final int? defensiveRebounds;
+  final int? rebounds;
   final dynamic offensiveReboundsPercentage;
   final dynamic defensiveReboundsPercentage;
   final dynamic totalReboundsPercentage;
-  final int assists;
-  final int steals;
-  final int blockedShots;
-  final int turnovers;
-  final int personalFouls;
-  final int points;
-  final double trueShootingAttempts;
-  final double trueShootingPercentage;
+  final int? assists;
+  final int? steals;
+  final int? blockedShots;
+  final int? turnovers;
+  final int? personalFouls;
+  final int? points;
+  final double? trueShootingAttempts;
+  final double? trueShootingPercentage;
   final dynamic playerEfficiencyRating;
   final dynamic assistsPercentage;
   final dynamic stealsPercentage;
   final dynamic blocksPercentage;
   final dynamic turnOversPercentage;
   final dynamic usageRatePercentage;
-  final double fantasyPointsFanDuel;
-  final double fantasyPointsDraftKings;
-  final double fantasyPointsYahoo;
-  final int plusMinus;
-  final int doubleDoubles;
-  final int tripleDoubles;
-  final double fantasyPointsFantasyDraft;
-  final bool isClosed;
+  final double? fantasyPointsFanDuel;
+  final double? fantasyPointsDraftKings;
+  final double? fantasyPointsYahoo;
+  final int? plusMinus;
+  final int? doubleDoubles;
+  final int? tripleDoubles;
+  final double? fantasyPointsFantasyDraft;
+  final bool? isClosed;
   final dynamic lineupConfirmed;
   final dynamic lineupStatus;
-  final NbaTeamStats opponentStat;
+  final NbaTeamStats? opponentStat;
 
   NbaTeamStats copyWith({
-    int statId,
-    int teamId,
-    int seasonType,
-    int season,
-    String name,
-    String team,
-    int wins,
-    int losses,
+    int? statId,
+    int? teamId,
+    int? seasonType,
+    int? season,
+    String? name,
+    String? team,
+    int? wins,
+    int? losses,
     dynamic opponentPosition,
-    double possessions,
-    int globalTeamId,
-    DateTime updated,
-    int games,
-    double fantasyPoints,
-    int minutes,
-    int seconds,
-    int fieldGoalsMade,
-    int fieldGoalsAttempted,
-    double fieldGoalsPercentage,
-    double effectiveFieldGoalsPercentage,
-    int twoPointersMade,
-    int twoPointersAttempted,
-    double twoPointersPercentage,
-    int threePointersMade,
-    int threePointersAttempted,
-    double threePointersPercentage,
-    int freeThrowsMade,
-    int freeThrowsAttempted,
-    double freeThrowsPercentage,
-    int offensiveRebounds,
-    int defensiveRebounds,
-    int rebounds,
+    double? possessions,
+    int? globalTeamId,
+    DateTime? updated,
+    int? games,
+    double? fantasyPoints,
+    int? minutes,
+    int? seconds,
+    int? fieldGoalsMade,
+    int? fieldGoalsAttempted,
+    double? fieldGoalsPercentage,
+    double? effectiveFieldGoalsPercentage,
+    int? twoPointersMade,
+    int? twoPointersAttempted,
+    double? twoPointersPercentage,
+    int? threePointersMade,
+    int? threePointersAttempted,
+    double? threePointersPercentage,
+    int? freeThrowsMade,
+    int? freeThrowsAttempted,
+    double? freeThrowsPercentage,
+    int? offensiveRebounds,
+    int? defensiveRebounds,
+    int? rebounds,
     dynamic offensiveReboundsPercentage,
     dynamic defensiveReboundsPercentage,
     dynamic totalReboundsPercentage,
-    int assists,
-    int steals,
-    int blockedShots,
-    int turnovers,
-    int personalFouls,
-    int points,
-    double trueShootingAttempts,
-    double trueShootingPercentage,
+    int? assists,
+    int? steals,
+    int? blockedShots,
+    int? turnovers,
+    int? personalFouls,
+    int? points,
+    double? trueShootingAttempts,
+    double? trueShootingPercentage,
     dynamic playerEfficiencyRating,
     dynamic assistsPercentage,
     dynamic stealsPercentage,
     dynamic blocksPercentage,
     dynamic turnOversPercentage,
     dynamic usageRatePercentage,
-    double fantasyPointsFanDuel,
-    double fantasyPointsDraftKings,
-    double fantasyPointsYahoo,
-    int plusMinus,
-    int doubleDoubles,
-    int tripleDoubles,
-    double fantasyPointsFantasyDraft,
-    bool isClosed,
+    double? fantasyPointsFanDuel,
+    double? fantasyPointsDraftKings,
+    double? fantasyPointsYahoo,
+    int? plusMinus,
+    int? doubleDoubles,
+    int? tripleDoubles,
+    double? fantasyPointsFantasyDraft,
+    bool? isClosed,
     dynamic lineupConfirmed,
     dynamic lineupStatus,
-    NbaTeamStats opponentStat,
+    NbaTeamStats? opponentStat,
   }) =>
       NbaTeamStats(
         statId: statId ?? this.statId,
@@ -343,7 +345,7 @@ class NbaTeamStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, Object> toMap() => {
+  Map<String, Object?> toMap() => {
         'StatID': statId,
         'TeamID': teamId,
         'SeasonType': seasonType,
@@ -355,7 +357,7 @@ class NbaTeamStats {
         'OpponentPosition': opponentPosition,
         'Possessions': possessions,
         'GlobalTeamID': globalTeamId,
-        'Updated': updated.toIso8601String(),
+        'Updated': updated!.toIso8601String(),
         'Games': games,
         'FantasyPoints': fantasyPoints,
         'Minutes': minutes,

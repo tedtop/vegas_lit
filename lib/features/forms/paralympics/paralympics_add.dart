@@ -1,3 +1,5 @@
+
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,7 @@ import '../../../data/repositories/sports_repository.dart';
 import 'cubit/paralympics_add_cubit.dart';
 
 class ParalympicsAddForm extends StatefulWidget {
-  ParalympicsAddForm._({Key key}) : super(key: key);
+  ParalympicsAddForm._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route() {
     return MaterialPageRoute<void>(
@@ -37,14 +39,14 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
   var startTime = ESTDateTime.fetchTimeEST();
   final venueController = TextEditingController();
   final eventController = TextEditingController();
-  var eventType = 'normal';
+  String? eventType = 'normal';
 
   final matchCodeController = TextEditingController();
-  String gameName;
+  String? gameName;
   final playerController = TextEditingController();
-  String playerCountry;
+  String? playerCountry;
   final rivalController = TextEditingController();
-  String rivalCountry;
+  String? rivalCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +137,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                 child: TextFormField(
                   controller: eventController,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -176,7 +178,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                       value: value,
                       child: Text(value, style: Styles.normalTextBold));
                 }).toList(),
-                onChanged: (String value) {
+                onChanged: (String? value) {
                   setState(() {
                     eventType = value;
                   });
@@ -187,7 +189,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                   'Game Name',
                   style: Styles.signUpFieldHint,
                 ),
-                validator: (String value) {
+                validator: (String? value) {
                   if (value == null) {
                     return 'Please select a game';
                   }
@@ -224,7 +226,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                       value: value,
                       child: Text(value, style: Styles.normalTextBold));
                 }).toList(),
-                onChanged: (String value) {
+                onChanged: (String? value) {
                   setState(() {
                     gameName = value;
                   });
@@ -235,7 +237,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                 child: TextFormField(
                   controller: playerController,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -285,7 +287,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                       child: ListTile(
                     leading: playerCountry != null
                         ? Text(
-                            countryFlagFromCode(countryCode: playerCountry),
+                            countryFlagFromCode(countryCode: playerCountry!),
                             style: const TextStyle(fontSize: 25),
                           )
                         : Text(
@@ -303,7 +305,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
               TextFormField(
                 controller: rivalController,
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some text';
                   }
                   return null;
@@ -352,7 +354,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                       child: ListTile(
                     leading: rivalCountry != null
                         ? Text(
-                            countryFlagFromCode(countryCode: rivalCountry),
+                            countryFlagFromCode(countryCode: rivalCountry!),
                             style: const TextStyle(fontSize: 25),
                           )
                         : Text(
@@ -398,7 +400,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                     return DefaultButton(
                       text: 'Add Game',
                       action: () {
-                        if (_formKey.currentState.validate() &&
+                        if (_formKey.currentState!.validate() &&
                             playerCountry != null &&
                             rivalCountry != null) {
                           final olympicGame = ParalympicsGame(
@@ -412,7 +414,7 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                             rivalCountry: rivalCountry,
                             startTime: startTime,
                             gameId:
-                                '${gameName.toUpperCase()}-${playerCountry.toUpperCase()}-${rivalCountry.toUpperCase()}-${startTime.toIso8601String()}',
+                                '${gameName!.toUpperCase()}-${playerCountry!.toUpperCase()}-${rivalCountry!.toUpperCase()}-${startTime.toIso8601String()}',
                           );
                           context
                               .read<ParalympicsAddCubit>()
@@ -431,16 +433,16 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
   }
 }
 
-String countryFlagFromCode({String countryCode}) {
+String countryFlagFromCode({required String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),

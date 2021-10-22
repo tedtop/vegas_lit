@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mime/mime.dart';
@@ -9,7 +11,7 @@ class VLImage {
     double width = 100,
     BoxFit fit = BoxFit.fill,
   }) {
-    final mimeStr = lookupMimeType(url);
+    final mimeStr = lookupMimeType(url)!;
     final fileType = mimeStr.split('/');
     if (fileType.last == 'svg+xml') {
       return SvgPicture.network(

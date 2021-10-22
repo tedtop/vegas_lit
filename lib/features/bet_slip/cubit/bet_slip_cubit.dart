@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,9 +15,9 @@ class BetSlipCubit extends Cubit<BetSlipState> {
         );
 
   void openBetSlip({
-    @required List<Widget> singleBetSlipGames,
-    @required List<Widget> parlayBetSlipGames,
-    @required List<BetData> betDataList,
+    required List<Widget> singleBetSlipGames,
+    required List<Widget> parlayBetSlipGames,
+    required List<BetData> betDataList,
   }) async {
     emit(
       BetSlipState.opened(
@@ -27,15 +29,15 @@ class BetSlipCubit extends Cubit<BetSlipState> {
   }
 
   void addBetSlip({
-    @required Widget singleBetSlipCard,
-    @required Widget parlayBetSlipCard,
-    @required BetData betData,
+    required Widget singleBetSlipCard,
+    required Widget parlayBetSlipCard,
+    required BetData betData,
   }) async {
-    final newSingleBetSlipList = List.of(state.singleBetSlipCard)
+    final newSingleBetSlipList = List.of(state.singleBetSlipCard!)
       ..add(singleBetSlipCard);
-    final newParlayBetSlipList = List.of(state.parlayBetSlipCard)
+    final newParlayBetSlipList = List.of(state.parlayBetSlipCard!)
       ..add(parlayBetSlipCard);
-    final newBetDataList = List.of(state.betDataList)..add(betData);
+    final newBetDataList = List.of(state.betDataList!)..add(betData);
     emit(
       BetSlipState.opened(
         singleBetSlipCard: newSingleBetSlipList,
@@ -46,13 +48,13 @@ class BetSlipCubit extends Cubit<BetSlipState> {
   }
 
   void removeBetSlip({
-    @required String betSlipDataId,
+    required String? betSlipDataId,
   }) async {
-    final newSingleBetSlipList = List.of(state.singleBetSlipCard)
-      ..removeWhere((element) => element.key == Key(betSlipDataId));
-    final newParlayBetSlipList = List.of(state.parlayBetSlipCard)
-      ..removeWhere((element) => element.key == Key(betSlipDataId));
-    final newBetDataList = List.of(state.betDataList)
+    final newSingleBetSlipList = List.of(state.singleBetSlipCard!)
+      ..removeWhere((element) => element.key == Key(betSlipDataId!));
+    final newParlayBetSlipList = List.of(state.parlayBetSlipCard!)
+      ..removeWhere((element) => element.key == Key(betSlipDataId!));
+    final newBetDataList = List.of(state.betDataList!)
       ..removeWhere((element) => element.id == betSlipDataId);
     emit(
       BetSlipState.opened(

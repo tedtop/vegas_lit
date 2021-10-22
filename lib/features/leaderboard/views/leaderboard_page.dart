@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,7 @@ import 'adaptive_leaderboard/mobile_leaderboard.dart';
 import 'adaptive_leaderboard/tablet_leaderboard.dart';
 
 class Leaderboard extends StatelessWidget {
-  const Leaderboard._({Key key}) : super(key: key);
+  const Leaderboard._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -64,7 +66,7 @@ class Leaderboard extends StatelessWidget {
 }
 
 class _LeaderboardTopHeading extends StatelessWidget {
-  const _LeaderboardTopHeading({Key key}) : super(key: key);
+  const _LeaderboardTopHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

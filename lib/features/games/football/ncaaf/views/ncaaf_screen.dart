@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +14,7 @@ import 'ncaaf_screen_mobile/ncaaf_screen_mobile.dart';
 import 'ncaaf_screen_tablet/ncaaf_screen_tablet.dart';
 
 class NcaafScreen extends StatelessWidget {
-  const NcaafScreen._({Key key}) : super(key: key);
+  const NcaafScreen._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -42,7 +44,7 @@ class NcaafScreen extends StatelessWidget {
               ),
             );
           default:
-            if (state.games.isEmpty) {
+            if (state.games!.isEmpty) {
               return Column(
                 children: [
                   Padding(

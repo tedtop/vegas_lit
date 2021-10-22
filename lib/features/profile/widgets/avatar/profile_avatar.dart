@@ -1,3 +1,5 @@
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,7 @@ import '../../cubit/profile_cubit.dart';
 import 'cubit/profileavatar_cubit.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar._({Key key}) : super(key: key);
+  const ProfileAvatar._({Key? key}) : super(key: key);
 
   static Widget route() {
     return RepositoryProvider(

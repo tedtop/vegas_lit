@@ -1,3 +1,5 @@
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +26,7 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class TabletLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<LeaderboardProfileCubit>().state;
+    final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -46,13 +48,13 @@ class TabletLeaderboardProfile extends StatelessWidget {
 }
 
 class _TabletHistoryBoard extends StatelessWidget {
-  const _TabletHistoryBoard({Key key}) : super(key: key);
+  const _TabletHistoryBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<LeaderboardProfileCubit>().state;
+        final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
@@ -83,7 +85,7 @@ class _TabletHistoryBoard extends StatelessWidget {
 }
 
 class _TabletHistoryContent extends StatelessWidget {
-  const _TabletHistoryContent({Key key}) : super(key: key);
+  const _TabletHistoryContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +119,7 @@ class _TabletHistoryContent extends StatelessWidget {
 }
 
 class _TabletHistoryList extends StatelessWidget {
-  const _TabletHistoryList({Key key}) : super(key: key);
+  const _TabletHistoryList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +177,7 @@ class _TabletHistoryList extends StatelessWidget {
 
 class _TabletHistoryEmpty extends StatelessWidget {
   const _TabletHistoryEmpty({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -192,7 +194,7 @@ class _TabletHistoryEmpty extends StatelessWidget {
 }
 
 class _TabletHistoryHeading extends StatelessWidget {
-  const _TabletHistoryHeading({Key key}) : super(key: key);
+  const _TabletHistoryHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -210,11 +212,11 @@ class _TabletHistoryHeading extends StatelessWidget {
         constraints: const BoxConstraints(minWidth: 380, maxWidth: 600),
         child: Row(
           children: [
-            if (betHistoryState.userWallet.avatarUrl != null)
+            if (betHistoryState.userWallet!.avatarUrl != null)
               CircleAvatar(
                 radius: 50,
                 backgroundImage: CachedNetworkImageProvider(
-                  betHistoryState.userWallet.avatarUrl,
+                  betHistoryState.userWallet!.avatarUrl!,
                 ), //Image for web configuration.
               )
             else
@@ -227,7 +229,7 @@ class _TabletHistoryHeading extends StatelessWidget {
                     height: 100,
                     width: 100,
                     child: Text(
-                      betHistoryState.userWallet.username
+                      betHistoryState.userWallet!.username!
                           .substring(0, 1)
                           .toUpperCase(),
                       style: GoogleFonts.nunito(
@@ -243,7 +245,7 @@ class _TabletHistoryHeading extends StatelessWidget {
                   ? Container(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        '${betHistoryState.userWallet.username}',
+                        '${betHistoryState.userWallet!.username}',
                         style: Styles.pageTitle,
                         softWrap: true,
                         overflow: TextOverflow.clip,

@@ -1,25 +1,27 @@
+
+
 import 'package:flutter/material.dart';
 import '../../../../../../data/models/nba/nba_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNbaScreen extends StatelessWidget {
   MobileNbaScreen({
-    @required this.gameName,
-    @required this.games,
-    @required this.parsedTeamData,
+    required this.gameName,
+    required this.games,
+    required this.parsedTeamData,
   });
-  final List<NbaGame> games;
+  final List<NbaGame>? games;
   final String gameName;
-  final List parsedTeamData;
+  final List? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
-      itemCount: games.length,
+      itemCount: games!.length,
       itemBuilder: (context, index) {
         return MatchupCard.route(
-          game: games[index],
+          game: games![index],
           gameName: gameName,
           parsedTeamData: parsedTeamData,
         );

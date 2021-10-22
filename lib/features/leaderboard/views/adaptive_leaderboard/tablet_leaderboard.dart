@@ -14,7 +14,7 @@ import '../../widgets/textbar.dart';
 
 class TabletLeaderboard extends StatefulWidget {
   TabletLeaderboard({this.players});
-  final List<Wallet> players;
+  final List<Wallet>? players;
   @override
   _TabletLeaderboardState createState() => _TabletLeaderboardState();
 }
@@ -22,7 +22,8 @@ class TabletLeaderboard extends StatefulWidget {
 class _TabletLeaderboardState extends State<TabletLeaderboard> {
   @override
   Widget build(BuildContext context) {
-    final leaderboardState = context.watch<LeaderboardCubit>().state;
+    final LeaderboardState leaderboardState =
+        context.watch<LeaderboardCubit>().state;
     return Column(
       children: [
         Row(
@@ -62,7 +63,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
             mainAxisSpacing: 20,
             shrinkWrap: true,
             childAspectRatio: 3.7,
-            children: widget.players
+            children: widget.players!
                 .asMap()
                 .entries
                 .map((entry) => TabletLeaderboardTile(
@@ -87,14 +88,14 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
 }
 
 class TabletLeaderboardTile extends StatelessWidget {
-  TabletLeaderboardTile({@required this.player, @required this.rank});
+  TabletLeaderboardTile({required this.player, required this.rank});
   final Wallet player;
   final int rank;
 
   @override
   Widget build(BuildContext context) {
     final currentUserUid =
-        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+        context.select((HomeCubit cubit) => cubit.state.userWallet?.uid);
     final week = context.watch<LeaderboardCubit>().state.day;
     return Container(
       width: 380,
@@ -127,7 +128,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                 ? CircleAvatar(
                     radius: 25,
                     backgroundImage: CachedNetworkImageProvider(
-                      player.avatarUrl,
+                      player.avatarUrl!,
                     ), //Image for web configuration.
                   )
                 : CircleAvatar(
@@ -139,7 +140,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                         height: 50.0,
                         width: 50.0,
                         child: Text(
-                            player.username.substring(0, 1).toUpperCase(),
+                            player.username!.substring(0, 1).toUpperCase(),
                             style: Styles.leaderboardUsername),
                       ),
                     ),
@@ -152,7 +153,7 @@ class TabletLeaderboardTile extends StatelessWidget {
                   style: Styles.normalTextBold,
                 ),
                 Text(
-                  '${player.accountBalance + player.pendingRiskedAmount}',
+                  '${player.accountBalance! + player.pendingRiskedAmount!}',
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.green,
@@ -170,8 +171,8 @@ class TabletLeaderboardTile extends StatelessWidget {
                 ),
                 Text(
                   leaderboardWinningBetsRatio(
-                    player.totalBetsWon,
-                    player.totalBetsLost,
+                    player.totalBetsWon!,
+                    player.totalBetsLost!,
                   ),
                   style: Styles.awayTeam,
                 ),

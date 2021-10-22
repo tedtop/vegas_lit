@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +39,7 @@ class TabletOpenBets extends StatelessWidget {
 }
 
 class _TabletOpenBetsHeading extends StatelessWidget {
-  const _TabletOpenBetsHeading({Key key}) : super(key: key);
+  const _TabletOpenBetsHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class _TabletOpenBetsHeading extends StatelessWidget {
 }
 
 class _TabletOpenBetsDescription extends StatelessWidget {
-  const _TabletOpenBetsDescription({Key key}) : super(key: key);
+  const _TabletOpenBetsDescription({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,7 @@ class _TabletOpenBetsDescription extends StatelessWidget {
 }
 
 class _TabletOpenBetsContent extends StatelessWidget {
-  const _TabletOpenBetsContent({Key key}) : super(key: key);
+  const _TabletOpenBetsContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +132,7 @@ class _TabletOpenBetsContent extends StatelessWidget {
 }
 
 class _TabletOpenBetsContentList extends StatelessWidget {
-  const _TabletOpenBetsContentList({Key key}) : super(key: key);
+  const _TabletOpenBetsContentList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +190,7 @@ class _TabletOpenBetsContentList extends StatelessWidget {
 }
 
 class _TabletOpenBetsContentEmpty extends StatelessWidget {
-  const _TabletOpenBetsContentEmpty({Key key}) : super(key: key);
+  const _TabletOpenBetsContentEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

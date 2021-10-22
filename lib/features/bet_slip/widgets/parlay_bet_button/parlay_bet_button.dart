@@ -17,16 +17,16 @@ import 'package:vegas_lit/features/home/home.dart';
 import '../../bet_slip.dart';
 
 class ParlayBetSlipButton extends StatelessWidget {
-  ParlayBetSlipButton._({Key key, @required this.betList}) : super(key: key);
+  ParlayBetSlipButton._({Key? key, required this.betList}) : super(key: key);
 
   static Builder route({
-    @required List<BetData> betDataList,
+    required List<BetData>? betDataList,
   }) {
     return Builder(
       builder: (context) {
-        final uid = context.watch<HomeCubit>().state.userData.uid;
+        final uid = context.watch<HomeCubit>().state.userData!.uid;
         context.read<ParlayBetButtonCubit>().openParlay(
-              betDataList: betDataList,
+              betDataList: betDataList!,
               league: 'Parlay',
               uid: uid,
             );
@@ -37,14 +37,14 @@ class ParlayBetSlipButton extends StatelessWidget {
     );
   }
 
-  final List<BetData> betList;
+  final List<BetData>? betList;
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
         final isMinimumVersion = context
-            .select((VersionCubit cubit) => cubit?.state?.isMinimumVersion);
+            .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
         final betButtonState = context.watch<ParlayBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
@@ -52,18 +52,18 @@ class ParlayBetSlipButton extends StatelessWidget {
         );
         final username = context.select(
           (HomeCubit authenticationBloc) =>
-              authenticationBloc.state.userData.username,
+              authenticationBloc.state.userData!.username,
         );
 
-        final balanceAmount = context.select(
-            (HomeCubit homeCubit) => homeCubit.state.userWallet.accountBalance);
+        final balanceAmount = context.select((HomeCubit homeCubit) =>
+            homeCubit.state.userWallet!.accountBalance);
 
         return BlocListener<BetSlipCubit, BetSlipState>(
           listener: (context, state) async {
             if (state.status == BetSlipStatus.opened) {
               await context.read<ParlayBetButtonCubit>().openParlay(
                     league: 'Parlay',
-                    betDataList: state.betDataList,
+                    betDataList: state.betDataList!,
                     uid: currentUserId,
                   );
             }
@@ -236,20 +236,20 @@ class ParlayBetSlipButton extends StatelessWidget {
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
   BetAmountPage({
-    Key key,
-    @required this.betAmount,
-    @required this.betList,
+    Key? key,
+    required this.betAmount,
+    required this.betList,
   }) : super(key: key);
 
   final int betAmount;
-  final List<BetData> betList;
+  final List<BetData>? betList;
 
   @override
   _BetAmountPageState createState() => _BetAmountPageState();
 }
 
 class _BetAmountPageState extends State<BetAmountPage> {
-  int newBetAmount;
+  int? newBetAmount;
   final carouselController = CarouselController();
 
   @override
@@ -333,7 +333,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
                       carouselController: carouselController,
                       options: CarouselOptions(
                         initialPage: newBetAmount != null
-                            ? betValues.indexOf(newBetAmount)
+                            ? betValues.indexOf(newBetAmount!)
                             : betValues.indexOf(widget.betAmount),
                         scrollDirection: Axis.vertical,
                         viewportFraction: 0.36,
@@ -347,7 +347,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
                           context.read<ParlayBetButtonCubit>().updateBetAmount(
                                 betAmount: betValues[i],
-                                betList: widget.betList,
+                                betList: widget.betList!,
                               );
                         },
                       ),
@@ -430,7 +430,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
   }
 }
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
+String getRemainingTimeText({required CurrentRemainingTime time}) {
   final days = time.days == null ? '' : '${time.days}d ';
   final hours = time.hours == null ? '' : '${time.hours}hr';
   final min = time.min == null ? '' : ' ${time.min}m';
@@ -454,9 +454,9 @@ String whichBetSystemFromEnum(Bet betType) {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),
@@ -501,8 +501,8 @@ class DefaultButton extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

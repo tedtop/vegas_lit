@@ -1,3 +1,5 @@
+
+
 part of 'sportsbook_bloc.dart';
 
 enum SportsbookStatus {
@@ -26,16 +28,16 @@ class SportsbookState extends Equatable {
   });
 
   const SportsbookState.initial({
-    @required bool isRulesShown,
+    required bool isRulesShown,
   }) : this._(
           isRulesShown: isRulesShown,
         );
 
   const SportsbookState.opened({
-    @required String league,
-    @required Map<String, String> gameNumbers,
-    @required DateTime estTimeZone,
-    @required bool isRulesShown,
+    required String? league,
+    required Map<String, String> gameNumbers,
+    required DateTime? estTimeZone,
+    required bool isRulesShown,
   }) : this._(
           league: league,
           gameNumbers: gameNumbers,
@@ -44,14 +46,14 @@ class SportsbookState extends Equatable {
           isRulesShown: isRulesShown,
         );
 
-  final String league;
+  final String? league;
   final Map<String, String> gameNumbers;
-  final DateTime estTimeZone;
+  final DateTime? estTimeZone;
   final bool isRulesShown;
   final SportsbookStatus status;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       league,
       gameNumbers,

@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,7 @@ import '../../../../../../data/repositories/bets_repository.dart';
 part 'paralympics_bet_button_state.dart';
 
 class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
-  ParalympicsBetButtonCubit({@required BetsRepository betsRepository})
+  ParalympicsBetButtonCubit({required BetsRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
@@ -25,14 +27,14 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
   final BetsRepository _betsRepository;
 
   void openBetButton({
-    @required ParalympicsGame game,
-    @required String uid,
-    @required BetButtonWin winTeam,
-    @required String league,
+    required ParalympicsGame game,
+    required String? uid,
+    required BetButtonWin winTeam,
+    required String league,
   }) {
     final winTeamString = winTeam == BetButtonWin.player ? 'player' : 'rival';
     final gameStartTimeFormat =
-        DateFormat('yyyy-MM-dd-hh-mm').format(game.startTime);
+        DateFormat('yyyy-MM-dd-hh-mm').format(game.startTime!);
 
     final uniqueId =
         '${league.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
@@ -79,15 +81,15 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
   }
 
   Future<void> placeBet({
-    @required bool isMinimumVersion,
-    @required ParalympicsBetButtonState betButtonState,
-    @required BuildContext context,
-    @required int balanceAmount,
-    @required String username,
-    @required String currentUserId,
+    required bool isMinimumVersion,
+    required ParalympicsBetButtonState betButtonState,
+    required BuildContext context,
+    required int? balanceAmount,
+    required String? username,
+    required String? currentUserId,
   }) async {
     if (isMinimumVersion) {
-      if (betButtonState.game.startTime.isBefore(ESTDateTime.fetchTimeEST())) {
+      if (betButtonState.game!.startTime!.isBefore(ESTDateTime.fetchTimeEST())) {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(
@@ -102,7 +104,7 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
         if (betButtonState.betAmount != null &&
             betButtonState.betAmount != 0 &&
             betButtonState.toWinAmount != 0) {
-          if (balanceAmount - betButtonState.betAmount < 0) {
+          if (balanceAmount! - betButtonState.betAmount < 0) {
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
               ..showSnackBar(
@@ -123,8 +125,8 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
                   betsData: ParalympicsBetData(
                     username: username,
                     betAmount: betButtonState.betAmount,
-                    isClosed: betButtonState.game.isClosed,
-                    league: betButtonState.league.toLowerCase(),
+                    isClosed: betButtonState.game!.isClosed,
+                    league: betButtonState.league!.toLowerCase(),
                     id: betButtonState.uniqueId,
                     betProfit: betButtonState.toWinAmount,
                     uid: currentUserId,
@@ -132,18 +134,18 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
                     week: ESTDateTime.fetchTimeEST().weekStringVL,
                     clientVersion: await _getAppVersion(),
                     dataProvider: 'paralympics.com',
-                    gameName: state.game.gameName,
-                    playerName: state.game.player,
-                    rivalCountry: state.game.rivalCountry,
-                    rivalName: state.game.rival,
-                    eventType: state.game.eventType,
+                    gameName: state.game!.gameName,
+                    playerName: state.game!.player,
+                    rivalCountry: state.game!.rivalCountry,
+                    rivalName: state.game!.rival,
+                    eventType: state.game!.eventType,
                     betTeam: state.winTeam == BetButtonWin.player
                         ? 'player'
                         : 'rival',
-                    event: state.game.event,
-                    gameId: state.game.gameId,
-                    playerCountry: state.game.playerCountry,
-                    gameStartDateTime: state.game.startTime.toString(),
+                    event: state.game!.event,
+                    gameId: state.game!.gameId,
+                    playerCountry: state.game!.playerCountry,
+                    gameStartDateTime: state.game!.startTime.toString(),
                     winner: null,
                   ),
                   currentUserId: currentUserId,
@@ -170,9 +172,9 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
   }
 
   Future<void> updateOpenBets({
-    @required String currentUserId,
-    @required BetData betsData,
-    @required int betAmount,
+    required String? currentUserId,
+    required BetData betsData,
+    required int betAmount,
   }) async {
     await _betsRepository.saveBet(
       uid: currentUserId,
@@ -181,13 +183,13 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
     );
   }
 
-  void updateBetAmount({@required int toWinAmount, @required int betAmount}) {
+  void updateBetAmount({required int toWinAmount, required int? betAmount}) {
     emit(
       state.copyWith(betAmount: betAmount, toWinAmount: toWinAmount),
     );
   }
 
-  int toWinAmountCalculation({@required int odds, @required int betAmount}) {
+  int toWinAmountCalculation({required int odds, required int betAmount}) {
     if (odds.isNegative) {
       final toWinAmount = (100 / odds * betAmount).round().abs();
       return toWinAmount;

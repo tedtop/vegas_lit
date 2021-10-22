@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +17,12 @@ import 'adaptive_bet_history/mobile_leaderboard_profile.dart';
 import 'adaptive_bet_history/tablet_leaderboard_profile.dart';
 
 class LeaderboardProfile extends StatefulWidget {
-  const LeaderboardProfile._({Key key}) : super(key: key);
+  const LeaderboardProfile._({Key? key}) : super(key: key);
 
   static Route route({
-    @required String uid,
-    @required HomeCubit homeCubit,
-    @required String week,
+    required String? uid,
+    required HomeCubit homeCubit,
+    required String week,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider.value(

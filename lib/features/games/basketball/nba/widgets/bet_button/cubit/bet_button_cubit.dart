@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ import '../../../models/nba_team.dart';
 part 'bet_button_state.dart';
 
 class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
-  NbaBetButtonCubit({@required BetsRepository betsRepository})
+  NbaBetButtonCubit({required BetsRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
@@ -29,27 +31,27 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
 
   final BetsRepository _betsRepository;
   void openBetButton({
-    @required String text,
-    @required NbaGame game,
-    @required Bet betType,
-    @required String uid,
-    @required String mainOdds,
-    @required BetButtonWin winTeam,
-    @required double spread,
-    @required NbaTeam awayTeamData,
-    @required String league,
-    @required NbaTeam homeTeamData,
+    required String text,
+    required NbaGame game,
+    required Bet betType,
+    required String? uid,
+    required String mainOdds,
+    required BetButtonWin winTeam,
+    required double spread,
+    required NbaTeam awayTeamData,
+    required String league,
+    required NbaTeam homeTeamData,
   }) {
     final winTeamString = winTeam == BetButtonWin.away ? 'away' : 'home';
     final gameStartTimeFormat =
-        DateFormat('yyyy-MM-dd-hh-mm').format(game.dateTime);
+        DateFormat('yyyy-MM-dd-hh-mm').format(game.dateTime!);
     final betTypeString = betType == Bet.ml
         ? 'ml'
         : betType == Bet.pts
             ? 'pts'
             : 'tot';
     final uniqueId =
-        '${league.toUpperCase()}-${game.awayTeam.toUpperCase()}-${game.homeTeam.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
+        '${league.toUpperCase()}-${game.awayTeam!.toUpperCase()}-${game.homeTeam!.toUpperCase()}-${betTypeString.toUpperCase()}-${winTeamString.toUpperCase()}-${game.gameId}-${gameStartTimeFormat.toUpperCase()}-$uid';
 
     final toWinAmount =
         toWinAmountCalculation(odds: mainOdds, betAmount: state.betAmount);
@@ -75,41 +77,41 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
   }
 
   Future<void> clickBetButton({
-    @required BetSlipCubit betSlipCubit,
-    @required NbaBetButtonCubit nbaBetButtonCubit,
-    @required String username,
+    required BetSlipCubit betSlipCubit,
+    required NbaBetButtonCubit nbaBetButtonCubit,
+    required String? username,
   }) async {
     final appVersion = await _getAppVersion();
-    final betSlipListExists = betSlipCubit.state.betDataList
+    final betSlipListExists = betSlipCubit.state.betDataList!
         .where((element) => element.id == state.uniqueId);
     if (betSlipListExists.isEmpty) {
       betSlipCubit.addBetSlip(
         betData: NbaBetData(
           stillOpen: false,
           username: username,
-          homeTeamCity: state.homeTeamData.city,
-          awayTeamCity: state.awayTeamData.city,
+          homeTeamCity: state.homeTeamData!.city,
+          awayTeamCity: state.awayTeamData!.city,
           betAmount: state.betAmount,
-          gameId: state.game.gameId,
-          isClosed: state.game.isClosed,
-          homeTeam: state.game.homeTeam,
-          awayTeam: state.game.awayTeam,
+          gameId: state.game!.gameId,
+          isClosed: state.game!.isClosed,
+          homeTeam: state.game!.homeTeam,
+          awayTeam: state.game!.awayTeam,
           winningTeam: null,
           winningTeamName: null,
-          status: state.game.status,
+          status: state.game!.status,
           league: state.league,
-          betOverUnder: state.game.overUnder,
-          betPointSpread: state.game.pointSpread,
-          awayTeamName: state.awayTeamData.name,
-          homeTeamName: state.homeTeamData.name,
+          betOverUnder: state.game!.overUnder,
+          betPointSpread: state.game!.pointSpread,
+          awayTeamName: state.awayTeamData!.name,
+          homeTeamName: state.homeTeamData!.name,
           totalGameScore: null,
           id: state.uniqueId,
           betType: whichBetSystemToSave(betType: state.betType),
-          odds: int.parse(state.mainOdds),
+          odds: int.parse(state.mainOdds!),
           betProfit: state.toWinAmount,
-          gameStartDateTime: state.game.dateTime.toString(),
-          awayTeamScore: state.game.awayTeamScore as int,
-          homeTeamScore: state.game.homeTeamScore as int,
+          gameStartDateTime: state.game!.dateTime.toString(),
+          awayTeamScore: state.game!.awayTeamScore as int?,
+          homeTeamScore: state.game!.homeTeamScore as int?,
           uid: state.uid,
           betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
           dateTime: ESTDateTime.fetchTimeEST().toString(),
@@ -118,12 +120,12 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
           dataProvider: 'sportsdata.io',
         ),
         singleBetSlipCard: BlocProvider.value(
-          key: Key(state.uniqueId),
+          key: Key(state.uniqueId!),
           value: nbaBetButtonCubit,
           child: NbaSingleBetSlipCard(),
         ),
         parlayBetSlipCard: BlocProvider.value(
-          key: Key(state.uniqueId),
+          key: Key(state.uniqueId!),
           value: nbaBetButtonCubit,
           child: NbaParlayBetSlipCard(),
         ),
@@ -141,12 +143,12 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
   }
 
   Future<void> placeBet({
-    @required bool isMinimumVersion,
-    @required NbaBetButtonState betButtonState,
-    @required BuildContext context,
-    @required int balanceAmount,
-    @required String username,
-    @required String currentUserId,
+    required bool? isMinimumVersion,
+    required NbaBetButtonState betButtonState,
+    required BuildContext context,
+    required int? balanceAmount,
+    required String? username,
+    required String? currentUserId,
   }) async {
     emit(state.copyWith(status: NbaBetButtonStatus.placing));
     final isBetExists = await _betsRepository.isBetExist(
@@ -165,7 +167,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
           ),
         );
     } else {
-      if (!isMinimumVersion) {
+      if (!isMinimumVersion!) {
         emit(state.copyWith(status: NbaBetButtonStatus.clicked));
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
@@ -178,7 +180,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
             ),
           );
       } else {
-        if (betButtonState.game.dateTime.isBefore(ESTDateTime.fetchTimeEST())) {
+        if (betButtonState.game!.dateTime!.isBefore(ESTDateTime.fetchTimeEST())) {
           emit(state.copyWith(status: NbaBetButtonStatus.clicked));
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
@@ -206,7 +208,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
                 ),
               );
           } else {
-            if (balanceAmount - betButtonState.betAmount < 0) {
+            if (balanceAmount! - betButtonState.betAmount < 0) {
               emit(state.copyWith(status: NbaBetButtonStatus.clicked));
               ScaffoldMessenger.of(context)
                 ..removeCurrentSnackBar()
@@ -225,31 +227,31 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
                     betsData: NbaBetData(
                       stillOpen: false,
                       username: username,
-                      homeTeamCity: betButtonState.homeTeamData.city,
-                      awayTeamCity: betButtonState.awayTeamData.city,
+                      homeTeamCity: betButtonState.homeTeamData!.city,
+                      awayTeamCity: betButtonState.awayTeamData!.city,
                       betAmount: betButtonState.betAmount,
-                      gameId: betButtonState.game.gameId,
-                      isClosed: betButtonState.game.isClosed,
-                      homeTeam: betButtonState.game.homeTeam,
-                      awayTeam: betButtonState.game.awayTeam,
+                      gameId: betButtonState.game!.gameId,
+                      isClosed: betButtonState.game!.isClosed,
+                      homeTeam: betButtonState.game!.homeTeam,
+                      awayTeam: betButtonState.game!.awayTeam,
                       winningTeam: null,
                       winningTeamName: null,
-                      status: betButtonState.game.status,
+                      status: betButtonState.game!.status,
                       league: betButtonState.league,
-                      betOverUnder: betButtonState.game.overUnder,
-                      betPointSpread: betButtonState.game.pointSpread,
-                      awayTeamName: betButtonState.awayTeamData.name,
-                      homeTeamName: betButtonState.homeTeamData.name,
+                      betOverUnder: betButtonState.game!.overUnder,
+                      betPointSpread: betButtonState.game!.pointSpread,
+                      awayTeamName: betButtonState.awayTeamData!.name,
+                      homeTeamName: betButtonState.homeTeamData!.name,
                       totalGameScore: null,
                       id: betButtonState.uniqueId,
                       betType:
                           whichBetSystemToSave(betType: betButtonState.betType),
-                      odds: int.parse(betButtonState.mainOdds),
+                      odds: int.parse(betButtonState.mainOdds!),
                       betProfit: betButtonState.toWinAmount,
                       gameStartDateTime:
-                          betButtonState.game.dateTime.toString(),
-                      awayTeamScore: betButtonState.game.awayTeamScore as int,
-                      homeTeamScore: betButtonState.game.homeTeamScore as int,
+                          betButtonState.game!.dateTime.toString(),
+                      awayTeamScore: betButtonState.game!.awayTeamScore as int?,
+                      homeTeamScore: betButtonState.game!.homeTeamScore as int?,
                       uid: currentUserId,
                       betTeam: betButtonState.winTeam == BetButtonWin.home
                           ? 'home'
@@ -270,9 +272,9 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
   }
 
   Future<void> updateOpenBets({
-    @required String currentUserId,
-    @required BetData betsData,
-    @required int betAmount,
+    required String? currentUserId,
+    required BetData betsData,
+    required int betAmount,
   }) async {
     await _betsRepository.saveBet(
       uid: currentUserId,
@@ -281,13 +283,13 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
     );
   }
 
-  void updateBetAmount({@required int toWinAmount, @required int betAmount}) {
+  void updateBetAmount({required int toWinAmount, required int? betAmount}) {
     emit(
       state.copyWith(betAmount: betAmount, toWinAmount: toWinAmount),
     );
   }
 
-  int toWinAmountCalculation({@required String odds, @required int betAmount}) {
+  int toWinAmountCalculation({required String odds, required int betAmount}) {
     if (int.parse(odds).isNegative) {
       final toWinAmount = (100 / int.parse(odds) * betAmount).round().abs();
       return toWinAmount;
@@ -302,7 +304,7 @@ class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
     return packageInfo.version;
   }
 
-  String whichBetSystemToSave({@required Bet betType}) {
+  String whichBetSystemToSave({required Bet? betType}) {
     if (betType == Bet.ml) {
       return 'moneyline';
     }

@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../../../../config/extensions.dart';
@@ -8,9 +10,9 @@ part 'player_details_state.dart';
 
 class PlayerDetailsCubit extends Cubit<PlayerDetailsState> {
   PlayerDetailsCubit({this.sportsRepository}) : super(PlayerDetailsInitial());
-  final SportsRepository sportsRepository;
-  void getPlayerDetails({String playerId}) async {
-    final playerStats = await sportsRepository.fetchNFLPlayerStats(
+  final SportsRepository? sportsRepository;
+  void getPlayerDetails({String? playerId}) async {
+    final playerStats = await sportsRepository!.fetchNFLPlayerStats(
         playerId: playerId, dateTime: ESTDateTime.fetchTimeEST());
     emit(PlayerDetailsOpened(playerStats));
   }

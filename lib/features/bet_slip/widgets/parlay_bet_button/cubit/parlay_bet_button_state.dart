@@ -1,3 +1,5 @@
+
+
 part of 'parlay_bet_button_cubit.dart';
 
 enum ParlayBetButtonStatus {
@@ -21,13 +23,13 @@ class ParlayBetButtonState extends Equatable {
   final ParlayBetButtonStatus status;
   final int betAmount;
   final int toWinAmount;
-  final String league;
-  final String uid;
+  final String? league;
+  final String? uid;
   final List<BetData> betList;
-  final String uniqueId;
+  final String? uniqueId;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       status,
       betAmount,
@@ -40,13 +42,13 @@ class ParlayBetButtonState extends Equatable {
   }
 
   ParlayBetButtonState copyWith({
-    ParlayBetButtonStatus status,
-    int betAmount,
-    int toWinAmount,
-    String league,
-    String uid,
-    List<BetData> betList,
-    String uniqueId,
+    ParlayBetButtonStatus? status,
+    int? betAmount,
+    int? toWinAmount,
+    String? league,
+    String? uid,
+    List<BetData>? betList,
+    String? uniqueId,
   }) {
     return ParlayBetButtonState(
       status: status ?? this.status,

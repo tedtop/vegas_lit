@@ -1,8 +1,10 @@
+
+
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/extensions.dart';
 
 class SharedPreferencesClient {
-  SharedPreferences _sharedPreferences;
+  late SharedPreferences _sharedPreferences;
 
   static Future<SharedPreferencesClient> create() async {
     final component = SharedPreferencesClient();

@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -8,7 +10,7 @@ import '../../../../../data/repositories/user_repository.dart';
 part 'user_search_state.dart';
 
 class UserSearchCubit extends Cubit<UserSearchState> {
-  UserSearchCubit({@required UserRepository userRepository})
+  UserSearchCubit({required UserRepository userRepository})
       : assert(userRepository != null),
         _userRepository = userRepository,
         super(
@@ -17,7 +19,7 @@ class UserSearchCubit extends Cubit<UserSearchState> {
 
   final UserRepository _userRepository;
 
-  Future<void> searchUserResults({@required String query}) async {
+  Future<void> searchUserResults({required String query}) async {
     emit(
       const UserSearchState(
         status: UserSearchStatus.loading,
@@ -41,7 +43,7 @@ class UserSearchCubit extends Cubit<UserSearchState> {
     }
   }
 
-  Future<void> searchUserSuggestions({@required String query}) async {
+  Future<void> searchUserSuggestions({required String query}) async {
     emit(
       const UserSearchState(
         status: UserSearchStatus.loading,

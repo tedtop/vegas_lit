@@ -1,14 +1,16 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class UserData extends Equatable {
   const UserData({
-    @required this.uid,
-    @required this.username,
-    @required this.email,
-    @required this.location,
-    @required this.groups,
+    required this.uid,
+    required this.username,
+    required this.email,
+    required this.location,
+    required this.groups,
     this.isAdmin,
     this.avatarUrl,
   });
@@ -16,17 +18,17 @@ class UserData extends Equatable {
   factory UserData.fromFirestore(DocumentSnapshot documentSnapshot) {
     final data = documentSnapshot.data() as Map;
     return UserData(
-        groups: data['groups'] != null ? data['groups'] as List : <String>[],
-        isAdmin: data['isAdmin'] as bool ?? false,
-        uid: data['uid'] as String,
-        email: data['email'] as String,
-        username: data['username'] as String,
-        location: data['location'] as String,
+        groups: data['groups'] != null ? data['groups'] as List? : <String>[],
+        isAdmin: data['isAdmin'] as bool? ?? false,
+        uid: data['uid'] as String?,
+        email: data['email'] as String?,
+        username: data['username'] as String?,
+        location: data['location'] as String?,
         avatarUrl:
-            data['avatarUrl'] != null ? data['avatarUrl'] as String : null);
+            data['avatarUrl'] != null ? data['avatarUrl'] as String? : null);
   }
 
-  Map<String, Object> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'email': email,
       'username': username,
@@ -38,26 +40,26 @@ class UserData extends Equatable {
     };
   }
 
-  final String uid;
-  final String username;
-  final String email;
-  final String location;
-  final bool isAdmin;
-  final List groups;
-  final String avatarUrl;
+  final String? uid;
+  final String? username;
+  final String? email;
+  final String? location;
+  final bool? isAdmin;
+  final List? groups;
+  final String? avatarUrl;
 
   @override
-  List<Object> get props =>
+  List<Object?> get props =>
       [uid, username, email, location, isAdmin, avatarUrl, groups];
 
   UserData copyWith({
-    String uid,
-    List groups,
-    String username,
-    String email,
-    String location,
-    bool isAdmin,
-    String avatarUrl,
+    String? uid,
+    List? groups,
+    String? username,
+    String? email,
+    String? location,
+    bool? isAdmin,
+    String? avatarUrl,
   }) {
     return UserData(
       groups: groups ?? this.groups,

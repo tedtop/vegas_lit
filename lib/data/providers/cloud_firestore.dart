@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -21,14 +23,14 @@ import '../models/vault_data.dart';
 import '../models/wallet.dart';
 
 class CloudFirestoreClient {
-  CloudFirestoreClient({FirebaseFirestore firebaseFirestore})
+  CloudFirestoreClient({FirebaseFirestore? firebaseFirestore})
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firebaseFirestore;
 
   Future<void> saveUserDetails({
-    @required UserData user,
-    @required String uid,
+    required UserData user,
+    required String uid,
   }) async {
     final userDetailsWriteBatch = _firebaseFirestore.batch();
     final userReference = _firebaseFirestore.collection('users').doc(uid);
@@ -58,7 +60,7 @@ class CloudFirestoreClient {
   }
 
   Future<void> updateUserDetails(
-      {@required UserData user, @required String uid}) async {
+      {required UserData user, required String uid}) async {
     final userDetailsUpdateBatch = _firebaseFirestore.batch();
     final userReference = _firebaseFirestore.collection('users').doc(uid);
     final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
@@ -69,18 +71,18 @@ class CloudFirestoreClient {
     await userDetailsUpdateBatch.commit();
   }
 
-  Future<bool> isProfileComplete({@required String uid}) async {
+  Future<bool> isProfileComplete({required String uid}) async {
     final snapshot =
         await _firebaseFirestore.collection('users').doc(uid).get();
 
     final isProfileComplete = snapshot != null &&
         snapshot.exists &&
-        snapshot.data().containsKey('uid');
+        snapshot.data()!.containsKey('uid');
     return isProfileComplete;
   }
 
   Future<void> updateUserAvatar(
-      {@required String avatarUrl, @required String uid}) async {
+      {required String avatarUrl, required String? uid}) async {
     final userAvatarUpdateBatch = _firebaseFirestore.batch();
     final userReference = _firebaseFirestore.collection('users').doc(uid);
     final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
@@ -93,7 +95,7 @@ class CloudFirestoreClient {
     await userAvatarUpdateBatch.commit();
   }
 
-  Stream<List<BetData>> fetchOpenBets({@required String uid}) {
+  Stream<List<BetData>> fetchOpenBets({required String uid}) {
     final openBetsData = _firebaseFirestore
         .collection('bets')
         .where('uid', isEqualTo: uid)
@@ -103,7 +105,7 @@ class CloudFirestoreClient {
         .map(
           (event) => event.docs.map(
             (snapshot) {
-              switch (snapshot.data()['league'] as String) {
+              switch (snapshot.data()['league'] as String?) {
                 case 'mlb':
                   return MlbBetData.fromFirestore(snapshot);
                   break;
@@ -142,8 +144,8 @@ class CloudFirestoreClient {
   }
 
   Stream<List<BetData>> fetchBetHistoryByWeek({
-    @required String uid,
-    @required String week,
+    required String? uid,
+    required String? week,
   }) {
     final betHistoryData = _firebaseFirestore
         .collection('bets')
@@ -155,7 +157,7 @@ class CloudFirestoreClient {
         .map(
           (event) => event.docs.map(
             (snapshot) {
-              switch (snapshot.data()['league'] as String) {
+              switch (snapshot.data()['league'] as String?) {
                 case 'mlb':
                   return MlbBetData.fromFirestore(snapshot);
                   break;
@@ -194,8 +196,8 @@ class CloudFirestoreClient {
   }
 
   Future<bool> isUserWalletExistByWeek({
-    @required String uid,
-    @required String week,
+    required String? uid,
+    required String? week,
   }) async {
     final snapshot = await _firebaseFirestore
         .collection('leaderboard')
@@ -212,8 +214,8 @@ class CloudFirestoreClient {
   }
 
   Future<Wallet> fetchUserWalletByWeek({
-    @required String uid,
-    @required String week,
+    required String? uid,
+    required String? week,
   }) async {
     final snapshot = await _firebaseFirestore
         .collection('leaderboard')
@@ -230,9 +232,9 @@ class CloudFirestoreClient {
   }
 
   Future<void> saveBets({
-    @required String uid,
-    @required BetData betsData,
-    @required int cutBalance,
+    required String? uid,
+    required BetData betsData,
+    required int cutBalance,
   }) async {
     final saveBetsWrite = _firebaseFirestore.batch();
 
@@ -248,16 +250,16 @@ class CloudFirestoreClient {
           'totalBets': FieldValue.increment(1),
           'totalOpenBets': FieldValue.increment(1),
           'accountBalance': FieldValue.increment(-cutBalance),
-          'potentialWinAmount': FieldValue.increment(betsData.betProfit),
-          'totalRiskedAmount': FieldValue.increment(betsData.betAmount),
-          'pendingRiskedAmount': FieldValue.increment(betsData.betAmount),
+          'potentialWinAmount': FieldValue.increment(betsData.betProfit!),
+          'totalRiskedAmount': FieldValue.increment(betsData.betAmount!),
+          'pendingRiskedAmount': FieldValue.increment(betsData.betAmount!),
         },
       );
     await saveBetsWrite.commit();
     await _saveToAdminVault(betsData: betsData);
   }
 
-  Future<void> _saveToAdminVault({@required BetData betsData}) async {
+  Future<void> _saveToAdminVault({required BetData betsData}) async {
     final dateFormat = DateFormat('yyyy-MM-dd');
     final saveAdminVaultWrite = _firebaseFirestore.batch();
     final dailyReference = _firebaseFirestore
@@ -271,7 +273,7 @@ class CloudFirestoreClient {
       ..set(
         dailyReference,
         {
-          'moneyIn': FieldValue.increment(betsData.betAmount),
+          'moneyIn': FieldValue.increment(betsData.betAmount!),
           'moneyOut': FieldValue.increment(0),
           'totalBets': FieldValue.increment(1),
           'date': dateFormat.format(ESTDateTime.fetchTimeEST()),
@@ -281,7 +283,7 @@ class CloudFirestoreClient {
       ..set(
         cumulativeReference,
         {
-          'moneyIn': FieldValue.increment(betsData.betAmount),
+          'moneyIn': FieldValue.increment(betsData.betAmount!),
           'moneyOut': FieldValue.increment(0),
           'totalBets': FieldValue.increment(1),
         },
@@ -313,7 +315,7 @@ class CloudFirestoreClient {
     return cumulativeData;
   }
 
-  Stream<UserData> fetchUserData({@required String uid}) {
+  Stream<UserData> fetchUserData({required String? uid}) {
     final snapshot = _firebaseFirestore
         .collection('users')
         .doc(uid)
@@ -322,7 +324,7 @@ class CloudFirestoreClient {
     return snapshot;
   }
 
-  Stream<Wallet> fetchUserWallet({@required String uid}) {
+  Stream<Wallet> fetchUserWallet({required String? uid}) {
     final snapshot = _firebaseFirestore
         .collection('wallets')
         .doc(uid)
@@ -349,7 +351,7 @@ class CloudFirestoreClient {
   }
 
   Future<bool> isBetExist(
-      {@required String betId, @required String uid}) async {
+      {required String? betId, required String? uid}) async {
     final isBetExist = await _firebaseFirestore
         .collection('bets')
         .where('id', isEqualTo: betId)
@@ -366,7 +368,7 @@ class CloudFirestoreClient {
     return isBetExist;
   }
 
-  Future<bool> isUsernameExist({@required String username}) async {
+  Future<bool> isUsernameExist({required String username}) async {
     final documentSnapshot = await _firebaseFirestore
         .collection('users')
         .where('username', isEqualTo: username)
@@ -388,7 +390,7 @@ class CloudFirestoreClient {
   }
 
   Future<List<Wallet>> fetchLeaderboardDaysUserData(
-      {@required String week}) async {
+      {required String week}) async {
     final userWalletList = await _firebaseFirestore
         .collection('leaderboard')
         .doc('global')
@@ -408,21 +410,21 @@ class CloudFirestoreClient {
     return userWalletList;
   }
 
-  Stream<String> fetchMinimumVersion() {
+  Stream<String?> fetchMinimumVersion() {
     final minimumVersion = _firebaseFirestore
         .collection('constants')
         .doc('version')
         .snapshots()
         .map(
-          (value) => value.data()['minimumVersion'] as String,
+          (value) => value.data()!['minimumVersion'] as String?,
         );
 
     return minimumVersion;
   }
 
   Future<void> rewardBalance({
-    @required String uid,
-    @required int rewardValue,
+    required String uid,
+    required int rewardValue,
   }) async {
     await _firebaseFirestore.collection('wallets').doc(uid).update({
       'totalRewards': FieldValue.increment(rewardValue),
@@ -469,7 +471,7 @@ class CloudFirestoreClient {
     return gameList;
   }
 
-  Future<void> addOlympicsGame({@required OlympicsGame game}) async {
+  Future<void> addOlympicsGame({required OlympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('olympics_2021_tokyo')
@@ -479,7 +481,7 @@ class CloudFirestoreClient {
     await olympicsCollectionRef.set(game.toMap(), SetOptions(merge: true));
   }
 
-  Future<void> addParalympicsGame({@required ParalympicsGame game}) async {
+  Future<void> addParalympicsGame({required ParalympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('paralympics_2021_tokyo')
@@ -489,7 +491,7 @@ class CloudFirestoreClient {
     await olympicsCollectionRef.set(game.toMap(), SetOptions(merge: true));
   }
 
-  Future<void> updateOlympicGame({@required OlympicsGame game}) async {
+  Future<void> updateOlympicGame({required OlympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('olympics_2021_tokyo')
@@ -499,7 +501,7 @@ class CloudFirestoreClient {
     await olympicsCollectionRef.update(game.toMap());
   }
 
-  Future<void> updateParalympicsGame({@required ParalympicsGame game}) async {
+  Future<void> updateParalympicsGame({required ParalympicsGame game}) async {
     final olympicsCollectionRef = _firebaseFirestore
         .collection('custom_matches')
         .doc('paralympics_2021_tokyo')
@@ -524,13 +526,13 @@ class CloudFirestoreClient {
     return snapshotRef;
   }
 
-  Future<bool> isGroupExists({@required String groupId}) async {
+  Future<bool> isGroupExists({required String groupId}) async {
     final snapshotRef =
         await _firebaseFirestore.collection('groups').doc(groupId).get();
     return snapshotRef.exists;
   }
 
-  Stream<List<Group>> fetchPrivateGroups({@required String uid}) {
+  Stream<List<Group>> fetchPrivateGroups({required String? uid}) {
     final snapshotRef = _firebaseFirestore
         .collection('groups')
         .where('isPublic', isEqualTo: false)
@@ -546,7 +548,7 @@ class CloudFirestoreClient {
     return snapshotRef;
   }
 
-  Stream<List<Group>> fetchGroupRequests({@required String uid}) {
+  Stream<List<Group>> fetchGroupRequests({required String? uid}) {
     final snapshotRef = _firebaseFirestore
         .collection('groups')
         .where('isPublic', isEqualTo: false)
@@ -562,7 +564,7 @@ class CloudFirestoreClient {
     return snapshotRef;
   }
 
-  Stream<Group> fetchGroupDetails({@required String groupId}) {
+  Stream<Group> fetchGroupDetails({required String? groupId}) {
     final snapshotRef =
         _firebaseFirestore.collection('groups').doc(groupId).snapshots().map(
               (e) => Group.fromFirestore(e),
@@ -571,7 +573,7 @@ class CloudFirestoreClient {
   }
 
   Future<List<Wallet>> fetchGroupLeaderboard(
-      {@required List<String> userList}) async {
+      {required List<String> userList}) async {
     final walletList = await Future.wait(
       userList.map(
         (e) async =>
@@ -584,7 +586,7 @@ class CloudFirestoreClient {
     return walletList;
   }
 
-  Future<String> addNewGroup({@required Group group}) async {
+  Future<String> addNewGroup({required Group group}) async {
     final addNewGroupBatch = _firebaseFirestore.batch();
     final userRef = _firebaseFirestore.collection('users').doc(group.adminId);
     final groupId = await _firebaseFirestore
@@ -612,8 +614,8 @@ class CloudFirestoreClient {
   }
 
   Future<void> updateGroup({
-    @required Group group,
-    @required String groupId,
+    required Group group,
+    required String? groupId,
   }) async {
     await _firebaseFirestore.collection('groups').doc(groupId).update(
           group.toMap(),
@@ -621,7 +623,7 @@ class CloudFirestoreClient {
   }
 
   Future<void> updateGroupAvatar(
-      {@required String avatarUrl, @required String groupId}) async {
+      {required String avatarUrl, required String groupId}) async {
     final updateGroupAvatarBatch = _firebaseFirestore.batch();
     final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
 
@@ -635,8 +637,8 @@ class CloudFirestoreClient {
   }
 
   Future<void> addNewUserToGroup({
-    @required String groupId,
-    @required Map<String, bool> users,
+    required String? groupId,
+    required Map<String?, bool> users,
   }) async {
     final addNewUserBatch = _firebaseFirestore.batch();
     final groupRef = _firebaseFirestore.collection('groups').doc(groupId);
@@ -647,8 +649,8 @@ class CloudFirestoreClient {
   }
 
   Future<void> acceptGroupRequest({
-    @required String groupId,
-    @required String uid,
+    required String? groupId,
+    required String uid,
   }) async {
     await _firebaseFirestore
         .collection('groups')
@@ -657,15 +659,15 @@ class CloudFirestoreClient {
   }
 
   Future<void> rejectGroupRequest({
-    @required String groupId,
-    @required String uid,
+    required String? groupId,
+    required String uid,
   }) async {
     await _firebaseFirestore.collection('groups').doc(groupId).update(
       {'users.$uid': FieldValue.delete()},
     );
   }
 
-  Future<List<UserData>> searchUserResults({@required String query}) async {
+  Future<List<UserData>> searchUserResults({required String query}) async {
     final results = await _firebaseFirestore
         .collection('users')
         .where('username', isEqualTo: query)
@@ -681,7 +683,7 @@ class CloudFirestoreClient {
     return results;
   }
 
-  Future<List<UserData>> searchUserSuggestions({@required String query}) async {
+  Future<List<UserData>> searchUserSuggestions({required String query}) async {
     final results = await _firebaseFirestore
         .collection('users')
         .where('username', isGreaterThanOrEqualTo: query)

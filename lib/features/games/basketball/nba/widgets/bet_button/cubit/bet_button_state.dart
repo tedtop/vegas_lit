@@ -1,3 +1,5 @@
+
+
 part of 'bet_button_cubit.dart';
 
 enum NbaBetButtonStatus {
@@ -29,22 +31,22 @@ class NbaBetButtonState extends Equatable {
   });
 
   final NbaBetButtonStatus status;
-  final String text;
-  final NbaGame game;
-  final String uniqueId;
-  final Bet betType;
-  final String mainOdds;
-  final double spread;
-  final NbaTeam awayTeamData;
-  final String league;
-  final String uid;
+  final String? text;
+  final NbaGame? game;
+  final String? uniqueId;
+  final Bet? betType;
+  final String? mainOdds;
+  final double? spread;
+  final NbaTeam? awayTeamData;
+  final String? league;
+  final String? uid;
   final int betAmount;
-  final int toWinAmount;
-  final NbaTeam homeTeamData;
-  final BetButtonWin winTeam;
+  final int? toWinAmount;
+  final NbaTeam? homeTeamData;
+  final BetButtonWin? winTeam;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         text,
         league,
@@ -62,20 +64,20 @@ class NbaBetButtonState extends Equatable {
       ];
 
   NbaBetButtonState copyWith({
-    NbaBetButtonStatus status,
-    String text,
-    NbaGame game,
-    String uniqueId,
-    Bet betType,
-    String mainOdds,
-    double spread,
-    NbaTeam awayTeamData,
-    String league,
-    String uid,
-    int betAmount,
-    int toWinAmount,
-    NbaTeam homeTeamData,
-    BetButtonWin winTeam,
+    NbaBetButtonStatus? status,
+    String? text,
+    NbaGame? game,
+    String? uniqueId,
+    Bet? betType,
+    String? mainOdds,
+    double? spread,
+    NbaTeam? awayTeamData,
+    String? league,
+    String? uid,
+    int? betAmount,
+    int? toWinAmount,
+    NbaTeam? homeTeamData,
+    BetButtonWin? winTeam,
   }) {
     return NbaBetButtonState(
       status: status ?? this.status,

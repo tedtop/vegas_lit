@@ -16,18 +16,18 @@ import 'parlay_bet_slip_card.dart';
 import 'single_bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
-  const BetButton._({Key key}) : super(key: key);
+  const BetButton._({Key? key}) : super(key: key);
 
   static Builder route({
-    @required ParalympicsGame game,
-    @required String league,
-    @required BetButtonWin winTeam,
+    required ParalympicsGame game,
+    required String league,
+    required BetButtonWin winTeam,
   }) {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
-              authenticationBloc.state?.user?.uid,
+              authenticationBloc.state.user?.uid,
         );
         return BlocProvider(
           create: (_) => ParalympicsBetButtonCubit(
@@ -50,7 +50,7 @@ class BetButton extends StatelessWidget {
       listener: (context, state) {
         switch (state.status) {
           case ParalympicsBetButtonStatus.alreadyPlaced:
-            return ScaffoldMessenger.of(context)
+            ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(
@@ -79,7 +79,7 @@ class BetButton extends StatelessWidget {
       },
       child: Builder(
         builder: (context) {
-          final betButtonState =
+          final ParalympicsBetButtonState betButtonState =
               context.watch<ParalympicsBetButtonCubit>().state;
           switch (betButtonState.status) {
             case ParalympicsBetButtonStatus.unclicked:
@@ -114,9 +114,10 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
+    final ParalympicsBetButtonState betButtonState =
+        context.watch<ParalympicsBetButtonCubit>().state;
     final username = context.select(
-      (HomeCubit homeBloc) => homeBloc.state?.userData?.username,
+      (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
 
     return Padding(
@@ -142,8 +143,8 @@ class BetButtonUnclicked extends StatelessWidget {
                 Text(
                   countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
-                        ? betButtonState.game.playerCountry
-                        : betButtonState.game.rivalCountry,
+                        ? betButtonState.game!.playerCountry!
+                        : betButtonState.game!.rivalCountry!,
                   ),
                   style: const TextStyle(fontSize: 18),
                 ),
@@ -151,8 +152,8 @@ class BetButtonUnclicked extends StatelessWidget {
                 Expanded(
                   child: Text(
                     betButtonState.winTeam == BetButtonWin.player
-                        ? betButtonState.game.player
-                        : betButtonState.game.rival,
+                        ? betButtonState.game!.player!
+                        : betButtonState.game!.rival!,
                     maxLines: 2,
                     style: GoogleFonts.nunito(
                       fontSize: 18,
@@ -175,8 +176,8 @@ class BetButtonUnclicked extends StatelessWidget {
                       betData: ParalympicsBetData(
                         username: username,
                         betAmount: betButtonState.betAmount,
-                        isClosed: betButtonState.game.isClosed,
-                        league: betButtonState.league.toLowerCase(),
+                        isClosed: betButtonState.game!.isClosed,
+                        league: betButtonState.league!.toLowerCase(),
                         id: betButtonState.uniqueId,
                         betProfit: betButtonState.toWinAmount,
                         uid: betButtonState.uid,
@@ -184,28 +185,28 @@ class BetButtonUnclicked extends StatelessWidget {
                         week: ESTDateTime.fetchTimeEST().weekStringVL,
                         clientVersion: appVersion,
                         dataProvider: 'paralympics.com',
-                        gameName: betButtonState.game.gameName,
-                        playerName: betButtonState.game.player,
-                        rivalCountry: betButtonState.game.rivalCountry,
-                        rivalName: betButtonState.game.rival,
-                        eventType: betButtonState.game.eventType,
+                        gameName: betButtonState.game!.gameName,
+                        playerName: betButtonState.game!.player,
+                        rivalCountry: betButtonState.game!.rivalCountry,
+                        rivalName: betButtonState.game!.rival,
+                        eventType: betButtonState.game!.eventType,
                         betTeam: betButtonState.winTeam == BetButtonWin.player
                             ? 'player'
                             : 'rival',
-                        event: betButtonState.game.event,
-                        gameId: betButtonState.game.gameId,
-                        playerCountry: betButtonState.game.playerCountry,
+                        event: betButtonState.game!.event,
+                        gameId: betButtonState.game!.gameId,
+                        playerCountry: betButtonState.game!.playerCountry,
                         gameStartDateTime:
-                            betButtonState.game.startTime.toString(),
+                            betButtonState.game!.startTime.toString(),
                         winner: null,
                       ),
                       singleBetSlipCard: BlocProvider.value(
-                        key: Key(betButtonState.uniqueId),
+                        key: Key(betButtonState.uniqueId!),
                         value: context.read<ParalympicsBetButtonCubit>(),
                         child: ParalympicsSingleBetSlipCard(),
                       ),
                       parlayBetSlipCard: BlocProvider.value(
-                        key: Key(betButtonState.uniqueId),
+                        key: Key(betButtonState.uniqueId!),
                         value: context.read<ParalympicsBetButtonCubit>(),
                         child: ParalympicsParlayBetSlipCard(),
                       ),
@@ -220,7 +221,8 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
+    final ParalympicsBetButtonState betButtonState =
+        context.watch<ParalympicsBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -244,8 +246,8 @@ class BetButtonClicked extends StatelessWidget {
                 Text(
                   countryFlagFromCode(
                     countryCode: betButtonState.winTeam == BetButtonWin.player
-                        ? betButtonState.game.playerCountry
-                        : betButtonState.game.rivalCountry,
+                        ? betButtonState.game!.playerCountry!
+                        : betButtonState.game!.rivalCountry!,
                   ),
                   style: const TextStyle(fontSize: 18),
                 ),
@@ -253,8 +255,8 @@ class BetButtonClicked extends StatelessWidget {
                 Expanded(
                   child: Text(
                     betButtonState.winTeam == BetButtonWin.player
-                        ? betButtonState.game.player
-                        : betButtonState.game.rival,
+                        ? betButtonState.game!.player!
+                        : betButtonState.game!.rival!,
                     maxLines: 2,
                     style: GoogleFonts.nunito(
                       fontSize: 18,
@@ -314,7 +316,7 @@ class BetButtonDone extends StatelessWidget {
   }
 }
 
-String countryFlagFromCode({String countryCode}) {
+String countryFlagFromCode({required String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }

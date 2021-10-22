@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,10 +8,10 @@ import '../../../../config/palette.dart';
 
 class TextBar extends StatelessWidget {
   const TextBar({
-    Key key,
-    @required this.text,
-    @required this.textList,
-    @required this.onPress,
+    Key? key,
+    required this.text,
+    required this.textList,
+    required this.onPress,
   }) : super(key: key);
 
   final String text;

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,7 @@ import '../../widgets/bet_slip_empty.dart';
 import '../../widgets/bet_slip_list.dart';
 
 class TabletBetSlipPage extends StatelessWidget {
-  const TabletBetSlipPage({Key key}) : super(key: key);
+  const TabletBetSlipPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class TabletBetSlipPage extends StatelessWidget {
               case BetSlipStatus.opened:
                 return Column(
                   children: [
-                    state.singleBetSlipCard.isEmpty
+                    state.singleBetSlipCard!.isEmpty
                         ? (isBetPlaced && !kIsWeb)
                             ? RewardedBetSlip.route()
                             : EmptyBetSlip()
@@ -49,7 +51,7 @@ class TabletBetSlipPage extends StatelessWidget {
 }
 
 class TabletBetSlipUpper extends StatelessWidget {
-  const TabletBetSlipUpper({Key key}) : super(key: key);
+  const TabletBetSlipUpper({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(

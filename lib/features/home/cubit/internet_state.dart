@@ -1,3 +1,5 @@
+
+
 part of 'internet_cubit.dart';
 
 enum ConnectionType {
@@ -11,7 +13,7 @@ abstract class InternetState {}
 class InternetLoading extends InternetState {}
 
 class InternetConnected extends InternetState {
-  InternetConnected({@required this.connectionType});
+  InternetConnected({required this.connectionType});
 
   final ConnectionType connectionType;
 }

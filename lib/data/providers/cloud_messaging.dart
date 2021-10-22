@@ -1,3 +1,5 @@
+
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -5,7 +7,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 class CloudMessagingClient {
-  CloudMessagingClient({FirebaseMessaging firebaseMessaging})
+  CloudMessagingClient({FirebaseMessaging? firebaseMessaging})
       : _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
   final FirebaseMessaging _firebaseMessaging;
@@ -29,7 +31,7 @@ class CloudMessagingClient {
     return FirebaseMessaging.onMessage;
   }
 
-  Future<RemoteMessage> checkInitialPushMessage() async {
+  Future<RemoteMessage?> checkInitialPushMessage() async {
     final initialMessage = await _firebaseMessaging.getInitialMessage();
     return initialMessage;
   }

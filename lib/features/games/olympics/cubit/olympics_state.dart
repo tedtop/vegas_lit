@@ -1,3 +1,5 @@
+
+
 part of 'olympics_cubit.dart';
 
 enum OlympicsStatus {
@@ -16,9 +18,9 @@ class OlympicsState extends Equatable {
   const OlympicsState.initial() : this._();
 
   const OlympicsState.opened({
-    @required List<OlympicsGame> games,
-    @required String league,
-    @required DateTime estTimeZone,
+    required List<OlympicsGame> games,
+    required String league,
+    required DateTime estTimeZone,
   }) : this._(
           games: games,
           league: league,
@@ -26,13 +28,13 @@ class OlympicsState extends Equatable {
           status: OlympicsStatus.opened,
         );
 
-  final List<OlympicsGame> games;
+  final List<OlympicsGame>? games;
   final String league;
-  final DateTime estTimeZone;
+  final DateTime? estTimeZone;
   final OlympicsStatus status;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         games,
         league,
         estTimeZone,

@@ -1,3 +1,5 @@
+
+
 part of 'leaderboard_cubit.dart';
 
 enum LeaderboardStatus { initial, opened, loading, weekChanged }
@@ -13,8 +15,8 @@ class LeaderboardState extends Equatable {
   const LeaderboardState.initial() : this._();
 
   const LeaderboardState.opened({
-    @required List<Wallet> rankedUserList,
-    @required List<String> days,
+    required List<Wallet> rankedUserList,
+    required List<String> days,
   }) : this._(
           rankedUserList: rankedUserList,
           status: LeaderboardStatus.opened,
@@ -22,9 +24,9 @@ class LeaderboardState extends Equatable {
         );
 
   const LeaderboardState.weekChanged({
-    @required List<Wallet> rankedUserList,
-    @required List<String> days,
-    @required String day,
+    required List<Wallet> rankedUserList,
+    required List<String>? days,
+    required String day,
   }) : this._(
           rankedUserList: rankedUserList,
           status: LeaderboardStatus.weekChanged,
@@ -33,8 +35,8 @@ class LeaderboardState extends Equatable {
         );
 
   const LeaderboardState.loading({
-    @required List<String> days,
-    @required String day,
+    required List<String>? days,
+    required String day,
   }) : this._(
           status: LeaderboardStatus.loading,
           days: days,
@@ -42,10 +44,10 @@ class LeaderboardState extends Equatable {
         );
 
   final List<Wallet> rankedUserList;
-  final List<String> days;
+  final List<String>? days;
   final String day;
   final LeaderboardStatus status;
 
   @override
-  List<Object> get props => [status, rankedUserList, day, days];
+  List<Object?> get props => [status, rankedUserList, day, days];
 }

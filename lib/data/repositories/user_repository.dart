@@ -1,3 +1,5 @@
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import '../models/bet.dart';
@@ -13,8 +15,8 @@ class UserRepository {
   final _databaseProvider = CloudFirestoreClient();
 
   Future<void> signUp({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) =>
       _authenticationProvider.signUp(
         email: email,
@@ -22,8 +24,8 @@ class UserRepository {
       );
 
   Future<void> logInWithEmailAndPassword({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) =>
       _authenticationProvider.logInWithEmailAndPassword(
         email: email,
@@ -32,16 +34,16 @@ class UserRepository {
 
   Future<void> signOutUser() => _authenticationProvider.signOutUser();
 
-  Future<User> getCurrentUser() => _authenticationProvider.getCurrentUser;
+  Future<User?> getCurrentUser() => _authenticationProvider.getCurrentUser;
 
-  Stream<User> get getUser => _authenticationProvider.getUser;
+  Stream<User?> get getUser => _authenticationProvider.getUser;
 
-  Future<void> resetPasswordEmail({@required String email}) =>
+  Future<void> resetPasswordEmail({required String email}) =>
       _authenticationProvider.resetPasswordEmail(email: email);
 
   Future<void> saveUserDetails({
-    @required UserData userData,
-    @required String uid,
+    required UserData userData,
+    required String uid,
   }) =>
       _databaseProvider.saveUserDetails(
         user: userData,
@@ -49,8 +51,8 @@ class UserRepository {
       );
 
   Future<void> updateUserDetails({
-    @required UserData user,
-    @required String uid,
+    required UserData user,
+    required String uid,
   }) =>
       _databaseProvider.updateUserDetails(
         user: user,
@@ -58,30 +60,30 @@ class UserRepository {
       );
 
   Future<void> updateUserAvatar(
-          {@required String avatarUrl, @required String uid}) =>
+          {required String avatarUrl, required String? uid}) =>
       _databaseProvider.updateUserAvatar(avatarUrl: avatarUrl, uid: uid);
 
-  Future<bool> isProfileComplete({@required String uid}) =>
+  Future<bool> isProfileComplete({required String uid}) =>
       _databaseProvider.isProfileComplete(uid: uid);
 
-  Future<void> sendEmailVerification({@required User user}) =>
+  Future<void> sendEmailVerification({required User user}) =>
       _authenticationProvider.sendEmailVerification(user: user);
 
-  Stream<UserData> fetchUserData({@required String uid}) =>
+  Stream<UserData> fetchUserData({required String? uid}) =>
       _databaseProvider.fetchUserData(uid: uid);
 
-  Stream<Wallet> fetchWalletData({@required String uid}) =>
+  Stream<Wallet> fetchWalletData({required String? uid}) =>
       _databaseProvider.fetchUserWallet(uid: uid);
 
   Future<Wallet> fetchUserWalletByWeek(
-          {@required String uid, @required String week}) =>
+          {required String? uid, required String? week}) =>
       _databaseProvider.fetchUserWalletByWeek(uid: uid, week: week);
 
   Future<bool> isUserWalletExistByWeek(
-          {@required String uid, @required String week}) =>
+          {required String? uid, required String? week}) =>
       _databaseProvider.isUserWalletExistByWeek(uid: uid, week: week);
 
-  Future<bool> isUsernameExist({@required String username}) =>
+  Future<bool> isUsernameExist({required String username}) =>
       _databaseProvider.isUsernameExist(username: username);
 
   Stream<List<Wallet>> fetchRankedUsers() =>
@@ -90,14 +92,14 @@ class UserRepository {
   Stream<List<String>> fetchLeaderboardWeeks() =>
       _databaseProvider.fetchLeaderboardWeeks();
 
-  Future<List<Wallet>> fetchLeaderboardDaysUserData({@required String week}) =>
+  Future<List<Wallet>> fetchLeaderboardDaysUserData({required String week}) =>
       _databaseProvider.fetchLeaderboardDaysUserData(week: week);
 
   Stream<List<BetData>> fetchBetHistoryByWeek(
-          {@required String week, @required String uid}) =>
+          {required String? week, required String? uid}) =>
       _databaseProvider.fetchBetHistoryByWeek(week: week, uid: uid);
 
-  Stream<String> fetchMinimumVersion() =>
+  Stream<String?> fetchMinimumVersion() =>
       _databaseProvider.fetchMinimumVersion();
 
   Stream<List<VaultItem>> fetchAdminVaultDaily() =>
@@ -107,12 +109,12 @@ class UserRepository {
       _databaseProvider.fetchAdminVaultCumulative();
 
   Future<void> rewardForVideoAd(
-          {@required String uid, @required int rewardValue}) =>
+          {required String uid, required int rewardValue}) =>
       _databaseProvider.rewardBalance(uid: uid, rewardValue: rewardValue);
 
-  Future<List<UserData>> searchUserResults({@required String query}) =>
+  Future<List<UserData>> searchUserResults({required String query}) =>
       _databaseProvider.searchUserResults(query: query);
 
-  Future<List<UserData>> searchUserSuggestions({@required String query}) =>
+  Future<List<UserData>> searchUserSuggestions({required String query}) =>
       _databaseProvider.searchUserSuggestions(query: query);
 }

@@ -30,24 +30,24 @@ class SignUpState extends Equatable {
   final String americanStateValue;
   final Agreement agreement;
   final bool agreementValue;
-  final String signUpErrorMessage;
+  final String? signUpErrorMessage;
   final FormzStatus status;
 
   SignUpState copyWith({
-    Email email,
-    String emailValue,
-    Password password,
-    String passwordValue,
-    ConfirmedPassword confirmedPassword,
-    String confirmedPasswordValue,
-    Username username,
-    String usernameValue,
-    AmericanState americanState,
-    String americanStateValue,
-    Agreement agreement,
-    bool agreementValue,
-    FormzStatus status,
-    String signUpErrorMessage,
+    Email? email,
+    String? emailValue,
+    Password? password,
+    String? passwordValue,
+    ConfirmedPassword? confirmedPassword,
+    String? confirmedPasswordValue,
+    Username? username,
+    String? usernameValue,
+    AmericanState? americanState,
+    String? americanStateValue,
+    Agreement? agreement,
+    bool? agreementValue,
+    FormzStatus? status,
+    String? signUpErrorMessage,
   }) {
     return SignUpState(
       email: email ?? this.email,
@@ -69,7 +69,7 @@ class SignUpState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         emailValue,
         passwordValue,
         confirmedPasswordValue,

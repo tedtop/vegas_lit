@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -10,19 +12,19 @@ part 'group_scanner_state.dart';
 
 class GroupScannerCubit extends Cubit<GroupScannerState> {
   GroupScannerCubit({
-    @required GroupsRepository groupsRepository,
+    required GroupsRepository groupsRepository,
   })  : assert(groupsRepository != null),
         _groupsRepository = groupsRepository,
         super(const GroupScannerState());
 
-  QRViewController _controller;
+  QRViewController? _controller;
   final GroupsRepository _groupsRepository;
-  StreamSubscription _qrStream;
+  StreamSubscription? _qrStream;
 
-  Future<void> initializeQR({@required QRViewController newController}) async {
+  Future<void> initializeQR({required QRViewController newController}) async {
     _controller = newController;
     final flashStatus = await _controller?.getFlashStatus();
-    final cameraStatus = await _controller?.getCameraInfo();
+    final cameraStatus = (await _controller?.getCameraInfo())!;
     emit(
       GroupScannerState(
         status: GroupScannerStatus.success,
@@ -32,7 +34,7 @@ class GroupScannerCubit extends Cubit<GroupScannerState> {
       ),
     );
     await _qrStream?.cancel();
-    _controller.scannedDataStream.listen(
+    _controller!.scannedDataStream.listen(
       (scanData) {
         emit(
           GroupScannerState(
@@ -46,7 +48,7 @@ class GroupScannerCubit extends Cubit<GroupScannerState> {
     );
   }
 
-  Future<bool> isGroupExists({@required String groupId}) async {
+  Future<bool> isGroupExists({required String groupId}) async {
     final isExist = await _groupsRepository.isGroupExists(groupId: groupId);
     return isExist;
   }
@@ -63,7 +65,7 @@ class GroupScannerCubit extends Cubit<GroupScannerState> {
 
   Future<void> updateCameraInfo() async {
     final flashStatus = await _controller?.getFlashStatus();
-    final cameraStatus = await _controller?.getCameraInfo();
+    final cameraStatus = (await _controller?.getCameraInfo())!;
     emit(
       GroupScannerState(
         status: state.status,

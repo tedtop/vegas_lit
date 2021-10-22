@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -14,7 +16,7 @@ import '../models/mlb_team.dart';
 part 'mlb_state.dart';
 
 class MlbCubit extends Cubit<MlbState> {
-  MlbCubit({@required SportsRepository sportsfeedRepository})
+  MlbCubit({required SportsRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
@@ -37,7 +39,7 @@ class MlbCubit extends Cubit<MlbState> {
           (value) => value
               .where((element) => element.status == 'Scheduled')
               .where((element) =>
-                  element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                  element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.isClosed == false)
               .where((element) {
             return element.awayTeamMoneyLine != null ||
@@ -71,7 +73,7 @@ List<MlbTeam> parseTeamData(String jsonData) {
   final parsedTeamData = json.decode(jsonData) as List;
   final teamData = parsedTeamData
       .map<MlbTeam>(
-        (Object json) => MlbTeam.fromMap(json as Map<String, dynamic>),
+        ((Object json) => MlbTeam.fromMap(json as Map<String, dynamic>)) as MlbTeam Function(dynamic),
       )
       .toList();
 

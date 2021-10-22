@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
@@ -7,11 +9,11 @@ import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopMlbScreen extends StatelessWidget {
   const DesktopMlbScreen(
-      {Key key, this.gameName, this.games, this.parsedTeamData})
+      {Key? key, this.gameName, this.games, this.parsedTeamData})
       : super(key: key);
-  final List<MlbGame> games;
-  final String gameName;
-  final List<MlbTeam> parsedTeamData;
+  final List<MlbGame>? games;
+  final String? gameName;
+  final List<MlbTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -33,7 +35,7 @@ class DesktopMlbScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                children: games
+                children: games!
                     .map(
                       (game) => MatchupCard.route(
                           game: game,

@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -13,8 +15,8 @@ part 'group_add_state.dart';
 
 class GroupAddCubit extends Cubit<GroupAddState> {
   GroupAddCubit(
-      {@required GroupsRepository groupsRepository,
-      @required StorageRepository storageRepository})
+      {required GroupsRepository groupsRepository,
+      required StorageRepository storageRepository})
       : assert(groupsRepository != null),
         assert(storageRepository != null),
         _groupsRepository = groupsRepository,
@@ -42,7 +44,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
     }
   }
 
-  void addGroup({@required Group group}) async {
+  void addGroup({required Group group}) async {
     emit(state.copyWith(status: GroupAddStatus.loading));
 
     await _groupsRepository.addNewGroup(group: group).then(
@@ -50,7 +52,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
         if (state.avatarFile != null) {
           try {
             final avatarUrl = await _storageRepository.uploadFile(
-              file: state.avatarFile,
+              file: state.avatarFile!,
               path: 'groups/$id/',
             );
             await _groupsRepository.updateGroupAvatar(

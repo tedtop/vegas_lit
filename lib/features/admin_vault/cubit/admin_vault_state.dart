@@ -1,3 +1,5 @@
+
+
 part of 'admin_vault_cubit.dart';
 
 enum AdminVaultStatus { initial, loading, success, failure }
@@ -10,9 +12,9 @@ class AdminVaultState extends Equatable {
   });
 
   final AdminVaultStatus status;
-  final VaultItem cumulativeData;
+  final VaultItem? cumulativeData;
   final List<VaultItem> dailyData;
 
   @override
-  List<Object> get props => [status, cumulativeData, dailyData];
+  List<Object?> get props => [status, cumulativeData, dailyData];
 }

@@ -1,3 +1,5 @@
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +32,7 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class MobileLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<LeaderboardProfileCubit>().state;
+    final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -52,13 +54,13 @@ class MobileLeaderboardProfile extends StatelessWidget {
 }
 
 class _MobileHistoryBoard extends StatelessWidget {
-  const _MobileHistoryBoard({Key key}) : super(key: key);
+  const _MobileHistoryBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<LeaderboardProfileCubit>().state;
+        final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
@@ -86,7 +88,7 @@ class _MobileHistoryBoard extends StatelessWidget {
 }
 
 class _MobileHistoryContent extends StatelessWidget {
-  const _MobileHistoryContent({Key key}) : super(key: key);
+  const _MobileHistoryContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +122,7 @@ class _MobileHistoryContent extends StatelessWidget {
 }
 
 class _MobileHistoryList extends StatelessWidget {
-  const _MobileHistoryList({Key key}) : super(key: key);
+  const _MobileHistoryList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +162,7 @@ class _MobileHistoryList extends StatelessWidget {
 }
 
 class _MobileHistoryEmpty extends StatelessWidget {
-  const _MobileHistoryEmpty({Key key}) : super(key: key);
+  const _MobileHistoryEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +178,7 @@ class _MobileHistoryEmpty extends StatelessWidget {
 }
 
 class _MobileHistoryHeading extends StatelessWidget {
-  const _MobileHistoryHeading({Key key}) : super(key: key);
+  const _MobileHistoryHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -192,11 +194,11 @@ class _MobileHistoryHeading extends StatelessWidget {
         ),
         child: Row(
           children: [
-            betHistoryState.userWallet.avatarUrl != null
+            betHistoryState.userWallet!.avatarUrl != null
                 ? CircleAvatar(
                     radius: 50,
                     backgroundImage: CachedNetworkImageProvider(
-                      betHistoryState.userWallet.avatarUrl,
+                      betHistoryState.userWallet!.avatarUrl!,
                     ), //Image for web configuration.
                   )
                 : CircleAvatar(
@@ -208,7 +210,7 @@ class _MobileHistoryHeading extends StatelessWidget {
                         height: 100.0,
                         width: 100.0,
                         child: Text(
-                          betHistoryState.userWallet.username
+                          betHistoryState.userWallet!.username!
                               .substring(0, 1)
                               .toUpperCase(),
                           style: GoogleFonts.nunito(
@@ -229,7 +231,7 @@ class _MobileHistoryHeading extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Text(
-                          '${betHistoryState.userWallet.username}',
+                          '${betHistoryState.userWallet!.username}',
                           style: Styles.pageTitle,
                           softWrap: true,
                           overflow: TextOverflow.clip,

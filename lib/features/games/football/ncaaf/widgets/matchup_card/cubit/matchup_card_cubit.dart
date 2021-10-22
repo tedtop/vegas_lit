@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../../data/models/ncaaf/ncaaf_game.dart';
@@ -9,9 +11,9 @@ class NcaafMatchupCardCubit extends Cubit<NcaafMatchupCardState> {
   NcaafMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
-    @required NcaafGame game,
-    @required List<NcaafTeam> parsedTeamData,
-    @required String gameName,
+    required NcaafGame game,
+    required List<NcaafTeam> parsedTeamData,
+    required String? gameName,
   }) async {
     final awayTeamData =
         parsedTeamData.singleWhere((element) => element.key == game.awayTeam);

@@ -9,10 +9,12 @@ import '../../../../../bet_slip/bet_slip.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNcaafScreen extends StatelessWidget {
-  DesktopNcaafScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<NcaafGame> games;
-  final String gameName;
-  final List<NcaafTeam> parsedTeamData;
+  const DesktopNcaafScreen(
+      {Key? key, this.gameName, this.games, this.parsedTeamData})
+      : super(key: key);
+  final List<NcaafGame>? games;
+  final String? gameName;
+  final List<NcaafTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -35,7 +37,7 @@ class DesktopNcaafScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                children: games
+                children: games!
                     .map(
                       (game) => MatchupCard.route(
                           game: game,
@@ -84,7 +86,7 @@ class DesktopNcaafScreen extends StatelessWidget {
                               width: 42,
                               child: Center(
                                 child: Text(
-                                  state.singleBetSlipCard.length.toString(),
+                                  state.singleBetSlipCard!.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
                                     fontSize: 18,
@@ -111,7 +113,7 @@ class DesktopNcaafScreen extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.status) {
                       case BetSlipStatus.opened:
-                        return state.singleBetSlipCard.isEmpty
+                        return state.singleBetSlipCard!.isEmpty
                             ? AbstractCard(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 widgets: [
@@ -142,9 +144,9 @@ class DesktopNcaafScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
                                 itemCount:
-                                    betSlipState.singleBetSlipCard.length,
+                                    betSlipState.singleBetSlipCard!.length,
                                 itemBuilder: (context, index) {
-                                  return betSlipState.singleBetSlipCard[index];
+                                  return betSlipState.singleBetSlipCard![index];
                                 },
                               );
                         break;
@@ -187,8 +189,8 @@ class DesktopNcaafScreen extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

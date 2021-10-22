@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -16,7 +18,7 @@ import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
 
 class ParlayOpenBetCard extends StatelessWidget {
-  const ParlayOpenBetCard({Key key, @required this.openBets}) : super(key: key);
+  const ParlayOpenBetCard({Key? key, required this.openBets}) : super(key: key);
   final ParlayBets openBets;
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class ParlayOpenBetCard extends StatelessWidget {
                           style: Styles.betSlipSmallBoldText,
                         ),
                         Text(
-                          'Payout ${openBets.betProfit + openBets.betAmount}',
+                          'Payout ${openBets.betProfit! + openBets.betAmount!}',
                           style: Styles.betSlipSmallBoldText
                               .copyWith(color: Palette.green),
                         ),
@@ -70,7 +72,7 @@ class ParlayOpenBetCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                     child: Text(
-                      '${openBets.bets.length} leg parlay',
+                      '${openBets.bets!.length} leg parlay',
                       style: Styles.betSlipBoxNormalText,
                     ),
                   ),
@@ -82,11 +84,11 @@ class ParlayOpenBetCard extends StatelessWidget {
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             reverse: true,
-            itemCount: openBets.bets.length,
+            itemCount: openBets.bets!.length,
             itemBuilder: (BuildContext context, int index) {
               return Builder(
                 builder: (context) {
-                  final betData = openBets.bets[index];
+                  final betData = openBets.bets![index];
                   if (betData is MlbBetData) {
                     return MlbOpenBetCard(
                       openBets: betData,
@@ -132,8 +134,8 @@ class ParlayOpenBetCard extends StatelessWidget {
 
 class DisabledDefaultButton extends StatelessWidget {
   const DisabledDefaultButton({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.color = Palette.darkGrey,
   })  : assert(text != null),
         super(key: key);

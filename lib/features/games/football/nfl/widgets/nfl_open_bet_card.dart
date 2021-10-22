@@ -7,7 +7,7 @@ import '../../../../../data/models/nfl/nfl_bet.dart';
 
 class NflOpenBetCard extends StatelessWidget {
   const NflOpenBetCard(
-      {Key key, @required this.openBets, this.isParlayLeg = false})
+      {Key? key, required this.openBets, this.isParlayLeg = false})
       : assert(openBets != null),
         super(key: key);
 
@@ -20,20 +20,20 @@ class NflOpenBetCard extends StatelessWidget {
       builder: (context) {
         final isMoneyline = openBets.betType == 'moneyline';
         final isPointSpread = openBets.betType == 'pointspread';
-        final odds = openBets?.odds?.isNegative ?? 0.isNegative
+        final odds = openBets.odds?.isNegative ?? 0.isNegative
             ? openBets.odds.toString()
             : '+${openBets.odds}';
-        final isPointSpreadNegative = openBets?.betPointSpread == null
+        final isPointSpreadNegative = openBets.betPointSpread == null
             ? true
-            : openBets?.betPointSpread?.isNegative;
+            : openBets.betPointSpread?.isNegative;
         final pointSpread = openBets.betPointSpread != null
             ? (openBets.betTeam == 'home'
-                ? (isPointSpreadNegative
-                    ? '-${openBets.betPointSpread.abs()}'
-                    : '+${openBets.betPointSpread.abs()}')
-                : (isPointSpreadNegative
-                    ? '+${openBets.betPointSpread.abs()}'
-                    : '-${openBets.betPointSpread.abs()}'))
+                ? (isPointSpreadNegative!
+                    ? '-${openBets.betPointSpread!.abs()}'
+                    : '+${openBets.betPointSpread!.abs()}')
+                : (isPointSpreadNegative!
+                    ? '+${openBets.betPointSpread!.abs()}'
+                    : '-${openBets.betPointSpread!.abs()}'))
             : '';
 
         return Padding(
@@ -94,12 +94,12 @@ class NflOpenBetCard extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text:
-                          '${openBets.betTeam == 'home' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}',
+                          '${openBets.betTeam == 'home' ? openBets.homeTeamName!.toUpperCase() : openBets.awayTeamName!.toUpperCase()}',
                       style: Styles.betSlipHomeTeam,
                       children: <TextSpan>[
                         TextSpan(
                           text:
-                              ' @ ${openBets.betTeam == 'away' ? openBets.homeTeamName.toUpperCase() : openBets.awayTeamName.toUpperCase()}',
+                              ' @ ${openBets.betTeam == 'away' ? openBets.homeTeamName!.toUpperCase() : openBets.awayTeamName!.toUpperCase()}',
                           style: Styles.betSlipAwayTeam,
                         ),
                       ],
@@ -128,7 +128,7 @@ class NflOpenBetCard extends StatelessWidget {
                                       style: Styles.betSlipSmallBoldText,
                                     ),
                                     Text(
-                                      'Payout ${openBets.betProfit + openBets.betAmount}',
+                                      'Payout ${openBets.betProfit! + openBets.betAmount!}',
                                       style: Styles.betSlipSmallBoldText
                                           .copyWith(color: Palette.green),
                                     ),
@@ -148,7 +148,7 @@ class NflOpenBetCard extends StatelessWidget {
   }
 }
 
-String whichBetSystemFromString(String betType) {
+String whichBetSystemFromString(String? betType) {
   if (betType == 'moneyline') {
     return 'MONEYLINE';
   }
@@ -165,7 +165,7 @@ String whichBetSystemFromString(String betType) {
   }
 }
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
+String getRemainingTimeText({required CurrentRemainingTime time}) {
   final days = time.days == null ? '' : '${time.days}d ';
   final hours = time.hours == null ? '' : '${time.hours}hr';
   final min = time.min == null ? '' : ' ${time.min}m';
@@ -175,8 +175,8 @@ String getRemainingTimeText({CurrentRemainingTime time}) {
 
 class DisabledDefaultButton extends StatelessWidget {
   const DisabledDefaultButton({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.color = Palette.darkGrey,
   })  : assert(text != null),
         super(key: key);

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,9 +12,9 @@ import 'textbar.dart';
 class GolfMatchup extends StatefulWidget {
   GolfMatchup(
       {this.player, this.name, this.venue, this.location, this.tournamentID});
-  final int tournamentID;
-  final String name, venue, location;
-  final GolfPlayer player;
+  final int? tournamentID;
+  final String? name, venue, location;
+  final GolfPlayer? player;
   @override
   _GolfMatchupState createState() => _GolfMatchupState();
 }
@@ -46,19 +48,19 @@ class _GolfMatchupState extends State<GolfMatchup> {
                 children: [
                   Center(
                     child: Text(
-                      widget.name,
+                      widget.name!,
                       style: Styles.greenTextBold.copyWith(fontSize: 24),
                     ),
                   ),
                   Center(
                     child: Text(
-                      widget.venue,
+                      widget.venue!,
                       style: Styles.awayTeam,
                     ),
                   ),
                   Center(
                     child: Text(
-                      widget.location,
+                      widget.location!,
                       style: Styles.awayTeam,
                     ),
                   ),
@@ -136,7 +138,7 @@ class _GolfMatchupState extends State<GolfMatchup> {
                       border: Border.all(color: Palette.cream),
                       borderRadius: BorderRadius.circular(8)),
                   child: Center(
-                    child: Text('${widget.player.name}',
+                    child: Text('${widget.player!.name}',
                         style: Styles.normalTextBold),
                   ),
                 ),
@@ -220,7 +222,7 @@ class OverallBetBoxes extends StatelessWidget {
 
 class RoundBasedBetBoxes extends StatelessWidget {
   RoundBasedBetBoxes({this.roundNo});
-  final int roundNo;
+  final int? roundNo;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -328,9 +330,9 @@ class RoundBasedBetBoxes extends StatelessWidget {
 
 class OverallBetBox extends StatelessWidget {
   OverallBetBox({this.text, this.isSelected = false, this.onPressed});
-  final String text;
+  final String? text;
   final bool isSelected;
-  final Function onPressed;
+  final Function? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -345,7 +347,7 @@ class OverallBetBox extends StatelessWidget {
             color: isSelected ? Palette.green : Palette.darkGrey),
         child: Center(
           child: Text(
-            text,
+            text!,
             style: Styles.normalText.copyWith(fontWeight: FontWeight.w600),
           ),
         ),
@@ -356,9 +358,9 @@ class OverallBetBox extends StatelessWidget {
 
 class RoundNumberBox extends StatelessWidget {
   RoundNumberBox({this.text, this.isSelected = false, this.onPressed});
-  final String text;
+  final String? text;
   final bool isSelected;
-  final Function onPressed;
+  final Function? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -371,7 +373,7 @@ class RoundNumberBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: isSelected ? Palette.green : Palette.lightGrey),
         child: Text(
-          text,
+          text!,
           style: Styles.awayTeam.copyWith(fontWeight: FontWeight.w600),
         ),
       ),
@@ -381,9 +383,9 @@ class RoundNumberBox extends StatelessWidget {
 
 class RoundBetBox extends StatelessWidget {
   RoundBetBox({this.text, this.onPressed, this.isSelected = false});
-  final Widget text;
+  final Widget? text;
   final bool isSelected;
-  final Function onPressed;
+  final Function? onPressed;
   @override
   Widget build(BuildContext context) {
     return Container(

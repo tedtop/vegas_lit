@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,14 +15,14 @@ import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
   PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
-  final String playerId;
-  final String gameName;
-  final MlbPlayer playerDetails;
+  final String? playerId;
+  final String? gameName;
+  final MlbPlayer? playerDetails;
 
   static Route route(
-      {@required String playerId,
-      @required String gameName,
-      @required MlbPlayer playerDetails}) {
+      {required String playerId,
+      required String? gameName,
+      required MlbPlayer playerDetails}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
@@ -53,10 +55,10 @@ class PlayerDetailsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          _playerBadge(size, playerDetails),
-          _playerDescription(playerDetails),
+          _playerBadge(size, playerDetails!),
+          _playerDescription(playerDetails!),
           const SizedBox(height: 12),
-          _playerInjury(playerDetails),
+          _playerInjury(playerDetails!),
           BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
             builder: (context, state) {
               if (state is PlayerDetailsOpened) {
@@ -92,7 +94,7 @@ class PlayerDetailsPage extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(100)),
             child: Center(
-              child: VLImage.network(playerDetails.photoUrl),
+              child: VLImage.network(playerDetails.photoUrl!),
             ),
           ),
           const SizedBox(width: 24),
@@ -135,7 +137,7 @@ class PlayerDetailsPage extends StatelessWidget {
             ),
             Text(
               playerDetails.height != null
-                  ? '${playerDetails.height ~/ 12}′ ${playerDetails.height % 12}\′\′'
+                  ? '${playerDetails.height! ~/ 12}′ ${playerDetails.height! % 12}\′\′'
                   : 'NA',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             )
@@ -160,7 +162,7 @@ class PlayerDetailsPage extends StatelessWidget {
               style: Styles.teamStatsMain.copyWith(color: Palette.red),
             ),
             Text(
-              '${ESTDateTime.fetchTimeEST().difference(playerDetails.birthDate).inDays ~/ 365}',
+              '${ESTDateTime.fetchTimeEST().difference(playerDetails.birthDate!).inDays ~/ 365}',
               style: Styles.teamStatsMain.copyWith(color: Palette.red),
             )
           ],
@@ -242,7 +244,7 @@ class PlayerDetailsPage extends StatelessWidget {
 }
 
 class StatsBox extends StatelessWidget {
-  const StatsBox({Key key, @required this.statMap}) : super(key: key);
+  const StatsBox({Key? key, required this.statMap}) : super(key: key);
   final Map<String, dynamic> statMap;
 
   List<Widget> _statMapToList() {
@@ -294,8 +296,8 @@ class StatsBox extends StatelessWidget {
 }
 
 class StatsText extends StatelessWidget {
-  const StatsText({Key key, this.leftText, this.rightText}) : super(key: key);
-  final String leftText;
+  const StatsText({Key? key, this.leftText, this.rightText}) : super(key: key);
+  final String? leftText;
   final dynamic rightText;
   @override
   Widget build(BuildContext context) {
@@ -303,7 +305,7 @@ class StatsText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-            width: 110, child: Text(leftText, style: Styles.teamStatsText)),
+            width: 110, child: Text(leftText!, style: Styles.teamStatsText)),
         Expanded(
             child: Align(
                 alignment: Alignment.centerRight,

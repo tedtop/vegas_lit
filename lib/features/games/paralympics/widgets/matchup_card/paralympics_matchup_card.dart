@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,15 +18,15 @@ enum WinnerParalympics { player, rival, none }
 
 class ParalympicsMatchupCard extends StatefulWidget {
   const ParalympicsMatchupCard._(
-      {Key key, @required this.gameName, @required this.game})
+      {Key? key, required this.gameName, required this.game})
       : super(key: key);
 
   final String gameName;
   final ParalympicsGame game;
 
   static Builder route({
-    @required ParalympicsGame game,
-    @required String gameName,
+    required ParalympicsGame game,
+    required String gameName,
   }) {
     return Builder(
       builder: (_) {
@@ -38,7 +40,7 @@ class ParalympicsMatchupCard extends StatefulWidget {
 }
 
 class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
-  WinnerParalympics winner;
+  WinnerParalympics? winner;
   bool visible = true;
 
   @override
@@ -86,7 +88,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                '${widget.game.gameName.replaceAll(RegExp('-'), '\/')}',
+                                '${widget.game.gameName!.replaceAll(RegExp('-'), '\/')}',
                                 style: Styles.normalTextBold,
                               ),
                             ],
@@ -130,7 +132,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                                         fillColor: MaterialStateProperty.all(
                                             Palette.green),
                                         groupValue: winner,
-                                        onChanged: (WinnerParalympics value) {
+                                        onChanged: (WinnerParalympics? value) {
                                           setState(() {
                                             winner = value;
                                           });
@@ -148,7 +150,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                                         fillColor: MaterialStateProperty.all(
                                             Palette.green),
                                         groupValue: winner,
-                                        onChanged: (WinnerParalympics value) {
+                                        onChanged: (WinnerParalympics? value) {
                                           setState(() {
                                             winner = value;
                                           });
@@ -166,7 +168,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                                         fillColor: MaterialStateProperty.all(
                                             Palette.green),
                                         groupValue: winner,
-                                        onChanged: (WinnerParalympics value) {
+                                        onChanged: (WinnerParalympics? value) {
                                           setState(() {
                                             winner = value;
                                           });
@@ -277,7 +279,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                         children: [
                           Flexible(
                             child: Text(
-                              widget.game.event,
+                              widget.game.event!,
                               style: GoogleFonts.nunito(
                                 fontSize: 16,
                                 color: Palette.cream,
@@ -313,7 +315,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                         children: [
                           Text(
                             DateFormat('E, MMMM, c, y @ hh:mm a')
-                                .format(widget.game.startTime),
+                                .format(widget.game.startTime!),
                             style: Styles.matchupTime,
                           ),
                         ],
@@ -356,7 +358,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
   }
 }
 
-Widget badgeFromEventType({String eventType}) {
+Widget badgeFromEventType({String? eventType}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [

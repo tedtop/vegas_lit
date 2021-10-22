@@ -62,7 +62,7 @@ class AmericanState extends FormzInput<String, AmericanStateValidationError> {
   ];
 
   @override
-  AmericanStateValidationError validator(String value) {
+  AmericanStateValidationError? validator(String value) {
     return stateList.contains(value)
         ? null
         : AmericanStateValidationError.invalid;

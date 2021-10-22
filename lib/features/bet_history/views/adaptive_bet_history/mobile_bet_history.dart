@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -30,7 +32,7 @@ import '../../widgets/bet_history_board_content.dart';
 class MobileBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<HistoryCubit>().state;
+    final HistoryState state = context.watch<HistoryCubit>().state;
 
     switch (state.status) {
       case HistoryStatus.loading:
@@ -94,13 +96,13 @@ class MobileBetHistory extends StatelessWidget {
 }
 
 class _MobileHistoryBoard extends StatelessWidget {
-  const _MobileHistoryBoard({Key key}) : super(key: key);
+  const _MobileHistoryBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<HistoryCubit>().state;
+        final HistoryState state = context.watch<HistoryCubit>().state;
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();
@@ -136,7 +138,7 @@ class _MobileHistoryBoard extends StatelessWidget {
 }
 
 class _MobileHistoryContent extends StatelessWidget {
-  const _MobileHistoryContent({Key key}) : super(key: key);
+  const _MobileHistoryContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +173,7 @@ class _MobileHistoryContent extends StatelessWidget {
 }
 
 class _MobileHistoryList extends StatelessWidget {
-  const _MobileHistoryList({Key key}) : super(key: key);
+  const _MobileHistoryList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +213,7 @@ class _MobileHistoryList extends StatelessWidget {
 }
 
 class _MobileHistoryEmpty extends StatelessWidget {
-  const _MobileHistoryEmpty({Key key}) : super(key: key);
+  const _MobileHistoryEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +229,7 @@ class _MobileHistoryEmpty extends StatelessWidget {
 }
 
 class _MobileHistoryHeading extends StatelessWidget {
-  const _MobileHistoryHeading({Key key}) : super(key: key);
+  const _MobileHistoryHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +249,7 @@ class _MobileHistoryHeading extends StatelessWidget {
 }
 
 class _MobileHistoryDropdown extends StatelessWidget {
-  const _MobileHistoryDropdown({Key key}) : super(key: key);
+  const _MobileHistoryDropdown({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

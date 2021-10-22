@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,7 +8,7 @@ import '../../config/palette.dart';
 import '../../config/styles.dart';
 
 class FAQ extends StatelessWidget {
-  const FAQ._({Key key}) : super(key: key);
+  const FAQ._({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -41,7 +43,7 @@ class FAQ extends StatelessWidget {
 
 class _FaqContent extends StatelessWidget {
   const _FaqContent({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -62,7 +64,7 @@ class _FaqContent extends StatelessWidget {
 }
 
 class _FaqHeading extends StatelessWidget {
-  const _FaqHeading({Key key}) : super(key: key);
+  const _FaqHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

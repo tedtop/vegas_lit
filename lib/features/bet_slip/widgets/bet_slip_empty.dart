@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
@@ -53,7 +55,7 @@ class EmptyBetSlip extends StatelessWidget {
 }
 
 class ParlayBetSlipWarning extends StatelessWidget {
-  const ParlayBetSlipWarning({Key key, @required this.isMinimum})
+  const ParlayBetSlipWarning({Key? key, required this.isMinimum})
       : super(key: key);
 
   final bool isMinimum;
@@ -88,8 +90,8 @@ class ParlayBetSlipWarning extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

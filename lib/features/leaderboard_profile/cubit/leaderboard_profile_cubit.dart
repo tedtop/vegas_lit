@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -14,16 +16,16 @@ part 'leaderboard_profile_state.dart';
 
 class LeaderboardProfileCubit extends Cubit<LeaderboardProfileState> {
   LeaderboardProfileCubit({
-    @required UserRepository userRepository,
+    required UserRepository userRepository,
   })  : assert(userRepository != null),
         _userRepository = userRepository,
         super(const LeaderboardProfileState());
 
   final UserRepository _userRepository;
-  StreamSubscription _betHistorySubscription;
+  StreamSubscription? _betHistorySubscription;
 
   Future<void> fetchAllBets(
-      {@required String uid, @required String week}) async {
+      {required String? uid, required String week}) async {
     emit(LeaderboardProfileState(
       status: LeaderboardProfileStatus.loading,
       bets: state.bets,

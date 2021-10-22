@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 import 'dart:ui' as ui;
 
@@ -23,13 +25,13 @@ import 'cubit/user_search_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
   GroupDetails._(
-      {Key key, @required this.storageRepository, @required this.userId})
+      {Key? key, required this.storageRepository, required this.userId})
       : super(key: key);
 
   static MaterialPageRoute route(
-      {@required StorageRepository storageRepository,
-      @required String groupId,
-      @required String userId}) {
+      {required StorageRepository storageRepository,
+      required String? groupId,
+      required String? userId}) {
     return MaterialPageRoute<void>(
       builder: (context) {
         return MultiBlocProvider(
@@ -54,12 +56,12 @@ class GroupDetails extends StatelessWidget {
     );
   }
 
-  final String userId;
+  final String? userId;
   final StorageRepository storageRepository;
 
   @override
   Widget build(BuildContext context) {
-    final groupDetailsState = context.watch<GroupDetailsCubit>().state;
+    final GroupDetailsState groupDetailsState = context.watch<GroupDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -104,7 +106,7 @@ class GroupDetails extends StatelessWidget {
                                           size: const Size.square(size),
                                           painter: QrPainter(
                                             gapless: true,
-                                            data: groupDetailsState.group.id,
+                                            data: groupDetailsState.group!.id!,
                                             version: QrVersions.auto,
                                             eyeStyle: const QrEyeStyle(
                                               eyeShape: QrEyeShape.square,
@@ -173,7 +175,7 @@ class GroupDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     GroupDetailsDescription(userId: userId),
-                    state.group.adminId == userId
+                    state.group!.adminId == userId
                         ? Center(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -226,10 +228,10 @@ class GroupDetails extends StatelessWidget {
 }
 
 class GroupDetailsDescription extends StatelessWidget {
-  const GroupDetailsDescription({Key key, @required this.userId})
+  const GroupDetailsDescription({Key? key, required this.userId})
       : super(key: key);
 
-  final String userId;
+  final String? userId;
 
   @override
   Widget build(BuildContext context) {
@@ -247,19 +249,19 @@ class GroupDetailsDescription extends StatelessWidget {
             );
             break;
           case GroupDetailsStatus.complete:
-            final groupUsersLength = state.group.users.values
+            final groupUsersLength = state.group!.users!.values
                 .where((element) => element == true)
                 .length;
             return Column(
               children: [
                 Center(
                   child: Text(
-                    state.group.name,
+                    state.group!.name!,
                     style: Styles.pageTitle,
                   ),
                 ),
                 const SizedBox(height: 10),
-                state.group.avatarUrl != null
+                state.group!.avatarUrl != null
                     ? SizedBox(
                         height: 100,
                         width: 100,
@@ -268,7 +270,7 @@ class GroupDetailsDescription extends StatelessWidget {
                             Radius.circular(12),
                           ),
                           child: CachedNetworkImage(
-                            imageUrl: state.group.avatarUrl,
+                            imageUrl: state.group!.avatarUrl!,
                             placeholder: (context, url) => const Center(
                               child: SizedBox(
                                 width: 35,
@@ -309,9 +311,9 @@ class GroupDetailsDescription extends StatelessWidget {
                           ),
                           const SizedBox(),
                           Text(
-                            state.group.description.isEmpty
+                            state.group!.description!.isEmpty
                                 ? 'None'
-                                : state.group.description,
+                                : state.group!.description!,
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
                         ],
@@ -324,7 +326,7 @@ class GroupDetailsDescription extends StatelessWidget {
                           ),
                           const SizedBox(),
                           Text(
-                            state.group.isPublic ? 'Public' : 'Private',
+                            state.group!.isPublic! ? 'Public' : 'Private',
                             style: Styles.normalText.copyWith(fontSize: 14.5),
                           ),
                         ],
@@ -339,12 +341,12 @@ class GroupDetailsDescription extends StatelessWidget {
                           RichText(
                             text: TextSpan(
                               text:
-                                  '$groupUsersLength${state.group.userLimit == 0 ? '' : '/${state.group.userLimit}'}',
+                                  '$groupUsersLength${state.group!.userLimit == 0 ? '' : '/${state.group!.userLimit}'}',
                               style: Styles.normalTextBold.copyWith(
                                 fontSize: 14.5,
-                                color: state.group.userLimit == 0 ||
-                                        state.group.userLimit >
-                                            state.group.users.length
+                                color: state.group!.userLimit == 0 ||
+                                        state.group!.userLimit! >
+                                            state.group!.users!.length
                                     ? Palette.green
                                     : Palette.red,
                               ),
@@ -367,7 +369,7 @@ class GroupDetailsDescription extends StatelessWidget {
                           ),
                           const SizedBox(),
                           Text(
-                            state.group.adminName,
+                            state.group!.adminName!,
                             style: Styles.greenTextBold.copyWith(fontSize: 15),
                           ),
                         ],
@@ -395,11 +397,11 @@ class GroupDetailsDescription extends StatelessWidget {
 }
 
 class GroupDetailsJoinButton extends StatelessWidget {
-  const GroupDetailsJoinButton({Key key}) : super(key: key);
+  const GroupDetailsJoinButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.watch<AuthenticationBloc>().state.user.uid;
+    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
     return BlocBuilder<GroupDetailsCubit, GroupDetailsState>(
       builder: (context, state) {
         switch (state.status) {
@@ -415,9 +417,9 @@ class GroupDetailsJoinButton extends StatelessWidget {
             break;
           case GroupDetailsStatus.complete:
             return Visibility(
-              visible: state.group.userLimit == 0
+              visible: state.group!.userLimit == 0
                   ? true
-                  : state.group.userLimit >= state.group.users.length + 1,
+                  : state.group!.userLimit! >= state.group!.users!.length + 1,
               replacement: SizedBox(
                 height: 60,
                 child: Center(
@@ -430,7 +432,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  state.group.adminId == userId
+                  state.group!.adminId == userId
                       ? SizedBox(
                           width: 150,
                           child: DefaultButton(
@@ -443,7 +445,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
                                 ),
                               );
                               if (selectedUser != null) {
-                                if (state.group.users
+                                if (state.group!.users!
                                     .containsKey(selectedUser.uid)) {
                                   ScaffoldMessenger.of(context)
                                     ..removeCurrentSnackBar()
@@ -458,12 +460,12 @@ class GroupDetailsJoinButton extends StatelessWidget {
                                       ),
                                     );
                                 } else {
-                                  final updatedUsers = state.group.users;
+                                  final updatedUsers = state.group!.users!;
                                   updatedUsers[selectedUser.uid] = false;
                                   await context
                                       .read<GroupDetailsCubit>()
                                       .addNewUser(
-                                        groupId: state.group.id,
+                                        groupId: state.group!.id,
                                         users: updatedUsers,
                                       );
 
@@ -494,10 +496,10 @@ class GroupDetailsJoinButton extends StatelessWidget {
                             child: DefaultButton(
                               text: 'Join',
                               action: () {
-                                final updatedUsers = state.group.users;
+                                final updatedUsers = state.group!.users!;
                                 updatedUsers[userId] = true;
                                 context.read<GroupDetailsCubit>().addNewUser(
-                                      groupId: state.group.id,
+                                      groupId: state.group!.id,
                                       users: updatedUsers,
                                     );
                               },
@@ -525,7 +527,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
 }
 
 class GroupDetailsLeaderboard extends StatelessWidget {
-  const GroupDetailsLeaderboard({Key key}) : super(key: key);
+  const GroupDetailsLeaderboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -595,7 +597,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
 
 class GroupDetailsLeaderboardTile extends StatelessWidget {
   const GroupDetailsLeaderboardTile(
-      {Key key, @required this.player, @required this.index})
+      {Key? key, required this.player, required this.index})
       : super(key: key);
 
   final Wallet player;
@@ -636,7 +638,7 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
               ? CircleAvatar(
                   radius: 25,
                   backgroundImage: CachedNetworkImageProvider(
-                    player.avatarUrl,
+                    player.avatarUrl!,
                   ), //Image for web configuration.
                 )
               : CircleAvatar(
@@ -647,7 +649,7 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                       color: Palette.darkGrey,
                       height: 50.0,
                       width: 50.0,
-                      child: Text(player.username.substring(0, 1).toUpperCase(),
+                      child: Text(player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -661,7 +663,7 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
+                '${player.accountBalance! + player.pendingRiskedAmount! - player.totalRewards!}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,
@@ -679,8 +681,8 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
               ),
               Text(
                 leaderboardWinningBetsRatio(
-                  player.totalBetsWon,
-                  player.totalBetsLost,
+                  player.totalBetsWon!,
+                  player.totalBetsLost!,
                 ),
                 style: Styles.awayTeam,
               ),
@@ -699,9 +701,9 @@ String leaderboardWinningBetsRatio(int betsWon, int betsLost) {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),
@@ -747,13 +749,13 @@ class DefaultButton extends StatelessWidget {
   }
 }
 
-class UserSearch extends SearchDelegate<UserData> {
+class UserSearch extends SearchDelegate<UserData?> {
   UserSearch(this.userSearchCubit);
 
   final UserSearchCubit userSearchCubit;
 
   @override
-  List<Widget> buildActions(BuildContext context) => null;
+  List<Widget>? buildActions(BuildContext context) => null;
 
   @override
   Widget buildLeading(BuildContext context) {
@@ -789,7 +791,7 @@ class UserSearch extends SearchDelegate<UserData> {
                       ? CircleAvatar(
                           radius: 25,
                           backgroundImage: CachedNetworkImageProvider(
-                            userData.avatarUrl,
+                            userData.avatarUrl!,
                           ), //Image for web configuration.
                         )
                       : CircleAvatar(
@@ -801,7 +803,7 @@ class UserSearch extends SearchDelegate<UserData> {
                               height: 50.0,
                               width: 50.0,
                               child: Text(
-                                  userData.username
+                                  userData.username!
                                       .substring(0, 1)
                                       .toUpperCase(),
                                   style: Styles.leaderboardUsername),
@@ -809,7 +811,7 @@ class UserSearch extends SearchDelegate<UserData> {
                           ),
                         ),
                   title: Text(
-                    userData.username,
+                    userData.username!,
                     style: GoogleFonts.nunito(),
                   ),
                   onTap: () {
@@ -862,7 +864,7 @@ class UserSearch extends SearchDelegate<UserData> {
                       ? CircleAvatar(
                           radius: 25,
                           backgroundImage: CachedNetworkImageProvider(
-                            userData.avatarUrl,
+                            userData.avatarUrl!,
                           ), //Image for web configuration.
                         )
                       : CircleAvatar(
@@ -874,7 +876,7 @@ class UserSearch extends SearchDelegate<UserData> {
                               height: 50.0,
                               width: 50.0,
                               child: Text(
-                                  userData.username
+                                  userData.username!
                                       .substring(0, 1)
                                       .toUpperCase(),
                                   style: Styles.leaderboardUsername),
@@ -882,7 +884,7 @@ class UserSearch extends SearchDelegate<UserData> {
                           ),
                         ),
                   title: Text(
-                    userData.username,
+                    userData.username!,
                     style: GoogleFonts.nunito(),
                   ),
                   onTap: () {

@@ -1,3 +1,5 @@
+
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +37,13 @@ import '../widgets/bottom_navigation.dart';
 import '../widgets/home_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage._({this.currentUserId, Key key}) : super(key: key);
+  const HomePage._({this.currentUserId, Key? key}) : super(key: key);
 
-  final String currentUserId;
+  final String? currentUserId;
 
   static Route route({
-    @required Connectivity connectivity,
-    @required String uid,
+    required Connectivity connectivity,
+    required String uid,
   }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'HomePage'),
@@ -129,7 +131,7 @@ class _HomePageState extends State<HomePage>
     final balanceAmount = context.select(
       (HomeCubit homeCubit) => homeCubit.state.userData == null
           ? 0
-          : homeCubit.state.userWallet.accountBalance,
+          : homeCubit.state.userWallet!.accountBalance,
     );
     final width = MediaQuery.of(context).size.width;
 
@@ -139,7 +141,7 @@ class _HomePageState extends State<HomePage>
       listener: (context, state) async {
         if (state.status == HomeStatus.changed) {
           _pageController.jumpToPage(state.pageIndex);
-          selectedIndex = _pageController.page.toInt();
+          selectedIndex = _pageController.page!.toInt();
           await super.setThisScreenForAnalytics();
         } else if (state.askReview) {
           await context.read<DeviceRepository>().openAppReview();
@@ -165,7 +167,7 @@ class _HomePageState extends State<HomePage>
                       ..showSnackBar(
                         SnackBar(
                           content: Text(
-                            state.errorMessage,
+                            state.errorMessage!,
                           ),
                         ),
                       );
@@ -174,11 +176,11 @@ class _HomePageState extends State<HomePage>
                   case NotificationStatus.success:
                     showSimpleNotification(
                       Text(
-                        state.notification.title,
+                        state.notification!.title!,
                         style: GoogleFonts.nunito(color: Palette.cream),
                       ),
                       subtitle: Text(
-                        state.notification.body,
+                        state.notification!.body!,
                         style: GoogleFonts.nunito(color: Palette.cream),
                       ),
                       background: Palette.lightGrey,

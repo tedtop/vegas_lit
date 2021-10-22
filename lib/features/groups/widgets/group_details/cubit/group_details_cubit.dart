@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -12,7 +14,7 @@ part 'group_details_state.dart';
 
 class GroupDetailsCubit extends Cubit<GroupDetailsState> {
   GroupDetailsCubit({
-    @required GroupsRepository groupsRepository,
+    required GroupsRepository groupsRepository,
     // @required StorageRepository storageRepository,
   })  : assert(groupsRepository != null),
         // assert(storageRepository != null),
@@ -24,10 +26,10 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
 
   final GroupsRepository _groupsRepository;
   // final StorageRepository _storageRepository;
-  StreamSubscription _groupDetailsSubscription;
+  StreamSubscription? _groupDetailsSubscription;
 
   Future<void> fetchGroupDetailsLeaderboard(
-      {@required String groupId, @required String userId}) async {
+      {required String? groupId, required String? userId}) async {
     emit(
       GroupDetailsState(status: GroupDetailsStatus.loading),
     );
@@ -37,14 +39,14 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
     await _groupDetailsSubscription?.cancel();
     _groupDetailsSubscription = groupStream.listen(
       (group) async {
-        final filteredMap = Map<String, bool>.from(group.users)
+        final filteredMap = Map<String, bool>.from(group.users!)
           ..removeWhere((k, v) => v == false);
         final userList = filteredMap.keys.toList();
         final leaderboardList = await _groupsRepository.fetchGroupLeaderboard(
           userList: userList,
         );
         leaderboardList.sort(
-          (a, b) => (a.rank).compareTo(b.rank),
+          (a, b) => a.rank!.compareTo(b.rank!),
         );
         final leaderboardListWithRank =
             leaderboardList.where((element) => element.rank != 0).toList();
@@ -62,8 +64,8 @@ class GroupDetailsCubit extends Cubit<GroupDetailsState> {
   }
 
   Future<void> addNewUser({
-    @required String groupId,
-    @required Map<String, bool> users,
+    required String? groupId,
+    required Map<String?, bool> users,
   }) async {
     await _groupsRepository.addNewUserToGroup(groupId: groupId, users: users);
   }

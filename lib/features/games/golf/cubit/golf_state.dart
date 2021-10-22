@@ -1,3 +1,5 @@
+
+
 part of 'golf_cubit.dart';
 
 abstract class GolfState extends Equatable {
@@ -10,24 +12,24 @@ abstract class GolfState extends Equatable {
 class GolfInitial extends GolfState {}
 
 class GolfTournamentsOpened extends GolfState {
-  GolfTournamentsOpened({@required this.tournaments});
+  GolfTournamentsOpened({required this.tournaments});
   final List<GolfTournament> tournaments;
 }
 
 class GolfDetailOpened extends GolfState {
-  GolfDetailOpened({@required this.players, @required this.tournament});
-  final GolfTournament tournament;
-  final List<GolfPlayer> players;
+  GolfDetailOpened({required this.players, required this.tournament});
+  final GolfTournament? tournament;
+  final List<GolfPlayer>? players;
 }
 
 class GolfPlayerOpened extends GolfState {
   GolfPlayerOpened(
-      {@required this.player,
-      @required this.name,
-      @required this.venue,
-      @required this.location,
+      {required this.player,
+      required this.name,
+      required this.venue,
+      required this.location,
       this.tournamentID});
-  final int tournamentID;
-  final String name, venue, location;
-  final GolfPlayer player;
+  final int? tournamentID;
+  final String? name, venue, location;
+  final GolfPlayer? player;
 }

@@ -20,7 +20,7 @@ class AuthenticationState extends Equatable {
 
   const AuthenticationState.authenticated(
     // UserData userData,
-    User user,
+    User? user,
   ) : this._(
           status: AuthenticationStatus.authenticated,
           user: user,
@@ -43,10 +43,10 @@ class AuthenticationState extends Equatable {
   const AuthenticationState.firstOpen()
       : this._(status: AuthenticationStatus.firstTime);
 
-  final User user;
-  final UserData userData;
+  final User? user;
+  final UserData? userData;
   final AuthenticationStatus status;
 
   @override
-  List<Object> get props => [user, userData, status];
+  List<Object?> get props => [user, userData, status];
 }

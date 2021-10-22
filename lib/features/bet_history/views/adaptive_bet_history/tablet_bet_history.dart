@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
@@ -22,7 +24,7 @@ import '../../widgets/bet_history_board_content.dart';
 class TabletBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<HistoryCubit>().state;
+    final HistoryState state = context.watch<HistoryCubit>().state;
     return state.status == HistoryStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -44,13 +46,13 @@ class TabletBetHistory extends StatelessWidget {
 }
 
 class _TabletHistoryBoard extends StatelessWidget {
-  const _TabletHistoryBoard({Key key}) : super(key: key);
+  const _TabletHistoryBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<HistoryCubit>().state;
+        final HistoryState state = context.watch<HistoryCubit>().state;
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();
@@ -81,7 +83,7 @@ class _TabletHistoryBoard extends StatelessWidget {
 }
 
 class _TabletHistoryContent extends StatelessWidget {
-  const _TabletHistoryContent({Key key}) : super(key: key);
+  const _TabletHistoryContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +115,7 @@ class _TabletHistoryContent extends StatelessWidget {
 }
 
 class _TabletHistoryList extends StatelessWidget {
-  const _TabletHistoryList({Key key}) : super(key: key);
+  const _TabletHistoryList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +171,7 @@ class _TabletHistoryList extends StatelessWidget {
 }
 
 class _TabletHistoryEmpty extends StatelessWidget {
-  const _TabletHistoryEmpty({Key key}) : super(key: key);
+  const _TabletHistoryEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +187,7 @@ class _TabletHistoryEmpty extends StatelessWidget {
 }
 
 class _TabletHistoryHeading extends StatelessWidget {
-  const _TabletHistoryHeading({Key key}) : super(key: key);
+  const _TabletHistoryHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

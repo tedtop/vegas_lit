@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class Team {
@@ -23,59 +25,59 @@ class Team {
       Team.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory Team.fromMap(Map<String, dynamic> json) => Team(
-        teamId: json['TeamID'] as int,
-        key: json['Key'] as String,
-        active: json['Active'] as bool,
-        city: json['City'] as String,
-        name: json['Name'] as String,
-        stadiumId: json['StadiumID'] as int,
+        teamId: json['TeamID'] as int?,
+        key: json['Key'] as String?,
+        active: json['Active'] as bool?,
+        city: json['City'] as String?,
+        name: json['Name'] as String?,
+        stadiumId: json['StadiumID'] as int?,
         conference: json['Conference'] == null
             ? null
             : conferenceValues.map[json['Conference']],
         division: json['Division'] == null
             ? null
             : divisionValues.map[json['Division']],
-        primaryColor: json['PrimaryColor'] as String,
-        secondaryColor: json['SecondaryColor'] as String,
-        tertiaryColor: json['TertiaryColor'] as String,
-        quaternaryColor: json['QuaternaryColor'] as String,
-        wikipediaLogoUrl: json['WikipediaLogoUrl'] as String,
-        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] as String,
-        globalTeamId: json['GlobalTeamID'] as int,
+        primaryColor: json['PrimaryColor'] as String?,
+        secondaryColor: json['SecondaryColor'] as String?,
+        tertiaryColor: json['TertiaryColor'] as String?,
+        quaternaryColor: json['QuaternaryColor'] as String?,
+        wikipediaLogoUrl: json['WikipediaLogoUrl'] as String?,
+        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] as String?,
+        globalTeamId: json['GlobalTeamID'] as int?,
       );
 
-  final int teamId;
-  final String key;
-  final bool active;
-  final String city;
-  final String name;
-  final int stadiumId;
-  final Conference conference;
-  final Division division;
-  final String primaryColor;
-  final String secondaryColor;
-  final String tertiaryColor;
-  final String quaternaryColor;
-  final String wikipediaLogoUrl;
-  final String wikipediaWordMarkUrl;
-  final int globalTeamId;
+  final int? teamId;
+  final String? key;
+  final bool? active;
+  final String? city;
+  final String? name;
+  final int? stadiumId;
+  final Conference? conference;
+  final Division? division;
+  final String? primaryColor;
+  final String? secondaryColor;
+  final String? tertiaryColor;
+  final String? quaternaryColor;
+  final String? wikipediaLogoUrl;
+  final String? wikipediaWordMarkUrl;
+  final int? globalTeamId;
 
   Team copyWith({
-    int teamId,
-    String key,
-    bool active,
-    String city,
-    String name,
-    int stadiumId,
-    Conference conference,
-    Division division,
-    String primaryColor,
-    String secondaryColor,
-    String tertiaryColor,
-    String quaternaryColor,
-    String wikipediaLogoUrl,
-    String wikipediaWordMarkUrl,
-    int globalTeamId,
+    int? teamId,
+    String? key,
+    bool? active,
+    String? city,
+    String? name,
+    int? stadiumId,
+    Conference? conference,
+    Division? division,
+    String? primaryColor,
+    String? secondaryColor,
+    String? tertiaryColor,
+    String? quaternaryColor,
+    String? wikipediaLogoUrl,
+    String? wikipediaWordMarkUrl,
+    int? globalTeamId,
   }) =>
       Team(
         teamId: teamId ?? this.teamId,
@@ -97,7 +99,7 @@ class Team {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, Object> toMap() => {
+  Map<String, Object?> toMap() => {
         'TeamID': teamId,
         'Key': key,
         'Active': active,
@@ -105,8 +107,8 @@ class Team {
         'Name': name,
         'StadiumID': stadiumId,
         'Conference':
-            conference == null ? null : conferenceValues.reverse[conference],
-        'Division': division == null ? null : divisionValues.reverse[division],
+            conference == null ? null : conferenceValues.reverse![conference!],
+        'Division': division == null ? null : divisionValues.reverse![division!],
         'PrimaryColor': primaryColor,
         'SecondaryColor': secondaryColor,
         'TertiaryColor': tertiaryColor,
@@ -135,9 +137,9 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<String, T> map;
-  Map<T, String> reverseMap;
+  Map<T, String>? reverseMap;
 
-  Map<T, String> get reverse {
+  Map<T, String>? get reverse {
     // ignore: join_return_with_assignment
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;

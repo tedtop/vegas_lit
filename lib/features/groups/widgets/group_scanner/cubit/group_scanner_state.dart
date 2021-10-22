@@ -1,3 +1,5 @@
+
+
 part of 'group_scanner_cubit.dart';
 
 enum GroupScannerStatus { initial, success, failure, remove }
@@ -10,11 +12,11 @@ class GroupScannerState extends Equatable {
     this.status = GroupScannerStatus.initial,
   });
 
-  final Barcode result;
-  final bool flash;
-  final CameraFacing camera;
+  final Barcode? result;
+  final bool? flash;
+  final CameraFacing? camera;
   final GroupScannerStatus status;
 
   @override
-  List<Object> get props => [result, status, flash, camera];
+  List<Object?> get props => [result, status, flash, camera];
 }

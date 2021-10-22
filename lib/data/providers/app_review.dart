@@ -1,7 +1,9 @@
+
+
 import 'package:in_app_review/in_app_review.dart';
 
 class AppReviewClient {
-  AppReviewClient({InAppReview inAppReview})
+  AppReviewClient({InAppReview? inAppReview})
       : _inAppReview = inAppReview ?? InAppReview.instance;
 
   final InAppReview _inAppReview;

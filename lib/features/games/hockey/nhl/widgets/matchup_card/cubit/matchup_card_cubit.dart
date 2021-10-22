@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../../data/models/nhl/nhl_game.dart';
@@ -9,9 +11,9 @@ class NhlMatchupCardCubit extends Cubit<NhlMatchupCardState> {
   NhlMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
-    @required NhlGame game,
-    @required List parsedTeamData,
-    @required String gameName,
+    required NhlGame game,
+    required List parsedTeamData,
+    required String? gameName,
   }) async {
     final teamData = getData(parsedTeamData: parsedTeamData);
     final awayTeamData =
@@ -29,10 +31,10 @@ class NhlMatchupCardCubit extends Cubit<NhlMatchupCardState> {
     );
   }
 
-  List<NhlTeam> getData({@required List parsedTeamData}) {
+  List<NhlTeam> getData({required List parsedTeamData}) {
     final teamData = parsedTeamData
         .map<NhlTeam>(
-          (Object json) => NhlTeam.fromMap(json as Map<String, dynamic>),
+          ((Object json) => NhlTeam.fromMap(json as Map<String, dynamic>)) as NhlTeam Function(dynamic),
         )
         .toList();
 

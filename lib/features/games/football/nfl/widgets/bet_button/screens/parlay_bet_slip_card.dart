@@ -1,3 +1,5 @@
+
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ class NflParlayBetSlipCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final betButtonState = context.watch<NflBetButtonCubit>().state;
+        final NflBetButtonState betButtonState = context.watch<NflBetButtonCubit>().state;
 
         final isMoneyline = betButtonState.betType == Bet.ml;
         final isPointSpread = betButtonState.betType == Bet.pts;
@@ -75,26 +77,26 @@ class NflParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData.city ?? ''} ${betButtonState.homeTeamData.name}' : '${betButtonState.awayTeamData.city ?? ''} ${betButtonState.awayTeamData.name}'}'
+                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
                               isMoneyline
                                   ? TextSpan(
                                       text:
-                                          ' (${betButtonState.text.split(' ').last})',
+                                          ' (${betButtonState.text!.split(' ').last})',
                                       //style: Styles.betSlipHomeTeam,
                                     )
                                   : isPointSpread
                                       ? TextSpan(
                                           text:
-                                              ' (${betButtonState.text.split(' ').first})'
+                                              ' (${betButtonState.text!.split(' ').first})'
                                           //     PTS (${betButtonState.text.split(' ').last})',
                                           //style: Styles.betSlipHomeTeam,
                                           )
                                       : TextSpan(
                                           text:
-                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)}',
+                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}',
                                           //     TOT ${betButtonState.text.split(' ').last}',
                                           style: Styles.betSlipHomeTeam,
                                         ),
@@ -109,12 +111,12 @@ class NflParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(
                                 text:
-                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
                                 style: Styles.betSlipAwayTeam,
                               ),
                             ],
@@ -140,7 +142,7 @@ class NflParlayBetSlipCard extends StatelessWidget {
   }
 }
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
+String getRemainingTimeText({required CurrentRemainingTime time}) {
   final days = time.days == null ? '' : '${time.days}d ';
   final hours = time.hours == null ? '' : '${time.hours}hr';
   final min = time.min == null ? '' : ' ${time.min}m';
@@ -148,7 +150,7 @@ String getRemainingTimeText({CurrentRemainingTime time}) {
   return days + hours + min + sec;
 }
 
-String whichBetSystemFromEnum(Bet betType) {
+String whichBetSystemFromEnum(Bet? betType) {
   if (betType == Bet.ml) {
     return 'MONEYLINE';
   }
@@ -164,9 +166,9 @@ String whichBetSystemFromEnum(Bet betType) {
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
+    Key? key,
+    required this.text,
+    required this.action,
     this.color = Palette.green,
     this.elevation = Styles.normalElevation,
   })  : assert(text != null),

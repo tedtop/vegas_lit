@@ -7,7 +7,7 @@ import '../../../bloc/authentication_bloc.dart';
 import '../sign_up.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage._({Key key}) : super(key: key);
+  const SignUpPage._({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(

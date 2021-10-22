@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -14,7 +16,7 @@ import '../models/ncaaf_team.dart';
 part 'ncaaf_state.dart';
 
 class NcaafCubit extends Cubit<NcaafState> {
-  NcaafCubit({@required SportsRepository sportsfeedRepository})
+  NcaafCubit({required SportsRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
@@ -37,7 +39,7 @@ class NcaafCubit extends Cubit<NcaafState> {
           (value) => value
               .where((element) => element.status == 'Scheduled')
               .where((element) =>
-                  element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                  element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.isClosed == false)
               .where((element) {
             return element.awayTeamMoneyLine != null ||
@@ -71,7 +73,7 @@ List<NcaafTeam> parseTeamData(String jsonData) {
   final parsedTeamData = json.decode(jsonData) as List;
   final teamData = parsedTeamData
       .map<NcaafTeam>(
-        (Object json) => NcaafTeam.fromMap(json as Map<String, dynamic>),
+        ((Object json) => NcaafTeam.fromMap(json as Map<String, dynamic>)) as NcaafTeam Function(dynamic),
       )
       .toList();
 

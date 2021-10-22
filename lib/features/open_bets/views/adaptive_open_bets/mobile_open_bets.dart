@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +43,7 @@ class MobileOpenBets extends StatelessWidget {
 }
 
 class _MobileOpenBetsHeading extends StatelessWidget {
-  const _MobileOpenBetsHeading({Key key}) : super(key: key);
+  const _MobileOpenBetsHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class _MobileOpenBetsHeading extends StatelessWidget {
 
 class _MobileOpenBetsDescription extends StatelessWidget {
   const _MobileOpenBetsDescription({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -100,7 +102,7 @@ class _MobileOpenBetsDescription extends StatelessWidget {
 
 class _MobileOpenBetsContent extends StatelessWidget {
   const _MobileOpenBetsContent({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -135,7 +137,7 @@ class _MobileOpenBetsContent extends StatelessWidget {
 }
 
 class _MobileOpenBetsContentList extends StatelessWidget {
-  const _MobileOpenBetsContentList({Key key}) : super(key: key);
+  const _MobileOpenBetsContentList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +179,7 @@ class _MobileOpenBetsContentList extends StatelessWidget {
 
 class _MobileOpenBetsContentEmpty extends StatelessWidget {
   const _MobileOpenBetsContentEmpty({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

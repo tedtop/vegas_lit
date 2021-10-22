@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -10,16 +12,16 @@ import '../../../../../data/repositories/groups_repository.dart';
 part 'group_requests_state.dart';
 
 class GroupRequestsCubit extends Cubit<GroupRequestsState> {
-  GroupRequestsCubit({@required GroupsRepository groupsRepository})
+  GroupRequestsCubit({required GroupsRepository groupsRepository})
       : assert(groupsRepository != null),
         _groupsRepository = groupsRepository,
         super(
           const GroupRequestsState(),
         );
   final GroupsRepository _groupsRepository;
-  StreamSubscription _groupRequestsSubscription;
+  StreamSubscription? _groupRequestsSubscription;
 
-  Future<void> openGroupRequests({@required String uid}) async {
+  Future<void> openGroupRequests({required String? uid}) async {
     emit(
       const GroupRequestsState(status: GroupRequestsStatus.loading),
     );
@@ -46,12 +48,12 @@ class GroupRequestsCubit extends Cubit<GroupRequestsState> {
   }
 
   Future<void> acceptGroup(
-      {@required String groupId, @required String uid}) async {
+      {required String? groupId, required String uid}) async {
     await _groupsRepository.acceptGroupRequest(groupId: groupId, uid: uid);
   }
 
   Future<void> rejectGroup(
-      {@required String groupId, @required String uid}) async {
+      {required String? groupId, required String uid}) async {
     await _groupsRepository.rejectGroupRequest(groupId: groupId, uid: uid);
   }
 

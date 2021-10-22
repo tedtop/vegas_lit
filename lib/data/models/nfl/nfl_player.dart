@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NflPlayer {
@@ -82,91 +84,91 @@ class NflPlayer {
   factory NflPlayer.fromJson(String str) =>
       NflPlayer.fromMap(json.decode(str) as Map<String, dynamic>);
   factory NflPlayer.fromMap(Map<String, dynamic> json) => NflPlayer(
-        playerId: json['PlayerID'] as int,
+        playerId: json['PlayerID'] as int?,
         team: teamValues.map[json['Team']],
-        number: json['Number'] as int,
-        firstName: json['FirstName'] as String,
-        lastName: json['LastName'] as String,
-        position: json['Position'] as String,
+        number: json['Number'] as int?,
+        firstName: json['FirstName'] as String?,
+        lastName: json['LastName'] as String?,
+        position: json['Position'] as String?,
         status: statusEnumValues.map[json['Status']],
-        height: json['Height'] as String,
-        weight: json['Weight'] as int,
+        height: json['Height'] as String?,
+        weight: json['Weight'] as int?,
         birthDate: json['BirthDate'] == null
             ? null
             : DateTime.parse(json['BirthDate'] as String),
-        college: json['College'] as String,
-        experience: json['Experience'] as int,
-        fantasyPosition: json['FantasyPosition'] as String,
-        active: json['Active'] as bool,
+        college: json['College'] as String?,
+        experience: json['Experience'] as int?,
+        fantasyPosition: json['FantasyPosition'] as String?,
+        active: json['Active'] as bool?,
         positionCategory: positionCategoryValues.map[json['PositionCategory']],
-        name: json['Name'] as String,
-        age: json['Age'] as int,
-        experienceString: json['ExperienceString'] as String,
-        birthDateString: json['BirthDateString'] as String,
-        photoUrl: json['PhotoUrl'] as String,
-        byeWeek: json['ByeWeek'] as int,
+        name: json['Name'] as String?,
+        age: json['Age'] as int?,
+        experienceString: json['ExperienceString'] as String?,
+        birthDateString: json['BirthDateString'] as String?,
+        photoUrl: json['PhotoUrl'] as String?,
+        byeWeek: json['ByeWeek'] as int?,
         upcomingGameOpponent:
             upcomingGameOpponentValues.map[json['UpcomingGameOpponent']],
-        upcomingGameWeek: json['UpcomingGameWeek'] as int,
-        shortName: json['ShortName'] as String,
+        upcomingGameWeek: json['UpcomingGameWeek'] as int?,
+        shortName: json['ShortName'] as String?,
         averageDraftPosition: json['AverageDraftPosition'] == null
             ? null
-            : json['AverageDraftPosition'].toDouble() as double,
+            : json['AverageDraftPosition'].toDouble() as double?,
         depthPositionCategory: json['DepthPositionCategory'] == null
             ? null
             : positionCategoryValues.map[json['DepthPositionCategory']],
-        depthPosition: json['DepthPosition'] as String,
-        depthOrder: json['DepthOrder'] as int,
-        depthDisplayOrder: json['DepthDisplayOrder'] as int,
+        depthPosition: json['DepthPosition'] as String?,
+        depthOrder: json['DepthOrder'] as int?,
+        depthDisplayOrder: json['DepthDisplayOrder'] as int?,
         currentTeam: teamValues.map[json['CurrentTeam']],
-        collegeDraftTeam: json['CollegeDraftTeam'] as String,
-        collegeDraftYear: json['CollegeDraftYear'] as int,
-        collegeDraftRound: json['CollegeDraftRound'] as int,
-        collegeDraftPick: json['CollegeDraftPick'] as int,
-        isUndraftedFreeAgent: json['IsUndraftedFreeAgent'] as bool,
-        heightFeet: json['HeightFeet'] as int,
-        heightInches: json['HeightInches'] as int,
-        upcomingOpponentRank: json['UpcomingOpponentRank'] as int,
+        collegeDraftTeam: json['CollegeDraftTeam'] as String?,
+        collegeDraftYear: json['CollegeDraftYear'] as int?,
+        collegeDraftRound: json['CollegeDraftRound'] as int?,
+        collegeDraftPick: json['CollegeDraftPick'] as int?,
+        isUndraftedFreeAgent: json['IsUndraftedFreeAgent'] as bool?,
+        heightFeet: json['HeightFeet'] as int?,
+        heightInches: json['HeightInches'] as int?,
+        upcomingOpponentRank: json['UpcomingOpponentRank'] as int?,
         upcomingOpponentPositionRank:
-            json['UpcomingOpponentPositionRank'] as int,
+            json['UpcomingOpponentPositionRank'] as int?,
         currentStatus: statusValues.map[json['CurrentStatus']],
-        upcomingSalary: json['UpcomingSalary'] as int,
-        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'] as int,
-        sportRadarPlayerId: json['SportRadarPlayerID'] as String,
-        rotoworldPlayerId: json['RotoworldPlayerID'] as int,
-        rotoWirePlayerId: json['RotoWirePlayerID'] as int,
-        statsPlayerId: json['StatsPlayerID'] as int,
-        sportsDirectPlayerId: json['SportsDirectPlayerID'] as int,
-        xmlTeamPlayerId: json['XmlTeamPlayerID'] as int,
-        fanDuelPlayerId: json['FanDuelPlayerID'] as int,
-        draftKingsPlayerId: json['DraftKingsPlayerID'] as int,
-        yahooPlayerId: json['YahooPlayerID'] as int,
+        upcomingSalary: json['UpcomingSalary'] as int?,
+        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'] as int?,
+        sportRadarPlayerId: json['SportRadarPlayerID'] as String?,
+        rotoworldPlayerId: json['RotoworldPlayerID'] as int?,
+        rotoWirePlayerId: json['RotoWirePlayerID'] as int?,
+        statsPlayerId: json['StatsPlayerID'] as int?,
+        sportsDirectPlayerId: json['SportsDirectPlayerID'] as int?,
+        xmlTeamPlayerId: json['XmlTeamPlayerID'] as int?,
+        fanDuelPlayerId: json['FanDuelPlayerID'] as int?,
+        draftKingsPlayerId: json['DraftKingsPlayerID'] as int?,
+        yahooPlayerId: json['YahooPlayerID'] as int?,
         injuryStatus: json['InjuryStatus'] == null
             ? null
             : statusValues.map[json['InjuryStatus']],
-        injuryBodyPart: json['InjuryBodyPart'] as String,
+        injuryBodyPart: json['InjuryBodyPart'] as String?,
         injuryStartDate: json['InjuryStartDate'] == null
             ? null
             : DateTime.parse(json['InjuryStartDate'] as String),
-        injuryNotes: json['InjuryNotes'] as String,
-        fanDuelName: json['FanDuelName'] as String,
-        draftKingsName: json['DraftKingsName'] as String,
-        yahooName: json['YahooName'] as String,
-        fantasyPositionDepthOrder: json['FantasyPositionDepthOrder'] as int,
+        injuryNotes: json['InjuryNotes'] as String?,
+        fanDuelName: json['FanDuelName'] as String?,
+        draftKingsName: json['DraftKingsName'] as String?,
+        yahooName: json['YahooName'] as String?,
+        fantasyPositionDepthOrder: json['FantasyPositionDepthOrder'] as int?,
         injuryPractice: json['InjuryPractice'],
         injuryPracticeDescription: json['InjuryPracticeDescription'],
-        declaredInactive: json['DeclaredInactive'] as bool,
+        declaredInactive: json['DeclaredInactive'] as bool?,
         upcomingFanDuelSalary: json['UpcomingFanDuelSalary'],
         upcomingDraftKingsSalary: json['UpcomingDraftKingsSalary'],
         upcomingYahooSalary: json['UpcomingYahooSalary'],
-        teamId: json['TeamID'] as int,
-        globalTeamId: json['GlobalTeamID'] as int,
-        fantasyDraftPlayerId: json['FantasyDraftPlayerID'] as int,
-        fantasyDraftName: json['FantasyDraftName'] as String,
-        usaTodayPlayerId: json['UsaTodayPlayerID'] as int,
-        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'] as String,
+        teamId: json['TeamID'] as int?,
+        globalTeamId: json['GlobalTeamID'] as int?,
+        fantasyDraftPlayerId: json['FantasyDraftPlayerID'] as int?,
+        fantasyDraftName: json['FantasyDraftName'] as String?,
+        usaTodayPlayerId: json['UsaTodayPlayerID'] as int?,
+        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'] as String?,
         usaTodayHeadshotNoBackgroundUrl:
-            json['UsaTodayHeadshotNoBackgroundUrl'] as String,
+            json['UsaTodayHeadshotNoBackgroundUrl'] as String?,
         usaTodayHeadshotUpdated: json['UsaTodayHeadshotUpdated'] == null
             ? null
             : DateTime.parse(json['UsaTodayHeadshotUpdated'] as String),
@@ -182,160 +184,160 @@ class NflPlayer {
         ),
       );
 
-  final int playerId;
-  final Team team;
-  final int number;
-  final String firstName;
-  final String lastName;
-  final String position;
-  final StatusEnum status;
-  final String height;
-  final int weight;
-  final DateTime birthDate;
-  final String college;
-  final int experience;
-  final String fantasyPosition;
-  final bool active;
-  final PositionCategory positionCategory;
-  final String name;
-  final int age;
-  final String experienceString;
-  final String birthDateString;
-  final String photoUrl;
-  final int byeWeek;
-  final UpcomingGameOpponent upcomingGameOpponent;
-  final int upcomingGameWeek;
-  final String shortName;
-  final double averageDraftPosition;
-  final PositionCategory depthPositionCategory;
-  final String depthPosition;
-  final int depthOrder;
-  final int depthDisplayOrder;
-  final Team currentTeam;
-  final String collegeDraftTeam;
-  final int collegeDraftYear;
-  final int collegeDraftRound;
-  final int collegeDraftPick;
-  final bool isUndraftedFreeAgent;
-  final int heightFeet;
-  final int heightInches;
-  final int upcomingOpponentRank;
-  final int upcomingOpponentPositionRank;
-  final Status currentStatus;
-  final int upcomingSalary;
-  final int fantasyAlarmPlayerId;
-  final String sportRadarPlayerId;
-  final int rotoworldPlayerId;
-  final int rotoWirePlayerId;
-  final int statsPlayerId;
-  final int sportsDirectPlayerId;
-  final int xmlTeamPlayerId;
-  final int fanDuelPlayerId;
-  final int draftKingsPlayerId;
-  final int yahooPlayerId;
-  final Status injuryStatus;
-  final String injuryBodyPart;
-  final DateTime injuryStartDate;
-  final String injuryNotes;
-  final String fanDuelName;
-  final String draftKingsName;
-  final String yahooName;
-  final int fantasyPositionDepthOrder;
+  final int? playerId;
+  final Team? team;
+  final int? number;
+  final String? firstName;
+  final String? lastName;
+  final String? position;
+  final StatusEnum? status;
+  final String? height;
+  final int? weight;
+  final DateTime? birthDate;
+  final String? college;
+  final int? experience;
+  final String? fantasyPosition;
+  final bool? active;
+  final PositionCategory? positionCategory;
+  final String? name;
+  final int? age;
+  final String? experienceString;
+  final String? birthDateString;
+  final String? photoUrl;
+  final int? byeWeek;
+  final UpcomingGameOpponent? upcomingGameOpponent;
+  final int? upcomingGameWeek;
+  final String? shortName;
+  final double? averageDraftPosition;
+  final PositionCategory? depthPositionCategory;
+  final String? depthPosition;
+  final int? depthOrder;
+  final int? depthDisplayOrder;
+  final Team? currentTeam;
+  final String? collegeDraftTeam;
+  final int? collegeDraftYear;
+  final int? collegeDraftRound;
+  final int? collegeDraftPick;
+  final bool? isUndraftedFreeAgent;
+  final int? heightFeet;
+  final int? heightInches;
+  final int? upcomingOpponentRank;
+  final int? upcomingOpponentPositionRank;
+  final Status? currentStatus;
+  final int? upcomingSalary;
+  final int? fantasyAlarmPlayerId;
+  final String? sportRadarPlayerId;
+  final int? rotoworldPlayerId;
+  final int? rotoWirePlayerId;
+  final int? statsPlayerId;
+  final int? sportsDirectPlayerId;
+  final int? xmlTeamPlayerId;
+  final int? fanDuelPlayerId;
+  final int? draftKingsPlayerId;
+  final int? yahooPlayerId;
+  final Status? injuryStatus;
+  final String? injuryBodyPart;
+  final DateTime? injuryStartDate;
+  final String? injuryNotes;
+  final String? fanDuelName;
+  final String? draftKingsName;
+  final String? yahooName;
+  final int? fantasyPositionDepthOrder;
   final dynamic injuryPractice;
   final dynamic injuryPracticeDescription;
-  final bool declaredInactive;
+  final bool? declaredInactive;
   final dynamic upcomingFanDuelSalary;
   final dynamic upcomingDraftKingsSalary;
   final dynamic upcomingYahooSalary;
-  final int teamId;
-  final int globalTeamId;
-  final int fantasyDraftPlayerId;
-  final String fantasyDraftName;
-  final int usaTodayPlayerId;
-  final String usaTodayHeadshotUrl;
-  final String usaTodayHeadshotNoBackgroundUrl;
-  final DateTime usaTodayHeadshotUpdated;
-  final DateTime usaTodayHeadshotNoBackgroundUpdated;
+  final int? teamId;
+  final int? globalTeamId;
+  final int? fantasyDraftPlayerId;
+  final String? fantasyDraftName;
+  final int? usaTodayPlayerId;
+  final String? usaTodayHeadshotUrl;
+  final String? usaTodayHeadshotNoBackgroundUrl;
+  final DateTime? usaTodayHeadshotUpdated;
+  final DateTime? usaTodayHeadshotNoBackgroundUpdated;
   final dynamic playerSeason;
-  final List<dynamic> latestNews;
+  final List<dynamic>? latestNews;
 
   NflPlayer copyWith({
-    int playerId,
-    Team team,
-    int number,
-    String firstName,
-    String lastName,
-    String position,
-    StatusEnum status,
-    String height,
-    int weight,
-    DateTime birthDate,
-    String college,
-    int experience,
-    String fantasyPosition,
-    bool active,
-    PositionCategory positionCategory,
-    String name,
-    int age,
-    String experienceString,
-    String birthDateString,
-    String photoUrl,
-    int byeWeek,
-    UpcomingGameOpponent upcomingGameOpponent,
-    int upcomingGameWeek,
-    String shortName,
-    double averageDraftPosition,
-    PositionCategory depthPositionCategory,
-    String depthPosition,
-    int depthOrder,
-    int depthDisplayOrder,
-    Team currentTeam,
-    String collegeDraftTeam,
-    int collegeDraftYear,
-    int collegeDraftRound,
-    int collegeDraftPick,
-    bool isUndraftedFreeAgent,
-    int heightFeet,
-    int heightInches,
-    int upcomingOpponentRank,
-    int upcomingOpponentPositionRank,
-    Status currentStatus,
-    int upcomingSalary,
-    int fantasyAlarmPlayerId,
-    String sportRadarPlayerId,
-    int rotoworldPlayerId,
-    int rotoWirePlayerId,
-    int statsPlayerId,
-    int sportsDirectPlayerId,
-    int xmlTeamPlayerId,
-    int fanDuelPlayerId,
-    int draftKingsPlayerId,
-    int yahooPlayerId,
-    Status injuryStatus,
-    String injuryBodyPart,
-    DateTime injuryStartDate,
-    String injuryNotes,
-    String fanDuelName,
-    String draftKingsName,
-    String yahooName,
-    int fantasyPositionDepthOrder,
+    int? playerId,
+    Team? team,
+    int? number,
+    String? firstName,
+    String? lastName,
+    String? position,
+    StatusEnum? status,
+    String? height,
+    int? weight,
+    DateTime? birthDate,
+    String? college,
+    int? experience,
+    String? fantasyPosition,
+    bool? active,
+    PositionCategory? positionCategory,
+    String? name,
+    int? age,
+    String? experienceString,
+    String? birthDateString,
+    String? photoUrl,
+    int? byeWeek,
+    UpcomingGameOpponent? upcomingGameOpponent,
+    int? upcomingGameWeek,
+    String? shortName,
+    double? averageDraftPosition,
+    PositionCategory? depthPositionCategory,
+    String? depthPosition,
+    int? depthOrder,
+    int? depthDisplayOrder,
+    Team? currentTeam,
+    String? collegeDraftTeam,
+    int? collegeDraftYear,
+    int? collegeDraftRound,
+    int? collegeDraftPick,
+    bool? isUndraftedFreeAgent,
+    int? heightFeet,
+    int? heightInches,
+    int? upcomingOpponentRank,
+    int? upcomingOpponentPositionRank,
+    Status? currentStatus,
+    int? upcomingSalary,
+    int? fantasyAlarmPlayerId,
+    String? sportRadarPlayerId,
+    int? rotoworldPlayerId,
+    int? rotoWirePlayerId,
+    int? statsPlayerId,
+    int? sportsDirectPlayerId,
+    int? xmlTeamPlayerId,
+    int? fanDuelPlayerId,
+    int? draftKingsPlayerId,
+    int? yahooPlayerId,
+    Status? injuryStatus,
+    String? injuryBodyPart,
+    DateTime? injuryStartDate,
+    String? injuryNotes,
+    String? fanDuelName,
+    String? draftKingsName,
+    String? yahooName,
+    int? fantasyPositionDepthOrder,
     dynamic injuryPractice,
     dynamic injuryPracticeDescription,
-    bool declaredInactive,
+    bool? declaredInactive,
     dynamic upcomingFanDuelSalary,
     dynamic upcomingDraftKingsSalary,
     dynamic upcomingYahooSalary,
-    int teamId,
-    int globalTeamId,
-    int fantasyDraftPlayerId,
-    String fantasyDraftName,
-    int usaTodayPlayerId,
-    String usaTodayHeadshotUrl,
-    String usaTodayHeadshotNoBackgroundUrl,
-    DateTime usaTodayHeadshotUpdated,
-    DateTime usaTodayHeadshotNoBackgroundUpdated,
+    int? teamId,
+    int? globalTeamId,
+    int? fantasyDraftPlayerId,
+    String? fantasyDraftName,
+    int? usaTodayPlayerId,
+    String? usaTodayHeadshotUrl,
+    String? usaTodayHeadshotNoBackgroundUrl,
+    DateTime? usaTodayHeadshotUpdated,
+    DateTime? usaTodayHeadshotNoBackgroundUpdated,
     dynamic playerSeason,
-    List<dynamic> latestNews,
+    List<dynamic>? latestNews,
   }) =>
       NflPlayer(
         playerId: playerId ?? this.playerId,
@@ -428,14 +430,14 @@ class NflPlayer {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, Object> toMap() => {
+  Map<String, Object?> toMap() => {
         'PlayerID': playerId,
-        'Team': teamValues.reverse[team],
+        'Team': teamValues.reverse![team!],
         'Number': number,
         'FirstName': firstName,
         'LastName': lastName,
         'Position': position,
-        'Status': statusEnumValues.reverse[status],
+        'Status': statusEnumValues.reverse![status!],
         'Height': height,
         'Weight': weight,
         'BirthDate': birthDate?.toIso8601String(),
@@ -443,7 +445,7 @@ class NflPlayer {
         'Experience': experience,
         'FantasyPosition': fantasyPosition,
         'Active': active,
-        'PositionCategory': positionCategoryValues.reverse[positionCategory],
+        'PositionCategory': positionCategoryValues.reverse![positionCategory!],
         'Name': name,
         'Age': age,
         'ExperienceString': experienceString,
@@ -451,17 +453,17 @@ class NflPlayer {
         'PhotoUrl': photoUrl,
         'ByeWeek': byeWeek,
         'UpcomingGameOpponent':
-            upcomingGameOpponentValues.reverse[upcomingGameOpponent],
+            upcomingGameOpponentValues.reverse![upcomingGameOpponent!],
         'UpcomingGameWeek': upcomingGameWeek,
         'ShortName': shortName,
         'AverageDraftPosition': averageDraftPosition,
         'DepthPositionCategory': depthPositionCategory == null
             ? null
-            : positionCategoryValues.reverse[depthPositionCategory],
+            : positionCategoryValues.reverse![depthPositionCategory!],
         'DepthPosition': depthPosition,
         'DepthOrder': depthOrder,
         'DepthDisplayOrder': depthDisplayOrder,
-        'CurrentTeam': teamValues.reverse[currentTeam],
+        'CurrentTeam': teamValues.reverse![currentTeam!],
         'CollegeDraftTeam': collegeDraftTeam,
         'CollegeDraftYear': collegeDraftYear,
         'CollegeDraftRound': collegeDraftRound,
@@ -471,7 +473,7 @@ class NflPlayer {
         'HeightInches': heightInches,
         'UpcomingOpponentRank': upcomingOpponentRank,
         'UpcomingOpponentPositionRank': upcomingOpponentPositionRank,
-        'CurrentStatus': statusValues.reverse[currentStatus],
+        'CurrentStatus': statusValues.reverse![currentStatus!],
         'UpcomingSalary': upcomingSalary,
         'FantasyAlarmPlayerID': fantasyAlarmPlayerId,
         'SportRadarPlayerID': sportRadarPlayerId,
@@ -484,7 +486,7 @@ class NflPlayer {
         'DraftKingsPlayerID': draftKingsPlayerId,
         'YahooPlayerID': yahooPlayerId,
         'InjuryStatus':
-            injuryStatus == null ? null : statusValues.reverse[injuryStatus],
+            injuryStatus == null ? null : statusValues.reverse![injuryStatus!],
         'InjuryBodyPart': injuryBodyPart,
         'InjuryStartDate': injuryStartDate?.toIso8601String(),
         'InjuryNotes': injuryNotes,
@@ -510,7 +512,7 @@ class NflPlayer {
             usaTodayHeadshotNoBackgroundUpdated?.toIso8601String(),
         'PlayerSeason': playerSeason,
         'LatestNews':
-            List<dynamic>.from(latestNews.map<dynamic>((dynamic x) => x)),
+            List<dynamic>.from(latestNews!.map<dynamic>((dynamic x) => x)),
       };
 }
 
@@ -568,9 +570,9 @@ final upcomingGameOpponentValues =
 class EnumValues<T> {
   EnumValues(this.map);
   Map<String, T> map;
-  Map<T, String> reverseMap;
+  Map<T, String>? reverseMap;
 
-  Map<T, String> get reverse {
+  Map<T, String>? get reverse {
     // ignore: join_return_with_assignment
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;

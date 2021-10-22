@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NhlGame {
@@ -45,20 +47,20 @@ class NhlGame {
       NhlGame.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NhlGame.fromMap(Map<String, dynamic> json) => NhlGame(
-        gameId: json['GameID'] as int,
-        season: json['GameID'] as int,
-        seasonType: json['SeasonType'] as int,
-        status: json['Status'] as String,
+        gameId: json['GameID'] as int?,
+        season: json['GameID'] as int?,
+        seasonType: json['SeasonType'] as int?,
+        status: json['Status'] as String?,
         day: json['Day'] == null ? null : DateTime.parse(json['Day'] as String),
         dateTime: json['DateTime'] == null
             ? null
             : DateTime.parse(json['DateTime'] as String),
-        awayTeam: json['AwayTeam'] as String,
-        homeTeam: json['HomeTeam'] as String,
-        awayTeamId: json['AwayTeamID'] as int,
-        homeTeamId: json['HomeTeamID'] as int,
-        stadiumId: json['StadiumID'] as int,
-        channel: json['Channel'] as String,
+        awayTeam: json['AwayTeam'] as String?,
+        homeTeam: json['HomeTeam'] as String?,
+        awayTeamId: json['AwayTeamID'] as int?,
+        homeTeamId: json['HomeTeamID'] as int?,
+        stadiumId: json['StadiumID'] as int?,
+        channel: json['Channel'] as String?,
         attendance: json['Attendance'],
         awayTeamScore: json['AwayTeamScore'],
         homeTeamScore: json['HomeTeamScore'],
@@ -74,23 +76,23 @@ class NhlGame {
         overUnder: json['OverUnder'] == null
             ? null
             : double.tryParse(json['OverUnder'].toString()),
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'] as int,
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'] as int,
-        globalGameId: json['GlobalGameID'] as int,
-        globalAwayTeamId: json['GlobalAwayTeamID'] as int,
-        globalHomeTeamId: json['GlobalHomeTeamID'] as int,
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] as int?,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] as int?,
+        globalGameId: json['GlobalGameID'] as int?,
+        globalAwayTeamId: json['GlobalAwayTeamID'] as int?,
+        globalHomeTeamId: json['GlobalHomeTeamID'] as int?,
         pointSpreadAwayTeamMoneyLine:
-            json['PointSpreadAwayTeamMoneyLine'] as int,
+            json['PointSpreadAwayTeamMoneyLine'] as int?,
         pointSpreadHomeTeamMoneyLine:
-            json['PointSpreadHomeTeamMoneyLine'] as int,
+            json['PointSpreadHomeTeamMoneyLine'] as int?,
         lastPlay: json['LastPlay'],
-        isClosed: json['IsClosed'] as bool,
+        isClosed: json['IsClosed'] as bool?,
         gameEndDateTime: json['GameEndDateTime'],
-        homeRotationNumber: json['HomeRotationNumber'] as int,
-        awayRotationNumber: json['AwayRotationNumber'] as int,
-        neutralVenue: json['NeutralVenue'] as bool,
-        overPayout: json['OverPayout'] as int,
-        underPayout: json['UnderPayout'] as int,
+        homeRotationNumber: json['HomeRotationNumber'] as int?,
+        awayRotationNumber: json['AwayRotationNumber'] as int?,
+        neutralVenue: json['NeutralVenue'] as bool?,
+        overPayout: json['OverPayout'] as int?,
+        underPayout: json['UnderPayout'] as int?,
         quarters: json['Quarters'] == null
             ? null
             : List<dynamic>.from(
@@ -98,82 +100,82 @@ class NhlGame {
               ),
       );
 
-  final int gameId;
-  final int season;
-  final int seasonType;
-  final String status;
-  final DateTime day;
-  final DateTime dateTime;
-  final String awayTeam;
-  final String homeTeam;
-  final int awayTeamId;
-  final int homeTeamId;
-  final int stadiumId;
-  final String channel;
+  final int? gameId;
+  final int? season;
+  final int? seasonType;
+  final String? status;
+  final DateTime? day;
+  final DateTime? dateTime;
+  final String? awayTeam;
+  final String? homeTeam;
+  final int? awayTeamId;
+  final int? homeTeamId;
+  final int? stadiumId;
+  final String? channel;
   final dynamic attendance;
   final dynamic awayTeamScore;
   final dynamic homeTeamScore;
-  final DateTime updated;
+  final DateTime? updated;
   final dynamic quarter;
   final dynamic timeRemainingMinutes;
   final dynamic timeRemainingSeconds;
-  final double pointSpread;
-  final double overUnder;
-  final int awayTeamMoneyLine;
-  final int homeTeamMoneyLine;
-  final int globalGameId;
-  final int globalAwayTeamId;
-  final int globalHomeTeamId;
-  final int pointSpreadAwayTeamMoneyLine;
-  final int pointSpreadHomeTeamMoneyLine;
+  final double? pointSpread;
+  final double? overUnder;
+  final int? awayTeamMoneyLine;
+  final int? homeTeamMoneyLine;
+  final int? globalGameId;
+  final int? globalAwayTeamId;
+  final int? globalHomeTeamId;
+  final int? pointSpreadAwayTeamMoneyLine;
+  final int? pointSpreadHomeTeamMoneyLine;
   final dynamic lastPlay;
-  final bool isClosed;
+  final bool? isClosed;
   final dynamic gameEndDateTime;
-  final int homeRotationNumber;
-  final int awayRotationNumber;
-  final bool neutralVenue;
-  final int overPayout;
-  final int underPayout;
-  final List<dynamic> quarters;
+  final int? homeRotationNumber;
+  final int? awayRotationNumber;
+  final bool? neutralVenue;
+  final int? overPayout;
+  final int? underPayout;
+  final List<dynamic>? quarters;
 
   NhlGame copyWith({
-    int gameId,
-    int season,
-    int seasonType,
-    String status,
-    DateTime day,
-    DateTime dateTime,
-    String awayTeam,
-    String homeTeam,
-    int awayTeamId,
-    int homeTeamId,
-    int stadiumId,
-    String channel,
+    int? gameId,
+    int? season,
+    int? seasonType,
+    String? status,
+    DateTime? day,
+    DateTime? dateTime,
+    String? awayTeam,
+    String? homeTeam,
+    int? awayTeamId,
+    int? homeTeamId,
+    int? stadiumId,
+    String? channel,
     dynamic attendance,
     dynamic awayTeamScore,
     dynamic homeTeamScore,
-    DateTime updated,
+    DateTime? updated,
     dynamic quarter,
     dynamic timeRemainingMinutes,
     dynamic timeRemainingSeconds,
-    double pointSpread,
-    double overUnder,
-    int awayTeamMoneyLine,
-    int homeTeamMoneyLine,
-    int globalGameId,
-    int globalAwayTeamId,
-    int globalHomeTeamId,
-    int pointSpreadAwayTeamMoneyLine,
-    int pointSpreadHomeTeamMoneyLine,
+    double? pointSpread,
+    double? overUnder,
+    int? awayTeamMoneyLine,
+    int? homeTeamMoneyLine,
+    int? globalGameId,
+    int? globalAwayTeamId,
+    int? globalHomeTeamId,
+    int? pointSpreadAwayTeamMoneyLine,
+    int? pointSpreadHomeTeamMoneyLine,
     dynamic lastPlay,
-    bool isClosed,
+    bool? isClosed,
     dynamic gameEndDateTime,
-    int homeRotationNumber,
-    int awayRotationNumber,
-    bool neutralVenue,
-    int overPayout,
-    int underPayout,
-    List<dynamic> quarters,
+    int? homeRotationNumber,
+    int? awayRotationNumber,
+    bool? neutralVenue,
+    int? overPayout,
+    int? underPayout,
+    List<dynamic>? quarters,
   }) =>
       NhlGame(
         gameId: gameId ?? this.gameId,
@@ -219,7 +221,7 @@ class NhlGame {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, Object> toMap() => {
+  Map<String, Object?> toMap() => {
         'GameID': gameId,
         'Season': season,
         'SeasonType': seasonType,
@@ -258,6 +260,6 @@ class NhlGame {
         'UnderPayout': underPayout,
         'Quarters': quarters == null
             ? null
-            : List<dynamic>.from(quarters.map<dynamic>((dynamic x) => x)),
+            : List<dynamic>.from(quarters!.map<dynamic>((dynamic x) => x)),
       };
 }

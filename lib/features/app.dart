@@ -1,3 +1,5 @@
+
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,12 +22,12 @@ import 'home/views/home_page.dart';
 
 class App extends StatelessWidget {
   const App({
-    Key key,
-    @required this.sportsRepository,
-    @required this.userRepository,
-    @required this.betsRepository,
-    @required this.deviceRepository,
-    @required this.groupsRepository,
+    Key? key,
+    required this.sportsRepository,
+    required this.userRepository,
+    required this.betsRepository,
+    required this.deviceRepository,
+    required this.groupsRepository,
   })  : assert(
           sportsRepository != null,
         ),
@@ -71,8 +73,8 @@ class App extends StatelessWidget {
 }
 
 class AppView extends StatefulWidget {
-  const AppView({Key key, this.connectivity}) : super(key: key);
-  final Connectivity connectivity;
+  const AppView({Key? key, this.connectivity}) : super(key: key);
+  final Connectivity? connectivity;
 
   @override
   _AppViewState createState() => _AppViewState();
@@ -81,7 +83,7 @@ class AppView extends StatefulWidget {
 class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigator => _navigatorKey.currentState;
+  NavigatorState? get _navigator => _navigatorKey.currentState;
 
   @override
   Widget build(BuildContext context) {
@@ -104,28 +106,28 @@ class _AppViewState extends State<AppView> {
                 listener: (context, state) {
                   switch (state.status) {
                     case AuthenticationStatus.authenticated:
-                      _navigator.pushAndRemoveUntil<void>(
+                      _navigator!.pushAndRemoveUntil<void>(
                         HomePage.route(
                           connectivity: Connectivity(),
-                          uid: state.user.uid,
+                          uid: state.user!.uid,
                         ),
                         (route) => false,
                       );
                       break;
                     case AuthenticationStatus.unauthenticated:
-                      _navigator.pushAndRemoveUntil<void>(
+                      _navigator!.pushAndRemoveUntil<void>(
                         LoginPage.route(),
                         (route) => false,
                       );
                       break;
                     case AuthenticationStatus.firstTime:
-                      _navigator.pushAndRemoveUntil<void>(
+                      _navigator!.pushAndRemoveUntil<void>(
                         SignUpPage.route(),
                         (route) => false,
                       );
                       break;
                     case AuthenticationStatus.notverified:
-                      _navigator.pushAndRemoveUntil<void>(
+                      _navigator!.pushAndRemoveUntil<void>(
                         VerifyPage.route(),
                         (route) => false,
                       );

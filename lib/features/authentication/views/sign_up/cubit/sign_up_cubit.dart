@@ -12,11 +12,9 @@ part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit({
-    @required UserRepository userRepository,
-    @required AuthenticationBloc authenticationBloc,
-  })  : assert(userRepository != null),
-        assert(authenticationBloc != null),
-        _authenticationBloc = authenticationBloc,
+    required UserRepository userRepository,
+    required AuthenticationBloc authenticationBloc,
+  })  : _authenticationBloc = authenticationBloc,
         _userRepository = userRepository,
         super(
           const SignUpState(),
@@ -25,7 +23,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   final UserRepository _userRepository;
   final AuthenticationBloc _authenticationBloc;
 
-  void agreementClicked(bool value) {
+  void agreementClicked(bool? value) {
     final agreement = Agreement.dirty(value);
     emit(
       state.copyWith(
@@ -162,7 +160,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       );
       final currentUser = await _userRepository.getCurrentUser();
       await _userRepository.saveUserDetails(
-        uid: currentUser.uid,
+        uid: currentUser!.uid,
         userData: UserData(
           location: state.americanState.value,
           email: state.email.value,

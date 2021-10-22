@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -13,17 +15,17 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
   CricketMatchupCardCubit() : super(CricketMatchupCardInitial());
 
   void openCricketMatchupCard({
-    @required CricketDatum gamec,
-    @required String gameName,
+    required CricketDatum gamec,
+    required String gameName,
   }) async {
     final teamData = await getData();
     final homeTeamData =
         teamData.singleWhere((element) => element.title == gamec.homeTeam);
     final awayTeamData = teamData.singleWhere((element) {
-      if (homeTeamData.title == gamec.teams[0]) {
-        return element.title == gamec.teams[1];
+      if (homeTeamData.title == gamec.teams![0]) {
+        return element.title == gamec.teams![1];
       } else
-        return element.title == gamec.teams[0];
+        return element.title == gamec.teams![0];
     });
 
     emit(
@@ -41,9 +43,9 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
     final parsedTeamData = await json.decode(jsonData) as List;
     final teamData = parsedTeamData
         .map<CricketTeam>(
-          (Object json) => CricketTeam.fromMap(
+          ((Object json) => CricketTeam.fromMap(
             json as Map<String, dynamic>,
-          ),
+          )) as CricketTeam Function(dynamic),
         )
         .toList();
 

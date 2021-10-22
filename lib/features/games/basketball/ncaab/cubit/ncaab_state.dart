@@ -1,3 +1,5 @@
+
+
 part of 'ncaab_cubit.dart';
 
 enum NcaabStatus {
@@ -19,11 +21,11 @@ class NcaabState extends Equatable {
   const NcaabState.initial() : this._();
 
   const NcaabState.opened({
-    @required List<NcaabGame> games,
-    @required String league,
-    @required List parsedTeamData,
-    @required DateTime estTimeZone,
-    @required DateTime localTimeZone,
+    required List<NcaabGame> games,
+    required String league,
+    required List? parsedTeamData,
+    required DateTime estTimeZone,
+    required DateTime localTimeZone,
   }) : this._(
           games: games,
           league: league,
@@ -33,15 +35,15 @@ class NcaabState extends Equatable {
           status: NcaabStatus.opened,
         );
 
-  final List<NcaabGame> games;
+  final List<NcaabGame>? games;
   final String league;
-  final List parsedTeamData;
-  final DateTime estTimeZone;
-  final DateTime localTimeZone;
+  final List? parsedTeamData;
+  final DateTime? estTimeZone;
+  final DateTime? localTimeZone;
   final NcaabStatus status;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       games,
       league,

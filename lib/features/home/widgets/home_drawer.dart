@@ -21,8 +21,8 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
-  String versionString;
-  String buildNumber;
+  String? versionString;
+  String? buildNumber;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final width = MediaQuery.of(context).size.width;
     final currentUserId = context.select(
       (AuthenticationBloc authenticationBloc) =>
-          authenticationBloc.state?.user?.uid,
+          authenticationBloc.state.user?.uid,
     );
     final isAdmin = context.select((ProfileCubit profileCubit) =>
         profileCubit.state.userData?.isAdmin ?? false);

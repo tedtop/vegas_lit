@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +11,7 @@ import '../golf_page.dart';
 
 class GolfTournamentsView extends StatefulWidget {
   GolfTournamentsView({this.tournaments});
-  final List<GolfTournament> tournaments;
+  final List<GolfTournament>? tournaments;
   @override
   _GolfTournamentsViewState createState() => _GolfTournamentsViewState();
 }
@@ -20,7 +22,7 @@ class _GolfTournamentsViewState extends State<GolfTournamentsView> {
     return ListView(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      children: widget.tournaments.map((tournament) {
+      children: widget.tournaments!.map((tournament) {
         return GolfTournamentCard(tournament: tournament);
       }).toList(),
     );
@@ -28,7 +30,7 @@ class _GolfTournamentsViewState extends State<GolfTournamentsView> {
 }
 
 class GolfTournamentCard extends StatelessWidget {
-  GolfTournamentCard({@required this.tournament})
+  GolfTournamentCard({required this.tournament})
       : assert(tournament != null),
         tournamentName = tournament.name,
         venue = tournament.venue,
@@ -38,9 +40,9 @@ class GolfTournamentCard extends StatelessWidget {
         purse = tournament.purse;
 
   final GolfTournament tournament;
-  final String tournamentName, venue, location;
-  final DateTime startDate, endDate;
-  final int purse;
+  final String? tournamentName, venue, location;
+  final DateTime? startDate, endDate;
+  final int? purse;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -78,7 +80,7 @@ class GolfTournamentCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tournamentName,
+                      tournamentName!,
                       style: Styles.normalTextBold,
                     ),
                     Text(
@@ -107,7 +109,7 @@ class GolfTournamentCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${startDate.day} ${DateFormat.MMM().format(startDate)}-${endDate.day} ${DateFormat.MMM().format(endDate)}, ${endDate.year}',
+                      '${startDate!.day} ${DateFormat.MMM().format(startDate!)}-${endDate!.day} ${DateFormat.MMM().format(endDate!)}, ${endDate!.year}',
                       style: Styles.normalText.copyWith(fontSize: 12),
                     ),
                     Text(

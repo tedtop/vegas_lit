@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
@@ -5,7 +7,7 @@ import '../../../config/styles.dart';
 import '../../../data/models/vault_data.dart';
 
 class AdminVaultDailyList extends StatelessWidget {
-  const AdminVaultDailyList({Key key, @required this.vaultItem})
+  const AdminVaultDailyList({Key? key, required this.vaultItem})
       : super(key: key);
 
   final VaultItem vaultItem;
@@ -104,10 +106,10 @@ class AdminVaultDailyList extends StatelessWidget {
 }
 
 class AdminVaultCumulativeTile extends StatelessWidget {
-  const AdminVaultCumulativeTile({Key key, @required this.vaultItem})
+  const AdminVaultCumulativeTile({Key? key, required this.vaultItem})
       : super(key: key);
 
-  final VaultItem vaultItem;
+  final VaultItem? vaultItem;
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +147,7 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        vaultItem.totalBets.toString(),
+                        vaultItem!.totalBets.toString(),
                         style: Styles.normalText,
                       ),
                     )
@@ -159,7 +161,7 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem.moneyIn.toString()}',
+                        '${vaultItem!.moneyIn.toString()}',
                         style: Styles.normalText,
                       ),
                     )
@@ -173,7 +175,7 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem.moneyOut.toString()}',
+                        '${vaultItem!.moneyOut.toString()}',
                         style: Styles.normalText,
                       ),
                     )
@@ -187,7 +189,7 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem.totalProfit.toString()}',
+                        '${vaultItem!.totalProfit.toString()}',
                         style: Styles.normalText,
                       ),
                     )

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
@@ -16,15 +18,15 @@ import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_bet_history_ca
 import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_bet_history_card.dart';
 
 class ParlayBetHistoryCard extends StatelessWidget {
-  const ParlayBetHistoryCard({Key key, @required this.betHistoryData})
+  const ParlayBetHistoryCard({Key? key, required this.betHistoryData})
       : super(key: key);
 
   final ParlayBets betHistoryData;
 
   @override
   Widget build(BuildContext context) {
-    bool isWin;
-    for (final dynamic bet in betHistoryData.bets) {
+    bool? isWin;
+    for (final dynamic bet in betHistoryData.bets!) {
       if (isWin == null)
         isWin = (bet.winningTeam == bet.betTeam);
       else
@@ -49,14 +51,14 @@ class ParlayBetHistoryCard extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '${betHistoryData.bets.length} leg parlay',
+                  '${betHistoryData.bets!.length} leg parlay',
                   style: Styles.betHistoryNormal,
                 ),
-                isWin
+                isWin!
                     ? Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4.0),
                         child: Text(
-                          'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit + betHistoryData.betAmount}',
+                          'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit! + betHistoryData.betAmount!}',
                           style: Styles.betHistoryCardBoldGreen,
                         ),
                       )
@@ -74,13 +76,13 @@ class ParlayBetHistoryCard extends StatelessWidget {
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             reverse: true,
-            itemCount: betHistoryData.bets.length,
+            itemCount: betHistoryData.bets!.length,
             itemBuilder: (BuildContext context, int index) {
               return Builder(
                 // ignore: missing_return
                 builder: (context) {
                   final betData = betHistoryData
-                      .bets[betHistoryData.bets.length - index - 1];
+                      .bets![betHistoryData.bets!.length - index - 1];
                   if (betData is MlbBetData) {
                     return MlbBetHistoryCard(
                       betHistoryData: betData,

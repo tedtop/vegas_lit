@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +12,7 @@ import '../../../../../data/repositories/user_repository.dart';
 part 'ads_state.dart';
 
 class AdsCubit extends Cubit<AdsState> {
-  AdsCubit({@required UserRepository userRepository})
+  AdsCubit({required UserRepository userRepository})
       : assert(userRepository != null),
         _userRepository = userRepository,
         super(
@@ -104,7 +106,7 @@ class AdsCubit extends Cubit<AdsState> {
                   'Reward Amount ${rewardItem.amount}\n Reward Type ${rewardItem.type}');
               await _userRepository
                   .rewardForVideoAd(
-                uid: currentUser.uid,
+                uid: currentUser!.uid,
                 rewardValue: 100,
               )
                   .then(

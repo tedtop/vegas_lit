@@ -16,7 +16,7 @@ import '../group_details/group_details.dart';
 import 'cubit/public_groups_cubit.dart';
 
 class PublicGroups extends StatelessWidget {
-  const PublicGroups._({Key key}) : super(key: key);
+  const PublicGroups._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -111,12 +111,12 @@ class PublicGroups extends StatelessWidget {
 }
 
 class PublicGroupList extends StatelessWidget {
-  const PublicGroupList({Key key}) : super(key: key);
+  const PublicGroupList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final groupList = context.select(
-      (PublicGroupsCubit cubit) => cubit.state?.publicGroups,
+      (PublicGroupsCubit cubit) => cubit.state.publicGroups,
     );
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
@@ -134,8 +134,8 @@ class PublicGroupList extends StatelessWidget {
 
 class PublicGroupListTile extends StatelessWidget {
   const PublicGroupListTile({
-    Key key,
-    @required Group group,
+    Key? key,
+    required Group group,
   })  : assert(group != null),
         _group = group,
         super(key: key);
@@ -144,9 +144,9 @@ class PublicGroupListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.watch<AuthenticationBloc>().state.user.uid;
+    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
     final groupUsersLength =
-        _group.users.values.where((element) => element == true).length;
+        _group.users!.values.where((element) => element == true).length;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -165,7 +165,7 @@ class PublicGroupListTile extends StatelessWidget {
             ? CircleAvatar(
                 radius: 25,
                 backgroundImage: CachedNetworkImageProvider(
-                  _group.avatarUrl,
+                  _group.avatarUrl!,
                 ), //Image for web configuration.
               )
             : const SizedBox(
@@ -176,11 +176,11 @@ class PublicGroupListTile extends StatelessWidget {
                 ),
               ),
         title: Text(
-          _group.name,
+          _group.name!,
           style: Styles.leaderboardUsername,
         ),
         subtitle: Text(
-          _group.isPublic ? 'Public Group' : 'Private Group',
+          _group.isPublic! ? 'Public Group' : 'Private Group',
           style: Styles.normalText.copyWith(fontSize: 14),
         ),
         trailing: Column(
@@ -189,7 +189,7 @@ class PublicGroupListTile extends StatelessWidget {
               '$groupUsersLength${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
-                        _group.userLimit > _group.users.length
+                        _group.userLimit! > _group.users!.length
                     ? Palette.green
                     : Palette.red,
               ),

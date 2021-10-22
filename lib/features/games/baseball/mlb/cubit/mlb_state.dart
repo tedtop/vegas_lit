@@ -1,3 +1,5 @@
+
+
 part of 'mlb_cubit.dart';
 
 enum MlbStatus {
@@ -17,10 +19,10 @@ class MlbState extends Equatable {
   const MlbState.initial() : this._();
 
   const MlbState.opened({
-    @required List<MlbGame> games,
-    @required String league,
-    @required List<MlbTeam> parsedTeamData,
-    @required DateTime estTimeZone,
+    required List<MlbGame> games,
+    required String league,
+    required List<MlbTeam> parsedTeamData,
+    required DateTime estTimeZone,
   }) : this._(
           games: games,
           league: league,
@@ -29,14 +31,14 @@ class MlbState extends Equatable {
           status: MlbStatus.opened,
         );
 
-  final List<MlbGame> games;
+  final List<MlbGame>? games;
   final String league;
-  final List<MlbTeam> parsedTeamData;
-  final DateTime estTimeZone;
+  final List<MlbTeam>? parsedTeamData;
+  final DateTime? estTimeZone;
   final MlbStatus status;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       games,
       league,

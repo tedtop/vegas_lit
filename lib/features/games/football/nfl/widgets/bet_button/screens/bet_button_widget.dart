@@ -14,26 +14,26 @@ import '../../../models/nfl_team.dart';
 import '../cubit/bet_button_cubit.dart';
 
 class BetButton extends StatelessWidget {
-  const BetButton._({Key key}) : super(key: key);
+  const BetButton._({Key? key}) : super(key: key);
 
   static Builder route({
-    @required String text,
-    @required NflGame game,
-    @required Bet betType,
-    @required String mainOdds,
-    @required NflTeam awayTeamData,
-    @required String league,
-    @required NflTeam homeTeamData,
-    @required int gameId,
-    @required double spread,
-    @required BetButtonWin winTeam,
-    @required bool isClosed,
+    required String text,
+    required NflGame game,
+    required Bet betType,
+    required String mainOdds,
+    required NflTeam awayTeamData,
+    required String league,
+    required NflTeam homeTeamData,
+    required int? gameId,
+    required double spread,
+    required BetButtonWin winTeam,
+    required bool? isClosed,
   }) {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
-              authenticationBloc.state?.user?.uid,
+              authenticationBloc.state.user?.uid,
         );
         return BlocProvider(
           create: (_) => NflBetButtonCubit(
@@ -92,7 +92,8 @@ class BetButton extends StatelessWidget {
         },
         child: Builder(
           builder: (context) {
-            final betButtonState = context.watch<NflBetButtonCubit>().state;
+            final NflBetButtonState betButtonState =
+                context.watch<NflBetButtonCubit>().state;
             switch (betButtonState.status) {
               case NflBetButtonStatus.unclicked:
                 return BetButtonUnclicked();
@@ -125,9 +126,10 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<NflBetButtonCubit>().state;
+    final NflBetButtonState betButtonState =
+        context.watch<NflBetButtonCubit>().state;
     final username = context.select(
-      (HomeCubit homeBloc) => homeBloc.state?.userData?.username,
+      (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
 
     return Padding(
@@ -170,7 +172,8 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState = context.watch<NflBetButtonCubit>().state;
+    final NflBetButtonState betButtonState =
+        context.watch<NflBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
@@ -208,7 +211,7 @@ class BetButtonClicked extends StatelessWidget {
   }
 }
 
-String whichBetSystemToSave({@required Bet betType}) {
+String whichBetSystemToSave({required Bet betType}) {
   if (betType == Bet.ml) {
     return 'moneyline';
   }

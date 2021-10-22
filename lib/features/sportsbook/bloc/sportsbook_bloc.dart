@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -14,8 +16,8 @@ part 'sportsbook_state.dart';
 
 class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   SportsbookBloc(
-      {@required SportsRepository sportsfeedRepository,
-      @required DeviceRepository deviceRepository})
+      {required SportsRepository sportsfeedRepository,
+      required DeviceRepository deviceRepository})
       : assert(sportsfeedRepository != null),
         assert(deviceRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
@@ -103,7 +105,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
   }
 
   Future<int> mapGameLength(
-      {@required DateTime dateTime, @required String league}) async {
+      {required DateTime dateTime, required String league}) async {
     switch (league) {
       case 'NFL':
         return await _sportsfeedRepository
@@ -116,7 +118,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return value
                 .where((element) => element.status == 'Scheduled')
                 .where((element) =>
-                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                    element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.closed == false)
                 .where((element) {
               return element.awayTeamMoneyLine != null ||
@@ -140,7 +142,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return value
                 .where((element) => element.status == 'Scheduled')
                 .where((element) =>
-                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                    element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .where((element) {
               return element.awayTeamMoneyLine != null ||
@@ -164,7 +166,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return value
                 .where((element) => element.status == 'Scheduled')
                 .where((element) =>
-                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                    element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .where((element) {
               return element.awayTeamMoneyLine != null ||
@@ -188,7 +190,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return value
                 .where((element) => element.status == 'Scheduled')
                 .where((element) =>
-                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                    element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .where((element) {
               return element.awayTeamMoneyLine != null ||
@@ -212,7 +214,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return value
                 .where((element) => element.status == 'Scheduled')
                 .where((element) =>
-                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                    element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .where((element) {
               return element.awayTeamMoneyLine != null ||
@@ -236,7 +238,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             return value
                 .where((element) => element.status == 'Scheduled')
                 .where((element) =>
-                    element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                    element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
                 .where((element) => element.isClosed == false)
                 .where((element) {
               return element.awayTeamMoneyLine != null ||
@@ -263,12 +265,12 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 : value
                     .where(
                       (game) =>
-                          game.startTime.isAfter(ESTDateTime.fetchTimeEST()) &&
+                          game.startTime!.isAfter(ESTDateTime.fetchTimeEST()) &&
                           (ESTDateTime.fetchTimeEST()
-                                  .isSameDate(game.startTime) ||
+                                  .isSameDate(game.startTime!) ||
                               ESTDateTime.fetchTimeEST()
                                   .add(const Duration(days: 1))
-                                  .isSameDate(game.startTime)),
+                                  .isSameDate(game.startTime!)),
                     )
                     .toList()
                     .length;
@@ -283,12 +285,12 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                 : value
                     .where(
                       (game) =>
-                          game.startTime.isAfter(ESTDateTime.fetchTimeEST()) &&
+                          game.startTime!.isAfter(ESTDateTime.fetchTimeEST()) &&
                           (ESTDateTime.fetchTimeEST()
-                                  .isSameDate(game.startTime) ||
+                                  .isSameDate(game.startTime!) ||
                               ESTDateTime.fetchTimeEST()
                                   .add(const Duration(days: 1))
-                                  .isSameDate(game.startTime)),
+                                  .isSameDate(game.startTime!)),
                     )
                     .toList()
                     .length;

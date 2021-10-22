@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +12,7 @@ import '../cubit/admin_vault_cubit.dart';
 import '../widgets/admin_record_box.dart';
 
 class AdminVaultScreen extends StatelessWidget {
-  const AdminVaultScreen._({Key key}) : super(key: key);
+  const AdminVaultScreen._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route() {
     return MaterialPageRoute<void>(

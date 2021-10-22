@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../../../../../data/models/mlb/mlb_game.dart';
@@ -9,9 +11,9 @@ class MlbMatchupCardCubit extends Cubit<MlbMatchupCardState> {
   MlbMatchupCardCubit() : super(MatchupCardInitial());
 
   void openMatchupCard({
-    @required MlbGame game,
-    @required List<MlbTeam> teamData,
-    @required String gameName,
+    required MlbGame game,
+    required List<MlbTeam> teamData,
+    required String? gameName,
   }) async {
     final awayTeamData =
         teamData.singleWhere((element) => element.key == game.awayTeam);

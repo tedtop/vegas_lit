@@ -4,12 +4,12 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 
-typedef OnNumberTap = void Function(int number);
+typedef OnNumberTap = void Function(int? number);
 
 class PageNumberView extends StatefulWidget {
   PageNumberView({this.pages});
 
-  final int pages;
+  final int? pages;
 
   @override
   _PageNumberViewState createState() => _PageNumberViewState();
@@ -17,9 +17,9 @@ class PageNumberView extends StatefulWidget {
 
 class _PageNumberViewState extends State<PageNumberView> {
   int selectedPage = 1;
-  void updatePageNumber(int pageNumber) {
+  void updatePageNumber(int? pageNumber) {
     setState(() {
-      selectedPage = pageNumber;
+      selectedPage = pageNumber!;
     });
     return;
   }
@@ -33,9 +33,9 @@ class _PageNumberViewState extends State<PageNumberView> {
 
   @override
   Widget build(BuildContext context) {
-    final pageList = List<int>.generate(widget.pages, (i) => i + 1);
-    if (widget.pages <= 0) return Container();
-    if (widget.pages <= 7)
+    final pageList = List<int>.generate(widget.pages!, (i) => i + 1);
+    if (widget.pages! <= 0) return Container();
+    if (widget.pages! <= 7)
       return Row(
         children: pageList.map((pageNumber) {
           return PageNumberWidget(
@@ -57,7 +57,7 @@ class _PageNumberViewState extends State<PageNumberView> {
           }).toList(),
           ellipsisIcon(),
           ...pageList
-              .getRange(widget.pages - 1, widget.pages)
+              .getRange(widget.pages! - 1, widget.pages!)
               .map((pageNumber) {
             return PageNumberWidget(
               number: pageNumber,
@@ -67,7 +67,7 @@ class _PageNumberViewState extends State<PageNumberView> {
           }).toList(),
         ],
       );
-    if (selectedPage > widget.pages - 3 && selectedPage <= widget.pages)
+    if (selectedPage > widget.pages! - 3 && selectedPage <= widget.pages!)
       return Row(
         children: [
           ...pageList.getRange(0, 2).map((pageNumber) {
@@ -79,7 +79,7 @@ class _PageNumberViewState extends State<PageNumberView> {
           }).toList(),
           ellipsisIcon(),
           ...pageList
-              .getRange(widget.pages - 4, widget.pages)
+              .getRange(widget.pages! - 4, widget.pages!)
               .map((pageNumber) {
             return PageNumberWidget(
               number: pageNumber,
@@ -119,15 +119,15 @@ class _PageNumberViewState extends State<PageNumberView> {
 
 class PageNumberWidget extends StatelessWidget {
   PageNumberWidget({this.number, this.changeNumber, this.selected = false});
-  final int number;
+  final int? number;
   final bool selected;
-  final OnNumberTap changeNumber;
+  final OnNumberTap? changeNumber;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => changeNumber(number),
+        onTap: () => changeNumber!(number),
         child: Container(
           height: 32,
           width: 32,

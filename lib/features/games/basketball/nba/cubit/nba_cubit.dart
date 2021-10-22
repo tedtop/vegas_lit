@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -12,7 +14,7 @@ import '../../../../../data/repositories/sports_repository.dart';
 part 'nba_state.dart';
 
 class NbaCubit extends Cubit<NbaState> {
-  NbaCubit({@required SportsRepository sportsfeedRepository})
+  NbaCubit({required SportsRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
@@ -34,7 +36,7 @@ class NbaCubit extends Cubit<NbaState> {
           (value) => value
               .where((element) => element.status == 'Scheduled')
               .where((element) =>
-                  element.dateTime.isAfter(ESTDateTime.fetchTimeEST()))
+                  element.dateTime!.isAfter(ESTDateTime.fetchTimeEST()))
               .where((element) => element.isClosed == false)
               .where((element) {
             return element.awayTeamMoneyLine != null ||
@@ -57,8 +59,8 @@ class NbaCubit extends Cubit<NbaState> {
   }
 }
 
-Future<List> getNBAParsedTeamData() async {
+Future<List?> getNBAParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/nba.json');
-  final parsedTeamData = await json.decode(jsonData) as List;
+  final parsedTeamData = await json.decode(jsonData) as List?;
   return parsedTeamData;
 }

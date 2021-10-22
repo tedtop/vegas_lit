@@ -32,7 +32,6 @@ extension RoutesExtension on Routes {
       case Routes.rules:
         return 'RulesRoute';
     }
-    throw ArgumentError.notNull('route');
   }
 
   String get screenName {
@@ -54,6 +53,5 @@ extension RoutesExtension on Routes {
       case Routes.rules:
         return 'Rules';
     }
-    throw ArgumentError.notNull('route');
   }
 }

@@ -10,8 +10,14 @@ extension ESTDateTime on DateTime {
     tz.initializeTimeZones();
     final locationNY = tz.getLocation('America/New_York');
     final nowNY = tz.TZDateTime.now(locationNY);
-    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-        nowNY.minute, nowNY.second);
+    final dateTimeNY = DateTime(
+      nowNY.year,
+      nowNY.month,
+      nowNY.day,
+      nowNY.hour,
+      nowNY.minute,
+      nowNY.second,
+    );
     return dateTimeNY;
   }
 
@@ -51,12 +57,12 @@ extension ESTDateTime on DateTime {
       case DateTime.tuesday:
       case DateTime.wednesday:
         return '$year-${weekNumber - 1}-$weekNumber';
-        break;
       case DateTime.thursday:
       case DateTime.friday:
       case DateTime.saturday:
         return '$year-$weekNumber-${weekNumber + 1}';
-        break;
+      default:
+        return '$year-${weekNumber - 1}-$weekNumber';
     }
   }
 
