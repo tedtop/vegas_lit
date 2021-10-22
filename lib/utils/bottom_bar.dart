@@ -148,7 +148,7 @@ class BottomBar extends StatelessWidget {
 }
 
 class BottomBarColumn extends StatelessWidget {
-  BottomBarColumn({this.heading, this.content});
+  const BottomBarColumn({this.heading, this.content});
   final String heading;
   final Map<String, Function> content;
 
@@ -182,7 +182,7 @@ class BottomBarColumn extends StatelessWidget {
 }
 
 class InfoText extends StatelessWidget {
-  InfoText({this.type, this.text});
+  const InfoText({Key key, this.type, this.text}) : super(key: key);
   final String type;
   final String text;
 

@@ -10,7 +10,7 @@ import '../../cubit/leaderboard_cubit.dart';
 import '../../widgets/textbar.dart';
 
 class DesktopLeaderboard extends StatefulWidget {
-  DesktopLeaderboard({this.players});
+  const DesktopLeaderboard({this.players});
   final List<Wallet> players;
   @override
   _DesktopLeaderboardState createState() => _DesktopLeaderboardState();
@@ -217,7 +217,7 @@ class LeaderboardColumns extends StatelessWidget {
 }
 
 class WebLeaderboardItem extends StatelessWidget {
-  WebLeaderboardItem({this.player, this.rank});
+  const WebLeaderboardItem({Key key, this.player, this.rank}) : super(key: key);
   final Wallet player;
   final int rank;
   @override

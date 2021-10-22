@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vegas_lit/config/assets.dart';
@@ -40,7 +40,6 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
 
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-          crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
             Text(
               '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game.playerCountry).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game.rivalCountry).name.toUpperCase()} TO WIN',
@@ -56,7 +55,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  betButtonState.game.gameName.replaceAll(RegExp('-'), '\/'),
+                  betButtonState.game.gameName.replaceAll(RegExp('-'), '/'),
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.cream,
@@ -121,7 +120,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                                 height: 90,
                                 width: 170,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
+                                  padding: const EdgeInsets.all(6),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -132,7 +131,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                                       Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                            bottom: 8.0,
+                                            bottom: 8,
                                           ),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
@@ -160,8 +159,8 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 0.75),
                                   ),
                                 ],
                               ),
@@ -262,7 +261,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                               height: 90,
                               width: 170,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -273,7 +272,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                                     Center(
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                          bottom: 8.0,
+                                          bottom: 8,
                                         ),
                                         child: Text(
                                           '${betButtonState.toWinAmount}',
@@ -299,8 +298,8 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 0.75),
                                   ),
                                 ],
                               ),
@@ -375,7 +374,7 @@ class OlympicsParlayBetSlipCard extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key key,
     @required this.betAmount,
   }) : super(key: key);
@@ -456,7 +455,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,
@@ -539,7 +537,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [
@@ -587,22 +585,23 @@ Widget badgeFromEventTypeColumn({String eventType}) {
       const SizedBox(
         height: 40,
       ),
-      eventType == 'gold'
-          ? const Text(
-              '🥇',
-              style: TextStyle(fontSize: 20),
-            )
-          : eventType == 'silver'
-              ? const Text(
-                  '🥈',
-                  style: TextStyle(fontSize: 20),
-                )
-              : eventType == 'bronze'
-                  ? const Text(
-                      '🥉',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  : const SizedBox.shrink(),
+      if (eventType == 'gold')
+        const Text(
+          '🥇',
+          style: TextStyle(fontSize: 20),
+        )
+      else
+        eventType == 'silver'
+            ? const Text(
+                '🥈',
+                style: TextStyle(fontSize: 20),
+              )
+            : eventType == 'bronze'
+                ? const Text(
+                    '🥉',
+                    style: TextStyle(fontSize: 20),
+                  )
+                : const SizedBox.shrink(),
     ],
   );
 }
@@ -664,7 +663,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 
