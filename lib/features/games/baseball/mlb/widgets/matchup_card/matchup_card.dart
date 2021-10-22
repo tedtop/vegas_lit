@@ -174,7 +174,7 @@ class MatchupCard extends StatelessWidget {
                                                   gameName: state.league,
                                                 ),
                                                 spread: gameData.overUnder
-                                                    .toDouble(),
+                                                    .toDouble() as double,
                                                 mainOdds: gameData.overPayout
                                                     .toString(),
                                                 betType: Bet.tot,
@@ -302,7 +302,7 @@ class MatchupCard extends StatelessWidget {
                                                     .toString(),
                                                 betType: Bet.tot,
                                                 spread: gameData.overUnder
-                                                    .toDouble(),
+                                                    .toDouble() as double,
                                                 awayTeamData:
                                                     state.awayTeamData,
                                                 homeTeamData:

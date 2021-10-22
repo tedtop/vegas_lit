@@ -79,101 +79,107 @@ class NflPlayer {
     this.playerSeason,
     this.latestNews,
   });
-  factory NflPlayer.fromJson(String str) => NflPlayer.fromMap(json.decode(str));
+  factory NflPlayer.fromJson(String str) =>
+      NflPlayer.fromMap(json.decode(str) as Map<String, dynamic>);
   factory NflPlayer.fromMap(Map<String, dynamic> json) => NflPlayer(
-        playerId: json['PlayerID'],
+        playerId: json['PlayerID'] as int,
         team: teamValues.map[json['Team']],
-        number: json['Number'],
-        firstName: json['FirstName'],
-        lastName: json['LastName'],
-        position: json['Position'],
+        number: json['Number'] as int,
+        firstName: json['FirstName'] as String,
+        lastName: json['LastName'] as String,
+        position: json['Position'] as String,
         status: statusEnumValues.map[json['Status']],
-        height: json['Height'],
-        weight: json['Weight'],
+        height: json['Height'] as String,
+        weight: json['Weight'] as int,
         birthDate: json['BirthDate'] == null
             ? null
-            : DateTime.parse(json['BirthDate']),
-        college: json['College'],
-        experience: json['Experience'],
-        fantasyPosition: json['FantasyPosition'],
-        active: json['Active'],
+            : DateTime.parse(json['BirthDate'] as String),
+        college: json['College'] as String,
+        experience: json['Experience'] as int,
+        fantasyPosition: json['FantasyPosition'] as String,
+        active: json['Active'] as bool,
         positionCategory: positionCategoryValues.map[json['PositionCategory']],
-        name: json['Name'],
-        age: json['Age'],
-        experienceString: json['ExperienceString'],
-        birthDateString: json['BirthDateString'],
-        photoUrl: json['PhotoUrl'],
-        byeWeek: json['ByeWeek'],
+        name: json['Name'] as String,
+        age: json['Age'] as int,
+        experienceString: json['ExperienceString'] as String,
+        birthDateString: json['BirthDateString'] as String,
+        photoUrl: json['PhotoUrl'] as String,
+        byeWeek: json['ByeWeek'] as int,
         upcomingGameOpponent:
             upcomingGameOpponentValues.map[json['UpcomingGameOpponent']],
-        upcomingGameWeek: json['UpcomingGameWeek'],
-        shortName: json['ShortName'],
+        upcomingGameWeek: json['UpcomingGameWeek'] as int,
+        shortName: json['ShortName'] as String,
         averageDraftPosition: json['AverageDraftPosition'] == null
             ? null
-            : json['AverageDraftPosition'].toDouble(),
+            : json['AverageDraftPosition'].toDouble() as double,
         depthPositionCategory: json['DepthPositionCategory'] == null
             ? null
             : positionCategoryValues.map[json['DepthPositionCategory']],
-        depthPosition: json['DepthPosition'],
-        depthOrder: json['DepthOrder'],
-        depthDisplayOrder: json['DepthDisplayOrder'],
+        depthPosition: json['DepthPosition'] as String,
+        depthOrder: json['DepthOrder'] as int,
+        depthDisplayOrder: json['DepthDisplayOrder'] as int,
         currentTeam: teamValues.map[json['CurrentTeam']],
-        collegeDraftTeam: json['CollegeDraftTeam'],
-        collegeDraftYear: json['CollegeDraftYear'],
-        collegeDraftRound: json['CollegeDraftRound'],
-        collegeDraftPick: json['CollegeDraftPick'],
-        isUndraftedFreeAgent: json['IsUndraftedFreeAgent'],
-        heightFeet: json['HeightFeet'],
-        heightInches: json['HeightInches'],
-        upcomingOpponentRank: json['UpcomingOpponentRank'],
-        upcomingOpponentPositionRank: json['UpcomingOpponentPositionRank'],
+        collegeDraftTeam: json['CollegeDraftTeam'] as String,
+        collegeDraftYear: json['CollegeDraftYear'] as int,
+        collegeDraftRound: json['CollegeDraftRound'] as int,
+        collegeDraftPick: json['CollegeDraftPick'] as int,
+        isUndraftedFreeAgent: json['IsUndraftedFreeAgent'] as bool,
+        heightFeet: json['HeightFeet'] as int,
+        heightInches: json['HeightInches'] as int,
+        upcomingOpponentRank: json['UpcomingOpponentRank'] as int,
+        upcomingOpponentPositionRank:
+            json['UpcomingOpponentPositionRank'] as int,
         currentStatus: statusValues.map[json['CurrentStatus']],
-        upcomingSalary: json['UpcomingSalary'],
-        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'],
-        sportRadarPlayerId: json['SportRadarPlayerID'],
-        rotoworldPlayerId: json['RotoworldPlayerID'],
-        rotoWirePlayerId: json['RotoWirePlayerID'],
-        statsPlayerId: json['StatsPlayerID'],
-        sportsDirectPlayerId: json['SportsDirectPlayerID'],
-        xmlTeamPlayerId: json['XmlTeamPlayerID'],
-        fanDuelPlayerId: json['FanDuelPlayerID'],
-        draftKingsPlayerId: json['DraftKingsPlayerID'],
-        yahooPlayerId: json['YahooPlayerID'],
+        upcomingSalary: json['UpcomingSalary'] as int,
+        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'] as int,
+        sportRadarPlayerId: json['SportRadarPlayerID'] as String,
+        rotoworldPlayerId: json['RotoworldPlayerID'] as int,
+        rotoWirePlayerId: json['RotoWirePlayerID'] as int,
+        statsPlayerId: json['StatsPlayerID'] as int,
+        sportsDirectPlayerId: json['SportsDirectPlayerID'] as int,
+        xmlTeamPlayerId: json['XmlTeamPlayerID'] as int,
+        fanDuelPlayerId: json['FanDuelPlayerID'] as int,
+        draftKingsPlayerId: json['DraftKingsPlayerID'] as int,
+        yahooPlayerId: json['YahooPlayerID'] as int,
         injuryStatus: json['InjuryStatus'] == null
             ? null
             : statusValues.map[json['InjuryStatus']],
-        injuryBodyPart: json['InjuryBodyPart'],
+        injuryBodyPart: json['InjuryBodyPart'] as String,
         injuryStartDate: json['InjuryStartDate'] == null
             ? null
-            : DateTime.parse(json['InjuryStartDate']),
-        injuryNotes: json['InjuryNotes'],
-        fanDuelName: json['FanDuelName'],
-        draftKingsName: json['DraftKingsName'],
-        yahooName: json['YahooName'],
-        fantasyPositionDepthOrder: json['FantasyPositionDepthOrder'],
+            : DateTime.parse(json['InjuryStartDate'] as String),
+        injuryNotes: json['InjuryNotes'] as String,
+        fanDuelName: json['FanDuelName'] as String,
+        draftKingsName: json['DraftKingsName'] as String,
+        yahooName: json['YahooName'] as String,
+        fantasyPositionDepthOrder: json['FantasyPositionDepthOrder'] as int,
         injuryPractice: json['InjuryPractice'],
         injuryPracticeDescription: json['InjuryPracticeDescription'],
-        declaredInactive: json['DeclaredInactive'],
+        declaredInactive: json['DeclaredInactive'] as bool,
         upcomingFanDuelSalary: json['UpcomingFanDuelSalary'],
         upcomingDraftKingsSalary: json['UpcomingDraftKingsSalary'],
         upcomingYahooSalary: json['UpcomingYahooSalary'],
-        teamId: json['TeamID'],
-        globalTeamId: json['GlobalTeamID'],
-        fantasyDraftPlayerId: json['FantasyDraftPlayerID'],
-        fantasyDraftName: json['FantasyDraftName'],
-        usaTodayPlayerId: json['UsaTodayPlayerID'],
-        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'],
+        teamId: json['TeamID'] as int,
+        globalTeamId: json['GlobalTeamID'] as int,
+        fantasyDraftPlayerId: json['FantasyDraftPlayerID'] as int,
+        fantasyDraftName: json['FantasyDraftName'] as String,
+        usaTodayPlayerId: json['UsaTodayPlayerID'] as int,
+        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'] as String,
         usaTodayHeadshotNoBackgroundUrl:
-            json['UsaTodayHeadshotNoBackgroundUrl'],
+            json['UsaTodayHeadshotNoBackgroundUrl'] as String,
         usaTodayHeadshotUpdated: json['UsaTodayHeadshotUpdated'] == null
             ? null
-            : DateTime.parse(json['UsaTodayHeadshotUpdated']),
+            : DateTime.parse(json['UsaTodayHeadshotUpdated'] as String),
         usaTodayHeadshotNoBackgroundUpdated:
             json['UsaTodayHeadshotNoBackgroundUpdated'] == null
                 ? null
-                : DateTime.parse(json['UsaTodayHeadshotNoBackgroundUpdated']),
+                : DateTime.parse(
+                    json['UsaTodayHeadshotNoBackgroundUpdated'] as String,
+                  ),
         playerSeason: json['PlayerSeason'],
-        latestNews: List<dynamic>.from(json['LatestNews'].map((x) => x)),
+        latestNews: List<dynamic>.from(
+          json['LatestNews'].map((dynamic x) => x) as List,
+        ),
       );
 
   final int playerId;
@@ -432,7 +438,7 @@ class NflPlayer {
         'Status': statusEnumValues.reverse[status],
         'Height': height,
         'Weight': weight,
-        'BirthDate': birthDate == null ? null : birthDate.toIso8601String(),
+        'BirthDate': birthDate?.toIso8601String(),
         'College': college,
         'Experience': experience,
         'FantasyPosition': fantasyPosition,
@@ -480,8 +486,7 @@ class NflPlayer {
         'InjuryStatus':
             injuryStatus == null ? null : statusValues.reverse[injuryStatus],
         'InjuryBodyPart': injuryBodyPart,
-        'InjuryStartDate':
-            injuryStartDate == null ? null : injuryStartDate.toIso8601String(),
+        'InjuryStartDate': injuryStartDate?.toIso8601String(),
         'InjuryNotes': injuryNotes,
         'FanDuelName': fanDuelName,
         'DraftKingsName': draftKingsName,
@@ -500,15 +505,12 @@ class NflPlayer {
         'UsaTodayPlayerID': usaTodayPlayerId,
         'UsaTodayHeadshotUrl': usaTodayHeadshotUrl,
         'UsaTodayHeadshotNoBackgroundUrl': usaTodayHeadshotNoBackgroundUrl,
-        'UsaTodayHeadshotUpdated': usaTodayHeadshotUpdated == null
-            ? null
-            : usaTodayHeadshotUpdated.toIso8601String(),
+        'UsaTodayHeadshotUpdated': usaTodayHeadshotUpdated?.toIso8601String(),
         'UsaTodayHeadshotNoBackgroundUpdated':
-            usaTodayHeadshotNoBackgroundUpdated == null
-                ? null
-                : usaTodayHeadshotNoBackgroundUpdated.toIso8601String(),
+            usaTodayHeadshotNoBackgroundUpdated?.toIso8601String(),
         'PlayerSeason': playerSeason,
-        'LatestNews': List<dynamic>.from(latestNews.map((x) => x)),
+        'LatestNews':
+            List<dynamic>.from(latestNews.map<dynamic>((dynamic x) => x)),
       };
 }
 
@@ -569,6 +571,7 @@ class EnumValues<T> {
   Map<T, String> reverseMap;
 
   Map<T, String> get reverse {
+    // ignore: join_return_with_assignment
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }

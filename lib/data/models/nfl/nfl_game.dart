@@ -81,22 +81,25 @@ class NflGame {
     this.stadiumDetails,
   });
 
-  factory NflGame.fromJson(String str) => NflGame.fromMap(json.decode(str));
+  factory NflGame.fromJson(String str) =>
+      NflGame.fromMap(json.decode(str) as Map<String, dynamic>);
   factory NflGame.fromMap(Map<String, dynamic> json) => NflGame(
-        gameKey: json['GameKey'],
-        seasonType: json['SeasonType'],
-        season: json['Season'],
-        week: json['Week'],
-        date: DateTime.parse(json['Date']),
-        awayTeam: json['AwayTeam'],
-        homeTeam: json['HomeTeam'],
+        gameKey: json['GameKey'] as String,
+        seasonType: json['SeasonType'] as int,
+        season: json['GameID'] as int,
+        week: json['Week'] as int,
+        date: DateTime.parse(json['Date'] as String),
+        awayTeam: json['AwayTeam'] as String,
+        homeTeam: json['HomeTeam'] as String,
         awayScore: json['AwayScore'],
         homeScore: json['HomeScore'],
         channel: channelValues.map[json['Channel']],
-        pointSpread:
-            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
-        overUnder:
-            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
+        pointSpread: json['PointSpread'] == null
+            ? null
+            : json['PointSpread'].toDouble() as double,
+        overUnder: json['OverUnder'] == null
+            ? null
+            : json['OverUnder'].toDouble() as double,
         quarter: json['Quarter'],
         timeRemaining: json['TimeRemaining'],
         possession: json['Possession'],
@@ -115,18 +118,18 @@ class NflGame {
         homeScoreQuarter3: json['HomeScoreQuarter3'],
         homeScoreQuarter4: json['HomeScoreQuarter4'],
         homeScoreOvertime: json['HomeScoreOvertime'],
-        hasStarted: json['HasStarted'],
-        isInProgress: json['IsInProgress'],
-        isOver: json['IsOver'],
-        has1StQuarterStarted: json['Has1stQuarterStarted'],
-        has2NdQuarterStarted: json['Has2ndQuarterStarted'],
-        has3RdQuarterStarted: json['Has3rdQuarterStarted'],
-        has4ThQuarterStarted: json['Has4thQuarterStarted'],
-        isOvertime: json['IsOvertime'],
+        hasStarted: json['HasStarted'] as bool,
+        isInProgress: json['IsInProgress'] as bool,
+        isOver: json['IsOver'] as bool,
+        has1StQuarterStarted: json['Has1stQuarterStarted'] as bool,
+        has2NdQuarterStarted: json['Has2ndQuarterStarted'] as bool,
+        has3RdQuarterStarted: json['Has3rdQuarterStarted'] as bool,
+        has4ThQuarterStarted: json['Has4thQuarterStarted'] as bool,
+        isOvertime: json['IsOvertime'] as bool,
         downAndDistance: json['DownAndDistance'],
-        quarterDescription: json['QuarterDescription'],
-        stadiumId: json['StadiumID'],
-        lastUpdated: DateTime.parse(json['LastUpdated']),
+        quarterDescription: json['QuarterDescription'] as String,
+        stadiumId: json['StadiumID'] as int,
+        lastUpdated: DateTime.parse(json['LastUpdated'] as String),
         geoLat: json['GeoLat'],
         geoLong: json['GeoLong'],
         forecastTempLow: json['ForecastTempLow'],
@@ -134,30 +137,33 @@ class NflGame {
         forecastDescription: json['ForecastDescription'],
         forecastWindChill: json['ForecastWindChill'],
         forecastWindSpeed: json['ForecastWindSpeed'],
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'],
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'],
-        canceled: json['Canceled'],
-        closed: json['Closed'],
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] as int,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] as int,
+        canceled: json['Canceled'] as bool,
+        closed: json['Closed'] as bool,
         lastPlay: json['LastPlay'],
-        day: DateTime.parse(json['Day']),
-        dateTime: DateTime.parse(json['DateTime']),
-        awayTeamId: json['AwayTeamID'],
-        homeTeamId: json['HomeTeamID'],
-        globalGameId: json['GlobalGameID'],
-        globalAwayTeamId: json['GlobalAwayTeamID'],
-        globalHomeTeamId: json['GlobalHomeTeamID'],
-        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
-        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
-        scoreId: json['ScoreID'],
-        status: json['Status'],
+        day: DateTime.parse(json['Day'] as String),
+        dateTime: DateTime.parse(json['DateTime'] as String),
+        awayTeamId: json['AwayTeamID'] as int,
+        homeTeamId: json['HomeTeamID'] as int,
+        globalGameId: json['GlobalGameID'] as int,
+        globalAwayTeamId: json['GlobalAwayTeamID'] as int,
+        globalHomeTeamId: json['GlobalHomeTeamID'] as int,
+        pointSpreadAwayTeamMoneyLine:
+            json['PointSpreadAwayTeamMoneyLine'] as int,
+        pointSpreadHomeTeamMoneyLine:
+            json['PointSpreadHomeTeamMoneyLine'] as int,
+        scoreId: json['ScoreID'] as int,
+        status: json['Status'] as String,
         gameEndDateTime: json['GameEndDateTime'],
-        homeRotationNumber: json['HomeRotationNumber'],
-        awayRotationNumber: json['AwayRotationNumber'],
-        neutralVenue: json['NeutralVenue'],
+        homeRotationNumber: json['HomeRotationNumber'] as int,
+        awayRotationNumber: json['AwayRotationNumber'] as int,
+        neutralVenue: json['NeutralVenue'] as bool,
         refereeId: json['RefereeID'],
-        overPayout: json['OverPayout'],
-        underPayout: json['UnderPayout'],
-        stadiumDetails: StadiumDetails.fromMap(json['StadiumDetails']),
+        overPayout: json['OverPayout'] as int,
+        underPayout: json['UnderPayout'] as int,
+        stadiumDetails: StadiumDetails.fromMap(
+            json['StadiumDetails'] as Map<String, dynamic>),
       );
 
   final String gameKey;
@@ -561,7 +567,8 @@ final countryValues = EnumValues({'USA': Country.USA});
 enum PlayingSurface { ARTIFICIAL, GRASS }
 
 final playingSurfaceValues = EnumValues(
-    {'Artificial': PlayingSurface.ARTIFICIAL, 'Grass': PlayingSurface.GRASS});
+  {'Artificial': PlayingSurface.ARTIFICIAL, 'Grass': PlayingSurface.GRASS},
+);
 
 // ignore: constant_identifier_names
 enum Type { RETRACTABLE_DOME, OUTDOOR, DOME }
@@ -578,6 +585,7 @@ class EnumValues<T> {
   Map<T, String> reverseMap;
 
   Map<T, String> get reverse {
+    // ignore: join_return_with_assignment
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }

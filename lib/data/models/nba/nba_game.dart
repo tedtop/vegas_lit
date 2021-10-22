@@ -41,27 +41,30 @@ class NbaGame {
     this.quarters,
   });
 
-  factory NbaGame.fromJson(String str) => NbaGame.fromMap(json.decode(str));
+  factory NbaGame.fromJson(String str) =>
+      NbaGame.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NbaGame.fromMap(Map<String, dynamic> json) => NbaGame(
-        gameId: json['GameID'],
-        season: json['Season'],
-        seasonType: json['SeasonType'],
-        status: json['Status'],
-        day: json['Day'] == null ? null : DateTime.parse(json['Day']),
-        dateTime:
-            json['DateTime'] == null ? null : DateTime.parse(json['DateTime']),
-        awayTeam: json['AwayTeam'],
-        homeTeam: json['HomeTeam'],
-        awayTeamId: json['AwayTeamID'],
-        homeTeamId: json['HomeTeamID'],
-        stadiumId: json['StadiumID'],
-        channel: json['Channel'],
+        gameId: json['GameID'] as int,
+        season: json['GameID'] as int,
+        seasonType: json['SeasonType'] as int,
+        status: json['Status'] as String,
+        day: json['Day'] == null ? null : DateTime.parse(json['Day'] as String),
+        dateTime: json['DateTime'] == null
+            ? null
+            : DateTime.parse(json['DateTime'] as String),
+        awayTeam: json['AwayTeam'] as String,
+        homeTeam: json['HomeTeam'] as String,
+        awayTeamId: json['AwayTeamID'] as int,
+        homeTeamId: json['HomeTeamID'] as int,
+        stadiumId: json['StadiumID'] as int,
+        channel: json['Channel'] as String,
         attendance: json['Attendance'],
         awayTeamScore: json['AwayTeamScore'],
         homeTeamScore: json['HomeTeamScore'],
-        updated:
-            json['Updated'] == null ? null : DateTime.parse(json['Updated']),
+        updated: json['Updated'] == null
+            ? null
+            : DateTime.parse(json['Updated'] as String),
         quarter: json['Quarter'],
         timeRemainingMinutes: json['TimeRemainingMinutes'],
         timeRemainingSeconds: json['TimeRemainingSeconds'],
@@ -71,24 +74,28 @@ class NbaGame {
         overUnder: json['OverUnder'] == null
             ? null
             : double.tryParse(json['OverUnder'].toString()),
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'],
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'],
-        globalGameId: json['GlobalGameID'],
-        globalAwayTeamId: json['GlobalAwayTeamID'],
-        globalHomeTeamId: json['GlobalHomeTeamID'],
-        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
-        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] as int,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] as int,
+        globalGameId: json['GlobalGameID'] as int,
+        globalAwayTeamId: json['GlobalAwayTeamID'] as int,
+        globalHomeTeamId: json['GlobalHomeTeamID'] as int,
+        pointSpreadAwayTeamMoneyLine:
+            json['PointSpreadAwayTeamMoneyLine'] as int,
+        pointSpreadHomeTeamMoneyLine:
+            json['PointSpreadHomeTeamMoneyLine'] as int,
         lastPlay: json['LastPlay'],
-        isClosed: json['IsClosed'],
+        isClosed: json['IsClosed'] as bool,
         gameEndDateTime: json['GameEndDateTime'],
-        homeRotationNumber: json['HomeRotationNumber'],
-        awayRotationNumber: json['AwayRotationNumber'],
-        neutralVenue: json['NeutralVenue'],
-        overPayout: json['OverPayout'],
-        underPayout: json['UnderPayout'],
+        homeRotationNumber: json['HomeRotationNumber'] as int,
+        awayRotationNumber: json['AwayRotationNumber'] as int,
+        neutralVenue: json['NeutralVenue'] as bool,
+        overPayout: json['OverPayout'] as int,
+        underPayout: json['UnderPayout'] as int,
         quarters: json['Quarters'] == null
             ? null
-            : List<dynamic>.from(json['Quarters'].map((x) => x)),
+            : List<dynamic>.from(
+                json['Quarters'].map((dynamic x) => x) as List,
+              ),
       );
 
   final int gameId;
@@ -217,8 +224,8 @@ class NbaGame {
         'Season': season,
         'SeasonType': seasonType,
         'Status': status,
-        'Day': day == null ? null : day.toIso8601String(),
-        'DateTime': dateTime == null ? null : dateTime.toIso8601String(),
+        'Day': day?.toIso8601String(),
+        'DateTime': dateTime?.toIso8601String(),
         'AwayTeam': awayTeam,
         'HomeTeam': homeTeam,
         'AwayTeamID': awayTeamId,
@@ -228,7 +235,7 @@ class NbaGame {
         'Attendance': attendance,
         'AwayTeamScore': awayTeamScore,
         'HomeTeamScore': homeTeamScore,
-        'Updated': updated == null ? null : updated.toIso8601String(),
+        'Updated': updated?.toIso8601String(),
         'Quarter': quarter,
         'TimeRemainingMinutes': timeRemainingMinutes,
         'TimeRemainingSeconds': timeRemainingSeconds,
@@ -251,6 +258,6 @@ class NbaGame {
         'UnderPayout': underPayout,
         'Quarters': quarters == null
             ? null
-            : List<dynamic>.from(quarters.map((x) => x)),
+            : List<dynamic>.from(quarters.map<dynamic>((dynamic x) => x)),
       };
 }

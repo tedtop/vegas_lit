@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -301,7 +300,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                width: tableHeadingsWithWidth[entry].toDouble(),
+                width: tableHeadingsWithWidth[entry].toDouble() as double,
                 child: Text(entry, style: Styles.betHistoryDesktopField),
               ),
             )
@@ -341,7 +340,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
 //         child: Row(
 //             children: tableHeadingsWithWidth.keys
 //                 .map((entry) => SizedBox(
-//                       width: tableHeadingsWithWidth[entry].toDouble(),
+//                       width: tableHeadingsWithWidth[entry].toDouble() as double,
 //                       child: Builder(builder: (context) {
 //                         switch (entry) {
 //                           case 'Date/Time':

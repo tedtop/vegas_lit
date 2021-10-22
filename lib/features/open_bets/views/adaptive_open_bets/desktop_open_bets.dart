@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/open_bets/olympic_open_bet_tile.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -236,7 +235,7 @@ class _DesktopOpenBetsTable extends StatelessWidget {
 //             .map(
 //               (entry) => SizedBox(
 //                 child: AutoSizeText(entry, style: Styles.openBetsDesktopField),
-//                 width: tableHeadingsWithWidth[entry].toDouble(),
+//                 width: tableHeadingsWithWidth[entry].toDouble() as double,
 //               ),
 //             )
 //             .toList(),
@@ -406,7 +405,7 @@ class _DesktopOpenBetsTable extends StatelessWidget {
 //                       }
 //                     },
 //                   ),
-//                   width: tableHeadingsWithWidth[entry].toDouble(),
+//                   width: tableHeadingsWithWidth[entry].toDouble() as double,
 //                 ))
 //             .toList(),
 //       ),

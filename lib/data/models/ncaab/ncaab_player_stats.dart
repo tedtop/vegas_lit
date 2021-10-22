@@ -54,60 +54,67 @@ class NcaabPlayerStats {
   });
 
   factory NcaabPlayerStats.fromJson(String str) =>
-      NcaabPlayerStats.fromMap(json.decode(str));
+      NcaabPlayerStats.fromMap(json.decode(str) as Map<String, dynamic>);
   factory NcaabPlayerStats.fromMap(Map<String, dynamic> json) =>
       NcaabPlayerStats(
-        statId: json['StatID']?.toInt(),
-        teamId: json['TeamID']?.toInt(),
-        playerId: json['PlayerID']?.toInt(),
-        seasonType: json['SeasonType']?.toInt(),
-        season: json['Season']?.toInt(),
-        name: json['Name'],
-        team: json['Team'],
-        position: json['Position'],
-        globalTeamId: json['GlobalTeamID']?.toInt(),
-        updated: DateTime.parse(json['Updated']),
-        games: json['Games']?.toInt(),
-        fantasyPoints: json['FantasyPoints']?.toDouble(),
-        minutes: json['Minutes']?.toInt(),
-        fieldGoalsMade: json['FieldGoalsMade']?.toInt(),
-        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt(),
-        fieldGoalsPercentage: json['FieldGoalsPercentage']?.toInt(),
+        statId: json['StatID']?.toInt() as int,
+        teamId: json['TeamID']?.toInt() as int,
+        playerId: json['PlayerID']?.toInt() as int,
+        seasonType: json['SeasonType']?.toInt() as int,
+        season: json['Season']?.toInt() as int,
+        name: json['Name'] as String,
+        team: json['Team'] as String,
+        position: json['Position'] as String,
+        globalTeamId: json['GlobalTeamID']?.toInt() as int,
+        updated: DateTime.parse(json['Updated'] as String),
+        games: json['Games']?.toInt() as int,
+        fantasyPoints: json['FantasyPoints']?.toDouble() as double,
+        minutes: json['Minutes']?.toInt() as int,
+        fieldGoalsMade: json['FieldGoalsMade']?.toInt() as int,
+        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt() as int,
+        fieldGoalsPercentage: json['FieldGoalsPercentage']?.toInt() as int,
         effectiveFieldGoalsPercentage:
-            json['EffectiveFieldGoalsPercentage']?.toInt(),
-        twoPointersMade: json['TwoPointersMade']?.toInt(),
-        twoPointersAttempted: json['TwoPointersAttempted']?.toInt(),
-        twoPointersPercentage: json['TwoPointersPercentage']?.toDouble(),
-        threePointersMade: json['ThreePointersMade']?.toInt(),
-        threePointersAttempted: json['ThreePointersAttempted']?.toInt(),
-        threePointersPercentage: json['ThreePointersPercentage']?.toDouble(),
-        freeThrowsMade: json['FreeThrowsMade']?.toInt(),
-        freeThrowsAttempted: json['FreeThrowsAttempted']?.toInt(),
-        freeThrowsPercentage: json['FreeThrowsPercentage']?.toDouble(),
-        offensiveRebounds: json['OffensiveRebounds']?.toInt(),
-        defensiveRebounds: json['DefensiveRebounds']?.toInt(),
-        rebounds: json['Rebounds']?.toInt(),
+            json['EffectiveFieldGoalsPercentage']?.toInt() as int,
+        twoPointersMade: json['TwoPointersMade']?.toInt() as int,
+        twoPointersAttempted: json['TwoPointersAttempted']?.toInt() as int,
+        twoPointersPercentage:
+            json['TwoPointersPercentage']?.toDouble() as double,
+        threePointersMade: json['ThreePointersMade']?.toInt() as int,
+        threePointersAttempted: json['ThreePointersAttempted']?.toInt() as int,
+        threePointersPercentage:
+            json['ThreePointersPercentage']?.toDouble() as double,
+        freeThrowsMade: json['FreeThrowsMade']?.toInt() as int,
+        freeThrowsAttempted: json['FreeThrowsAttempted']?.toInt() as int,
+        freeThrowsPercentage:
+            json['FreeThrowsPercentage']?.toDouble() as double,
+        offensiveRebounds: json['OffensiveRebounds']?.toInt() as int,
+        defensiveRebounds: json['DefensiveRebounds']?.toInt() as int,
+        rebounds: json['Rebounds']?.toInt() as int,
         offensiveReboundsPercentage:
-            json['OffensiveReboundsPercentage']?.toDouble(),
+            json['OffensiveReboundsPercentage']?.toDouble() as double,
         defensiveReboundsPercentage:
-            json['DefensiveReboundsPercentage']?.toDouble(),
-        totalReboundsPercentage: json['TotalReboundsPercentage']?.toDouble(),
-        assists: json['Assists']?.toInt(),
-        steals: json['Steals']?.toInt(),
-        blockedShots: json['BlockedShots']?.toInt(),
-        turnovers: json['Turnovers']?.toInt(),
-        personalFouls: json['PersonalFouls']?.toInt(),
-        points: json['Points']?.toInt(),
+            json['DefensiveReboundsPercentage']?.toDouble() as double,
+        totalReboundsPercentage:
+            json['TotalReboundsPercentage']?.toDouble() as double,
+        assists: json['Assists']?.toInt() as int,
+        steals: json['Steals']?.toInt() as int,
+        blockedShots: json['BlockedShots']?.toInt() as int,
+        turnovers: json['Turnovers']?.toInt() as int,
+        personalFouls: json['PersonalFouls']?.toInt() as int,
+        points: json['Points']?.toInt() as int,
         trueShootingAttempts: json['TrueShootingAttempts'] as double,
         trueShootingPercentage: json['TrueShootingPercentage'] as double,
-        playerEfficiencyRating: json['PlayerEfficiencyRating']?.toDouble(),
-        assistsPercentage: json['AssistsPercentage']?.toDouble(),
-        stealsPercentage: json['StealsPercentage']?.toDouble(),
-        blocksPercentage: json['BlocksPercentage']?.toDouble(),
-        turnOversPercentage: json['TurnOversPercentage']?.toDouble(),
-        usageRatePercentage: json['UsageRatePercentage']?.toDouble(),
-        fantasyPointsFanDuel: json['FantasyPointsFanDuel']?.toDouble(),
-        fantasyPointsDraftKings: json['FantasyPointsDraftKings']?.toDouble(),
+        playerEfficiencyRating:
+            json['PlayerEfficiencyRating']?.toDouble() as double,
+        assistsPercentage: json['AssistsPercentage']?.toDouble() as double,
+        stealsPercentage: json['StealsPercentage']?.toDouble() as double,
+        blocksPercentage: json['BlocksPercentage']?.toDouble() as double,
+        turnOversPercentage: json['TurnOversPercentage']?.toDouble() as double,
+        usageRatePercentage: json['UsageRatePercentage']?.toDouble() as double,
+        fantasyPointsFanDuel:
+            json['FantasyPointsFanDuel']?.toDouble() as double,
+        fantasyPointsDraftKings:
+            json['FantasyPointsDraftKings']?.toDouble() as double,
         fantasyPointsYahoo: json['FantasyPointsYahoo'],
       );
 
@@ -328,7 +335,7 @@ class NcaabPlayerStats {
         'FantasyPointsYahoo': fantasyPointsYahoo,
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, dynamic> toStatOnlyMap() => <String, dynamic>{
         'Minutes': minutes,
         'Field Goals Made': fieldGoalsMade,
         'Field Goals Attempted': fieldGoalsAttempted,

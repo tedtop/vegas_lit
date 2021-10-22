@@ -19,15 +19,16 @@ class NcaabTeam {
     this.globalTeamId,
   });
 
-  factory NcaabTeam.fromJson(String str) => NcaabTeam.fromMap(json.decode(str));
+  factory NcaabTeam.fromJson(String str) =>
+      NcaabTeam.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NcaabTeam.fromMap(Map<String, dynamic> json) => NcaabTeam(
-        teamId: json['TeamID'],
+        teamId: json['TeamID'] as int,
         key: json['Key'],
-        active: json['Active'],
+        active: json['Active'] as bool,
         city: json['City'],
-        name: json['Name'],
-        stadiumId: json['StadiumID'],
+        name: json['Name'] as String,
+        stadiumId: json['StadiumID'] as int,
         conference: json['Conference'] == null
             ? null
             : conferenceValues.map[json['Conference']],
@@ -40,7 +41,7 @@ class NcaabTeam {
         quaternaryColor: json['QuaternaryColor'],
         wikipediaLogoUrl: json['WikipediaLogoUrl'],
         wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'],
-        globalTeamId: json['GlobalTeamID'],
+        globalTeamId: json['GlobalTeamID'] as int,
       );
 
   final int teamId;
@@ -137,6 +138,7 @@ class EnumValues<T> {
   Map<T, String> reverseMap;
 
   Map<T, String> get reverse {
+    // ignore: join_return_with_assignment
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }

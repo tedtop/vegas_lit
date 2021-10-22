@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -301,7 +300,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
             .map(
               (entry) => SizedBox(
                 child: Text(entry, style: Styles.betHistoryDesktopField),
-                width: tableHeadingsWithWidth[entry].toDouble(),
+                width: tableHeadingsWithWidth[entry].toDouble() as double,
               ),
             )
             .toList(),
@@ -394,7 +393,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
 //                             return const SizedBox();
 //                         }
 //                       }),
-//                       width: tableHeadingsWithWidth[entry].toDouble(),
+//                       width: tableHeadingsWithWidth[entry].toDouble() as double,
 //                     ))
 //                 .toList()));
 //   }
