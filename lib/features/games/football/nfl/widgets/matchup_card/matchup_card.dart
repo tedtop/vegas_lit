@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
@@ -22,7 +23,7 @@ class MatchupCard extends StatelessWidget {
   static Builder route({
     @required NflGame game,
     @required String gameName,
-    @required dynamic parsedTeamData,
+    @required List<NflTeam> parsedTeamData,
   }) {
     return Builder(
       builder: (_) {

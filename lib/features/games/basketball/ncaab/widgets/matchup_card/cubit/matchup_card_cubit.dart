@@ -10,7 +10,7 @@ class NcaabMatchupCardCubit extends Cubit<NcaabMatchupCardState> {
 
   void openMatchupCard({
     @required NcaabGame game,
-    @required dynamic parsedTeamData,
+    @required List parsedTeamData,
     @required String gameName,
   }) async {
     final teamData = getData(parsedTeamData: parsedTeamData);
@@ -29,10 +29,10 @@ class NcaabMatchupCardCubit extends Cubit<NcaabMatchupCardState> {
     );
   }
 
-  List<NcaabTeam> getData({@required dynamic parsedTeamData}) {
+  List<NcaabTeam> getData({@required List parsedTeamData}) {
     final teamData = parsedTeamData
         .map<NcaabTeam>(
-          (json) => NcaabTeam.fromMap(json),
+          (Object json) => NcaabTeam.fromMap(json as Map<String, Object>),
         )
         .toList();
 

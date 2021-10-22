@@ -6,7 +6,7 @@ class TabletNcaabScreen extends StatelessWidget {
   TabletNcaabScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NcaabGame> games;
   final String gameName;
-  final dynamic parsedTeamData;
+  final List parsedTeamData;
   @override
   Widget build(BuildContext context) {
     return GridView.count(

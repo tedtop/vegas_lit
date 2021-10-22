@@ -24,9 +24,9 @@ class NcaabTeam {
 
   factory NcaabTeam.fromMap(Map<String, dynamic> json) => NcaabTeam(
         teamId: json['TeamID'] as int,
-        key: json['Key'],
+        key: json['Key'] as String,
         active: json['Active'] as bool,
-        city: json['City'],
+        city: json['City'] as String,
         name: json['Name'] as String,
         stadiumId: json['StadiumID'] as int,
         conference: json['Conference'] == null
@@ -35,12 +35,12 @@ class NcaabTeam {
         division: json['Division'] == null
             ? null
             : divisionValues.map[json['Division']],
-        primaryColor: json['PrimaryColor'],
-        secondaryColor: json['SecondaryColor'],
-        tertiaryColor: json['TertiaryColor'],
-        quaternaryColor: json['QuaternaryColor'],
-        wikipediaLogoUrl: json['WikipediaLogoUrl'],
-        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'],
+        primaryColor: json['PrimaryColor'] as String,
+        secondaryColor: json['SecondaryColor'] as String,
+        tertiaryColor: json['TertiaryColor'] as String,
+        quaternaryColor: json['QuaternaryColor'] as String,
+        wikipediaLogoUrl: json['WikipediaLogoUrl'] as String,
+        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] as String,
         globalTeamId: json['GlobalTeamID'] as int,
       );
 

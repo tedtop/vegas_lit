@@ -10,7 +10,7 @@ class MobileNhlScreen extends StatelessWidget {
   });
   final List<NhlGame> games;
   final String gameName;
-  final dynamic parsedTeamData;
+  final List parsedTeamData;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

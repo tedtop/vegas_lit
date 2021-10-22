@@ -11,7 +11,7 @@ class DesktopNbaScreen extends StatelessWidget {
   DesktopNbaScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NbaGame> games;
   final String gameName;
-  final dynamic parsedTeamData;
+  final List parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;

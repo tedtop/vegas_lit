@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 import '../../../../../../data/models/mlb/mlb_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
@@ -6,7 +7,7 @@ class TabletMlbScreen extends StatelessWidget {
   TabletMlbScreen({this.gameName, this.games, this.parsedTeamData});
   final List<MlbGame> games;
   final String gameName;
-  final dynamic parsedTeamData;
+  final List<MlbTeam> parsedTeamData;
   @override
   Widget build(BuildContext context) {
     return GridView.count(

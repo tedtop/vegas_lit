@@ -191,7 +191,8 @@ class PlayerDetailsPage extends StatelessWidget {
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
                   Text(
-                    playerDetails.injuryStatus?.toUpperCase() ?? 'NONE',
+                    playerDetails.injuryStatus?.toString()?.toUpperCase() ??
+                        'NONE',
                     style: Styles.normalText.copyWith(fontSize: 16),
                   )
                 ],
@@ -203,7 +204,8 @@ class PlayerDetailsPage extends StatelessWidget {
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
                   Text(
-                    playerDetails.injuryBodyPart?.toUpperCase() ?? 'NONE',
+                    playerDetails.injuryBodyPart?.toString()?.toUpperCase() ??
+                        'NONE',
                     style: Styles.normalText.copyWith(
                       fontSize: 16,
                       color: playerDetails.injuryBodyPart == null
@@ -228,7 +230,7 @@ class PlayerDetailsPage extends StatelessWidget {
                       .copyWith(color: Palette.red, fontSize: 16),
                 ),
                 Text(
-                  playerDetails.injuryNotes ?? 'NONE',
+                  playerDetails.injuryNotes.toString() ?? 'NONE',
                   style: Styles.normalText.copyWith(fontSize: 12),
                 ),
               ],

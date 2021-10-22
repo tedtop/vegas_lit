@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
@@ -11,7 +12,7 @@ class DesktopNcaafScreen extends StatelessWidget {
   DesktopNcaafScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NcaafGame> games;
   final String gameName;
-  final dynamic parsedTeamData;
+  final List<NcaafTeam> parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;

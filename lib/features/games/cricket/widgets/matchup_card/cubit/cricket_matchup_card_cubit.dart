@@ -38,10 +38,12 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
 
   Future<List<CricketTeam>> getData() async {
     final jsonData = await rootBundle.loadString('assets/json/icc.json');
-    final parsedTeamData = await json.decode(jsonData);
+    final parsedTeamData = await json.decode(jsonData) as List;
     final teamData = parsedTeamData
         .map<CricketTeam>(
-          (json) => CricketTeam.fromMap(json),
+          (Object json) => CricketTeam.fromMap(
+            json as Map<String, dynamic>,
+          ),
         )
         .toList();
 

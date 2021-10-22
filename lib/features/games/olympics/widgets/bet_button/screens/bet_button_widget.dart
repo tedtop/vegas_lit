@@ -195,7 +195,8 @@ class BetButtonUnclicked extends StatelessWidget {
                         event: betButtonState.game.event,
                         gameId: betButtonState.game.gameId,
                         playerCountry: betButtonState.game.playerCountry,
-                        gameStartDateTime: betButtonState.game.startTime,
+                        gameStartDateTime:
+                            betButtonState.game.startTime.toString(),
                         venue: betButtonState.game.venue,
                         winner: null,
                       ),

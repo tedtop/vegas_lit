@@ -22,7 +22,7 @@ class MatchupCard extends StatelessWidget {
   static Builder route({
     @required NbaGame game,
     @required String gameName,
-    @required dynamic parsedTeamData,
+    @required List parsedTeamData,
   }) {
     return Builder(
       builder: (_) {

@@ -68,10 +68,10 @@ Future<List<NcaafTeam>> getNCAAFTeamData() async {
 }
 
 List<NcaafTeam> parseTeamData(String jsonData) {
-  final parsedTeamData = json.decode(jsonData);
+  final parsedTeamData = json.decode(jsonData) as List;
   final teamData = parsedTeamData
       .map<NcaafTeam>(
-        (json) => NcaafTeam.fromMap(json),
+        (Object json) => NcaafTeam.fromMap(json as Map<String, dynamic>),
       )
       .toList();
 

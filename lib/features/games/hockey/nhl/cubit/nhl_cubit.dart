@@ -60,8 +60,8 @@ class NhlCubit extends Cubit<NhlState> {
   }
 }
 
-dynamic getNHLParsedTeamData() async {
+Future<List> getNHLParsedTeamData() async {
   final jsonData = await rootBundle.loadString('assets/json/nhl.json');
-  final dynamic parsedTeamData = await json.decode(jsonData);
+  final parsedTeamData = await json.decode(jsonData) as List;
   return parsedTeamData;
 }

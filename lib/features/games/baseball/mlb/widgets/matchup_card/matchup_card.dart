@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
@@ -16,13 +17,13 @@ import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  MatchupCard._({Key key, this.gameName}) : super(key: key);
+  const MatchupCard._({Key key, this.gameName}) : super(key: key);
   final String gameName;
 
   static Builder route({
     @required MlbGame game,
     @required String gameName,
-    @required dynamic parsedTeamData,
+    @required List<MlbTeam> parsedTeamData,
   }) {
     return Builder(
       builder: (_) {
