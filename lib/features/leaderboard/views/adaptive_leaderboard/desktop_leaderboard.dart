@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -7,7 +9,6 @@ import '../../../../data/models/wallet.dart';
 import '../../../home/home.dart';
 import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../../widgets/textbar.dart';
 
 class DesktopLeaderboard extends StatefulWidget {
   const DesktopLeaderboard({this.players});
@@ -19,8 +20,8 @@ class DesktopLeaderboard extends StatefulWidget {
 class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
   @override
   Widget build(BuildContext context) {
-    final LeaderboardState leaderboardState =
-        context.watch<LeaderboardCubit>().state;
+    final leaderboardState = context.watch<LeaderboardCubit>().state;
+    final textList = leaderboardState.days;
     return Column(
       children: [
         Container(
@@ -37,12 +38,78 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
                   ),
                 ),
                 Expanded(child: Container()),
-                TextBar(
-                  text: leaderboardState.day,
-                  textList: leaderboardState.days,
-                  onPress: (String value) {
-                    context.read<LeaderboardCubit>().changeWeek(week: value);
-                  },
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                  ),
+                  height: 40,
+                  width: 220,
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Container(
+                      color: Palette.green,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      width: double.infinity,
+                      child: Center(
+                        child: DropdownButton<String>(
+                          dropdownColor: Palette.green,
+                          isDense: true,
+                          value: leaderboardState.day,
+                          icon: const Icon(
+                            FontAwesome.angle_down,
+                            color: Palette.cream,
+                          ),
+                          isExpanded: true,
+                          underline: Container(
+                            height: 0,
+                          ),
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                          ),
+                          onChanged: (String? value) {
+                            context
+                                .read<LeaderboardCubit>()
+                                .changeWeek(week: value!);
+                          },
+                          items: textList!.isNotEmpty == true
+                              ? textList.map<DropdownMenuItem<String>>(
+                                  (String weekValue) {
+                                    String weekFormat;
+                                    if (weekValue != 'Current Week') {
+                                      final formatValue = weekValue.split('-');
+
+                                      weekFormat =
+                                          'Week ${formatValue[1]}, ${formatValue[0]}';
+
+                                      // final dateTime = DateTime(
+                                      //   int.parse(formatValue[0]),
+                                      //   int.parse(formatValue[1]),
+                                      //   int.parse(formatValue[2]),
+                                      // );
+                                      // dateFormat = DateFormat('MMMM c, y').format(dateTime);
+                                    } else {
+                                      weekFormat = weekValue;
+                                    }
+                                    return DropdownMenuItem<String>(
+                                      value: weekValue,
+                                      child: Text(
+                                        weekFormat,
+                                        textAlign: TextAlign.left,
+                                        style: Styles.leaderboardDropdown,
+                                      ),
+                                    );
+                                  },
+                                ).toList()
+                              : const [],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
