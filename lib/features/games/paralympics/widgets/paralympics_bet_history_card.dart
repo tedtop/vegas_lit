@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -13,8 +11,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
   const ParalympicsBetHistoryCard({
     Key? key,
     required this.betHistoryData,
-  })  : assert(betHistoryData != null),
-        super(key: key);
+  }) : super(key: key);
 
   final ParalympicsBetData betHistoryData;
 
@@ -111,48 +108,58 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  isPlayerWin
-                                      ? Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry!)}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 20,
-                                            color: Palette.cream,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          maxLines: 1,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry!)}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 20,
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          maxLines: 1,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                  isPlayerWin
-                                      ? Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry!)}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 20,
-                                            color: Palette.green,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          maxLines: 1,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry!)}',
-                                          style: GoogleFonts.nunito(
-                                            fontSize: 20,
-                                            color: Palette.cream,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          maxLines: 1,
-                                          textAlign: TextAlign.center,
-                                        ),
+                                  if (isPlayerWin)
+                                    Text(
+                                      countryFlagFromCode(
+                                          countryCode:
+                                              betHistoryData.playerCountry!),
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 20,
+                                        color: Palette.cream,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                    )
+                                  else
+                                    Text(
+                                      countryFlagFromCode(
+                                          countryCode:
+                                              betHistoryData.rivalCountry!),
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 20,
+                                        color: Palette.green,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  if (isPlayerWin)
+                                    Text(
+                                      countryFlagFromCode(
+                                          countryCode:
+                                              betHistoryData.rivalCountry!),
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 20,
+                                        color: Palette.green,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                    )
+                                  else
+                                    Text(
+                                      countryFlagFromCode(
+                                          countryCode:
+                                              betHistoryData.playerCountry!),
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 20,
+                                        color: Palette.cream,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                    ),
                                 ],
                               ),
                               const SizedBox(width: 8),
@@ -166,7 +173,8 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                                             children: [
                                               Flexible(
                                                 child: Text(
-                                                  '${betHistoryData.playerName!.toUpperCase()}',
+                                                  betHistoryData.playerName!
+                                                      .toUpperCase(),
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     color: Palette.cream,
@@ -191,7 +199,8 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             child: Text(
-                                              '${betHistoryData.rivalName!.toUpperCase()}',
+                                              betHistoryData.rivalName!
+                                                  .toUpperCase(),
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
                                                 color: Palette.green,
@@ -212,7 +221,8 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                                             children: [
                                               Flexible(
                                                 child: Text(
-                                                  '${betHistoryData.rivalName!.toUpperCase()}',
+                                                  betHistoryData.rivalName!
+                                                      .toUpperCase(),
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     color: Palette.green,
@@ -237,7 +247,8 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             child: Text(
-                                              '${betHistoryData.playerName!.toUpperCase()}',
+                                              betHistoryData.playerName!
+                                                  .toUpperCase(),
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
                                                 color: Palette.cream,
@@ -260,7 +271,9 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: Text(
-                                  '${betHistoryData.gameName!.replaceAll(RegExp('-'), '\/').toUpperCase()}',
+                                  betHistoryData.gameName!
+                                      .replaceAll(RegExp('-'), '\/')
+                                      .toUpperCase(),
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
                                     color: Palette.cream,
@@ -368,7 +381,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '${isWin ? 'you won' : 'you lost'}',
+                              isWin ? 'you won' : 'you lost',
                               style: Styles.betHistoryDescription.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),

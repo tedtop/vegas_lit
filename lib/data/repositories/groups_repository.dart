@@ -1,7 +1,3 @@
-
-
-import 'package:meta/meta.dart';
-
 import '../models/group.dart';
 import '../models/wallet.dart';
 import '../providers/cloud_firestore.dart';

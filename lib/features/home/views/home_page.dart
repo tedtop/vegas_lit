@@ -1,5 +1,3 @@
-
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +169,6 @@ class _HomePageState extends State<HomePage>
                           ),
                         ),
                       );
-
                     break;
                   case NotificationStatus.success:
                     showSimpleNotification(
@@ -240,19 +237,18 @@ class _HomePageState extends State<HomePage>
     switch (selectedIndex) {
       case 1:
         return Routes.betSlip;
-        break;
+
       case 2:
         return Routes.leaderboard;
-        break;
+
       case 3:
         return Routes.openBets;
-        break;
+
       case 4:
         return Routes.betHistory;
-        break;
+
       default:
         return Routes.sportsbook;
-        break;
     }
   }
 }

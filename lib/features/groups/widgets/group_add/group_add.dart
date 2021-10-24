@@ -370,33 +370,65 @@ class _GroupAddState extends State<GroupAdd> {
                                 ),
                               ),
                             )
-                          : DefaultButton(
-                              text: 'CREATE GROUP',
-                              action: () {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read<GroupAddCubit>().addGroup(
-                                        group: Group(
-                                          adminId: userData.uid,
-                                          adminName: userData.username,
-                                          avatarUrl: null,
-                                          createdBy: userData.uid,
-                                          createdAt: ESTDateTime.fetchTimeEST(),
-                                          description:
-                                              _groupDescriptionController.text,
-                                          isPublic: _isPublic,
-                                          name: _groupNameController.text,
-                                          userLimit: _isUnlimitedSize!
-                                              ? 0
-                                              : _userLimit,
-                                          users: {userData.uid: true},
-                                          id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
-                                          isUnlimited: _isUnlimitedSize,
+                          : SizedBox(
+                              width: 174,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(
+                                          vertical: 10,
                                         ),
-                                      );
-                                }
-                              },
+                                      ),
+                                      elevation: MaterialStateProperty.all(
+                                          Styles.normalElevation),
+                                      shape: MaterialStateProperty.all(
+                                          Styles.smallRadius),
+                                      textStyle: MaterialStateProperty.all(
+                                        const TextStyle(color: Palette.cream),
+                                      ),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Palette.green),
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap),
+                                  child: Text(
+                                    'CREATE GROUP',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<GroupAddCubit>().addGroup(
+                                            group: Group(
+                                              adminId: userData.uid,
+                                              adminName: userData.username,
+                                              avatarUrl: null,
+                                              createdBy: userData.uid,
+                                              createdAt:
+                                                  ESTDateTime.fetchTimeEST(),
+                                              description:
+                                                  _groupDescriptionController
+                                                      .text,
+                                              isPublic: _isPublic,
+                                              name: _groupNameController.text,
+                                              userLimit: _isUnlimitedSize!
+                                                  ? 0
+                                                  : _userLimit,
+                                              users: {userData.uid: true},
+                                              id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
+                                              isUnlimited: _isUnlimitedSize,
+                                            ),
+                                          );
+                                    }
+                                  },
+                                ),
+                              ),
                             );
-                      break;
+
                     case GroupAddStatus.loading:
                       return const SizedBox(
                           height: 50,
@@ -427,56 +459,6 @@ class _GroupAddState extends State<GroupAdd> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
         ),
       ),
     );

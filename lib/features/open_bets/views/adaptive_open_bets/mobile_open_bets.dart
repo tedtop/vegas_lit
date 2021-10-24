@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,23 +113,22 @@ class _MobileOpenBetsContent extends StatelessWidget {
           return const _MobileOpenBetsContentEmpty();
         }
         return const _MobileOpenBetsContentList();
-        break;
+
       case OpenBetsStatus.initial:
         return const SizedBox();
-        break;
+
       case OpenBetsStatus.loading:
         return const CircularProgressIndicator(
           color: Palette.cream,
         );
-        break;
+
       case OpenBetsStatus.failure:
         return const Center(
           child: Text('Some Error Occured'),
         );
-        break;
+
       default:
         return const SizedBox();
-        break;
     }
   }
 }

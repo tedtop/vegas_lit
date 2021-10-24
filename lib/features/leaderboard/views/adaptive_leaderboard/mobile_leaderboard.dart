@@ -22,11 +22,9 @@ class MobileLeaderboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LeaderboardState leaderboardState =
-        context.watch<LeaderboardCubit>().state;
+    final leaderboardState = context.watch<LeaderboardCubit>().state;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TextBar(
           text: leaderboardState.day,
@@ -66,7 +64,6 @@ class MobileLeaderboard extends StatelessWidget {
                           ),
                         ),
                       );
-                break;
               case LeaderboardStatus.weekChanged:
                 return leaderboardState.rankedUserList.isNotEmpty
                     ? Column(
@@ -189,8 +186,8 @@ class MobileLeaderboardTile extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       color: Palette.darkGrey,
-                      height: 50.0,
-                      width: 50.0,
+                      height: 50,
+                      width: 50,
                       child: Text(
                           player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),

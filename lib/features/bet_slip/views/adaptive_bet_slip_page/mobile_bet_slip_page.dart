@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,12 +87,11 @@ class SingleBetSlip extends StatelessWidget {
                     const BottomBar()
                   ],
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),
@@ -139,12 +136,11 @@ class ParlayBetSlip extends StatelessWidget {
                     const BottomBar()
                   ],
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),

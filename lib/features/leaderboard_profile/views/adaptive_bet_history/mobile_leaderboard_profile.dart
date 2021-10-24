@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +30,8 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class MobileLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
+    final LeaderboardProfileState state =
+        context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -60,27 +59,27 @@ class _MobileHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
+        final LeaderboardProfileState state =
+            context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
-            break;
+
           case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
-            break;
+
           case LeaderboardProfileStatus.success:
             return const LeaderboardProfileBoardContent();
-            break;
+
           case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text("Couldn't load bet history data"),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );

@@ -1,6 +1,3 @@
-
-
-import 'package:meta/meta.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../models/golf/golf.dart';

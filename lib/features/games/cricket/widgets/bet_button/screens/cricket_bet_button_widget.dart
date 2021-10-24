@@ -52,18 +52,18 @@
 //         switch (betButtonState.status) {
 //           case BetButtonStatus.unclicked:
 //             return BetButtonUnclicked();
-//             break;
+//              
 //           case BetButtonStatus.clicked:
 //             return BetButtonClicked();
-//             break;
+//              
 //           case BetButtonStatus.done:
 //             return BetButtonDone();
-//             break;
+//              
 //           default:
 //             return const CircularProgressIndicator(
 //               color: Palette.cream,
 //             );
-//             break;
+//              
 //         }
 //       },
 //     );

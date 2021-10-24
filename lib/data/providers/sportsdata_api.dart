@@ -1,10 +1,7 @@
-
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 import '../../config/api.dart';
 import '../models/golf/golf.dart';
@@ -64,7 +61,7 @@ class SportsdataApiClient {
         games.addAll(
           parsed
               .map<MlbGame>(
-                ((Object json) => MlbGame.fromMap(json as Map<String, dynamic>)) as MlbGame Function(dynamic),
+                (dynamic json) => MlbGame.fromMap(json as Map<String, dynamic>),
               )
               .toList(),
         );
@@ -85,7 +82,8 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<MlbTeamStats>(
-            ((Object json) => MlbTeamStats.fromMap(json as Map<String, dynamic>)) as MlbTeamStats Function(dynamic),
+            (dynamic json) =>
+                MlbTeamStats.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -102,7 +100,7 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<MlbPlayer>(
-            ((Object json) => MlbPlayer.fromMap(json as Map<String, dynamic>)) as MlbPlayer Function(dynamic),
+            (dynamic json) => MlbPlayer.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -146,7 +144,7 @@ class SportsdataApiClient {
 
         games.addAll(parsed
             .map<NbaGame>(
-              ((Object json) => NbaGame.fromMap(json as Map<String, dynamic>)) as NbaGame Function(dynamic),
+              (dynamic json) => NbaGame.fromMap(json as Map<String, dynamic>),
             )
             .toList());
       } else {
@@ -165,7 +163,8 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NbaTeamStats>(
-            ((Object json) => NbaTeamStats.fromMap(json as Map<String, dynamic>)) as NbaTeamStats Function(dynamic),
+            (dynamic json) =>
+                NbaTeamStats.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -182,7 +181,7 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NbaPlayer>(
-            ((Object json) => NbaPlayer.fromMap(json as Map<String, dynamic>)) as NbaPlayer Function(dynamic),
+            (dynamic json) => NbaPlayer.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -226,7 +225,7 @@ class SportsdataApiClient {
 
         games.addAll(parsed
             .map<NcaabGame>(
-              ((Object json) => NcaabGame.fromMap(json as Map<String, dynamic>)) as NcaabGame Function(dynamic),
+              (dynamic json) => NcaabGame.fromMap(json as Map<String, dynamic>),
             )
             .toList());
       } else {
@@ -245,8 +244,8 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NcaabTeamStats>(
-            ((Object json) =>
-                NcaabTeamStats.fromMap(json as Map<String, dynamic>)) as NcaabTeamStats Function(dynamic),
+            (dynamic json) =>
+                NcaabTeamStats.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -264,7 +263,7 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NcaabPlayer>(
-            ((Object json) => NcaabPlayer.fromMap(json as Map<String, dynamic>)) as NcaabPlayer Function(dynamic),
+            (dynamic json) => NcaabPlayer.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -298,19 +297,25 @@ class SportsdataApiClient {
           DateFormat('yyyy-MMM-dd').format(dateTime.add(Duration(days: day))));
     }
     final responses = await Future.wait(
-        formattedDates.map((formattedDate) => _dio.get<Object>(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
-            )));
+      formattedDates.map(
+        (formattedDate) => _dio.get<Object>(
+          'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+        ),
+      ),
+    );
     final games = <NcaafGame>[];
     for (final response in responses) {
       if (response.statusCode == 200) {
         final parsed = json.decode(json.encode(response.data)) as List;
 
-        games.addAll(parsed
-            .map<NcaafGame>(
-              ((Object json) => NcaafGame.fromMap(json as Map<String, dynamic>)) as NcaafGame Function(dynamic),
-            )
-            .toList());
+        games.addAll(
+          parsed
+              .map<NcaafGame>(
+                (dynamic json) =>
+                    NcaafGame.fromMap(json as Map<String, dynamic>),
+              )
+              .toList(),
+        );
       } else {
         throw FetchFailureNCAAB();
       }
@@ -327,8 +332,8 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NcaafTeamStats>(
-            ((Object json) =>
-                NcaafTeamStats.fromMap(json as Map<String, dynamic>)) as NcaafTeamStats Function(dynamic),
+            (dynamic json) =>
+                NcaafTeamStats.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -346,7 +351,7 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NcaafPlayer>(
-            ((Object json) => NcaafPlayer.fromMap(json as Map<String, dynamic>)) as NcaafPlayer Function(dynamic),
+            (dynamic json) => NcaafPlayer.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -390,7 +395,7 @@ class SportsdataApiClient {
 
         games.addAll(parsed
             .map<NflGame>(
-              ((Object json) => NflGame.fromMap(json as Map<String, dynamic>)) as NflGame Function(dynamic),
+              (dynamic json) => NflGame.fromMap(json as Map<String, dynamic>),
             )
             .toList());
       } else {
@@ -410,7 +415,8 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NflTeamStats>(
-            ((Object json) => NflTeamStats.fromMap(json as Map<String, dynamic>)) as NflTeamStats Function(dynamic),
+            (dynamic json) =>
+                NflTeamStats.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -427,7 +433,7 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NflPlayer>(
-            ((Object json) => NflPlayer.fromMap(json as Map<String, dynamic>)) as NflPlayer Function(dynamic),
+            (dynamic json) => NflPlayer.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -471,7 +477,7 @@ class SportsdataApiClient {
 
         games.addAll(parsed
             .map<NhlGame>(
-              ((Object json) => NhlGame.fromMap(json as Map<String, dynamic>)) as NhlGame Function(dynamic),
+              (dynamic json) => NhlGame.fromMap(json as Map<String, dynamic>),
             )
             .toList());
       } else {
@@ -490,7 +496,8 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NhlTeamStats>(
-            ((Object json) => NhlTeamStats.fromMap(json as Map<String, dynamic>)) as NhlTeamStats Function(dynamic),
+            (dynamic json) =>
+                NhlTeamStats.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -507,7 +514,7 @@ class SportsdataApiClient {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
           .map<NhlPlayer>(
-            ((Object json) => NhlPlayer.fromMap(json as Map<String, dynamic>)) as NhlPlayer Function(dynamic),
+            (dynamic json) => NhlPlayer.fromMap(json as Map<String, dynamic>),
           )
           .toList();
     } else {
@@ -566,7 +573,7 @@ class SportsdataApiClient {
       final dynamic parsed = json.decode(json.encode(response.data)) as List;
       final filteredTournaments = <GolfTournament>[];
       parsed
-          .map<GolfTournament>((Object json) {
+          .map<GolfTournament>((dynamic json) {
             return GolfTournament.fromMap(json as Map<String, dynamic>);
           })
           .toList()
@@ -580,7 +587,6 @@ class SportsdataApiClient {
             }
           });
       return filteredTournaments.reversed.toList();
-      //return allTournaments;
     } else {
       throw FetchGolfFailure();
     }

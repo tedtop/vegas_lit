@@ -89,7 +89,6 @@ class ParlayBetSlipButton extends StatelessWidget {
                     );
                   break;
                 default:
-                  break;
               }
             },
             child: Padding(
@@ -207,18 +206,46 @@ class ParlayBetSlipButton extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: DefaultButton(
-                          text: 'PLACE BET',
-                          action: () async {
-                            await context.read<ParlayBetButtonCubit>().placeBet(
-                                  isMinimumVersion: isMinimumVersion,
-                                  context: context,
-                                  balanceAmount: balanceAmount,
-                                  username: username,
-                                  currentUserId: currentUserId,
-                                  betList: betList,
-                                );
-                          },
+                        child: SizedBox(
+                          width: 110,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                    const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                  ),
+                                  elevation: MaterialStateProperty.all(
+                                      Styles.normalElevation),
+                                  shape: MaterialStateProperty.all(
+                                      Styles.smallRadius),
+                                  textStyle: MaterialStateProperty.all(
+                                    const TextStyle(color: Palette.cream),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Palette.green),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap),
+                              child: Text(
+                                'PLACE BET',
+                                style: Styles.betSlipButtonText,
+                              ),
+                              onPressed: () async {
+                                await context
+                                    .read<ParlayBetButtonCubit>()
+                                    .placeBet(
+                                      isMinimumVersion: isMinimumVersion,
+                                      context: context,
+                                      balanceAmount: balanceAmount,
+                                      username: username,
+                                      currentUserId: currentUserId,
+                                      betList: betList,
+                                    );
+                              },
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -449,53 +476,6 @@ String whichBetSystemFromEnum(Bet betType) {
     return 'TOTAL O/U';
   } else {
     return 'Error';
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 110,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: Styles.betSlipButtonText,
-          ),
-          onPressed: () => action,
-        ),
-      ),
-    );
   }
 }
 

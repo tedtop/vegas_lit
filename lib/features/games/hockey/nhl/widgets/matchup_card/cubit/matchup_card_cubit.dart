@@ -1,7 +1,5 @@
-
-
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+
 import '../../../../../../../data/models/nhl/nhl_game.dart';
 import '../../../models/nhl_team.dart';
 
@@ -34,7 +32,7 @@ class NhlMatchupCardCubit extends Cubit<NhlMatchupCardState> {
   List<NhlTeam> getData({required List parsedTeamData}) {
     final teamData = parsedTeamData
         .map<NhlTeam>(
-          ((Object json) => NhlTeam.fromMap(json as Map<String, dynamic>)) as NhlTeam Function(dynamic),
+          (dynamic json) => NhlTeam.fromMap(json as Map<String, dynamic>),
         )
         .toList();
 

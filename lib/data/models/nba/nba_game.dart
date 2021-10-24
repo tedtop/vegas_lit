@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 class NbaGame {
@@ -96,7 +94,7 @@ class NbaGame {
         quarters: json['Quarters'] == null
             ? null
             : List<dynamic>.from(
-                json['Quarters'].map((dynamic x) => x) as List,
+                json['Quarters'].map((dynamic x) => x) as Iterable<dynamic>,
               ),
       );
 

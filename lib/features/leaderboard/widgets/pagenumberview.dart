@@ -35,7 +35,7 @@ class _PageNumberViewState extends State<PageNumberView> {
   Widget build(BuildContext context) {
     final pageList = List<int>.generate(widget.pages!, (i) => i + 1);
     if (widget.pages! <= 0) return Container();
-    if (widget.pages! <= 7)
+    if (widget.pages! <= 7) {
       return Row(
         children: pageList.map((pageNumber) {
           return PageNumberWidget(
@@ -45,7 +45,8 @@ class _PageNumberViewState extends State<PageNumberView> {
           );
         }).toList(),
       );
-    if (selectedPage >= 1 && selectedPage <= 3)
+    }
+    if (selectedPage >= 1 && selectedPage <= 3) {
       return Row(
         children: [
           ...pageList.getRange(0, 4).map((pageNumber) {
@@ -67,7 +68,8 @@ class _PageNumberViewState extends State<PageNumberView> {
           }).toList(),
         ],
       );
-    if (selectedPage > widget.pages! - 3 && selectedPage <= widget.pages!)
+    }
+    if (selectedPage > widget.pages! - 3 && selectedPage <= widget.pages!) {
       return Row(
         children: [
           ...pageList.getRange(0, 2).map((pageNumber) {
@@ -89,6 +91,7 @@ class _PageNumberViewState extends State<PageNumberView> {
           }).toList(),
         ],
       );
+    }
     return Row(
       children: [
         PageNumberWidget(

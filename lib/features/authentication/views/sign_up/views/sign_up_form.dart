@@ -130,7 +130,6 @@ class _AgreementCheck extends StatelessWidget {
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -177,7 +176,6 @@ class _AgreementCheck extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(
                     width: 40,
@@ -537,11 +535,38 @@ class _SignUpButton extends StatelessWidget {
               ? const CircularProgressIndicator(
                   color: Palette.cream,
                 )
-              : DefaultButton(
-                  text: 'SIGN UP',
-                  action: () {
-                    context.read<SignUpCubit>().signUpFormSubmitted();
-                  },
+              : SizedBox(
+                  width: 174,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(
+                              vertical: 10,
+                            ),
+                          ),
+                          elevation:
+                              MaterialStateProperty.all(Styles.normalElevation),
+                          shape: MaterialStateProperty.all(Styles.smallRadius),
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(color: Palette.cream),
+                          ),
+                          backgroundColor:
+                              MaterialStateProperty.all(Palette.green),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                      child: Text(
+                        'SIGN UP',
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () {
+                        context.read<SignUpCubit>().signUpFormSubmitted();
+                      },
+                    ),
+                  ),
                 );
         },
       ),
@@ -634,7 +659,6 @@ class _StateInput extends StatelessWidget {
                         context.read<SignUpCubit>().americanStateChanged(value),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(
                         width: 5,
@@ -789,54 +813,4 @@ class _DropDownState<T> extends State<DropDown<T>> {
               ),
         value: item,
       );
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed:() => action,
-        ),
-      ),
-    );
-  }
 }

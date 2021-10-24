@@ -207,23 +207,55 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: DefaultButton(
-                                text: 'PLACE BET',
-                                action: () async {
-                                  await context
-                                      .read<OlympicsBetButtonCubit>()
-                                      .placeBet(
-                                        isMinimumVersion: isMinimumVersion!,
-                                        betButtonState: betButtonState,
-                                        context: context,
-                                        balanceAmount: balanceAmount,
-                                        username: username,
-                                        currentUserId: currentUserId,
-                                      );
-                                },
-                              ),
-                            ),
+                                padding: const EdgeInsets.only(top: 8),
+                                child: SizedBox(
+                                  width: 174,
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(
+                                            const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                          ),
+                                          elevation: MaterialStateProperty.all(
+                                              Styles.normalElevation),
+                                          shape: MaterialStateProperty.all(
+                                              Styles.smallRadius),
+                                          textStyle: MaterialStateProperty.all(
+                                            const TextStyle(
+                                                color: Palette.cream),
+                                          ),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Palette.green),
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap),
+                                      child: Text(
+                                        'PLACE BET',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      onPressed: () async {
+                                        await context
+                                            .read<OlympicsBetButtonCubit>()
+                                            .placeBet(
+                                              isMinimumVersion:
+                                                  isMinimumVersion!,
+                                              betButtonState: betButtonState,
+                                              context: context,
+                                              balanceAmount: balanceAmount,
+                                              username: username,
+                                              currentUserId: currentUserId,
+                                            );
+                                      },
+                                    ),
+                                  ),
+                                )),
                           ),
                         ),
                       ],
@@ -333,21 +365,51 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: DefaultButton(
-                              color: Palette.red,
-                              elevation: 0,
-                              text: 'CANCEL',
-                              action: () {
-                                context
-                                    .read<OlympicsBetButtonCubit>()
-                                    .unclickBetButton();
-                                context.read<BetSlipCubit>().removeBetSlip(
-                                      betSlipDataId: betButtonState.uniqueId,
-                                    );
-                              },
-                            ),
-                          ),
+                              padding: const EdgeInsets.only(top: 8),
+                              child: SizedBox(
+                                width: 174,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                          ),
+                                        ),
+                                        elevation: MaterialStateProperty.all(0),
+                                        shape: MaterialStateProperty.all(
+                                            Styles.smallRadius),
+                                        textStyle: MaterialStateProperty.all(
+                                          const TextStyle(color: Palette.cream),
+                                        ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Palette.red),
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    child: Text(
+                                      'CANCEL',
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      context
+                                          .read<OlympicsBetButtonCubit>()
+                                          .unclickBetButton();
+                                      context
+                                          .read<BetSlipCubit>()
+                                          .removeBetSlip(
+                                            betSlipDataId:
+                                                betButtonState.uniqueId,
+                                          );
+                                    },
+                                  ),
+                                ),
+                              )),
                         ),
                       ],
                     ),
@@ -615,56 +677,6 @@ Widget badgeFromEventTypeColumn({String? eventType}) {
                   : const SizedBox.shrink(),
     ],
   );
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
-        ),
-      ),
-    );
-  }
 }
 
 class AbstractCard extends StatelessWidget {

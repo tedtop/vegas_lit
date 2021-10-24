@@ -1,7 +1,3 @@
-
-
-import 'package:meta/meta.dart';
-
 import '../models/bet.dart';
 import '../providers/cloud_firestore.dart';
 

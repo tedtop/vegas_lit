@@ -1,11 +1,9 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
@@ -89,7 +87,8 @@ class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
     required String? currentUserId,
   }) async {
     if (isMinimumVersion) {
-      if (betButtonState.game!.startTime!.isBefore(ESTDateTime.fetchTimeEST())) {
+      if (betButtonState.game!.startTime!
+          .isBefore(ESTDateTime.fetchTimeEST())) {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(

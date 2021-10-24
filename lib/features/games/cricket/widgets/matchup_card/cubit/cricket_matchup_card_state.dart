@@ -1,8 +1,5 @@
-
-
 part of 'cricket_matchup_card_cubit.dart';
 
-@immutable
 abstract class CricketMatchupCardState {
   const CricketMatchupCardState();
 }

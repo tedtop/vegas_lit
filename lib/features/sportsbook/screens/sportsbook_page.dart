@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,14 +49,13 @@ class Sportsbook extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           default:
             return SportsBookView(
               league: state.league,
               estTimeZone: state.estTimeZone,
               gameNumberList: state.gameNumbers,
             );
-            break;
         }
       },
     );
@@ -168,14 +165,13 @@ class _SportsBookViewState extends State<SportsBookView>
                                             ),
                                           ),
                                         );
-                                        break;
+
                                       default:
                                         return const Center(
                                           child: CircularProgressIndicator(
                                             color: Palette.cream,
                                           ),
                                         );
-                                        break;
                                     }
                                   },
                                 ),
@@ -257,7 +253,6 @@ class _SportsBookViewState extends State<SportsBookView>
                       break;
                     default:
                       selectedIndex = 9;
-                      break;
                   }
                   return FadeIndexedStack(
                     index: selectedIndex,

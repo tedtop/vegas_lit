@@ -1,11 +1,9 @@
-
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../../../config/extensions.dart';

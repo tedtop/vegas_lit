@@ -1,8 +1,6 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
 import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
@@ -108,34 +106,33 @@ class CloudFirestoreClient {
               switch (snapshot.data()['league'] as String?) {
                 case 'mlb':
                   return MlbBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'nba':
                   return NbaBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'cbb':
                   return NcaabBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'cfb':
                   return NcaafBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'nfl':
                   return NflBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'nhl':
                   return NhlBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'olympics':
                   return OlympicsBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'parlay':
                   return ParlayBets.fromFirestore(snapshot);
-                  break;
+
                 default:
                   return BetData.fromFirestore(snapshot);
-                  break;
               }
             },
           ).toList(),
@@ -160,34 +157,33 @@ class CloudFirestoreClient {
               switch (snapshot.data()['league'] as String?) {
                 case 'mlb':
                   return MlbBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'nba':
                   return NbaBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'cbb':
                   return NcaabBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'cfb':
                   return NcaafBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'nfl':
                   return NflBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'nhl':
                   return NhlBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'olympics':
                   return OlympicsBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'paralympics':
                   return ParalympicsBetData.fromFirestore(snapshot);
-                  break;
+
                 case 'parlay':
                   return ParlayBets.fromFirestore(snapshot);
-                  break;
+
                 default:
                   return BetData.fromFirestore(snapshot);
-                  break;
               }
             },
           ).toList(),

@@ -1,11 +1,9 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/widgets/bet_button/screens/parlay_bet_slip_card.dart';
@@ -146,11 +144,12 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
   Future<void> placeBet({
     required bool? isMinimumVersion,
     required MlbBetButtonState betButtonState,
-    required BuildContext context,
+    required BuildContext buildContext,
     required int? balanceAmount,
     required String? username,
     required String? currentUserId,
   }) async {
+    final context = buildContext;
     emit(state.copyWith(status: MlbBetButtonStatus.placing));
     final isBetExists = await _betsRepository.isBetExist(
       betId: state.uniqueId,
@@ -181,7 +180,8 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
             ),
           );
       } else {
-        if (betButtonState.game!.dateTime!.isBefore(ESTDateTime.fetchTimeEST())) {
+        if (betButtonState.game!.dateTime!
+            .isBefore(ESTDateTime.fetchTimeEST())) {
           emit(state.copyWith(status: MlbBetButtonStatus.clicked));
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
@@ -223,47 +223,46 @@ class MlbBetButtonCubit extends Cubit<MlbBetButtonState> {
                   ),
                 );
             } else {
-              await context.read<MlbBetButtonCubit>().updateOpenBets(
-                    betAmount: betButtonState.betAmount,
-                    betsData: MlbBetData(
-                      stillOpen: false,
-                      username: username,
-                      homeTeamCity: betButtonState.homeTeamData!.city,
-                      awayTeamCity: betButtonState.awayTeamData!.city,
-                      betAmount: betButtonState.betAmount,
-                      gameId: betButtonState.game!.gameId,
-                      isClosed: betButtonState.game!.isClosed,
-                      homeTeam: betButtonState.game!.homeTeam,
-                      awayTeam: betButtonState.game!.awayTeam,
-                      winningTeam: null,
-                      winningTeamName: null,
-                      status: betButtonState.game!.status,
-                      league: betButtonState.league,
-                      betOverUnder: betButtonState.game!.overUnder,
-                      betPointSpread: betButtonState.game!.pointSpread,
-                      awayTeamName: betButtonState.awayTeamData!.name,
-                      homeTeamName: betButtonState.homeTeamData!.name,
-                      totalGameScore: null,
-                      id: betButtonState.uniqueId,
-                      betType:
-                          whichBetSystemToSave(betType: betButtonState.betType),
-                      odds: int.parse(betButtonState.mainOdds!),
-                      betProfit: betButtonState.toWinAmount,
-                      gameStartDateTime:
-                          betButtonState.game!.dateTime.toString(),
-                      awayTeamScore: betButtonState.game!.awayTeamScore as int?,
-                      homeTeamScore: betButtonState.game!.homeTeamScore as int?,
-                      uid: currentUserId,
-                      betTeam: betButtonState.winTeam == BetButtonWin.home
-                          ? 'home'
-                          : 'away',
-                      dateTime: ESTDateTime.fetchTimeEST().toString(),
-                      week: ESTDateTime.fetchTimeEST().weekStringVL,
-                      clientVersion: await _getAppVersion(),
-                      dataProvider: 'sportsdata.io',
-                    ),
-                    currentUserId: currentUserId,
-                  );
+              await updateOpenBets(
+                betAmount: betButtonState.betAmount,
+                betsData: MlbBetData(
+                  stillOpen: false,
+                  username: username,
+                  homeTeamCity: betButtonState.homeTeamData!.city,
+                  awayTeamCity: betButtonState.awayTeamData!.city,
+                  betAmount: betButtonState.betAmount,
+                  gameId: betButtonState.game!.gameId,
+                  isClosed: betButtonState.game!.isClosed,
+                  homeTeam: betButtonState.game!.homeTeam,
+                  awayTeam: betButtonState.game!.awayTeam,
+                  winningTeam: null,
+                  winningTeamName: null,
+                  status: betButtonState.game!.status,
+                  league: betButtonState.league,
+                  betOverUnder: betButtonState.game!.overUnder,
+                  betPointSpread: betButtonState.game!.pointSpread,
+                  awayTeamName: betButtonState.awayTeamData!.name,
+                  homeTeamName: betButtonState.homeTeamData!.name,
+                  totalGameScore: null,
+                  id: betButtonState.uniqueId,
+                  betType:
+                      whichBetSystemToSave(betType: betButtonState.betType),
+                  odds: int.parse(betButtonState.mainOdds!),
+                  betProfit: betButtonState.toWinAmount,
+                  gameStartDateTime: betButtonState.game!.dateTime.toString(),
+                  awayTeamScore: betButtonState.game!.awayTeamScore as int?,
+                  homeTeamScore: betButtonState.game!.homeTeamScore as int?,
+                  uid: currentUserId,
+                  betTeam: betButtonState.winTeam == BetButtonWin.home
+                      ? 'home'
+                      : 'away',
+                  dateTime: ESTDateTime.fetchTimeEST().toString(),
+                  week: ESTDateTime.fetchTimeEST().weekStringVL,
+                  clientVersion: await _getAppVersion(),
+                  dataProvider: 'sportsdata.io',
+                ),
+                currentUserId: currentUserId,
+              );
               emit(state.copyWith(status: MlbBetButtonStatus.placed));
             }
           }

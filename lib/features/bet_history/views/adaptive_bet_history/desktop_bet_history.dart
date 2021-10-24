@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,25 +47,23 @@ class _DesktopHistoryBoard extends StatelessWidget {
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();
-            break;
+
           case HistoryStatus.loading:
             return const Center(
               child: CircularProgressIndicator(
                 color: Palette.cream,
               ),
             );
-            break;
+
           case HistoryStatus.success:
             return _DesktopHistoryBoardContent(wallet: state.userWallet);
-            break;
+
           case HistoryStatus.failure:
             return const Center(
               child: Text("Couldn't load bet history data"),
             );
-            break;
           default:
             return const SizedBox();
-            break;
         }
       },
     );
@@ -166,25 +162,24 @@ class _DesktopHistoryContent extends StatelessWidget {
                 bets: state.bets,
               );
             }
-            break;
+
           case HistoryStatus.initial:
             return const SizedBox();
-            break;
+
           case HistoryStatus.loading:
             return const Center(
               child: CircularProgressIndicator(
                 color: Palette.cream,
               ),
             );
-            break;
+
           case HistoryStatus.failure:
             return const Center(
               child: Text("Couldn't load bet history data"),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );

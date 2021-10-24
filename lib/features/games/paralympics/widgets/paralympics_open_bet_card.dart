@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -113,7 +111,9 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                   children: [
                                     isPlayerWin
                                         ? Text(
-                                            '${countryFlagFromCode(countryCode: openBets.playerCountry!)}',
+                                            countryFlagFromCode(
+                                                countryCode:
+                                                    openBets.playerCountry!),
                                             style: GoogleFonts.nunito(
                                               fontSize: 20,
                                               color: Palette.cream,
@@ -123,7 +123,9 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             textAlign: TextAlign.center,
                                           )
                                         : Text(
-                                            '${countryFlagFromCode(countryCode: openBets.rivalCountry!)}',
+                                            countryFlagFromCode(
+                                                countryCode:
+                                                    openBets.rivalCountry!),
                                             style: GoogleFonts.nunito(
                                               fontSize: 20,
                                               color: Palette.green,
@@ -134,7 +136,9 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                           ),
                                     isPlayerWin
                                         ? Text(
-                                            '${countryFlagFromCode(countryCode: openBets.rivalCountry!)}',
+                                            countryFlagFromCode(
+                                                countryCode:
+                                                    openBets.rivalCountry!),
                                             style: GoogleFonts.nunito(
                                               fontSize: 20,
                                               color: Palette.green,
@@ -144,7 +148,9 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             textAlign: TextAlign.center,
                                           )
                                         : Text(
-                                            '${countryFlagFromCode(countryCode: openBets.playerCountry!)}',
+                                            countryFlagFromCode(
+                                                countryCode:
+                                                    openBets.playerCountry!),
                                             style: GoogleFonts.nunito(
                                               fontSize: 20,
                                               color: Palette.cream,
@@ -166,7 +172,8 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    '${openBets.playerName!.toUpperCase()}',
+                                                    openBets.playerName!
+                                                        .toUpperCase(),
                                                     style: GoogleFonts.nunito(
                                                       fontSize: 15,
                                                       color: Palette.cream,
@@ -192,7 +199,8 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             ),
                                             SizedBox(
                                               child: Text(
-                                                '${openBets.rivalName!.toUpperCase()}',
+                                                openBets.rivalName!
+                                                    .toUpperCase(),
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
                                                   color: Palette.green,
@@ -213,7 +221,8 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    '${openBets.rivalName!.toUpperCase()}',
+                                                    openBets.rivalName!
+                                                        .toUpperCase(),
                                                     style: GoogleFonts.nunito(
                                                       fontSize: 15,
                                                       color: Palette.green,
@@ -239,7 +248,8 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             ),
                                             SizedBox(
                                               child: Text(
-                                                '${openBets.playerName!.toUpperCase()}',
+                                                openBets.playerName!
+                                                    .toUpperCase(),
                                                 style: GoogleFonts.nunito(
                                                   fontSize: 15,
                                                   color: Palette.cream,
@@ -262,7 +272,9 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                               children: [
                                 Flexible(
                                   child: Text(
-                                    '${openBets.gameName!.replaceAll(RegExp('-'), '\/').toUpperCase()}',
+                                    openBets.gameName!
+                                        .replaceAll(RegExp('-'), '\/')
+                                        .toUpperCase(),
                                     style: GoogleFonts.nunito(
                                       fontSize: 14,
                                       color: Palette.cream,

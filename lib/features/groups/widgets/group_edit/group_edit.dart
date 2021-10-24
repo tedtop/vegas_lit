@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -288,32 +286,60 @@ class _GroupEditState extends State<GroupEdit> {
                 builder: (context, state) {
                   switch (state.status) {
                     case GroupEditStatus.initial:
-                      return DefaultButton(
-                        text: 'UPDATE GROUP',
-                        action: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<GroupEditCubit>().editGroup(
-                                  group: Group(
-                                    adminId: widget.group!.adminId,
-                                    adminName: widget.group!.adminName,
-                                    avatarUrl: widget.group!.avatarUrl,
-                                    createdBy: widget.group!.createdBy,
-                                    createdAt: widget.group!.createdAt,
-                                    description:
-                                        _groupDescriptionController.text,
-                                    isPublic: _isPublic,
-                                    name: _groupNameController.text,
-                                    userLimit:
-                                        _isUnlimitedSize! ? 0 : _userLimit,
-                                    users: widget.group!.users,
-                                    id: widget.group!.id,
-                                    isUnlimited: _isUnlimitedSize,
+                      return SizedBox(
+                        width: 174,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                    vertical: 10,
                                   ),
-                                );
-                          }
-                        },
+                                ),
+                                elevation: MaterialStateProperty.all(
+                                    Styles.normalElevation),
+                                shape: MaterialStateProperty.all(
+                                    Styles.smallRadius),
+                                textStyle: MaterialStateProperty.all(
+                                  const TextStyle(color: Palette.cream),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Palette.green),
+                                tapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap),
+                            child: Text(
+                              'UPDATE GROUP',
+                              style: GoogleFonts.nunito(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<GroupEditCubit>().editGroup(
+                                      group: Group(
+                                        adminId: widget.group!.adminId,
+                                        adminName: widget.group!.adminName,
+                                        avatarUrl: widget.group!.avatarUrl,
+                                        createdBy: widget.group!.createdBy,
+                                        createdAt: widget.group!.createdAt,
+                                        description:
+                                            _groupDescriptionController.text,
+                                        isPublic: _isPublic,
+                                        name: _groupNameController.text,
+                                        userLimit:
+                                            _isUnlimitedSize! ? 0 : _userLimit,
+                                        users: widget.group!.users,
+                                        id: widget.group!.id,
+                                        isUnlimited: _isUnlimitedSize,
+                                      ),
+                                    );
+                              }
+                            },
+                          ),
+                        ),
                       );
-                      break;
                     case GroupEditStatus.loading:
                       return const SizedBox(
                           height: 50,
@@ -344,56 +370,6 @@ class _GroupEditState extends State<GroupEdit> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
         ),
       ),
     );

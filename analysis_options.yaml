@@ -4,4 +4,5 @@ linter:
     public_member_api_docs: false
     lines_longer_than_80_chars: false
     avoid_dynamic_calls: false
+    require_trailing_commas: false
     always_use_package_imports: false

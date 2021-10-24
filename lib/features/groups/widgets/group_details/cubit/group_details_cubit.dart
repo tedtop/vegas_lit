@@ -1,10 +1,7 @@
-
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../../../../data/models/group.dart';
 import '../../../../../data/models/wallet.dart';
@@ -15,17 +12,12 @@ part 'group_details_state.dart';
 class GroupDetailsCubit extends Cubit<GroupDetailsState> {
   GroupDetailsCubit({
     required GroupsRepository groupsRepository,
-    // @required StorageRepository storageRepository,
-  })  : assert(groupsRepository != null),
-        // assert(storageRepository != null),
-        _groupsRepository = groupsRepository,
-        // _storageRepository = storageRepository,
+  })  : _groupsRepository = groupsRepository,
         super(
           GroupDetailsState(),
         );
 
   final GroupsRepository _groupsRepository;
-  // final StorageRepository _storageRepository;
   StreamSubscription? _groupDetailsSubscription;
 
   Future<void> fetchGroupDetailsLeaderboard(

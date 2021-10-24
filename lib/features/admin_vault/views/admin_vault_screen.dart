@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,14 +35,14 @@ class AdminVaultScreen extends StatelessWidget {
           switch (state.status) {
             case AdminVaultStatus.initial:
               return const SizedBox();
-              break;
+
             case AdminVaultStatus.loading:
               return const Center(
                 child: CircularProgressIndicator(
                   color: Palette.cream,
                 ),
               );
-              break;
+
             case AdminVaultStatus.success:
               return Column(
                 children: [
@@ -68,7 +66,7 @@ class AdminVaultScreen extends StatelessWidget {
                   ),
                 ],
               );
-              break;
+
             default:
               return Center(
                 child: Text(

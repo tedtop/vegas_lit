@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -367,12 +365,40 @@ class _EditButton extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(top: 30),
-          child: DefaultButton(
-            action: () {
-              context.read<ProfileCubit>().updateProfile(
-                  currentUserId: currentUserId, user: state.userData!);
-            },
-            text: 'Update Profile',
+          child: SizedBox(
+            width: 174,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                  ),
+                  elevation: MaterialStateProperty.all(Styles.normalElevation),
+                  shape: MaterialStateProperty.all(Styles.smallRadius),
+                  textStyle: MaterialStateProperty.all(
+                    const TextStyle(color: Palette.cream),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(Palette.green),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: Text(
+                  'Update Profile',
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  context.read<ProfileCubit>().updateProfile(
+                        currentUserId: currentUserId,
+                        user: state.userData!,
+                      );
+                },
+              ),
+            ),
           ),
         );
       },
@@ -608,56 +634,6 @@ class _DropDownState<T> extends State<DropDown<T>> {
               ),
         value: item,
       );
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
-        ),
-      ),
-    );
-  }
 }
 
 class AbstractCard extends StatelessWidget {

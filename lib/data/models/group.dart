@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 class Group extends Equatable {
-  Group({
+  const Group({
     required this.adminId,
     required this.adminName,
     required this.avatarUrl,
@@ -38,7 +37,7 @@ class Group extends Equatable {
       userLimit: map['userLimit'] as int?,
       users: map['users'] != null
           ? Map<String, bool>.from(
-              map['users'] as Map<String, bool>,
+              map['users'] as Map,
             )
           : null,
       snapshot: snapshot,

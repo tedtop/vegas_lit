@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +12,8 @@ import '../../widgets/leaderboard_profile_board_items.dart';
 class DesktopLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
+    final LeaderboardProfileState state =
+        context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -45,27 +44,27 @@ class _DesktopHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final LeaderboardProfileState state = context.watch<LeaderboardProfileCubit>().state;
+        final LeaderboardProfileState state =
+            context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
-            break;
+
           case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
-            break;
+
           case LeaderboardProfileStatus.success:
             return _DesktopHistoryBoardContent(wallet: state.userWallet);
-            break;
+
           case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some error occured.'),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );
@@ -164,23 +163,22 @@ class _DesktopHistoryContent extends StatelessWidget {
                 bets: state.bets,
               );
             }
-            break;
+
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
-            break;
+
           case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
-            break;
+
           case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some Error Occured'),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );

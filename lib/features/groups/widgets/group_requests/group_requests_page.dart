@@ -67,14 +67,14 @@ class GroupRequests extends StatelessWidget {
               switch (state.status) {
                 case GroupRequestsStatus.initial:
                   return const SizedBox();
-                  break;
+
                 case GroupRequestsStatus.loading:
                   return const Center(
                     child: CircularProgressIndicator(
                       color: Palette.cream,
                     ),
                   );
-                  break;
+
                 case GroupRequestsStatus.success:
                   if (state.groups.isEmpty) {
                     return Center(
@@ -86,7 +86,7 @@ class GroupRequests extends StatelessWidget {
                   } else {
                     return const GroupRequestsList();
                   }
-                  break;
+
                 case GroupRequestsStatus.failure:
                   return Center(
                     child: Text(
@@ -94,10 +94,9 @@ class GroupRequests extends StatelessWidget {
                       style: GoogleFonts.nunito(),
                     ),
                   );
-                  break;
+
                 default:
                   return const SizedBox();
-                  break;
               }
             },
           ),

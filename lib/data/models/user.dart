@@ -1,8 +1,5 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 class UserData extends Equatable {
   const UserData({

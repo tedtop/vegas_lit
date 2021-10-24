@@ -85,7 +85,6 @@ class BetButton extends StatelessWidget {
                   );
               break;
             default:
-              break;
           }
         },
         child: Builder(
@@ -95,23 +94,22 @@ class BetButton extends StatelessWidget {
             switch (betButtonState.status) {
               case MlbBetButtonStatus.unclicked:
                 return BetButtonUnclicked();
-                break;
+
               case MlbBetButtonStatus.clicked:
                 return BetButtonClicked();
-                break;
+
               case MlbBetButtonStatus.placed:
                 return BetButtonUnclicked();
-                break;
+
               case MlbBetButtonStatus.placing:
                 return const CircularProgressIndicator(
                   color: Palette.green,
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),

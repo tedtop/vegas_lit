@@ -13,7 +13,7 @@ import '../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
 import '../cubit/olympics_bet_button_cubit.dart';
-import 'parlay_bet_slip_Card.dart';
+import 'parlay_bet_slip_card.dart';
 import 'single_bet_slip_card.dart';
 
 class BetButton extends StatelessWidget {
@@ -75,7 +75,6 @@ class BetButton extends StatelessWidget {
                 );
             break;
           default:
-            break;
         }
       },
       child: Builder(
@@ -85,26 +84,25 @@ class BetButton extends StatelessWidget {
           switch (betButtonState.status) {
             case OlympicsBetButtonStatus.unclicked:
               return BetButtonUnclicked();
-              break;
+
             case OlympicsBetButtonStatus.clicked:
               return BetButtonClicked();
-              break;
+
             case OlympicsBetButtonStatus.placed:
               return BetButtonDone();
-              break;
+
             case OlympicsBetButtonStatus.alreadyPlaced:
               return BetButtonDone();
-              break;
+
             case OlympicsBetButtonStatus.placing:
               return const CircularProgressIndicator(
                 color: Palette.green,
               );
-              break;
+
             default:
               return const CircularProgressIndicator(
                 color: Palette.cream,
               );
-              break;
           }
         },
       ),

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -44,7 +42,7 @@ class MobileBetHistory extends StatelessWidget {
             ),
           ),
         );
-        break;
+
       case HistoryStatus.failure:
         return Column(
           children: [
@@ -62,7 +60,7 @@ class MobileBetHistory extends StatelessWidget {
             const BottomBar()
           ],
         );
-        break;
+
       case HistoryStatus.empty:
         return Column(
           children: [
@@ -90,7 +88,6 @@ class MobileBetHistory extends StatelessWidget {
             const BottomBar()
           ],
         );
-        break;
     }
   }
 }
@@ -106,17 +103,17 @@ class _MobileHistoryBoard extends StatelessWidget {
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();
-            break;
+
           case HistoryStatus.loading:
             return const Center(
               child: CircularProgressIndicator(
                 color: Palette.cream,
               ),
             );
-            break;
+
           case HistoryStatus.success:
             return const BetHistoryBoardContent();
-            break;
+
           case HistoryStatus.failure:
             return Center(
               child: Padding(
@@ -127,10 +124,9 @@ class _MobileHistoryBoard extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );

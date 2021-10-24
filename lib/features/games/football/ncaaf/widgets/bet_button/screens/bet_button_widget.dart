@@ -87,35 +87,30 @@ class BetButton extends StatelessWidget {
                   );
               break;
             default:
-              break;
           }
         },
         child: Builder(
           builder: (context) {
-            final NcaafBetButtonState betButtonState =
-                context.watch<NcaafBetButtonCubit>().state;
+            final betButtonState = context.watch<NcaafBetButtonCubit>().state;
             switch (betButtonState.status) {
               case NcaafBetButtonStatus.unclicked:
                 return BetButtonUnclicked();
-                break;
+
               case NcaafBetButtonStatus.clicked:
                 return BetButtonClicked();
-                break;
 
               case NcaafBetButtonStatus.placed:
                 return BetButtonUnclicked();
-                break;
 
               case NcaafBetButtonStatus.placing:
                 return const CircularProgressIndicator(
                   color: Palette.green,
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),
@@ -127,8 +122,7 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final NcaafBetButtonState betButtonState =
-        context.watch<NcaafBetButtonCubit>().state;
+    final betButtonState = context.watch<NcaafBetButtonCubit>().state;
     final username = context.select(
       (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
@@ -173,8 +167,7 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final NcaafBetButtonState betButtonState =
-        context.watch<NcaafBetButtonCubit>().state;
+    final betButtonState = context.watch<NcaafBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(

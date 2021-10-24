@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/extensions.dart';
 
@@ -62,13 +60,8 @@ class Styles {
   static final signUpAgreement = VLTextStyle.nunito.creamColored.size(11);
   static final authButtonText = VLTextStyle.nunito.greenColored.size(18).bold;
   static final authNormalText = VLTextStyle.nunito.creamColored.size(18).w300;
-  static const signUpInputFieldBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(4),
-    ),
-  );
+  static const signUpInputFieldBorder = OutlineInputBorder();
   static const signUpInputFieldFocusedBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(4)),
     borderSide: BorderSide(color: Palette.cream),
   );
   static const logInInputFocusedBorder = UnderlineInputBorder(
@@ -190,16 +183,9 @@ class Styles {
       VLTextStyle.nunito.creamColored.size(18).w700;
   static final groupFieldDescription = VLTextStyle.nunito.creamColored.size(14);
 
-  static const groupFieldBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(4),
-    ),
-  );
+  static const groupFieldBorder = OutlineInputBorder();
   static const groupFieldFocusedBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Palette.cream),
-    borderRadius: BorderRadius.all(
-      Radius.circular(4),
-    ),
   );
 
   /// --> SHARED WIDGETS

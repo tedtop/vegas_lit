@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 class GolfLeaderboard {
@@ -150,7 +148,8 @@ class GolfPlayer {
             ? null
             : json['OddsToWin'].toDouble() as double?,
         oddsToWinDescription: json['OddsToWinDescription'] as String?,
-        fantasyPointsFanDuel: json['FantasyPointsFanDuel'].toDouble() as double?,
+        fantasyPointsFanDuel:
+            json['FantasyPointsFanDuel'].toDouble() as double?,
         fantasyPointsFantasyDraft:
             json['FantasyPointsFantasyDraft']?.toInt() as int?,
         streaksOfFourBirdiesOrBetter:
@@ -749,8 +748,11 @@ class GolfTournament {
         format:
             json['Format'] == null ? null : formatValues.map[json['Format']],
         sportRadarTournamentId: json['SportRadarTournamentID'] as String?,
-        rounds: List<Round>.from(json['Rounds']
-            .map((Map<String, dynamic> x) => Round.fromMap(x)) as List),
+        rounds: List<Round>.from(
+          json['Rounds']
+                  .map((dynamic x) => Round.fromMap(x as Map<String, dynamic>))
+              as Iterable<dynamic>,
+        ),
       );
 
   final int? tournamentId;

@@ -1,8 +1,6 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 import '../../../../config/extensions.dart';
 
 import '../../../../data/models/golf/golf.dart';

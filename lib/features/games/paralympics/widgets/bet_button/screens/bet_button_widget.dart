@@ -74,7 +74,6 @@ class BetButton extends StatelessWidget {
                 );
             break;
           default:
-            break;
         }
       },
       child: Builder(
@@ -84,26 +83,25 @@ class BetButton extends StatelessWidget {
           switch (betButtonState.status) {
             case ParalympicsBetButtonStatus.unclicked:
               return BetButtonUnclicked();
-              break;
+
             case ParalympicsBetButtonStatus.clicked:
               return BetButtonClicked();
-              break;
+
             case ParalympicsBetButtonStatus.placed:
               return BetButtonDone();
-              break;
+
             case ParalympicsBetButtonStatus.alreadyPlaced:
               return BetButtonDone();
-              break;
+
             case ParalympicsBetButtonStatus.placing:
               return const CircularProgressIndicator(
                 color: Palette.green,
               );
-              break;
+
             default:
               return const CircularProgressIndicator(
                 color: Palette.cream,
               );
-              break;
           }
         },
       ),

@@ -172,11 +172,38 @@ class _LoginButton extends StatelessWidget {
             ? const CircularProgressIndicator(
                 color: Palette.cream,
               )
-            : DefaultButton(
-                text: 'LOGIN',
-                action: () {
-                  context.read<LoginCubit>().logInWithCredentials();
-                },
+            : SizedBox(
+                width: 174,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
+                        ),
+                        elevation:
+                            MaterialStateProperty.all(Styles.normalElevation),
+                        shape: MaterialStateProperty.all(Styles.smallRadius),
+                        textStyle: MaterialStateProperty.all(
+                          const TextStyle(color: Palette.cream),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(Palette.green),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                    child: Text(
+                      'LOGIN',
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      context.read<LoginCubit>().logInWithCredentials();
+                    },
+                  ),
+                ),
               );
       },
     );
@@ -396,56 +423,6 @@ class _VersionNumberState extends State<VersionNumber> {
         return Text('Version: $versionString ($buildNumber)',
             style: Styles.versionText);
       },
-    );
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
-        ),
-      ),
     );
   }
 }

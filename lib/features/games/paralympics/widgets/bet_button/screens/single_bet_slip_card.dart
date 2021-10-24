@@ -126,7 +126,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                 height: 90,
                                 width: 170,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
+                                  padding: const EdgeInsets.all(6),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -137,7 +137,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                       Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                            bottom: 8.0,
+                                            bottom: 8,
                                           ),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
@@ -165,8 +165,8 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 0.75),
                                   ),
                                 ],
                               ),
@@ -208,20 +208,51 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(top: 8),
-                              child: DefaultButton(
-                                text: 'PLACE BET',
-                                action: () async {
-                                  await context
-                                      .read<ParalympicsBetButtonCubit>()
-                                      .placeBet(
-                                        isMinimumVersion: isMinimumVersion!,
-                                        betButtonState: betButtonState,
-                                        context: context,
-                                        balanceAmount: balanceAmount,
-                                        username: username,
-                                        currentUserId: currentUserId,
-                                      );
-                                },
+                              child: SizedBox(
+                                width: 174,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                          ),
+                                        ),
+                                        elevation: MaterialStateProperty.all(
+                                            Styles.normalElevation),
+                                        shape: MaterialStateProperty.all(
+                                            Styles.smallRadius),
+                                        textStyle: MaterialStateProperty.all(
+                                          const TextStyle(color: Palette.cream),
+                                        ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Palette.green),
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    child: Text(
+                                      'PLACE BET',
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      await context
+                                          .read<ParalympicsBetButtonCubit>()
+                                          .placeBet(
+                                            isMinimumVersion: isMinimumVersion!,
+                                            betButtonState: betButtonState,
+                                            context: context,
+                                            balanceAmount: balanceAmount,
+                                            username: username,
+                                            currentUserId: currentUserId,
+                                          );
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -271,7 +302,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                               height: 90,
                               width: 170,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -282,7 +313,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                     Center(
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                          bottom: 8.0,
+                                          bottom: 8,
                                         ),
                                         child: Text(
                                           '${betButtonState.toWinAmount}',
@@ -308,8 +339,8 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 0.75),
                                   ),
                                 ],
                               ),
@@ -333,21 +364,52 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: DefaultButton(
-                              color: Palette.red,
-                              elevation: 0,
-                              text: 'CANCEL',
-                              action: () {
-                                context
-                                    .read<ParalympicsBetButtonCubit>()
-                                    .unclickBetButton();
-                                context.read<BetSlipCubit>().removeBetSlip(
-                                      betSlipDataId: betButtonState.uniqueId,
-                                    );
-                              },
-                            ),
-                          ),
+                              padding: const EdgeInsets.only(top: 8),
+                              child: SizedBox(
+                                width: 174,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                          ),
+                                        ),
+                                        elevation: MaterialStateProperty.all(0),
+                                        shape: MaterialStateProperty.all(
+                                            Styles.smallRadius),
+                                        textStyle: MaterialStateProperty.all(
+                                          const TextStyle(color: Palette.cream),
+                                        ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                          Palette.red,
+                                        ),
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    child: Text(
+                                      'CANCEL',
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      context
+                                          .read<ParalympicsBetButtonCubit>()
+                                          .unclickBetButton();
+                                      context
+                                          .read<BetSlipCubit>()
+                                          .removeBetSlip(
+                                            betSlipDataId:
+                                                betButtonState.uniqueId,
+                                          );
+                                    },
+                                  ),
+                                ),
+                              )),
                         ),
                       ],
                     ),
@@ -549,7 +611,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [
@@ -618,56 +680,6 @@ Widget badgeFromEventTypeColumn({String? eventType}) {
   );
 }
 
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
-        ),
-      ),
-    );
-  }
-}
-
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
     Key? key,
@@ -675,7 +687,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

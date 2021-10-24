@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -72,9 +70,9 @@ List<NflTeam> parseTeamData(String jsonData) {
   final parsedTeamData = json.decode(jsonData) as List;
   final teamData = parsedTeamData
       .map<NflTeam>(
-        ((Object json) => NflTeam.fromMap(
+        (dynamic json) => NflTeam.fromMap(
           json as Map<String, dynamic>,
-        )) as NflTeam Function(dynamic),
+        ),
       )
       .toList();
 

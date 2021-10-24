@@ -1,11 +1,9 @@
-
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
+
 import '../../../config/extensions.dart';
 import '../../../data/repositories/device_repository.dart';
 
@@ -130,7 +128,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             }).length;
           },
         ).onError((Object error, stackTrace) => 0);
-        break;
+
       case 'NBA':
         return await _sportsfeedRepository
             .fetchNBA(
@@ -154,7 +152,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             }).length;
           },
         ).onError((Object error, stackTrace) => 0);
-        break;
+
       case 'MLB':
         return await _sportsfeedRepository
             .fetchMLB(
@@ -178,7 +176,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             }).length;
           },
         ).onError((Object error, stackTrace) => 0);
-        break;
+
       case 'NHL':
         return await _sportsfeedRepository
             .fetchNHL(
@@ -202,7 +200,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             }).length;
           },
         ).onError((Object error, stackTrace) => 0);
-        break;
+
       case 'NCAAF':
         return await _sportsfeedRepository
             .fetchNCAAF(
@@ -226,7 +224,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             }).length;
           },
         ).onError((Object error, stackTrace) => 0);
-        break;
+
       case 'NCAAB':
         return await _sportsfeedRepository
             .fetchNCAAB(
@@ -250,13 +248,13 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
             }).length;
           },
         ).onError((Object error, stackTrace) => 0);
-        break;
+
       case 'CRICKET':
         return 0;
-        break;
+
       case 'GOLF':
         return 0;
-        break;
+
       case 'OLYMPICS':
         return await _sportsfeedRepository.fetchOlympicsGame().first.then(
           (value) {
@@ -276,7 +274,7 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                     .length;
           },
         );
-        break;
+
       case 'PARALYMPICS':
         return await _sportsfeedRepository.fetchParalympicsGame().first.then(
           (value) {
@@ -296,10 +294,9 @@ class SportsbookBloc extends Bloc<SportsbookEvent, SportsbookState> {
                     .length;
           },
         );
-        break;
+
       default:
         return 0;
-        break;
     }
   }
 }

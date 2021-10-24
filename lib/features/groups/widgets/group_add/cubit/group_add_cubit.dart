@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -17,9 +15,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
   GroupAddCubit(
       {required GroupsRepository groupsRepository,
       required StorageRepository storageRepository})
-      : assert(groupsRepository != null),
-        assert(storageRepository != null),
-        _groupsRepository = groupsRepository,
+      : _groupsRepository = groupsRepository,
         _storageRepository = storageRepository,
         super(
           GroupAddState(status: GroupAddStatus.initial),
@@ -44,7 +40,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
     }
   }
 
-  void addGroup({required Group group}) async {
+  Future<void> addGroup({required Group group}) async {
     emit(state.copyWith(status: GroupAddStatus.loading));
 
     await _groupsRepository.addNewGroup(group: group).then(

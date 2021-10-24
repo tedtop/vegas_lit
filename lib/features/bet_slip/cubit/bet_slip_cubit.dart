@@ -1,9 +1,7 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/data/models/bet.dart';
 
 part 'bet_slip_state.dart';

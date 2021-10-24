@@ -95,12 +95,11 @@ class DesktopNcaafScreen extends StatelessWidget {
                                 ),
                               ),
                             );
-                            break;
+
                           default:
                             return const CircularProgressIndicator(
                               color: Palette.cream,
                             );
-                            break;
                         }
                       },
                     ),
@@ -149,12 +148,11 @@ class DesktopNcaafScreen extends StatelessWidget {
                                   return betSlipState.singleBetSlipCard![index];
                                 },
                               );
-                        break;
+
                       default:
                         return const CircularProgressIndicator(
                           color: Palette.cream,
                         );
-                        break;
                     }
                   },
                 ),

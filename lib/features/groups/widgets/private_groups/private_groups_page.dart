@@ -69,14 +69,14 @@ class PrivateGroups extends StatelessWidget {
               switch (state.status) {
                 case PrivateGroupsStatus.initial:
                   return const SizedBox();
-                  break;
+
                 case PrivateGroupsStatus.loading:
                   return const Center(
                     child: CircularProgressIndicator(
                       color: Palette.cream,
                     ),
                   );
-                  break;
+
                 case PrivateGroupsStatus.success:
                   if (state.privateGroups.isEmpty) {
                     return Center(
@@ -88,7 +88,7 @@ class PrivateGroups extends StatelessWidget {
                   } else {
                     return const PrivateGroupList();
                   }
-                  break;
+
                 case PrivateGroupsStatus.failure:
                   return Center(
                     child: Text(
@@ -96,10 +96,9 @@ class PrivateGroups extends StatelessWidget {
                       style: GoogleFonts.nunito(),
                     ),
                   );
-                  break;
+
                 default:
                   return const SizedBox();
-                  break;
               }
             },
           ),

@@ -1,5 +1,3 @@
-
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -397,30 +395,55 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                           ),
                         ));
                   } else {
-                    return DefaultButton(
-                      text: 'Add Game',
-                      action: () {
-                        if (_formKey.currentState!.validate() &&
-                            playerCountry != null &&
-                            rivalCountry != null) {
-                          final olympicGame = ParalympicsGame(
-                            event: eventController.text,
-                            eventType: eventType,
-                            gameName: gameName,
-                            isClosed: false,
-                            player: playerController.text,
-                            playerCountry: playerCountry,
-                            rival: rivalController.text,
-                            rivalCountry: rivalCountry,
-                            startTime: startTime,
-                            gameId:
-                                '${gameName!.toUpperCase()}-${playerCountry!.toUpperCase()}-${rivalCountry!.toUpperCase()}-${startTime.toIso8601String()}',
-                          );
-                          context
-                              .read<ParalympicsAddCubit>()
-                              .addParalympicsGame(game: olympicGame);
-                        }
-                      },
+                    return SizedBox(
+                      width: 110,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
+                              ),
+                              elevation: MaterialStateProperty.all(
+                                  Styles.normalElevation),
+                              shape:
+                                  MaterialStateProperty.all(Styles.smallRadius),
+                              textStyle: MaterialStateProperty.all(
+                                const TextStyle(color: Palette.cream),
+                              ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Palette.green),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                          child: Text(
+                            'Add Game',
+                            style: Styles.betSlipButtonText,
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() &&
+                                playerCountry != null &&
+                                rivalCountry != null) {
+                              final olympicGame = ParalympicsGame(
+                                event: eventController.text,
+                                eventType: eventType,
+                                gameName: gameName,
+                                isClosed: false,
+                                player: playerController.text,
+                                playerCountry: playerCountry,
+                                rival: rivalController.text,
+                                rivalCountry: rivalCountry,
+                                startTime: startTime,
+                                gameId:
+                                    '${gameName!.toUpperCase()}-${playerCountry!.toUpperCase()}-${rivalCountry!.toUpperCase()}-${startTime.toIso8601String()}',
+                              );
+                              context
+                                  .read<ParalympicsAddCubit>()
+                                  .addParalympicsGame(game: olympicGame);
+                            }
+                          },
+                        ),
+                      ),
                     );
                   }
                 },
@@ -436,54 +459,4 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
 String countryFlagFromCode({required String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
-        ),
-      ),
-    );
-  }
 }

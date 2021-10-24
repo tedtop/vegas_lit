@@ -1,10 +1,7 @@
-
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:meta/meta.dart';
 
 import '../../../../../../data/models/cricket/cricket.dart';
 import '../../../models/cricket_team.dart';
@@ -43,9 +40,9 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
     final parsedTeamData = await json.decode(jsonData) as List;
     final teamData = parsedTeamData
         .map<CricketTeam>(
-          ((Object json) => CricketTeam.fromMap(
+          (dynamic json) => CricketTeam.fromMap(
             json as Map<String, dynamic>,
-          )) as CricketTeam Function(dynamic),
+          ),
         )
         .toList();
 
@@ -57,12 +54,12 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
 //     switch (gameName) {
 //       case 'IPL':
 //         return 'ipl';
-//         break;
+//
 //       case 'Test Matches':
 //         return 'icc_men';
-//         break;
+//
 //       default:
-//         break;
+//
 //     }
 //   }
 }

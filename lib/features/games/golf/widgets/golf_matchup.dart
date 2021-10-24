@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,7 +32,6 @@ class _GolfMatchupState extends State<GolfMatchup> {
           height: 10,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             IconButton(
                 padding: const EdgeInsets.all(10),
@@ -166,14 +163,12 @@ class OverallBetBoxes extends StatelessWidget {
             Expanded(
               child: OverallBetBox(
                 text: 'MOST BIRDIES',
-                isSelected: false,
                 onPressed: () {},
               ),
             ),
             Expanded(
               child: OverallBetBox(
                 text: 'MOST BOGEYS',
-                isSelected: false,
                 onPressed: () {},
               ),
             ),
@@ -184,14 +179,12 @@ class OverallBetBoxes extends StatelessWidget {
             Expanded(
               child: OverallBetBox(
                 text: 'MOST EAGLES',
-                isSelected: false,
                 onPressed: () {},
               ),
             ),
             Expanded(
               child: OverallBetBox(
                 text: 'HOLE IN ONE',
-                isSelected: false,
                 onPressed: () {},
               ),
             ),
@@ -202,14 +195,12 @@ class OverallBetBoxes extends StatelessWidget {
             Expanded(
               child: OverallBetBox(
                 text: 'LEAST BOGEYS',
-                isSelected: false,
                 onPressed: () {},
               ),
             ),
             Expanded(
               child: OverallBetBox(
                 text: 'MOST PARS',
-                isSelected: false,
                 onPressed: () {},
               ),
             ),
@@ -232,7 +223,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   'DOUBLE EAGLE +500',
                   style: Styles.awayTeam,
@@ -242,7 +232,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   'MAKE TOP 5 +500',
                   style: Styles.awayTeam,
@@ -256,7 +245,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   'HOLE IN ONE +2000',
                   style: Styles.awayTeam,
@@ -266,7 +254,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   '15+ PARS +1000',
                   style: Styles.awayTeam,
@@ -280,7 +267,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   '2+ EAGLES +500',
                   style: Styles.awayTeam,
@@ -290,7 +276,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   '9+ BIRDIES +1000',
                   style: Styles.awayTeam,
@@ -304,7 +289,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   '6+ BIRDIES +500',
                   style: Styles.awayTeam,
@@ -314,7 +298,6 @@ class RoundBasedBetBoxes extends StatelessWidget {
             Expanded(
               child: RoundBetBox(
                 onPressed: () {},
-                isSelected: false,
                 text: Text(
                   'BOGEY FREE +1000',
                   style: Styles.awayTeam,

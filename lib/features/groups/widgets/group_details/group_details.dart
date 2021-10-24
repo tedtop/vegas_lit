@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:ui' as ui;
 
@@ -61,7 +59,8 @@ class GroupDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GroupDetailsState groupDetailsState = context.watch<GroupDetailsCubit>().state;
+    final GroupDetailsState groupDetailsState =
+        context.watch<GroupDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -81,7 +80,7 @@ class GroupDetails extends StatelessWidget {
                           ),
                         ),
                       );
-                      break;
+
                     case GroupDetailsStatus.complete:
                       return Material(
                         color: Palette.cream,
@@ -134,7 +133,7 @@ class GroupDetails extends StatelessWidget {
                           ),
                         ),
                       );
-                      break;
+
                     default:
                       return SizedBox(
                         height: 100,
@@ -169,21 +168,50 @@ class GroupDetails extends StatelessWidget {
                   ),
                 ),
               );
-              break;
+
             case GroupDetailsStatus.complete:
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     GroupDetailsDescription(userId: userId),
-                    state.group!.adminId == userId
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                    if (state.group!.adminId == userId)
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              width: 150,
                               child: SizedBox(
-                                width: 150,
-                                child: DefaultButton(
-                                    text: 'Edit Group',
-                                    action: () {
+                                width: 174,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                          const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                          ),
+                                        ),
+                                        elevation: MaterialStateProperty.all(
+                                            Styles.normalElevation),
+                                        shape: MaterialStateProperty.all(
+                                            Styles.smallRadius),
+                                        textStyle: MaterialStateProperty.all(
+                                          const TextStyle(color: Palette.cream),
+                                        ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Palette.green),
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    child: Text(
+                                      'Edit Group',
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () {
                                       Navigator.push<void>(
                                         context,
                                         GroupEdit.route(
@@ -191,18 +219,21 @@ class GroupDetails extends StatelessWidget {
                                           group: state.group,
                                         ),
                                       );
-                                    }),
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
+                                    },
+                                  ),
+                                ),
+                              )),
+                        ),
+                      )
+                    else
+                      const SizedBox(),
                     const GroupDetailsJoinButton(),
                     const SizedBox(height: 10),
                     const GroupDetailsLeaderboard(),
                   ],
                 ),
               );
-              break;
+
             default:
               return SizedBox(
                 height: 100,
@@ -247,7 +278,7 @@ class GroupDetailsDescription extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           case GroupDetailsStatus.complete:
             final groupUsersLength = state.group!.users!.values
                 .where((element) => element == true)
@@ -261,37 +292,38 @@ class GroupDetailsDescription extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                state.group!.avatarUrl != null
-                    ? SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(12),
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl: state.group!.avatarUrl!,
-                            placeholder: (context, url) => const Center(
-                              child: SizedBox(
-                                width: 35,
-                                height: 35,
-                                child: CircularProgressIndicator(
-                                  color: Palette.cream,
-                                ),
-                              ),
-                            ),
-                          ), //Image for web configuration.
-                        ),
-                      )
-                    : const Center(
-                        child: SizedBox(
-                          width: 70,
-                          child: Icon(
-                            Icons.star,
-                            size: 50,
-                          ),
-                        ),
+                if (state.group!.avatarUrl != null)
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(12),
                       ),
+                      child: CachedNetworkImage(
+                        imageUrl: state.group!.avatarUrl!,
+                        placeholder: (context, url) => const Center(
+                          child: SizedBox(
+                            width: 35,
+                            height: 35,
+                            child: CircularProgressIndicator(
+                              color: Palette.cream,
+                            ),
+                          ),
+                        ),
+                      ), //Image for web configuration.
+                    ),
+                  )
+                else
+                  const Center(
+                    child: SizedBox(
+                      width: 70,
+                      child: Icon(
+                        Icons.star,
+                        size: 50,
+                      ),
+                    ),
+                  ),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -379,7 +411,7 @@ class GroupDetailsDescription extends StatelessWidget {
                 ),
               ],
             );
-            break;
+
           default:
             return SizedBox(
               height: 100,
@@ -414,7 +446,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           case GroupDetailsStatus.complete:
             return Visibility(
               visible: state.group!.userLimit == 0
@@ -432,84 +464,144 @@ class GroupDetailsJoinButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  state.group!.adminId == userId
-                      ? SizedBox(
-                          width: 150,
-                          child: DefaultButton(
-                            text: 'Add',
-                            action: () async {
-                              final selectedUser = await showSearch(
-                                context: context,
-                                delegate: UserSearch(
-                                  context.read<UserSearchCubit>(),
+                  if (state.group!.adminId == userId)
+                    SizedBox(
+                        width: 150,
+                        child: SizedBox(
+                          width: 174,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                    const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                  ),
+                                  elevation: MaterialStateProperty.all(
+                                      Styles.normalElevation),
+                                  shape: MaterialStateProperty.all(
+                                      Styles.smallRadius),
+                                  textStyle: MaterialStateProperty.all(
+                                    const TextStyle(color: Palette.cream),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Palette.green),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap),
+                              child: Text(
+                                'Add',
+                                style: GoogleFonts.nunito(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              );
-                              if (selectedUser != null) {
-                                if (state.group!.users!
-                                    .containsKey(selectedUser.uid)) {
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      SnackBar(
-                                        duration:
-                                            const Duration(milliseconds: 2000),
-                                        content: Text(
-                                          'User already added',
-                                          style: GoogleFonts.nunito(),
+                              ),
+                              onPressed: () async {
+                                final selectedUser = await showSearch(
+                                  context: context,
+                                  delegate: UserSearch(
+                                    context.read<UserSearchCubit>(),
+                                  ),
+                                );
+                                if (selectedUser != null) {
+                                  if (state.group!.users!
+                                      .containsKey(selectedUser.uid)) {
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        SnackBar(
+                                          duration: const Duration(
+                                              milliseconds: 2000),
+                                          content: Text(
+                                            'User already added',
+                                            style: GoogleFonts.nunito(),
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                } else {
-                                  final updatedUsers = state.group!.users!;
-                                  updatedUsers[selectedUser.uid] = false;
-                                  await context
-                                      .read<GroupDetailsCubit>()
-                                      .addNewUser(
-                                        groupId: state.group!.id,
-                                        users: updatedUsers,
                                       );
+                                  } else {
+                                    final updatedUsers = state.group!.users!;
+                                    updatedUsers[selectedUser.uid] = false;
+                                    await context
+                                        .read<GroupDetailsCubit>()
+                                        .addNewUser(
+                                          groupId: state.group!.id,
+                                          users: updatedUsers,
+                                        );
 
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(
-                                      SnackBar(
-                                        duration:
-                                            const Duration(milliseconds: 2000),
-                                        content: Text(
-                                          'Group request sent to ${selectedUser.username}',
-                                          style: GoogleFonts.nunito(),
+                                    ScaffoldMessenger.of(context)
+                                      ..removeCurrentSnackBar()
+                                      ..showSnackBar(
+                                        SnackBar(
+                                          duration: const Duration(
+                                              milliseconds: 2000),
+                                          content: Text(
+                                            'Group request sent to ${selectedUser.username}',
+                                            style: GoogleFonts.nunito(),
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                  }
                                 }
-                              }
-                            },
+                              },
+                            ),
                           ),
-                        )
-                      : Container(),
+                        ))
+                  else
+                    Container(),
                   SizedBox(width: state.isMember ? 0 : 20),
                   Center(
                     child: state.isMember
                         ? const SizedBox()
                         : SizedBox(
                             width: 150,
-                            child: DefaultButton(
-                              text: 'Join',
-                              action: () {
-                                final updatedUsers = state.group!.users!;
-                                updatedUsers[userId] = true;
-                                context.read<GroupDetailsCubit>().addNewUser(
-                                      groupId: state.group!.id,
-                                      users: updatedUsers,
-                                    );
-                              },
-                            ),
-                          ),
+                            child: SizedBox(
+                              width: 174,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    padding: MaterialStateProperty.all(
+                                      const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                      ),
+                                    ),
+                                    elevation: MaterialStateProperty.all(
+                                        Styles.normalElevation),
+                                    shape: MaterialStateProperty.all(
+                                        Styles.smallRadius),
+                                    textStyle: MaterialStateProperty.all(
+                                      const TextStyle(color: Palette.cream),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Palette.green),
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  child: Text(
+                                    'Join',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    final updatedUsers = state.group!.users!;
+                                    updatedUsers[userId] = true;
+                                    context
+                                        .read<GroupDetailsCubit>()
+                                        .addNewUser(
+                                          groupId: state.group!.id,
+                                          users: updatedUsers,
+                                        );
+                                  },
+                                ),
+                              ),
+                            )),
                   ),
                 ],
               ),
             );
-            break;
+
           default:
             return SizedBox(
               height: 100,
@@ -552,7 +644,6 @@ class GroupDetailsLeaderboard extends StatelessWidget {
                     ),
                   ),
                 );
-                break;
               case GroupDetailsStatus.complete:
                 return state.players.isEmpty
                     ? SizedBox(
@@ -575,9 +666,9 @@ class GroupDetailsLeaderboard extends StatelessWidget {
                           );
                         },
                       );
-
-                break;
-              default:
+              case GroupDetailsStatus.initial:
+                return const SizedBox();
+              case GroupDetailsStatus.error:
                 return SizedBox(
                   height: 100,
                   child: Center(
@@ -649,7 +740,8 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                       color: Palette.darkGrey,
                       height: 50.0,
                       width: 50.0,
-                      child: Text(player.username!.substring(0, 1).toUpperCase(),
+                      child: Text(
+                          player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -699,56 +791,6 @@ String leaderboardWinningBetsRatio(int betsWon, int betsLost) {
   return 'Wins: ${(betsWon / (betsWon + betsLost)).isNaN ? 0 : (betsWon / (betsWon + betsLost) * 100).toStringAsFixed(0)}%';
 }
 
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key? key,
-    required this.text,
-    required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () => action,
-        ),
-      ),
-    );
-  }
-}
-
 class UserSearch extends SearchDelegate<UserData?> {
   UserSearch(this.userSearchCubit);
 
@@ -776,12 +818,12 @@ class UserSearch extends SearchDelegate<UserData?> {
         switch (state.status) {
           case UserSearchStatus.initial:
             return const SizedBox();
-            break;
+
           case UserSearchStatus.loading:
             return const Center(
               child: CircularProgressIndicator(),
             );
-            break;
+
           case UserSearchStatus.success:
             return ListView.builder(
               itemBuilder: (context, index) {
@@ -825,7 +867,6 @@ class UserSearch extends SearchDelegate<UserData?> {
               itemCount: state.users.length,
             );
 
-            break;
           default:
             return Text(
               'Error',
@@ -845,7 +886,7 @@ class UserSearch extends SearchDelegate<UserData?> {
         switch (state.status) {
           case UserSearchStatus.initial:
             return const SizedBox();
-            break;
+
           case UserSearchStatus.loading:
             return const Center(
               child: SizedBox(
@@ -854,7 +895,7 @@ class UserSearch extends SearchDelegate<UserData?> {
                 child: CircularProgressIndicator(),
               ),
             );
-            break;
+
           case UserSearchStatus.success:
             return ListView.builder(
               itemBuilder: (context, index) {
@@ -898,7 +939,6 @@ class UserSearch extends SearchDelegate<UserData?> {
               itemCount: state.users.length,
             );
 
-            break;
           default:
             return Text(
               'Error',

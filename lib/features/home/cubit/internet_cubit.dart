@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:meta/meta.dart';
 
 part 'internet_state.dart';
 
@@ -12,7 +11,7 @@ class InternetCubit extends Cubit<InternetState> {
   }
 
   final Connectivity? connectivity;
-  late StreamSubscription connectivityStreamSubscription;
+  StreamSubscription? connectivityStreamSubscription;
 
   Future<StreamSubscription<ConnectivityResult>>
       monitorInternetConnection() async {
@@ -24,7 +23,7 @@ class InternetCubit extends Cubit<InternetState> {
     } else if (currentStatus == ConnectivityResult.none) {
       emitInternetDisconnected();
     }
-    await connectivityStreamSubscription.cancel();
+    await connectivityStreamSubscription?.cancel();
     return connectivityStreamSubscription =
         connectivity!.onConnectivityChanged.listen(
       (connectivityResult) {
@@ -57,7 +56,7 @@ class InternetCubit extends Cubit<InternetState> {
 
   @override
   Future<void> close() async {
-    await connectivityStreamSubscription.cancel();
+    await connectivityStreamSubscription?.cancel();
     return super.close();
   }
 }

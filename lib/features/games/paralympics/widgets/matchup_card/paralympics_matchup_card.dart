@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +73,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -184,8 +182,8 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 4.0),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 4),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
@@ -195,7 +193,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                                             ),
                                           ),
                                           elevation:
-                                              MaterialStateProperty.all(4.0),
+                                              MaterialStateProperty.all(4),
                                           shape: MaterialStateProperty.all(
                                               Styles.smallRadius),
                                           textStyle: MaterialStateProperty.all(
@@ -273,7 +271,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                     else
                       Container(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(top: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

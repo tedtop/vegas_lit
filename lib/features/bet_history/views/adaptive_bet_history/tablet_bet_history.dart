@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
@@ -56,7 +54,7 @@ class _TabletHistoryBoard extends StatelessWidget {
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();
-            break;
+
           case HistoryStatus.loading:
             return const Padding(
               padding: EdgeInsets.all(20),
@@ -64,18 +62,17 @@ class _TabletHistoryBoard extends StatelessWidget {
                 color: Palette.cream,
               ),
             );
-            break;
+
           case HistoryStatus.success:
             return const BetHistoryBoardContent();
-            break;
+
           case HistoryStatus.failure:
             return const Center(
               child: Text('Some error occured.'),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );

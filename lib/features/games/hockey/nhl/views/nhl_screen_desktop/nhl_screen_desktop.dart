@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,12 +92,11 @@ class DesktopNhlScreen extends StatelessWidget {
                                 ),
                               ),
                             );
-                            break;
+
                           default:
                             return const CircularProgressIndicator(
                               color: Palette.cream,
                             );
-                            break;
                         }
                       },
                     ),
@@ -148,12 +145,11 @@ class DesktopNhlScreen extends StatelessWidget {
                                   return betSlipState.singleBetSlipCard![index];
                                 },
                               );
-                        break;
+
                       default:
                         return const CircularProgressIndicator(
                           color: Palette.cream,
                         );
-                        break;
                     }
                   },
                 ),

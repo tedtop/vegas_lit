@@ -1,7 +1,4 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
 
 class FirebaseAuthentication {
   FirebaseAuthentication({FirebaseAuth? firebaseAuth})
@@ -25,7 +22,6 @@ class FirebaseAuthentication {
     required String email,
     required String password,
   }) async {
-    assert(email != null && password != null);
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -64,7 +60,6 @@ class FirebaseAuthentication {
           break;
         default:
           errorMessage = 'Signup failed. Try again later.';
-          break;
       }
       throw SignUpFailure(
         errorMessage: errorMessage,
@@ -80,7 +75,6 @@ class FirebaseAuthentication {
     required String email,
     required String password,
   }) async {
-    assert(email != null && password != null);
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -116,7 +110,6 @@ class FirebaseAuthentication {
           break;
         default:
           errorMessage = 'Login failed. Try again later.';
-          break;
       }
       throw LogInWithEmailAndPasswordFailure(
         errorMessage: errorMessage,

@@ -69,21 +69,24 @@ class NbaOpenBetCard extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: isMoneyline || isPointSpread
-                          ? '${openBets.betTeam == 'home' ? '${openBets.homeTeamCity ?? ''} ${openBets.homeTeamName}' : '${openBets.awayTeamCity ?? ''} ${openBets.awayTeamName}'}'
+                          ? openBets.betTeam == 'home'
+                              ? '${openBets.homeTeamCity ?? ''} ${openBets.homeTeamName}'
+                              : '${openBets.awayTeamCity ?? ''} ${openBets.awayTeamName}'
                           : '',
                       style: Styles.betSlipAwayTeam,
                       children: <TextSpan>[
-                        isMoneyline
-                            ? TextSpan(
-                                text: ' ($odds)',
-                              )
-                            : isPointSpread
-                                ? TextSpan(text: ' ($pointSpread)')
-                                : TextSpan(
-                                    text:
-                                        '${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder}', //     TOT ${openBets.text.split(' ').last}',
-                                    style: Styles.betSlipHomeTeam,
-                                  ),
+                        if (isMoneyline)
+                          TextSpan(
+                            text: ' ($odds)',
+                          )
+                        else
+                          isPointSpread
+                              ? TextSpan(text: ' ($pointSpread)')
+                              : TextSpan(
+                                  text:
+                                      '${openBets.betTeam == 'away' ? 'OVER' : 'UNDER'} ${openBets.betOverUnder}', //     TOT ${openBets.text.split(' ').last}',
+                                  style: Styles.betSlipHomeTeam,
+                                ),
                       ],
                     ),
                   ),
@@ -93,8 +96,9 @@ class NbaOpenBetCard extends StatelessWidget {
                   ),
                   RichText(
                     text: TextSpan(
-                      text:
-                          '${openBets.betTeam == 'home' ? openBets.homeTeamName!.toUpperCase() : openBets.awayTeamName!.toUpperCase()}',
+                      text: openBets.betTeam == 'home'
+                          ? openBets.homeTeamName!.toUpperCase()
+                          : openBets.awayTeamName!.toUpperCase(),
                       style: Styles.betSlipHomeTeam,
                       children: <TextSpan>[
                         TextSpan(
@@ -106,38 +110,39 @@ class NbaOpenBetCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  isParlayLeg
-                      ? const SizedBox()
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DisabledDefaultButton(
-                              text: 'wager ${openBets.betAmount}',
-                            ),
-                            const SizedBox(width: 15),
-                            SizedBox(
-                              width: 80,
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Win ${openBets.betProfit}',
-                                      style: Styles.betSlipSmallBoldText,
-                                    ),
-                                    Text(
-                                      'Payout ${openBets.betProfit! + openBets.betAmount!}',
-                                      style: Styles.betSlipSmallBoldText
-                                          .copyWith(color: Palette.green),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                  if (isParlayLeg)
+                    const SizedBox()
+                  else
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DisabledDefaultButton(
+                          text: 'wager ${openBets.betAmount}',
                         ),
+                        const SizedBox(width: 15),
+                        SizedBox(
+                          width: 80,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Win ${openBets.betProfit}',
+                                  style: Styles.betSlipSmallBoldText,
+                                ),
+                                Text(
+                                  'Payout ${openBets.betProfit! + openBets.betAmount!}',
+                                  style: Styles.betSlipSmallBoldText
+                                      .copyWith(color: Palette.green),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

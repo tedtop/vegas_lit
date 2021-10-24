@@ -1,10 +1,8 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/config/ads.dart';
 
 import '../../../../../data/repositories/user_repository.dart';
@@ -13,8 +11,7 @@ part 'ads_state.dart';
 
 class AdsCubit extends Cubit<AdsState> {
   AdsCubit({required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
+      : _userRepository = userRepository,
         super(
           const AdsState.initial(),
         );

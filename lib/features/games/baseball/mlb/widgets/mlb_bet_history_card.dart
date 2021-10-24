@@ -9,8 +9,7 @@ import '../../../../../data/models/mlb/mlb_bet.dart';
 class MlbBetHistoryCard extends StatelessWidget {
   const MlbBetHistoryCard(
       {Key? key, required this.betHistoryData, this.isParlayLeg = false})
-      : assert(betHistoryData != null),
-        super(key: key);
+      : super(key: key);
 
   final MlbBetData betHistoryData;
   final bool isParlayLeg;

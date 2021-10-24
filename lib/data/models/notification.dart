@@ -1,7 +1,4 @@
-
-
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 class PushNotification extends Equatable {
   const PushNotification({

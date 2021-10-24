@@ -1,8 +1,6 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 import 'package:vegas_lit/data/repositories/sports_repository.dart';
 
@@ -10,8 +8,7 @@ part 'paralympics_add_state.dart';
 
 class ParalympicsAddCubit extends Cubit<ParalympicsAddState> {
   ParalympicsAddCubit({required SportsRepository sportsRepository})
-      : assert(sportsRepository != null),
-        _sportsRepository = sportsRepository,
+      : _sportsRepository = sportsRepository,
         super(
           const ParalympicsAddState(),
         );

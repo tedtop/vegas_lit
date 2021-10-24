@@ -1,5 +1,4 @@
 import 'package:formz/formz.dart';
-import 'package:meta/meta.dart';
 
 enum ConfirmedPasswordValidationError { invalid, empty }
 

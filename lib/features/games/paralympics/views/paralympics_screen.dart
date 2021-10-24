@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +38,7 @@ class ParalympicsScreen extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           default:
             if (state.games!.isEmpty) {
               return Column(

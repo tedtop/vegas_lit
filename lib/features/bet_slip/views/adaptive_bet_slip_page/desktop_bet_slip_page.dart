@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,21 +50,20 @@ class DesktopBetSlipPage extends StatelessWidget {
                       //   )
 
                       : SingleBetSlipList();
-                  // ListView.builder(
-                  //     reverse: true,
-                  //     shrinkWrap: true,
-                  //     physics: const ClampingScrollPhysics(),
-                  //     itemCount: betSlipState.betSlipCard.length,
-                  //     itemBuilder: (context, index) {
-                  //       return betSlipState.betSlipCard[index];
-                  //     },
-                  //   );
-                  break;
+                // ListView.builder(
+                //     reverse: true,
+                //     shrinkWrap: true,
+                //     physics: const ClampingScrollPhysics(),
+                //     itemCount: betSlipState.betSlipCard.length,
+                //     itemBuilder: (context, index) {
+                //       return betSlipState.betSlipCard[index];
+                //     },
+                //   );
+
                 default:
                   return const CircularProgressIndicator(
                     color: Palette.cream,
                   );
-                  break;
               }
             },
           ),
@@ -144,12 +141,11 @@ class DesktopBetSlipUpper extends StatelessWidget {
                     ),
                   ),
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),

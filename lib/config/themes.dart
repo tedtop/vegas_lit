@@ -1,14 +1,14 @@
-
-
 import 'package:flutter/material.dart';
 import 'palette.dart';
 
 class Themes {
   static final ThemeData dark = ThemeData(
-    pageTransitionsTheme: const PageTransitionsTheme(builders: {
-      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-      TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
-    }),
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+      },
+    ),
     colorScheme: const ColorScheme(
         primary: Palette.darkGrey,
         primaryVariant: Palette.lightGrey,
@@ -26,7 +26,7 @@ class Themes {
     canvasColor: Palette.darkGrey,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        elevation: MaterialStateProperty.all(18.0),
+        elevation: MaterialStateProperty.all(18),
       ),
     ),
     textSelectionTheme: const TextSelectionThemeData(

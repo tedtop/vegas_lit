@@ -149,7 +149,7 @@ class RewardedBetSlip extends StatelessWidget {
                               return const CircularProgressIndicator(
                                 color: Palette.cream,
                               );
-                              break;
+
                             default:
                               return Container(
                                 decoration: BoxDecoration(

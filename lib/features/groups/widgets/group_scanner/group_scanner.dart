@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,16 +66,14 @@ class GroupScanner extends StatelessWidget {
               switch (state.status) {
                 case GroupScannerStatus.remove:
                   return Container();
-                  break;
+
                 case GroupScannerStatus.initial:
                   return const SizedBox();
-                  break;
+
                 case GroupScannerStatus.success:
                   return Expanded(
-                    flex: 1,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         IconButton(
                           iconSize: 25,
@@ -111,10 +107,9 @@ class GroupScanner extends StatelessWidget {
                       ],
                     ),
                   );
-                  break;
+
                 default:
                   return Expanded(
-                    flex: 1,
                     child: Center(
                       child: Text(
                         'Couldn\'t open the scanner',
@@ -122,7 +117,6 @@ class GroupScanner extends StatelessWidget {
                       ),
                     ),
                   );
-                  break;
               }
             },
           )

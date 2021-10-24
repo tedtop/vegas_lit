@@ -1,11 +1,8 @@
-
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:meta/meta.dart';
 
 import '../../../data/models/notification.dart';
 import '../../../data/repositories/device_repository.dart';

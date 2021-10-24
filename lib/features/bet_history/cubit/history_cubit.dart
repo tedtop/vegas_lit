@@ -1,10 +1,8 @@
-
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 import '../../../config/extensions.dart';
@@ -17,8 +15,7 @@ part 'history_state.dart';
 class HistoryCubit extends Cubit<HistoryState> {
   HistoryCubit({
     required UserRepository userRepository,
-  })  : assert(userRepository != null),
-        _userRepository = userRepository,
+  })  : _userRepository = userRepository,
         super(const HistoryState());
 
   final UserRepository _userRepository;

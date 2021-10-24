@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,23 +95,22 @@ class _DesktopOpenBetsContent extends StatelessWidget {
         } else {
           return const _DesktopOpenBetsTable();
         }
-        break;
+
       case OpenBetsStatus.initial:
         return const SizedBox();
-        break;
+
       case OpenBetsStatus.loading:
         return const CircularProgressIndicator(
           color: Palette.cream,
         );
-        break;
+
       case OpenBetsStatus.failure:
         return const Center(
           child: Text("Couldn't load bet history data"),
         );
-        break;
+
       default:
         return const SizedBox();
-        break;
     }
   }
 }
@@ -193,25 +190,25 @@ class _DesktopOpenBetsTable extends StatelessWidget {
         switch (bets[index].league) {
           // case 'mlb':
           //   return MlbOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'nba':
           //   return NbaOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'cbb':
           //   return NcaabOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'cfb':
           //   return NcaafOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'nfl':
           //   return NflOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'nhl':
           //   return NhlOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'olympics':
           //   return OlympicsOpenBetTile(openBets: bets[index]);
-          //   break;
+          //
           default:
             return const SizedBox();
         }

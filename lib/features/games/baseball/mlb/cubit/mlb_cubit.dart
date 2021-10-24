@@ -1,12 +1,9 @@
-
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../config/extensions.dart';
 import '../../../../../data/models/mlb/mlb_game.dart';
@@ -73,7 +70,7 @@ List<MlbTeam> parseTeamData(String jsonData) {
   final parsedTeamData = json.decode(jsonData) as List;
   final teamData = parsedTeamData
       .map<MlbTeam>(
-        ((Object json) => MlbTeam.fromMap(json as Map<String, dynamic>)) as MlbTeam Function(dynamic),
+        (dynamic json) => MlbTeam.fromMap(json as Map<String, dynamic>),
       )
       .toList();
 

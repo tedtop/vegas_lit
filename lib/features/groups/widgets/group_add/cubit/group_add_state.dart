@@ -1,5 +1,3 @@
-
-
 part of 'group_add_cubit.dart';
 
 enum GroupAddStatus {
@@ -10,7 +8,7 @@ enum GroupAddStatus {
 }
 
 class GroupAddState extends Equatable {
-  GroupAddState({
+  const GroupAddState({
     this.status = GroupAddStatus.initial,
     this.avatarFile,
   });

@@ -67,21 +67,24 @@ class NbaBetHistoryCard extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   text: isMoneyline || isPointSpread
-                      ? '${betHistoryData.betTeam == 'home' ? '${betHistoryData.homeTeamCity ?? ''} ${betHistoryData.homeTeamName}' : '${betHistoryData.awayTeamCity ?? ''} ${betHistoryData.awayTeamName}'}'
+                      ? betHistoryData.betTeam == 'home'
+                          ? '${betHistoryData.homeTeamCity ?? ''} ${betHistoryData.homeTeamName}'
+                          : '${betHistoryData.awayTeamCity ?? ''} ${betHistoryData.awayTeamName}'
                       : '',
                   style: Styles.betSlipAwayTeam,
                   children: <TextSpan>[
-                    isMoneyline
-                        ? TextSpan(
-                            text: ' ($odds)',
-                          )
-                        : isPointSpread
-                            ? TextSpan(text: ' ($pointSpread)')
-                            : TextSpan(
-                                text:
-                                    '${betHistoryData.betTeam == 'away' ? 'OVER' : 'UNDER'} ${betHistoryData.betOverUnder}', //     TOT ${betHistoryData.text.split(' ').last}',
-                                style: Styles.betSlipHomeTeam,
-                              ),
+                    if (isMoneyline)
+                      TextSpan(
+                        text: ' ($odds)',
+                      )
+                    else
+                      isPointSpread
+                          ? TextSpan(text: ' ($pointSpread)')
+                          : TextSpan(
+                              text:
+                                  '${betHistoryData.betTeam == 'away' ? 'OVER' : 'UNDER'} ${betHistoryData.betOverUnder}', //     TOT ${betHistoryData.text.split(' ').last}',
+                              style: Styles.betSlipHomeTeam,
+                            ),
                   ],
                 ),
               ),
@@ -93,8 +96,9 @@ class NbaBetHistoryCard extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                  text:
-                      '${betHistoryData.betTeam == 'home' ? '${betHistoryData.homeTeamName!.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName!.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
+                  text: betHistoryData.betTeam == 'home'
+                      ? '${betHistoryData.homeTeamName!.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}'
+                      : '${betHistoryData.awayTeamName!.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}',
                   style: Styles.betSlipHomeTeam,
                   children: <TextSpan>[
                     TextSpan(
@@ -105,23 +109,24 @@ class NbaBetHistoryCard extends StatelessWidget {
                   ],
                 ),
               ),
-              isParlayLeg
-                  ? const SizedBox()
-                  : isWin
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: Text(
-                            'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit! + betHistoryData.betAmount!}',
-                            style: Styles.betHistoryCardBoldGreen,
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: Text(
-                            'YOU LOST ${betHistoryData.betAmount}',
-                            style: Styles.betHistoryCardBoldRed,
-                          ),
+              if (isParlayLeg)
+                const SizedBox()
+              else
+                isWin
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit! + betHistoryData.betAmount!}',
+                          style: Styles.betHistoryCardBoldGreen,
                         ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          'YOU LOST ${betHistoryData.betAmount}',
+                          style: Styles.betHistoryCardBoldRed,
+                        ),
+                      ),
               const SizedBox(height: 8),
             ],
           ),

@@ -1,10 +1,8 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:vegas_lit/config/enum.dart';
 import 'package:vegas_lit/config/extensions.dart';
@@ -24,8 +22,7 @@ part 'parlay_bet_button_state.dart';
 
 class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
   ParlayBetButtonCubit({required BetsRepository betsRepository})
-      : assert(betsRepository != null),
-        _betsRepository = betsRepository,
+      : _betsRepository = betsRepository,
         super(
           const ParlayBetButtonState(),
         );

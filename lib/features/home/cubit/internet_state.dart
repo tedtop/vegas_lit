@@ -1,5 +1,3 @@
-
-
 part of 'internet_cubit.dart';
 
 enum ConnectionType {
@@ -7,7 +5,6 @@ enum ConnectionType {
   mobile,
 }
 
-@immutable
 abstract class InternetState {}
 
 class InternetLoading extends InternetState {}
