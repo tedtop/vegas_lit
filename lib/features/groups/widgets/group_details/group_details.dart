@@ -85,7 +85,6 @@ class GroupDetails extends StatelessWidget {
                       return Material(
                         color: Palette.cream,
                         child: SafeArea(
-                          top: true,
                           child: Column(
                             children: <Widget>[
                               Expanded(

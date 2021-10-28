@@ -18,7 +18,7 @@ class CloudMessagingClient {
 
   Future<NotificationSettings> requestNotificationPermission() async {
     final settings = await _firebaseMessaging.requestPermission(
-      badge: true,
+      
     );
 
     return settings;

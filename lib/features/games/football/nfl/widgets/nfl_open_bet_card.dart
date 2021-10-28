@@ -105,7 +105,6 @@ class NflOpenBetCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   if (isParlayLeg) const SizedBox() else Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DisabledDefaultButton(
@@ -115,7 +114,7 @@ class NflOpenBetCard extends StatelessWidget {
                             SizedBox(
                               width: 80,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

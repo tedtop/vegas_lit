@@ -104,9 +104,7 @@ class NhlBetHistoryCard extends StatelessWidget {
                   ],
                 ),
               ),
-              isParlayLeg
-                  ? const SizedBox()
-                  : isWin
+              if (isParlayLeg) const SizedBox() else isWin
                       ? Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Text(

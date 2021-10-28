@@ -55,15 +55,13 @@ class ParlayBetHistoryCard extends StatelessWidget {
                   '${betHistoryData.bets!.length} leg parlay',
                   style: Styles.betHistoryNormal,
                 ),
-                isWin!
-                    ? Padding(
+                if (isWin!) Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
                           'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit! + betHistoryData.betAmount!}',
                           style: Styles.betHistoryCardBoldGreen,
                         ),
-                      )
-                    : Padding(
+                      ) else Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
                           'YOU LOST ${betHistoryData.betAmount}',

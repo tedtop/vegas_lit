@@ -65,8 +65,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               );
             },
           ),
-          kIsWeb
-              ? Column(
+          if (kIsWeb) Column(
                   children: [
                     ListTile(
                       title: Text('SPORTSBOOK', style: Styles.normalTextBold),
@@ -98,8 +97,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       },
                     ),
                   ],
-                )
-              : const SizedBox(),
+                ) else const SizedBox(),
           ListTile(
             leading: Text('GROUPS', style: Styles.normalTextBold),
             onTap: () {

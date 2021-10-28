@@ -151,7 +151,7 @@ class PublicGroupListTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Palette.lightGrey,
         borderRadius: const BorderRadius.all(Radius.circular(12)),
-        border: Border.all(color: Palette.cream, width: 1),
+        border: Border.all(color: Palette.cream),
         boxShadow: const <BoxShadow>[
           BoxShadow(
               color: Palette.lightGrey,

@@ -111,8 +111,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  isPlayerWin
-                                      ? Text(
+                                  if (isPlayerWin) Text(
                                           countryFlagFromCode(countryCode: betHistoryData.playerCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -121,8 +120,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
-                                        )
-                                      : Text(
+                                        ) else Text(
                                           countryFlagFromCode(countryCode: betHistoryData.rivalCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -132,8 +130,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
                                         ),
-                                  isPlayerWin
-                                      ? Text(
+                                  if (isPlayerWin) Text(
                                           countryFlagFromCode(countryCode: betHistoryData.rivalCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -142,8 +139,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
-                                        )
-                                      : Text(
+                                        ) else Text(
                                           countryFlagFromCode(countryCode: betHistoryData.playerCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,

@@ -104,9 +104,7 @@ class NcaafOpenBetCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  isParlayLeg
-                      ? const SizedBox()
-                      : Row(
+                  if (isParlayLeg) const SizedBox() else Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DisabledDefaultButton(

@@ -204,8 +204,8 @@ class _MobileHistoryHeading extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         color: Palette.darkGrey,
-                        height: 100.0,
-                        width: 100.0,
+                        height: 100,
+                        width: 100,
                         child: Text(
                           betHistoryState.userWallet!.username!
                               .substring(0, 1)
