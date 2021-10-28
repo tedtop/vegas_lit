@@ -196,7 +196,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 45),
+                            const Expanded(child: SizedBox()),
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
