@@ -7,10 +7,10 @@ import '../../../../../config/palette.dart';
 import '../../features/bet_slip/cubit/bet_slip_cubit.dart';
 import '../../features/home/cubit/home_cubit.dart';
 
-AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
+AppBar desktopAppBar({int? balanceAmount, int? pageIndex}) {
   return AppBar(
     iconTheme: const IconThemeData(color: Palette.cream),
-    toolbarHeight: 80.0,
+    toolbarHeight: 80,
     title: Row(
       children: [
         Image.asset(
@@ -73,7 +73,7 @@ AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
                           color: Palette.green,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -81,7 +81,7 @@ AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
                                 'Balance',
                                 style: GoogleFonts.nunito(
                                   color: Palette.cream,
-                                  fontSize: 12.0,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
                                 maxLines: 1,
@@ -90,7 +90,7 @@ AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
                                 '$balanceAmount',
                                 style: GoogleFonts.nunito(
                                   color: Palette.cream,
-                                  fontSize: 14.0,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 maxLines: 1,
@@ -109,11 +109,11 @@ AppBar desktopAppBar({int balanceAmount, int pageIndex}) {
 
 class DesktopAppBarItem extends StatefulWidget {
   DesktopAppBarItem({
-    Key key,
-    this.title,
-    this.index,
-    this.isSelected,
-    this.width,
+    Key? key,
+    required this.title,
+    required this.index,
+    required this.isSelected,
+    required this.width,
   }) : super(key: key);
   final String title;
   final int index;
@@ -130,7 +130,7 @@ class _DesktopAppBarItemState extends State<DesktopAppBarItem> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -12,16 +12,16 @@ import '../../../data/repositories/sports_repository.dart';
 import 'cubit/olympics_add_cubit.dart';
 
 class OlympicsAddForm extends StatefulWidget {
-  OlympicsAddForm._({Key key}) : super(key: key);
+  const OlympicsAddForm._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider(
           create: (context) => OlympicsAddCubit(
             sportsRepository: context.read<SportsRepository>(),
           ),
-          child: OlympicsAddForm._(),
+          child: const OlympicsAddForm._(),
         );
       },
     );
@@ -34,17 +34,17 @@ class OlympicsAddForm extends StatefulWidget {
 class _OlympicsAddFormState extends State<OlympicsAddForm> {
   final _formKey = GlobalKey<FormState>();
 
-  var startTime = ESTDateTime.fetchTimeEST();
+  DateTime startTime = ESTDateTime.fetchTimeEST();
   final venueController = TextEditingController();
   final eventController = TextEditingController();
-  var eventType = 'normal';
+  String? eventType = 'normal';
 
   final matchCodeController = TextEditingController();
-  String gameName;
+  String? gameName;
   final playerController = TextEditingController();
-  String playerCountry;
+  String? playerCountry;
   final rivalController = TextEditingController();
-  String rivalCountry;
+  String? rivalCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 child: TextFormField(
                   controller: venueController,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -164,7 +164,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 child: TextFormField(
                   controller: eventController,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -205,7 +205,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       value: value,
                       child: Text(value, style: Styles.normalTextBold));
                 }).toList(),
-                onChanged: (String value) {
+                onChanged: (String? value) {
                   setState(() {
                     eventType = value;
                   });
@@ -216,7 +216,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 child: TextFormField(
                   controller: matchCodeController,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -245,7 +245,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                   'Game Name',
                   style: Styles.signUpFieldHint,
                 ),
-                validator: (value) {
+                validator: (String? value) {
                   if (value == null) {
                     return 'Please select a game';
                   }
@@ -305,7 +305,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       value: value,
                       child: Text(value, style: Styles.normalTextBold));
                 }).toList(),
-                onChanged: (String value) {
+                onChanged: (String? value) {
                   setState(() {
                     gameName = value;
                   });
@@ -316,7 +316,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                 child: TextFormField(
                   controller: playerController,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -366,7 +366,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       child: ListTile(
                     leading: playerCountry != null
                         ? Text(
-                            countryFlagFromCode(countryCode: playerCountry),
+                            countryFlagFromCode(countryCode: playerCountry!),
                             style: Styles.emoji(size: 25),
                           )
                         : Text(
@@ -384,7 +384,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
               TextFormField(
                 controller: rivalController,
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter some text';
                   }
                   return null;
@@ -433,7 +433,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                       child: ListTile(
                     leading: rivalCountry != null
                         ? Text(
-                            countryFlagFromCode(countryCode: rivalCountry),
+                            countryFlagFromCode(countryCode: rivalCountry!),
                             style: Styles.emoji(size: 25),
                           )
                         : Text(
@@ -474,32 +474,57 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                           ),
                         ));
                   } else {
-                    return DefaultButton(
-                      text: 'Add Game',
-                      action: () {
-                        if (_formKey.currentState.validate() &&
-                            playerCountry != null &&
-                            rivalCountry != null) {
-                          final olympicGame = OlympicsGame(
-                            event: eventController.text,
-                            eventType: eventType,
-                            gameName: gameName,
-                            isClosed: false,
-                            matchCode: matchCodeController.text,
-                            player: playerController.text,
-                            playerCountry: playerCountry,
-                            rival: rivalController.text,
-                            rivalCountry: rivalCountry,
-                            startTime: startTime,
-                            venue: venueController.text,
-                            gameId:
-                                '${gameName.toUpperCase()}-${playerCountry.toUpperCase()}-${rivalCountry.toUpperCase()}-${startTime.toIso8601String()}',
-                          );
-                          context
-                              .read<OlympicsAddCubit>()
-                              .addOlympicsGame(game: olympicGame);
-                        }
-                      },
+                    return SizedBox(
+                      width: 110,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
+                              ),
+                              elevation: MaterialStateProperty.all(
+                                  Styles.normalElevation),
+                              shape:
+                                  MaterialStateProperty.all(Styles.smallRadius),
+                              textStyle: MaterialStateProperty.all(
+                                const TextStyle(color: Palette.cream),
+                              ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Palette.green),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                          child: Text(
+                            'Add Game',
+                            style: Styles.betSlipButtonText,
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() &&
+                                playerCountry != null &&
+                                rivalCountry != null) {
+                              final olympicGame = OlympicsGame(
+                                event: eventController.text,
+                                eventType: eventType,
+                                gameName: gameName,
+                                isClosed: false,
+                                matchCode: matchCodeController.text,
+                                player: playerController.text,
+                                playerCountry: playerCountry,
+                                rival: rivalController.text,
+                                rivalCountry: rivalCountry,
+                                startTime: startTime,
+                                venue: venueController.text,
+                                gameId:
+                                    '${gameName!.toUpperCase()}-${playerCountry!.toUpperCase()}-${rivalCountry!.toUpperCase()}-${startTime.toIso8601String()}',
+                              );
+                              context
+                                  .read<OlympicsAddCubit>()
+                                  .addOlympicsGame(game: olympicGame);
+                            }
+                          },
+                        ),
+                      ),
                     );
                   }
                 },
@@ -512,57 +537,7 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
   }
 }
 
-String countryFlagFromCode({String countryCode}) {
+String countryFlagFromCode({required String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: action,
-        ),
-      ),
-    );
-  }
 }

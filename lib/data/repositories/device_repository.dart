@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:meta/meta.dart';
 
 import '../providers/app_review.dart';
 import '../providers/cloud_messaging.dart';
@@ -16,7 +15,7 @@ class DeviceRepository {
   final _messagingProvider = CloudMessagingClient();
   final _appReviewProvider = AppReviewClient();
   final _remoteConfigProvider = RemoteConfigClient();
-  SharedPreferencesClient _sharedPreferencesProvider;
+  late SharedPreferencesClient _sharedPreferencesProvider;
 
   Future<void> initSharedPrefs() async =>
       _sharedPreferencesProvider = await SharedPreferencesClient.create();
@@ -30,7 +29,7 @@ class DeviceRepository {
   Stream<RemoteMessage> handleForegroundNotification() =>
       _messagingProvider.handleForegroundNotification();
 
-  Future<RemoteMessage> checkInitialPushMessage() =>
+  Future<RemoteMessage?> checkInitialPushMessage() =>
       _messagingProvider.checkInitialPushMessage();
 
   Stream<RemoteMessage> handleOpenBackgroundNotification() =>
@@ -38,7 +37,7 @@ class DeviceRepository {
 
   Future<void> openAppReview() => _appReviewProvider.openAppReview();
 
-  Future<void> setDefaultLeague({@required String league}) =>
+  Future<void> setDefaultLeague({required String league}) =>
       _remoteConfigProvider.setDefaultLeague(league: league);
 
   Future<void> fetchAndActivateRemote() =>

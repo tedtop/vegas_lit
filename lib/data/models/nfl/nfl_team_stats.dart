@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NflTeamStats {
@@ -229,738 +231,778 @@ class NflTeamStats {
     this.teamStatId,
   });
 
-  factory NflTeamStats.fromJson(String str) =>
-      NflTeamStats.fromMap(json.decode(str));
+  factory NflTeamStats.fromJson(String str) => NflTeamStats.fromMap(
+        json.decode(str) as Map<String, dynamic>,
+      );
   factory NflTeamStats.fromMap(Map<String, dynamic> json) => NflTeamStats(
-        seasonType: json['SeasonType']?.toInt(),
-        season: json['Season']?.toInt(),
-        team: json['Team'],
-        score: json['Score']?.toInt(),
-        opponentScore: json['OpponentScore']?.toInt(),
-        totalScore: json['TotalScore']?.toInt(),
-        temperature: json['Temperature']?.toInt(),
-        humidity: json['Humidity']?.toInt(),
-        windSpeed: json['WindSpeed']?.toInt(),
-        overUnder: json['OverUnder']?.toDouble(),
-        pointSpread: json['PointSpread']?.toDouble(),
-        scoreQuarter1: json['ScoreQuarter1']?.toInt(),
-        scoreQuarter2: json['ScoreQuarter2']?.toInt(),
-        scoreQuarter3: json['ScoreQuarter3']?.toInt(),
-        scoreQuarter4: json['ScoreQuarter4']?.toInt(),
-        scoreOvertime: json['ScoreOvertime']?.toInt(),
-        timeOfPossession: json['TimeOfPossession'],
-        firstDowns: json['FirstDowns']?.toInt(),
-        firstDownsByRushing: json['FirstDownsByRushing']?.toInt(),
-        firstDownsByPassing: json['FirstDownsByPassing']?.toInt(),
-        firstDownsByPenalty: json['FirstDownsByPenalty']?.toInt(),
-        offensivePlays: json['OffensivePlays']?.toInt(),
-        offensiveYards: json['OffensiveYards']?.toInt(),
-        offensiveYardsPerPlay: json['OffensiveYardsPerPlay']?.toDouble(),
-        touchdowns: json['Touchdowns']?.toInt(),
-        rushingAttempts: json['RushingAttempts']?.toInt(),
-        rushingYards: json['RushingYards']?.toInt(),
-        rushingYardsPerAttempt: json['RushingYardsPerAttempt']?.toDouble(),
-        rushingTouchdowns: json['RushingTouchdowns']?.toInt(),
-        passingAttempts: json['PassingAttempts']?.toInt(),
-        passingCompletions: json['PassingCompletions']?.toInt(),
-        passingYards: json['PassingYards']?.toInt(),
-        passingTouchdowns: json['PassingTouchdowns']?.toInt(),
-        passingInterceptions: json['PassingInterceptions']?.toInt(),
-        passingYardsPerAttempt: json['PassingYardsPerAttempt']?.toDouble(),
+        seasonType: json['SeasonType']?.toInt() as int?,
+        season: json['Season']?.toInt() as int?,
+        team: json['Team'] as String?,
+        score: json['Score']?.toInt() as int?,
+        opponentScore: json['OpponentScore']?.toInt() as int?,
+        totalScore: json['TotalScore']?.toInt() as int?,
+        temperature: json['Temperature']?.toInt() as int?,
+        humidity: json['Humidity']?.toInt() as int?,
+        windSpeed: json['WindSpeed']?.toInt() as int?,
+        overUnder: json['OverUnder']?.toDouble() as double?,
+        pointSpread: json['PointSpread']?.toDouble() as double?,
+        scoreQuarter1: json['ScoreQuarter1']?.toInt() as int?,
+        scoreQuarter2: json['ScoreQuarter2']?.toInt() as int?,
+        scoreQuarter3: json['ScoreQuarter3']?.toInt() as int?,
+        scoreQuarter4: json['ScoreQuarter4']?.toInt() as int?,
+        scoreOvertime: json['ScoreOvertime']?.toInt() as int?,
+        timeOfPossession: json['TimeOfPossession'] as String?,
+        firstDowns: json['FirstDowns']?.toInt() as int?,
+        firstDownsByRushing: json['FirstDownsByRushing']?.toInt() as int?,
+        firstDownsByPassing: json['FirstDownsByPassing']?.toInt() as int?,
+        firstDownsByPenalty: json['FirstDownsByPenalty']?.toInt() as int?,
+        offensivePlays: json['OffensivePlays']?.toInt() as int?,
+        offensiveYards: json['OffensiveYards']?.toInt() as int?,
+        offensiveYardsPerPlay:
+            json['OffensiveYardsPerPlay']?.toDouble() as double?,
+        touchdowns: json['Touchdowns']?.toInt() as int?,
+        rushingAttempts: json['RushingAttempts']?.toInt() as int?,
+        rushingYards: json['RushingYards']?.toInt() as int?,
+        rushingYardsPerAttempt:
+            json['RushingYardsPerAttempt']?.toDouble() as double?,
+        rushingTouchdowns: json['RushingTouchdowns']?.toInt() as int?,
+        passingAttempts: json['PassingAttempts']?.toInt() as int?,
+        passingCompletions: json['PassingCompletions']?.toInt() as int?,
+        passingYards: json['PassingYards']?.toInt() as int?,
+        passingTouchdowns: json['PassingTouchdowns']?.toInt() as int?,
+        passingInterceptions: json['PassingInterceptions']?.toInt() as int?,
+        passingYardsPerAttempt:
+            json['PassingYardsPerAttempt']?.toDouble() as double?,
         passingYardsPerCompletion:
-            json['PassingYardsPerCompletion']?.toDouble(),
-        completionPercentage: json['CompletionPercentage']?.toDouble(),
-        passerRating: json['PasserRating']?.toDouble(),
-        thirdDownAttempts: json['ThirdDownAttempts']?.toInt(),
-        thirdDownConversions: json['ThirdDownConversions']?.toInt(),
-        thirdDownPercentage: json['ThirdDownPercentage']?.toDouble(),
-        fourthDownAttempts: json['FourthDownAttempts']?.toInt(),
-        fourthDownConversions: json['FourthDownConversions']?.toInt(),
-        fourthDownPercentage: json['FourthDownPercentage']?.toDouble(),
-        redZoneAttempts: json['RedZoneAttempts']?.toInt(),
-        redZoneConversions: json['RedZoneConversions']?.toInt(),
-        goalToGoAttempts: json['GoalToGoAttempts']?.toInt(),
-        goalToGoConversions: json['GoalToGoConversions']?.toInt(),
-        returnYards: json['ReturnYards']?.toInt(),
-        penalties: json['Penalties']?.toInt(),
-        penaltyYards: json['PenaltyYards']?.toInt(),
-        fumbles: json['Fumbles']?.toInt(),
-        fumblesLost: json['FumblesLost']?.toInt(),
-        timesSacked: json['TimesSacked']?.toInt(),
-        timesSackedYards: json['TimesSackedYards']?.toInt(),
-        quarterbackHits: json['QuarterbackHits']?.toInt(),
-        tacklesForLoss: json['TacklesForLoss']?.toInt(),
-        safeties: json['Safeties']?.toInt(),
-        punts: json['Punts']?.toInt(),
-        puntYards: json['PuntYards']?.toInt(),
-        puntAverage: json['PuntAverage']?.toDouble(),
-        giveaways: json['Giveaways']?.toInt(),
-        takeaways: json['Takeaways']?.toInt(),
-        turnoverDifferential: json['TurnoverDifferential']?.toInt(),
-        opponentScoreQuarter1: json['OpponentScoreQuarter1']?.toInt(),
-        opponentScoreQuarter2: json['OpponentScoreQuarter2']?.toInt(),
-        opponentScoreQuarter3: json['OpponentScoreQuarter3']?.toInt(),
-        opponentScoreQuarter4: json['OpponentScoreQuarter4']?.toInt(),
-        opponentScoreOvertime: json['OpponentScoreOvertime']?.toInt(),
-        opponentTimeOfPossession: json['OpponentTimeOfPossession'],
-        opponentFirstDowns: json['OpponentFirstDowns']?.toInt(),
+            json['PassingYardsPerCompletion']?.toDouble() as double?,
+        completionPercentage:
+            json['CompletionPercentage']?.toDouble() as double?,
+        passerRating: json['PasserRating']?.toDouble() as double?,
+        thirdDownAttempts: json['ThirdDownAttempts']?.toInt() as int?,
+        thirdDownConversions: json['ThirdDownConversions']?.toInt() as int?,
+        thirdDownPercentage: json['ThirdDownPercentage']?.toDouble() as double?,
+        fourthDownAttempts: json['FourthDownAttempts']?.toInt() as int?,
+        fourthDownConversions: json['FourthDownConversions']?.toInt() as int?,
+        fourthDownPercentage:
+            json['FourthDownPercentage']?.toDouble() as double?,
+        redZoneAttempts: json['RedZoneAttempts']?.toInt() as int?,
+        redZoneConversions: json['RedZoneConversions']?.toInt() as int?,
+        goalToGoAttempts: json['GoalToGoAttempts']?.toInt() as int?,
+        goalToGoConversions: json['GoalToGoConversions']?.toInt() as int?,
+        returnYards: json['ReturnYards']?.toInt() as int?,
+        penalties: json['Penalties']?.toInt() as int?,
+        penaltyYards: json['PenaltyYards']?.toInt() as int?,
+        fumbles: json['Fumbles']?.toInt() as int?,
+        fumblesLost: json['FumblesLost']?.toInt() as int?,
+        timesSacked: json['TimesSacked']?.toInt() as int?,
+        timesSackedYards: json['TimesSackedYards']?.toInt() as int?,
+        quarterbackHits: json['QuarterbackHits']?.toInt() as int?,
+        tacklesForLoss: json['TacklesForLoss']?.toInt() as int?,
+        safeties: json['Safeties']?.toInt() as int?,
+        punts: json['Punts']?.toInt() as int?,
+        puntYards: json['PuntYards']?.toInt() as int?,
+        puntAverage: json['PuntAverage']?.toDouble() as double?,
+        giveaways: json['Giveaways']?.toInt() as int?,
+        takeaways: json['Takeaways']?.toInt() as int?,
+        turnoverDifferential: json['TurnoverDifferential']?.toInt() as int?,
+        opponentScoreQuarter1: json['OpponentScoreQuarter1']?.toInt() as int?,
+        opponentScoreQuarter2: json['OpponentScoreQuarter2']?.toInt() as int?,
+        opponentScoreQuarter3: json['OpponentScoreQuarter3']?.toInt() as int?,
+        opponentScoreQuarter4: json['OpponentScoreQuarter4']?.toInt() as int?,
+        opponentScoreOvertime: json['OpponentScoreOvertime']?.toInt() as int?,
+        opponentTimeOfPossession: json['OpponentTimeOfPossession'] as String?,
+        opponentFirstDowns: json['OpponentFirstDowns']?.toInt() as int?,
         opponentFirstDownsByRushing:
-            json['OpponentFirstDownsByRushing']?.toInt(),
+            json['OpponentFirstDownsByRushing']?.toInt() as int?,
         opponentFirstDownsByPassing:
-            json['OpponentFirstDownsByPassing']?.toInt(),
+            json['OpponentFirstDownsByPassing']?.toInt() as int?,
         opponentFirstDownsByPenalty:
-            json['OpponentFirstDownsByPenalty']?.toInt(),
-        opponentOffensivePlays: json['OpponentOffensivePlays']?.toInt(),
-        opponentOffensiveYards: json['OpponentOffensiveYards']?.toInt(),
+            json['OpponentFirstDownsByPenalty']?.toInt() as int?,
+        opponentOffensivePlays: json['OpponentOffensivePlays']?.toInt() as int?,
+        opponentOffensiveYards: json['OpponentOffensiveYards']?.toInt() as int?,
         opponentOffensiveYardsPerPlay:
-            json['OpponentOffensiveYardsPerPlay']?.toDouble(),
-        opponentTouchdowns: json['OpponentTouchdowns']?.toInt(),
-        opponentRushingAttempts: json['OpponentRushingAttempts']?.toInt(),
-        opponentRushingYards: json['OpponentRushingYards']?.toInt(),
+            json['OpponentOffensiveYardsPerPlay']?.toDouble() as double?,
+        opponentTouchdowns: json['OpponentTouchdowns']?.toInt() as int?,
+        opponentRushingAttempts:
+            json['OpponentRushingAttempts']?.toInt() as int?,
+        opponentRushingYards: json['OpponentRushingYards']?.toInt() as int?,
         opponentRushingYardsPerAttempt:
-            json['OpponentRushingYardsPerAttempt']?.toDouble(),
-        opponentRushingTouchdowns: json['OpponentRushingTouchdowns']?.toInt(),
-        opponentPassingAttempts: json['OpponentPassingAttempts']?.toInt(),
-        opponentPassingCompletions: json['OpponentPassingCompletions']?.toInt(),
-        opponentPassingYards: json['OpponentPassingYards']?.toInt(),
-        opponentPassingTouchdowns: json['OpponentPassingTouchdowns']?.toInt(),
+            json['OpponentRushingYardsPerAttempt']?.toDouble() as double?,
+        opponentRushingTouchdowns:
+            json['OpponentRushingTouchdowns']?.toInt() as int?,
+        opponentPassingAttempts:
+            json['OpponentPassingAttempts']?.toInt() as int?,
+        opponentPassingCompletions:
+            json['OpponentPassingCompletions']?.toInt() as int?,
+        opponentPassingYards: json['OpponentPassingYards']?.toInt() as int?,
+        opponentPassingTouchdowns:
+            json['OpponentPassingTouchdowns']?.toInt() as int?,
         opponentPassingInterceptions:
-            json['OpponentPassingInterceptions']?.toInt(),
+            json['OpponentPassingInterceptions']?.toInt() as int?,
         opponentPassingYardsPerAttempt:
-            json['OpponentPassingYardsPerAttempt']?.toDouble(),
+            json['OpponentPassingYardsPerAttempt']?.toDouble() as double?,
         opponentPassingYardsPerCompletion:
-            json['OpponentPassingYardsPerCompletion']?.toDouble(),
+            json['OpponentPassingYardsPerCompletion']?.toDouble() as double?,
         opponentCompletionPercentage:
-            json['OpponentCompletionPercentage']?.toDouble(),
-        opponentPasserRating: json['OpponentPasserRating']?.toDouble(),
-        opponentThirdDownAttempts: json['OpponentThirdDownAttempts']?.toInt(),
+            json['OpponentCompletionPercentage']?.toDouble() as double?,
+        opponentPasserRating:
+            json['OpponentPasserRating']?.toDouble() as double?,
+        opponentThirdDownAttempts:
+            json['OpponentThirdDownAttempts']?.toInt() as int?,
         opponentThirdDownConversions:
-            json['OpponentThirdDownConversions']?.toInt(),
+            json['OpponentThirdDownConversions']?.toInt() as int?,
         opponentThirdDownPercentage:
-            json['OpponentThirdDownPercentage']?.toDouble(),
-        opponentFourthDownAttempts: json['OpponentFourthDownAttempts']?.toInt(),
+            json['OpponentThirdDownPercentage']?.toDouble() as double?,
+        opponentFourthDownAttempts:
+            json['OpponentFourthDownAttempts']?.toInt() as int?,
         opponentFourthDownConversions:
-            json['OpponentFourthDownConversions']?.toInt(),
+            json['OpponentFourthDownConversions']?.toInt() as int?,
         opponentFourthDownPercentage:
-            json['OpponentFourthDownPercentage']?.toDouble(),
-        opponentRedZoneAttempts: json['OpponentRedZoneAttempts']?.toInt(),
-        opponentRedZoneConversions: json['OpponentRedZoneConversions']?.toInt(),
-        opponentGoalToGoAttempts: json['OpponentGoalToGoAttempts']?.toInt(),
+            json['OpponentFourthDownPercentage']?.toDouble() as double?,
+        opponentRedZoneAttempts:
+            json['OpponentRedZoneAttempts']?.toInt() as int?,
+        opponentRedZoneConversions:
+            json['OpponentRedZoneConversions']?.toInt() as int?,
+        opponentGoalToGoAttempts:
+            json['OpponentGoalToGoAttempts']?.toInt() as int?,
         opponentGoalToGoConversions:
-            json['OpponentGoalToGoConversions']?.toInt(),
-        opponentReturnYards: json['OpponentReturnYards']?.toInt(),
-        opponentPenalties: json['OpponentPenalties']?.toInt(),
-        opponentPenaltyYards: json['OpponentPenaltyYards']?.toInt(),
-        opponentFumbles: json['OpponentFumbles']?.toInt(),
-        opponentFumblesLost: json['OpponentFumblesLost']?.toInt(),
-        opponentTimesSacked: json['OpponentTimesSacked']?.toInt(),
-        opponentTimesSackedYards: json['OpponentTimesSackedYards']?.toInt(),
-        opponentQuarterbackHits: json['OpponentQuarterbackHits']?.toInt(),
-        opponentTacklesForLoss: json['OpponentTacklesForLoss']?.toInt(),
-        opponentSafeties: json['OpponentSafeties']?.toInt(),
-        opponentPunts: json['OpponentPunts']?.toInt(),
-        opponentPuntYards: json['OpponentPuntYards']?.toInt(),
-        opponentPuntAverage: json['OpponentPuntAverage']?.toDouble(),
-        opponentGiveaways: json['OpponentGiveaways']?.toInt(),
-        opponentTakeaways: json['OpponentTakeaways']?.toInt(),
+            json['OpponentGoalToGoConversions']?.toInt() as int?,
+        opponentReturnYards: json['OpponentReturnYards']?.toInt() as int?,
+        opponentPenalties: json['OpponentPenalties']?.toInt() as int?,
+        opponentPenaltyYards: json['OpponentPenaltyYards']?.toInt() as int?,
+        opponentFumbles: json['OpponentFumbles']?.toInt() as int?,
+        opponentFumblesLost: json['OpponentFumblesLost']?.toInt() as int?,
+        opponentTimesSacked: json['OpponentTimesSacked']?.toInt() as int?,
+        opponentTimesSackedYards:
+            json['OpponentTimesSackedYards']?.toInt() as int?,
+        opponentQuarterbackHits:
+            json['OpponentQuarterbackHits']?.toInt() as int?,
+        opponentTacklesForLoss: json['OpponentTacklesForLoss']?.toInt() as int?,
+        opponentSafeties: json['OpponentSafeties']?.toInt() as int?,
+        opponentPunts: json['OpponentPunts']?.toInt() as int?,
+        opponentPuntYards: json['OpponentPuntYards']?.toInt() as int?,
+        opponentPuntAverage: json['OpponentPuntAverage']?.toDouble() as double?,
+        opponentGiveaways: json['OpponentGiveaways']?.toInt() as int?,
+        opponentTakeaways: json['OpponentTakeaways']?.toInt() as int?,
         opponentTurnoverDifferential:
-            json['OpponentTurnoverDifferential']?.toInt(),
-        redZonePercentage: json['RedZonePercentage']?.toDouble(),
-        goalToGoPercentage: json['GoalToGoPercentage']?.toInt(),
+            json['OpponentTurnoverDifferential']?.toInt() as int?,
+        redZonePercentage: json['RedZonePercentage']?.toDouble() as double?,
+        goalToGoPercentage: json['GoalToGoPercentage']?.toInt() as int?,
         quarterbackHitsDifferential:
-            json['QuarterbackHitsDifferential']?.toInt(),
-        tacklesForLossDifferential: json['TacklesForLossDifferential']?.toInt(),
+            json['QuarterbackHitsDifferential']?.toInt() as int?,
+        tacklesForLossDifferential:
+            json['TacklesForLossDifferential']?.toInt() as int?,
         quarterbackSacksDifferential:
-            json['QuarterbackSacksDifferential']?.toInt(),
-        tacklesForLossPercentage: json['TacklesForLossPercentage']?.toDouble(),
+            json['QuarterbackSacksDifferential']?.toInt() as int?,
+        tacklesForLossPercentage:
+            json['TacklesForLossPercentage']?.toDouble() as double?,
         quarterbackHitsPercentage:
-            json['QuarterbackHitsPercentage']?.toDouble(),
-        timesSackedPercentage: json['TimesSackedPercentage']?.toDouble(),
+            json['QuarterbackHitsPercentage']?.toDouble() as double?,
+        timesSackedPercentage:
+            json['TimesSackedPercentage']?.toDouble() as double?,
         opponentRedZonePercentage:
-            json['OpponentRedZonePercentage']?.toDouble(),
-        opponentGoalToGoPercentage: json['OpponentGoalToGoPercentage']?.toInt(),
+            json['OpponentRedZonePercentage']?.toDouble() as double?,
+        opponentGoalToGoPercentage:
+            json['OpponentGoalToGoPercentage']?.toInt() as int?,
         opponentQuarterbackHitsDifferential:
-            json['OpponentQuarterbackHitsDifferential']?.toInt(),
+            json['OpponentQuarterbackHitsDifferential']?.toInt() as int?,
         opponentTacklesForLossDifferential:
-            json['OpponentTacklesForLossDifferential']?.toInt(),
+            json['OpponentTacklesForLossDifferential']?.toInt() as int?,
         opponentQuarterbackSacksDifferential:
-            json['OpponentQuarterbackSacksDifferential']?.toInt(),
+            json['OpponentQuarterbackSacksDifferential']?.toInt() as int?,
         opponentTacklesForLossPercentage:
-            json['OpponentTacklesForLossPercentage']?.toDouble(),
+            json['OpponentTacklesForLossPercentage']?.toDouble() as double?,
         opponentQuarterbackHitsPercentage:
-            json['OpponentQuarterbackHitsPercentage']?.toDouble(),
+            json['OpponentQuarterbackHitsPercentage']?.toDouble() as double?,
         opponentTimesSackedPercentage:
-            json['OpponentTimesSackedPercentage']?.toDouble(),
-        kickoffs: json['Kickoffs'],
-        kickoffsInEndZone: json['KickoffsInEndZone']?.toInt(),
-        kickoffTouchbacks: json['KickoffTouchbacks']?.toInt(),
-        puntsHadBlocked: json['PuntsHadBlocked']?.toInt(),
-        puntNetAverage: json['PuntNetAverage']?.toDouble(),
-        extraPointKickingAttempts: json['ExtraPointKickingAttempts']?.toInt(),
+            json['OpponentTimesSackedPercentage']?.toDouble() as double?,
+        kickoffs: json['Kickoffs'] as int?,
+        kickoffsInEndZone: json['KickoffsInEndZone']?.toInt() as int?,
+        kickoffTouchbacks: json['KickoffTouchbacks']?.toInt() as int?,
+        puntsHadBlocked: json['PuntsHadBlocked']?.toInt() as int?,
+        puntNetAverage: json['PuntNetAverage']?.toDouble() as double?,
+        extraPointKickingAttempts:
+            json['ExtraPointKickingAttempts']?.toInt() as int?,
         extraPointKickingConversions:
-            json['ExtraPointKickingConversions']?.toInt(),
-        extraPointsHadBlocked: json['ExtraPointsHadBlocked']?.toInt(),
-        extraPointPassingAttempts: json['ExtraPointPassingAttempts']?.toInt(),
+            json['ExtraPointKickingConversions']?.toInt() as int?,
+        extraPointsHadBlocked: json['ExtraPointsHadBlocked']?.toInt() as int?,
+        extraPointPassingAttempts:
+            json['ExtraPointPassingAttempts']?.toInt() as int?,
         extraPointPassingConversions:
-            json['ExtraPointPassingConversions']?.toInt(),
-        extraPointRushingAttempts: json['ExtraPointRushingAttempts']?.toInt(),
+            json['ExtraPointPassingConversions']?.toInt() as int?,
+        extraPointRushingAttempts:
+            json['ExtraPointRushingAttempts']?.toInt() as int?,
         extraPointRushingConversions:
-            json['ExtraPointRushingConversions']?.toInt(),
-        fieldGoalAttempts: json['FieldGoalAttempts']?.toInt(),
-        fieldGoalsMade: json['FieldGoalsMade']?.toInt(),
-        fieldGoalsHadBlocked: json['FieldGoalsHadBlocked']?.toInt(),
-        puntReturns: json['PuntReturns']?.toInt(),
-        puntReturnYards: json['PuntReturnYards']?.toInt(),
-        kickReturns: json['KickReturns']?.toInt(),
-        kickReturnYards: json['KickReturnYards']?.toInt(),
-        interceptionReturns: json['InterceptionReturns']?.toInt(),
-        interceptionReturnYards: json['InterceptionReturnYards']?.toInt(),
-        opponentKickoffs: json['OpponentKickoffs']?.toInt(),
-        opponentKickoffsInEndZone: json['OpponentKickoffsInEndZone']?.toInt(),
-        opponentKickoffTouchbacks: json['OpponentKickoffTouchbacks']?.toInt(),
-        opponentPuntsHadBlocked: json['OpponentPuntsHadBlocked']?.toInt(),
-        opponentPuntNetAverage: json['OpponentPuntNetAverage']?.toDouble(),
+            json['ExtraPointRushingConversions']?.toInt() as int?,
+        fieldGoalAttempts: json['FieldGoalAttempts']?.toInt() as int?,
+        fieldGoalsMade: json['FieldGoalsMade']?.toInt() as int?,
+        fieldGoalsHadBlocked: json['FieldGoalsHadBlocked']?.toInt() as int?,
+        puntReturns: json['PuntReturns']?.toInt() as int?,
+        puntReturnYards: json['PuntReturnYards']?.toInt() as int?,
+        kickReturns: json['KickReturns']?.toInt() as int?,
+        kickReturnYards: json['KickReturnYards']?.toInt() as int?,
+        interceptionReturns: json['InterceptionReturns']?.toInt() as int?,
+        interceptionReturnYards:
+            json['InterceptionReturnYards']?.toInt() as int?,
+        opponentKickoffs: json['OpponentKickoffs']?.toInt() as int?,
+        opponentKickoffsInEndZone:
+            json['OpponentKickoffsInEndZone']?.toInt() as int?,
+        opponentKickoffTouchbacks:
+            json['OpponentKickoffTouchbacks']?.toInt() as int?,
+        opponentPuntsHadBlocked:
+            json['OpponentPuntsHadBlocked']?.toInt() as int?,
+        opponentPuntNetAverage:
+            json['OpponentPuntNetAverage']?.toDouble() as double?,
         opponentExtraPointKickingAttempts:
-            json['OpponentExtraPointKickingAttempts']?.toInt(),
+            json['OpponentExtraPointKickingAttempts']?.toInt() as int?,
         opponentExtraPointKickingConversions:
-            json['OpponentExtraPointKickingConversions']?.toInt(),
+            json['OpponentExtraPointKickingConversions']?.toInt() as int?,
         opponentExtraPointsHadBlocked:
-            json['OpponentExtraPointsHadBlocked']?.toInt(),
+            json['OpponentExtraPointsHadBlocked']?.toInt() as int?,
         opponentExtraPointPassingAttempts:
-            json['OpponentExtraPointPassingAttempts']?.toInt(),
+            json['OpponentExtraPointPassingAttempts']?.toInt() as int?,
         opponentExtraPointPassingConversions:
-            json['OpponentExtraPointPassingConversions']?.toInt(),
+            json['OpponentExtraPointPassingConversions']?.toInt() as int?,
         opponentExtraPointRushingAttempts:
-            json['OpponentExtraPointRushingAttempts']?.toInt(),
+            json['OpponentExtraPointRushingAttempts']?.toInt() as int?,
         opponentExtraPointRushingConversions:
-            json['OpponentExtraPointRushingConversions']?.toInt(),
-        opponentFieldGoalAttempts: json['OpponentFieldGoalAttempts']?.toInt(),
-        opponentFieldGoalsMade: json['OpponentFieldGoalsMade'],
+            json['OpponentExtraPointRushingConversions']?.toInt() as int?,
+        opponentFieldGoalAttempts:
+            json['OpponentFieldGoalAttempts']?.toInt() as int?,
+        opponentFieldGoalsMade: json['OpponentFieldGoalsMade'] as int?,
         opponentFieldGoalsHadBlocked:
-            json['OpponentFieldGoalsHadBlocked']?.toInt(),
-        opponentPuntReturns: json['OpponentPuntReturns']?.toInt(),
-        opponentPuntReturnYards: json['OpponentPuntReturnYards']?.toInt(),
-        opponentKickReturns: json['OpponentKickReturns']?.toInt(),
-        opponentKickReturnYards: json['OpponentKickReturnYards']?.toInt(),
+            json['OpponentFieldGoalsHadBlocked']?.toInt() as int?,
+        opponentPuntReturns: json['OpponentPuntReturns']?.toInt() as int?,
+        opponentPuntReturnYards:
+            json['OpponentPuntReturnYards']?.toInt() as int?,
+        opponentKickReturns: json['OpponentKickReturns']?.toInt() as int?,
+        opponentKickReturnYards:
+            json['OpponentKickReturnYards']?.toInt() as int?,
         opponentInterceptionReturns:
-            json['OpponentInterceptionReturns']?.toInt(),
+            json['OpponentInterceptionReturns']?.toInt() as int?,
         opponentInterceptionReturnYards:
-            json['OpponentInterceptionReturnYards']?.toInt(),
-        soloTackles: json['SoloTackles']?.toInt(),
-        assistedTackles: json['AssistedTackles']?.toInt(),
-        sacks: json['Sacks']?.toInt(),
-        sackYards: json['SackYards']?.toInt(),
-        passesDefended: json['PassesDefended']?.toInt(),
-        fumblesForced: json['FumblesForced']?.toInt(),
-        fumblesRecovered: json['FumblesRecovered']?.toInt(),
-        fumbleReturnYards: json['FumbleReturnYards']?.toInt(),
-        fumbleReturnTouchdowns: json['FumbleReturnTouchdowns']?.toInt(),
+            json['OpponentInterceptionReturnYards']?.toInt() as int?,
+        soloTackles: json['SoloTackles']?.toInt() as int?,
+        assistedTackles: json['AssistedTackles']?.toInt() as int?,
+        sacks: json['Sacks']?.toInt() as int?,
+        sackYards: json['SackYards']?.toInt() as int?,
+        passesDefended: json['PassesDefended']?.toInt() as int?,
+        fumblesForced: json['FumblesForced']?.toInt() as int?,
+        fumblesRecovered: json['FumblesRecovered']?.toInt() as int?,
+        fumbleReturnYards: json['FumbleReturnYards']?.toInt() as int?,
+        fumbleReturnTouchdowns: json['FumbleReturnTouchdowns']?.toInt() as int?,
         interceptionReturnTouchdowns:
-            json['InterceptionReturnTouchdowns']?.toInt(),
-        blockedKicks: json['BlockedKicks']?.toInt(),
-        puntReturnTouchdowns: json['PuntReturnTouchdowns']?.toInt(),
-        puntReturnLong: json['PuntReturnLong']?.toInt(),
-        kickReturnTouchdowns: json['KickReturnTouchdowns']?.toInt(),
-        kickReturnLong: json['KickReturnLong']?.toInt(),
-        blockedKickReturnYards: json['BlockedKickReturnYards']?.toInt(),
+            json['InterceptionReturnTouchdowns']?.toInt() as int?,
+        blockedKicks: json['BlockedKicks']?.toInt() as int?,
+        puntReturnTouchdowns: json['PuntReturnTouchdowns']?.toInt() as int?,
+        puntReturnLong: json['PuntReturnLong']?.toInt() as int?,
+        kickReturnTouchdowns: json['KickReturnTouchdowns']?.toInt() as int?,
+        kickReturnLong: json['KickReturnLong']?.toInt() as int?,
+        blockedKickReturnYards: json['BlockedKickReturnYards']?.toInt() as int?,
         blockedKickReturnTouchdowns:
-            json['BlockedKickReturnTouchdowns']?.toInt(),
-        fieldGoalReturnYards: json['FieldGoalReturnYards']?.toInt(),
-        fieldGoalReturnTouchdowns: json['FieldGoalReturnTouchdowns']?.toInt(),
-        puntNetYards: json['PuntNetYards']?.toInt(),
-        opponentSoloTackles: json['OpponentSoloTackles']?.toInt(),
-        opponentAssistedTackles: json['OpponentAssistedTackles']?.toInt(),
-        opponentSacks: json['OpponentSacks']?.toInt(),
-        opponentSackYards: json['OpponentSackYards']?.toInt(),
-        opponentPassesDefended: json['OpponentPassesDefended']?.toInt(),
-        opponentFumblesForced: json['OpponentFumblesForced']?.toInt(),
-        opponentFumblesRecovered: json['OpponentFumblesRecovered']?.toInt(),
-        opponentFumbleReturnYards: json['OpponentFumbleReturnYards']?.toInt(),
+            json['BlockedKickReturnTouchdowns']?.toInt() as int?,
+        fieldGoalReturnYards: json['FieldGoalReturnYards']?.toInt() as int?,
+        fieldGoalReturnTouchdowns:
+            json['FieldGoalReturnTouchdowns']?.toInt() as int?,
+        puntNetYards: json['PuntNetYards']?.toInt() as int?,
+        opponentSoloTackles: json['OpponentSoloTackles']?.toInt() as int?,
+        opponentAssistedTackles:
+            json['OpponentAssistedTackles']?.toInt() as int?,
+        opponentSacks: json['OpponentSacks']?.toInt() as int?,
+        opponentSackYards: json['OpponentSackYards']?.toInt() as int?,
+        opponentPassesDefended: json['OpponentPassesDefended']?.toInt() as int?,
+        opponentFumblesForced: json['OpponentFumblesForced']?.toInt() as int?,
+        opponentFumblesRecovered:
+            json['OpponentFumblesRecovered']?.toInt() as int?,
+        opponentFumbleReturnYards:
+            json['OpponentFumbleReturnYards']?.toInt() as int?,
         opponentFumbleReturnTouchdowns:
-            json['OpponentFumbleReturnTouchdowns']?.toInt(),
+            json['OpponentFumbleReturnTouchdowns']?.toInt() as int?,
         opponentInterceptionReturnTouchdowns:
-            json['OpponentInterceptionReturnTouchdowns']?.toInt(),
-        opponentBlockedKicks: json['OpponentBlockedKicks']?.toInt(),
+            json['OpponentInterceptionReturnTouchdowns']?.toInt() as int?,
+        opponentBlockedKicks: json['OpponentBlockedKicks']?.toInt() as int?,
         opponentPuntReturnTouchdowns:
-            json['OpponentPuntReturnTouchdowns']?.toInt(),
-        opponentPuntReturnLong: json['OpponentPuntReturnLong']?.toInt(),
+            json['OpponentPuntReturnTouchdowns']?.toInt() as int?,
+        opponentPuntReturnLong: json['OpponentPuntReturnLong']?.toInt() as int?,
         opponentKickReturnTouchdowns:
-            json['OpponentKickReturnTouchdowns']?.toInt(),
-        opponentKickReturnLong: json['OpponentKickReturnLong']?.toInt(),
+            json['OpponentKickReturnTouchdowns']?.toInt() as int?,
+        opponentKickReturnLong: json['OpponentKickReturnLong']?.toInt() as int?,
         opponentBlockedKickReturnYards:
-            json['OpponentBlockedKickReturnYards']?.toInt(),
+            json['OpponentBlockedKickReturnYards']?.toInt() as int?,
         opponentBlockedKickReturnTouchdowns:
-            json['OpponentBlockedKickReturnTouchdowns']?.toInt(),
+            json['OpponentBlockedKickReturnTouchdowns']?.toInt() as int?,
         opponentFieldGoalReturnYards:
-            json['OpponentFieldGoalReturnYards']?.toInt(),
+            json['OpponentFieldGoalReturnYards']?.toInt() as int?,
         opponentFieldGoalReturnTouchdowns:
-            json['OpponentFieldGoalReturnTouchdowns']?.toInt(),
-        opponentPuntNetYards: json['OpponentPuntNetYards']?.toInt(),
-        teamName: json['TeamName'],
-        games: json['Games']?.toInt(),
-        passingDropbacks: json['PassingDropbacks']?.toInt(),
-        opponentPassingDropbacks: json['OpponentPassingDropbacks']?.toInt(),
-        teamSeasonId: json['TeamSeasonID']?.toInt(),
-        twoPointConversionReturns: json['TwoPointConversionReturns']?.toInt(),
+            json['OpponentFieldGoalReturnTouchdowns']?.toInt() as int?,
+        opponentPuntNetYards: json['OpponentPuntNetYards']?.toInt() as int?,
+        teamName: json['TeamName'] as String?,
+        games: json['Games']?.toInt() as int?,
+        passingDropbacks: json['PassingDropbacks']?.toInt() as int?,
+        opponentPassingDropbacks:
+            json['OpponentPassingDropbacks']?.toInt() as int?,
+        teamSeasonId: json['TeamSeasonID']?.toInt() as int?,
+        twoPointConversionReturns:
+            json['TwoPointConversionReturns']?.toInt() as int?,
         opponentTwoPointConversionReturns:
-            json['OpponentTwoPointConversionReturns']?.toInt(),
-        teamId: json['TeamID']?.toInt(),
-        globalTeamId: json['GlobalTeamID']?.toInt(),
-        teamStatId: json['TeamStatID']?.toInt(),
+            json['OpponentTwoPointConversionReturns']?.toInt() as int?,
+        teamId: json['TeamID']?.toInt() as int?,
+        globalTeamId: json['GlobalTeamID']?.toInt() as int?,
+        teamStatId: json['TeamStatID']?.toInt() as int?,
       );
 
-  final int seasonType;
-  final int season;
-  final String team;
-  final int score;
-  final int opponentScore;
-  final int totalScore;
-  final int temperature;
-  final int humidity;
-  final int windSpeed;
-  final double overUnder;
-  final double pointSpread;
-  final int scoreQuarter1;
-  final int scoreQuarter2;
-  final int scoreQuarter3;
-  final int scoreQuarter4;
-  final int scoreOvertime;
-  final String timeOfPossession;
-  final int firstDowns;
-  final int firstDownsByRushing;
-  final int firstDownsByPassing;
-  final int firstDownsByPenalty;
-  final int offensivePlays;
-  final int offensiveYards;
-  final double offensiveYardsPerPlay;
-  final int touchdowns;
-  final int rushingAttempts;
-  final int rushingYards;
-  final double rushingYardsPerAttempt;
-  final int rushingTouchdowns;
-  final int passingAttempts;
-  final int passingCompletions;
-  final int passingYards;
-  final int passingTouchdowns;
-  final int passingInterceptions;
-  final double passingYardsPerAttempt;
-  final double passingYardsPerCompletion;
-  final double completionPercentage;
-  final double passerRating;
-  final int thirdDownAttempts;
-  final int thirdDownConversions;
-  final double thirdDownPercentage;
-  final int fourthDownAttempts;
-  final int fourthDownConversions;
-  final double fourthDownPercentage;
-  final int redZoneAttempts;
-  final int redZoneConversions;
-  final int goalToGoAttempts;
-  final int goalToGoConversions;
-  final int returnYards;
-  final int penalties;
-  final int penaltyYards;
-  final int fumbles;
-  final int fumblesLost;
-  final int timesSacked;
-  final int timesSackedYards;
-  final int quarterbackHits;
-  final int tacklesForLoss;
-  final int safeties;
-  final int punts;
-  final int puntYards;
-  final double puntAverage;
-  final int giveaways;
-  final int takeaways;
-  final int turnoverDifferential;
-  final int opponentScoreQuarter1;
-  final int opponentScoreQuarter2;
-  final int opponentScoreQuarter3;
-  final int opponentScoreQuarter4;
-  final int opponentScoreOvertime;
-  final String opponentTimeOfPossession;
-  final int opponentFirstDowns;
-  final int opponentFirstDownsByRushing;
-  final int opponentFirstDownsByPassing;
-  final int opponentFirstDownsByPenalty;
-  final int opponentOffensivePlays;
-  final int opponentOffensiveYards;
-  final double opponentOffensiveYardsPerPlay;
-  final int opponentTouchdowns;
-  final int opponentRushingAttempts;
-  final int opponentRushingYards;
-  final double opponentRushingYardsPerAttempt;
-  final int opponentRushingTouchdowns;
-  final int opponentPassingAttempts;
-  final int opponentPassingCompletions;
-  final int opponentPassingYards;
-  final int opponentPassingTouchdowns;
-  final int opponentPassingInterceptions;
-  final double opponentPassingYardsPerAttempt;
-  final double opponentPassingYardsPerCompletion;
-  final double opponentCompletionPercentage;
-  final double opponentPasserRating;
-  final int opponentThirdDownAttempts;
-  final int opponentThirdDownConversions;
-  final double opponentThirdDownPercentage;
-  final int opponentFourthDownAttempts;
-  final int opponentFourthDownConversions;
-  final double opponentFourthDownPercentage;
-  final int opponentRedZoneAttempts;
-  final int opponentRedZoneConversions;
-  final int opponentGoalToGoAttempts;
-  final int opponentGoalToGoConversions;
-  final int opponentReturnYards;
-  final int opponentPenalties;
-  final int opponentPenaltyYards;
-  final int opponentFumbles;
-  final int opponentFumblesLost;
-  final int opponentTimesSacked;
-  final int opponentTimesSackedYards;
-  final int opponentQuarterbackHits;
-  final int opponentTacklesForLoss;
-  final int opponentSafeties;
-  final int opponentPunts;
-  final int opponentPuntYards;
-  final double opponentPuntAverage;
-  final int opponentGiveaways;
-  final int opponentTakeaways;
-  final int opponentTurnoverDifferential;
-  final double redZonePercentage;
-  final int goalToGoPercentage;
-  final int quarterbackHitsDifferential;
-  final int tacklesForLossDifferential;
-  final int quarterbackSacksDifferential;
-  final double tacklesForLossPercentage;
-  final double quarterbackHitsPercentage;
-  final double timesSackedPercentage;
-  final double opponentRedZonePercentage;
-  final int opponentGoalToGoPercentage;
-  final int opponentQuarterbackHitsDifferential;
-  final int opponentTacklesForLossDifferential;
-  final int opponentQuarterbackSacksDifferential;
-  final double opponentTacklesForLossPercentage;
-  final double opponentQuarterbackHitsPercentage;
-  final double opponentTimesSackedPercentage;
-  final int kickoffs;
-  final int kickoffsInEndZone;
-  final int kickoffTouchbacks;
-  final int puntsHadBlocked;
-  final double puntNetAverage;
-  final int extraPointKickingAttempts;
-  final int extraPointKickingConversions;
-  final int extraPointsHadBlocked;
-  final int extraPointPassingAttempts;
-  final int extraPointPassingConversions;
-  final int extraPointRushingAttempts;
-  final int extraPointRushingConversions;
-  final int fieldGoalAttempts;
-  final int fieldGoalsMade;
-  final int fieldGoalsHadBlocked;
-  final int puntReturns;
-  final int puntReturnYards;
-  final int kickReturns;
-  final int kickReturnYards;
-  final int interceptionReturns;
-  final int interceptionReturnYards;
-  final int opponentKickoffs;
-  final int opponentKickoffsInEndZone;
-  final int opponentKickoffTouchbacks;
-  final int opponentPuntsHadBlocked;
-  final double opponentPuntNetAverage;
-  final int opponentExtraPointKickingAttempts;
-  final int opponentExtraPointKickingConversions;
-  final int opponentExtraPointsHadBlocked;
-  final int opponentExtraPointPassingAttempts;
-  final int opponentExtraPointPassingConversions;
-  final int opponentExtraPointRushingAttempts;
-  final int opponentExtraPointRushingConversions;
-  final int opponentFieldGoalAttempts;
-  final int opponentFieldGoalsMade;
-  final int opponentFieldGoalsHadBlocked;
-  final int opponentPuntReturns;
-  final int opponentPuntReturnYards;
-  final int opponentKickReturns;
-  final int opponentKickReturnYards;
-  final int opponentInterceptionReturns;
-  final int opponentInterceptionReturnYards;
-  final int soloTackles;
-  final int assistedTackles;
-  final int sacks;
-  final int sackYards;
-  final int passesDefended;
-  final int fumblesForced;
-  final int fumblesRecovered;
-  final int fumbleReturnYards;
-  final int fumbleReturnTouchdowns;
-  final int interceptionReturnTouchdowns;
-  final int blockedKicks;
-  final int puntReturnTouchdowns;
-  final int puntReturnLong;
-  final int kickReturnTouchdowns;
-  final int kickReturnLong;
-  final int blockedKickReturnYards;
-  final int blockedKickReturnTouchdowns;
-  final int fieldGoalReturnYards;
-  final int fieldGoalReturnTouchdowns;
-  final int puntNetYards;
-  final int opponentSoloTackles;
-  final int opponentAssistedTackles;
-  final int opponentSacks;
-  final int opponentSackYards;
-  final int opponentPassesDefended;
-  final int opponentFumblesForced;
-  final int opponentFumblesRecovered;
-  final int opponentFumbleReturnYards;
-  final int opponentFumbleReturnTouchdowns;
-  final int opponentInterceptionReturnTouchdowns;
-  final int opponentBlockedKicks;
-  final int opponentPuntReturnTouchdowns;
-  final int opponentPuntReturnLong;
-  final int opponentKickReturnTouchdowns;
-  final int opponentKickReturnLong;
-  final int opponentBlockedKickReturnYards;
-  final int opponentBlockedKickReturnTouchdowns;
-  final int opponentFieldGoalReturnYards;
-  final int opponentFieldGoalReturnTouchdowns;
-  final int opponentPuntNetYards;
-  final String teamName;
-  final int games;
-  final int passingDropbacks;
-  final int opponentPassingDropbacks;
-  final int teamSeasonId;
-  final int twoPointConversionReturns;
-  final int opponentTwoPointConversionReturns;
-  final int teamId;
-  final int globalTeamId;
-  final int teamStatId;
+  final int? seasonType;
+  final int? season;
+  final String? team;
+  final int? score;
+  final int? opponentScore;
+  final int? totalScore;
+  final int? temperature;
+  final int? humidity;
+  final int? windSpeed;
+  final double? overUnder;
+  final double? pointSpread;
+  final int? scoreQuarter1;
+  final int? scoreQuarter2;
+  final int? scoreQuarter3;
+  final int? scoreQuarter4;
+  final int? scoreOvertime;
+  final String? timeOfPossession;
+  final int? firstDowns;
+  final int? firstDownsByRushing;
+  final int? firstDownsByPassing;
+  final int? firstDownsByPenalty;
+  final int? offensivePlays;
+  final int? offensiveYards;
+  final double? offensiveYardsPerPlay;
+  final int? touchdowns;
+  final int? rushingAttempts;
+  final int? rushingYards;
+  final double? rushingYardsPerAttempt;
+  final int? rushingTouchdowns;
+  final int? passingAttempts;
+  final int? passingCompletions;
+  final int? passingYards;
+  final int? passingTouchdowns;
+  final int? passingInterceptions;
+  final double? passingYardsPerAttempt;
+  final double? passingYardsPerCompletion;
+  final double? completionPercentage;
+  final double? passerRating;
+  final int? thirdDownAttempts;
+  final int? thirdDownConversions;
+  final double? thirdDownPercentage;
+  final int? fourthDownAttempts;
+  final int? fourthDownConversions;
+  final double? fourthDownPercentage;
+  final int? redZoneAttempts;
+  final int? redZoneConversions;
+  final int? goalToGoAttempts;
+  final int? goalToGoConversions;
+  final int? returnYards;
+  final int? penalties;
+  final int? penaltyYards;
+  final int? fumbles;
+  final int? fumblesLost;
+  final int? timesSacked;
+  final int? timesSackedYards;
+  final int? quarterbackHits;
+  final int? tacklesForLoss;
+  final int? safeties;
+  final int? punts;
+  final int? puntYards;
+  final double? puntAverage;
+  final int? giveaways;
+  final int? takeaways;
+  final int? turnoverDifferential;
+  final int? opponentScoreQuarter1;
+  final int? opponentScoreQuarter2;
+  final int? opponentScoreQuarter3;
+  final int? opponentScoreQuarter4;
+  final int? opponentScoreOvertime;
+  final String? opponentTimeOfPossession;
+  final int? opponentFirstDowns;
+  final int? opponentFirstDownsByRushing;
+  final int? opponentFirstDownsByPassing;
+  final int? opponentFirstDownsByPenalty;
+  final int? opponentOffensivePlays;
+  final int? opponentOffensiveYards;
+  final double? opponentOffensiveYardsPerPlay;
+  final int? opponentTouchdowns;
+  final int? opponentRushingAttempts;
+  final int? opponentRushingYards;
+  final double? opponentRushingYardsPerAttempt;
+  final int? opponentRushingTouchdowns;
+  final int? opponentPassingAttempts;
+  final int? opponentPassingCompletions;
+  final int? opponentPassingYards;
+  final int? opponentPassingTouchdowns;
+  final int? opponentPassingInterceptions;
+  final double? opponentPassingYardsPerAttempt;
+  final double? opponentPassingYardsPerCompletion;
+  final double? opponentCompletionPercentage;
+  final double? opponentPasserRating;
+  final int? opponentThirdDownAttempts;
+  final int? opponentThirdDownConversions;
+  final double? opponentThirdDownPercentage;
+  final int? opponentFourthDownAttempts;
+  final int? opponentFourthDownConversions;
+  final double? opponentFourthDownPercentage;
+  final int? opponentRedZoneAttempts;
+  final int? opponentRedZoneConversions;
+  final int? opponentGoalToGoAttempts;
+  final int? opponentGoalToGoConversions;
+  final int? opponentReturnYards;
+  final int? opponentPenalties;
+  final int? opponentPenaltyYards;
+  final int? opponentFumbles;
+  final int? opponentFumblesLost;
+  final int? opponentTimesSacked;
+  final int? opponentTimesSackedYards;
+  final int? opponentQuarterbackHits;
+  final int? opponentTacklesForLoss;
+  final int? opponentSafeties;
+  final int? opponentPunts;
+  final int? opponentPuntYards;
+  final double? opponentPuntAverage;
+  final int? opponentGiveaways;
+  final int? opponentTakeaways;
+  final int? opponentTurnoverDifferential;
+  final double? redZonePercentage;
+  final int? goalToGoPercentage;
+  final int? quarterbackHitsDifferential;
+  final int? tacklesForLossDifferential;
+  final int? quarterbackSacksDifferential;
+  final double? tacklesForLossPercentage;
+  final double? quarterbackHitsPercentage;
+  final double? timesSackedPercentage;
+  final double? opponentRedZonePercentage;
+  final int? opponentGoalToGoPercentage;
+  final int? opponentQuarterbackHitsDifferential;
+  final int? opponentTacklesForLossDifferential;
+  final int? opponentQuarterbackSacksDifferential;
+  final double? opponentTacklesForLossPercentage;
+  final double? opponentQuarterbackHitsPercentage;
+  final double? opponentTimesSackedPercentage;
+  final int? kickoffs;
+  final int? kickoffsInEndZone;
+  final int? kickoffTouchbacks;
+  final int? puntsHadBlocked;
+  final double? puntNetAverage;
+  final int? extraPointKickingAttempts;
+  final int? extraPointKickingConversions;
+  final int? extraPointsHadBlocked;
+  final int? extraPointPassingAttempts;
+  final int? extraPointPassingConversions;
+  final int? extraPointRushingAttempts;
+  final int? extraPointRushingConversions;
+  final int? fieldGoalAttempts;
+  final int? fieldGoalsMade;
+  final int? fieldGoalsHadBlocked;
+  final int? puntReturns;
+  final int? puntReturnYards;
+  final int? kickReturns;
+  final int? kickReturnYards;
+  final int? interceptionReturns;
+  final int? interceptionReturnYards;
+  final int? opponentKickoffs;
+  final int? opponentKickoffsInEndZone;
+  final int? opponentKickoffTouchbacks;
+  final int? opponentPuntsHadBlocked;
+  final double? opponentPuntNetAverage;
+  final int? opponentExtraPointKickingAttempts;
+  final int? opponentExtraPointKickingConversions;
+  final int? opponentExtraPointsHadBlocked;
+  final int? opponentExtraPointPassingAttempts;
+  final int? opponentExtraPointPassingConversions;
+  final int? opponentExtraPointRushingAttempts;
+  final int? opponentExtraPointRushingConversions;
+  final int? opponentFieldGoalAttempts;
+  final int? opponentFieldGoalsMade;
+  final int? opponentFieldGoalsHadBlocked;
+  final int? opponentPuntReturns;
+  final int? opponentPuntReturnYards;
+  final int? opponentKickReturns;
+  final int? opponentKickReturnYards;
+  final int? opponentInterceptionReturns;
+  final int? opponentInterceptionReturnYards;
+  final int? soloTackles;
+  final int? assistedTackles;
+  final int? sacks;
+  final int? sackYards;
+  final int? passesDefended;
+  final int? fumblesForced;
+  final int? fumblesRecovered;
+  final int? fumbleReturnYards;
+  final int? fumbleReturnTouchdowns;
+  final int? interceptionReturnTouchdowns;
+  final int? blockedKicks;
+  final int? puntReturnTouchdowns;
+  final int? puntReturnLong;
+  final int? kickReturnTouchdowns;
+  final int? kickReturnLong;
+  final int? blockedKickReturnYards;
+  final int? blockedKickReturnTouchdowns;
+  final int? fieldGoalReturnYards;
+  final int? fieldGoalReturnTouchdowns;
+  final int? puntNetYards;
+  final int? opponentSoloTackles;
+  final int? opponentAssistedTackles;
+  final int? opponentSacks;
+  final int? opponentSackYards;
+  final int? opponentPassesDefended;
+  final int? opponentFumblesForced;
+  final int? opponentFumblesRecovered;
+  final int? opponentFumbleReturnYards;
+  final int? opponentFumbleReturnTouchdowns;
+  final int? opponentInterceptionReturnTouchdowns;
+  final int? opponentBlockedKicks;
+  final int? opponentPuntReturnTouchdowns;
+  final int? opponentPuntReturnLong;
+  final int? opponentKickReturnTouchdowns;
+  final int? opponentKickReturnLong;
+  final int? opponentBlockedKickReturnYards;
+  final int? opponentBlockedKickReturnTouchdowns;
+  final int? opponentFieldGoalReturnYards;
+  final int? opponentFieldGoalReturnTouchdowns;
+  final int? opponentPuntNetYards;
+  final String? teamName;
+  final int? games;
+  final int? passingDropbacks;
+  final int? opponentPassingDropbacks;
+  final int? teamSeasonId;
+  final int? twoPointConversionReturns;
+  final int? opponentTwoPointConversionReturns;
+  final int? teamId;
+  final int? globalTeamId;
+  final int? teamStatId;
 
   NflTeamStats copyWith({
-    int seasonType,
-    int season,
-    String team,
-    int score,
-    int opponentScore,
-    int totalScore,
-    int temperature,
-    int humidity,
-    int windSpeed,
-    double overUnder,
-    double pointSpread,
-    int scoreQuarter1,
-    int scoreQuarter2,
-    int scoreQuarter3,
-    int scoreQuarter4,
-    int scoreOvertime,
-    String timeOfPossession,
-    int firstDowns,
-    int firstDownsByRushing,
-    int firstDownsByPassing,
-    int firstDownsByPenalty,
-    int offensivePlays,
-    int offensiveYards,
-    double offensiveYardsPerPlay,
-    int touchdowns,
-    int rushingAttempts,
-    int rushingYards,
-    double rushingYardsPerAttempt,
-    int rushingTouchdowns,
-    int passingAttempts,
-    int passingCompletions,
-    int passingYards,
-    int passingTouchdowns,
-    int passingInterceptions,
-    double passingYardsPerAttempt,
-    double passingYardsPerCompletion,
-    double completionPercentage,
-    double passerRating,
-    int thirdDownAttempts,
-    int thirdDownConversions,
-    double thirdDownPercentage,
-    int fourthDownAttempts,
-    int fourthDownConversions,
-    double fourthDownPercentage,
-    int redZoneAttempts,
-    int redZoneConversions,
-    int goalToGoAttempts,
-    int goalToGoConversions,
-    int returnYards,
-    int penalties,
-    int penaltyYards,
-    int fumbles,
-    int fumblesLost,
-    int timesSacked,
-    int timesSackedYards,
-    int quarterbackHits,
-    int tacklesForLoss,
-    int safeties,
-    int punts,
-    int puntYards,
-    double puntAverage,
-    int giveaways,
-    int takeaways,
-    int turnoverDifferential,
-    int opponentScoreQuarter1,
-    int opponentScoreQuarter2,
-    int opponentScoreQuarter3,
-    int opponentScoreQuarter4,
-    int opponentScoreOvertime,
-    String opponentTimeOfPossession,
-    int opponentFirstDowns,
-    int opponentFirstDownsByRushing,
-    int opponentFirstDownsByPassing,
-    int opponentFirstDownsByPenalty,
-    int opponentOffensivePlays,
-    int opponentOffensiveYards,
-    double opponentOffensiveYardsPerPlay,
-    int opponentTouchdowns,
-    int opponentRushingAttempts,
-    int opponentRushingYards,
-    double opponentRushingYardsPerAttempt,
-    int opponentRushingTouchdowns,
-    int opponentPassingAttempts,
-    int opponentPassingCompletions,
-    int opponentPassingYards,
-    int opponentPassingTouchdowns,
-    int opponentPassingInterceptions,
-    double opponentPassingYardsPerAttempt,
-    double opponentPassingYardsPerCompletion,
-    double opponentCompletionPercentage,
-    double opponentPasserRating,
-    int opponentThirdDownAttempts,
-    int opponentThirdDownConversions,
-    double opponentThirdDownPercentage,
-    int opponentFourthDownAttempts,
-    int opponentFourthDownConversions,
-    double opponentFourthDownPercentage,
-    int opponentRedZoneAttempts,
-    int opponentRedZoneConversions,
-    int opponentGoalToGoAttempts,
-    int opponentGoalToGoConversions,
-    int opponentReturnYards,
-    int opponentPenalties,
-    int opponentPenaltyYards,
-    int opponentFumbles,
-    int opponentFumblesLost,
-    int opponentTimesSacked,
-    int opponentTimesSackedYards,
-    int opponentQuarterbackHits,
-    int opponentTacklesForLoss,
-    int opponentSafeties,
-    int opponentPunts,
-    int opponentPuntYards,
-    double opponentPuntAverage,
-    int opponentGiveaways,
-    int opponentTakeaways,
-    int opponentTurnoverDifferential,
-    double redZonePercentage,
-    int goalToGoPercentage,
-    int quarterbackHitsDifferential,
-    int tacklesForLossDifferential,
-    int quarterbackSacksDifferential,
-    double tacklesForLossPercentage,
-    double quarterbackHitsPercentage,
-    double timesSackedPercentage,
-    double opponentRedZonePercentage,
-    int opponentGoalToGoPercentage,
-    int opponentQuarterbackHitsDifferential,
-    int opponentTacklesForLossDifferential,
-    int opponentQuarterbackSacksDifferential,
-    double opponentTacklesForLossPercentage,
-    double opponentQuarterbackHitsPercentage,
-    double opponentTimesSackedPercentage,
-    int kickoffs,
-    int kickoffsInEndZone,
-    int kickoffTouchbacks,
-    int puntsHadBlocked,
-    double puntNetAverage,
-    int extraPointKickingAttempts,
-    int extraPointKickingConversions,
-    int extraPointsHadBlocked,
-    int extraPointPassingAttempts,
-    int extraPointPassingConversions,
-    int extraPointRushingAttempts,
-    int extraPointRushingConversions,
-    int fieldGoalAttempts,
-    int fieldGoalsMade,
-    int fieldGoalsHadBlocked,
-    int puntReturns,
-    int puntReturnYards,
-    int kickReturns,
-    int kickReturnYards,
-    int interceptionReturns,
-    int interceptionReturnYards,
-    int opponentKickoffs,
-    int opponentKickoffsInEndZone,
-    int opponentKickoffTouchbacks,
-    int opponentPuntsHadBlocked,
-    double opponentPuntNetAverage,
-    int opponentExtraPointKickingAttempts,
-    int opponentExtraPointKickingConversions,
-    int opponentExtraPointsHadBlocked,
-    int opponentExtraPointPassingAttempts,
-    int opponentExtraPointPassingConversions,
-    int opponentExtraPointRushingAttempts,
-    int opponentExtraPointRushingConversions,
-    int opponentFieldGoalAttempts,
-    int opponentFieldGoalsMade,
-    int opponentFieldGoalsHadBlocked,
-    int opponentPuntReturns,
-    int opponentPuntReturnYards,
-    int opponentKickReturns,
-    int opponentKickReturnYards,
-    int opponentInterceptionReturns,
-    int opponentInterceptionReturnYards,
-    int soloTackles,
-    int assistedTackles,
-    int sacks,
-    int sackYards,
-    int passesDefended,
-    int fumblesForced,
-    int fumblesRecovered,
-    int fumbleReturnYards,
-    int fumbleReturnTouchdowns,
-    int interceptionReturnTouchdowns,
-    int blockedKicks,
-    int puntReturnTouchdowns,
-    int puntReturnLong,
-    int kickReturnTouchdowns,
-    int kickReturnLong,
-    int blockedKickReturnYards,
-    int blockedKickReturnTouchdowns,
-    int fieldGoalReturnYards,
-    int fieldGoalReturnTouchdowns,
-    int puntNetYards,
-    int opponentSoloTackles,
-    int opponentAssistedTackles,
-    int opponentSacks,
-    int opponentSackYards,
-    int opponentPassesDefended,
-    int opponentFumblesForced,
-    int opponentFumblesRecovered,
-    int opponentFumbleReturnYards,
-    int opponentFumbleReturnTouchdowns,
-    int opponentInterceptionReturnTouchdowns,
-    int opponentBlockedKicks,
-    int opponentPuntReturnTouchdowns,
-    int opponentPuntReturnLong,
-    int opponentKickReturnTouchdowns,
-    int opponentKickReturnLong,
-    int opponentBlockedKickReturnYards,
-    int opponentBlockedKickReturnTouchdowns,
-    int opponentFieldGoalReturnYards,
-    int opponentFieldGoalReturnTouchdowns,
-    int opponentPuntNetYards,
-    String teamName,
-    int games,
-    int passingDropbacks,
-    int opponentPassingDropbacks,
-    int teamSeasonId,
-    int twoPointConversionReturns,
-    int opponentTwoPointConversionReturns,
-    int teamId,
-    int globalTeamId,
-    int teamStatId,
+    int? seasonType,
+    int? season,
+    String? team,
+    int? score,
+    int? opponentScore,
+    int? totalScore,
+    int? temperature,
+    int? humidity,
+    int? windSpeed,
+    double? overUnder,
+    double? pointSpread,
+    int? scoreQuarter1,
+    int? scoreQuarter2,
+    int? scoreQuarter3,
+    int? scoreQuarter4,
+    int? scoreOvertime,
+    String? timeOfPossession,
+    int? firstDowns,
+    int? firstDownsByRushing,
+    int? firstDownsByPassing,
+    int? firstDownsByPenalty,
+    int? offensivePlays,
+    int? offensiveYards,
+    double? offensiveYardsPerPlay,
+    int? touchdowns,
+    int? rushingAttempts,
+    int? rushingYards,
+    double? rushingYardsPerAttempt,
+    int? rushingTouchdowns,
+    int? passingAttempts,
+    int? passingCompletions,
+    int? passingYards,
+    int? passingTouchdowns,
+    int? passingInterceptions,
+    double? passingYardsPerAttempt,
+    double? passingYardsPerCompletion,
+    double? completionPercentage,
+    double? passerRating,
+    int? thirdDownAttempts,
+    int? thirdDownConversions,
+    double? thirdDownPercentage,
+    int? fourthDownAttempts,
+    int? fourthDownConversions,
+    double? fourthDownPercentage,
+    int? redZoneAttempts,
+    int? redZoneConversions,
+    int? goalToGoAttempts,
+    int? goalToGoConversions,
+    int? returnYards,
+    int? penalties,
+    int? penaltyYards,
+    int? fumbles,
+    int? fumblesLost,
+    int? timesSacked,
+    int? timesSackedYards,
+    int? quarterbackHits,
+    int? tacklesForLoss,
+    int? safeties,
+    int? punts,
+    int? puntYards,
+    double? puntAverage,
+    int? giveaways,
+    int? takeaways,
+    int? turnoverDifferential,
+    int? opponentScoreQuarter1,
+    int? opponentScoreQuarter2,
+    int? opponentScoreQuarter3,
+    int? opponentScoreQuarter4,
+    int? opponentScoreOvertime,
+    String? opponentTimeOfPossession,
+    int? opponentFirstDowns,
+    int? opponentFirstDownsByRushing,
+    int? opponentFirstDownsByPassing,
+    int? opponentFirstDownsByPenalty,
+    int? opponentOffensivePlays,
+    int? opponentOffensiveYards,
+    double? opponentOffensiveYardsPerPlay,
+    int? opponentTouchdowns,
+    int? opponentRushingAttempts,
+    int? opponentRushingYards,
+    double? opponentRushingYardsPerAttempt,
+    int? opponentRushingTouchdowns,
+    int? opponentPassingAttempts,
+    int? opponentPassingCompletions,
+    int? opponentPassingYards,
+    int? opponentPassingTouchdowns,
+    int? opponentPassingInterceptions,
+    double? opponentPassingYardsPerAttempt,
+    double? opponentPassingYardsPerCompletion,
+    double? opponentCompletionPercentage,
+    double? opponentPasserRating,
+    int? opponentThirdDownAttempts,
+    int? opponentThirdDownConversions,
+    double? opponentThirdDownPercentage,
+    int? opponentFourthDownAttempts,
+    int? opponentFourthDownConversions,
+    double? opponentFourthDownPercentage,
+    int? opponentRedZoneAttempts,
+    int? opponentRedZoneConversions,
+    int? opponentGoalToGoAttempts,
+    int? opponentGoalToGoConversions,
+    int? opponentReturnYards,
+    int? opponentPenalties,
+    int? opponentPenaltyYards,
+    int? opponentFumbles,
+    int? opponentFumblesLost,
+    int? opponentTimesSacked,
+    int? opponentTimesSackedYards,
+    int? opponentQuarterbackHits,
+    int? opponentTacklesForLoss,
+    int? opponentSafeties,
+    int? opponentPunts,
+    int? opponentPuntYards,
+    double? opponentPuntAverage,
+    int? opponentGiveaways,
+    int? opponentTakeaways,
+    int? opponentTurnoverDifferential,
+    double? redZonePercentage,
+    int? goalToGoPercentage,
+    int? quarterbackHitsDifferential,
+    int? tacklesForLossDifferential,
+    int? quarterbackSacksDifferential,
+    double? tacklesForLossPercentage,
+    double? quarterbackHitsPercentage,
+    double? timesSackedPercentage,
+    double? opponentRedZonePercentage,
+    int? opponentGoalToGoPercentage,
+    int? opponentQuarterbackHitsDifferential,
+    int? opponentTacklesForLossDifferential,
+    int? opponentQuarterbackSacksDifferential,
+    double? opponentTacklesForLossPercentage,
+    double? opponentQuarterbackHitsPercentage,
+    double? opponentTimesSackedPercentage,
+    int? kickoffs,
+    int? kickoffsInEndZone,
+    int? kickoffTouchbacks,
+    int? puntsHadBlocked,
+    double? puntNetAverage,
+    int? extraPointKickingAttempts,
+    int? extraPointKickingConversions,
+    int? extraPointsHadBlocked,
+    int? extraPointPassingAttempts,
+    int? extraPointPassingConversions,
+    int? extraPointRushingAttempts,
+    int? extraPointRushingConversions,
+    int? fieldGoalAttempts,
+    int? fieldGoalsMade,
+    int? fieldGoalsHadBlocked,
+    int? puntReturns,
+    int? puntReturnYards,
+    int? kickReturns,
+    int? kickReturnYards,
+    int? interceptionReturns,
+    int? interceptionReturnYards,
+    int? opponentKickoffs,
+    int? opponentKickoffsInEndZone,
+    int? opponentKickoffTouchbacks,
+    int? opponentPuntsHadBlocked,
+    double? opponentPuntNetAverage,
+    int? opponentExtraPointKickingAttempts,
+    int? opponentExtraPointKickingConversions,
+    int? opponentExtraPointsHadBlocked,
+    int? opponentExtraPointPassingAttempts,
+    int? opponentExtraPointPassingConversions,
+    int? opponentExtraPointRushingAttempts,
+    int? opponentExtraPointRushingConversions,
+    int? opponentFieldGoalAttempts,
+    int? opponentFieldGoalsMade,
+    int? opponentFieldGoalsHadBlocked,
+    int? opponentPuntReturns,
+    int? opponentPuntReturnYards,
+    int? opponentKickReturns,
+    int? opponentKickReturnYards,
+    int? opponentInterceptionReturns,
+    int? opponentInterceptionReturnYards,
+    int? soloTackles,
+    int? assistedTackles,
+    int? sacks,
+    int? sackYards,
+    int? passesDefended,
+    int? fumblesForced,
+    int? fumblesRecovered,
+    int? fumbleReturnYards,
+    int? fumbleReturnTouchdowns,
+    int? interceptionReturnTouchdowns,
+    int? blockedKicks,
+    int? puntReturnTouchdowns,
+    int? puntReturnLong,
+    int? kickReturnTouchdowns,
+    int? kickReturnLong,
+    int? blockedKickReturnYards,
+    int? blockedKickReturnTouchdowns,
+    int? fieldGoalReturnYards,
+    int? fieldGoalReturnTouchdowns,
+    int? puntNetYards,
+    int? opponentSoloTackles,
+    int? opponentAssistedTackles,
+    int? opponentSacks,
+    int? opponentSackYards,
+    int? opponentPassesDefended,
+    int? opponentFumblesForced,
+    int? opponentFumblesRecovered,
+    int? opponentFumbleReturnYards,
+    int? opponentFumbleReturnTouchdowns,
+    int? opponentInterceptionReturnTouchdowns,
+    int? opponentBlockedKicks,
+    int? opponentPuntReturnTouchdowns,
+    int? opponentPuntReturnLong,
+    int? opponentKickReturnTouchdowns,
+    int? opponentKickReturnLong,
+    int? opponentBlockedKickReturnYards,
+    int? opponentBlockedKickReturnTouchdowns,
+    int? opponentFieldGoalReturnYards,
+    int? opponentFieldGoalReturnTouchdowns,
+    int? opponentPuntNetYards,
+    String? teamName,
+    int? games,
+    int? passingDropbacks,
+    int? opponentPassingDropbacks,
+    int? teamSeasonId,
+    int? twoPointConversionReturns,
+    int? opponentTwoPointConversionReturns,
+    int? teamId,
+    int? globalTeamId,
+    int? teamStatId,
   }) =>
       NflTeamStats(
         seasonType: seasonType ?? this.seasonType,
@@ -1304,7 +1346,7 @@ class NflTeamStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'SeasonType': seasonType,
         'Season': season,
         'Team': team,
@@ -1540,7 +1582,7 @@ class NflTeamStats {
         'TeamStatID': teamStatId,
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, Object?> toStatOnlyMap() => {
         'Over Under': overUnder,
         'Point Spread': pointSpread,
         'Score Overtime': scoreOvertime,

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import '../../../../config/assets.dart';
 import '../../../../config/palette.dart';
@@ -5,7 +7,7 @@ import 'dummy_match_card.dart';
 
 class HelpOverlayView extends StatelessWidget {
   const HelpOverlayView({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class HelpOverlayView extends StatelessWidget {
 }
 
 class HelpOverlay extends StatelessWidget {
-  const HelpOverlay({Key key}) : super(key: key);
+  const HelpOverlay({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

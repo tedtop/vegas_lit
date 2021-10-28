@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -13,27 +14,90 @@ import '../../../bet_history/bet_history.dart';
 import '../../../home/home.dart';
 import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../../widgets/textbar.dart';
 
 class MobileLeaderboard extends StatelessWidget {
-  const MobileLeaderboard({Key key, @required this.players}) : super(key: key);
+  const MobileLeaderboard({Key? key, required this.players}) : super(key: key);
 
   final List<Wallet> players;
 
   @override
   Widget build(BuildContext context) {
     final leaderboardState = context.watch<LeaderboardCubit>().state;
-
+    final textList = leaderboardState.days;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        TextBar(
-          text: leaderboardState.day,
-          textList: leaderboardState.days,
-          onPress: (String value) {
-            context.read<LeaderboardCubit>().changeWeek(week: value);
-          },
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 6,
+          ),
+          height: 40,
+          width: 220,
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Container(
+              color: Palette.green,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              width: double.infinity,
+              child: Center(
+                child: DropdownButton<String>(
+                  dropdownColor: Palette.green,
+                  isDense: true,
+                  value: leaderboardState.day,
+                  icon: const Icon(
+                    FontAwesome.angle_down,
+                    color: Palette.cream,
+                  ),
+                  isExpanded: true,
+                  underline: Container(
+                    height: 0,
+                  ),
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                  ),
+                  onChanged: (String? value) {
+                    context.read<LeaderboardCubit>().changeWeek(week: value!);
+                  },
+                  items: textList!.isNotEmpty == true
+                      ? textList.map<DropdownMenuItem<String>>(
+                          (String weekValue) {
+                            String weekFormat;
+                            if (weekValue != 'Current Week') {
+                              final formatValue = weekValue.split('-');
+
+                              weekFormat =
+                                  'Week ${formatValue[1]}, ${formatValue[0]}';
+
+                              // final dateTime = DateTime(
+                              //   int.parse(formatValue[0]),
+                              //   int.parse(formatValue[1]),
+                              //   int.parse(formatValue[2]),
+                              // );
+                              // dateFormat = DateFormat('MMMM c, y').format(dateTime);
+                            } else {
+                              weekFormat = weekValue;
+                            }
+                            return DropdownMenuItem<String>(
+                              value: weekValue,
+                              child: Text(
+                                weekFormat,
+                                textAlign: TextAlign.left,
+                                style: Styles.leaderboardDropdown,
+                              ),
+                            );
+                          },
+                        ).toList()
+                      : const [],
+                ),
+              ),
+            ),
+          ),
         ),
+
         const SizedBox(
           height: 10,
         ),
@@ -65,7 +129,6 @@ class MobileLeaderboard extends StatelessWidget {
                           ),
                         ),
                       );
-                break;
               case LeaderboardStatus.weekChanged:
                 return leaderboardState.rankedUserList.isNotEmpty
                     ? Column(
@@ -137,14 +200,14 @@ class MobileLeaderboard extends StatelessWidget {
 }
 
 class MobileLeaderboardTile extends StatelessWidget {
-  MobileLeaderboardTile({@required this.player, @required this.rank});
+  MobileLeaderboardTile({required this.player, required this.rank});
   final Wallet player;
   final int rank;
 
   @override
   Widget build(BuildContext context) {
     final currentUserUid =
-        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+        context.select((HomeCubit cubit) => cubit.state.userWallet?.uid);
     final week = context.watch<LeaderboardCubit>().state.day;
     return Container(
       width: 380,
@@ -166,7 +229,7 @@ class MobileLeaderboardTile extends StatelessWidget {
               context.read<HistoryCubit>().changeWeek(week: week);
               context.read<HomeCubit>().homeChange(4);
             } else {
-              Navigator.of(context).push(
+              Navigator.of(context).push<void>(
                 LeaderboardProfile.route(
                   uid: player.uid,
                   homeCubit: context.read<HomeCubit>(),
@@ -178,8 +241,9 @@ class MobileLeaderboardTile extends StatelessWidget {
           leading: player.avatarUrl != null && !kIsWeb
               ? CircleAvatar(
                   radius: 25,
-                  backgroundImage: CachedNetworkImageProvider(player.avatarUrl,
-                      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet),
+                  backgroundImage: CachedNetworkImageProvider(
+                    player.avatarUrl!,
+                  ), //Image for web configuration.
                 )
               : CircleAvatar(
                   radius: 25,
@@ -187,9 +251,10 @@ class MobileLeaderboardTile extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       color: Palette.darkGrey,
-                      height: 50.0,
-                      width: 50.0,
-                      child: Text(player.username.substring(0, 1).toUpperCase(),
+                      height: 50,
+                      width: 50,
+                      child: Text(
+                          player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
                     ),
                   ),
@@ -203,7 +268,7 @@ class MobileLeaderboardTile extends StatelessWidget {
                 style: Styles.normalTextBold,
               ),
               Text(
-                '${player.accountBalance + player.pendingRiskedAmount - player.totalRewards}',
+                '${player.accountBalance! + player.pendingRiskedAmount! - player.totalRewards!}',
                 style: GoogleFonts.nunito(
                   fontSize: 18,
                   color: Palette.green,
@@ -216,7 +281,7 @@ class MobileLeaderboardTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets - (player.totalBetsWon + player.totalBetsLost + player.totalOpenBets)}',
+                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets! - (player.totalBetsWon! + player.totalBetsLost! + player.totalOpenBets!)}',
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   color: Palette.cream,
@@ -224,8 +289,8 @@ class MobileLeaderboardTile extends StatelessWidget {
               ),
               Text(
                 leaderboardWinningBetsRatio(
-                  player.totalBetsWon,
-                  player.totalBetsLost,
+                  player.totalBetsWon!,
+                  player.totalBetsLost!,
                 ),
                 style: GoogleFonts.nunito(
                   fontSize: 15,

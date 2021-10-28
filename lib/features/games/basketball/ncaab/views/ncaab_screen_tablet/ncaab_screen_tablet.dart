@@ -1,12 +1,14 @@
+
+
 import 'package:flutter/material.dart';
 import '../../../../../../data/models/ncaab/ncaab_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class TabletNcaabScreen extends StatelessWidget {
   TabletNcaabScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<NcaabGame> games;
-  final String gameName;
-  final dynamic parsedTeamData;
+  final List<NcaabGame>? games;
+  final String? gameName;
+  final List? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -14,7 +16,7 @@ class TabletNcaabScreen extends StatelessWidget {
         crossAxisCount: 2,
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
-        children: games
+        children: games!
             .map(
               (game) => MatchupCard.route(
                 game: game,

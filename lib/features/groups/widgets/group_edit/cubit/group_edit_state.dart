@@ -1,3 +1,5 @@
+
+
 part of 'group_edit_cubit.dart';
 
 enum GroupEditStatus {
@@ -14,14 +16,14 @@ class GroupEditState extends Equatable {
   });
 
   final GroupEditStatus status;
-  final File avatarFile;
+  final File? avatarFile;
 
   @override
-  List<Object> get props => [status, avatarFile];
+  List<Object?> get props => [status, avatarFile];
 
   GroupEditState copyWith({
-    GroupEditStatus status,
-    File avatarFile,
+    GroupEditStatus? status,
+    File? avatarFile,
   }) {
     return GroupEditState(
       status: status ?? this.status,

@@ -2,21 +2,20 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:meta/meta.dart';
 
 part 'internet_state.dart';
 
 class InternetCubit extends Cubit<InternetState> {
-  InternetCubit({@required this.connectivity}) : super(InternetLoading()) {
+  InternetCubit({required this.connectivity}) : super(InternetLoading()) {
     monitorInternetConnection();
   }
 
-  final Connectivity connectivity;
-  StreamSubscription connectivityStreamSubscription;
+  final Connectivity? connectivity;
+  StreamSubscription? connectivityStreamSubscription;
 
   Future<StreamSubscription<ConnectivityResult>>
       monitorInternetConnection() async {
-    final currentStatus = await connectivity.checkConnectivity();
+    final currentStatus = await connectivity!.checkConnectivity();
     if (currentStatus == ConnectivityResult.wifi) {
       emitInternetConnected(ConnectionType.wifi);
     } else if (currentStatus == ConnectivityResult.mobile) {
@@ -26,7 +25,7 @@ class InternetCubit extends Cubit<InternetState> {
     }
     await connectivityStreamSubscription?.cancel();
     return connectivityStreamSubscription =
-        connectivity.onConnectivityChanged.listen(
+        connectivity!.onConnectivityChanged.listen(
       (connectivityResult) {
         if (connectivityResult == ConnectivityResult.wifi) {
           emitInternetConnected(ConnectionType.wifi);
@@ -40,7 +39,7 @@ class InternetCubit extends Cubit<InternetState> {
   }
 
   Future<void> checkInternetConnection() async {
-    final currentStatus = await connectivity.checkConnectivity();
+    final currentStatus = await connectivity!.checkConnectivity();
     if (currentStatus == ConnectivityResult.wifi) {
       emitInternetConnected(ConnectionType.wifi);
     } else if (currentStatus == ConnectivityResult.mobile) {
@@ -57,7 +56,7 @@ class InternetCubit extends Cubit<InternetState> {
 
   @override
   Future<void> close() async {
-    await connectivityStreamSubscription.cancel();
+    await connectivityStreamSubscription?.cancel();
     return super.close();
   }
 }

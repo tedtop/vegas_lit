@@ -14,9 +14,9 @@ import '../group_add/group_add.dart';
 import 'cubit/group_requests_cubit.dart';
 
 class GroupRequests extends StatelessWidget {
-  const GroupRequests._({Key key}) : super(key: key);
+  const GroupRequests._({Key? key}) : super(key: key);
 
-  static Builder route({@required String uid}) {
+  static Builder route({required String? uid}) {
     return Builder(
       builder: (context) {
         return BlocProvider(
@@ -46,7 +46,7 @@ class GroupRequests extends StatelessWidget {
                       style: Styles.greenTextBold,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(
+                          Navigator.push<void>(
                             context,
                             GroupAdd.route(
                               storageRepository:
@@ -67,14 +67,14 @@ class GroupRequests extends StatelessWidget {
               switch (state.status) {
                 case GroupRequestsStatus.initial:
                   return const SizedBox();
-                  break;
+
                 case GroupRequestsStatus.loading:
                   return const Center(
                     child: CircularProgressIndicator(
                       color: Palette.cream,
                     ),
                   );
-                  break;
+
                 case GroupRequestsStatus.success:
                   if (state.groups.isEmpty) {
                     return Center(
@@ -86,7 +86,7 @@ class GroupRequests extends StatelessWidget {
                   } else {
                     return const GroupRequestsList();
                   }
-                  break;
+
                 case GroupRequestsStatus.failure:
                   return Center(
                     child: Text(
@@ -94,10 +94,9 @@ class GroupRequests extends StatelessWidget {
                       style: GoogleFonts.nunito(),
                     ),
                   );
-                  break;
+
                 default:
                   return const SizedBox();
-                  break;
               }
             },
           ),
@@ -108,12 +107,12 @@ class GroupRequests extends StatelessWidget {
 }
 
 class GroupRequestsList extends StatelessWidget {
-  const GroupRequestsList({Key key}) : super(key: key);
+  const GroupRequestsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final groupList = context.select(
-      (GroupRequestsCubit cubit) => cubit.state?.groups,
+      (GroupRequestsCubit cubit) => cubit.state.groups,
     );
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
@@ -131,8 +130,8 @@ class GroupRequestsList extends StatelessWidget {
 
 class GroupRequestsListTile extends StatelessWidget {
   const GroupRequestsListTile({
-    Key key,
-    @required Group group,
+    Key? key,
+    required Group group,
   })  : assert(group != null),
         _group = group,
         super(key: key);
@@ -142,8 +141,8 @@ class GroupRequestsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final groupUsersLength =
-        _group.users.values.where((element) => element == true).length;
-    final userId = context.watch<AuthenticationBloc>().state.user.uid;
+        _group.users!.values.where((element) => element == true).length;
+    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -163,11 +162,11 @@ class GroupRequestsListTile extends StatelessWidget {
           size: 35,
         ),
         title: Text(
-          _group.name,
+          _group.name!,
           style: Styles.leaderboardUsername,
         ),
         subtitle: Text(
-          _group.isPublic ? 'Public Group' : 'Private Group',
+          _group.isPublic! ? 'Public Group' : 'Private Group',
           style: Styles.normalText.copyWith(fontSize: 14),
         ),
         trailing: Column(
@@ -176,7 +175,7 @@ class GroupRequestsListTile extends StatelessWidget {
               '$groupUsersLength${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
-                        _group.userLimit > _group.users.length
+                        _group.userLimit! > _group.users!.length
                     ? Palette.green
                     : Palette.red,
               ),

@@ -9,7 +9,7 @@ import '../olympics.dart';
 import '../widgets/matchup_card/olympics_matchup_card.dart';
 
 class OlympicsScreen extends StatelessWidget {
-  const OlympicsScreen._({Key key}) : super(key: key);
+  const OlympicsScreen._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -38,9 +38,9 @@ class OlympicsScreen extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           default:
-            if (state.games.isEmpty) {
+            if (state.games!.isEmpty) {
               return Column(
                 children: [
                   Padding(
@@ -61,13 +61,13 @@ class OlympicsScreen extends StatelessWidget {
               );
             } else {
               return ListView.builder(
-                key: Key('${state.games.length}'),
+                key: Key('${state.games!.length}'),
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: state.games.length,
+                itemCount: state.games!.length,
                 itemBuilder: (context, index) {
                   return OlympicsMatchupCard.route(
-                    game: state.games[index],
+                    game: state.games![index],
                     gameName: state.league,
                   );
                 },

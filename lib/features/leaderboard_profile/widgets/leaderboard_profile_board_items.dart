@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,9 +8,9 @@ import '../../../config/styles.dart';
 
 class LeaderboardProfileHistoryBoardText extends StatelessWidget {
   const LeaderboardProfileHistoryBoardText({
-    Key key,
-    @required this.leftText,
-    @required this.rightText,
+    Key? key,
+    required this.leftText,
+    required this.rightText,
     this.color = Palette.cream,
   }) : super(key: key);
 
@@ -48,9 +50,9 @@ class LeaderboardProfileHistoryBoardText extends StatelessWidget {
 
 class DesktopBetHistoryBoardItem extends StatelessWidget {
   const DesktopBetHistoryBoardItem(
-      {Key key, this.topText, this.bottomText, this.color = Palette.cream})
+      {Key? key, this.topText, this.bottomText, this.color = Palette.cream})
       : super(key: key);
-  final String topText, bottomText;
+  final String? topText, bottomText;
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -69,11 +71,11 @@ class DesktopBetHistoryBoardItem extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            topText,
+            topText!,
             style: Styles.pageTitle.copyWith(color: color),
           ),
           Text(
-            bottomText,
+            bottomText!,
             style: Styles.normalTextBold,
           )
         ],

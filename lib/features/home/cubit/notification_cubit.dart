@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:meta/meta.dart';
 
 import '../../../data/models/notification.dart';
 import '../../../data/repositories/device_repository.dart';
@@ -11,7 +10,7 @@ import '../../../data/repositories/device_repository.dart';
 part 'notification_state.dart';
 
 class NotificationCubit extends Cubit<NotificationState> {
-  NotificationCubit({@required DeviceRepository deviceRepository})
+  NotificationCubit({required DeviceRepository deviceRepository})
       : assert(deviceRepository != null),
         _deviceRepository = deviceRepository,
         super(
@@ -19,8 +18,8 @@ class NotificationCubit extends Cubit<NotificationState> {
         );
 
   final DeviceRepository _deviceRepository;
-  StreamSubscription _foregroundNotification;
-  StreamSubscription _backgroundNotificationOpened;
+  StreamSubscription? _foregroundNotification;
+  StreamSubscription? _backgroundNotificationOpened;
 
   Future<void> initializePushNotification() async {
     emit(
@@ -43,8 +42,8 @@ class NotificationCubit extends Cubit<NotificationState> {
               notification: PushNotification(
                 title: message.notification?.title,
                 body: message.notification?.body,
-                dataTitle: message.data['title'],
-                dataBody: message.data['body'],
+                dataTitle: message.data['title'] as String?,
+                dataBody: message.data['body'] as String?,
               ),
             ),
           );
@@ -67,8 +66,8 @@ class NotificationCubit extends Cubit<NotificationState> {
             notification: PushNotification(
               title: initialMessage.notification?.title,
               body: initialMessage.notification?.body,
-              dataTitle: initialMessage.data['title'],
-              dataBody: initialMessage.data['body'],
+              dataTitle: initialMessage.data['title'] as String?,
+              dataBody: initialMessage.data['body'] as String?,
             ),
           ),
         );

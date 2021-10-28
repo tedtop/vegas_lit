@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 import '../../../../config/extensions.dart';
 
 import '../../../../data/models/golf/golf.dart';
@@ -9,7 +9,7 @@ import '../../../../data/repositories/sports_repository.dart';
 part 'golf_state.dart';
 
 class GolfCubit extends Cubit<GolfState> {
-  GolfCubit({@required SportsRepository sportsfeedRepository})
+  GolfCubit({required SportsRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
@@ -26,7 +26,7 @@ class GolfCubit extends Cubit<GolfState> {
     emit(GolfTournamentsOpened(tournaments: tournaments));
   }
 
-  Future<void> fetchTournamentDetails({int tournamentID}) async {
+  Future<void> fetchTournamentDetails({int? tournamentID}) async {
     emit(GolfInitial());
     GolfLeaderboard leaderboard;
     leaderboard = await _sportsfeedRepository.fetchGolfLeaderboard(
@@ -36,7 +36,7 @@ class GolfCubit extends Cubit<GolfState> {
   }
 
   Future<void> fetchPlayerDetails(
-      {GolfTournament tournament, GolfPlayer player}) async {
+      {required GolfTournament tournament, GolfPlayer? player}) async {
     emit(GolfInitial());
     emit(GolfPlayerOpened(
         player: player,

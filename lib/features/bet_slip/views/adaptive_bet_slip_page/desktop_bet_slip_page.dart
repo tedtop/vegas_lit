@@ -8,7 +8,7 @@ import '../../widgets/bet_slip_empty.dart';
 import '../../widgets/bet_slip_list.dart';
 
 class DesktopBetSlipPage extends StatelessWidget {
-  const DesktopBetSlipPage({Key key}) : super(key: key);
+  const DesktopBetSlipPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class DesktopBetSlipPage extends StatelessWidget {
             builder: (context, state) {
               switch (state.status) {
                 case BetSlipStatus.opened:
-                  return state.singleBetSlipCard.isEmpty
+                  return state.singleBetSlipCard!.isEmpty
                       ? EmptyBetSlip()
                       // AbstractCard(
                       //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,21 +50,20 @@ class DesktopBetSlipPage extends StatelessWidget {
                       //   )
 
                       : SingleBetSlipList();
-                  // ListView.builder(
-                  //     reverse: true,
-                  //     shrinkWrap: true,
-                  //     physics: const ClampingScrollPhysics(),
-                  //     itemCount: betSlipState.betSlipCard.length,
-                  //     itemBuilder: (context, index) {
-                  //       return betSlipState.betSlipCard[index];
-                  //     },
-                  //   );
-                  break;
+                // ListView.builder(
+                //     reverse: true,
+                //     shrinkWrap: true,
+                //     physics: const ClampingScrollPhysics(),
+                //     itemCount: betSlipState.betSlipCard.length,
+                //     itemBuilder: (context, index) {
+                //       return betSlipState.betSlipCard[index];
+                //     },
+                //   );
+
                 default:
                   return const CircularProgressIndicator(
                     color: Palette.cream,
                   );
-                  break;
               }
             },
           ),
@@ -93,7 +92,7 @@ class DesktopBetSlipPage extends StatelessWidget {
 }
 
 class DesktopBetSlipUpper extends StatelessWidget {
-  const DesktopBetSlipUpper({Key key}) : super(key: key);
+  const DesktopBetSlipUpper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +132,7 @@ class DesktopBetSlipUpper extends StatelessWidget {
                   width: 42,
                   child: Center(
                     child: Text(
-                      state.singleBetSlipCard.length.toString(),
+                      state.singleBetSlipCard!.length.toString(),
                       style: GoogleFonts.nunito(
                         color: Palette.darkGrey,
                         fontSize: 18,
@@ -142,12 +141,11 @@ class DesktopBetSlipUpper extends StatelessWidget {
                     ),
                   ),
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),

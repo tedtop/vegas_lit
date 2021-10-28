@@ -14,26 +14,26 @@ import '../../../models/ncaaf_team.dart';
 import '../cubit/bet_button_cubit.dart';
 
 class BetButton extends StatelessWidget {
-  const BetButton._({Key key}) : super(key: key);
+  const BetButton._({Key? key}) : super(key: key);
 
   static Builder route({
-    @required String text,
-    @required NcaafGame game,
-    @required Bet betType,
-    @required String mainOdds,
-    @required NcaafTeam awayTeamData,
-    @required String league,
-    @required NcaafTeam homeTeamData,
-    @required int gameId,
-    @required double spread,
-    @required BetButtonWin winTeam,
-    @required bool isClosed,
+    required String text,
+    required NcaafGame game,
+    required Bet betType,
+    required String mainOdds,
+    required NcaafTeam awayTeamData,
+    required String league,
+    required NcaafTeam homeTeamData,
+    required int? gameId,
+    required double spread,
+    required BetButtonWin winTeam,
+    required bool? isClosed,
   }) {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
-              authenticationBloc.state?.user?.uid,
+              authenticationBloc.state.user?.uid,
         );
         return BlocProvider(
           create: (_) => NcaafBetButtonCubit(
@@ -87,7 +87,6 @@ class BetButton extends StatelessWidget {
                   );
               break;
             default:
-              break;
           }
         },
         child: Builder(
@@ -96,25 +95,22 @@ class BetButton extends StatelessWidget {
             switch (betButtonState.status) {
               case NcaafBetButtonStatus.unclicked:
                 return BetButtonUnclicked();
-                break;
+
               case NcaafBetButtonStatus.clicked:
                 return BetButtonClicked();
-                break;
 
               case NcaafBetButtonStatus.placed:
                 return BetButtonUnclicked();
-                break;
 
               case NcaafBetButtonStatus.placing:
                 return const CircularProgressIndicator(
                   color: Palette.green,
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),
@@ -128,7 +124,7 @@ class BetButtonUnclicked extends StatelessWidget {
   Widget build(BuildContext context) {
     final betButtonState = context.watch<NcaafBetButtonCubit>().state;
     final username = context.select(
-      (HomeCubit homeBloc) => homeBloc.state?.userData?.username,
+      (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
 
     return Padding(
@@ -209,7 +205,7 @@ class BetButtonClicked extends StatelessWidget {
   }
 }
 
-String whichBetSystemToSave({@required Bet betType}) {
+String whichBetSystemToSave({required Bet betType}) {
   if (betType == Bet.ml) {
     return 'moneyline';
   }

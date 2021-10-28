@@ -8,12 +8,12 @@ import '../bet_history.dart';
 import 'bet_history_board_items.dart';
 
 class BetHistoryBoardContent extends StatelessWidget {
-  const BetHistoryBoardContent({Key key}) : super(key: key);
+  const BetHistoryBoardContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final userWallet =
-        context.select((HistoryCubit cubit) => cubit.state.userWallet);
+        context.select((HistoryCubit cubit) => cubit.state.userWallet!);
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -64,7 +64,7 @@ class BetHistoryBoardContent extends StatelessWidget {
                         BetHistoryBoardText(
                           leftText: 'Cancelled',
                           rightText:
-                              '${userWallet.totalBets - (userWallet.totalBetsWon + userWallet.totalBetsLost + userWallet.totalOpenBets)}',
+                              '${userWallet.totalBets! - (userWallet.totalBetsWon! + userWallet.totalBetsLost! + userWallet.totalOpenBets!)}',
                         ),
                         BetHistoryBoardText(
                           leftText: 'Total',
@@ -93,7 +93,7 @@ class BetHistoryBoardContent extends StatelessWidget {
                         BetHistoryBoardText(
                           leftText: 'Total Won',
                           rightText:
-                              '${userWallet.totalRiskedAmount + userWallet.totalProfit - userWallet.totalLoss - userWallet.pendingRiskedAmount}',
+                              '${userWallet.totalRiskedAmount! + userWallet.totalProfit! - userWallet.totalLoss! - userWallet.pendingRiskedAmount!}',
                         ),
                         // BetHistoryBoardText(
                         //   leftText: 'Biggest Win',
@@ -128,23 +128,5 @@ class BetHistoryBoardContent extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-extension on int {
-  String get ordinalNumber {
-    if (this >= 11 && this <= 13) {
-      return '${this}th';
-    }
-    switch (this % 10) {
-      case 1:
-        return '${this}st';
-      case 2:
-        return '${this}nd';
-      case 3:
-        return '${this}rd';
-      default:
-        return '${this}th';
-    }
   }
 }

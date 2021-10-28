@@ -1,3 +1,5 @@
+
+
 part of 'history_cubit.dart';
 
 enum HistoryStatus { initial, loading, success, failure, empty }
@@ -14,11 +16,11 @@ class HistoryState extends Equatable {
 
   final HistoryStatus status;
   final List<BetData> bets;
-  final Wallet userWallet;
+  final Wallet? userWallet;
   final List<String> weeks;
-  final String week;
-  final String uid;
+  final String? week;
+  final String? uid;
 
   @override
-  List<Object> get props => [status, bets, userWallet, weeks, week, uid];
+  List<Object?> get props => [status, bets, userWallet, weeks, week, uid];
 }

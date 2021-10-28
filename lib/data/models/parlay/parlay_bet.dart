@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
 import 'package:vegas_lit/data/models/nba/nba_bet.dart';
 import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
@@ -11,19 +11,19 @@ import '../bet.dart';
 
 class ParlayBets extends BetData {
   ParlayBets({
-    @required id,
-    @required uid,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required clientVersion,
-    @required dataProvider,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
-    @required gameStartDateTime,
-    @required this.bets,
+    required String? id,
+    required int? betAmount,
+    required int? betProfit,
+    required String? username,
+    required String? dataProvider,
+    required String? clientVersion,
+    required String? uid,
+    required String? dateTime,
+    required String? week,
+    required bool? isClosed,
+    required String? league,
+    required String? gameStartDateTime,
+    required this.bets,
     this.snapshot,
     this.reference,
     this.documentID,
@@ -43,51 +43,50 @@ class ParlayBets extends BetData {
         );
 
   factory ParlayBets.fromFirestore(DocumentSnapshot snapshot) {
-    if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map<String, dynamic>;
 
     return ParlayBets(
       bets: map['bets'] != null
           ? List<BetData>.from(
               map['bets'].map(
-                (betValue) {
-                  final bet = Map<String, dynamic>.from(betValue);
-                  switch (bet['league'] as String) {
+                (dynamic betValue) {
+                  final bet = Map<String, dynamic>.from(
+                      betValue as Map<dynamic, dynamic>);
+                  switch (bet['league'] as String?) {
                     case 'mlb':
                       return MlbBetData.fromMap(bet);
-                      break;
+
                     case 'nba':
                       return NbaBetData.fromMap(bet);
-                      break;
+
                     case 'cbb':
                       return NcaabBetData.fromMap(bet);
-                      break;
+
                     case 'cfb':
                       return NcaafBetData.fromMap(bet);
-                      break;
+
                     case 'nfl':
                       return NflBetData.fromMap(bet);
-                      break;
+
                     case 'nhl':
                       return NhlBetData.fromMap(bet);
-                      break;
                   }
                 },
-              ),
+              ) as Iterable<dynamic>,
             )
           : null,
-      id: map['id'],
-      gameStartDateTime: map['gameStartDateTime'] as String,
-      uid: map['uid'],
-      betAmount: map['betAmount'],
-      betProfit: map['betProfit'],
-      username: map['username'],
-      clientVersion: map['clientVersion'],
-      dataProvider: map['dataProvider'],
-      dateTime: map['dateTime'],
-      week: map['week'],
-      isClosed: map['isClosed'],
-      league: map['league'],
+      id: map['id'] as String?,
+      gameStartDateTime: map['gameStartDateTime'] as String?,
+      uid: map['uid'] as String?,
+      betAmount: map['betAmount'] as int?,
+      betProfit: map['betProfit'] as int?,
+      username: map['username'] as String?,
+      clientVersion: map['clientVersion'] as String?,
+      dataProvider: map['dataProvider'] as String?,
+      dateTime: map['dateTime'] as String?,
+      week: map['week'] as String?,
+      isClosed: map['isClosed'] as bool?,
+      league: map['league'] as String?,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -95,28 +94,36 @@ class ParlayBets extends BetData {
   }
 
   factory ParlayBets.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return ParlayBets(
-      bets: map['bets'] != null ? List<BetData>.from(map['bets']) : null,
-      id: map['id'],
-      gameStartDateTime: map['gameStartDateTime'] as String,
-      uid: map['uid'],
-      betAmount: map['betAmount'],
-      betProfit: map['betProfit'],
-      username: map['username'],
-      clientVersion: map['clientVersion'],
-      dataProvider: map['dataProvider'],
-      dateTime: map['dateTime'],
-      week: map['week'],
-      isClosed: map['isClosed'],
-      league: map['league'],
+      bets: map['bets'] != null
+          ? List<BetData>.from(
+              map['bets'] as Iterable<dynamic>,
+            )
+          : null,
+      id: map['id'] as String?,
+      gameStartDateTime: map['gameStartDateTime'] as String?,
+      uid: map['uid'] as String?,
+      betAmount: map['betAmount'] as int?,
+      betProfit: map['betProfit'] as int?,
+      username: map['username'] as String?,
+      clientVersion: map['clientVersion'] as String?,
+      dataProvider: map['dataProvider'] as String?,
+      dateTime: map['dateTime'] as String?,
+      week: map['week'] as String?,
+      isClosed: map['isClosed'] as bool?,
+      league: map['league'] as String?,
     );
   }
 
+  final List<BetData>? bets;
+
+  final DocumentSnapshot? snapshot;
+  final DocumentReference? reference;
+  final String? documentID;
+
   @override
-  Map<String, dynamic> toMap() => {
-        'bets': bets.map((e) => e.toMap()).toList(),
+  Map<String, Object?> toMap() => {
+        'bets': bets!.map((e) => e.toMap()).toList(),
         'id': id,
         'uid': uid,
         'betAmount': betAmount,
@@ -132,19 +139,19 @@ class ParlayBets extends BetData {
       };
 
   ParlayBets copyWith({
-    List<BetData> bets,
-    String id,
-    String uid,
-    int betAmount,
-    int betProfit,
-    String username,
-    String gameStartDateTime,
-    String clientVersion,
-    String dataProvider,
-    String dateTime,
-    String week,
-    bool isClosed,
-    String league,
+    List<BetData>? bets,
+    String? id,
+    String? uid,
+    int? betAmount,
+    int? betProfit,
+    String? username,
+    String? gameStartDateTime,
+    String? clientVersion,
+    String? dataProvider,
+    String? dateTime,
+    String? week,
+    bool? isClosed,
+    String? league,
   }) {
     return ParlayBets(
       bets: bets ?? this.bets,
@@ -162,10 +169,4 @@ class ParlayBets extends BetData {
       league: league ?? this.league,
     );
   }
-
-  final List<BetData> bets;
-
-  final DocumentSnapshot snapshot;
-  final DocumentReference reference;
-  final String documentID;
 }

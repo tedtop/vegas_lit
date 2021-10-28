@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +11,7 @@ import '../../config/styles.dart';
 import '../../utils/route_aware_analytics.dart';
 
 class RulesDialog extends StatefulWidget {
-  const RulesDialog._({Key key}) : super(key: key);
+  const RulesDialog._({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -173,9 +175,9 @@ class _RulesDialogList extends StatelessWidget {
 
 class _OrderedListItem extends StatelessWidget {
   const _OrderedListItem({
-    Key key,
-    @required this.index,
-    @required this.rule,
+    Key? key,
+    required this.index,
+    required this.rule,
   }) : super(key: key);
 
   final int index;

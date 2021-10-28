@@ -8,9 +8,9 @@ import 'package:vegas_lit/config/palette.dart';
 import 'cubit/group_scanner_cubit.dart';
 
 class GroupScanner extends StatelessWidget {
-  GroupScanner._({Key key}) : super(key: key);
+  GroupScanner._({Key? key}) : super(key: key);
 
-  static Route route({@required GroupScannerCubit cubit}) {
+  static Route route({required GroupScannerCubit cubit}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'GroupScanner'),
       builder: (context) => BlocProvider.value(
@@ -66,16 +66,14 @@ class GroupScanner extends StatelessWidget {
               switch (state.status) {
                 case GroupScannerStatus.remove:
                   return Container();
-                  break;
+
                 case GroupScannerStatus.initial:
                   return const SizedBox();
-                  break;
+
                 case GroupScannerStatus.success:
                   return Expanded(
-                    flex: 1,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         IconButton(
                           iconSize: 25,
@@ -84,7 +82,7 @@ class GroupScanner extends StatelessWidget {
                                 .read<GroupScannerCubit>()
                                 .changeFlashStatus();
                           },
-                          icon: state.flash
+                          icon: state.flash!
                               ? const Icon(Icons.flash_on, color: Palette.cream)
                               : const Icon(Icons.flash_off,
                                   color: Palette.cream),
@@ -96,7 +94,7 @@ class GroupScanner extends StatelessWidget {
                                 .read<GroupScannerCubit>()
                                 .changeCameraPosition();
                           },
-                          icon: describeEnum(state.camera) == 'front'
+                          icon: describeEnum(state.camera!) == 'front'
                               ? const Icon(
                                   Icons.camera_rear,
                                   color: Palette.cream,
@@ -109,10 +107,9 @@ class GroupScanner extends StatelessWidget {
                       ],
                     ),
                   );
-                  break;
+
                 default:
                   return Expanded(
-                    flex: 1,
                     child: Center(
                       child: Text(
                         'Couldn\'t open the scanner',
@@ -120,7 +117,6 @@ class GroupScanner extends StatelessWidget {
                       ),
                     ),
                   );
-                  break;
               }
             },
           )

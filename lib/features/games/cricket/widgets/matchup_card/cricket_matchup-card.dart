@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,11 +11,11 @@ import '../../../../../data/models/cricket/cricket.dart';
 import 'cubit/cricket_matchup_card_cubit.dart';
 
 class CricketMatchupCard extends StatelessWidget {
-  const CricketMatchupCard._({Key key}) : super(key: key);
+  const CricketMatchupCard._({Key? key}) : super(key: key);
 
   static Builder route({
-    @required CricketDatum gamec,
-    @required String gameName,
+    required CricketDatum gamec,
+    required String gameName,
   }) {
     return Builder(
       builder: (_) {
@@ -77,7 +79,7 @@ class CricketMatchupCard extends StatelessWidget {
                                         //   ),
                                         // ),
                                         Text(
-                                          state.awayTeamData.title
+                                          state.awayTeamData.title!
                                               .toUpperCase(),
                                           textAlign: TextAlign.center,
                                           style: Styles.awayTeam,
@@ -153,7 +155,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   style: Styles.matchupSeparator,
                                 ),
                                 const SizedBox(height: 22),
-                                gameData.sites[0].odds == null
+                                gameData.sites![0].odds == null
                                     ? Container()
                                     : _betButtonSeparator(text: 'ML'),
                               ],
@@ -173,7 +175,7 @@ class CricketMatchupCard extends StatelessWidget {
                                       //   ),
                                       // ),
                                       Text(
-                                        state.homeTeamData.title.toUpperCase(),
+                                        state.homeTeamData.title!.toUpperCase(),
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.nunito(
                                           fontSize: 16,
@@ -274,7 +276,7 @@ class CricketMatchupCard extends StatelessWidget {
                             children: [
                               Text(
                                 DateFormat('EEEE, MMMM, c, y @ hh:mm a').format(
-                                  state.game.commenceTime.toLocal(),
+                                  state.game.commenceTime!.toLocal(),
                                 ),
                                 style: Styles.matchupTime,
                               ),
@@ -296,7 +298,7 @@ class CricketMatchupCard extends StatelessWidget {
   }
 
   Widget _betButtonSeparator({
-    String text,
+    required String text,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),

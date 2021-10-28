@@ -15,8 +15,8 @@ import '../../../models/username.dart';
 import '../../login/login.dart';
 import '../sign_up.dart';
 
-String confirmedPasswordError(
-    ConfirmedPasswordValidationError validationError) {
+String? confirmedPasswordError(
+    ConfirmedPasswordValidationError? validationError) {
   if (validationError == ConfirmedPasswordValidationError.invalid) {
     return 'Passwords do not match';
   } else if (validationError == ConfirmedPasswordValidationError.empty) {
@@ -26,7 +26,7 @@ String confirmedPasswordError(
   }
 }
 
-String emailError(EmailValidationError validationError) {
+String? emailError(EmailValidationError? validationError) {
   if (validationError == EmailValidationError.invalid) {
     return 'Invalid email address';
   } else if (validationError == EmailValidationError.empty) {
@@ -36,7 +36,7 @@ String emailError(EmailValidationError validationError) {
   }
 }
 
-String passwordError(PasswordValidationError validationError) {
+String? passwordError(PasswordValidationError? validationError) {
   if (validationError == PasswordValidationError.invalid) {
     return 'Must be a combination of at least 6 letters and numbers';
   } else if (validationError == PasswordValidationError.empty) {
@@ -46,7 +46,7 @@ String passwordError(PasswordValidationError validationError) {
   }
 }
 
-String usernameError(UsernameValidationError validationError) {
+String? usernameError(UsernameValidationError? validationError) {
   if (validationError == UsernameValidationError.invalid) {
     return 'Invalid Format';
   } else if (validationError == UsernameValidationError.empty) {
@@ -71,7 +71,7 @@ class SignUpForm extends StatelessWidget {
             ..showSnackBar(
               SnackBar(
                 content: Text(
-                  state.signUpErrorMessage,
+                  state.signUpErrorMessage!,
                 ),
               ),
             );
@@ -130,7 +130,6 @@ class _AgreementCheck extends StatelessWidget {
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -177,7 +176,6 @@ class _AgreementCheck extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(
                     width: 40,
@@ -321,8 +319,9 @@ class _ExistingAccountSignIn extends StatelessWidget {
           ),
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
-            onPressed: () =>
-                Navigator.of(context).pushReplacement(LoginPage.route()),
+            onPressed: () => Navigator.of(context).pushReplacement<void, void>(
+              LoginPage.route(),
+            ),
             child: Text(
               'Log In',
               style: Styles.authButtonText,
@@ -536,11 +535,38 @@ class _SignUpButton extends StatelessWidget {
               ? const CircularProgressIndicator(
                   color: Palette.cream,
                 )
-              : DefaultButton(
-                  text: 'SIGN UP',
-                  action: () {
-                    context.read<SignUpCubit>().signUpFormSubmitted();
-                  },
+              : SizedBox(
+                  width: 174,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(
+                              vertical: 10,
+                            ),
+                          ),
+                          elevation:
+                              MaterialStateProperty.all(Styles.normalElevation),
+                          shape: MaterialStateProperty.all(Styles.smallRadius),
+                          textStyle: MaterialStateProperty.all(
+                            const TextStyle(color: Palette.cream),
+                          ),
+                          backgroundColor:
+                              MaterialStateProperty.all(Palette.green),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                      child: Text(
+                        'SIGN UP',
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () {
+                        context.read<SignUpCubit>().signUpFormSubmitted();
+                      },
+                    ),
+                  ),
                 );
         },
       ),
@@ -633,7 +659,6 @@ class _StateInput extends StatelessWidget {
                         context.read<SignUpCubit>().americanStateChanged(value),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(
                         width: 5,
@@ -724,7 +749,7 @@ class _UsernameInput extends StatelessWidget {
 
 class DropDown<T> extends StatefulWidget {
   DropDown({
-    @required this.items,
+    required this.items,
     this.customWidgets,
     this.initialValue,
     this.hint,
@@ -738,20 +763,20 @@ class DropDown<T> extends StatefulWidget {
             : (customWidgets == null));
 
   final List<T> items;
-  final List<Widget> customWidgets;
-  final T initialValue;
-  final Widget hint;
-  final Function onChanged;
+  final List<Widget>? customWidgets;
+  final T? initialValue;
+  final Widget? hint;
+  final Function? onChanged;
   final bool isExpanded;
   final bool isCleared;
   final bool showUnderline;
 
   @override
-  _DropDownState createState() => _DropDownState();
+  _DropDownState createState() => _DropDownState<T>();
 }
 
 class _DropDownState<T> extends State<DropDown<T>> {
-  T selectedValue;
+  T? selectedValue;
 
   @override
   void initState() {
@@ -763,9 +788,9 @@ class _DropDownState<T> extends State<DropDown<T>> {
   Widget build(BuildContext context) {
     final dropdown = DropdownButton<T>(
       isExpanded: widget.isExpanded,
-      onChanged: (T value) {
+      onChanged: (T? value) {
         setState(() => selectedValue = value);
-        if (widget.onChanged != null) widget.onChanged(value);
+        if (widget.onChanged != null) widget.onChanged!(value);
       },
       value: widget.isCleared ? null : selectedValue,
       items: widget.items.map<DropdownMenuItem<T>>(buildDropDownItem).toList(),
@@ -779,7 +804,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
 
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
         child: (widget.customWidgets != null)
-            ? widget.customWidgets[widget.items.indexOf(item)]
+            ? widget.customWidgets![widget.items.indexOf(item)]
             : Text(
                 item.toString(),
                 style: GoogleFonts.nunito(
@@ -788,54 +813,4 @@ class _DropDownState<T> extends State<DropDown<T>> {
               ),
         value: item,
       );
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: action,
-        ),
-      ),
-    );
-  }
 }

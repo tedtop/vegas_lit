@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../../data/providers/firebase_auth.dart';
 import '../../../../../data/repositories/user_repository.dart';
@@ -11,8 +10,8 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
-    @required UserRepository userRepository,
-    @required AuthenticationBloc authenticationBloc,
+    required UserRepository userRepository,
+    required AuthenticationBloc authenticationBloc,
   })  : assert(userRepository != null),
         assert(authenticationBloc != null),
         _authenticationBloc = authenticationBloc,
@@ -74,7 +73,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> resetPassword({String email}) async {
+  Future<void> resetPassword({required String email}) async {
     await _userRepository.resetPasswordEmail(email: email);
   }
 }

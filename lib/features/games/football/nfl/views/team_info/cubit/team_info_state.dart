@@ -1,3 +1,5 @@
+
+
 part of 'team_info_cubit.dart';
 
 abstract class TeamInfoState extends Equatable {

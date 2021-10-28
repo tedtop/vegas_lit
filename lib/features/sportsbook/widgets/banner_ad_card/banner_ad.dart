@@ -5,7 +5,7 @@ import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/features/sportsbook/widgets/banner_ad_card/cubit/banner_ad_cubit.dart';
 
 class BannerAdCard extends StatelessWidget {
-  const BannerAdCard._({Key key}) : super(key: key);
+  const BannerAdCard._({Key? key}) : super(key: key);
 
   static Widget instance() {
     return BlocProvider(
@@ -23,9 +23,9 @@ class BannerAdCard extends StatelessWidget {
           return Align(
             alignment: Alignment.topCenter,
             child: SizedBox(
-              width: state.bannerAd.size.width.toDouble(),
-              height: state.bannerAd.size.height.toDouble(),
-              child: AdWidget(ad: state.bannerAd),
+              width: state.bannerAd!.size.width.toDouble() as double,
+              height: state.bannerAd!.size.height.toDouble() as double,
+              child: AdWidget(ad: state.bannerAd!),
             ),
           );
         case BannerAdStatus.failure:
@@ -40,7 +40,6 @@ class BannerAdCard extends StatelessWidget {
               ),
             ),
           );
-          break;
       }
     });
   }

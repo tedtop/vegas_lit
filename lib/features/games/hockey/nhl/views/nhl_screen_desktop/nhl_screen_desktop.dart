@@ -9,9 +9,9 @@ import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNhlScreen extends StatelessWidget {
   DesktopNhlScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<NhlGame> games;
-  final String gameName;
-  final dynamic parsedTeamData;
+  final List<NhlGame>? games;
+  final String? gameName;
+  final List? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -34,7 +34,7 @@ class DesktopNhlScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                children: games
+                children: games!
                     .map(
                       (game) => MatchupCard.route(
                           game: game,
@@ -83,7 +83,7 @@ class DesktopNhlScreen extends StatelessWidget {
                               width: 42,
                               child: Center(
                                 child: Text(
-                                  state.singleBetSlipCard.length.toString(),
+                                  state.singleBetSlipCard!.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
                                     fontSize: 18,
@@ -92,12 +92,11 @@ class DesktopNhlScreen extends StatelessWidget {
                                 ),
                               ),
                             );
-                            break;
+
                           default:
                             return const CircularProgressIndicator(
                               color: Palette.cream,
                             );
-                            break;
                         }
                       },
                     ),
@@ -110,7 +109,7 @@ class DesktopNhlScreen extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.status) {
                       case BetSlipStatus.opened:
-                        return state.singleBetSlipCard.isEmpty
+                        return state.singleBetSlipCard!.isEmpty
                             ? AbstractCard(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 widgets: [
@@ -141,17 +140,16 @@ class DesktopNhlScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
                                 itemCount:
-                                    betSlipState.singleBetSlipCard.length,
+                                    betSlipState.singleBetSlipCard!.length,
                                 itemBuilder: (context, index) {
-                                  return betSlipState.singleBetSlipCard[index];
+                                  return betSlipState.singleBetSlipCard![index];
                                 },
                               );
-                        break;
+
                       default:
                         return const CircularProgressIndicator(
                           color: Palette.cream,
                         );
-                        break;
                     }
                   },
                 ),
@@ -186,8 +184,8 @@ class DesktopNhlScreen extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

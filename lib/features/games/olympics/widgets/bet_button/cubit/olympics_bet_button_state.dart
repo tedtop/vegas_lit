@@ -1,3 +1,5 @@
+
+
 part of 'olympics_bet_button_cubit.dart';
 
 enum OlympicsBetButtonStatus {
@@ -25,17 +27,17 @@ class OlympicsBetButtonState extends Equatable {
   });
 
   final OlympicsBetButtonStatus status;
-  final OlympicsGame game;
-  final String uniqueId;
-  final String league;
-  final String uid;
+  final OlympicsGame? game;
+  final String? uniqueId;
+  final String? league;
+  final String? uid;
   final int betAmount;
-  final int toWinAmount;
-  final BetButtonWin winTeam;
+  final int? toWinAmount;
+  final BetButtonWin? winTeam;
   final int mainOdds;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         game,
         uniqueId,
@@ -48,15 +50,15 @@ class OlympicsBetButtonState extends Equatable {
       ];
 
   OlympicsBetButtonState copyWith({
-    OlympicsBetButtonStatus status,
-    OlympicsGame game,
-    String uniqueId,
-    String league,
-    String uid,
-    int mainOdds,
-    int betAmount,
-    int toWinAmount,
-    BetButtonWin winTeam,
+    OlympicsBetButtonStatus? status,
+    OlympicsGame? game,
+    String? uniqueId,
+    String? league,
+    String? uid,
+    int? mainOdds,
+    int? betAmount,
+    int? toWinAmount,
+    BetButtonWin? winTeam,
   }) {
     return OlympicsBetButtonState(
       status: status ?? this.status,

@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 import 'dart:io';
 
@@ -13,8 +15,8 @@ part 'profileavatar_state.dart';
 
 class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
   ProfileAvatarCubit({
-    @required UserRepository userRepository,
-    @required StorageRepository storageRepository,
+    required UserRepository userRepository,
+    required StorageRepository storageRepository,
   })  : assert(userRepository != null),
         assert(storageRepository != null),
         _userRepository = userRepository,
@@ -26,9 +28,9 @@ class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
   final UserRepository _userRepository;
   final StorageRepository _storageRepository;
 
-  Future<void> pickAvatar({@required String uid}) async {
+  Future<void> pickAvatar({required String? uid}) async {
     final avatarPickedFile = await ImagePicker()
-        .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+        .pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile == null) {
       emit(
         const ProfileAvatarState(status: ProfileAvatarStatus.initial),

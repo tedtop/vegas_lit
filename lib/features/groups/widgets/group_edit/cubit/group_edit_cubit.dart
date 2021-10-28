@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -12,8 +14,8 @@ part 'group_edit_state.dart';
 
 class GroupEditCubit extends Cubit<GroupEditState> {
   GroupEditCubit(
-      {@required GroupsRepository groupsRepository,
-      @required StorageRepository storageRepository})
+      {required GroupsRepository groupsRepository,
+      required StorageRepository storageRepository})
       : assert(groupsRepository != null),
         assert(storageRepository != null),
         _groupsRepository = groupsRepository,
@@ -27,7 +29,7 @@ class GroupEditCubit extends Cubit<GroupEditState> {
 
   Future<void> pickAvatar() async {
     final avatarPickedFile = await ImagePicker()
-        .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+        .pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile != null) {
       final avatarImageFile = File(avatarPickedFile.path);
       emit(
@@ -41,13 +43,13 @@ class GroupEditCubit extends Cubit<GroupEditState> {
     }
   }
 
-  void editGroup({@required Group group}) async {
+  void editGroup({required Group group}) async {
     emit(state.copyWith(status: GroupEditStatus.loading));
 
     if (state.avatarFile != null) {
       try {
         final avatarUrl = await _storageRepository.uploadFile(
-          file: state.avatarFile,
+          file: state.avatarFile!,
           path: 'groups/${group.id}/',
         );
         group = group.copyWith(avatarUrl: avatarUrl);

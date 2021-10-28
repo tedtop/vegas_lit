@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -13,7 +12,8 @@ import '../../widgets/leaderboard_profile_board_items.dart';
 class DesktopLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<LeaderboardProfileCubit>().state;
+    final LeaderboardProfileState state =
+        context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -38,33 +38,33 @@ class DesktopLeaderboardProfile extends StatelessWidget {
 }
 
 class _DesktopHistoryBoard extends StatelessWidget {
-  const _DesktopHistoryBoard({Key key}) : super(key: key);
+  const _DesktopHistoryBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<LeaderboardProfileCubit>().state;
+        final LeaderboardProfileState state =
+            context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
-            break;
+
           case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
-            break;
+
           case LeaderboardProfileStatus.success:
             return _DesktopHistoryBoardContent(wallet: state.userWallet);
-            break;
+
           case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some error occured.'),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );
@@ -72,9 +72,9 @@ class _DesktopHistoryBoard extends StatelessWidget {
 }
 
 class _DesktopHistoryBoardContent extends StatelessWidget {
-  const _DesktopHistoryBoardContent({Key key, this.wallet}) : super(key: key);
+  const _DesktopHistoryBoardContent({Key? key, this.wallet}) : super(key: key);
 
-  final Wallet wallet;
+  final Wallet? wallet;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,20 +98,20 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
               DesktopBetHistoryBoardItem(
                 bottomText: 'Player Rank',
                 topText:
-                    '${wallet.rank == 0 ? 'N/A' : wallet.rank.ordinalNumber}',
+                    '${wallet!.rank == 0 ? 'N/A' : wallet!.rank!.ordinalNumber}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Bets',
-                topText: '${wallet.totalBets}',
+                topText: '${wallet!.totalBets}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Risked',
-                topText: '${wallet.totalRiskedAmount}',
+                topText: '${wallet!.totalRiskedAmount}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Profit',
-                topText: '${wallet.totalProfit}',
-                color: wallet.totalProfit >= 0 ? Palette.green : Palette.red,
+                topText: '${wallet!.totalProfit}',
+                color: wallet!.totalProfit! >= 0 ? Palette.green : Palette.red,
               ),
             ],
           ),
@@ -121,23 +121,23 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
               DesktopBetHistoryBoardItem(
                 bottomText: 'Winnings',
                 topText:
-                    '${wallet.totalRiskedAmount + wallet.totalProfit - wallet.totalLoss - wallet.pendingRiskedAmount}',
+                    '${wallet!.totalRiskedAmount! + wallet!.totalProfit! - wallet!.totalLoss! - wallet!.pendingRiskedAmount!}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: betHistoryWinningBetsRatioText(),
                 topText: betHistoryWinningBetsRatio(
-                  wallet.totalBetsWon,
-                  wallet.totalBetsLost,
+                  wallet!.totalBetsWon!,
+                  wallet!.totalBetsLost!,
                 ),
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Ad Rewards',
-                topText: '${wallet.totalRewards}',
+                topText: '${wallet!.totalRewards}',
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Won/Lost/Open/Total',
                 topText:
-                    '${wallet.totalBetsWon}/${wallet.totalBetsLost}/${wallet.totalOpenBets}/${wallet.totalBets}',
+                    '${wallet!.totalBetsWon}/${wallet!.totalBetsLost}/${wallet!.totalOpenBets}/${wallet!.totalBets}',
               ),
             ],
           )
@@ -148,7 +148,7 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
 }
 
 class _DesktopHistoryContent extends StatelessWidget {
-  const _DesktopHistoryContent({Key key}) : super(key: key);
+  const _DesktopHistoryContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -163,23 +163,22 @@ class _DesktopHistoryContent extends StatelessWidget {
                 bets: state.bets,
               );
             }
-            break;
+
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
-            break;
+
           case LeaderboardProfileStatus.loading:
             return const CircularProgressIndicator(
               color: Palette.cream,
             );
-            break;
+
           case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some Error Occured'),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );
@@ -187,7 +186,7 @@ class _DesktopHistoryContent extends StatelessWidget {
 }
 
 class _DesktopBetHistoryTableEmpty extends StatelessWidget {
-  const _DesktopBetHistoryTableEmpty({Key key}) : super(key: key);
+  const _DesktopBetHistoryTableEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,8 +204,8 @@ class _DesktopBetHistoryTableEmpty extends StatelessWidget {
 }
 
 class _DesktopBetHistoryTable extends StatelessWidget {
-  const _DesktopBetHistoryTable({Key key, this.bets}) : super(key: key);
-  final List<BetData> bets;
+  const _DesktopBetHistoryTable({Key? key, this.bets}) : super(key: key);
+  final List<BetData>? bets;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -232,13 +231,13 @@ class _DesktopBetHistoryTable extends StatelessWidget {
                     height: 8,
                     color: Palette.green,
                   ),
-                  Column(
-                    children: bets
-                        .map((entry) => _DesktopBetHistoryTableRow(
-                              bet: entry,
-                            ))
-                        .toList(),
-                  ),
+                  // Column(
+                  //   children: bets
+                  //       .map((entry) => _DesktopBetHistoryTableRow(
+                  //             bet: entry,
+                  //           ))
+                  //       .toList(),
+                  // ),
                   Container(
                     height: 8,
                     decoration: const BoxDecoration(
@@ -260,7 +259,7 @@ class _DesktopBetHistoryTable extends StatelessWidget {
 }
 
 class _DesktopHistoryHeading extends StatelessWidget {
-  const _DesktopHistoryHeading({Key key}) : super(key: key);
+  const _DesktopHistoryHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +273,7 @@ class _DesktopHistoryHeading extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '${betHistoryState.userWallet.username}',
+                  '${betHistoryState.userWallet!.username}',
                   style: Styles.pageTitle,
                 ),
               ),
@@ -285,7 +284,7 @@ class _DesktopHistoryHeading extends StatelessWidget {
 }
 
 class _DesktopBetHistoryTableHeading extends StatelessWidget {
-  const _DesktopBetHistoryTableHeading({Key key}) : super(key: key);
+  const _DesktopBetHistoryTableHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -301,7 +300,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
             .map(
               (entry) => SizedBox(
                 child: Text(entry, style: Styles.betHistoryDesktopField),
-                width: tableHeadingsWithWidth[entry].toDouble(),
+                width: tableHeadingsWithWidth[entry]!.toDouble() as double,
               ),
             )
             .toList(),
@@ -310,95 +309,95 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
   }
 }
 
-class _DesktopBetHistoryTableRow extends StatelessWidget {
-  const _DesktopBetHistoryTableRow({Key key, this.bet}) : super(key: key);
-  final dynamic bet;
-  @override
-  Widget build(BuildContext context) {
-    final isWin = bet.winningTeam == bet.betTeam;
-    final startTime = DateTime.parse(bet.gameStartDateTime);
-    final odd = bet.odds.isNegative ? bet.odds.toString() : '+${bet.odds}';
+// class _DesktopBetHistoryTableRow extends StatelessWidget {
+//   const _DesktopBetHistoryTableRow({Key key, this.bet}) : super(key: key);
+//   final dynamic bet;
+//   @override
+//   Widget build(BuildContext context) {
+//     final isWin = bet.winningTeam == bet.betTeam;
+//     final startTime = DateTime.parse(bet.gameStartDateTime);
+//     final odd = bet.odds.isNegative ? bet.odds.toString() : '+${bet.odds}';
 
-    var isMoneyline = true;
-    var betSpread = 0.0;
-    var spread = '0';
+//     var isMoneyline = true;
+//     var betSpread = 0.0;
+//     var spread = '0';
 
-    if (bet.betOverUnder != null || bet.betPointSpread != null) {
-      isMoneyline = bet.betType == 'moneyline';
-      betSpread =
-          bet.betType == 'total' ? bet.betOverUnder : bet.betPointSpread;
-      spread = betSpread == 0
-          ? ''
-          : betSpread.isNegative
-              ? betSpread.toString()
-              : '+$betSpread';
-    }
+//     if (bet.betOverUnder != null || bet.betPointSpread != null) {
+//       isMoneyline = bet.betType == 'moneyline';
+//       betSpread =
+//           bet.betType == 'total' ? bet.betOverUnder : bet.betPointSpread;
+//       spread = betSpread == 0
+//           ? ''
+//           : betSpread.isNegative
+//               ? betSpread.toString()
+//               : '+$betSpread';
+//     }
 
-    return Container(
-        constraints: const BoxConstraints(minHeight: 50),
-        color: Palette.lightGrey,
-        child: Row(
-            children: tableHeadingsWithWidth.keys
-                .map((entry) => SizedBox(
-                      child: Builder(builder: (context) {
-                        switch (entry) {
-                          case 'Date/Time':
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 18),
-                              child: Text(
-                                  '${DateFormat('dd-MMM-yyyy').format(startTime)} at ${DateFormat('hh:mm a').format(
-                                    startTime,
-                                  )} EST',
-                                  style: Styles.betHistoryDesktopTime),
-                            );
-                          case 'League':
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 18),
-                              child: Text('${bet.league.toUpperCase()}',
-                                  style: Styles.betHistoryDesktopItem),
-                            );
-                          case 'Game':
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 18),
-                              child: Text(
-                                  '${bet.awayTeamName.toUpperCase()} @ ${bet.homeTeamName.toUpperCase()}',
-                                  style: Styles.betHistoryDesktopItem),
-                            );
-                          case 'Bet':
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 18),
-                              child: Text(
-                                  '${whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
-                                  style: Styles.betHistoryDesktopItem),
-                            );
-                          case 'Risked':
-                            return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 18),
-                                child: Text('${bet.betAmount}',
-                                    style: Styles.betHistoryDesktopItem));
-                          case 'Result':
-                            return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 18),
-                                child: Text(
-                                    isWin
-                                        ? '${bet.betProfit}'
-                                        : '-${bet.betAmount}',
-                                    style: Styles.betHistoryDesktopItem));
-                          default:
-                            return const SizedBox();
-                        }
-                      }),
-                      width: tableHeadingsWithWidth[entry].toDouble(),
-                    ))
-                .toList()));
-  }
-}
+//     return Container(
+//         constraints: const BoxConstraints(minHeight: 50),
+//         color: Palette.lightGrey,
+//         child: Row(
+//             children: tableHeadingsWithWidth.keys
+//                 .map((entry) => SizedBox(
+//                       child: Builder(builder: (context) {
+//                         switch (entry) {
+//                           case 'Date/Time':
+//                             return Padding(
+//                               padding: const EdgeInsets.symmetric(
+//                                   horizontal: 10, vertical: 18),
+//                               child: Text(
+//                                   '${DateFormat('dd-MMM-yyyy').format(startTime)} at ${DateFormat('hh:mm a').format(
+//                                     startTime,
+//                                   )} EST',
+//                                   style: Styles.betHistoryDesktopTime),
+//                             );
+//                           case 'League':
+//                             return Padding(
+//                               padding: const EdgeInsets.symmetric(
+//                                   horizontal: 10, vertical: 18),
+//                               child: Text('${bet.league.toUpperCase()}',
+//                                   style: Styles.betHistoryDesktopItem),
+//                             );
+//                           case 'Game':
+//                             return Padding(
+//                               padding: const EdgeInsets.symmetric(
+//                                   horizontal: 10, vertical: 18),
+//                               child: Text(
+//                                   '${bet.awayTeamName.toUpperCase()} @ ${bet.homeTeamName.toUpperCase()}',
+//                                   style: Styles.betHistoryDesktopItem),
+//                             );
+//                           case 'Bet':
+//                             return Padding(
+//                               padding: const EdgeInsets.symmetric(
+//                                   horizontal: 10, vertical: 18),
+//                               child: Text(
+//                                   '${whichBetSystemFromString(bet.betType)}  ${isMoneyline ? '' : spread}  $odd',
+//                                   style: Styles.betHistoryDesktopItem),
+//                             );
+//                           case 'Risked':
+//                             return Padding(
+//                                 padding: const EdgeInsets.symmetric(
+//                                     horizontal: 10, vertical: 18),
+//                                 child: Text('${bet.betAmount}',
+//                                     style: Styles.betHistoryDesktopItem));
+//                           case 'Result':
+//                             return Padding(
+//                                 padding: const EdgeInsets.symmetric(
+//                                     horizontal: 10, vertical: 18),
+//                                 child: Text(
+//                                     isWin
+//                                         ? '${bet.betProfit}'
+//                                         : '-${bet.betAmount}',
+//                                     style: Styles.betHistoryDesktopItem));
+//                           default:
+//                             return const SizedBox();
+//                         }
+//                       }),
+//                       width: tableHeadingsWithWidth[entry].toDouble() as double,
+//                     ))
+//                 .toList()));
+//   }
+// }
 
 extension on int {
   String get ordinalNumber {

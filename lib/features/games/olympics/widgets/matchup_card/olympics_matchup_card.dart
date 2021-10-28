@@ -16,15 +16,15 @@ enum WinnerOlympics { player, rival, none }
 
 class OlympicsMatchupCard extends StatefulWidget {
   const OlympicsMatchupCard._(
-      {Key key, @required this.gameName, @required this.game})
+      {Key? key, required this.gameName, required this.game})
       : super(key: key);
 
   final String gameName;
   final OlympicsGame game;
 
   static Builder route({
-    @required OlympicsGame game,
-    @required String gameName,
+    required OlympicsGame game,
+    required String gameName,
   }) {
     return Builder(
       builder: (_) {
@@ -38,7 +38,7 @@ class OlympicsMatchupCard extends StatefulWidget {
 }
 
 class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
-  WinnerOlympics winner;
+  WinnerOlympics? winner;
   bool visible = true;
 
   @override
@@ -86,7 +86,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                '${widget.game.gameName.replaceAll(RegExp('-'), '\/')}',
+                                '${widget.game.gameName!.replaceAll(RegExp('-'), '\/')}',
                                 style: Styles.normalTextBold,
                               ),
                             ],
@@ -105,182 +105,171 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                       league: widget.gameName,
                       winTeam: BetButtonWin.rival,
                     ),
-                    isAdmin
-                        ? Visibility(
-                            visible: visible,
-                            replacement: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 6.5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const CircularProgressIndicator(
-                                    color: Palette.cream,
-                                  ),
-                                ],
+                    if (isAdmin)
+                      Visibility(
+                        visible: visible,
+                        replacement: Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 6.5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const CircularProgressIndicator(
+                                color: Palette.cream,
                               ),
-                            ),
-                            child: widget.game.winner == null
-                                ? Column(
+                            ],
+                          ),
+                        ),
+                        child: widget.game.winner == null
+                            ? Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Radio(
-                                            value: WinnerOlympics.player,
-                                            fillColor:
-                                                MaterialStateProperty.all(
-                                                    Palette.green),
-                                            groupValue: winner,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                winner = value;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            'Player',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.cream,
-                                            ),
-                                          ),
-                                          Radio(
-                                            value: WinnerOlympics.rival,
-                                            fillColor:
-                                                MaterialStateProperty.all(
-                                                    Palette.green),
-                                            groupValue: winner,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                winner = value;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            'Rival',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.cream,
-                                            ),
-                                          ),
-                                          Radio(
-                                            value: WinnerOlympics.none,
-                                            fillColor:
-                                                MaterialStateProperty.all(
-                                                    Palette.green),
-                                            groupValue: winner,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                winner = value;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            'None',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 15,
-                                              color: Palette.cream,
-                                            ),
-                                          ),
-                                        ],
+                                      Radio(
+                                        value: WinnerOlympics.player,
+                                        fillColor: MaterialStateProperty.all(
+                                            Palette.green),
+                                        groupValue: winner,
+                                        onChanged: (WinnerOlympics? value) {
+                                          setState(() {
+                                            winner = value;
+                                          });
+                                        },
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4.0),
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                              padding:
-                                                  MaterialStateProperty.all(
-                                                const EdgeInsets.symmetric(
-                                                  vertical: 10,
-                                                  horizontal: 20,
-                                                ),
-                                              ),
-                                              elevation:
-                                                  MaterialStateProperty.all(
-                                                      4.0),
-                                              shape: MaterialStateProperty.all(
-                                                  Styles.smallRadius),
-                                              textStyle:
-                                                  MaterialStateProperty.all(
-                                                const TextStyle(
-                                                    color: Palette.cream),
-                                              ),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Palette.green),
-                                              tapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap),
-                                          child: Text(
-                                            'Submit',
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          onPressed: () async {
-                                            if (isAdmin == true) {
-                                              if (winner != null) {
-                                                String winnerText;
-                                                switch (winner) {
-                                                  case WinnerOlympics.player:
-                                                    winnerText = 'player';
-                                                    break;
-                                                  case WinnerOlympics.rival:
-                                                    winnerText = 'rival';
-                                                    break;
-                                                  default:
-                                                    winnerText = 'none';
-                                                }
-                                                setState(() {
-                                                  visible = false;
-                                                });
-                                                await context
-                                                    .read<OlympicsCubit>()
-                                                    .updateOlympicsGame(
-                                                      game:
-                                                          widget.game.copyWith(
-                                                        isClosed: true,
-                                                        winner: winnerText,
-                                                      ),
-                                                    );
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                  ..hideCurrentSnackBar()
-                                                  ..showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Are you mad? Select some value first.',
-                                                        style: GoogleFonts
-                                                            .nunito(),
-                                                      ),
-                                                    ),
-                                                  );
-                                              }
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                ..hideCurrentSnackBar()
-                                                ..showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Admin privileges required.',
-                                                      style:
-                                                          GoogleFonts.nunito(),
-                                                    ),
-                                                  ),
-                                                );
-                                            }
-                                          },
+                                      Text(
+                                        'Player',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 15,
+                                          color: Palette.cream,
+                                        ),
+                                      ),
+                                      Radio(
+                                        value: WinnerOlympics.rival,
+                                        fillColor: MaterialStateProperty.all(
+                                            Palette.green),
+                                        groupValue: winner,
+                                        onChanged: (WinnerOlympics? value) {
+                                          setState(() {
+                                            winner = value;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        'Rival',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 15,
+                                          color: Palette.cream,
+                                        ),
+                                      ),
+                                      Radio(
+                                        value: WinnerOlympics.none,
+                                        fillColor: MaterialStateProperty.all(
+                                            Palette.green),
+                                        groupValue: winner,
+                                        onChanged: (WinnerOlympics? value) {
+                                          setState(() {
+                                            winner = value;
+                                          });
+                                        },
+                                      ),
+                                      Text(
+                                        'None',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 15,
+                                          color: Palette.cream,
                                         ),
                                       ),
                                     ],
-                                  )
-                                : Container(),
-                          )
-                        : Container(),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(
+                                            const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                              horizontal: 20,
+                                            ),
+                                          ),
+                                          elevation:
+                                              MaterialStateProperty.all(4.0),
+                                          shape: MaterialStateProperty.all(
+                                              Styles.smallRadius),
+                                          textStyle: MaterialStateProperty.all(
+                                            const TextStyle(
+                                                color: Palette.cream),
+                                          ),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Palette.green),
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap),
+                                      child: Text(
+                                        'Submit',
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      onPressed: () async {
+                                        if (isAdmin == true) {
+                                          if (winner != null) {
+                                            String winnerText;
+                                            switch (winner) {
+                                              case WinnerOlympics.player:
+                                                winnerText = 'player';
+                                                break;
+                                              case WinnerOlympics.rival:
+                                                winnerText = 'rival';
+                                                break;
+                                              default:
+                                                winnerText = 'none';
+                                            }
+                                            setState(() {
+                                              visible = false;
+                                            });
+                                            await context
+                                                .read<OlympicsCubit>()
+                                                .updateOlympicsGame(
+                                                  game: widget.game.copyWith(
+                                                    isClosed: true,
+                                                    winner: winnerText,
+                                                  ),
+                                                );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                              ..hideCurrentSnackBar()
+                                              ..showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Are you mad? Select some value first.',
+                                                    style: GoogleFonts.nunito(),
+                                                  ),
+                                                ),
+                                              );
+                                          }
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Admin privileges required.',
+                                                  style: GoogleFonts.nunito(),
+                                                ),
+                                              ),
+                                            );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                      )
+                    else
+                      Container(),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Row(
@@ -288,7 +277,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                         children: [
                           Flexible(
                             child: Text(
-                              widget.game.event,
+                              widget.game.event!,
                               style: GoogleFonts.nunito(
                                 fontSize: 16,
                                 color: Palette.cream,
@@ -306,7 +295,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                         children: [
                           Flexible(
                             child: Text(
-                              widget.game.venue,
+                              widget.game.venue!,
                               style: GoogleFonts.nunito(
                                 fontSize: 14,
                                 color: Palette.cream,
@@ -324,7 +313,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                         children: [
                           Text(
                             DateFormat('E, MMMM, c, y @ hh:mm a')
-                                .format(widget.game.startTime),
+                                .format(widget.game.startTime!),
                             style: Styles.matchupTime,
                           ),
                         ],
@@ -367,26 +356,27 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
   }
 }
 
-Widget badgeFromEventType({String eventType}) {
+Widget badgeFromEventType({String? eventType}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      eventType == 'gold'
-          ? const Text(
-              '🥇',
-              style: TextStyle(fontSize: 20),
-            )
-          : eventType == 'silver'
-              ? const Text(
-                  '🥈',
-                  style: TextStyle(fontSize: 20),
-                )
-              : eventType == 'bronze'
-                  ? const Text(
-                      '🥉',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  : const SizedBox.shrink(),
+      if (eventType == 'gold')
+        const Text(
+          '🥇',
+          style: TextStyle(fontSize: 20),
+        )
+      else
+        eventType == 'silver'
+            ? const Text(
+                '🥈',
+                style: TextStyle(fontSize: 20),
+              )
+            : eventType == 'bronze'
+                ? const Text(
+                    '🥉',
+                    style: TextStyle(fontSize: 20),
+                  )
+                : const SizedBox.shrink(),
       Image.asset(
         '${Images.olympicsIconsPath}Olympics.png',
         height: 18,

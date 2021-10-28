@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NflPlayerStats {
@@ -145,441 +147,456 @@ class NflPlayerStats {
   });
 
   factory NflPlayerStats.fromJson(String str) =>
-      NflPlayerStats.fromMap(json.decode(str));
+      NflPlayerStats.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NflPlayerStats.fromMap(Map<String, dynamic> json) => NflPlayerStats(
-        playerId: json['PlayerID']?.toInt(),
-        seasonType: json['SeasonType']?.toInt(),
-        season: json['Season']?.toInt(),
-        team: json['Team'],
-        number: json['Number']?.toInt(),
-        name: json['Name'],
-        position: json['Position'],
-        positionCategory: json['PositionCategory'],
-        activated: json['Activated']?.toInt(),
-        played: json['Played']?.toInt(),
-        started: json['Started']?.toInt(),
-        passingAttempts: json['PassingAttempts']?.toInt(),
-        passingCompletions: json['PassingCompletions']?.toInt(),
-        passingYards: json['PassingYards']?.toInt(),
+        playerId: json['PlayerID']?.toInt() as int?,
+        seasonType: json['SeasonType']?.toInt() as int?,
+        season: json['Season']?.toInt() as int?,
+        team: json['Team'] as String?,
+        number: json['Number']?.toInt() as int?,
+        name: json['Name'] as String?,
+        position: json['Position'] as String?,
+        positionCategory: json['PositionCategory'] as String?,
+        activated: json['Activated']?.toInt() as int?,
+        played: json['Played']?.toInt() as int?,
+        started: json['Started']?.toInt() as int?,
+        passingAttempts: json['PassingAttempts']?.toInt() as int?,
+        passingCompletions: json['PassingCompletions']?.toInt() as int?,
+        passingYards: json['PassingYards']?.toInt() as int?,
         passingCompletionPercentage:
-            json['PassingCompletionPercentage']?.toInt(),
-        passingYardsPerAttempt: json['PassingYardsPerAttempt']?.toInt(),
-        passingYardsPerCompletion: json['PassingYardsPerCompletion']?.toInt(),
-        passingTouchdowns: json['PassingTouchdowns']?.toInt(),
-        passingInterceptions: json['PassingInterceptions']?.toInt(),
-        passingRating: json['PassingRating']?.toInt(),
-        passingLong: json['PassingLong']?.toInt(),
-        passingSacks: json['PassingSacks']?.toInt(),
-        passingSackYards: json['PassingSackYards']?.toInt(),
-        rushingAttempts: json['RushingAttempts']?.toInt(),
-        rushingYards: json['RushingYards']?.toInt(),
-        rushingYardsPerAttempt: json['RushingYardsPerAttempt']?.toInt(),
-        rushingTouchdowns: json['RushingTouchdowns']?.toInt(),
-        rushingLong: json['RushingLong']?.toInt(),
-        receivingTargets: json['ReceivingTargets']?.toInt(),
-        receptions: json['Receptions']?.toInt(),
-        receivingYards: json['ReceivingYards']?.toInt(),
-        receivingYardsPerReception: json['ReceivingYardsPerReception']?.toInt(),
-        receivingTouchdowns: json['ReceivingTouchdowns']?.toInt(),
-        receivingLong: json['ReceivingLong']?.toInt(),
-        fumbles: json['Fumbles']?.toInt(),
-        fumblesLost: json['FumblesLost']?.toInt(),
-        puntReturns: json['PuntReturns']?.toInt(),
-        puntReturnYards: json['PuntReturnYards']?.toInt(),
-        puntReturnYardsPerAttempt: json['PuntReturnYardsPerAttempt']?.toInt(),
-        puntReturnTouchdowns: json['PuntReturnTouchdowns']?.toInt(),
-        puntReturnLong: json['PuntReturnLong']?.toInt(),
-        kickReturns: json['KickReturns']?.toInt(),
-        kickReturnYards: json['KickReturnYards']?.toInt(),
-        kickReturnYardsPerAttempt: json['KickReturnYardsPerAttempt']?.toInt(),
-        kickReturnTouchdowns: json['KickReturnTouchdowns']?.toInt(),
-        kickReturnLong: json['KickReturnLong']?.toInt(),
-        soloTackles: json['SoloTackles']?.toInt(),
-        assistedTackles: json['AssistedTackles']?.toInt(),
-        tacklesForLoss: json['TacklesForLoss']?.toInt(),
-        sacks: json['Sacks']?.toInt(),
-        sackYards: json['SackYards']?.toInt(),
-        quarterbackHits: json['QuarterbackHits']?.toInt(),
-        passesDefended: json['PassesDefended']?.toInt(),
-        fumblesForced: json['FumblesForced']?.toInt(),
-        fumblesRecovered: json['FumblesRecovered']?.toInt(),
-        fumbleReturnYards: json['FumbleReturnYards']?.toInt(),
-        fumbleReturnTouchdowns: json['FumbleReturnTouchdowns']?.toInt(),
-        interceptions: json['Interceptions']?.toInt(),
-        interceptionReturnYards: json['InterceptionReturnYards']?.toInt(),
+            json['PassingCompletionPercentage']?.toInt() as int?,
+        passingYardsPerAttempt: json['PassingYardsPerAttempt']?.toInt() as int?,
+        passingYardsPerCompletion:
+            json['PassingYardsPerCompletion']?.toInt() as int?,
+        passingTouchdowns: json['PassingTouchdowns']?.toInt() as int?,
+        passingInterceptions: json['PassingInterceptions']?.toInt() as int?,
+        passingRating: json['PassingRating']?.toInt() as int?,
+        passingLong: json['PassingLong']?.toInt() as int?,
+        passingSacks: json['PassingSacks']?.toInt() as int?,
+        passingSackYards: json['PassingSackYards']?.toInt() as int?,
+        rushingAttempts: json['RushingAttempts']?.toInt() as int?,
+        rushingYards: json['RushingYards']?.toInt() as int?,
+        rushingYardsPerAttempt: json['RushingYardsPerAttempt']?.toInt() as int?,
+        rushingTouchdowns: json['RushingTouchdowns']?.toInt() as int?,
+        rushingLong: json['RushingLong']?.toInt() as int?,
+        receivingTargets: json['ReceivingTargets']?.toInt() as int?,
+        receptions: json['Receptions']?.toInt() as int?,
+        receivingYards: json['ReceivingYards']?.toInt() as int?,
+        receivingYardsPerReception:
+            json['ReceivingYardsPerReception']?.toInt() as int?,
+        receivingTouchdowns: json['ReceivingTouchdowns']?.toInt() as int?,
+        receivingLong: json['ReceivingLong']?.toInt() as int?,
+        fumbles: json['Fumbles']?.toInt() as int?,
+        fumblesLost: json['FumblesLost']?.toInt() as int?,
+        puntReturns: json['PuntReturns']?.toInt() as int?,
+        puntReturnYards: json['PuntReturnYards']?.toInt() as int?,
+        puntReturnYardsPerAttempt:
+            json['PuntReturnYardsPerAttempt']?.toInt() as int?,
+        puntReturnTouchdowns: json['PuntReturnTouchdowns']?.toInt() as int?,
+        puntReturnLong: json['PuntReturnLong']?.toInt() as int?,
+        kickReturns: json['KickReturns']?.toInt() as int?,
+        kickReturnYards: json['KickReturnYards']?.toInt() as int?,
+        kickReturnYardsPerAttempt:
+            json['KickReturnYardsPerAttempt']?.toInt() as int?,
+        kickReturnTouchdowns: json['KickReturnTouchdowns']?.toInt() as int?,
+        kickReturnLong: json['KickReturnLong']?.toInt() as int?,
+        soloTackles: json['SoloTackles']?.toInt() as int?,
+        assistedTackles: json['AssistedTackles']?.toInt() as int?,
+        tacklesForLoss: json['TacklesForLoss']?.toInt() as int?,
+        sacks: json['Sacks']?.toInt() as int?,
+        sackYards: json['SackYards']?.toInt() as int?,
+        quarterbackHits: json['QuarterbackHits']?.toInt() as int?,
+        passesDefended: json['PassesDefended']?.toInt() as int?,
+        fumblesForced: json['FumblesForced']?.toInt() as int?,
+        fumblesRecovered: json['FumblesRecovered']?.toInt() as int?,
+        fumbleReturnYards: json['FumbleReturnYards']?.toInt() as int?,
+        fumbleReturnTouchdowns: json['FumbleReturnTouchdowns']?.toInt() as int?,
+        interceptions: json['Interceptions']?.toInt() as int?,
+        interceptionReturnYards:
+            json['InterceptionReturnYards']?.toInt() as int?,
         interceptionReturnTouchdowns:
-            json['InterceptionReturnTouchdowns']?.toInt(),
-        blockedKicks: json['BlockedKicks']?.toInt(),
-        specialTeamsSoloTackles: json['SpecialTeamsSoloTackles']?.toInt(),
+            json['InterceptionReturnTouchdowns']?.toInt() as int?,
+        blockedKicks: json['BlockedKicks']?.toInt() as int?,
+        specialTeamsSoloTackles:
+            json['SpecialTeamsSoloTackles']?.toInt() as int?,
         specialTeamsAssistedTackles:
-            json['SpecialTeamsAssistedTackles']?.toInt(),
-        miscSoloTackles: json['MiscSoloTackles']?.toInt(),
-        miscAssistedTackles: json['MiscAssistedTackles']?.toInt(),
-        punts: json['Punts']?.toInt(),
-        puntYards: json['PuntYards']?.toInt(),
-        puntAverage: json['PuntAverage']?.toInt(),
-        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt(),
-        fieldGoalsMade: json['FieldGoalsMade']?.toInt(),
-        fieldGoalsLongestMade: json['FieldGoalsLongestMade']?.toInt(),
-        extraPointsMade: json['ExtraPointsMade']?.toInt(),
-        twoPointConversionPasses: json['TwoPointConversionPasses']?.toInt(),
-        twoPointConversionRuns: json['TwoPointConversionRuns']?.toInt(),
+            json['SpecialTeamsAssistedTackles']?.toInt() as int?,
+        miscSoloTackles: json['MiscSoloTackles']?.toInt() as int?,
+        miscAssistedTackles: json['MiscAssistedTackles']?.toInt() as int?,
+        punts: json['Punts']?.toInt() as int?,
+        puntYards: json['PuntYards']?.toInt() as int?,
+        puntAverage: json['PuntAverage']?.toInt() as int?,
+        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt() as int?,
+        fieldGoalsMade: json['FieldGoalsMade']?.toInt() as int?,
+        fieldGoalsLongestMade: json['FieldGoalsLongestMade']?.toInt() as int?,
+        extraPointsMade: json['ExtraPointsMade']?.toInt() as int?,
+        twoPointConversionPasses:
+            json['TwoPointConversionPasses']?.toInt() as int?,
+        twoPointConversionRuns: json['TwoPointConversionRuns']?.toInt() as int?,
         twoPointConversionReceptions:
-            json['TwoPointConversionReceptions']?.toInt(),
-        fantasyPoints: json['FantasyPoints']?.toDouble(),
-        fantasyPointsPpr: json['FantasyPointsPPR']?.toDouble(),
-        receptionPercentage: json['ReceptionPercentage']?.toInt(),
-        receivingYardsPerTarget: json['ReceivingYardsPerTarget']?.toInt(),
-        tackles: json['Tackles']?.toInt(),
-        offensiveTouchdowns: json['OffensiveTouchdowns']?.toInt(),
-        defensiveTouchdowns: json['DefensiveTouchdowns']?.toInt(),
-        specialTeamsTouchdowns: json['SpecialTeamsTouchdowns']?.toInt(),
-        touchdowns: json['Touchdowns']?.toInt(),
-        fantasyPosition: json['FantasyPosition'],
-        fieldGoalPercentage: json['FieldGoalPercentage']?.toInt(),
-        playerSeasonId: json['PlayerSeasonID']?.toInt(),
-        fumblesOwnRecoveries: json['FumblesOwnRecoveries']?.toInt(),
-        fumblesOutOfBounds: json['FumblesOutOfBounds']?.toInt(),
-        kickReturnFairCatches: json['KickReturnFairCatches']?.toInt(),
-        puntReturnFairCatches: json['PuntReturnFairCatches']?.toInt(),
-        puntTouchbacks: json['PuntTouchbacks']?.toInt(),
-        puntInside20: json['PuntInside20']?.toInt(),
-        puntNetAverage: json['PuntNetAverage']?.toInt(),
-        extraPointsAttempted: json['ExtraPointsAttempted']?.toInt(),
+            json['TwoPointConversionReceptions']?.toInt() as int?,
+        fantasyPoints: json['FantasyPoints']?.toDouble() as double?,
+        fantasyPointsPpr: json['FantasyPointsPPR']?.toDouble() as double?,
+        receptionPercentage: json['ReceptionPercentage']?.toInt() as int?,
+        receivingYardsPerTarget:
+            json['ReceivingYardsPerTarget']?.toInt() as int?,
+        tackles: json['Tackles']?.toInt() as int?,
+        offensiveTouchdowns: json['OffensiveTouchdowns']?.toInt() as int?,
+        defensiveTouchdowns: json['DefensiveTouchdowns']?.toInt() as int?,
+        specialTeamsTouchdowns: json['SpecialTeamsTouchdowns']?.toInt() as int?,
+        touchdowns: json['Touchdowns']?.toInt() as int?,
+        fantasyPosition: json['FantasyPosition'] as String?,
+        fieldGoalPercentage: json['FieldGoalPercentage']?.toInt() as int?,
+        playerSeasonId: json['PlayerSeasonID']?.toInt() as int?,
+        fumblesOwnRecoveries: json['FumblesOwnRecoveries']?.toInt() as int?,
+        fumblesOutOfBounds: json['FumblesOutOfBounds']?.toInt() as int?,
+        kickReturnFairCatches: json['KickReturnFairCatches']?.toInt() as int?,
+        puntReturnFairCatches: json['PuntReturnFairCatches']?.toInt() as int?,
+        puntTouchbacks: json['PuntTouchbacks']?.toInt() as int?,
+        puntInside20: json['PuntInside20']?.toInt() as int?,
+        puntNetAverage: json['PuntNetAverage']?.toInt() as int?,
+        extraPointsAttempted: json['ExtraPointsAttempted']?.toInt() as int?,
         blockedKickReturnTouchdowns:
-            json['BlockedKickReturnTouchdowns']?.toInt(),
-        fieldGoalReturnTouchdowns: json['FieldGoalReturnTouchdowns']?.toInt(),
-        safeties: json['Safeties']?.toInt(),
-        fieldGoalsHadBlocked: json['FieldGoalsHadBlocked']?.toInt(),
-        puntsHadBlocked: json['PuntsHadBlocked']?.toInt(),
-        extraPointsHadBlocked: json['ExtraPointsHadBlocked']?.toInt(),
-        puntLong: json['PuntLong']?.toInt(),
-        blockedKickReturnYards: json['BlockedKickReturnYards']?.toInt(),
-        fieldGoalReturnYards: json['FieldGoalReturnYards']?.toInt(),
-        puntNetYards: json['PuntNetYards']?.toInt(),
-        specialTeamsFumblesForced: json['SpecialTeamsFumblesForced']?.toInt(),
+            json['BlockedKickReturnTouchdowns']?.toInt() as int?,
+        fieldGoalReturnTouchdowns:
+            json['FieldGoalReturnTouchdowns']?.toInt() as int?,
+        safeties: json['Safeties']?.toInt() as int?,
+        fieldGoalsHadBlocked: json['FieldGoalsHadBlocked']?.toInt() as int?,
+        puntsHadBlocked: json['PuntsHadBlocked']?.toInt() as int?,
+        extraPointsHadBlocked: json['ExtraPointsHadBlocked']?.toInt() as int?,
+        puntLong: json['PuntLong']?.toInt() as int?,
+        blockedKickReturnYards: json['BlockedKickReturnYards']?.toInt() as int?,
+        fieldGoalReturnYards: json['FieldGoalReturnYards']?.toInt() as int?,
+        puntNetYards: json['PuntNetYards']?.toInt() as int?,
+        specialTeamsFumblesForced:
+            json['SpecialTeamsFumblesForced']?.toInt() as int?,
         specialTeamsFumblesRecovered:
-            json['SpecialTeamsFumblesRecovered']?.toInt(),
-        miscFumblesForced: json['MiscFumblesForced']?.toInt(),
-        miscFumblesRecovered: json['MiscFumblesRecovered']?.toInt(),
-        shortName: json['ShortName']?.toInt(),
-        safetiesAllowed: json['SafetiesAllowed']?.toInt(),
-        temperature: json['Temperature']?.toInt(),
-        humidity: json['Humidity']?.toInt(),
-        windSpeed: json['WindSpeed']?.toInt(),
-        offensiveSnapsPlayed: json['OffensiveSnapsPlayed']?.toInt(),
-        defensiveSnapsPlayed: json['DefensiveSnapsPlayed']?.toInt(),
-        specialTeamsSnapsPlayed: json['SpecialTeamsSnapsPlayed']?.toInt(),
-        offensiveTeamSnaps: json['OffensiveTeamSnaps']?.toInt(),
-        defensiveTeamSnaps: json['DefensiveTeamSnaps']?.toInt(),
-        specialTeamsTeamSnaps: json['SpecialTeamsTeamSnaps']?.toInt(),
+            json['SpecialTeamsFumblesRecovered']?.toInt() as int?,
+        miscFumblesForced: json['MiscFumblesForced']?.toInt() as int?,
+        miscFumblesRecovered: json['MiscFumblesRecovered']?.toInt() as int?,
+        shortName: json['ShortName'] as String?,
+        safetiesAllowed: json['SafetiesAllowed']?.toInt() as int?,
+        temperature: json['Temperature']?.toInt() as int?,
+        humidity: json['Humidity']?.toInt() as int?,
+        windSpeed: json['WindSpeed']?.toInt() as int?,
+        offensiveSnapsPlayed: json['OffensiveSnapsPlayed']?.toInt() as int?,
+        defensiveSnapsPlayed: json['DefensiveSnapsPlayed']?.toInt() as int?,
+        specialTeamsSnapsPlayed:
+            json['SpecialTeamsSnapsPlayed']?.toInt() as int?,
+        offensiveTeamSnaps: json['OffensiveTeamSnaps']?.toInt() as int?,
+        defensiveTeamSnaps: json['DefensiveTeamSnaps']?.toInt() as int?,
+        specialTeamsTeamSnaps: json['SpecialTeamsTeamSnaps']?.toInt() as int?,
         auctionValue: json['AuctionValue'],
         auctionValuePpr: json['AuctionValuePPR'],
-        twoPointConversionReturns: json['TwoPointConversionReturns']?.toInt(),
-        fantasyPointsFanDuel: json['FantasyPointsFanDuel']?.toDouble(),
-        fieldGoalsMade0To19: json['FieldGoalsMade0to19']?.toInt(),
-        fieldGoalsMade20To29: json['FieldGoalsMade20to29']?.toInt(),
-        fieldGoalsMade30To39: json['FieldGoalsMade30to39']?.toInt(),
-        fieldGoalsMade40To49: json['FieldGoalsMade40to49']?.toInt(),
-        fieldGoalsMade50Plus: json['FieldGoalsMade50Plus']?.toInt(),
-        fantasyPointsDraftKings: json['FantasyPointsDraftKings']?.toDouble(),
-        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toDouble(),
+        twoPointConversionReturns:
+            json['TwoPointConversionReturns']?.toInt() as int?,
+        fantasyPointsFanDuel:
+            json['FantasyPointsFanDuel']?.toDouble() as double?,
+        fieldGoalsMade0To19: json['FieldGoalsMade0to19']?.toInt() as int?,
+        fieldGoalsMade20To29: json['FieldGoalsMade20to29']?.toInt() as int?,
+        fieldGoalsMade30To39: json['FieldGoalsMade30to39']?.toInt() as int?,
+        fieldGoalsMade40To49: json['FieldGoalsMade40to49']?.toInt() as int?,
+        fieldGoalsMade50Plus: json['FieldGoalsMade50Plus']?.toInt() as int?,
+        fantasyPointsDraftKings:
+            json['FantasyPointsDraftKings']?.toDouble() as double?,
+        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toDouble() as double?,
         averageDraftPosition: json['AverageDraftPosition'],
         averageDraftPositionPpr: json['AverageDraftPositionPPR'],
-        teamId: json['TeamID']?.toInt(),
-        globalTeamId: json['GlobalTeamID']?.toInt(),
+        teamId: json['TeamID']?.toInt() as int?,
+        globalTeamId: json['GlobalTeamID']?.toInt() as int?,
         fantasyPointsFantasyDraft:
-            json['FantasyPointsFantasyDraft']?.toDouble(),
+            json['FantasyPointsFantasyDraft']?.toDouble() as double?,
         averageDraftPositionRookie: json['AverageDraftPositionRookie'],
         averageDraftPositionDynasty: json['AverageDraftPositionDynasty'],
         averageDraftPosition2Qb: json['AverageDraftPosition2QB'],
-        scoringDetails:
-            List<dynamic>.from(json['ScoringDetails'].map((x) => x)),
+        scoringDetails: List<dynamic>.from(
+          json['ScoringDetails'].map((dynamic x) => x) as List,
+        ),
       );
 
-  final int playerId;
-  final int seasonType;
-  final int season;
-  final String team;
-  final int number;
-  final String name;
-  final String position;
-  final String positionCategory;
-  final int activated;
-  final int played;
-  final int started;
-  final int passingAttempts;
-  final int passingCompletions;
-  final int passingYards;
-  final int passingCompletionPercentage;
-  final int passingYardsPerAttempt;
-  final int passingYardsPerCompletion;
-  final int passingTouchdowns;
-  final int passingInterceptions;
-  final int passingRating;
-  final int passingLong;
-  final int passingSacks;
-  final int passingSackYards;
-  final int rushingAttempts;
-  final int rushingYards;
-  final int rushingYardsPerAttempt;
-  final int rushingTouchdowns;
-  final int rushingLong;
-  final int receivingTargets;
-  final int receptions;
-  final int receivingYards;
-  final int receivingYardsPerReception;
-  final int receivingTouchdowns;
-  final int receivingLong;
-  final int fumbles;
-  final int fumblesLost;
-  final int puntReturns;
-  final int puntReturnYards;
-  final int puntReturnYardsPerAttempt;
-  final int puntReturnTouchdowns;
-  final int puntReturnLong;
-  final int kickReturns;
-  final int kickReturnYards;
-  final int kickReturnYardsPerAttempt;
-  final int kickReturnTouchdowns;
-  final int kickReturnLong;
-  final int soloTackles;
-  final int assistedTackles;
-  final int tacklesForLoss;
-  final int sacks;
-  final int sackYards;
-  final int quarterbackHits;
-  final int passesDefended;
-  final int fumblesForced;
-  final int fumblesRecovered;
-  final int fumbleReturnYards;
-  final int fumbleReturnTouchdowns;
-  final int interceptions;
-  final int interceptionReturnYards;
-  final int interceptionReturnTouchdowns;
-  final int blockedKicks;
-  final int specialTeamsSoloTackles;
-  final int specialTeamsAssistedTackles;
-  final int miscSoloTackles;
-  final int miscAssistedTackles;
-  final int punts;
-  final int puntYards;
-  final int puntAverage;
-  final int fieldGoalsAttempted;
-  final int fieldGoalsMade;
-  final int fieldGoalsLongestMade;
-  final int extraPointsMade;
-  final int twoPointConversionPasses;
-  final int twoPointConversionRuns;
-  final int twoPointConversionReceptions;
-  final double fantasyPoints;
-  final double fantasyPointsPpr;
-  final int receptionPercentage;
-  final int receivingYardsPerTarget;
-  final int tackles;
-  final int offensiveTouchdowns;
-  final int defensiveTouchdowns;
-  final int specialTeamsTouchdowns;
-  final int touchdowns;
-  final String fantasyPosition;
-  final int fieldGoalPercentage;
-  final int playerSeasonId;
-  final int fumblesOwnRecoveries;
-  final int fumblesOutOfBounds;
-  final int kickReturnFairCatches;
-  final int puntReturnFairCatches;
-  final int puntTouchbacks;
-  final int puntInside20;
-  final int puntNetAverage;
-  final int extraPointsAttempted;
-  final int blockedKickReturnTouchdowns;
-  final int fieldGoalReturnTouchdowns;
-  final int safeties;
-  final int fieldGoalsHadBlocked;
-  final int puntsHadBlocked;
-  final int extraPointsHadBlocked;
-  final int puntLong;
-  final int blockedKickReturnYards;
-  final int fieldGoalReturnYards;
-  final int puntNetYards;
-  final int specialTeamsFumblesForced;
-  final int specialTeamsFumblesRecovered;
-  final int miscFumblesForced;
-  final int miscFumblesRecovered;
-  final String shortName;
-  final int safetiesAllowed;
-  final int temperature;
-  final int humidity;
-  final int windSpeed;
-  final int offensiveSnapsPlayed;
-  final int defensiveSnapsPlayed;
-  final int specialTeamsSnapsPlayed;
-  final int offensiveTeamSnaps;
-  final int defensiveTeamSnaps;
-  final int specialTeamsTeamSnaps;
+  final int? playerId;
+  final int? seasonType;
+  final int? season;
+  final String? team;
+  final int? number;
+  final String? name;
+  final String? position;
+  final String? positionCategory;
+  final int? activated;
+  final int? played;
+  final int? started;
+  final int? passingAttempts;
+  final int? passingCompletions;
+  final int? passingYards;
+  final int? passingCompletionPercentage;
+  final int? passingYardsPerAttempt;
+  final int? passingYardsPerCompletion;
+  final int? passingTouchdowns;
+  final int? passingInterceptions;
+  final int? passingRating;
+  final int? passingLong;
+  final int? passingSacks;
+  final int? passingSackYards;
+  final int? rushingAttempts;
+  final int? rushingYards;
+  final int? rushingYardsPerAttempt;
+  final int? rushingTouchdowns;
+  final int? rushingLong;
+  final int? receivingTargets;
+  final int? receptions;
+  final int? receivingYards;
+  final int? receivingYardsPerReception;
+  final int? receivingTouchdowns;
+  final int? receivingLong;
+  final int? fumbles;
+  final int? fumblesLost;
+  final int? puntReturns;
+  final int? puntReturnYards;
+  final int? puntReturnYardsPerAttempt;
+  final int? puntReturnTouchdowns;
+  final int? puntReturnLong;
+  final int? kickReturns;
+  final int? kickReturnYards;
+  final int? kickReturnYardsPerAttempt;
+  final int? kickReturnTouchdowns;
+  final int? kickReturnLong;
+  final int? soloTackles;
+  final int? assistedTackles;
+  final int? tacklesForLoss;
+  final int? sacks;
+  final int? sackYards;
+  final int? quarterbackHits;
+  final int? passesDefended;
+  final int? fumblesForced;
+  final int? fumblesRecovered;
+  final int? fumbleReturnYards;
+  final int? fumbleReturnTouchdowns;
+  final int? interceptions;
+  final int? interceptionReturnYards;
+  final int? interceptionReturnTouchdowns;
+  final int? blockedKicks;
+  final int? specialTeamsSoloTackles;
+  final int? specialTeamsAssistedTackles;
+  final int? miscSoloTackles;
+  final int? miscAssistedTackles;
+  final int? punts;
+  final int? puntYards;
+  final int? puntAverage;
+  final int? fieldGoalsAttempted;
+  final int? fieldGoalsMade;
+  final int? fieldGoalsLongestMade;
+  final int? extraPointsMade;
+  final int? twoPointConversionPasses;
+  final int? twoPointConversionRuns;
+  final int? twoPointConversionReceptions;
+  final double? fantasyPoints;
+  final double? fantasyPointsPpr;
+  final int? receptionPercentage;
+  final int? receivingYardsPerTarget;
+  final int? tackles;
+  final int? offensiveTouchdowns;
+  final int? defensiveTouchdowns;
+  final int? specialTeamsTouchdowns;
+  final int? touchdowns;
+  final String? fantasyPosition;
+  final int? fieldGoalPercentage;
+  final int? playerSeasonId;
+  final int? fumblesOwnRecoveries;
+  final int? fumblesOutOfBounds;
+  final int? kickReturnFairCatches;
+  final int? puntReturnFairCatches;
+  final int? puntTouchbacks;
+  final int? puntInside20;
+  final int? puntNetAverage;
+  final int? extraPointsAttempted;
+  final int? blockedKickReturnTouchdowns;
+  final int? fieldGoalReturnTouchdowns;
+  final int? safeties;
+  final int? fieldGoalsHadBlocked;
+  final int? puntsHadBlocked;
+  final int? extraPointsHadBlocked;
+  final int? puntLong;
+  final int? blockedKickReturnYards;
+  final int? fieldGoalReturnYards;
+  final int? puntNetYards;
+  final int? specialTeamsFumblesForced;
+  final int? specialTeamsFumblesRecovered;
+  final int? miscFumblesForced;
+  final int? miscFumblesRecovered;
+  final String? shortName;
+  final int? safetiesAllowed;
+  final int? temperature;
+  final int? humidity;
+  final int? windSpeed;
+  final int? offensiveSnapsPlayed;
+  final int? defensiveSnapsPlayed;
+  final int? specialTeamsSnapsPlayed;
+  final int? offensiveTeamSnaps;
+  final int? defensiveTeamSnaps;
+  final int? specialTeamsTeamSnaps;
   final dynamic auctionValue;
   final dynamic auctionValuePpr;
-  final int twoPointConversionReturns;
-  final double fantasyPointsFanDuel;
-  final int fieldGoalsMade0To19;
-  final int fieldGoalsMade20To29;
-  final int fieldGoalsMade30To39;
-  final int fieldGoalsMade40To49;
-  final int fieldGoalsMade50Plus;
-  final double fantasyPointsDraftKings;
-  final double fantasyPointsYahoo;
+  final int? twoPointConversionReturns;
+  final double? fantasyPointsFanDuel;
+  final int? fieldGoalsMade0To19;
+  final int? fieldGoalsMade20To29;
+  final int? fieldGoalsMade30To39;
+  final int? fieldGoalsMade40To49;
+  final int? fieldGoalsMade50Plus;
+  final double? fantasyPointsDraftKings;
+  final double? fantasyPointsYahoo;
   final dynamic averageDraftPosition;
   final dynamic averageDraftPositionPpr;
-  final int teamId;
-  final int globalTeamId;
-  final double fantasyPointsFantasyDraft;
+  final int? teamId;
+  final int? globalTeamId;
+  final double? fantasyPointsFantasyDraft;
   final dynamic averageDraftPositionRookie;
   final dynamic averageDraftPositionDynasty;
   final dynamic averageDraftPosition2Qb;
-  final List<dynamic> scoringDetails;
+  final List<dynamic>? scoringDetails;
 
   NflPlayerStats copyWith({
-    int playerId,
-    int seasonType,
-    int season,
-    String team,
-    int number,
-    String name,
-    String position,
-    String positionCategory,
-    int activated,
-    int played,
-    int started,
-    int passingAttempts,
-    int passingCompletions,
-    int passingYards,
-    int passingCompletionPercentage,
-    int passingYardsPerAttempt,
-    int passingYardsPerCompletion,
-    int passingTouchdowns,
-    int passingInterceptions,
-    int passingRating,
-    int passingLong,
-    int passingSacks,
-    int passingSackYards,
-    int rushingAttempts,
-    int rushingYards,
-    int rushingYardsPerAttempt,
-    int rushingTouchdowns,
-    int rushingLong,
-    int receivingTargets,
-    int receptions,
-    int receivingYards,
-    int receivingYardsPerReception,
-    int receivingTouchdowns,
-    int receivingLong,
-    int fumbles,
-    int fumblesLost,
-    int puntReturns,
-    int puntReturnYards,
-    int puntReturnYardsPerAttempt,
-    int puntReturnTouchdowns,
-    int puntReturnLong,
-    int kickReturns,
-    int kickReturnYards,
-    int kickReturnYardsPerAttempt,
-    int kickReturnTouchdowns,
-    int kickReturnLong,
-    int soloTackles,
-    int assistedTackles,
-    int tacklesForLoss,
-    int sacks,
-    int sackYards,
-    int quarterbackHits,
-    int passesDefended,
-    int fumblesForced,
-    int fumblesRecovered,
-    int fumbleReturnYards,
-    int fumbleReturnTouchdowns,
-    int interceptions,
-    int interceptionReturnYards,
-    int interceptionReturnTouchdowns,
-    int blockedKicks,
-    int specialTeamsSoloTackles,
-    int specialTeamsAssistedTackles,
-    int miscSoloTackles,
-    int miscAssistedTackles,
-    int punts,
-    int puntYards,
-    int puntAverage,
-    int fieldGoalsAttempted,
-    int fieldGoalsMade,
-    int fieldGoalsLongestMade,
-    int extraPointsMade,
-    int twoPointConversionPasses,
-    int twoPointConversionRuns,
-    int twoPointConversionReceptions,
-    double fantasyPoints,
-    double fantasyPointsPpr,
-    int receptionPercentage,
-    int receivingYardsPerTarget,
-    int tackles,
-    int offensiveTouchdowns,
-    int defensiveTouchdowns,
-    int specialTeamsTouchdowns,
-    int touchdowns,
-    String fantasyPosition,
-    int fieldGoalPercentage,
-    int playerSeasonId,
-    int fumblesOwnRecoveries,
-    int fumblesOutOfBounds,
-    int kickReturnFairCatches,
-    int puntReturnFairCatches,
-    int puntTouchbacks,
-    int puntInside20,
-    int puntNetAverage,
-    int extraPointsAttempted,
-    int blockedKickReturnTouchdowns,
-    int fieldGoalReturnTouchdowns,
-    int safeties,
-    int fieldGoalsHadBlocked,
-    int puntsHadBlocked,
-    int extraPointsHadBlocked,
-    int puntLong,
-    int blockedKickReturnYards,
-    int fieldGoalReturnYards,
-    int puntNetYards,
-    int specialTeamsFumblesForced,
-    int specialTeamsFumblesRecovered,
-    int miscFumblesForced,
-    int miscFumblesRecovered,
-    String shortName,
-    int safetiesAllowed,
-    int temperature,
-    int humidity,
-    int windSpeed,
-    int offensiveSnapsPlayed,
-    int defensiveSnapsPlayed,
-    int specialTeamsSnapsPlayed,
-    int offensiveTeamSnaps,
-    int defensiveTeamSnaps,
-    int specialTeamsTeamSnaps,
+    int? playerId,
+    int? seasonType,
+    int? season,
+    String? team,
+    int? number,
+    String? name,
+    String? position,
+    String? positionCategory,
+    int? activated,
+    int? played,
+    int? started,
+    int? passingAttempts,
+    int? passingCompletions,
+    int? passingYards,
+    int? passingCompletionPercentage,
+    int? passingYardsPerAttempt,
+    int? passingYardsPerCompletion,
+    int? passingTouchdowns,
+    int? passingInterceptions,
+    int? passingRating,
+    int? passingLong,
+    int? passingSacks,
+    int? passingSackYards,
+    int? rushingAttempts,
+    int? rushingYards,
+    int? rushingYardsPerAttempt,
+    int? rushingTouchdowns,
+    int? rushingLong,
+    int? receivingTargets,
+    int? receptions,
+    int? receivingYards,
+    int? receivingYardsPerReception,
+    int? receivingTouchdowns,
+    int? receivingLong,
+    int? fumbles,
+    int? fumblesLost,
+    int? puntReturns,
+    int? puntReturnYards,
+    int? puntReturnYardsPerAttempt,
+    int? puntReturnTouchdowns,
+    int? puntReturnLong,
+    int? kickReturns,
+    int? kickReturnYards,
+    int? kickReturnYardsPerAttempt,
+    int? kickReturnTouchdowns,
+    int? kickReturnLong,
+    int? soloTackles,
+    int? assistedTackles,
+    int? tacklesForLoss,
+    int? sacks,
+    int? sackYards,
+    int? quarterbackHits,
+    int? passesDefended,
+    int? fumblesForced,
+    int? fumblesRecovered,
+    int? fumbleReturnYards,
+    int? fumbleReturnTouchdowns,
+    int? interceptions,
+    int? interceptionReturnYards,
+    int? interceptionReturnTouchdowns,
+    int? blockedKicks,
+    int? specialTeamsSoloTackles,
+    int? specialTeamsAssistedTackles,
+    int? miscSoloTackles,
+    int? miscAssistedTackles,
+    int? punts,
+    int? puntYards,
+    int? puntAverage,
+    int? fieldGoalsAttempted,
+    int? fieldGoalsMade,
+    int? fieldGoalsLongestMade,
+    int? extraPointsMade,
+    int? twoPointConversionPasses,
+    int? twoPointConversionRuns,
+    int? twoPointConversionReceptions,
+    double? fantasyPoints,
+    double? fantasyPointsPpr,
+    int? receptionPercentage,
+    int? receivingYardsPerTarget,
+    int? tackles,
+    int? offensiveTouchdowns,
+    int? defensiveTouchdowns,
+    int? specialTeamsTouchdowns,
+    int? touchdowns,
+    String? fantasyPosition,
+    int? fieldGoalPercentage,
+    int? playerSeasonId,
+    int? fumblesOwnRecoveries,
+    int? fumblesOutOfBounds,
+    int? kickReturnFairCatches,
+    int? puntReturnFairCatches,
+    int? puntTouchbacks,
+    int? puntInside20,
+    int? puntNetAverage,
+    int? extraPointsAttempted,
+    int? blockedKickReturnTouchdowns,
+    int? fieldGoalReturnTouchdowns,
+    int? safeties,
+    int? fieldGoalsHadBlocked,
+    int? puntsHadBlocked,
+    int? extraPointsHadBlocked,
+    int? puntLong,
+    int? blockedKickReturnYards,
+    int? fieldGoalReturnYards,
+    int? puntNetYards,
+    int? specialTeamsFumblesForced,
+    int? specialTeamsFumblesRecovered,
+    int? miscFumblesForced,
+    int? miscFumblesRecovered,
+    String? shortName,
+    int? safetiesAllowed,
+    int? temperature,
+    int? humidity,
+    int? windSpeed,
+    int? offensiveSnapsPlayed,
+    int? defensiveSnapsPlayed,
+    int? specialTeamsSnapsPlayed,
+    int? offensiveTeamSnaps,
+    int? defensiveTeamSnaps,
+    int? specialTeamsTeamSnaps,
     dynamic auctionValue,
     dynamic auctionValuePpr,
-    int twoPointConversionReturns,
-    double fantasyPointsFanDuel,
-    int fieldGoalsMade0To19,
-    int fieldGoalsMade20To29,
-    int fieldGoalsMade30To39,
-    int fieldGoalsMade40To49,
-    int fieldGoalsMade50Plus,
-    double fantasyPointsDraftKings,
-    double fantasyPointsYahoo,
+    int? twoPointConversionReturns,
+    double? fantasyPointsFanDuel,
+    int? fieldGoalsMade0To19,
+    int? fieldGoalsMade20To29,
+    int? fieldGoalsMade30To39,
+    int? fieldGoalsMade40To49,
+    int? fieldGoalsMade50Plus,
+    double? fantasyPointsDraftKings,
+    double? fantasyPointsYahoo,
     dynamic averageDraftPosition,
     dynamic averageDraftPositionPpr,
-    int teamId,
-    int globalTeamId,
-    double fantasyPointsFantasyDraft,
+    int? teamId,
+    int? globalTeamId,
+    double? fantasyPointsFantasyDraft,
     dynamic averageDraftPositionRookie,
     dynamic averageDraftPositionDynasty,
     dynamic averageDraftPosition2Qb,
-    List<dynamic> scoringDetails,
+    List<dynamic>? scoringDetails,
   }) =>
       NflPlayerStats(
         playerId: playerId ?? this.playerId,
@@ -760,7 +777,7 @@ class NflPlayerStats {
       );
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'PlayerID': playerId,
         'SeasonType': seasonType,
         'Season': season,
@@ -900,10 +917,11 @@ class NflPlayerStats {
         'AverageDraftPositionRookie': averageDraftPositionRookie,
         'AverageDraftPositionDynasty': averageDraftPositionDynasty,
         'AverageDraftPosition2QB': averageDraftPosition2Qb,
-        'ScoringDetails': List<dynamic>.from(scoringDetails.map((x) => x)),
+        'ScoringDetails':
+            List<dynamic>.from(scoringDetails!.map<dynamic>((dynamic x) => x)),
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, dynamic> toStatOnlyMap() => <String, dynamic>{
         'Passing Attempts': passingAttempts,
         'Passing Completions': passingCompletions,
         'Passing Yards': passingYards,

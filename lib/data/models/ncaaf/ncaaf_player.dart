@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NcaafPlayer {
@@ -55,177 +57,179 @@ class NcaafPlayer {
     this.usaTodayHeadshotNoBackgroundUpdated,
   });
   factory NcaafPlayer.fromJson(String str) =>
-      NcaafPlayer.fromMap(json.decode(str));
+      NcaafPlayer.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NcaafPlayer.fromMap(Map<String, dynamic> json) => NcaafPlayer(
-        playerId: json['PlayerID'],
-        sportsDataId: json['SportsDataID'],
-        status: json['Status'],
-        teamId: json['TeamID'],
-        team: json['Team'],
-        jersey: json['Jersey'],
-        positionCategory: json['PositionCategory'],
-        position: json['Position'],
-        mlbamid: json['MLBAMID'],
-        firstName: json['FirstName'],
-        lastName: json['LastName'],
-        batHand: json['BatHand'],
-        throwHand: json['ThrowHand'],
-        height: json['Height'],
-        weight: json['Weight'],
+        playerId: json['PlayerID'] as int?,
+        sportsDataId: json['SportsDataID'] as String?,
+        status: json['Status'] as String?,
+        teamId: json['TeamID'] as int?,
+        team: json['Team'] as String?,
+        jersey: json['Jersey'] as int?,
+        positionCategory: json['PositionCategory'] as String?,
+        position: json['Position'] as String?,
+        mlbamid: json['MLBAMID'] as int?,
+        firstName: json['FirstName'] as String?,
+        lastName: json['LastName'] as String?,
+        batHand: json['BatHand'] as String?,
+        throwHand: json['ThrowHand'] as String?,
+        height: json['Height'] as int?,
+        weight: json['Weight'] as int?,
         birthDate: json['BirthDate'] == null
             ? null
-            : DateTime.parse(json['BirthDate']),
-        birthCity: json['BirthCity'],
-        birthState: json['BirthState'],
-        birthCountry: json['BirthCountry'],
-        highSchool: json['HighSchool'],
-        college: json['College'],
-        proDebut:
-            json['ProDebut'] == null ? null : DateTime.parse(json['ProDebut']),
-        salary: json['Salary'],
-        photoUrl: json['PhotoUrl'],
-        sportRadarPlayerId: json['SportRadarPlayerID'],
-        rotoworldPlayerId: json['RotoworldPlayerID'],
-        rotoWirePlayerId: json['RotoWirePlayerID'],
-        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'],
-        statsPlayerId: json['StatsPlayerID'],
-        sportsDirectPlayerId: json['SportsDirectPlayerID'],
-        xmlTeamPlayerId: json['XmlTeamPlayerID'],
-        injuryStatus: json['InjuryStatus'],
-        injuryBodyPart: json['InjuryBodyPart'],
+            : DateTime.parse(json['BirthDate'] as String),
+        birthCity: json['BirthCity'] as String?,
+        birthState: json['BirthState'] as String?,
+        birthCountry: json['BirthCountry'] as String?,
+        highSchool: json['HighSchool'] as String?,
+        college: json['College'] as String?,
+        proDebut: json['ProDebut'] == null
+            ? null
+            : DateTime.parse(json['ProDebut'] as String),
+        salary: json['Salary'] as int?,
+        photoUrl: json['PhotoUrl'] as String?,
+        sportRadarPlayerId: json['SportRadarPlayerID'] as String?,
+        rotoworldPlayerId: json['RotoworldPlayerID'] as int?,
+        rotoWirePlayerId: json['RotoWirePlayerID'] as int?,
+        fantasyAlarmPlayerId: json['FantasyAlarmPlayerID'] as int?,
+        statsPlayerId: json['StatsPlayerID'] as int?,
+        sportsDirectPlayerId: json['SportsDirectPlayerID'] as int?,
+        xmlTeamPlayerId: json['XmlTeamPlayerID'] as int?,
+        injuryStatus: json['InjuryStatus'] as String?,
+        injuryBodyPart: json['InjuryBodyPart'] as String?,
         injuryStartDate: json['InjuryStartDate'] == null
             ? null
-            : DateTime.parse(json['InjuryStartDate']),
-        injuryNotes: json['InjuryNotes'],
-        fanDuelPlayerId: json['FanDuelPlayerID'],
-        draftKingsPlayerId: json['DraftKingsPlayerID'],
-        yahooPlayerId: json['YahooPlayerID'],
-        upcomingGameId: json['UpcomingGameID'],
-        fanDuelName: json['FanDuelName'],
-        draftKingsName: json['DraftKingsName'],
-        yahooName: json['YahooName'],
-        globalTeamId: json['GlobalTeamID'],
-        fantasyDraftName: json['FantasyDraftName'],
-        fantasyDraftPlayerId: json['FantasyDraftPlayerID'],
-        experience: json['Experience'],
-        usaTodayPlayerId: json['UsaTodayPlayerID'],
-        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'],
+            : DateTime.parse(json['InjuryStartDate'] as String),
+        injuryNotes: json['InjuryNotes'] as String?,
+        fanDuelPlayerId: json['FanDuelPlayerID'] as int?,
+        draftKingsPlayerId: json['DraftKingsPlayerID'] as int?,
+        yahooPlayerId: json['YahooPlayerID'] as int?,
+        upcomingGameId: json['UpcomingGameID'] as int?,
+        fanDuelName: json['FanDuelName'] as String?,
+        draftKingsName: json['DraftKingsName'] as String?,
+        yahooName: json['YahooName'] as String?,
+        globalTeamId: json['GlobalTeamID'] as int?,
+        fantasyDraftName: json['FantasyDraftName'] as String?,
+        fantasyDraftPlayerId: json['FantasyDraftPlayerID'] as int?,
+        experience: json['Experience'] as String?,
+        usaTodayPlayerId: json['UsaTodayPlayerID'] as int?,
+        usaTodayHeadshotUrl: json['UsaTodayHeadshotUrl'] as String?,
         usaTodayHeadshotNoBackgroundUrl:
-            json['UsaTodayHeadshotNoBackgroundUrl'],
+            json['UsaTodayHeadshotNoBackgroundUrl'] as String?,
         usaTodayHeadshotUpdated: json['UsaTodayHeadshotUpdated'] == null
             ? null
-            : DateTime.parse(json['UsaTodayHeadshotUpdated']),
+            : DateTime.parse(json['UsaTodayHeadshotUpdated'] as String),
         usaTodayHeadshotNoBackgroundUpdated:
             json['UsaTodayHeadshotNoBackgroundUpdated'] == null
                 ? null
-                : DateTime.parse(json['UsaTodayHeadshotNoBackgroundUpdated']),
+                : DateTime.parse(
+                    json['UsaTodayHeadshotNoBackgroundUpdated'] as String),
       );
 
-  final int playerId;
-  final String sportsDataId;
-  final String status;
-  final int teamId;
-  final String team;
-  final int jersey;
-  final String positionCategory;
-  final String position;
-  final int mlbamid;
-  final String firstName;
-  final String lastName;
-  final String batHand;
-  final String throwHand;
-  final int height;
-  final int weight;
-  final DateTime birthDate;
-  final String birthCity;
-  final String birthState;
-  final String birthCountry;
+  final int? playerId;
+  final String? sportsDataId;
+  final String? status;
+  final int? teamId;
+  final String? team;
+  final int? jersey;
+  final String? positionCategory;
+  final String? position;
+  final int? mlbamid;
+  final String? firstName;
+  final String? lastName;
+  final String? batHand;
+  final String? throwHand;
+  final int? height;
+  final int? weight;
+  final DateTime? birthDate;
+  final String? birthCity;
+  final String? birthState;
+  final String? birthCountry;
   final dynamic highSchool;
-  final String college;
-  final DateTime proDebut;
+  final String? college;
+  final DateTime? proDebut;
   final dynamic salary;
-  final String photoUrl;
-  final String sportRadarPlayerId;
-  final int rotoworldPlayerId;
-  final int rotoWirePlayerId;
-  final int fantasyAlarmPlayerId;
-  final int statsPlayerId;
-  final int sportsDirectPlayerId;
-  final int xmlTeamPlayerId;
-  final String injuryStatus;
-  final String injuryBodyPart;
-  final DateTime injuryStartDate;
-  final String injuryNotes;
-  final int fanDuelPlayerId;
-  final int draftKingsPlayerId;
-  final int yahooPlayerId;
-  final int upcomingGameId;
-  final String fanDuelName;
-  final String draftKingsName;
-  final String yahooName;
-  final int globalTeamId;
-  final String fantasyDraftName;
-  final int fantasyDraftPlayerId;
-  final String experience;
-  final int usaTodayPlayerId;
-  final String usaTodayHeadshotUrl;
-  final String usaTodayHeadshotNoBackgroundUrl;
-  final DateTime usaTodayHeadshotUpdated;
-  final DateTime usaTodayHeadshotNoBackgroundUpdated;
+  final String? photoUrl;
+  final String? sportRadarPlayerId;
+  final int? rotoworldPlayerId;
+  final int? rotoWirePlayerId;
+  final int? fantasyAlarmPlayerId;
+  final int? statsPlayerId;
+  final int? sportsDirectPlayerId;
+  final int? xmlTeamPlayerId;
+  final String? injuryStatus;
+  final String? injuryBodyPart;
+  final DateTime? injuryStartDate;
+  final String? injuryNotes;
+  final int? fanDuelPlayerId;
+  final int? draftKingsPlayerId;
+  final int? yahooPlayerId;
+  final int? upcomingGameId;
+  final String? fanDuelName;
+  final String? draftKingsName;
+  final String? yahooName;
+  final int? globalTeamId;
+  final String? fantasyDraftName;
+  final int? fantasyDraftPlayerId;
+  final String? experience;
+  final int? usaTodayPlayerId;
+  final String? usaTodayHeadshotUrl;
+  final String? usaTodayHeadshotNoBackgroundUrl;
+  final DateTime? usaTodayHeadshotUpdated;
+  final DateTime? usaTodayHeadshotNoBackgroundUpdated;
 
   NcaafPlayer copyWith({
-    int playerId,
-    String sportsDataId,
-    String status,
-    int teamId,
-    String team,
-    int jersey,
-    String positionCategory,
-    String position,
-    int mlbamid,
-    String firstName,
-    String lastName,
-    String batHand,
-    String throwHand,
-    int height,
-    int weight,
-    DateTime birthDate,
-    String birthCity,
-    String birthState,
-    String birthCountry,
+    int? playerId,
+    String? sportsDataId,
+    String? status,
+    int? teamId,
+    String? team,
+    int? jersey,
+    String? positionCategory,
+    String? position,
+    int? mlbamid,
+    String? firstName,
+    String? lastName,
+    String? batHand,
+    String? throwHand,
+    int? height,
+    int? weight,
+    DateTime? birthDate,
+    String? birthCity,
+    String? birthState,
+    String? birthCountry,
     dynamic highSchool,
-    String college,
-    DateTime proDebut,
+    String? college,
+    DateTime? proDebut,
     dynamic salary,
-    String photoUrl,
-    String sportRadarPlayerId,
-    int rotoworldPlayerId,
-    int rotoWirePlayerId,
-    int fantasyAlarmPlayerId,
-    int statsPlayerId,
-    int sportsDirectPlayerId,
-    int xmlTeamPlayerId,
-    String injuryStatus,
-    String injuryBodyPart,
-    DateTime injuryStartDate,
-    String injuryNotes,
-    int fanDuelPlayerId,
-    int draftKingsPlayerId,
-    int yahooPlayerId,
-    int upcomingGameId,
-    String fanDuelName,
-    String draftKingsName,
-    String yahooName,
-    int globalTeamId,
-    String fantasyDraftName,
-    int fantasyDraftPlayerId,
-    String experience,
-    int usaTodayPlayerId,
-    String usaTodayHeadshotUrl,
-    String usaTodayHeadshotNoBackgroundUrl,
-    DateTime usaTodayHeadshotUpdated,
-    DateTime usaTodayHeadshotNoBackgroundUpdated,
+    String? photoUrl,
+    String? sportRadarPlayerId,
+    int? rotoworldPlayerId,
+    int? rotoWirePlayerId,
+    int? fantasyAlarmPlayerId,
+    int? statsPlayerId,
+    int? sportsDirectPlayerId,
+    int? xmlTeamPlayerId,
+    String? injuryStatus,
+    String? injuryBodyPart,
+    DateTime? injuryStartDate,
+    String? injuryNotes,
+    int? fanDuelPlayerId,
+    int? draftKingsPlayerId,
+    int? yahooPlayerId,
+    int? upcomingGameId,
+    String? fanDuelName,
+    String? draftKingsName,
+    String? yahooName,
+    int? globalTeamId,
+    String? fantasyDraftName,
+    int? fantasyDraftPlayerId,
+    String? experience,
+    int? usaTodayPlayerId,
+    String? usaTodayHeadshotUrl,
+    String? usaTodayHeadshotNoBackgroundUrl,
+    DateTime? usaTodayHeadshotUpdated,
+    DateTime? usaTodayHeadshotNoBackgroundUpdated,
   }) =>
       NcaafPlayer(
         playerId: playerId ?? this.playerId,
@@ -286,7 +290,7 @@ class NcaafPlayer {
       );
 
   String toJson() => json.encode(toMap());
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'PlayerID': playerId,
         'SportsDataID': sportsDataId,
         'Status': status,
@@ -302,13 +306,13 @@ class NcaafPlayer {
         'ThrowHand': throwHand,
         'Height': height,
         'Weight': weight,
-        'BirthDate': birthDate == null ? null : birthDate.toIso8601String(),
+        'BirthDate': birthDate?.toIso8601String(),
         'BirthCity': birthCity,
         'BirthState': birthState,
         'BirthCountry': birthCountry,
         'HighSchool': highSchool,
         'College': college,
-        'ProDebut': proDebut == null ? null : proDebut.toIso8601String(),
+        'ProDebut': proDebut?.toIso8601String(),
         'Salary': salary,
         'PhotoUrl': photoUrl,
         'SportRadarPlayerID': sportRadarPlayerId,
@@ -320,8 +324,7 @@ class NcaafPlayer {
         'XmlTeamPlayerID': xmlTeamPlayerId,
         'InjuryStatus': injuryStatus,
         'InjuryBodyPart': injuryBodyPart,
-        'InjuryStartDate':
-            injuryStartDate == null ? null : injuryStartDate.toIso8601String(),
+        'InjuryStartDate': injuryStartDate?.toIso8601String(),
         'InjuryNotes': injuryNotes,
         'FanDuelPlayerID': fanDuelPlayerId,
         'DraftKingsPlayerID': draftKingsPlayerId,
@@ -337,12 +340,8 @@ class NcaafPlayer {
         'UsaTodayPlayerID': usaTodayPlayerId,
         'UsaTodayHeadshotUrl': usaTodayHeadshotUrl,
         'UsaTodayHeadshotNoBackgroundUrl': usaTodayHeadshotNoBackgroundUrl,
-        'UsaTodayHeadshotUpdated': usaTodayHeadshotUpdated == null
-            ? null
-            : usaTodayHeadshotUpdated.toIso8601String(),
+        'UsaTodayHeadshotUpdated': usaTodayHeadshotUpdated?.toIso8601String(),
         'UsaTodayHeadshotNoBackgroundUpdated':
-            usaTodayHeadshotNoBackgroundUpdated == null
-                ? null
-                : usaTodayHeadshotNoBackgroundUpdated.toIso8601String(),
+            usaTodayHeadshotNoBackgroundUpdated?.toIso8601String(),
       };
 }

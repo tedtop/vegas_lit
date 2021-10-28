@@ -1,12 +1,22 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
 import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class TabletNcaafScreen extends StatelessWidget {
-  TabletNcaafScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<NcaafGame> games;
-  final String gameName;
-  final dynamic parsedTeamData;
+  const TabletNcaafScreen({
+    Key? key,
+    this.gameName,
+    this.games,
+    this.parsedTeamData,
+  }) : super(key: key);
+
+  final List<NcaafGame>? games;
+  final String? gameName;
+  final List<NcaafTeam>? parsedTeamData;
+
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -14,7 +24,7 @@ class TabletNcaafScreen extends StatelessWidget {
         crossAxisCount: 2,
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
-        children: games
+        children: games!
             .map(
               (game) => MatchupCard.route(
                 game: game,

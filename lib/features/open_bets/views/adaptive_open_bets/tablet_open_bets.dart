@@ -1,6 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 // import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
@@ -31,7 +37,7 @@ class TabletOpenBets extends StatelessWidget {
 }
 
 class _TabletOpenBetsHeading extends StatelessWidget {
-  const _TabletOpenBetsHeading({Key key}) : super(key: key);
+  const _TabletOpenBetsHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class _TabletOpenBetsHeading extends StatelessWidget {
 }
 
 class _TabletOpenBetsDescription extends StatelessWidget {
-  const _TabletOpenBetsDescription({Key key}) : super(key: key);
+  const _TabletOpenBetsDescription({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +96,7 @@ class _TabletOpenBetsDescription extends StatelessWidget {
 }
 
 class _TabletOpenBetsContent extends StatelessWidget {
-  const _TabletOpenBetsContent({Key key}) : super(key: key);
+  const _TabletOpenBetsContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,29 +108,28 @@ class _TabletOpenBetsContent extends StatelessWidget {
           return const _TabletOpenBetsContentEmpty();
         }
         return const _TabletOpenBetsContentList();
-        break;
+
       case OpenBetsStatus.initial:
         return const SizedBox();
-        break;
+
       case OpenBetsStatus.loading:
         return const CircularProgressIndicator(
           color: Palette.cream,
         );
-        break;
+
       case OpenBetsStatus.failure:
         return const Center(
           child: Text('Some Error Occured'),
         );
-        break;
+
       default:
         return const SizedBox();
-        break;
     }
   }
 }
 
 class _TabletOpenBetsContentList extends StatelessWidget {
-  const _TabletOpenBetsContentList({Key key}) : super(key: key);
+  const _TabletOpenBetsContentList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -139,65 +144,50 @@ class _TabletOpenBetsContentList extends StatelessWidget {
         crossAxisCount: 2,
         shrinkWrap: true,
         key: Key('${bets.length}'),
-        children: bets.map((openBet) {
-          switch (openBet.league) {
-            case 'mlb':
+        children: bets.map(
+          (openBet) {
+            if (openBet is MlbBetData) {
               return FittedBox(
+                fit: BoxFit.scaleDown,
                 child: MlbOpenBetCard(openBets: openBet),
-                fit: BoxFit.scaleDown,
               );
-              break;
-            case 'nba':
+            } else if (openBet is NbaBetData) {
               return FittedBox(
+                fit: BoxFit.scaleDown,
                 child: NbaOpenBetCard(openBets: openBet),
-                fit: BoxFit.scaleDown,
               );
-              break;
-            case 'cbb':
+            } else if (openBet is NcaabBetData) {
               return FittedBox(
+                fit: BoxFit.scaleDown,
                 child: NcaabOpenBetCard(openBets: openBet),
-                fit: BoxFit.scaleDown,
               );
-              break;
-            case 'cfb':
+            } else if (openBet is NcaafBetData) {
               return FittedBox(
+                fit: BoxFit.scaleDown,
                 child: NcaafOpenBetCard(openBets: openBet),
-                fit: BoxFit.scaleDown,
               );
-              break;
-            case 'nfl':
+            } else if (openBet is NflBetData) {
               return FittedBox(
+                fit: BoxFit.scaleDown,
                 child: NflOpenBetCard(openBets: openBet),
-                fit: BoxFit.scaleDown,
               );
-              break;
-            case 'nhl':
+            } else if (openBet is NhlBetData) {
               return FittedBox(
-                child: NhlOpenBetCard(openBets: openBet),
                 fit: BoxFit.scaleDown,
+                child: NhlOpenBetCard(openBets: openBet),
               );
-              break;
-            // case 'olympic':
-            //   return FittedBox(
-            //     child: OlympicOpenBetCard(openBets: openBet),
-            //     fit: BoxFit.scaleDown,
-            //   );
-            //   break;
-            default:
+            } else {
               return const SizedBox();
-          }
-          // return FittedBox(
-          //   child: OpenBetsSlip(openBets: openBets),
-          //   fit: BoxFit.scaleDown,
-          // );
-        }).toList(),
+            }
+          },
+        ).toList(),
       ),
     );
   }
 }
 
 class _TabletOpenBetsContentEmpty extends StatelessWidget {
-  const _TabletOpenBetsContentEmpty({Key key}) : super(key: key);
+  const _TabletOpenBetsContentEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

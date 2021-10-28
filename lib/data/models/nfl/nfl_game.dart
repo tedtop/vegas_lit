@@ -2,6 +2,8 @@
 //
 //     final nflGame = nflGameFromMap(jsonString);
 
+
+
 import 'dart:convert';
 
 class NflGame {
@@ -81,22 +83,25 @@ class NflGame {
     this.stadiumDetails,
   });
 
-  factory NflGame.fromJson(String str) => NflGame.fromMap(json.decode(str));
+  factory NflGame.fromJson(String str) =>
+      NflGame.fromMap(json.decode(str) as Map<String, dynamic>);
   factory NflGame.fromMap(Map<String, dynamic> json) => NflGame(
-        gameKey: json['GameKey'],
-        seasonType: json['SeasonType'],
-        season: json['Season'],
-        week: json['Week'],
-        date: DateTime.parse(json['Date']),
-        awayTeam: json['AwayTeam'],
-        homeTeam: json['HomeTeam'],
+        gameKey: json['GameKey'] as String?,
+        seasonType: json['SeasonType'] as int?,
+        season: json['GameID'] as int?,
+        week: json['Week'] as int?,
+        date: DateTime.parse(json['Date'] as String),
+        awayTeam: json['AwayTeam'] as String?,
+        homeTeam: json['HomeTeam'] as String?,
         awayScore: json['AwayScore'],
         homeScore: json['HomeScore'],
         channel: channelValues.map[json['Channel']],
-        pointSpread:
-            json['PointSpread'] == null ? null : json['PointSpread'].toDouble(),
-        overUnder:
-            json['OverUnder'] == null ? null : json['OverUnder'].toDouble(),
+        pointSpread: json['PointSpread'] == null
+            ? null
+            : json['PointSpread'].toDouble() as double?,
+        overUnder: json['OverUnder'] == null
+            ? null
+            : json['OverUnder'].toDouble() as double?,
         quarter: json['Quarter'],
         timeRemaining: json['TimeRemaining'],
         possession: json['Possession'],
@@ -115,18 +120,18 @@ class NflGame {
         homeScoreQuarter3: json['HomeScoreQuarter3'],
         homeScoreQuarter4: json['HomeScoreQuarter4'],
         homeScoreOvertime: json['HomeScoreOvertime'],
-        hasStarted: json['HasStarted'],
-        isInProgress: json['IsInProgress'],
-        isOver: json['IsOver'],
-        has1StQuarterStarted: json['Has1stQuarterStarted'],
-        has2NdQuarterStarted: json['Has2ndQuarterStarted'],
-        has3RdQuarterStarted: json['Has3rdQuarterStarted'],
-        has4ThQuarterStarted: json['Has4thQuarterStarted'],
-        isOvertime: json['IsOvertime'],
+        hasStarted: json['HasStarted'] as bool?,
+        isInProgress: json['IsInProgress'] as bool?,
+        isOver: json['IsOver'] as bool?,
+        has1StQuarterStarted: json['Has1stQuarterStarted'] as bool?,
+        has2NdQuarterStarted: json['Has2ndQuarterStarted'] as bool?,
+        has3RdQuarterStarted: json['Has3rdQuarterStarted'] as bool?,
+        has4ThQuarterStarted: json['Has4thQuarterStarted'] as bool?,
+        isOvertime: json['IsOvertime'] as bool?,
         downAndDistance: json['DownAndDistance'],
-        quarterDescription: json['QuarterDescription'],
-        stadiumId: json['StadiumID'],
-        lastUpdated: DateTime.parse(json['LastUpdated']),
+        quarterDescription: json['QuarterDescription'] as String?,
+        stadiumId: json['StadiumID'] as int?,
+        lastUpdated: DateTime.parse(json['LastUpdated'] as String),
         geoLat: json['GeoLat'],
         geoLong: json['GeoLong'],
         forecastTempLow: json['ForecastTempLow'],
@@ -134,44 +139,47 @@ class NflGame {
         forecastDescription: json['ForecastDescription'],
         forecastWindChill: json['ForecastWindChill'],
         forecastWindSpeed: json['ForecastWindSpeed'],
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'],
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'],
-        canceled: json['Canceled'],
-        closed: json['Closed'],
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] as int?,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] as int?,
+        canceled: json['Canceled'] as bool?,
+        closed: json['Closed'] as bool?,
         lastPlay: json['LastPlay'],
-        day: DateTime.parse(json['Day']),
-        dateTime: DateTime.parse(json['DateTime']),
-        awayTeamId: json['AwayTeamID'],
-        homeTeamId: json['HomeTeamID'],
-        globalGameId: json['GlobalGameID'],
-        globalAwayTeamId: json['GlobalAwayTeamID'],
-        globalHomeTeamId: json['GlobalHomeTeamID'],
-        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
-        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
-        scoreId: json['ScoreID'],
-        status: json['Status'],
+        day: DateTime.parse(json['Day'] as String),
+        dateTime: DateTime.parse(json['DateTime'] as String),
+        awayTeamId: json['AwayTeamID'] as int?,
+        homeTeamId: json['HomeTeamID'] as int?,
+        globalGameId: json['GlobalGameID'] as int?,
+        globalAwayTeamId: json['GlobalAwayTeamID'] as int?,
+        globalHomeTeamId: json['GlobalHomeTeamID'] as int?,
+        pointSpreadAwayTeamMoneyLine:
+            json['PointSpreadAwayTeamMoneyLine'] as int?,
+        pointSpreadHomeTeamMoneyLine:
+            json['PointSpreadHomeTeamMoneyLine'] as int?,
+        scoreId: json['ScoreID'] as int?,
+        status: json['Status'] as String?,
         gameEndDateTime: json['GameEndDateTime'],
-        homeRotationNumber: json['HomeRotationNumber'],
-        awayRotationNumber: json['AwayRotationNumber'],
-        neutralVenue: json['NeutralVenue'],
+        homeRotationNumber: json['HomeRotationNumber'] as int?,
+        awayRotationNumber: json['AwayRotationNumber'] as int?,
+        neutralVenue: json['NeutralVenue'] as bool?,
         refereeId: json['RefereeID'],
-        overPayout: json['OverPayout'],
-        underPayout: json['UnderPayout'],
-        stadiumDetails: StadiumDetails.fromMap(json['StadiumDetails']),
+        overPayout: json['OverPayout'] as int?,
+        underPayout: json['UnderPayout'] as int?,
+        stadiumDetails: StadiumDetails.fromMap(
+            json['StadiumDetails'] as Map<String, dynamic>),
       );
 
-  final String gameKey;
-  final int seasonType;
-  final int season;
-  final int week;
-  final DateTime date;
-  final String awayTeam;
-  final String homeTeam;
+  final String? gameKey;
+  final int? seasonType;
+  final int? season;
+  final int? week;
+  final DateTime? date;
+  final String? awayTeam;
+  final String? homeTeam;
   final dynamic awayScore;
   final dynamic homeScore;
-  final Channel channel;
-  final double pointSpread;
-  final double overUnder;
+  final Channel? channel;
+  final double? pointSpread;
+  final double? overUnder;
   final dynamic quarter;
   final dynamic timeRemaining;
   final dynamic possession;
@@ -190,18 +198,18 @@ class NflGame {
   final dynamic homeScoreQuarter3;
   final dynamic homeScoreQuarter4;
   final dynamic homeScoreOvertime;
-  final bool hasStarted;
-  final bool isInProgress;
-  final bool isOver;
-  final bool has1StQuarterStarted;
-  final bool has2NdQuarterStarted;
-  final bool has3RdQuarterStarted;
-  final bool has4ThQuarterStarted;
-  final bool isOvertime;
+  final bool? hasStarted;
+  final bool? isInProgress;
+  final bool? isOver;
+  final bool? has1StQuarterStarted;
+  final bool? has2NdQuarterStarted;
+  final bool? has3RdQuarterStarted;
+  final bool? has4ThQuarterStarted;
+  final bool? isOvertime;
   final dynamic downAndDistance;
-  final String quarterDescription;
-  final int stadiumId;
-  final DateTime lastUpdated;
+  final String? quarterDescription;
+  final int? stadiumId;
+  final DateTime? lastUpdated;
   final dynamic geoLat;
   final dynamic geoLong;
   final dynamic forecastTempLow;
@@ -209,44 +217,44 @@ class NflGame {
   final dynamic forecastDescription;
   final dynamic forecastWindChill;
   final dynamic forecastWindSpeed;
-  final int awayTeamMoneyLine;
-  final int homeTeamMoneyLine;
-  final bool canceled;
-  final bool closed;
+  final int? awayTeamMoneyLine;
+  final int? homeTeamMoneyLine;
+  final bool? canceled;
+  final bool? closed;
   final dynamic lastPlay;
-  final DateTime day;
-  final DateTime dateTime;
-  final int awayTeamId;
-  final int homeTeamId;
-  final int globalGameId;
-  final int globalAwayTeamId;
-  final int globalHomeTeamId;
-  final int pointSpreadAwayTeamMoneyLine;
-  final int pointSpreadHomeTeamMoneyLine;
-  final int scoreId;
-  final String status;
+  final DateTime? day;
+  final DateTime? dateTime;
+  final int? awayTeamId;
+  final int? homeTeamId;
+  final int? globalGameId;
+  final int? globalAwayTeamId;
+  final int? globalHomeTeamId;
+  final int? pointSpreadAwayTeamMoneyLine;
+  final int? pointSpreadHomeTeamMoneyLine;
+  final int? scoreId;
+  final String? status;
   final dynamic gameEndDateTime;
-  final int homeRotationNumber;
-  final int awayRotationNumber;
-  final bool neutralVenue;
+  final int? homeRotationNumber;
+  final int? awayRotationNumber;
+  final bool? neutralVenue;
   final dynamic refereeId;
-  final int overPayout;
-  final int underPayout;
-  final StadiumDetails stadiumDetails;
+  final int? overPayout;
+  final int? underPayout;
+  final StadiumDetails? stadiumDetails;
 
   NflGame copyWith({
-    String gameKey,
-    int seasonType,
-    int season,
-    int week,
-    DateTime date,
-    String awayTeam,
-    String homeTeam,
+    String? gameKey,
+    int? seasonType,
+    int? season,
+    int? week,
+    DateTime? date,
+    String? awayTeam,
+    String? homeTeam,
     dynamic awayScore,
     dynamic homeScore,
-    Channel channel,
-    double pointSpread,
-    double overUnder,
+    Channel? channel,
+    double? pointSpread,
+    double? overUnder,
     dynamic quarter,
     dynamic timeRemaining,
     dynamic possession,
@@ -265,18 +273,18 @@ class NflGame {
     dynamic homeScoreQuarter3,
     dynamic homeScoreQuarter4,
     dynamic homeScoreOvertime,
-    bool hasStarted,
-    bool isInProgress,
-    bool isOver,
-    bool has1StQuarterStarted,
-    bool has2NdQuarterStarted,
-    bool has3RdQuarterStarted,
-    bool has4ThQuarterStarted,
-    bool isOvertime,
+    bool? hasStarted,
+    bool? isInProgress,
+    bool? isOver,
+    bool? has1StQuarterStarted,
+    bool? has2NdQuarterStarted,
+    bool? has3RdQuarterStarted,
+    bool? has4ThQuarterStarted,
+    bool? isOvertime,
     dynamic downAndDistance,
-    String quarterDescription,
-    int stadiumId,
-    DateTime lastUpdated,
+    String? quarterDescription,
+    int? stadiumId,
+    DateTime? lastUpdated,
     dynamic geoLat,
     dynamic geoLong,
     dynamic forecastTempLow,
@@ -284,30 +292,30 @@ class NflGame {
     dynamic forecastDescription,
     dynamic forecastWindChill,
     dynamic forecastWindSpeed,
-    int awayTeamMoneyLine,
-    int homeTeamMoneyLine,
-    bool canceled,
-    bool closed,
+    int? awayTeamMoneyLine,
+    int? homeTeamMoneyLine,
+    bool? canceled,
+    bool? closed,
     dynamic lastPlay,
-    DateTime day,
-    DateTime dateTime,
-    int awayTeamId,
-    int homeTeamId,
-    int globalGameId,
-    int globalAwayTeamId,
-    int globalHomeTeamId,
-    int pointSpreadAwayTeamMoneyLine,
-    int pointSpreadHomeTeamMoneyLine,
-    int scoreId,
-    String status,
+    DateTime? day,
+    DateTime? dateTime,
+    int? awayTeamId,
+    int? homeTeamId,
+    int? globalGameId,
+    int? globalAwayTeamId,
+    int? globalHomeTeamId,
+    int? pointSpreadAwayTeamMoneyLine,
+    int? pointSpreadHomeTeamMoneyLine,
+    int? scoreId,
+    String? status,
     dynamic gameEndDateTime,
-    int homeRotationNumber,
-    int awayRotationNumber,
-    bool neutralVenue,
+    int? homeRotationNumber,
+    int? awayRotationNumber,
+    bool? neutralVenue,
     dynamic refereeId,
-    int overPayout,
-    int underPayout,
-    StadiumDetails stadiumDetails,
+    int? overPayout,
+    int? underPayout,
+    StadiumDetails? stadiumDetails,
   }) =>
       NflGame(
         gameKey: gameKey ?? this.gameKey,
@@ -389,17 +397,17 @@ class NflGame {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'GameKey': gameKey,
         'SeasonType': seasonType,
         'Season': season,
         'Week': week,
-        'Date': date.toIso8601String(),
+        'Date': date!.toIso8601String(),
         'AwayTeam': awayTeam,
         'HomeTeam': homeTeam,
         'AwayScore': awayScore,
         'HomeScore': homeScore,
-        'Channel': channelValues.reverse[channel],
+        'Channel': channelValues.reverse![channel!],
         'PointSpread': pointSpread,
         'OverUnder': overUnder,
         'Quarter': quarter,
@@ -431,7 +439,7 @@ class NflGame {
         'DownAndDistance': downAndDistance,
         'QuarterDescription': quarterDescription,
         'StadiumID': stadiumId,
-        'LastUpdated': lastUpdated.toIso8601String(),
+        'LastUpdated': lastUpdated!.toIso8601String(),
         'GeoLat': geoLat,
         'GeoLong': geoLong,
         'ForecastTempLow': forecastTempLow,
@@ -444,8 +452,8 @@ class NflGame {
         'Canceled': canceled,
         'Closed': closed,
         'LastPlay': lastPlay,
-        'Day': day.toIso8601String(),
-        'DateTime': dateTime.toIso8601String(),
+        'Day': day!.toIso8601String(),
+        'DateTime': dateTime!.toIso8601String(),
         'AwayTeamID': awayTeamId,
         'HomeTeamID': homeTeamId,
         'GlobalGameID': globalGameId,
@@ -462,7 +470,7 @@ class NflGame {
         'RefereeID': refereeId,
         'OverPayout': overPayout,
         'UnderPayout': underPayout,
-        'StadiumDetails': stadiumDetails.toMap(),
+        'StadiumDetails': stadiumDetails!.toMap(),
       };
 }
 
@@ -486,42 +494,42 @@ class StadiumDetails {
     this.type,
   });
   factory StadiumDetails.fromJson(String str) =>
-      StadiumDetails.fromMap(json.decode(str));
+      StadiumDetails.fromMap(json.decode(str) as Map<String, dynamic>);
   factory StadiumDetails.fromMap(Map<String, dynamic> json) => StadiumDetails(
-        stadiumId: json['StadiumID'],
-        name: json['Name'],
-        city: json['City'],
-        state: json['State'],
+        stadiumId: json['StadiumID'] as int?,
+        name: json['Name'] as String?,
+        city: json['City'] as String?,
+        state: json['State'] as String?,
         country: countryValues.map[json['Country']],
-        capacity: json['Capacity'],
+        capacity: json['Capacity'] as int?,
         playingSurface: playingSurfaceValues.map[json['PlayingSurface']],
-        geoLat: json['GeoLat'].toDouble(),
-        geoLong: json['GeoLong'].toDouble(),
+        geoLat: json['GeoLat'].toDouble() as double?,
+        geoLong: json['GeoLong'].toDouble() as double?,
         type: typeValues.map[json['Type']],
       );
 
-  final int stadiumId;
-  final String name;
-  final String city;
-  final String state;
-  final Country country;
-  final int capacity;
-  final PlayingSurface playingSurface;
-  final double geoLat;
-  final double geoLong;
-  final Type type;
+  final int? stadiumId;
+  final String? name;
+  final String? city;
+  final String? state;
+  final Country? country;
+  final int? capacity;
+  final PlayingSurface? playingSurface;
+  final double? geoLat;
+  final double? geoLong;
+  final Type? type;
 
   StadiumDetails copyWith({
-    int stadiumId,
-    String name,
-    String city,
-    String state,
-    Country country,
-    int capacity,
-    PlayingSurface playingSurface,
-    double geoLat,
-    double geoLong,
-    Type type,
+    int? stadiumId,
+    String? name,
+    String? city,
+    String? state,
+    Country? country,
+    int? capacity,
+    PlayingSurface? playingSurface,
+    double? geoLat,
+    double? geoLong,
+    Type? type,
   }) =>
       StadiumDetails(
         stadiumId: stadiumId ?? this.stadiumId,
@@ -538,17 +546,17 @@ class StadiumDetails {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'StadiumID': stadiumId,
         'Name': name,
         'City': city,
         'State': state,
-        'Country': countryValues.reverse[country],
+        'Country': countryValues.reverse![country!],
         'Capacity': capacity,
-        'PlayingSurface': playingSurfaceValues.reverse[playingSurface],
+        'PlayingSurface': playingSurfaceValues.reverse![playingSurface!],
         'GeoLat': geoLat,
         'GeoLong': geoLong,
-        'Type': typeValues.reverse[type],
+        'Type': typeValues.reverse![type!],
       };
 }
 
@@ -561,7 +569,8 @@ final countryValues = EnumValues({'USA': Country.USA});
 enum PlayingSurface { ARTIFICIAL, GRASS }
 
 final playingSurfaceValues = EnumValues(
-    {'Artificial': PlayingSurface.ARTIFICIAL, 'Grass': PlayingSurface.GRASS});
+  {'Artificial': PlayingSurface.ARTIFICIAL, 'Grass': PlayingSurface.GRASS},
+);
 
 // ignore: constant_identifier_names
 enum Type { RETRACTABLE_DOME, OUTDOOR, DOME }
@@ -575,9 +584,10 @@ final typeValues = EnumValues({
 class EnumValues<T> {
   EnumValues(this.map);
   Map<String, T> map;
-  Map<T, String> reverseMap;
+  Map<T, String>? reverseMap;
 
-  Map<T, String> get reverse {
+  Map<T, String>? get reverse {
+    // ignore: join_return_with_assignment
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }

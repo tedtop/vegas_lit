@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/open_bets/olympic_open_bet_tile.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -11,21 +10,23 @@ import '../../../home/home.dart';
 import '../../cubit/open_bets_cubit.dart';
 
 class DesktopOpenBets extends StatelessWidget {
+  const DesktopOpenBets({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        const _DesktopOpenBetsHeading(),
-        const _DesktopOpenBetsDescription(),
-        const _DesktopOpenBetsContent(),
-        const BottomBar()
+      children: const [
+        _DesktopOpenBetsHeading(),
+        _DesktopOpenBetsDescription(),
+        _DesktopOpenBetsContent(),
+        BottomBar()
       ],
     );
   }
 }
 
 class _DesktopOpenBetsHeading extends StatelessWidget {
-  const _DesktopOpenBetsHeading({Key key}) : super(key: key);
+  const _DesktopOpenBetsHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class _DesktopOpenBetsHeading extends StatelessWidget {
 }
 
 class _DesktopOpenBetsDescription extends StatelessWidget {
-  const _DesktopOpenBetsDescription({Key key}) : super(key: key);
+  const _DesktopOpenBetsDescription({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class _DesktopOpenBetsDescription extends StatelessWidget {
 }
 
 class _DesktopOpenBetsContent extends StatelessWidget {
-  const _DesktopOpenBetsContent({Key key}) : super(key: key);
+  const _DesktopOpenBetsContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,29 +95,28 @@ class _DesktopOpenBetsContent extends StatelessWidget {
         } else {
           return const _DesktopOpenBetsTable();
         }
-        break;
+
       case OpenBetsStatus.initial:
         return const SizedBox();
-        break;
+
       case OpenBetsStatus.loading:
         return const CircularProgressIndicator(
           color: Palette.cream,
         );
-        break;
+
       case OpenBetsStatus.failure:
         return const Center(
           child: Text("Couldn't load bet history data"),
         );
-        break;
+
       default:
         return const SizedBox();
-        break;
     }
   }
 }
 
 class _DesktopOpenBetsTableEmpty extends StatelessWidget {
-  const _DesktopOpenBetsTableEmpty({Key key}) : super(key: key);
+  const _DesktopOpenBetsTableEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +175,7 @@ class _DesktopOpenBetsTableEmpty extends StatelessWidget {
 }
 
 class _DesktopOpenBetsTable extends StatelessWidget {
-  const _DesktopOpenBetsTable({Key key}) : super(key: key);
+  const _DesktopOpenBetsTable({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -190,25 +190,25 @@ class _DesktopOpenBetsTable extends StatelessWidget {
         switch (bets[index].league) {
           // case 'mlb':
           //   return MlbOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'nba':
           //   return NbaOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'cbb':
           //   return NcaabOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'cfb':
           //   return NcaafOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'nfl':
           //   return NflOpenBetCard(openBets: bets[index]);
-          //   break;
+          //
           // case 'nhl':
           //   return NhlOpenBetCard(openBets: bets[index]);
-          //   break;
-          case 'olympics':
-            return OlympicsOpenBetTile(openBets: bets[index]);
-            break;
+          //
+          // case 'olympics':
+          //   return OlympicsOpenBetTile(openBets: bets[index]);
+          //
           default:
             return const SizedBox();
         }
@@ -234,7 +234,7 @@ class _DesktopOpenBetsTable extends StatelessWidget {
 //             .map(
 //               (entry) => SizedBox(
 //                 child: AutoSizeText(entry, style: Styles.openBetsDesktopField),
-//                 width: tableHeadingsWithWidth[entry].toDouble(),
+//                 width: tableHeadingsWithWidth[entry].toDouble() as double,
 //               ),
 //             )
 //             .toList(),
@@ -404,7 +404,7 @@ class _DesktopOpenBetsTable extends StatelessWidget {
 //                       }
 //                     },
 //                   ),
-//                   width: tableHeadingsWithWidth[entry].toDouble(),
+//                   width: tableHeadingsWithWidth[entry].toDouble() as double,
 //                 ))
 //             .toList(),
 //       ),
@@ -421,7 +421,7 @@ const tableHeadingsWithWidth = {
   'Time Remaining': 280
 };
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
+String getRemainingTimeText({required CurrentRemainingTime time}) {
   final days = time.days == null ? '' : '${time.days}d ';
   final hours = time.hours == null ? '' : '${time.hours}hr';
   final min = time.min == null ? '' : ' ${time.min}m';

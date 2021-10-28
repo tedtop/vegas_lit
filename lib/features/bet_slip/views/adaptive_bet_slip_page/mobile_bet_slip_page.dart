@@ -14,7 +14,7 @@ import '../../widgets/bet_slip_empty.dart';
 import '../../widgets/bet_slip_list.dart';
 
 class MobileBetSlipPage extends StatelessWidget {
-  const MobileBetSlipPage({Key key}) : super(key: key);
+  const MobileBetSlipPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class MobileBetSlipPage extends StatelessWidget {
 }
 
 class SingleBetSlip extends StatelessWidget {
-  const SingleBetSlip({Key key}) : super(key: key);
+  const SingleBetSlip({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class SingleBetSlip extends StatelessWidget {
               case BetSlipStatus.opened:
                 return Column(
                   children: [
-                    state.singleBetSlipCard.isEmpty
+                    state.singleBetSlipCard!.isEmpty
                         ? isBetPlaced
                             ? RewardedBetSlip.route()
                             : EmptyBetSlip()
@@ -87,12 +87,11 @@ class SingleBetSlip extends StatelessWidget {
                     const BottomBar()
                   ],
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),
@@ -102,7 +101,7 @@ class SingleBetSlip extends StatelessWidget {
 }
 
 class ParlayBetSlip extends StatelessWidget {
-  const ParlayBetSlip({Key key}) : super(key: key);
+  const ParlayBetSlip({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,15 +116,15 @@ class ParlayBetSlip extends StatelessWidget {
               case BetSlipStatus.opened:
                 return Column(
                   children: [
-                    state.parlayBetSlipCard.isEmpty
+                    state.parlayBetSlipCard!.isEmpty
                         ? isBetPlaced
                             ? RewardedBetSlip.route()
                             : EmptyBetSlip()
                         : Column(
                             children: [
-                              state.parlayBetSlipCard.length < 2
+                              state.parlayBetSlipCard!.length < 2
                                   ? const ParlayBetSlipWarning(isMinimum: true)
-                                  : state.parlayBetSlipCard.length > 6
+                                  : state.parlayBetSlipCard!.length > 6
                                       ? const ParlayBetSlipWarning(
                                           isMinimum: false)
                                       : ParlayBetSlipButton.route(
@@ -137,12 +136,11 @@ class ParlayBetSlip extends StatelessWidget {
                     const BottomBar()
                   ],
                 );
-                break;
+
               default:
                 return const CircularProgressIndicator(
                   color: Palette.cream,
                 );
-                break;
             }
           },
         ),
@@ -152,7 +150,7 @@ class ParlayBetSlip extends StatelessWidget {
 }
 
 class MobileBetSlipUpper extends StatelessWidget {
-  const MobileBetSlipUpper({Key key}) : super(key: key);
+  const MobileBetSlipUpper({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Text(

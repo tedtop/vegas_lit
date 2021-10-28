@@ -10,8 +10,14 @@ extension ESTDateTime on DateTime {
     tz.initializeTimeZones();
     final locationNY = tz.getLocation('America/New_York');
     final nowNY = tz.TZDateTime.now(locationNY);
-    final dateTimeNY = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-        nowNY.minute, nowNY.second);
+    final dateTimeNY = DateTime(
+      nowNY.year,
+      nowNY.month,
+      nowNY.day,
+      nowNY.hour,
+      nowNY.minute,
+      nowNY.second,
+    );
     return dateTimeNY;
   }
 
@@ -19,8 +25,16 @@ extension ESTDateTime on DateTime {
     tz.initializeTimeZones();
     final locationNY = tz.getLocation('America/New_York');
     final nowNY = tz.TZDateTime.now(locationNY);
-    final easternTime = DateTime(nowNY.year, nowNY.month, nowNY.day, nowNY.hour,
-        nowNY.minute, nowNY.second, nowNY.millisecond, nowNY.microsecond);
+    final easternTime = DateTime(
+      nowNY.year,
+      nowNY.month,
+      nowNY.day,
+      nowNY.hour,
+      nowNY.minute,
+      nowNY.second,
+      nowNY.millisecond,
+      nowNY.microsecond,
+    );
     final localTime = DateTime.now().toLocal();
     final diff = localTime.difference(easternTime);
     return time.add(diff).millisecondsSinceEpoch;
@@ -28,8 +42,9 @@ extension ESTDateTime on DateTime {
 
   // Don't pass anything in parameter if weeknumber of the year is needed keeping thursday as the week's start
   static int get weekNumberVL {
-    final firstDayOfThatYear =
-        DateTime(ESTDateTime.fetchTimeEST().year, 1, 1).weekday;
+    final firstDayOfThatYear = DateTime(
+      ESTDateTime.fetchTimeEST().year,
+    ).weekday;
     const firstDayOfEveryWeek = DateTime.sunday;
     final firstWeekLength = firstDayOfThatYear < firstDayOfEveryWeek
         ? (firstDayOfEveryWeek - firstDayOfThatYear)
@@ -51,12 +66,12 @@ extension ESTDateTime on DateTime {
       case DateTime.tuesday:
       case DateTime.wednesday:
         return '$year-${weekNumber - 1}-$weekNumber';
-        break;
       case DateTime.thursday:
       case DateTime.friday:
       case DateTime.saturday:
         return '$year-$weekNumber-${weekNumber + 1}';
-        break;
+      default:
+        return '$year-${weekNumber - 1}-$weekNumber';
     }
   }
 

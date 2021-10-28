@@ -29,7 +29,7 @@ class Sportsbook extends StatelessWidget {
       listener: (context, state) {
         if (state.status == SportsbookStatus.initial) {
           if (!state.isRulesShown) {
-            Navigator.push(
+            Navigator.push<void>(
               context,
               RulesDialog.route(),
             );
@@ -49,14 +49,13 @@ class Sportsbook extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           default:
             return SportsBookView(
               league: state.league,
               estTimeZone: state.estTimeZone,
               gameNumberList: state.gameNumbers,
             );
-            break;
         }
       },
     );
@@ -65,16 +64,14 @@ class Sportsbook extends StatelessWidget {
 
 class SportsBookView extends StatefulWidget {
   SportsBookView({
-    Key key,
-    @required this.league,
-    @required this.estTimeZone,
-    @required this.gameNumberList,
-  })  : assert(league != null),
-        assert(gameNumberList != null),
-        super(key: key);
+    Key? key,
+    required this.league,
+    required this.estTimeZone,
+    required this.gameNumberList,
+  }) : super(key: key);
 
-  final String league;
-  final DateTime estTimeZone;
+  final String? league;
+  final DateTime? estTimeZone;
   final Map<String, String> gameNumberList;
 
   @override
@@ -102,12 +99,11 @@ class _SportsBookViewState extends State<SportsBookView>
             context.read<SportsbookBloc>().add(
                   SportsbookOpen(league: widget.league),
                 );
-            context.read<BetSlipCubit>()
-              ..openBetSlip(
-                singleBetSlipGames: [],
-                parlayBetSlipGames: [],
-                betDataList: [],
-              );
+            context.read<BetSlipCubit>().openBetSlip(
+              singleBetSlipGames: [],
+              parlayBetSlipGames: [],
+              betDataList: [],
+            );
           },
           color: Palette.cream,
           child: ListView(
@@ -126,64 +122,63 @@ class _SportsBookViewState extends State<SportsBookView>
                   child: Row(
                     children: [
                       Expanded(flex: 2, child: _selectGameDropdown()),
-                      kIsWeb
-                          ? const SizedBox()
-                          : Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  context.read<HomeCubit>().homeChange(1);
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      'BET SLIP',
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Palette.cream,
-                                      ),
-                                    ),
-                                    BlocBuilder<BetSlipCubit, BetSlipState>(
-                                      builder: (context, state) {
-                                        switch (state.status) {
-                                          case BetSlipStatus.opened:
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Palette.cream,
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
-                                              ),
-                                              height: 40,
-                                              width: 42,
-                                              child: Center(
-                                                child: Text(
-                                                  state.singleBetSlipCard.length
-                                                      .toString(),
-                                                  style: GoogleFonts.nunito(
-                                                    color: Palette.darkGrey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                            break;
-                                          default:
-                                            return const Center(
-                                              child: CircularProgressIndicator(
-                                                color: Palette.cream,
-                                              ),
-                                            );
-                                            break;
-                                        }
-                                      },
-                                    ),
-                                  ],
+                      if (kIsWeb)
+                        const SizedBox()
+                      else
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<HomeCubit>().homeChange(1);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  'BET SLIP',
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Palette.cream,
+                                  ),
                                 ),
-                              ),
+                                BlocBuilder<BetSlipCubit, BetSlipState>(
+                                  builder: (context, state) {
+                                    switch (state.status) {
+                                      case BetSlipStatus.opened:
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: Palette.cream,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          height: 40,
+                                          width: 42,
+                                          child: Center(
+                                            child: Text(
+                                              state.singleBetSlipCard!.length
+                                                  .toString(),
+                                              style: GoogleFonts.nunito(
+                                                color: Palette.darkGrey,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+
+                                      default:
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: Palette.cream,
+                                          ),
+                                        );
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -218,7 +213,7 @@ class _SportsBookViewState extends State<SportsBookView>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Eastern Time: ${formatDate(widget.estTimeZone)}',
+                      'Eastern Time: ${formatDate(widget.estTimeZone!)}',
                       style: Styles.matchupTime,
                     ),
                   ],
@@ -258,7 +253,6 @@ class _SportsBookViewState extends State<SportsBookView>
                       break;
                     default:
                       selectedIndex = 9;
-                      break;
                   }
                   return FadeIndexedStack(
                     index: selectedIndex,
@@ -324,15 +318,15 @@ class _SportsBookViewState extends State<SportsBookView>
           builder: (context, sizeInfo) {
             if (sizeInfo.isMobile &&
                 !kIsWeb &&
-                !(widget.gameNumberList[widget.league] == '0') &&
-                !(widget.gameNumberList[widget.league] == 'OFF-SEASON')) {
+                !(widget.gameNumberList[widget.league!] == '0') &&
+                !(widget.gameNumberList[widget.league!] == 'OFF-SEASON')) {
               return FloatingActionButton(
+                onPressed: _launchTutorialVideo,
                 child: const Icon(
                   Icons.help_outlined,
                   size: 40,
                   color: Palette.cream,
                 ),
-                onPressed: _launchTutorialVideo,
                 // await _scrollController.animateTo(
                 //   _scrollController.initialScrollOffset,
                 //   duration: const Duration(milliseconds: 300),
@@ -367,7 +361,7 @@ class _SportsBookViewState extends State<SportsBookView>
             key: _key2,
             dropdownColor: Palette.green,
             isDense: true,
-            value: '${widget.league}',
+            value: widget.league,
             icon: const Icon(
               Icons.arrow_circle_down,
               color: Palette.cream,
@@ -380,7 +374,7 @@ class _SportsBookViewState extends State<SportsBookView>
             style: GoogleFonts.nunito(
               fontSize: 18,
             ),
-            onChanged: (String newValue) {
+            onChanged: (String? newValue) {
               if (newValue != widget.league) {
                 context.read<SportsbookBloc>().add(
                       SportsbookLeagueChange(league: newValue),
@@ -400,7 +394,7 @@ class _SportsBookViewState extends State<SportsBookView>
               // 'CRICKET'
             ].map<DropdownMenuItem<String>>(
               (String value) {
-                String length;
+                String? length;
                 widget.gameNumberList.forEach(
                   (key, newValue) {
                     if (key == 'GOLF' || key == 'OLYMPICS' && key == value) {
@@ -450,7 +444,7 @@ class _SportsBookViewState extends State<SportsBookView>
 
 class FadeIndexedStack extends StatefulWidget {
   const FadeIndexedStack({
-    Key key,
+    Key? key,
     this.index,
     this.children,
     this.duration = const Duration(
@@ -458,8 +452,8 @@ class FadeIndexedStack extends StatefulWidget {
     ),
   }) : super(key: key);
 
-  final int index;
-  final List<Widget> children;
+  final int? index;
+  final List<Widget>? children;
   final Duration duration;
 
   @override
@@ -468,7 +462,7 @@ class FadeIndexedStack extends StatefulWidget {
 
 class _FadeIndexedStackState extends State<FadeIndexedStack>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void didUpdateWidget(FadeIndexedStack oldWidget) {
@@ -497,7 +491,7 @@ class _FadeIndexedStackState extends State<FadeIndexedStack>
       opacity: _controller,
       child: IndexedStack(
         index: widget.index,
-        children: widget.children,
+        children: widget.children!,
       ),
     );
   }

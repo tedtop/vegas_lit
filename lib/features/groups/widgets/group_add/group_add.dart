@@ -13,12 +13,12 @@ import '../../../home/home.dart';
 import 'cubit/group_add_cubit.dart';
 
 class GroupAdd extends StatefulWidget {
-  GroupAdd._({Key key}) : super(key: key);
+  GroupAdd._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route(
-      {@required HomeCubit homeCubit,
-      @required StorageRepository storageRepository}) {
-    return MaterialPageRoute(
+      {required HomeCubit homeCubit,
+      required StorageRepository storageRepository}) {
+    return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider.value(
           value: homeCubit,
@@ -43,13 +43,13 @@ class _GroupAddState extends State<GroupAdd> {
 
   final _groupNameController = TextEditingController();
   final _groupDescriptionController = TextEditingController();
-  bool _isUnlimitedSize = true;
-  bool _isPublic = true;
-  int _userLimit;
+  bool? _isUnlimitedSize = true;
+  bool? _isPublic = true;
+  int? _userLimit;
 
   @override
   Widget build(BuildContext context) {
-    final userData = context.select((HomeCubit cubit) => cubit.state.userData);
+    final userData = context.select((HomeCubit cubit) => cubit.state.userData!);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -87,7 +87,7 @@ class _GroupAddState extends State<GroupAdd> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    userData.username,
+                    userData.username!,
                     style: Styles.normalText,
                   ),
                 ),
@@ -113,7 +113,7 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
                 controller: _groupNameController,
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Please enter a Group Name.';
                   } else if (!RegExp(r'^[a-zA-Z0-9_ \-=,\.]+$')
                       .hasMatch(value)) {
@@ -136,7 +136,7 @@ class _GroupAddState extends State<GroupAdd> {
                         child: RadioListTile(
                           value: true,
                           groupValue: _isPublic,
-                          onChanged: (val) => setState(() {
+                          onChanged: (bool? val) => setState(() {
                             _isPublic = val;
                           }),
                           title: Text(
@@ -151,7 +151,7 @@ class _GroupAddState extends State<GroupAdd> {
                         child: RadioListTile(
                           value: false,
                           groupValue: _isPublic,
-                          onChanged: (val) => setState(() {
+                          onChanged: (bool? val) => setState(() {
                             _isPublic = val;
                           }),
                           title: Text(
@@ -176,7 +176,7 @@ class _GroupAddState extends State<GroupAdd> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(12),
                                 ),
-                                child: Image.file(state.avatarFile),
+                                child: Image.file(state.avatarFile!),
                               ),
                             ),
                             Positioned(
@@ -265,7 +265,7 @@ class _GroupAddState extends State<GroupAdd> {
                 ),
                 controller: _groupDescriptionController,
                 validator: (value) {
-                  if (value.length > 160) {
+                  if (value!.length > 160) {
                     return 'Maximum 160 characters allowed!';
                   }
                   return null;
@@ -276,7 +276,7 @@ class _GroupAddState extends State<GroupAdd> {
               RadioListTile(
                 value: true,
                 groupValue: _isUnlimitedSize,
-                onChanged: (val) => setState(
+                onChanged: (bool? val) => setState(
                   () {
                     _isUnlimitedSize = val;
                   },
@@ -289,7 +289,7 @@ class _GroupAddState extends State<GroupAdd> {
               RadioListTile(
                 value: false,
                 groupValue: _isUnlimitedSize,
-                onChanged: (val) => setState(
+                onChanged: (bool? val) => setState(
                   () {
                     _isUnlimitedSize = val;
                   },
@@ -317,10 +317,10 @@ class _GroupAddState extends State<GroupAdd> {
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
                         validator: (value) {
-                          if (!_isUnlimitedSize) {
-                            if (value.isEmpty) {
+                          if (!_isUnlimitedSize!) {
+                            if (value!.isEmpty) {
                               return 'Required';
-                            } else if (int.tryParse(value) <= 1) {
+                            } else if (int.tryParse(value)! <= 1) {
                               return 'Invalid value';
                             } else if (int.parse(value) > 250) {
                               return 'Maximum 250 members allowed';
@@ -360,7 +360,7 @@ class _GroupAddState extends State<GroupAdd> {
                 builder: (context, state) {
                   switch (state.status) {
                     case GroupAddStatus.initial:
-                      return userData.groups.length >= 10
+                      return userData.groups!.length >= 10
                           ? Center(
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
@@ -370,32 +370,65 @@ class _GroupAddState extends State<GroupAdd> {
                                 ),
                               ),
                             )
-                          : DefaultButton(
-                              text: 'CREATE GROUP',
-                              action: () {
-                                if (_formKey.currentState.validate()) {
-                                  context.read<GroupAddCubit>().addGroup(
-                                        group: Group(
-                                          adminId: userData.uid,
-                                          adminName: userData.username,
-                                          avatarUrl: null,
-                                          createdBy: userData.uid,
-                                          createdAt: ESTDateTime.fetchTimeEST(),
-                                          description:
-                                              _groupDescriptionController.text,
-                                          isPublic: _isPublic,
-                                          name: _groupNameController.text,
-                                          userLimit:
-                                              _isUnlimitedSize ? 0 : _userLimit,
-                                          users: {userData.uid: true},
-                                          id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
-                                          isUnlimited: _isUnlimitedSize,
+                          : SizedBox(
+                              width: 174,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(
+                                          vertical: 10,
                                         ),
-                                      );
-                                }
-                              },
+                                      ),
+                                      elevation: MaterialStateProperty.all(
+                                          Styles.normalElevation),
+                                      shape: MaterialStateProperty.all(
+                                          Styles.smallRadius),
+                                      textStyle: MaterialStateProperty.all(
+                                        const TextStyle(color: Palette.cream),
+                                      ),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Palette.green),
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap),
+                                  child: Text(
+                                    'CREATE GROUP',
+                                    style: GoogleFonts.nunito(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<GroupAddCubit>().addGroup(
+                                            group: Group(
+                                              adminId: userData.uid,
+                                              adminName: userData.username,
+                                              avatarUrl: null,
+                                              createdBy: userData.uid,
+                                              createdAt:
+                                                  ESTDateTime.fetchTimeEST(),
+                                              description:
+                                                  _groupDescriptionController
+                                                      .text,
+                                              isPublic: _isPublic,
+                                              name: _groupNameController.text,
+                                              userLimit: _isUnlimitedSize!
+                                                  ? 0
+                                                  : _userLimit,
+                                              users: {userData.uid: true},
+                                              id: '${_groupNameController.text}-${ESTDateTime.fetchTimeEST().toString()}-${userData.uid}',
+                                              isUnlimited: _isUnlimitedSize,
+                                            ),
+                                          );
+                                    }
+                                  },
+                                ),
+                              ),
                             );
-                      break;
+
                     case GroupAddStatus.loading:
                       return const SizedBox(
                           height: 50,
@@ -426,56 +459,6 @@ class _GroupAddState extends State<GroupAdd> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: action,
         ),
       ),
     );

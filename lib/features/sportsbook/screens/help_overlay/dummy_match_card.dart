@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -5,7 +7,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 
 class DummyMatchCard extends StatelessWidget {
-  const DummyMatchCard({Key key}) : super(key: key);
+  const DummyMatchCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -168,9 +170,9 @@ class DummyMatchCard extends StatelessWidget {
 
 class DummyMatchCardButton extends StatelessWidget {
   const DummyMatchCardButton(
-      {Key key, this.text, this.color = Palette.darkGrey})
+      {Key? key, this.text, this.color = Palette.darkGrey})
       : super(key: key);
-  final String text;
+  final String? text;
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -183,7 +185,7 @@ class DummyMatchCardButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6), color: color),
             child: Center(
               child: Text(
-                text,
+                text!,
                 style: GoogleFonts.nunito(
                   fontSize: 14,
                   color: Palette.cream,
@@ -194,14 +196,14 @@ class DummyMatchCardButton extends StatelessWidget {
 }
 
 class DummyMatchButtonSeperator extends StatelessWidget {
-  const DummyMatchButtonSeperator({Key key, this.text}) : super(key: key);
-  final String text;
+  const DummyMatchButtonSeperator({Key? key, this.text}) : super(key: key);
+  final String? text;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.5),
       child: Text(
-        text,
+        text!,
         maxLines: 1,
         textAlign: TextAlign.center,
         style: GoogleFonts.nunito(

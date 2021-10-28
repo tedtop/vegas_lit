@@ -10,10 +10,10 @@ import '../cubit/admin_vault_cubit.dart';
 import '../widgets/admin_record_box.dart';
 
 class AdminVaultScreen extends StatelessWidget {
-  const AdminVaultScreen._({Key key}) : super(key: key);
+  const AdminVaultScreen._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route() {
-    return MaterialPageRoute(
+    return MaterialPageRoute<void>(
       builder: (_) {
         return BlocProvider(
           create: (context) => AdminVaultCubit(
@@ -35,14 +35,14 @@ class AdminVaultScreen extends StatelessWidget {
           switch (state.status) {
             case AdminVaultStatus.initial:
               return const SizedBox();
-              break;
+
             case AdminVaultStatus.loading:
               return const Center(
                 child: CircularProgressIndicator(
                   color: Palette.cream,
                 ),
               );
-              break;
+
             case AdminVaultStatus.success:
               return Column(
                 children: [
@@ -66,7 +66,7 @@ class AdminVaultScreen extends StatelessWidget {
                   ),
                 ],
               );
-              break;
+
             default:
               return Center(
                 child: Text(

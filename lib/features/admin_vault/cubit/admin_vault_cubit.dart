@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -8,13 +10,13 @@ import '../../../data/repositories/user_repository.dart';
 part 'admin_vault_state.dart';
 
 class AdminVaultCubit extends Cubit<AdminVaultState> {
-  AdminVaultCubit({@required UserRepository userRepository})
+  AdminVaultCubit({required UserRepository userRepository})
       : assert(userRepository != null),
         _userRepository = userRepository,
         super(const AdminVaultState());
 
   final UserRepository _userRepository;
-  StreamSubscription _adminVaultSubscription;
+  StreamSubscription? _adminVaultSubscription;
 
   Future<void> fetchAdminVault() async {
     emit(const AdminVaultState(status: AdminVaultStatus.loading));

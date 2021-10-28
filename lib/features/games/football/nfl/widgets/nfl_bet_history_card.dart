@@ -7,7 +7,7 @@ import '../../../../../data/models/nfl/nfl_bet.dart';
 
 class NflBetHistoryCard extends StatelessWidget {
   const NflBetHistoryCard(
-      {Key key, @required this.betHistoryData, this.isParlayLeg = false})
+      {Key? key, required this.betHistoryData, this.isParlayLeg = false})
       : assert(betHistoryData != null),
         super(key: key);
 
@@ -19,20 +19,20 @@ class NflBetHistoryCard extends StatelessWidget {
     final isWin = betHistoryData.winningTeam == betHistoryData.betTeam;
     final isMoneyline = betHistoryData.betType == 'moneyline';
     final isPointSpread = betHistoryData.betType == 'pointspread';
-    final odds = betHistoryData?.odds?.isNegative ?? 0.isNegative
+    final odds = betHistoryData.odds?.isNegative ?? 0.isNegative
         ? betHistoryData.odds.toString()
         : '+${betHistoryData.odds}';
-    final isPointSpreadNegative = betHistoryData?.betPointSpread == null
+    final isPointSpreadNegative = betHistoryData.betPointSpread == null
         ? true
-        : betHistoryData?.betPointSpread?.isNegative;
+        : betHistoryData.betPointSpread?.isNegative;
     final pointSpread = betHistoryData.betPointSpread != null
         ? (betHistoryData.betTeam == 'home'
-            ? (isPointSpreadNegative
-                ? '-${betHistoryData.betPointSpread.abs()}'
-                : '+${betHistoryData.betPointSpread.abs()}')
-            : (isPointSpreadNegative
-                ? '+${betHistoryData.betPointSpread.abs()}'
-                : '-${betHistoryData.betPointSpread.abs()}'))
+            ? (isPointSpreadNegative!
+                ? '-${betHistoryData.betPointSpread!.abs()}'
+                : '+${betHistoryData.betPointSpread!.abs()}')
+            : (isPointSpreadNegative!
+                ? '+${betHistoryData.betPointSpread!.abs()}'
+                : '-${betHistoryData.betPointSpread!.abs()}'))
         : '';
     return Padding(
       padding:
@@ -94,12 +94,12 @@ class NflBetHistoryCard extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   text:
-                      '${betHistoryData.betTeam == 'home' ? '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
+                      '${betHistoryData.betTeam == 'home' ? '${betHistoryData.homeTeamName!.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName!.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
                   style: Styles.betSlipHomeTeam,
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          ' @ ${betHistoryData.betTeam == 'away' ? '${betHistoryData.homeTeamName.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
+                          ' @ ${betHistoryData.betTeam == 'away' ? '${betHistoryData.homeTeamName!.toUpperCase()} ${betHistoryData.homeTeamScore ?? ''}' : '${betHistoryData.awayTeamName!.toUpperCase()} ${betHistoryData.awayTeamScore ?? ''}'}',
                       style: Styles.betSlipAwayTeam,
                     ),
                   ],
@@ -111,7 +111,7 @@ class NflBetHistoryCard extends StatelessWidget {
                       ? Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
-                            'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit + betHistoryData.betAmount}',
+                            'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit! + betHistoryData.betAmount!}',
                             style: Styles.betHistoryCardBoldGreen,
                           ),
                         )
@@ -131,7 +131,7 @@ class NflBetHistoryCard extends StatelessWidget {
   }
 }
 
-String whichBetSystemFromString(String betType) {
+String whichBetSystemFromString(String? betType) {
   if (betType == 'moneyline') {
     return 'MONEYLINE';
   }

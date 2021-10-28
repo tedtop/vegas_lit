@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,7 +8,7 @@ import '../../config/palette.dart';
 import '../../config/styles.dart';
 
 class PrivacyPolicy extends StatelessWidget {
-  const PrivacyPolicy._({Key key}) : super(key: key);
+  const PrivacyPolicy._({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -41,7 +43,7 @@ class PrivacyPolicy extends StatelessWidget {
 
 class _PrivacyPolicyHeader extends StatelessWidget {
   const _PrivacyPolicyHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -60,7 +62,7 @@ class _PrivacyPolicyHeader extends StatelessWidget {
 
 class _PrivacyPolicyContent extends StatelessWidget {
   const _PrivacyPolicyContent({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../../../../config/extensions.dart';
@@ -11,7 +13,7 @@ class TeamInfoCubit extends Cubit<TeamInfoState> {
   TeamInfoCubit(this.sportsRepository) : super(TeamInfoInitial());
   final SportsRepository sportsRepository;
 
-  void getTeamDetails(String teamKey, String gameName) async {
+  void getTeamDetails(String? teamKey, String? gameName) async {
     final players = await sportsRepository.fetchNCAAFPlayers(
       teamKey: teamKey,
     );

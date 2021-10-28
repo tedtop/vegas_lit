@@ -21,8 +21,8 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
-  String versionString;
-  String buildNumber;
+  String? versionString;
+  String? buildNumber;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final width = MediaQuery.of(context).size.width;
     final currentUserId = context.select(
       (AuthenticationBloc authenticationBloc) =>
-          authenticationBloc.state?.user?.uid,
+          authenticationBloc.state.user?.uid,
     );
     final isAdmin = context.select((ProfileCubit profileCubit) =>
         profileCubit.state.userData?.isAdmin ?? false);
@@ -60,7 +60,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             title: Text('PROFILE', style: Styles.normalTextBold),
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.of(context).push<void>(
                 Profile.route(currentUserId: currentUserId),
               );
             },
@@ -105,7 +105,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             leading: Text('GROUPS', style: Styles.normalTextBold),
             onTap: () {
-              Navigator.push(
+              Navigator.push<void>(
                 context,
                 GroupsPage.route(
                   cubit: context.read<HomeCubit>(),
@@ -124,7 +124,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ? ListTile(
                   title: Text('ADMIN VAULT', style: Styles.normalTextBold),
                   onTap: () {
-                    Navigator.of(context).push(AdminVaultScreen.route());
+                    Navigator.of(context).push<void>(AdminVaultScreen.route());
                   },
                 )
               : Container(),
@@ -159,7 +159,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             title: Text('RULES', style: Styles.normalText),
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.of(context).push<void>(
                 Rules.route(),
               );
             },
@@ -224,7 +224,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
   final Uri _emailLaunchUri = Uri(
     scheme: 'mailto',
     path: 'support@vegaslit.com',
-    queryParameters: {'subject': 'Question about Vegas Lit app'},
+    queryParameters: <String, String>{
+      'subject': 'Question about Vegas Lit app'
+    },
   );
 }
 

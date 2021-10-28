@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,7 +8,7 @@ import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../features/home/cubit/home_cubit.dart';
 
-AppBar mobileAppBar({int balanceAmount}) {
+AppBar mobileAppBar({int? balanceAmount}) {
   return AppBar(
     iconTheme: const IconThemeData(color: Palette.cream),
     toolbarHeight: 80.0,

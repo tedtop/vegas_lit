@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
 
 class FirebaseAuthentication {
-  FirebaseAuthentication({FirebaseAuth firebaseAuth})
+  FirebaseAuthentication({FirebaseAuth? firebaseAuth})
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   final FirebaseAuth _firebaseAuth;
 
-  Stream<User> get getUser {
+  Stream<User?> get getUser {
     return _firebaseAuth.authStateChanges().map(
       (firebaseUser) {
         return firebaseUser ?? firebaseUser;
@@ -15,22 +14,21 @@ class FirebaseAuthentication {
     );
   }
 
-  Future<User> get getCurrentUser async {
+  Future<User?> get getCurrentUser async {
     return _firebaseAuth.currentUser;
   }
 
   Future<void> signUp({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
-    assert(email != null && password != null);
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      if (!credential.user.emailVerified) {
-        await credential.user.sendEmailVerification();
+      if (!credential.user!.emailVerified) {
+        await credential.user!.sendEmailVerification();
       }
     } on FirebaseAuthException catch (error) {
       String errorMessage;
@@ -62,7 +60,6 @@ class FirebaseAuthentication {
           break;
         default:
           errorMessage = 'Signup failed. Try again later.';
-          break;
       }
       throw SignUpFailure(
         errorMessage: errorMessage,
@@ -70,15 +67,14 @@ class FirebaseAuthentication {
     }
   }
 
-  Future<void> sendEmailVerification({@required User user}) async {
+  Future<void> sendEmailVerification({required User user}) async {
     await user.sendEmailVerification();
   }
 
   Future<void> logInWithEmailAndPassword({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
-    assert(email != null && password != null);
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -114,7 +110,6 @@ class FirebaseAuthentication {
           break;
         default:
           errorMessage = 'Login failed. Try again later.';
-          break;
       }
       throw LogInWithEmailAndPasswordFailure(
         errorMessage: errorMessage,
@@ -123,7 +118,7 @@ class FirebaseAuthentication {
   }
 
   Future<void> resetPasswordEmail({
-    @required String email,
+    required String email,
   }) async {
     final signInList = await _firebaseAuth.fetchSignInMethodsForEmail(email);
     if (signInList.isEmpty) {
@@ -151,7 +146,7 @@ class FirebaseAuthentication {
 class LogOutFailure implements Exception {}
 
 class SignUpFailure implements Exception {
-  SignUpFailure({@required this.errorMessage});
+  SignUpFailure({required this.errorMessage});
   final String errorMessage;
 }
 
@@ -160,6 +155,6 @@ class ResetPasswordEmailNotExists implements Exception {}
 class ResetPasswordEmailFailure implements Exception {}
 
 class LogInWithEmailAndPasswordFailure implements Exception {
-  LogInWithEmailAndPasswordFailure({@required this.errorMessage});
+  LogInWithEmailAndPasswordFailure({required this.errorMessage});
   final String errorMessage;
 }

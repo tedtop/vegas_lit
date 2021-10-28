@@ -1,3 +1,5 @@
+
+
 part of 'player_details_cubit.dart';
 
 abstract class PlayerDetailsState extends Equatable {

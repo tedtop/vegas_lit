@@ -41,27 +41,30 @@ class NbaGame {
     this.quarters,
   });
 
-  factory NbaGame.fromJson(String str) => NbaGame.fromMap(json.decode(str));
+  factory NbaGame.fromJson(String str) =>
+      NbaGame.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NbaGame.fromMap(Map<String, dynamic> json) => NbaGame(
-        gameId: json['GameID'],
-        season: json['Season'],
-        seasonType: json['SeasonType'],
-        status: json['Status'],
-        day: json['Day'] == null ? null : DateTime.parse(json['Day']),
-        dateTime:
-            json['DateTime'] == null ? null : DateTime.parse(json['DateTime']),
-        awayTeam: json['AwayTeam'],
-        homeTeam: json['HomeTeam'],
-        awayTeamId: json['AwayTeamID'],
-        homeTeamId: json['HomeTeamID'],
-        stadiumId: json['StadiumID'],
-        channel: json['Channel'],
+        gameId: json['GameID'] as int?,
+        season: json['GameID'] as int?,
+        seasonType: json['SeasonType'] as int?,
+        status: json['Status'] as String?,
+        day: json['Day'] == null ? null : DateTime.parse(json['Day'] as String),
+        dateTime: json['DateTime'] == null
+            ? null
+            : DateTime.parse(json['DateTime'] as String),
+        awayTeam: json['AwayTeam'] as String?,
+        homeTeam: json['HomeTeam'] as String?,
+        awayTeamId: json['AwayTeamID'] as int?,
+        homeTeamId: json['HomeTeamID'] as int?,
+        stadiumId: json['StadiumID'] as int?,
+        channel: json['Channel'] as String?,
         attendance: json['Attendance'],
         awayTeamScore: json['AwayTeamScore'],
         homeTeamScore: json['HomeTeamScore'],
-        updated:
-            json['Updated'] == null ? null : DateTime.parse(json['Updated']),
+        updated: json['Updated'] == null
+            ? null
+            : DateTime.parse(json['Updated'] as String),
         quarter: json['Quarter'],
         timeRemainingMinutes: json['TimeRemainingMinutes'],
         timeRemainingSeconds: json['TimeRemainingSeconds'],
@@ -71,102 +74,106 @@ class NbaGame {
         overUnder: json['OverUnder'] == null
             ? null
             : double.tryParse(json['OverUnder'].toString()),
-        awayTeamMoneyLine: json['AwayTeamMoneyLine'],
-        homeTeamMoneyLine: json['HomeTeamMoneyLine'],
-        globalGameId: json['GlobalGameID'],
-        globalAwayTeamId: json['GlobalAwayTeamID'],
-        globalHomeTeamId: json['GlobalHomeTeamID'],
-        pointSpreadAwayTeamMoneyLine: json['PointSpreadAwayTeamMoneyLine'],
-        pointSpreadHomeTeamMoneyLine: json['PointSpreadHomeTeamMoneyLine'],
+        awayTeamMoneyLine: json['AwayTeamMoneyLine'] as int?,
+        homeTeamMoneyLine: json['HomeTeamMoneyLine'] as int?,
+        globalGameId: json['GlobalGameID'] as int?,
+        globalAwayTeamId: json['GlobalAwayTeamID'] as int?,
+        globalHomeTeamId: json['GlobalHomeTeamID'] as int?,
+        pointSpreadAwayTeamMoneyLine:
+            json['PointSpreadAwayTeamMoneyLine'] as int?,
+        pointSpreadHomeTeamMoneyLine:
+            json['PointSpreadHomeTeamMoneyLine'] as int?,
         lastPlay: json['LastPlay'],
-        isClosed: json['IsClosed'],
+        isClosed: json['IsClosed'] as bool?,
         gameEndDateTime: json['GameEndDateTime'],
-        homeRotationNumber: json['HomeRotationNumber'],
-        awayRotationNumber: json['AwayRotationNumber'],
-        neutralVenue: json['NeutralVenue'],
-        overPayout: json['OverPayout'],
-        underPayout: json['UnderPayout'],
+        homeRotationNumber: json['HomeRotationNumber'] as int?,
+        awayRotationNumber: json['AwayRotationNumber'] as int?,
+        neutralVenue: json['NeutralVenue'] as bool?,
+        overPayout: json['OverPayout'] as int?,
+        underPayout: json['UnderPayout'] as int?,
         quarters: json['Quarters'] == null
             ? null
-            : List<dynamic>.from(json['Quarters'].map((x) => x)),
+            : List<dynamic>.from(
+                json['Quarters'].map((dynamic x) => x) as Iterable<dynamic>,
+              ),
       );
 
-  final int gameId;
-  final int season;
-  final int seasonType;
-  final String status;
-  final DateTime day;
-  final DateTime dateTime;
-  final String awayTeam;
-  final String homeTeam;
-  final int awayTeamId;
-  final int homeTeamId;
-  final int stadiumId;
-  final String channel;
+  final int? gameId;
+  final int? season;
+  final int? seasonType;
+  final String? status;
+  final DateTime? day;
+  final DateTime? dateTime;
+  final String? awayTeam;
+  final String? homeTeam;
+  final int? awayTeamId;
+  final int? homeTeamId;
+  final int? stadiumId;
+  final String? channel;
   final dynamic attendance;
   final dynamic awayTeamScore;
   final dynamic homeTeamScore;
-  final DateTime updated;
+  final DateTime? updated;
   final dynamic quarter;
   final dynamic timeRemainingMinutes;
   final dynamic timeRemainingSeconds;
-  final double pointSpread;
-  final double overUnder;
-  final int awayTeamMoneyLine;
-  final int homeTeamMoneyLine;
-  final int globalGameId;
-  final int globalAwayTeamId;
-  final int globalHomeTeamId;
-  final int pointSpreadAwayTeamMoneyLine;
-  final int pointSpreadHomeTeamMoneyLine;
+  final double? pointSpread;
+  final double? overUnder;
+  final int? awayTeamMoneyLine;
+  final int? homeTeamMoneyLine;
+  final int? globalGameId;
+  final int? globalAwayTeamId;
+  final int? globalHomeTeamId;
+  final int? pointSpreadAwayTeamMoneyLine;
+  final int? pointSpreadHomeTeamMoneyLine;
   final dynamic lastPlay;
-  final bool isClosed;
+  final bool? isClosed;
   final dynamic gameEndDateTime;
-  final int homeRotationNumber;
-  final int awayRotationNumber;
-  final bool neutralVenue;
-  final int overPayout;
-  final int underPayout;
-  final List<dynamic> quarters;
+  final int? homeRotationNumber;
+  final int? awayRotationNumber;
+  final bool? neutralVenue;
+  final int? overPayout;
+  final int? underPayout;
+  final List<dynamic>? quarters;
 
   NbaGame copyWith({
-    int gameId,
-    int season,
-    int seasonType,
-    String status,
-    DateTime day,
-    DateTime dateTime,
-    String awayTeam,
-    String homeTeam,
-    int awayTeamId,
-    int homeTeamId,
-    int stadiumId,
-    String channel,
+    int? gameId,
+    int? season,
+    int? seasonType,
+    String? status,
+    DateTime? day,
+    DateTime? dateTime,
+    String? awayTeam,
+    String? homeTeam,
+    int? awayTeamId,
+    int? homeTeamId,
+    int? stadiumId,
+    String? channel,
     dynamic attendance,
     dynamic awayTeamScore,
     dynamic homeTeamScore,
-    DateTime updated,
+    DateTime? updated,
     dynamic quarter,
     dynamic timeRemainingMinutes,
     dynamic timeRemainingSeconds,
-    double pointSpread,
-    double overUnder,
-    int awayTeamMoneyLine,
-    int homeTeamMoneyLine,
-    int globalGameId,
-    int globalAwayTeamId,
-    int globalHomeTeamId,
-    int pointSpreadAwayTeamMoneyLine,
-    int pointSpreadHomeTeamMoneyLine,
+    double? pointSpread,
+    double? overUnder,
+    int? awayTeamMoneyLine,
+    int? homeTeamMoneyLine,
+    int? globalGameId,
+    int? globalAwayTeamId,
+    int? globalHomeTeamId,
+    int? pointSpreadAwayTeamMoneyLine,
+    int? pointSpreadHomeTeamMoneyLine,
     dynamic lastPlay,
-    bool isClosed,
+    bool? isClosed,
     dynamic gameEndDateTime,
-    int homeRotationNumber,
-    int awayRotationNumber,
-    bool neutralVenue,
-    int overPayout,
-    int underPayout,
-    List<dynamic> quarters,
+    int? homeRotationNumber,
+    int? awayRotationNumber,
+    bool? neutralVenue,
+    int? overPayout,
+    int? underPayout,
+    List<dynamic>? quarters,
   }) =>
       NbaGame(
         gameId: gameId ?? this.gameId,
@@ -212,13 +219,13 @@ class NbaGame {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'GameID': gameId,
         'Season': season,
         'SeasonType': seasonType,
         'Status': status,
-        'Day': day == null ? null : day.toIso8601String(),
-        'DateTime': dateTime == null ? null : dateTime.toIso8601String(),
+        'Day': day?.toIso8601String(),
+        'DateTime': dateTime?.toIso8601String(),
         'AwayTeam': awayTeam,
         'HomeTeam': homeTeam,
         'AwayTeamID': awayTeamId,
@@ -228,7 +235,7 @@ class NbaGame {
         'Attendance': attendance,
         'AwayTeamScore': awayTeamScore,
         'HomeTeamScore': homeTeamScore,
-        'Updated': updated == null ? null : updated.toIso8601String(),
+        'Updated': updated?.toIso8601String(),
         'Quarter': quarter,
         'TimeRemainingMinutes': timeRemainingMinutes,
         'TimeRemainingSeconds': timeRemainingSeconds,
@@ -251,6 +258,6 @@ class NbaGame {
         'UnderPayout': underPayout,
         'Quarters': quarters == null
             ? null
-            : List<dynamic>.from(quarters.map((x) => x)),
+            : List<dynamic>.from(quarters!.map<dynamic>((dynamic x) => x)),
       };
 }

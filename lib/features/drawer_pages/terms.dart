@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,7 +8,7 @@ import '../../config/palette.dart';
 import '../../config/styles.dart';
 
 class TermsOfService extends StatelessWidget {
-  const TermsOfService._({Key key}) : super(key: key);
+  const TermsOfService._({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -41,7 +43,7 @@ class TermsOfService extends StatelessWidget {
 
 class _TermsOfServiceHeading extends StatelessWidget {
   const _TermsOfServiceHeading({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -60,7 +62,7 @@ class _TermsOfServiceHeading extends StatelessWidget {
 
 class _TermsOfServiceContent extends StatelessWidget {
   const _TermsOfServiceContent({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/nfl/nfl_game.dart';
@@ -9,9 +10,9 @@ import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNflScreen extends StatelessWidget {
   DesktopNflScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<NflGame> games;
-  final String gameName;
-  final dynamic parsedTeamData;
+  final List<NflGame>? games;
+  final String? gameName;
+  final List<NflTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -34,7 +35,7 @@ class DesktopNflScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                children: games
+                children: games!
                     .map(
                       (game) => MatchupCard.route(
                           game: game,
@@ -83,7 +84,7 @@ class DesktopNflScreen extends StatelessWidget {
                               width: 42,
                               child: Center(
                                 child: Text(
-                                  state.singleBetSlipCard.length.toString(),
+                                  state.singleBetSlipCard!.length.toString(),
                                   style: GoogleFonts.nunito(
                                     color: Palette.darkGrey,
                                     fontSize: 18,
@@ -92,12 +93,11 @@ class DesktopNflScreen extends StatelessWidget {
                                 ),
                               ),
                             );
-                            break;
+
                           default:
                             return const CircularProgressIndicator(
                               color: Palette.cream,
                             );
-                            break;
                         }
                       },
                     ),
@@ -110,7 +110,7 @@ class DesktopNflScreen extends StatelessWidget {
                   builder: (context, state) {
                     switch (state.status) {
                       case BetSlipStatus.opened:
-                        return state.singleBetSlipCard.isEmpty
+                        return state.singleBetSlipCard!.isEmpty
                             ? AbstractCard(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 widgets: [
@@ -141,17 +141,16 @@ class DesktopNflScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
                                 itemCount:
-                                    betSlipState.singleBetSlipCard.length,
+                                    betSlipState.singleBetSlipCard!.length,
                                 itemBuilder: (context, index) {
-                                  return betSlipState.singleBetSlipCard[index];
+                                  return betSlipState.singleBetSlipCard![index];
                                 },
                               );
-                        break;
+
                       default:
                         return const CircularProgressIndicator(
                           color: Palette.cream,
                         );
-                        break;
                     }
                   },
                 ),
@@ -186,8 +185,8 @@ class DesktopNflScreen extends StatelessWidget {
 
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

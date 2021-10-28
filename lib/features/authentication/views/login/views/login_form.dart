@@ -27,7 +27,7 @@ class LoginForm extends StatelessWidget {
               ..showSnackBar(
                 SnackBar(
                   content: Text(
-                    state.loginErrorMessage,
+                    state.loginErrorMessage!,
                   ),
                 ),
               );
@@ -172,11 +172,38 @@ class _LoginButton extends StatelessWidget {
             ? const CircularProgressIndicator(
                 color: Palette.cream,
               )
-            : DefaultButton(
-                text: 'LOGIN',
-                action: () {
-                  context.read<LoginCubit>().logInWithCredentials();
-                },
+            : SizedBox(
+                width: 174,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
+                        ),
+                        elevation:
+                            MaterialStateProperty.all(Styles.normalElevation),
+                        shape: MaterialStateProperty.all(Styles.smallRadius),
+                        textStyle: MaterialStateProperty.all(
+                          const TextStyle(color: Palette.cream),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(Palette.green),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                    child: Text(
+                      'LOGIN',
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      context.read<LoginCubit>().logInWithCredentials();
+                    },
+                  ),
+                ),
               );
       },
     );
@@ -196,7 +223,7 @@ class _ResetPassword extends StatelessWidget {
         TextButton(
           key: const Key('loginForm_resetPassword_flatButton'),
           onPressed: () {
-            showModalBottomSheet(
+            showModalBottomSheet<void>(
               context: parentContext,
               isScrollControlled: true,
               builder: (context) => BlocProvider.value(
@@ -229,8 +256,8 @@ class _LinkToSignup extends StatelessWidget {
         ),
         TextButton(
           key: const Key('loginForm_createAccount_flatButton'),
-          onPressed: () =>
-              Navigator.of(context).pushReplacement(SignUpPage.route()),
+          onPressed: () => Navigator.of(context)
+              .pushReplacement<void, void>(SignUpPage.route()),
           child: Text(
             'Sign Up',
             style: Styles.authButtonText,
@@ -247,12 +274,12 @@ class _ResetPage extends StatefulWidget {
 }
 
 class __ResetPageState extends State<_ResetPage> {
-  String email;
+  String? email;
 
   final emailValid = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
-  String isEmailValid;
+  String? isEmailValid;
 
   @override
   Widget build(BuildContext context) {
@@ -313,15 +340,15 @@ class __ResetPageState extends State<_ResetPage> {
               ),
               onPressed: () async {
                 if (email != null) {
-                  if (email.isNotEmpty) {
-                    if (emailValid.hasMatch(email)) {
+                  if (email!.isNotEmpty) {
+                    if (emailValid.hasMatch(email!)) {
                       setState(() {
                         isEmailValid = null;
                       });
                       try {
                         await context
                             .read<LoginCubit>()
-                            .resetPassword(email: email);
+                            .resetPassword(email: email!);
                         FocusScope.of(context).unfocus();
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context)
@@ -372,8 +399,8 @@ class VersionNumber extends StatefulWidget {
 }
 
 class _VersionNumberState extends State<VersionNumber> {
-  String versionString;
-  String buildNumber;
+  String? versionString;
+  String? buildNumber;
 
   @override
   void initState() {
@@ -396,56 +423,6 @@ class _VersionNumberState extends State<VersionNumber> {
         return Text('Version: $versionString ($buildNumber)',
             style: Styles.versionText);
       },
-    );
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: action,
-        ),
-      ),
     );
   }
 }

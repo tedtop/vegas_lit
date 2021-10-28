@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class MlbPlayerStats {
@@ -119,367 +121,377 @@ class MlbPlayerStats {
     this.fantasyPointsFantasyDraft,
   });
   factory MlbPlayerStats.fromJson(String str) =>
-      MlbPlayerStats.fromMap(json.decode(str));
+      MlbPlayerStats.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory MlbPlayerStats.fromMap(Map<String, dynamic> json) => MlbPlayerStats(
-        statId: json['StatID']?.toInt(),
-        teamId: json['TeamID']?.toInt(),
-        playerId: json['PlayerID']?.toInt(),
-        seasonType: json['SeasonType']?.toInt(),
-        season: json['Season']?.toInt(),
-        name: json['Name'],
-        team: json['Team'],
-        position: json['Position'],
-        positionCategory: json['PositionCategory'],
-        started: json['Started']?.toInt(),
+        statId: json['StatID'] as int?,
+        teamId: json['TeamID'] as int?,
+        playerId: json['PlayerID']?.toInt() as int?,
+        seasonType: json['SeasonType']?.toInt() as int?,
+        season: json['Season']?.toInt() as int?,
+        name: json['Name'] as String?,
+        team: json['Team'] as String?,
+        position: json['Position'] as String?,
+        positionCategory: json['PositionCategory'] as String?,
+        started: json['Started']?.toInt() as int?,
         battingOrder: json['BattingOrder'],
-        globalTeamId: json['GlobalTeamID']?.toInt(),
+        globalTeamId: json['GlobalTeamID']?.toInt() as int?,
         averageDraftPosition: json['AverageDraftPosition'],
         auctionValue: json['AuctionValue'],
-        updated: DateTime.parse(json['Updated']),
-        games: json['Games']?.toInt(),
-        fantasyPoints: json['FantasyPoints']?.toInt(),
-        atBats: json['AtBats']?.toInt(),
-        runs: json['Runs']?.toInt(),
-        hits: json['Hits']?.toInt(),
-        singles: json['Singles']?.toInt(),
-        doubles: json['Doubles']?.toInt(),
-        triples: json['Triples']?.toInt(),
-        homeRuns: json['HomeRuns']?.toInt(),
-        runsBattedIn: json['RunsBattedIn']?.toInt(),
-        battingAverage: json['BattingAverage']?.toDouble(),
-        outs: json['Outs']?.toInt(),
-        strikeouts: json['Strikeouts']?.toInt(),
-        walks: json['Walks']?.toInt(),
-        hitByPitch: json['HitByPitch']?.toInt(),
-        sacrifices: json['Sacrifices']?.toInt(),
-        sacrificeFlies: json['SacrificeFlies']?.toInt(),
-        groundIntoDoublePlay: json['GroundIntoDoublePlay']?.toInt(),
-        stolenBases: json['StolenBases']?.toInt(),
-        caughtStealing: json['CaughtStealing']?.toInt(),
-        pitchesSeen: json['PitchesSeen']?.toInt(),
-        onBasePercentage: json['OnBasePercentage']?.toDouble(),
-        sluggingPercentage: json['SluggingPercentage']?.toDouble(),
-        onBasePlusSlugging: json['OnBasePlusSlugging']?.toDouble(),
-        errors: json['Errors']?.toInt(),
-        wins: json['Wins']?.toInt(),
-        losses: json['Losses']?.toInt(),
-        saves: json['Saves']?.toInt(),
-        inningsPitchedDecimal: json['InningsPitchedDecimal']?.toInt(),
-        totalOutsPitched: json['TotalOutsPitched']?.toInt(),
-        inningsPitchedFull: json['InningsPitchedFull']?.toInt(),
-        inningsPitchedOuts: json['InningsPitchedOuts']?.toInt(),
-        earnedRunAverage: json['EarnedRunAverage']?.toInt(),
-        pitchingHits: json['PitchingHits']?.toInt(),
-        pitchingRuns: json['PitchingRuns']?.toInt(),
-        pitchingEarnedRuns: json['PitchingEarnedRuns']?.toInt(),
-        pitchingWalks: json['PitchingWalks']?.toInt(),
-        pitchingStrikeouts: json['PitchingStrikeouts']?.toInt(),
-        pitchingHomeRuns: json['PitchingHomeRuns']?.toInt(),
-        pitchesThrown: json['PitchesThrown']?.toInt(),
-        pitchesThrownStrikes: json['PitchesThrownStrikes']?.toInt(),
-        walksHitsPerInningsPitched: json['WalksHitsPerInningsPitched']?.toInt(),
+        updated: DateTime.parse(json['Updated'] as String),
+        games: json['Games']?.toInt() as int?,
+        fantasyPoints: json['FantasyPoints']?.toInt() as int?,
+        atBats: json['AtBats']?.toInt() as int?,
+        runs: json['Runs']?.toInt() as int?,
+        hits: json['Hits']?.toInt() as int?,
+        singles: json['Singles']?.toInt() as int?,
+        doubles: json['Doubles']?.toInt() as int?,
+        triples: json['Triples']?.toInt() as int?,
+        homeRuns: json['HomeRuns']?.toInt() as int?,
+        runsBattedIn: json['RunsBattedIn']?.toInt() as int?,
+        battingAverage: json['BattingAverage']?.toDouble() as double?,
+        outs: json['Outs']?.toInt() as int?,
+        strikeouts: json['Strikeouts']?.toInt() as int?,
+        walks: json['Walks']?.toInt() as int?,
+        hitByPitch: json['HitByPitch']?.toInt() as int?,
+        sacrifices: json['Sacrifices']?.toInt() as int?,
+        sacrificeFlies: json['SacrificeFlies']?.toInt() as int?,
+        groundIntoDoublePlay: json['GroundIntoDoublePlay']?.toInt() as int?,
+        stolenBases: json['StolenBases']?.toInt() as int?,
+        caughtStealing: json['CaughtStealing']?.toInt() as int?,
+        pitchesSeen: json['PitchesSeen']?.toInt() as int?,
+        onBasePercentage: json['OnBasePercentage']?.toDouble() as double?,
+        sluggingPercentage: json['SluggingPercentage']?.toDouble() as double?,
+        onBasePlusSlugging: json['OnBasePlusSlugging']?.toDouble() as double?,
+        errors: json['Errors']?.toInt() as int?,
+        wins: json['Wins']?.toInt() as int?,
+        losses: json['Losses']?.toInt() as int?,
+        saves: json['Saves']?.toInt() as int?,
+        inningsPitchedDecimal: json['InningsPitchedDecimal']?.toInt() as int?,
+        totalOutsPitched: json['TotalOutsPitched']?.toInt() as int?,
+        inningsPitchedFull: json['InningsPitchedFull']?.toInt() as int?,
+        inningsPitchedOuts: json['InningsPitchedOuts']?.toInt() as int?,
+        earnedRunAverage: json['EarnedRunAverage']?.toInt() as int?,
+        pitchingHits: json['PitchingHits']?.toInt() as int?,
+        pitchingRuns: json['PitchingRuns']?.toInt() as int?,
+        pitchingEarnedRuns: json['PitchingEarnedRuns']?.toInt() as int?,
+        pitchingWalks: json['PitchingWalks']?.toInt() as int?,
+        pitchingStrikeouts: json['PitchingStrikeouts']?.toInt() as int?,
+        pitchingHomeRuns: json['PitchingHomeRuns']?.toInt() as int?,
+        pitchesThrown: json['PitchesThrown']?.toInt() as int?,
+        pitchesThrownStrikes: json['PitchesThrownStrikes']?.toInt() as int?,
+        walksHitsPerInningsPitched:
+            json['WalksHitsPerInningsPitched']?.toInt() as int?,
         pitchingBattingAverageAgainst:
-            json['PitchingBattingAverageAgainst']?.toInt(),
-        grandSlams: json['GrandSlams']?.toInt(),
-        fantasyPointsFanDuel: json['FantasyPointsFanDuel']?.toDouble(),
-        fantasyPointsDraftKings: json['FantasyPointsDraftKings']?.toInt(),
-        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toDouble(),
-        plateAppearances: json['PlateAppearances']?.toInt(),
-        totalBases: json['TotalBases']?.toInt(),
-        flyOuts: json['FlyOuts']?.toInt(),
-        groundOuts: json['GroundOuts']?.toInt(),
-        lineOuts: json['LineOuts']?.toInt(),
-        popOuts: json['PopOuts']?.toInt(),
-        intentionalWalks: json['IntentionalWalks']?.toInt(),
-        reachedOnError: json['ReachedOnError']?.toInt(),
-        ballsInPlay: json['BallsInPlay']?.toInt(),
+            json['PitchingBattingAverageAgainst']?.toInt() as int?,
+        grandSlams: json['GrandSlams']?.toInt() as int?,
+        fantasyPointsFanDuel:
+            json['FantasyPointsFanDuel']?.toDouble() as double?,
+        fantasyPointsDraftKings:
+            json['FantasyPointsDraftKings']?.toInt() as int?,
+        fantasyPointsYahoo: json['FantasyPointsYahoo']?.toDouble() as double?,
+        plateAppearances: json['PlateAppearances']?.toInt() as int?,
+        totalBases: json['TotalBases']?.toInt() as int?,
+        flyOuts: json['FlyOuts']?.toInt() as int?,
+        groundOuts: json['GroundOuts']?.toInt() as int?,
+        lineOuts: json['LineOuts']?.toInt() as int?,
+        popOuts: json['PopOuts']?.toInt() as int?,
+        intentionalWalks: json['IntentionalWalks']?.toInt() as int?,
+        reachedOnError: json['ReachedOnError']?.toInt() as int?,
+        ballsInPlay: json['BallsInPlay']?.toInt() as int?,
         battingAverageOnBallsInPlay:
-            json['BattingAverageOnBallsInPlay']?.toDouble(),
-        weightedOnBasePercentage: json['WeightedOnBasePercentage']?.toDouble(),
-        pitchingSingles: json['PitchingSingles']?.toInt(),
-        pitchingDoubles: json['PitchingDoubles']?.toInt(),
-        pitchingTriples: json['PitchingTriples']?.toInt(),
-        pitchingGrandSlams: json['PitchingGrandSlams']?.toInt(),
-        pitchingHitByPitch: json['PitchingHitByPitch']?.toInt(),
-        pitchingSacrifices: json['PitchingSacrifices']?.toInt(),
-        pitchingSacrificeFlies: json['PitchingSacrificeFlies']?.toInt(),
+            json['BattingAverageOnBallsInPlay']?.toDouble() as double?,
+        weightedOnBasePercentage:
+            json['WeightedOnBasePercentage']?.toDouble() as double?,
+        pitchingSingles: json['PitchingSingles']?.toInt() as int?,
+        pitchingDoubles: json['PitchingDoubles']?.toInt() as int?,
+        pitchingTriples: json['PitchingTriples']?.toInt() as int?,
+        pitchingGrandSlams: json['PitchingGrandSlams']?.toInt() as int?,
+        pitchingHitByPitch: json['PitchingHitByPitch']?.toInt() as int?,
+        pitchingSacrifices: json['PitchingSacrifices']?.toInt() as int?,
+        pitchingSacrificeFlies: json['PitchingSacrificeFlies']?.toInt() as int?,
         pitchingGroundIntoDoublePlay:
-            json['PitchingGroundIntoDoublePlay']?.toInt(),
-        pitchingCompleteGames: json['PitchingCompleteGames']?.toInt(),
-        pitchingShutOuts: json['PitchingShutOuts']?.toInt(),
-        pitchingNoHitters: json['PitchingNoHitters']?.toInt(),
-        pitchingPerfectGames: json['PitchingPerfectGames']?.toInt(),
-        pitchingPlateAppearances: json['PitchingPlateAppearances']?.toInt(),
-        pitchingTotalBases: json['PitchingTotalBases']?.toInt(),
-        pitchingFlyOuts: json['PitchingFlyOuts']?.toInt(),
-        pitchingGroundOuts: json['PitchingGroundOuts']?.toInt(),
-        pitchingLineOuts: json['PitchingLineOuts']?.toInt(),
-        pitchingPopOuts: json['PitchingPopOuts']?.toInt(),
-        pitchingIntentionalWalks: json['PitchingIntentionalWalks']?.toInt(),
-        pitchingReachedOnError: json['PitchingReachedOnError']?.toInt(),
+            json['PitchingGroundIntoDoublePlay']?.toInt() as int?,
+        pitchingCompleteGames: json['PitchingCompleteGames']?.toInt() as int?,
+        pitchingShutOuts: json['PitchingShutOuts']?.toInt() as int?,
+        pitchingNoHitters: json['PitchingNoHitters']?.toInt() as int?,
+        pitchingPerfectGames: json['PitchingPerfectGames']?.toInt() as int?,
+        pitchingPlateAppearances:
+            json['PitchingPlateAppearances']?.toInt() as int?,
+        pitchingTotalBases: json['PitchingTotalBases']?.toInt() as int?,
+        pitchingFlyOuts: json['PitchingFlyOuts']?.toInt() as int?,
+        pitchingGroundOuts: json['PitchingGroundOuts']?.toInt() as int?,
+        pitchingLineOuts: json['PitchingLineOuts']?.toInt() as int?,
+        pitchingPopOuts: json['PitchingPopOuts']?.toInt() as int?,
+        pitchingIntentionalWalks:
+            json['PitchingIntentionalWalks']?.toInt() as int?,
+        pitchingReachedOnError: json['PitchingReachedOnError']?.toInt() as int?,
         pitchingCatchersInterference:
-            json['PitchingCatchersInterference']?.toInt(),
-        pitchingBallsInPlay: json['PitchingBallsInPlay']?.toInt(),
-        pitchingOnBasePercentage: json['PitchingOnBasePercentage']?.toInt(),
-        pitchingSluggingPercentage: json['PitchingSluggingPercentage']?.toInt(),
-        pitchingOnBasePlusSlugging: json['PitchingOnBasePlusSlugging']?.toInt(),
+            json['PitchingCatchersInterference']?.toInt() as int?,
+        pitchingBallsInPlay: json['PitchingBallsInPlay']?.toInt() as int?,
+        pitchingOnBasePercentage:
+            json['PitchingOnBasePercentage']?.toInt() as int?,
+        pitchingSluggingPercentage:
+            json['PitchingSluggingPercentage']?.toInt() as int?,
+        pitchingOnBasePlusSlugging:
+            json['PitchingOnBasePlusSlugging']?.toInt() as int?,
         pitchingStrikeoutsPerNineInnings:
-            json['PitchingStrikeoutsPerNineInnings']?.toInt(),
+            json['PitchingStrikeoutsPerNineInnings']?.toInt() as int?,
         pitchingWalksPerNineInnings:
-            json['PitchingWalksPerNineInnings']?.toInt(),
+            json['PitchingWalksPerNineInnings']?.toInt() as int?,
         pitchingBattingAverageOnBallsInPlay:
-            json['PitchingBattingAverageOnBallsInPlay']?.toInt(),
+            json['PitchingBattingAverageOnBallsInPlay']?.toInt() as int?,
         pitchingWeightedOnBasePercentage:
-            json['PitchingWeightedOnBasePercentage']?.toInt(),
-        doublePlays: json['DoublePlays']?.toInt(),
-        pitchingDoublePlays: json['PitchingDoublePlays']?.toInt(),
-        battingOrderConfirmed: json['BattingOrderConfirmed'],
-        isolatedPower: json['IsolatedPower']?.toDouble(),
+            json['PitchingWeightedOnBasePercentage']?.toInt() as int?,
+        doublePlays: json['DoublePlays']?.toInt() as int?,
+        pitchingDoublePlays: json['PitchingDoublePlays']?.toInt() as int?,
+        battingOrderConfirmed: json['BattingOrderConfirmed'] as bool?,
+        isolatedPower: json['IsolatedPower']?.toDouble() as double?,
         fieldingIndependentPitching:
-            json['FieldingIndependentPitching']?.toInt(),
-        pitchingQualityStarts: json['PitchingQualityStarts']?.toInt(),
+            json['FieldingIndependentPitching']?.toInt() as int?,
+        pitchingQualityStarts: json['PitchingQualityStarts']?.toInt() as int?,
         pitchingInningStarted: json['PitchingInningStarted'],
-        leftOnBase: json['LeftOnBase']?.toInt(),
-        pitchingHolds: json['PitchingHolds']?.toInt(),
-        pitchingBlownSaves: json['PitchingBlownSaves']?.toInt(),
+        leftOnBase: json['LeftOnBase']?.toInt() as int?,
+        pitchingHolds: json['PitchingHolds']?.toInt() as int?,
+        pitchingBlownSaves: json['PitchingBlownSaves']?.toInt() as int?,
         substituteBattingOrder: json['SubstituteBattingOrder'],
         substituteBattingOrderSequence: json['SubstituteBattingOrderSequence'],
-        fantasyPointsFantasyDraft: json['FantasyPointsFantasyDraft']?.toInt(),
+        fantasyPointsFantasyDraft:
+            json['FantasyPointsFantasyDraft']?.toInt() as int?,
       );
 
-  final int statId;
-  final int teamId;
-  final int playerId;
-  final int seasonType;
-  final int season;
-  final String name;
-  final String team;
-  final String position;
-  final String positionCategory;
-  final int started;
+  final int? statId;
+  final int? teamId;
+  final int? playerId;
+  final int? seasonType;
+  final int? season;
+  final String? name;
+  final String? team;
+  final String? position;
+  final String? positionCategory;
+  final int? started;
   final dynamic battingOrder;
-  final int globalTeamId;
+  final int? globalTeamId;
   final dynamic averageDraftPosition;
   final dynamic auctionValue;
-  final DateTime updated;
-  final int games;
-  final int fantasyPoints;
-  final int atBats;
-  final int runs;
-  final int hits;
-  final int singles;
-  final int doubles;
-  final int triples;
-  final int homeRuns;
-  final int runsBattedIn;
-  final double battingAverage;
-  final int outs;
-  final int strikeouts;
-  final int walks;
-  final int hitByPitch;
-  final int sacrifices;
-  final int sacrificeFlies;
-  final int groundIntoDoublePlay;
-  final int stolenBases;
-  final int caughtStealing;
-  final int pitchesSeen;
-  final double onBasePercentage;
-  final double sluggingPercentage;
-  final double onBasePlusSlugging;
-  final int errors;
-  final int wins;
-  final int losses;
-  final int saves;
-  final int inningsPitchedDecimal;
-  final int totalOutsPitched;
-  final int inningsPitchedFull;
-  final int inningsPitchedOuts;
-  final int earnedRunAverage;
-  final int pitchingHits;
-  final int pitchingRuns;
-  final int pitchingEarnedRuns;
-  final int pitchingWalks;
-  final int pitchingStrikeouts;
-  final int pitchingHomeRuns;
-  final int pitchesThrown;
-  final int pitchesThrownStrikes;
-  final int walksHitsPerInningsPitched;
-  final int pitchingBattingAverageAgainst;
-  final int grandSlams;
-  final double fantasyPointsFanDuel;
-  final int fantasyPointsDraftKings;
-  final double fantasyPointsYahoo;
-  final int plateAppearances;
-  final int totalBases;
-  final int flyOuts;
-  final int groundOuts;
-  final int lineOuts;
-  final int popOuts;
-  final int intentionalWalks;
-  final int reachedOnError;
-  final int ballsInPlay;
-  final double battingAverageOnBallsInPlay;
-  final double weightedOnBasePercentage;
-  final int pitchingSingles;
-  final int pitchingDoubles;
-  final int pitchingTriples;
-  final int pitchingGrandSlams;
-  final int pitchingHitByPitch;
-  final int pitchingSacrifices;
-  final int pitchingSacrificeFlies;
-  final int pitchingGroundIntoDoublePlay;
-  final int pitchingCompleteGames;
-  final int pitchingShutOuts;
-  final int pitchingNoHitters;
-  final int pitchingPerfectGames;
-  final int pitchingPlateAppearances;
-  final int pitchingTotalBases;
-  final int pitchingFlyOuts;
-  final int pitchingGroundOuts;
-  final int pitchingLineOuts;
-  final int pitchingPopOuts;
-  final int pitchingIntentionalWalks;
-  final int pitchingReachedOnError;
-  final int pitchingCatchersInterference;
-  final int pitchingBallsInPlay;
-  final int pitchingOnBasePercentage;
-  final int pitchingSluggingPercentage;
-  final int pitchingOnBasePlusSlugging;
-  final int pitchingStrikeoutsPerNineInnings;
-  final int pitchingWalksPerNineInnings;
-  final int pitchingBattingAverageOnBallsInPlay;
-  final int pitchingWeightedOnBasePercentage;
-  final int doublePlays;
-  final int pitchingDoublePlays;
-  final bool battingOrderConfirmed;
-  final double isolatedPower;
-  final int fieldingIndependentPitching;
-  final int pitchingQualityStarts;
+  final DateTime? updated;
+  final int? games;
+  final int? fantasyPoints;
+  final int? atBats;
+  final int? runs;
+  final int? hits;
+  final int? singles;
+  final int? doubles;
+  final int? triples;
+  final int? homeRuns;
+  final int? runsBattedIn;
+  final double? battingAverage;
+  final int? outs;
+  final int? strikeouts;
+  final int? walks;
+  final int? hitByPitch;
+  final int? sacrifices;
+  final int? sacrificeFlies;
+  final int? groundIntoDoublePlay;
+  final int? stolenBases;
+  final int? caughtStealing;
+  final int? pitchesSeen;
+  final double? onBasePercentage;
+  final double? sluggingPercentage;
+  final double? onBasePlusSlugging;
+  final int? errors;
+  final int? wins;
+  final int? losses;
+  final int? saves;
+  final int? inningsPitchedDecimal;
+  final int? totalOutsPitched;
+  final int? inningsPitchedFull;
+  final int? inningsPitchedOuts;
+  final int? earnedRunAverage;
+  final int? pitchingHits;
+  final int? pitchingRuns;
+  final int? pitchingEarnedRuns;
+  final int? pitchingWalks;
+  final int? pitchingStrikeouts;
+  final int? pitchingHomeRuns;
+  final int? pitchesThrown;
+  final int? pitchesThrownStrikes;
+  final int? walksHitsPerInningsPitched;
+  final int? pitchingBattingAverageAgainst;
+  final int? grandSlams;
+  final double? fantasyPointsFanDuel;
+  final int? fantasyPointsDraftKings;
+  final double? fantasyPointsYahoo;
+  final int? plateAppearances;
+  final int? totalBases;
+  final int? flyOuts;
+  final int? groundOuts;
+  final int? lineOuts;
+  final int? popOuts;
+  final int? intentionalWalks;
+  final int? reachedOnError;
+  final int? ballsInPlay;
+  final double? battingAverageOnBallsInPlay;
+  final double? weightedOnBasePercentage;
+  final int? pitchingSingles;
+  final int? pitchingDoubles;
+  final int? pitchingTriples;
+  final int? pitchingGrandSlams;
+  final int? pitchingHitByPitch;
+  final int? pitchingSacrifices;
+  final int? pitchingSacrificeFlies;
+  final int? pitchingGroundIntoDoublePlay;
+  final int? pitchingCompleteGames;
+  final int? pitchingShutOuts;
+  final int? pitchingNoHitters;
+  final int? pitchingPerfectGames;
+  final int? pitchingPlateAppearances;
+  final int? pitchingTotalBases;
+  final int? pitchingFlyOuts;
+  final int? pitchingGroundOuts;
+  final int? pitchingLineOuts;
+  final int? pitchingPopOuts;
+  final int? pitchingIntentionalWalks;
+  final int? pitchingReachedOnError;
+  final int? pitchingCatchersInterference;
+  final int? pitchingBallsInPlay;
+  final int? pitchingOnBasePercentage;
+  final int? pitchingSluggingPercentage;
+  final int? pitchingOnBasePlusSlugging;
+  final int? pitchingStrikeoutsPerNineInnings;
+  final int? pitchingWalksPerNineInnings;
+  final int? pitchingBattingAverageOnBallsInPlay;
+  final int? pitchingWeightedOnBasePercentage;
+  final int? doublePlays;
+  final int? pitchingDoublePlays;
+  final bool? battingOrderConfirmed;
+  final double? isolatedPower;
+  final int? fieldingIndependentPitching;
+  final int? pitchingQualityStarts;
   final dynamic pitchingInningStarted;
-  final int leftOnBase;
-  final int pitchingHolds;
-  final int pitchingBlownSaves;
+  final int? leftOnBase;
+  final int? pitchingHolds;
+  final int? pitchingBlownSaves;
   final dynamic substituteBattingOrder;
   final dynamic substituteBattingOrderSequence;
-  final int fantasyPointsFantasyDraft;
+  final int? fantasyPointsFantasyDraft;
 
   MlbPlayerStats copyWith({
-    int statId,
-    int teamId,
-    int playerId,
-    int seasonType,
-    int season,
-    String name,
-    String team,
-    String position,
-    String positionCategory,
-    int started,
+    int? statId,
+    int? teamId,
+    int? playerId,
+    int? seasonType,
+    int? season,
+    String? name,
+    String? team,
+    String? position,
+    String? positionCategory,
+    int? started,
     dynamic battingOrder,
-    int globalTeamId,
+    int? globalTeamId,
     dynamic averageDraftPosition,
     dynamic auctionValue,
-    DateTime updated,
-    int games,
-    int fantasyPoints,
-    int atBats,
-    int runs,
-    int hits,
-    int singles,
-    int doubles,
-    int triples,
-    int homeRuns,
-    int runsBattedIn,
-    double battingAverage,
-    int outs,
-    int strikeouts,
-    int walks,
-    int hitByPitch,
-    int sacrifices,
-    int sacrificeFlies,
-    int groundIntoDoublePlay,
-    int stolenBases,
-    int caughtStealing,
-    int pitchesSeen,
-    double onBasePercentage,
-    double sluggingPercentage,
-    double onBasePlusSlugging,
-    int errors,
-    int wins,
-    int losses,
-    int saves,
-    int inningsPitchedDecimal,
-    int totalOutsPitched,
-    int inningsPitchedFull,
-    int inningsPitchedOuts,
-    int earnedRunAverage,
-    int pitchingHits,
-    int pitchingRuns,
-    int pitchingEarnedRuns,
-    int pitchingWalks,
-    int pitchingStrikeouts,
-    int pitchingHomeRuns,
-    int pitchesThrown,
-    int pitchesThrownStrikes,
-    int walksHitsPerInningsPitched,
-    int pitchingBattingAverageAgainst,
-    int grandSlams,
-    double fantasyPointsFanDuel,
-    int fantasyPointsDraftKings,
-    double fantasyPointsYahoo,
-    int plateAppearances,
-    int totalBases,
-    int flyOuts,
-    int groundOuts,
-    int lineOuts,
-    int popOuts,
-    int intentionalWalks,
-    int reachedOnError,
-    int ballsInPlay,
-    double battingAverageOnBallsInPlay,
-    double weightedOnBasePercentage,
-    int pitchingSingles,
-    int pitchingDoubles,
-    int pitchingTriples,
-    int pitchingGrandSlams,
-    int pitchingHitByPitch,
-    int pitchingSacrifices,
-    int pitchingSacrificeFlies,
-    int pitchingGroundIntoDoublePlay,
-    int pitchingCompleteGames,
-    int pitchingShutOuts,
-    int pitchingNoHitters,
-    int pitchingPerfectGames,
-    int pitchingPlateAppearances,
-    int pitchingTotalBases,
-    int pitchingFlyOuts,
-    int pitchingGroundOuts,
-    int pitchingLineOuts,
-    int pitchingPopOuts,
-    int pitchingIntentionalWalks,
-    int pitchingReachedOnError,
-    int pitchingCatchersInterference,
-    int pitchingBallsInPlay,
-    int pitchingOnBasePercentage,
-    int pitchingSluggingPercentage,
-    int pitchingOnBasePlusSlugging,
-    int pitchingStrikeoutsPerNineInnings,
-    int pitchingWalksPerNineInnings,
-    int pitchingBattingAverageOnBallsInPlay,
-    int pitchingWeightedOnBasePercentage,
-    int doublePlays,
-    int pitchingDoublePlays,
-    bool battingOrderConfirmed,
-    double isolatedPower,
-    int fieldingIndependentPitching,
-    int pitchingQualityStarts,
+    DateTime? updated,
+    int? games,
+    int? fantasyPoints,
+    int? atBats,
+    int? runs,
+    int? hits,
+    int? singles,
+    int? doubles,
+    int? triples,
+    int? homeRuns,
+    int? runsBattedIn,
+    double? battingAverage,
+    int? outs,
+    int? strikeouts,
+    int? walks,
+    int? hitByPitch,
+    int? sacrifices,
+    int? sacrificeFlies,
+    int? groundIntoDoublePlay,
+    int? stolenBases,
+    int? caughtStealing,
+    int? pitchesSeen,
+    double? onBasePercentage,
+    double? sluggingPercentage,
+    double? onBasePlusSlugging,
+    int? errors,
+    int? wins,
+    int? losses,
+    int? saves,
+    int? inningsPitchedDecimal,
+    int? totalOutsPitched,
+    int? inningsPitchedFull,
+    int? inningsPitchedOuts,
+    int? earnedRunAverage,
+    int? pitchingHits,
+    int? pitchingRuns,
+    int? pitchingEarnedRuns,
+    int? pitchingWalks,
+    int? pitchingStrikeouts,
+    int? pitchingHomeRuns,
+    int? pitchesThrown,
+    int? pitchesThrownStrikes,
+    int? walksHitsPerInningsPitched,
+    int? pitchingBattingAverageAgainst,
+    int? grandSlams,
+    double? fantasyPointsFanDuel,
+    int? fantasyPointsDraftKings,
+    double? fantasyPointsYahoo,
+    int? plateAppearances,
+    int? totalBases,
+    int? flyOuts,
+    int? groundOuts,
+    int? lineOuts,
+    int? popOuts,
+    int? intentionalWalks,
+    int? reachedOnError,
+    int? ballsInPlay,
+    double? battingAverageOnBallsInPlay,
+    double? weightedOnBasePercentage,
+    int? pitchingSingles,
+    int? pitchingDoubles,
+    int? pitchingTriples,
+    int? pitchingGrandSlams,
+    int? pitchingHitByPitch,
+    int? pitchingSacrifices,
+    int? pitchingSacrificeFlies,
+    int? pitchingGroundIntoDoublePlay,
+    int? pitchingCompleteGames,
+    int? pitchingShutOuts,
+    int? pitchingNoHitters,
+    int? pitchingPerfectGames,
+    int? pitchingPlateAppearances,
+    int? pitchingTotalBases,
+    int? pitchingFlyOuts,
+    int? pitchingGroundOuts,
+    int? pitchingLineOuts,
+    int? pitchingPopOuts,
+    int? pitchingIntentionalWalks,
+    int? pitchingReachedOnError,
+    int? pitchingCatchersInterference,
+    int? pitchingBallsInPlay,
+    int? pitchingOnBasePercentage,
+    int? pitchingSluggingPercentage,
+    int? pitchingOnBasePlusSlugging,
+    int? pitchingStrikeoutsPerNineInnings,
+    int? pitchingWalksPerNineInnings,
+    int? pitchingBattingAverageOnBallsInPlay,
+    int? pitchingWeightedOnBasePercentage,
+    int? doublePlays,
+    int? pitchingDoublePlays,
+    bool? battingOrderConfirmed,
+    double? isolatedPower,
+    int? fieldingIndependentPitching,
+    int? pitchingQualityStarts,
     dynamic pitchingInningStarted,
-    int leftOnBase,
-    int pitchingHolds,
-    int pitchingBlownSaves,
+    int? leftOnBase,
+    int? pitchingHolds,
+    int? pitchingBlownSaves,
     dynamic substituteBattingOrder,
     dynamic substituteBattingOrderSequence,
-    int fantasyPointsFantasyDraft,
+    int? fantasyPointsFantasyDraft,
   }) =>
       MlbPlayerStats(
         statId: statId ?? this.statId,
@@ -629,7 +641,7 @@ class MlbPlayerStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'StatID': statId,
         'TeamID': teamId,
         'PlayerID': playerId,
@@ -644,7 +656,7 @@ class MlbPlayerStats {
         'GlobalTeamID': globalTeamId,
         'AverageDraftPosition': averageDraftPosition,
         'AuctionValue': auctionValue,
-        'Updated': updated.toIso8601String(),
+        'Updated': updated!.toIso8601String(),
         'Games': games,
         'FantasyPoints': fantasyPoints,
         'AtBats': atBats,
@@ -748,7 +760,7 @@ class MlbPlayerStats {
         'FantasyPointsFantasyDraft': fantasyPointsFantasyDraft,
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, dynamic> toStatOnlyMap() => <String, dynamic>{
         'At Bats': atBats,
         'Runs': runs,
         'Hits': hits,

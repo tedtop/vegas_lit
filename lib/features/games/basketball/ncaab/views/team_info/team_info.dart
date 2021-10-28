@@ -1,3 +1,5 @@
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +18,8 @@ import 'cubit/team_info_cubit.dart';
 
 class TeamInfo extends StatelessWidget {
   TeamInfo._({this.teamData, this.gameName});
-  final NcaabTeam teamData;
-  final String gameName;
+  final NcaabTeam? teamData;
+  final String? gameName;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -28,7 +30,7 @@ class TeamInfo extends StatelessWidget {
   }
 
   static Route route(
-      {@required NcaabTeam teamData, @required String gameName}) {
+      {required NcaabTeam teamData, required String? gameName}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'TeamInfo'),
       builder: (context) => BlocProvider<TeamInfoCubit>(
@@ -42,8 +44,8 @@ class TeamInfo extends StatelessWidget {
 
 class TeamInfoView extends StatelessWidget {
   TeamInfoView({this.teamData, this.gameName});
-  final NcaabTeam teamData;
-  final String gameName;
+  final NcaabTeam? teamData;
+  final String? gameName;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -143,8 +145,8 @@ class TeamInfoView extends StatelessWidget {
   }
 
   Widget _buildPlayersList(List<NcaabPlayer> players) {
-    final teamColor = teamData.primaryColor != null
-        ? int.parse('0xA6${teamData.primaryColor}'.toString())
+    final teamColor = teamData!.primaryColor != null
+        ? int.parse('0xA6${teamData!.primaryColor}'.toString())
         : Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
@@ -153,7 +155,7 @@ class TeamInfoView extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.push<void>(
                   context,
                   PlayerDetailsPage.route(
                       gameName: gameName,
@@ -205,9 +207,8 @@ class TeamInfoView extends StatelessWidget {
                     radius: 30,
                     backgroundColor: Color(teamColor).withOpacity(1),
                     foregroundImage: CachedNetworkImageProvider(
-                        players[index].photoUrl,
-                        imageRenderMethodForWeb:
-                            ImageRenderMethodForWeb.HttpGet),
+                      players[index].photoUrl!,
+                    ), //Image for web configuration.
                   )
                 ],
               ),
@@ -228,14 +229,14 @@ class TeamInfoView extends StatelessWidget {
             height: 100,
             width: 100,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
-            child: teamData.wikipediaLogoUrl != null
-                ? VLImage.network(teamData.wikipediaLogoUrl)
+            child: teamData!.wikipediaLogoUrl != null
+                ? VLImage.network(teamData!.wikipediaLogoUrl!)
                 : SizedBox(
                     height: 100,
                     child: CircleAvatar(
                       backgroundColor: Palette.lightGrey,
                       child: Text(
-                        teamData.name.characters.first,
+                        teamData!.name!.characters.first,
                         style: Styles.largeTextBold.copyWith(fontSize: 40),
                       ),
                     ),
@@ -247,11 +248,11 @@ class TeamInfoView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                teamData.name,
+                teamData!.name!,
                 style: Styles.largeTextBold.copyWith(fontSize: 30),
               ),
               Text(
-                teamData.city.toUpperCase(),
+                teamData!.city!.toUpperCase(),
                 style: Styles.normalText,
               ),
             ],

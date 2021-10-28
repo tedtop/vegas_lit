@@ -9,7 +9,7 @@ import '../paralympics.dart';
 import '../widgets/matchup_card/paralympics_matchup_card.dart';
 
 class ParalympicsScreen extends StatelessWidget {
-  const ParalympicsScreen._({Key key}) : super(key: key);
+  const ParalympicsScreen._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -38,9 +38,9 @@ class ParalympicsScreen extends StatelessWidget {
                 ),
               ),
             );
-            break;
+
           default:
-            if (state.games.isEmpty) {
+            if (state.games!.isEmpty) {
               return Column(
                 children: [
                   Padding(
@@ -61,13 +61,13 @@ class ParalympicsScreen extends StatelessWidget {
               );
             } else {
               return ListView.builder(
-                key: Key('${state.games.length}'),
+                key: Key('${state.games!.length}'),
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: state.games.length,
+                itemCount: state.games!.length,
                 itemBuilder: (context, index) {
                   return ParalympicsMatchupCard.route(
-                    game: state.games[index],
+                    game: state.games![index],
                     gameName: state.league,
                   );
                 },

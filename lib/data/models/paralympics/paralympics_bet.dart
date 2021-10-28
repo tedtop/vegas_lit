@@ -1,34 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meta/meta.dart';
+
 import '../bet.dart';
 
 class ParalympicsBetData extends BetData {
   ParalympicsBetData({
-    @required this.betTeam,
-    @required this.winner,
-    @required gameStartDateTime,
-    @required this.event,
-    @required this.eventType,
-    @required this.gameName,
-    @required this.playerName,
-    @required this.playerCountry,
-    @required this.rivalName,
-    @required this.rivalCountry,
-    @required this.gameId,
+    required String? id,
+    required int? betAmount,
+    required int? betProfit,
+    required String? username,
+    required String? dataProvider,
+    required String? clientVersion,
+    required String? uid,
+    required String? dateTime,
+    required String? week,
+    required bool? isClosed,
+    required String? league,
+    required String gameStartDateTime,
+    required this.betTeam,
+    required this.winner,
+    required this.event,
+    required this.eventType,
+    required this.gameName,
+    required this.playerName,
+    required this.playerCountry,
+    required this.rivalName,
+    required this.rivalCountry,
+    required this.gameId,
     this.snapshot,
     this.reference,
     this.documentID,
-    @required id,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required dataProvider,
-    @required clientVersion,
-    @required uid,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
   }) : super(
           id: id,
           betAmount: betAmount,
@@ -46,31 +46,30 @@ class ParalympicsBetData extends BetData {
 
   @override
   factory ParalympicsBetData.fromFirestore(DocumentSnapshot snapshot) {
-    if (snapshot == null) return null;
-    final map = snapshot.data();
+    final map = snapshot.data() as Map;
     return ParalympicsBetData(
-      id: map['id'] as String,
-      betAmount: map['betAmount'] as int,
-      betProfit: map['betProfit'] as int,
-      uid: map['uid'] as String,
-      username: map['username'] as String,
-      dataProvider: map['dataProvider'] as String,
-      clientVersion: map['clientVersion'] as String,
-      dateTime: map['dateTime'] as String,
-      week: map['week'] as String,
-      isClosed: map['isClosed'] as bool,
-      league: map['league'] as String,
-      betTeam: map['betTeam'],
-      winner: map['winner'],
+      id: map['id'] as String?,
+      betAmount: map['betAmount'] as int?,
+      betProfit: map['betProfit'] as int?,
+      uid: map['uid'] as String?,
+      username: map['username'] as String?,
+      dataProvider: map['dataProvider'] as String?,
+      clientVersion: map['clientVersion'] as String?,
+      dateTime: map['dateTime'] as String?,
+      week: map['week'] as String?,
+      isClosed: map['isClosed'] as bool?,
+      league: map['league'] as String?,
+      betTeam: map['betTeam'] as String?,
+      winner: map['winner'] as String?,
       gameStartDateTime: map['gameStartDateTime'].toString(),
-      event: map['event'],
-      eventType: map['eventType'],
-      gameName: map['gameName'],
-      playerName: map['playerName'],
-      playerCountry: map['playerCountry'],
-      rivalName: map['rivalName'],
-      rivalCountry: map['rivalCountry'],
-      gameId: map['gameId'],
+      event: map['event'] as String?,
+      eventType: map['eventType'] as String?,
+      gameName: map['gameName'] as String?,
+      playerName: map['playerName'] as String?,
+      playerCountry: map['playerCountry'] as String?,
+      rivalName: map['rivalName'] as String?,
+      rivalCountry: map['rivalCountry'] as String?,
+      gameId: map['gameId'] as String?,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -78,7 +77,7 @@ class ParalympicsBetData extends BetData {
   }
 
   @override
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'id': id,
         'betAmount': betAmount,
         'betProfit': betProfit,
@@ -92,7 +91,7 @@ class ParalympicsBetData extends BetData {
         'league': league,
         'betTeam': betTeam,
         'winner': winner,
-        'gameStartDateTime': gameStartDateTime.toString(),
+        'gameStartDateTime': gameStartDateTime,
         'event': event,
         'eventType': eventType,
         'gameName': gameName,
@@ -103,23 +102,22 @@ class ParalympicsBetData extends BetData {
         'gameId': gameId,
       };
 
-  final String betTeam;
-  final String winner;
-  final String event;
-  final String eventType;
-
-  final String gameName;
-  final String playerName;
-  final String playerCountry;
-  final String rivalName;
-  final String rivalCountry;
-  final String gameId;
-  final DocumentSnapshot snapshot;
-  final DocumentReference reference;
-  final String documentID;
+  final String? betTeam;
+  final String? winner;
+  final String? event;
+  final String? eventType;
+  final String? gameName;
+  final String? playerName;
+  final String? playerCountry;
+  final String? rivalName;
+  final String? rivalCountry;
+  final String? gameId;
+  final DocumentSnapshot? snapshot;
+  final DocumentReference? reference;
+  final String? documentID;
 
   @override
-  List<Object> get props => super.props
+  List<Object?> get props => super.props
     ..addAll([
       betTeam,
       winner,

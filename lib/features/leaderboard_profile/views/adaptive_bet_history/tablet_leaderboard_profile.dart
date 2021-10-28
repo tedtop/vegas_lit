@@ -2,6 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -18,7 +24,8 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class TabletLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<LeaderboardProfileCubit>().state;
+    final LeaderboardProfileState state =
+        context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -40,17 +47,18 @@ class TabletLeaderboardProfile extends StatelessWidget {
 }
 
 class _TabletHistoryBoard extends StatelessWidget {
-  const _TabletHistoryBoard({Key key}) : super(key: key);
+  const _TabletHistoryBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state = context.watch<LeaderboardProfileCubit>().state;
+        final LeaderboardProfileState state =
+            context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();
-            break;
+
           case LeaderboardProfileStatus.loading:
             return const Padding(
               padding: EdgeInsets.all(20),
@@ -58,18 +66,17 @@ class _TabletHistoryBoard extends StatelessWidget {
                 color: Palette.cream,
               ),
             );
-            break;
+
           case LeaderboardProfileStatus.success:
             return const LeaderboardProfileBoardContent();
-            break;
+
           case LeaderboardProfileStatus.failure:
             return const Center(
               child: Text('Some error occured.'),
             );
-            break;
+
           default:
             return const SizedBox();
-            break;
         }
       },
     );
@@ -77,7 +84,7 @@ class _TabletHistoryBoard extends StatelessWidget {
 }
 
 class _TabletHistoryContent extends StatelessWidget {
-  const _TabletHistoryContent({Key key}) : super(key: key);
+  const _TabletHistoryContent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +118,7 @@ class _TabletHistoryContent extends StatelessWidget {
 }
 
 class _TabletHistoryList extends StatelessWidget {
-  const _TabletHistoryList({Key key}) : super(key: key);
+  const _TabletHistoryList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -126,65 +133,50 @@ class _TabletHistoryList extends StatelessWidget {
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
-      children: bets.map((betData) {
-        switch (betData.league) {
-          case 'mlb':
+      children: bets.map(
+        (betData) {
+          if (betData is MlbBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: MlbBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'nba':
+          } else if (betData is NbaBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NbaBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'cbb':
+          } else if (betData is NcaabBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NcaabBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'cfb':
+          } else if (betData is NcaafBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NcaafBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'nfl':
+          } else if (betData is NflBetData) {
             return FittedBox(
+              fit: BoxFit.scaleDown,
               child: NflBetHistoryCard(betHistoryData: betData),
-              fit: BoxFit.scaleDown,
             );
-            break;
-          case 'nhl':
+          } else if (betData is NhlBetData) {
             return FittedBox(
-              child: NhlBetHistoryCard(betHistoryData: betData),
               fit: BoxFit.scaleDown,
+              child: NhlBetHistoryCard(betHistoryData: betData),
             );
-            break;
-          // case 'olympic':
-          //   return FittedBox(
-          //     child: OlympicOpenBetCard(openBets:betData),
-          //     fit: BoxFit.scaleDown,
-          //   );
-          //   break;
-          default:
+          } else {
             return const SizedBox();
-        }
-        // return FittedBox(
-        //   child: BetHistorySlip(betHistoryData:betDatas),
-        //   fit: BoxFit.scaleDown,
-        // );
-      }).toList(),
+          }
+        },
+      ).toList(),
     );
   }
 }
 
 class _TabletHistoryEmpty extends StatelessWidget {
   const _TabletHistoryEmpty({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -201,7 +193,7 @@ class _TabletHistoryEmpty extends StatelessWidget {
 }
 
 class _TabletHistoryHeading extends StatelessWidget {
-  const _TabletHistoryHeading({Key key}) : super(key: key);
+  const _TabletHistoryHeading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -219,40 +211,40 @@ class _TabletHistoryHeading extends StatelessWidget {
         constraints: const BoxConstraints(minWidth: 380, maxWidth: 600),
         child: Row(
           children: [
-            betHistoryState.userWallet.avatarUrl != null
-                ? CircleAvatar(
-                    radius: 50,
-                    backgroundImage: CachedNetworkImageProvider(
-                        betHistoryState.userWallet.avatarUrl,
-                        imageRenderMethodForWeb:
-                            ImageRenderMethodForWeb.HttpGet),
-                  )
-                : CircleAvatar(
-                    radius: 50,
-                    child: ClipOval(
-                      child: Container(
-                        alignment: Alignment.center,
-                        color: Palette.darkGrey,
-                        height: 100.0,
-                        width: 100.0,
-                        child: Text(
-                          betHistoryState.userWallet.username
-                              .substring(0, 1)
-                              .toUpperCase(),
-                          style: GoogleFonts.nunito(
-                            fontSize: 60,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+            if (betHistoryState.userWallet!.avatarUrl != null)
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: CachedNetworkImageProvider(
+                  betHistoryState.userWallet!.avatarUrl!,
+                ), //Image for web configuration.
+              )
+            else
+              CircleAvatar(
+                radius: 50,
+                child: ClipOval(
+                  child: Container(
+                    alignment: Alignment.center,
+                    color: Palette.darkGrey,
+                    height: 100,
+                    width: 100,
+                    child: Text(
+                      betHistoryState.userWallet!.username!
+                          .substring(0, 1)
+                          .toUpperCase(),
+                      style: GoogleFonts.nunito(
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+                ),
+              ),
             Expanded(
               child: betHistoryState.status == LeaderboardProfileStatus.success
                   ? Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: Text(
-                        '${betHistoryState.userWallet.username}',
+                        '${betHistoryState.userWallet!.username}',
                         style: Styles.pageTitle,
                         softWrap: true,
                         overflow: TextOverflow.clip,

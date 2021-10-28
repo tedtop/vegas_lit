@@ -6,22 +6,22 @@ import 'palette.dart';
 class Styles {
   static TextStyle emoji({double size = 18}) => VLTextStyle.emoji.size(size);
 
-  static const double normalElevation = 4.0;
+  static const double normalElevation = 4;
 
-  static final ShapeBorder smallRadius = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(6.0),
+  static final OutlinedBorder smallRadius = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(6),
   );
 
   static final ShapeBorder largeRadius = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(12.0),
+    borderRadius: BorderRadius.circular(12),
   );
   static final versionText = VLTextStyle.nunito.creamColored.size(12);
 
   static final pageTitle =
       VLTextStyle.nunito.greenColored.size(36).bold.withShadows(<Shadow>[
     Shadow(
-      offset: const Offset(0, 4.0),
-      blurRadius: 4.0,
+      offset: const Offset(0, 4),
+      blurRadius: 4,
       color: const Color(0xFF000000).withOpacity(0.25),
     ),
   ]);
@@ -60,13 +60,8 @@ class Styles {
   static final signUpAgreement = VLTextStyle.nunito.creamColored.size(11);
   static final authButtonText = VLTextStyle.nunito.greenColored.size(18).bold;
   static final authNormalText = VLTextStyle.nunito.creamColored.size(18).w300;
-  static const signUpInputFieldBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(4),
-    ),
-  );
+  static const signUpInputFieldBorder = OutlineInputBorder();
   static const signUpInputFieldFocusedBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(4)),
     borderSide: BorderSide(color: Palette.cream),
   );
   static const logInInputFocusedBorder = UnderlineInputBorder(
@@ -174,8 +169,8 @@ class Styles {
   static final profileFieldDescription =
       VLTextStyle.nunito.greenColored.size(14).withShadows(<Shadow>[
     Shadow(
-      offset: const Offset(0, 2.0),
-      blurRadius: 2.0,
+      offset: const Offset(0, 2),
+      blurRadius: 2,
       color: const Color(0xFF000000).withOpacity(0.25),
     ),
   ]);
@@ -188,16 +183,9 @@ class Styles {
       VLTextStyle.nunito.creamColored.size(18).w700;
   static final groupFieldDescription = VLTextStyle.nunito.creamColored.size(14);
 
-  static const groupFieldBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(4),
-    ),
-  );
+  static const groupFieldBorder = OutlineInputBorder();
   static const groupFieldFocusedBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Palette.cream),
-    borderRadius: BorderRadius.all(
-      Radius.circular(4),
-    ),
   );
 
   /// --> SHARED WIDGETS

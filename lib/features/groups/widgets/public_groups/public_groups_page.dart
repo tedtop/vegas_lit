@@ -16,7 +16,7 @@ import '../group_details/group_details.dart';
 import 'cubit/public_groups_cubit.dart';
 
 class PublicGroups extends StatelessWidget {
-  const PublicGroups._({Key key}) : super(key: key);
+  const PublicGroups._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -48,7 +48,7 @@ class PublicGroups extends StatelessWidget {
                       style: Styles.greenTextBold,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(
+                          Navigator.push<void>(
                             context,
                             GroupAdd.route(
                               homeCubit: context.read<HomeCubit>(),
@@ -69,14 +69,14 @@ class PublicGroups extends StatelessWidget {
               switch (state.status) {
                 case PublicGroupsStatus.initial:
                   return const SizedBox();
-                  break;
+
                 case PublicGroupsStatus.loading:
                   return const Center(
                     child: CircularProgressIndicator(
                       color: Palette.cream,
                     ),
                   );
-                  break;
+
                 case PublicGroupsStatus.success:
                   if (state.publicGroups.isEmpty) {
                     return Center(
@@ -88,7 +88,7 @@ class PublicGroups extends StatelessWidget {
                   } else {
                     return const PublicGroupList();
                   }
-                  break;
+
                 case PublicGroupsStatus.failure:
                   return Center(
                     child: Text(
@@ -96,10 +96,9 @@ class PublicGroups extends StatelessWidget {
                       style: GoogleFonts.nunito(),
                     ),
                   );
-                  break;
+
                 default:
                   return const SizedBox();
-                  break;
               }
             },
           ),
@@ -111,12 +110,12 @@ class PublicGroups extends StatelessWidget {
 }
 
 class PublicGroupList extends StatelessWidget {
-  const PublicGroupList({Key key}) : super(key: key);
+  const PublicGroupList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final groupList = context.select(
-      (PublicGroupsCubit cubit) => cubit.state?.publicGroups,
+      (PublicGroupsCubit cubit) => cubit.state.publicGroups,
     );
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
@@ -134,8 +133,8 @@ class PublicGroupList extends StatelessWidget {
 
 class PublicGroupListTile extends StatelessWidget {
   const PublicGroupListTile({
-    Key key,
-    @required Group group,
+    Key? key,
+    required Group group,
   })  : assert(group != null),
         _group = group,
         super(key: key);
@@ -144,9 +143,9 @@ class PublicGroupListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.watch<AuthenticationBloc>().state.user.uid;
+    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
     final groupUsersLength =
-        _group.users.values.where((element) => element == true).length;
+        _group.users!.values.where((element) => element == true).length;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -164,8 +163,10 @@ class PublicGroupListTile extends StatelessWidget {
         leading: _group.avatarUrl != null
             ? CircleAvatar(
                 radius: 25,
-                backgroundImage: CachedNetworkImageProvider(_group.avatarUrl,
-                    imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet))
+                backgroundImage: CachedNetworkImageProvider(
+                  _group.avatarUrl!,
+                ), //Image for web configuration.
+              )
             : const SizedBox(
                 width: 50,
                 child: Icon(
@@ -174,11 +175,11 @@ class PublicGroupListTile extends StatelessWidget {
                 ),
               ),
         title: Text(
-          _group.name,
+          _group.name!,
           style: Styles.leaderboardUsername,
         ),
         subtitle: Text(
-          _group.isPublic ? 'Public Group' : 'Private Group',
+          _group.isPublic! ? 'Public Group' : 'Private Group',
           style: Styles.normalText.copyWith(fontSize: 14),
         ),
         trailing: Column(
@@ -187,7 +188,7 @@ class PublicGroupListTile extends StatelessWidget {
               '$groupUsersLength${_group.userLimit == 0 ? '' : '/${_group.userLimit}'}',
               style: Styles.leaderboardUsername.copyWith(
                 color: _group.userLimit == 0 ||
-                        _group.userLimit > _group.users.length
+                        _group.userLimit! > _group.users!.length
                     ? Palette.green
                     : Palette.red,
               ),
@@ -199,7 +200,7 @@ class PublicGroupListTile extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.push(
+          Navigator.push<void>(
             context,
             GroupDetails.route(
               storageRepository: context.read<StorageRepository>(),

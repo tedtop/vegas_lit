@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +11,7 @@ part 'banner_ad_state.dart';
 class BannerAdCubit extends Cubit<BannerAdState> {
   BannerAdCubit() : super(const BannerAdState.initial());
 
-  BannerAd _bannerAd;
+  BannerAd? _bannerAd;
 
   Future<void> loadBannerAd() async {
     emit(const BannerAdState.loading());
@@ -33,12 +35,12 @@ class BannerAdCubit extends Cubit<BannerAdState> {
         },
       ),
     );
-    await _bannerAd.load();
+    await _bannerAd!.load();
   }
 
   @override
   Future<void> close() {
-    _bannerAd.dispose();
+    _bannerAd!.dispose();
     return super.close();
   }
 }

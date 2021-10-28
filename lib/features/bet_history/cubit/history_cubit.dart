@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 import '../../../config/extensions.dart';
@@ -14,15 +14,14 @@ part 'history_state.dart';
 
 class HistoryCubit extends Cubit<HistoryState> {
   HistoryCubit({
-    @required UserRepository userRepository,
-  })  : assert(userRepository != null),
-        _userRepository = userRepository,
+    required UserRepository userRepository,
+  })  : _userRepository = userRepository,
         super(const HistoryState());
 
   final UserRepository _userRepository;
-  StreamSubscription _betHistorySubscription;
+  StreamSubscription? _betHistorySubscription;
 
-  Future<void> fetchAllBets({@required String uid}) async {
+  Future<void> fetchAllBets({required String? uid}) async {
     final currentWeek = <String>['Current Week'];
     emit(
       HistoryState(
@@ -74,7 +73,7 @@ class HistoryCubit extends Cubit<HistoryState> {
     }
   }
 
-  Future<void> changeWeek({@required String week}) async {
+  Future<void> changeWeek({required String? week}) async {
     if (week == 'Current Week') {
       await fetchAllBets(uid: state.uid);
     } else {

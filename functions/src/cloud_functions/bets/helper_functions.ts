@@ -97,24 +97,23 @@ export function whichKey(league: string): string {
   switch (league) {
     case "nba":
       return "4d77c75bcd884680ba8493da19f1aece";
-      break;
+
     case "mlb":
       return "d569ee15932e4266bf5e0fc8330dbb90";
-      break;
+
     case "nhl":
       return "d02fe5a19d1249daa5879948da06f627";
-      break;
+
     case "ccb":
       return "c4ddc8ca2fcd4c659c0910eabc75a4c6";
-      break;
+
     case "nfl":
       return "f45a65cc1d7642f7950644d49ec749fc";
-      break;
+
     case "cfb":
       return "bb98e463c5e34a86bb246ff4574a598f";
-      break;
+
     default:
       return "";
-      break;
   }
 }

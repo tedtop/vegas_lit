@@ -2,7 +2,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import '../config/routes.dart';
 
-final routeObserver = RouteObserver<PageRoute>();
+final RouteObserver<PageRoute<dynamic>> routeObserver =
+    RouteObserver<PageRoute>();
 
 mixin RouteAwareAnalytics<T extends StatefulWidget> on State<T>
     implements RouteAware {
@@ -11,7 +12,7 @@ mixin RouteAwareAnalytics<T extends StatefulWidget> on State<T>
 
   @override
   void didChangeDependencies() {
-    routeObserver.subscribe(this, ModalRoute.of(context));
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
     super.didChangeDependencies();
   }
 

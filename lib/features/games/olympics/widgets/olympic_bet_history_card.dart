@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +11,8 @@ import '../../../../data/models/olympics/olympic_bet.dart';
 
 class OlympicsBetHistoryCard extends StatelessWidget {
   const OlympicsBetHistoryCard({
-    Key key,
-    @required this.betHistoryData,
+    Key? key,
+    required this.betHistoryData,
   })  : assert(betHistoryData != null),
         super(key: key);
 
@@ -111,7 +113,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                 children: [
                                   isPlayerWin
                                       ? Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry!)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.cream,
@@ -121,7 +123,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                         )
                                       : Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry!)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.green,
@@ -132,7 +134,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                         ),
                                   isPlayerWin
                                       ? Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry!)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.green,
@@ -142,7 +144,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           textAlign: TextAlign.center,
                                         )
                                       : Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry)}',
+                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry!)}',
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.cream,
@@ -164,7 +166,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                             children: [
                                               Flexible(
                                                 child: Text(
-                                                  '${betHistoryData.playerName.toUpperCase()}',
+                                                  '${betHistoryData.playerName!.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     color: Palette.cream,
@@ -189,7 +191,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             child: Text(
-                                              '${betHistoryData.rivalName.toUpperCase()}',
+                                              '${betHistoryData.rivalName!.toUpperCase()}',
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
                                                 color: Palette.green,
@@ -210,7 +212,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                             children: [
                                               Flexible(
                                                 child: Text(
-                                                  '${betHistoryData.rivalName.toUpperCase()}',
+                                                  '${betHistoryData.rivalName!.toUpperCase()}',
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     color: Palette.green,
@@ -235,7 +237,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             child: Text(
-                                              '${betHistoryData.playerName.toUpperCase()}',
+                                              '${betHistoryData.playerName!.toUpperCase()}',
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
                                                 color: Palette.cream,
@@ -258,7 +260,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: Text(
-                                  '${betHistoryData.gameName.replaceAll(RegExp('-'), '\/').toUpperCase()}',
+                                  '${betHistoryData.gameName!.replaceAll(RegExp('-'), '\/').toUpperCase()}',
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
                                     color: Palette.cream,
@@ -292,7 +294,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: Text(
-                                  betHistoryData.event,
+                                  betHistoryData.event!,
                                   style: Styles.openBetsCardNormal,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -307,7 +309,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                 Text(
                                   DateFormat('E, MMM c, y @ hh:mm a').format(
                                     DateTime.parse(
-                                        betHistoryData.gameStartDateTime),
+                                        betHistoryData.gameStartDateTime!),
                                   ),
                                   style: GoogleFonts.nunito(
                                     color: Palette.red,
@@ -415,7 +417,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
   }
 }
 
-String countryFlagFromCode({String countryCode}) {
+String countryFlagFromCode({required String countryCode}) {
   return String.fromCharCode(countryCode.codeUnitAt(0) - 0x41 + 0x1F1E6) +
       String.fromCharCode(countryCode.codeUnitAt(1) - 0x41 + 0x1F1E6);
 }

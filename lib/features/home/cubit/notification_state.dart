@@ -1,3 +1,5 @@
+
+
 part of 'notification_cubit.dart';
 
 enum NotificationStatus {
@@ -15,9 +17,9 @@ class NotificationState extends Equatable {
   });
 
   final NotificationStatus status;
-  final PushNotification notification;
-  final String errorMessage;
+  final PushNotification? notification;
+  final String? errorMessage;
 
   @override
-  List<Object> get props => [status, errorMessage, notification];
+  List<Object?> get props => [status, errorMessage, notification];
 }

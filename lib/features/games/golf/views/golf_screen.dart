@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/palette.dart';
@@ -8,7 +10,7 @@ import '../widgets/golf_tour.dart';
 import '../widgets/golf_tour_detail.dart';
 
 class GolfScreen extends StatelessWidget {
-  const GolfScreen._({Key key}) : super(key: key);
+  const GolfScreen._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(

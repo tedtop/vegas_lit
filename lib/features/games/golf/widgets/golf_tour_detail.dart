@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +11,8 @@ import '../golf_page.dart';
 
 class GolfDetailView extends StatefulWidget {
   GolfDetailView({this.players, this.tournament});
-  final GolfTournament tournament;
-  final List<GolfPlayer> players;
+  final GolfTournament? tournament;
+  final List<GolfPlayer>? players;
   @override
   _GolfDetailViewState createState() => _GolfDetailViewState();
 }
@@ -33,7 +35,7 @@ class _GolfDetailViewState extends State<GolfDetailView> {
           Expanded(
               child: Center(
             child: Text(
-              widget.tournament.name,
+              widget.tournament!.name!,
               style: Styles.greenTextBold.copyWith(fontSize: 24),
             ),
           ))
@@ -49,8 +51,8 @@ class _GolfDetailViewState extends State<GolfDetailView> {
 
 class GolfTournamentDetailCard extends StatelessWidget {
   GolfTournamentDetailCard({this.tournament, this.players});
-  final GolfTournament tournament;
-  final List<GolfPlayer> players;
+  final GolfTournament? tournament;
+  final List<GolfPlayer>? players;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -70,18 +72,18 @@ class GolfTournamentDetailCard extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Tournament ID: ${tournament.tournamentId}',
+                  'Tournament ID: ${tournament!.tournamentId}',
                   style: Styles.normalTextBold,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  'Start Date: ${tournament.startDate.day}-${DateFormat.MMMM().format(tournament.startDate)}-${tournament.startDate.year}',
+                  'Start Date: ${tournament!.startDate!.day}-${DateFormat.MMMM().format(tournament!.startDate!)}-${tournament!.startDate!.year}',
                   style: Styles.normalText,
                 ),
                 Text(
-                  'End Date: ${tournament.endDate.day}-${DateFormat.MMMM().format(tournament.endDate)}-${tournament.endDate.year}',
+                  'End Date: ${tournament!.endDate!.day}-${DateFormat.MMMM().format(tournament!.endDate!)}-${tournament!.endDate!.year}',
                   style: Styles.normalText,
                 ),
                 const SizedBox(
@@ -92,11 +94,11 @@ class GolfTournamentDetailCard extends StatelessWidget {
                   style: Styles.greenTextBold,
                 ),
                 Text(
-                  '${tournament.venue ?? 'NA'}',
+                  '${tournament!.venue ?? 'NA'}',
                   style: Styles.awayTeam,
                 ),
                 Text(
-                  '${tournament.location ?? 'NA'}',
+                  '${tournament!.location ?? 'NA'}',
                   style: Styles.awayTeam,
                 ),
                 const SizedBox(
@@ -107,19 +109,19 @@ class GolfTournamentDetailCard extends StatelessWidget {
                   children: [
                     GolfStyledBox(
                       child: Text(
-                        'Par: ${tournament.par ?? 'NA'}',
+                        'Par: ${tournament!.par ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
                     ),
                     GolfStyledBox(
                       child: Text(
-                        'Yards: ${tournament.yards ?? 'NA'}',
+                        'Yards: ${tournament!.yards ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
                     ),
                     GolfStyledBox(
                       child: Text(
-                        'Purse: ${tournament.purse ?? 'NA'}',
+                        'Purse: ${tournament!.purse ?? 'NA'}',
                         style: Styles.normalTextBold,
                       ),
                     ),
@@ -128,13 +130,13 @@ class GolfTournamentDetailCard extends StatelessWidget {
                     )
                   ],
                 ),
-                tournament.isInProgress
+                tournament!.isInProgress!
                     ? Text(
                         'This tournament is in progress!',
                         style: Styles.largeTextBold,
                         textAlign: TextAlign.center,
                       )
-                    : (tournament.isOver
+                    : (tournament!.isOver!
                         ? Text(
                             'This tournament is over!',
                             style: Styles.largeTextBold,
@@ -148,7 +150,7 @@ class GolfTournamentDetailCard extends StatelessWidget {
               ],
             ),
           ),
-          players.isNotEmpty
+          players!.isNotEmpty
               ? Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
@@ -158,11 +160,11 @@ class GolfTournamentDetailCard extends StatelessWidget {
                   ),
                 )
               : const SizedBox(),
-          ...players
+          ...players!
               .map((player) => InkWell(
                     onTap: () {
                       BlocProvider.of<GolfCubit>(context).fetchPlayerDetails(
-                          player: player, tournament: tournament);
+                          player: player, tournament: tournament!);
                     },
                     child: Container(
                       width: 360,
@@ -208,7 +210,7 @@ class GolfTournamentDetailCard extends StatelessWidget {
 
 class GolfStyledBox extends StatelessWidget {
   GolfStyledBox({this.child});
-  final Widget child;
+  final Widget? child;
   @override
   Widget build(BuildContext context) {
     return Container(

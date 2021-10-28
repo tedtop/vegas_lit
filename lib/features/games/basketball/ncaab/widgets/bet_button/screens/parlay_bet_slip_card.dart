@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meta/meta.dart';
+
 import 'package:vegas_lit/config/assets.dart';
 
 import '../../../../../../../config/enum.dart';
@@ -18,7 +18,8 @@ class NcaabParlayBetSlipCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final betButtonState = context.watch<NcaabBetButtonCubit>().state;
+        final NcaabBetButtonState betButtonState =
+            context.watch<NcaabBetButtonCubit>().state;
 
         final isMoneyline = betButtonState.betType == Bet.ml;
         final isPointSpread = betButtonState.betType == Bet.pts;
@@ -75,26 +76,26 @@ class NcaabParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData.city ?? ''} ${betButtonState.homeTeamData.name}' : '${betButtonState.awayTeamData.city ?? ''} ${betButtonState.awayTeamData.name}'}'
+                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
                               isMoneyline
                                   ? TextSpan(
                                       text:
-                                          ' (${betButtonState.text.split(' ').last})',
+                                          ' (${betButtonState.text!.split(' ').last})',
                                       //style: Styles.betSlipHomeTeam,
                                     )
                                   : isPointSpread
                                       ? TextSpan(
                                           text:
-                                              ' (${betButtonState.text.split(' ').first})'
+                                              ' (${betButtonState.text!.split(' ').first})'
                                           //     PTS (${betButtonState.text.split(' ').last})',
                                           //style: Styles.betSlipHomeTeam,
                                           )
                                       : TextSpan(
                                           text:
-                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text.split(' ').first.substring(1)}',
+                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}',
                                           //     TOT ${betButtonState.text.split(' ').last}',
                                           style: Styles.betSlipHomeTeam,
                                         ),
@@ -109,12 +110,12 @@ class NcaabParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(
                                 text:
-                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData.name.toUpperCase() : betButtonState.awayTeamData.name.toUpperCase()}',
+                                    ' @ ${betButtonState.winTeam == BetButtonWin.away ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
                                 style: Styles.betSlipAwayTeam,
                               ),
                             ],
@@ -140,7 +141,7 @@ class NcaabParlayBetSlipCard extends StatelessWidget {
   }
 }
 
-String getRemainingTimeText({CurrentRemainingTime time}) {
+String getRemainingTimeText({required CurrentRemainingTime time}) {
   final days = time.days == null ? '' : '${time.days}d ';
   final hours = time.hours == null ? '' : '${time.hours}hr';
   final min = time.min == null ? '' : ' ${time.min}m';
@@ -148,7 +149,7 @@ String getRemainingTimeText({CurrentRemainingTime time}) {
   return days + hours + min + sec;
 }
 
-String whichBetSystemFromEnum(Bet betType) {
+String whichBetSystemFromEnum(Bet? betType) {
   if (betType == Bet.ml) {
     return 'MONEYLINE';
   }
@@ -159,55 +160,5 @@ String whichBetSystemFromEnum(Bet betType) {
     return 'TOTAL O/U';
   } else {
     return 'Error';
-  }
-}
-
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: action,
-        ),
-      ),
-    );
   }
 }

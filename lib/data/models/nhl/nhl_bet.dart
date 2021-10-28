@@ -1,41 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meta/meta.dart';
 
 import '../bet.dart';
 
 class NhlBetData extends BetData {
   NhlBetData({
-    @required id,
-    @required betAmount,
-    @required betProfit,
-    @required username,
-    @required dataProvider,
-    @required clientVersion,
-    @required uid,
-    @required dateTime,
-    @required week,
-    @required isClosed,
-    @required league,
-    @required this.betType,
-    @required gameStartDateTime,
-    @required this.status,
-    @required this.stillOpen,
-    @required this.odds,
-    @required this.betTeam,
-    @required this.winningTeamName,
-    @required this.winningTeam,
-    @required this.betPointSpread,
-    @required this.betOverUnder,
-    @required this.homeTeam,
-    @required this.awayTeam,
-    @required this.awayTeamScore,
-    @required this.homeTeamCity,
-    @required this.awayTeamCity,
-    @required this.homeTeamScore,
-    @required this.totalGameScore,
-    @required this.homeTeamName,
-    @required this.awayTeamName,
-    @required this.gameId,
+    required String? id,
+    required int? betAmount,
+    required int? betProfit,
+    required String? username,
+    required String? dataProvider,
+    required String? clientVersion,
+    required String? uid,
+    required String? dateTime,
+    required String? week,
+    required bool? isClosed,
+    required String? league,
+    required String? gameStartDateTime,
+    required this.betType,
+    required this.status,
+    required this.stillOpen,
+    required this.odds,
+    required this.betTeam,
+    required this.winningTeamName,
+    required this.winningTeam,
+    required this.betPointSpread,
+    required this.betOverUnder,
+    required this.homeTeam,
+    required this.awayTeam,
+    required this.awayTeamScore,
+    required this.homeTeamCity,
+    required this.awayTeamCity,
+    required this.homeTeamScore,
+    required this.totalGameScore,
+    required this.homeTeamName,
+    required this.awayTeamName,
+    required this.gameId,
   }) : super(
           id: id,
           betAmount: betAmount,
@@ -53,100 +52,100 @@ class NhlBetData extends BetData {
 
   @override
   factory NhlBetData.fromFirestore(DocumentSnapshot snapshot) {
-    final Map data = snapshot.data();
+    final data = snapshot.data() as Map;
     return NhlBetData(
-      id: data['id'] as String,
-      winningTeam: data['winningTeam'] as String,
-      betAmount: data['betAmount'] as int,
-      betProfit: data['betProfit'] as int,
-      uid: data['uid'] as String,
-      stillOpen: data['stillOpen'] as bool,
-      betType: data['betType'] as String,
-      awayTeamCity: data['awayTeamCity'] as String,
-      homeTeamCity: data['homeTeamCity'] as String,
-      homeTeam: data['homeTeam'] as String,
-      awayTeam: data['awayTeam'] as String,
-      betTeam: data['betTeam'] as String,
-      winningTeamName: data['winningTeamName'] as String,
-      username: data['username'] as String,
-      dataProvider: data['dataProvider'] as String,
-      clientVersion: data['clientVersion'] as String,
+      id: data['id'] as String?,
+      winningTeam: data['winningTeam'] as String?,
+      betAmount: data['betAmount'] as int?,
+      betProfit: data['betProfit'] as int?,
+      uid: data['uid'] as String?,
+      stillOpen: data['stillOpen'] as bool?,
+      betType: data['betType'] as String?,
+      awayTeamCity: data['awayTeamCity'] as String?,
+      homeTeamCity: data['homeTeamCity'] as String?,
+      homeTeam: data['homeTeam'] as String?,
+      awayTeam: data['awayTeam'] as String?,
+      betTeam: data['betTeam'] as String?,
+      winningTeamName: data['winningTeamName'] as String?,
+      username: data['username'] as String?,
+      dataProvider: data['dataProvider'] as String?,
+      clientVersion: data['clientVersion'] as String?,
       betPointSpread: double.tryParse(data['betPointSpread'].toString()),
       betOverUnder: double.tryParse(data['betOverUnder'].toString()),
-      awayTeamScore: data['awayTeamScore'] as int,
-      homeTeamScore: data['homeTeamScore'] as int,
-      totalGameScore: data['totalGameScore'] as int,
-      homeTeamName: data['homeTeamName'] as String,
-      awayTeamName: data['awayTeamName'] as String,
-      gameStartDateTime: data['gameStartDateTime'] as String,
-      dateTime: data['dateTime'] as String,
-      week: data['week'] as String,
-      status: data['status'] as String,
-      gameId: data['gameId'] as int,
-      isClosed: data['isClosed'] as bool,
-      league: data['league'] as String,
-      odds: data['odds'] as int,
+      awayTeamScore: data['awayTeamScore'] as int?,
+      homeTeamScore: data['homeTeamScore'] as int?,
+      totalGameScore: data['totalGameScore'] as int?,
+      homeTeamName: data['homeTeamName'] as String?,
+      awayTeamName: data['awayTeamName'] as String?,
+      gameStartDateTime: data['gameStartDateTime'] as String?,
+      dateTime: data['dateTime'] as String?,
+      week: data['week'] as String?,
+      status: data['status'] as String?,
+      gameId: data['gameId'] as int?,
+      isClosed: data['isClosed'] as bool?,
+      league: data['league'] as String?,
+      odds: data['odds'] as int?,
     );
   }
 
   factory NhlBetData.fromMap(Map data) {
     return NhlBetData(
-      id: data['id'] as String,
-      winningTeam: data['winningTeam'] as String,
-      betAmount: data['betAmount'] as int,
-      betProfit: data['betProfit'] as int,
-      uid: data['uid'] as String,
-      stillOpen: data['stillOpen'] as bool,
-      betType: data['betType'] as String,
-      awayTeamCity: data['awayTeamCity'] as String,
-      homeTeamCity: data['homeTeamCity'] as String,
-      homeTeam: data['homeTeam'] as String,
-      awayTeam: data['awayTeam'] as String,
-      betTeam: data['betTeam'] as String,
-      winningTeamName: data['winningTeamName'] as String,
-      username: data['username'] as String,
-      dataProvider: data['dataProvider'] as String,
-      clientVersion: data['clientVersion'] as String,
+      id: data['id'] as String?,
+      winningTeam: data['winningTeam'] as String?,
+      betAmount: data['betAmount'] as int?,
+      betProfit: data['betProfit'] as int?,
+      uid: data['uid'] as String?,
+      stillOpen: data['stillOpen'] as bool?,
+      betType: data['betType'] as String?,
+      awayTeamCity: data['awayTeamCity'] as String?,
+      homeTeamCity: data['homeTeamCity'] as String?,
+      homeTeam: data['homeTeam'] as String?,
+      awayTeam: data['awayTeam'] as String?,
+      betTeam: data['betTeam'] as String?,
+      winningTeamName: data['winningTeamName'] as String?,
+      username: data['username'] as String?,
+      dataProvider: data['dataProvider'] as String?,
+      clientVersion: data['clientVersion'] as String?,
       betPointSpread: double.tryParse(data['betPointSpread'].toString()),
       betOverUnder: double.tryParse(data['betOverUnder'].toString()),
-      awayTeamScore: data['awayTeamScore'] as int,
-      homeTeamScore: data['homeTeamScore'] as int,
-      totalGameScore: data['totalGameScore'] as int,
-      homeTeamName: data['homeTeamName'] as String,
-      awayTeamName: data['awayTeamName'] as String,
-      gameStartDateTime: data['gameStartDateTime'] as String,
-      dateTime: data['dateTime'] as String,
-      week: data['week'] as String,
-      status: data['status'] as String,
-      gameId: data['gameId'] as int,
-      isClosed: data['isClosed'] as bool,
-      league: data['league'] as String,
-      odds: data['odds'] as int,
+      awayTeamScore: data['awayTeamScore'] as int?,
+      homeTeamScore: data['homeTeamScore'] as int?,
+      totalGameScore: data['totalGameScore'] as int?,
+      homeTeamName: data['homeTeamName'] as String?,
+      awayTeamName: data['awayTeamName'] as String?,
+      gameStartDateTime: data['gameStartDateTime'] as String?,
+      dateTime: data['dateTime'] as String?,
+      week: data['week'] as String?,
+      status: data['status'] as String?,
+      gameId: data['gameId'] as int?,
+      isClosed: data['isClosed'] as bool?,
+      league: data['league'] as String?,
+      odds: data['odds'] as int?,
     );
   }
 
-  final String betTeam;
-  final String winningTeamName;
-  final double betPointSpread;
-  final double betOverUnder;
-  final int awayTeamScore;
-  final int homeTeamScore;
-  final int totalGameScore;
-  final String homeTeamCity;
-  final String awayTeamCity;
-  final String homeTeamName;
-  final String homeTeam;
-  final String awayTeamName;
-  final String awayTeam;
-  final int gameId;
-  final String betType;
-  final bool stillOpen;
-  final String status;
-  final int odds;
-  final String winningTeam;
+  final String? betTeam;
+  final String? winningTeamName;
+  final double? betPointSpread;
+  final double? betOverUnder;
+  final int? awayTeamScore;
+  final int? homeTeamScore;
+  final int? totalGameScore;
+  final String? homeTeamCity;
+  final String? awayTeamCity;
+  final String? homeTeamName;
+  final String? homeTeam;
+  final String? awayTeamName;
+  final String? awayTeam;
+  final int? gameId;
+  final String? betType;
+  final bool? stillOpen;
+  final String? status;
+  final int? odds;
+  final String? winningTeam;
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toMap() {
     return {
       'id': id,
       'betAmount': betAmount,
@@ -183,7 +182,7 @@ class NhlBetData extends BetData {
   }
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return super.props
       ..addAll([
         betTeam,

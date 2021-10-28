@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +14,7 @@ import 'nba_screen_mobile/nba_screen_mobile.dart';
 import 'nba_screen_tablet/nba_screen_tablet.dart';
 
 class NbaScreen extends StatelessWidget {
-  const NbaScreen._({Key key}) : super(key: key);
+  const NbaScreen._({Key? key}) : super(key: key);
 
   static Builder route() {
     return Builder(
@@ -42,7 +44,7 @@ class NbaScreen extends StatelessWidget {
               ),
             );
           default:
-            if (state.games.isEmpty) {
+            if (state.games!.isEmpty) {
               return Column(
                 children: [
                   Padding(

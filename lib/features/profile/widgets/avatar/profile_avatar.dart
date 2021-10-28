@@ -10,7 +10,7 @@ import '../../cubit/profile_cubit.dart';
 import 'cubit/profileavatar_cubit.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar._({Key key}) : super(key: key);
+  const ProfileAvatar._({Key? key}) : super(key: key);
 
   static Widget route() {
     return RepositoryProvider(
@@ -55,7 +55,6 @@ class ProfileAvatar extends StatelessWidget {
               );
             break;
           default:
-            break;
         }
       },
       builder: (context, state) {
@@ -63,15 +62,15 @@ class ProfileAvatar extends StatelessWidget {
         final currentUserId = context.watch<ProfileCubit>().state.userData?.uid;
         final avatarUrl =
             context.watch<ProfileCubit>().state.userData?.avatarUrl;
-        if (username == null)
+        if (username == null) {
           return CircleAvatar(
             radius: 50,
             child: ClipOval(
               child: Container(
                 alignment: Alignment.center,
                 color: Palette.darkGrey,
-                height: 100.0,
-                width: 100.0,
+                height: 100,
+                width: 100,
                 child: const Center(
                     child: CircularProgressIndicator(
                   color: Palette.cream,
@@ -79,6 +78,7 @@ class ProfileAvatar extends StatelessWidget {
               ),
             ),
           );
+        }
         switch (state.status) {
           case ProfileAvatarStatus.loading:
             return CircleAvatar(
@@ -87,8 +87,8 @@ class ProfileAvatar extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   color: Palette.darkGrey,
-                  height: 100.0,
-                  width: 100.0,
+                  height: 100,
+                  width: 100,
                   child: const Center(
                       child: CircularProgressIndicator(
                     color: Palette.cream,
@@ -96,7 +96,6 @@ class ProfileAvatar extends StatelessWidget {
                 ),
               ),
             );
-            break;
 
           default:
             return Stack(
@@ -104,9 +103,9 @@ class ProfileAvatar extends StatelessWidget {
                 avatarUrl != null
                     ? CircleAvatar(
                         radius: 50,
-                        backgroundImage: CachedNetworkImageProvider(avatarUrl,
-                            imageRenderMethodForWeb:
-                                ImageRenderMethodForWeb.HttpGet),
+                        backgroundImage: CachedNetworkImageProvider(
+                          avatarUrl,
+                        ), //Image for web configuration.
                       )
                     : CircleAvatar(
                         radius: 50,
@@ -114,8 +113,8 @@ class ProfileAvatar extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             color: Palette.darkGrey,
-                            height: 100.0,
-                            width: 100.0,
+                            height: 100,
+                            width: 100,
                             child: Text(
                               username.substring(0, 1).toUpperCase(),
                               style: GoogleFonts.nunito(
@@ -161,7 +160,6 @@ class ProfileAvatar extends StatelessWidget {
                     ))
               ],
             );
-            break;
         }
       },
     );

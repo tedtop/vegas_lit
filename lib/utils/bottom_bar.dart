@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -10,7 +12,7 @@ import '../features/drawer_pages/rules.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -54,13 +56,13 @@ class BottomBar extends StatelessWidget {
                                 heading: 'COMPANY',
                                 content: {
                                   'Rules': () {
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).push<void>(
                                       Rules.route(),
                                     );
                                   },
                                   'Privacy Policy': _launchPrivacyPolicy,
                                   'FAQ': () {
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).push<void>(
                                       FAQ.route(),
                                     );
                                   },
@@ -148,27 +150,29 @@ class BottomBar extends StatelessWidget {
 }
 
 class BottomBarColumn extends StatelessWidget {
-  BottomBarColumn({this.heading, this.content});
-  final String heading;
-  final Map<String, Function> content;
+  const BottomBarColumn({this.heading, this.content});
+  final String? heading;
+  final Map<String, Function>? content;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(heading, style: Styles.bottomBarHeading),
+          Text(heading!, style: Styles.bottomBarHeading),
           const SizedBox(
             height: 10,
           ),
-          ...content.keys
+          ...content!.keys
               .map((text) => Column(
                     children: [
                       TextButton(
-                          onPressed: content[text],
-                          child: Text(text, style: Styles.bottomBarNormal)),
+                        onPressed: () {
+                          content![text];
+                        },
+                        child: Text(text, style: Styles.bottomBarNormal),
+                      ),
                       const SizedBox(height: 5),
                     ],
                   ))
@@ -180,9 +184,9 @@ class BottomBarColumn extends StatelessWidget {
 }
 
 class InfoText extends StatelessWidget {
-  InfoText({this.type, this.text});
-  final String type;
-  final String text;
+  const InfoText({Key? key, this.type, this.text}) : super(key: key);
+  final String? type;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +198,7 @@ class InfoText extends StatelessWidget {
           style: Styles.bottomBarType,
         ),
         Text(
-          text,
+          text!,
           style: Styles.bottomBarNormal,
         )
       ],
@@ -236,7 +240,8 @@ void _launchLinkedIn() async => await canLaunch(_linkedInUrl)
 final Uri _emailLaunchUri = Uri(
   scheme: 'mailto',
   path: 'support@vegaslit.com',
-  queryParameters: {'subject': 'Question about Vegas Lit app'},
+  queryParameters:
+      {'subject': 'Question about Vegas Lit app'} as Map<String, String>,
 );
 
 class TermsAndConditionsUrlFailure implements Exception {}

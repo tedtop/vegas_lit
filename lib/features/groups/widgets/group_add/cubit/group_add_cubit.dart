@@ -13,11 +13,9 @@ part 'group_add_state.dart';
 
 class GroupAddCubit extends Cubit<GroupAddState> {
   GroupAddCubit(
-      {@required GroupsRepository groupsRepository,
-      @required StorageRepository storageRepository})
-      : assert(groupsRepository != null),
-        assert(storageRepository != null),
-        _groupsRepository = groupsRepository,
+      {required GroupsRepository groupsRepository,
+      required StorageRepository storageRepository})
+      : _groupsRepository = groupsRepository,
         _storageRepository = storageRepository,
         super(
           GroupAddState(status: GroupAddStatus.initial),
@@ -28,7 +26,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
 
   Future<void> pickAvatar() async {
     final avatarPickedFile = await ImagePicker()
-        .getImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+        .pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile != null) {
       final avatarImageFile = File(avatarPickedFile.path);
       emit(
@@ -42,7 +40,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
     }
   }
 
-  void addGroup({@required Group group}) async {
+  Future<void> addGroup({required Group group}) async {
     emit(state.copyWith(status: GroupAddStatus.loading));
 
     await _groupsRepository.addNewGroup(group: group).then(
@@ -50,7 +48,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
         if (state.avatarFile != null) {
           try {
             final avatarUrl = await _storageRepository.uploadFile(
-              file: state.avatarFile,
+              file: state.avatarFile!,
               path: 'groups/$id/',
             );
             await _groupsRepository.updateGroupAvatar(

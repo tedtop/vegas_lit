@@ -1,3 +1,5 @@
+
+
 import 'dart:convert';
 
 class NcaafTeamStats {
@@ -94,282 +96,290 @@ class NcaafTeamStats {
   });
 
   factory NcaafTeamStats.fromJson(String str) =>
-      NcaafTeamStats.fromMap(json.decode(str));
+      NcaafTeamStats.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory NcaafTeamStats.fromMap(Map<String, dynamic> json) => NcaafTeamStats(
-        statId: json['StatID']?.toInt(),
-        teamId: json['TeamID']?.toInt(),
-        seasonType: json['SeasonType']?.toInt(),
-        season: json['Season']?.toInt(),
-        name: json['Name'],
-        team: json['Team'],
-        wins: json['Wins']?.toInt(),
-        losses: json['Losses']?.toInt(),
-        pointsFor: json['PointsFor']?.toInt(),
-        pointsAgainst: json['PointsAgainst']?.toInt(),
-        conferenceWins: json['ConferenceWins']?.toInt(),
-        conferenceLosses: json['ConferenceLosses']?.toInt(),
-        conferencePointsFor: json['ConferencePointsFor']?.toInt(),
-        conferencePointsAgainst: json['ConferencePointsAgainst']?.toInt(),
-        homeWins: json['HomeWins']?.toInt(),
-        homeLosses: json['HomeLosses']?.toInt(),
-        roadWins: json['RoadWins']?.toInt(),
-        roadLosses: json['RoadLosses']?.toInt(),
-        streak: json['Streak']?.toInt(),
-        score: json['Score']?.toInt(),
-        opponentScore: json['OpponentScore']?.toInt(),
-        firstDowns: json['FirstDowns']?.toInt(),
-        thirdDownConversions: json['ThirdDownConversions']?.toInt(),
-        thirdDownAttempts: json['ThirdDownAttempts']?.toInt(),
-        fourthDownConversions: json['FourthDownConversions']?.toInt(),
-        fourthDownAttempts: json['FourthDownAttempts']?.toInt(),
-        penalties: json['Penalties']?.toInt(),
-        penaltyYards: json['PenaltyYards']?.toInt(),
-        timeOfPossessionMinutes: json['TimeOfPossessionMinutes']?.toInt(),
-        timeOfPossessionSeconds: json['TimeOfPossessionSeconds']?.toInt(),
-        globalTeamId: json['GlobalTeamID']?.toInt(),
+        statId: json['StatID']?.toInt() as int?,
+        teamId: json['TeamID']?.toInt() as int?,
+        seasonType: json['SeasonType']?.toInt() as int?,
+        season: json['Season']?.toInt() as int?,
+        name: json['Name'] as String?,
+        team: json['Team'] as String?,
+        wins: json['Wins']?.toInt() as int?,
+        losses: json['Losses']?.toInt() as int?,
+        pointsFor: json['PointsFor']?.toInt() as int?,
+        pointsAgainst: json['PointsAgainst']?.toInt() as int?,
+        conferenceWins: json['ConferenceWins']?.toInt() as int?,
+        conferenceLosses: json['ConferenceLosses']?.toInt() as int?,
+        conferencePointsFor: json['ConferencePointsFor']?.toInt() as int?,
+        conferencePointsAgainst:
+            json['ConferencePointsAgainst']?.toInt() as int?,
+        homeWins: json['HomeWins']?.toInt() as int?,
+        homeLosses: json['HomeLosses']?.toInt() as int?,
+        roadWins: json['RoadWins']?.toInt() as int?,
+        roadLosses: json['RoadLosses']?.toInt() as int?,
+        streak: json['Streak']?.toInt() as int?,
+        score: json['Score']?.toInt() as int?,
+        opponentScore: json['OpponentScore']?.toInt() as int?,
+        firstDowns: json['FirstDowns']?.toInt() as int?,
+        thirdDownConversions: json['ThirdDownConversions']?.toInt() as int?,
+        thirdDownAttempts: json['ThirdDownAttempts']?.toInt() as int?,
+        fourthDownConversions: json['FourthDownConversions']?.toInt() as int?,
+        fourthDownAttempts: json['FourthDownAttempts']?.toInt() as int?,
+        penalties: json['Penalties']?.toInt() as int?,
+        penaltyYards: json['PenaltyYards']?.toInt() as int?,
+        timeOfPossessionMinutes:
+            json['TimeOfPossessionMinutes']?.toInt() as int?,
+        timeOfPossessionSeconds:
+            json['TimeOfPossessionSeconds']?.toInt() as int?,
+        globalTeamId: json['GlobalTeamID']?.toInt() as int?,
         conferenceRank: json['ConferenceRank'],
         divisionRank: json['DivisionRank'],
-        updated: DateTime.parse(json['Updated']),
-        created: DateTime.parse(json['Created']),
-        games: json['Games']?.toInt(),
-        fantasyPoints: json['FantasyPoints']?.toInt(),
-        passingAttempts: json['PassingAttempts']?.toInt(),
-        passingCompletions: json['PassingCompletions']?.toInt(),
-        passingYards: json['PassingYards']?.toInt(),
+        updated: DateTime.parse(json['Updated'] as String),
+        created: DateTime.parse(json['Created'] as String),
+        games: json['Games']?.toInt() as int?,
+        fantasyPoints: json['FantasyPoints']?.toInt() as int?,
+        passingAttempts: json['PassingAttempts']?.toInt() as int?,
+        passingCompletions: json['PassingCompletions']?.toInt() as int?,
+        passingYards: json['PassingYards']?.toInt() as int?,
         passingCompletionPercentage:
-            json['PassingCompletionPercentage']?.toInt(),
-        passingYardsPerAttempt: json['PassingYardsPerAttempt']?.toInt(),
-        passingYardsPerCompletion: json['PassingYardsPerCompletion']?.toInt(),
-        passingTouchdowns: json['PassingTouchdowns']?.toInt(),
-        passingInterceptions: json['PassingInterceptions']?.toInt(),
-        passingRating: json['PassingRating']?.toInt(),
-        rushingAttempts: json['RushingAttempts']?.toInt(),
-        rushingYards: json['RushingYards']?.toInt(),
-        rushingYardsPerAttempt: json['RushingYardsPerAttempt']?.toInt(),
-        rushingTouchdowns: json['RushingTouchdowns']?.toInt(),
-        rushingLong: json['RushingLong']?.toInt(),
-        receptions: json['Receptions']?.toInt(),
-        receivingYards: json['ReceivingYards']?.toInt(),
-        receivingYardsPerReception: json['ReceivingYardsPerReception']?.toInt(),
-        receivingTouchdowns: json['ReceivingTouchdowns']?.toInt(),
-        receivingLong: json['ReceivingLong']?.toInt(),
-        puntReturns: json['PuntReturns']?.toInt(),
-        puntReturnYards: json['PuntReturnYards']?.toInt(),
-        puntReturnYardsPerAttempt: json['PuntReturnYardsPerAttempt']?.toInt(),
-        puntReturnTouchdowns: json['PuntReturnTouchdowns']?.toInt(),
-        puntReturnLong: json['PuntReturnLong']?.toInt(),
-        kickReturns: json['KickReturns']?.toInt(),
-        kickReturnYards: json['KickReturnYards']?.toInt(),
-        kickReturnYardsPerAttempt: json['KickReturnYardsPerAttempt']?.toInt(),
-        kickReturnTouchdowns: json['KickReturnTouchdowns']?.toInt(),
-        kickReturnLong: json['KickReturnLong']?.toInt(),
-        punts: json['Punts']?.toInt(),
-        puntYards: json['PuntYards']?.toInt(),
-        puntAverage: json['PuntAverage']?.toInt(),
-        puntLong: json['PuntLong']?.toInt(),
-        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt(),
-        fieldGoalsMade: json['FieldGoalsMade']?.toInt(),
-        fieldGoalPercentage: json['FieldGoalPercentage']?.toInt(),
-        fieldGoalsLongestMade: json['FieldGoalsLongestMade']?.toInt(),
-        extraPointsAttempted: json['ExtraPointsAttempted']?.toInt(),
-        extraPointsMade: json['ExtraPointsMade']?.toInt(),
-        interceptions: json['Interceptions']?.toInt(),
-        interceptionReturnYards: json['InterceptionReturnYards']?.toInt(),
+            json['PassingCompletionPercentage']?.toInt() as int?,
+        passingYardsPerAttempt: json['PassingYardsPerAttempt']?.toInt() as int?,
+        passingYardsPerCompletion:
+            json['PassingYardsPerCompletion']?.toInt() as int?,
+        passingTouchdowns: json['PassingTouchdowns']?.toInt() as int?,
+        passingInterceptions: json['PassingInterceptions']?.toInt() as int?,
+        passingRating: json['PassingRating']?.toInt() as int?,
+        rushingAttempts: json['RushingAttempts']?.toInt() as int?,
+        rushingYards: json['RushingYards']?.toInt() as int?,
+        rushingYardsPerAttempt: json['RushingYardsPerAttempt']?.toInt() as int?,
+        rushingTouchdowns: json['RushingTouchdowns']?.toInt() as int?,
+        rushingLong: json['RushingLong']?.toInt() as int?,
+        receptions: json['Receptions']?.toInt() as int?,
+        receivingYards: json['ReceivingYards']?.toInt() as int?,
+        receivingYardsPerReception:
+            json['ReceivingYardsPerReception']?.toInt() as int?,
+        receivingTouchdowns: json['ReceivingTouchdowns']?.toInt() as int?,
+        receivingLong: json['ReceivingLong']?.toInt() as int?,
+        puntReturns: json['PuntReturns']?.toInt() as int?,
+        puntReturnYards: json['PuntReturnYards']?.toInt() as int?,
+        puntReturnYardsPerAttempt:
+            json['PuntReturnYardsPerAttempt']?.toInt() as int?,
+        puntReturnTouchdowns: json['PuntReturnTouchdowns']?.toInt() as int?,
+        puntReturnLong: json['PuntReturnLong']?.toInt() as int?,
+        kickReturns: json['KickReturns']?.toInt() as int?,
+        kickReturnYards: json['KickReturnYards']?.toInt() as int?,
+        kickReturnYardsPerAttempt:
+            json['KickReturnYardsPerAttempt']?.toInt() as int?,
+        kickReturnTouchdowns: json['KickReturnTouchdowns']?.toInt() as int?,
+        kickReturnLong: json['KickReturnLong']?.toInt() as int?,
+        punts: json['Punts']?.toInt() as int?,
+        puntYards: json['PuntYards']?.toInt() as int?,
+        puntAverage: json['PuntAverage']?.toInt() as int?,
+        puntLong: json['PuntLong']?.toInt() as int?,
+        fieldGoalsAttempted: json['FieldGoalsAttempted']?.toInt() as int?,
+        fieldGoalsMade: json['FieldGoalsMade']?.toInt() as int?,
+        fieldGoalPercentage: json['FieldGoalPercentage']?.toInt() as int?,
+        fieldGoalsLongestMade: json['FieldGoalsLongestMade']?.toInt() as int?,
+        extraPointsAttempted: json['ExtraPointsAttempted']?.toInt() as int?,
+        extraPointsMade: json['ExtraPointsMade']?.toInt() as int?,
+        interceptions: json['Interceptions']?.toInt() as int?,
+        interceptionReturnYards:
+            json['InterceptionReturnYards']?.toInt() as int?,
         interceptionReturnTouchdowns:
-            json['InterceptionReturnTouchdowns']?.toInt(),
-        soloTackles: json['SoloTackles']?.toInt(),
-        assistedTackles: json['AssistedTackles']?.toInt(),
-        tacklesForLoss: json['TacklesForLoss']?.toInt(),
-        sacks: json['Sacks']?.toInt(),
-        passesDefended: json['PassesDefended']?.toInt(),
-        fumblesRecovered: json['FumblesRecovered']?.toInt(),
-        fumbleReturnTouchdowns: json['FumbleReturnTouchdowns']?.toInt(),
-        quarterbackHurries: json['QuarterbackHurries']?.toInt(),
-        fumbles: json['Fumbles']?.toInt(),
-        fumblesLost: json['FumblesLost']?.toInt(),
+            json['InterceptionReturnTouchdowns']?.toInt() as int?,
+        soloTackles: json['SoloTackles']?.toInt() as int?,
+        assistedTackles: json['AssistedTackles']?.toInt() as int?,
+        tacklesForLoss: json['TacklesForLoss']?.toInt() as int?,
+        sacks: json['Sacks']?.toInt() as int?,
+        passesDefended: json['PassesDefended']?.toInt() as int?,
+        fumblesRecovered: json['FumblesRecovered']?.toInt() as int?,
+        fumbleReturnTouchdowns: json['FumbleReturnTouchdowns']?.toInt() as int?,
+        quarterbackHurries: json['QuarterbackHurries']?.toInt() as int?,
+        fumbles: json['Fumbles']?.toInt() as int?,
+        fumblesLost: json['FumblesLost']?.toInt() as int?,
       );
 
-  final int statId;
-  final int teamId;
-  final int seasonType;
-  final int season;
-  final String name;
-  final String team;
-  final int wins;
-  final int losses;
-  final int pointsFor;
-  final int pointsAgainst;
-  final int conferenceWins;
-  final int conferenceLosses;
-  final int conferencePointsFor;
-  final int conferencePointsAgainst;
-  final int homeWins;
-  final int homeLosses;
-  final int roadWins;
-  final int roadLosses;
-  final int streak;
-  final int score;
-  final int opponentScore;
-  final int firstDowns;
-  final int thirdDownConversions;
-  final int thirdDownAttempts;
-  final int fourthDownConversions;
-  final int fourthDownAttempts;
-  final int penalties;
-  final int penaltyYards;
-  final int timeOfPossessionMinutes;
-  final int timeOfPossessionSeconds;
-  final int globalTeamId;
+  final int? statId;
+  final int? teamId;
+  final int? seasonType;
+  final int? season;
+  final String? name;
+  final String? team;
+  final int? wins;
+  final int? losses;
+  final int? pointsFor;
+  final int? pointsAgainst;
+  final int? conferenceWins;
+  final int? conferenceLosses;
+  final int? conferencePointsFor;
+  final int? conferencePointsAgainst;
+  final int? homeWins;
+  final int? homeLosses;
+  final int? roadWins;
+  final int? roadLosses;
+  final int? streak;
+  final int? score;
+  final int? opponentScore;
+  final int? firstDowns;
+  final int? thirdDownConversions;
+  final int? thirdDownAttempts;
+  final int? fourthDownConversions;
+  final int? fourthDownAttempts;
+  final int? penalties;
+  final int? penaltyYards;
+  final int? timeOfPossessionMinutes;
+  final int? timeOfPossessionSeconds;
+  final int? globalTeamId;
   final dynamic conferenceRank;
   final dynamic divisionRank;
-  final DateTime updated;
-  final DateTime created;
+  final DateTime? updated;
+  final DateTime? created;
   final dynamic games;
-  final int fantasyPoints;
-  final int passingAttempts;
-  final int passingCompletions;
-  final int passingYards;
-  final int passingCompletionPercentage;
-  final int passingYardsPerAttempt;
-  final int passingYardsPerCompletion;
-  final int passingTouchdowns;
-  final int passingInterceptions;
-  final int passingRating;
-  final int rushingAttempts;
-  final int rushingYards;
-  final int rushingYardsPerAttempt;
-  final int rushingTouchdowns;
-  final int rushingLong;
-  final int receptions;
-  final int receivingYards;
-  final int receivingYardsPerReception;
-  final int receivingTouchdowns;
-  final int receivingLong;
-  final int puntReturns;
-  final int puntReturnYards;
-  final int puntReturnYardsPerAttempt;
-  final int puntReturnTouchdowns;
-  final int puntReturnLong;
-  final int kickReturns;
-  final int kickReturnYards;
-  final int kickReturnYardsPerAttempt;
-  final int kickReturnTouchdowns;
-  final int kickReturnLong;
-  final int punts;
-  final int puntYards;
-  final int puntAverage;
-  final int puntLong;
-  final int fieldGoalsAttempted;
-  final int fieldGoalsMade;
-  final int fieldGoalPercentage;
-  final int fieldGoalsLongestMade;
-  final int extraPointsAttempted;
-  final int extraPointsMade;
-  final int interceptions;
-  final int interceptionReturnYards;
-  final int interceptionReturnTouchdowns;
-  final int soloTackles;
-  final int assistedTackles;
-  final int tacklesForLoss;
-  final int sacks;
-  final int passesDefended;
-  final int fumblesRecovered;
-  final int fumbleReturnTouchdowns;
-  final int quarterbackHurries;
-  final int fumbles;
-  final int fumblesLost;
+  final int? fantasyPoints;
+  final int? passingAttempts;
+  final int? passingCompletions;
+  final int? passingYards;
+  final int? passingCompletionPercentage;
+  final int? passingYardsPerAttempt;
+  final int? passingYardsPerCompletion;
+  final int? passingTouchdowns;
+  final int? passingInterceptions;
+  final int? passingRating;
+  final int? rushingAttempts;
+  final int? rushingYards;
+  final int? rushingYardsPerAttempt;
+  final int? rushingTouchdowns;
+  final int? rushingLong;
+  final int? receptions;
+  final int? receivingYards;
+  final int? receivingYardsPerReception;
+  final int? receivingTouchdowns;
+  final int? receivingLong;
+  final int? puntReturns;
+  final int? puntReturnYards;
+  final int? puntReturnYardsPerAttempt;
+  final int? puntReturnTouchdowns;
+  final int? puntReturnLong;
+  final int? kickReturns;
+  final int? kickReturnYards;
+  final int? kickReturnYardsPerAttempt;
+  final int? kickReturnTouchdowns;
+  final int? kickReturnLong;
+  final int? punts;
+  final int? puntYards;
+  final int? puntAverage;
+  final int? puntLong;
+  final int? fieldGoalsAttempted;
+  final int? fieldGoalsMade;
+  final int? fieldGoalPercentage;
+  final int? fieldGoalsLongestMade;
+  final int? extraPointsAttempted;
+  final int? extraPointsMade;
+  final int? interceptions;
+  final int? interceptionReturnYards;
+  final int? interceptionReturnTouchdowns;
+  final int? soloTackles;
+  final int? assistedTackles;
+  final int? tacklesForLoss;
+  final int? sacks;
+  final int? passesDefended;
+  final int? fumblesRecovered;
+  final int? fumbleReturnTouchdowns;
+  final int? quarterbackHurries;
+  final int? fumbles;
+  final int? fumblesLost;
 
   NcaafTeamStats copyWith({
-    int statId,
-    int teamId,
-    int seasonType,
-    int season,
-    String name,
-    String team,
-    int wins,
-    int losses,
-    int pointsFor,
-    int pointsAgainst,
-    int conferenceWins,
-    int conferenceLosses,
-    int conferencePointsFor,
-    int conferencePointsAgainst,
-    int homeWins,
-    int homeLosses,
-    int roadWins,
-    int roadLosses,
-    int streak,
-    int score,
-    int opponentScore,
-    int firstDowns,
-    int thirdDownConversions,
-    int thirdDownAttempts,
-    int fourthDownConversions,
-    int fourthDownAttempts,
-    int penalties,
-    int penaltyYards,
-    int timeOfPossessionMinutes,
-    int timeOfPossessionSeconds,
-    int globalTeamId,
+    int? statId,
+    int? teamId,
+    int? seasonType,
+    int? season,
+    String? name,
+    String? team,
+    int? wins,
+    int? losses,
+    int? pointsFor,
+    int? pointsAgainst,
+    int? conferenceWins,
+    int? conferenceLosses,
+    int? conferencePointsFor,
+    int? conferencePointsAgainst,
+    int? homeWins,
+    int? homeLosses,
+    int? roadWins,
+    int? roadLosses,
+    int? streak,
+    int? score,
+    int? opponentScore,
+    int? firstDowns,
+    int? thirdDownConversions,
+    int? thirdDownAttempts,
+    int? fourthDownConversions,
+    int? fourthDownAttempts,
+    int? penalties,
+    int? penaltyYards,
+    int? timeOfPossessionMinutes,
+    int? timeOfPossessionSeconds,
+    int? globalTeamId,
     dynamic conferenceRank,
     dynamic divisionRank,
-    DateTime updated,
-    DateTime created,
+    DateTime? updated,
+    DateTime? created,
     dynamic games,
-    int fantasyPoints,
-    int passingAttempts,
-    int passingCompletions,
-    int passingYards,
-    int passingCompletionPercentage,
-    int passingYardsPerAttempt,
-    int passingYardsPerCompletion,
-    int passingTouchdowns,
-    int passingInterceptions,
-    int passingRating,
-    int rushingAttempts,
-    int rushingYards,
-    int rushingYardsPerAttempt,
-    int rushingTouchdowns,
-    int rushingLong,
-    int receptions,
-    int receivingYards,
-    int receivingYardsPerReception,
-    int receivingTouchdowns,
-    int receivingLong,
-    int puntReturns,
-    int puntReturnYards,
-    int puntReturnYardsPerAttempt,
-    int puntReturnTouchdowns,
-    int puntReturnLong,
-    int kickReturns,
-    int kickReturnYards,
-    int kickReturnYardsPerAttempt,
-    int kickReturnTouchdowns,
-    int kickReturnLong,
-    int punts,
-    int puntYards,
-    int puntAverage,
-    int puntLong,
-    int fieldGoalsAttempted,
-    int fieldGoalsMade,
-    int fieldGoalPercentage,
-    int fieldGoalsLongestMade,
-    int extraPointsAttempted,
-    int extraPointsMade,
-    int interceptions,
-    int interceptionReturnYards,
-    int interceptionReturnTouchdowns,
-    int soloTackles,
-    int assistedTackles,
-    int tacklesForLoss,
-    int sacks,
-    int passesDefended,
-    int fumblesRecovered,
-    int fumbleReturnTouchdowns,
-    int quarterbackHurries,
-    int fumbles,
-    int fumblesLost,
+    int? fantasyPoints,
+    int? passingAttempts,
+    int? passingCompletions,
+    int? passingYards,
+    int? passingCompletionPercentage,
+    int? passingYardsPerAttempt,
+    int? passingYardsPerCompletion,
+    int? passingTouchdowns,
+    int? passingInterceptions,
+    int? passingRating,
+    int? rushingAttempts,
+    int? rushingYards,
+    int? rushingYardsPerAttempt,
+    int? rushingTouchdowns,
+    int? rushingLong,
+    int? receptions,
+    int? receivingYards,
+    int? receivingYardsPerReception,
+    int? receivingTouchdowns,
+    int? receivingLong,
+    int? puntReturns,
+    int? puntReturnYards,
+    int? puntReturnYardsPerAttempt,
+    int? puntReturnTouchdowns,
+    int? puntReturnLong,
+    int? kickReturns,
+    int? kickReturnYards,
+    int? kickReturnYardsPerAttempt,
+    int? kickReturnTouchdowns,
+    int? kickReturnLong,
+    int? punts,
+    int? puntYards,
+    int? puntAverage,
+    int? puntLong,
+    int? fieldGoalsAttempted,
+    int? fieldGoalsMade,
+    int? fieldGoalPercentage,
+    int? fieldGoalsLongestMade,
+    int? extraPointsAttempted,
+    int? extraPointsMade,
+    int? interceptions,
+    int? interceptionReturnYards,
+    int? interceptionReturnTouchdowns,
+    int? soloTackles,
+    int? assistedTackles,
+    int? tacklesForLoss,
+    int? sacks,
+    int? passesDefended,
+    int? fumblesRecovered,
+    int? fumbleReturnTouchdowns,
+    int? quarterbackHurries,
+    int? fumbles,
+    int? fumblesLost,
   }) =>
       NcaafTeamStats(
         statId: statId ?? this.statId,
@@ -480,7 +490,7 @@ class NcaafTeamStats {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
+  Map<String, Object?> toMap() => {
         'StatID': statId,
         'TeamID': teamId,
         'SeasonType': seasonType,
@@ -514,8 +524,8 @@ class NcaafTeamStats {
         'GlobalTeamID': globalTeamId,
         'ConferenceRank': conferenceRank,
         'DivisionRank': divisionRank,
-        'Updated': updated.toIso8601String(),
-        'Created': created.toIso8601String(),
+        'Updated': updated!.toIso8601String(),
+        'Created': created!.toIso8601String(),
         'Games': games,
         'FantasyPoints': fantasyPoints,
         'PassingAttempts': passingAttempts,
@@ -572,7 +582,7 @@ class NcaafTeamStats {
         'FumblesLost': fumblesLost,
       };
 
-  Map<String, dynamic> toStatOnlyMap() => {
+  Map<String, dynamic> toStatOnlyMap() => <String, dynamic>{
         'Points For': pointsFor,
         'Points Against': pointsAgainst,
         'Conference Wins': conferenceWins,

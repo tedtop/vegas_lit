@@ -15,10 +15,10 @@ class LoginState extends Equatable {
   final Password password;
   final String passwordValue;
   final FormzStatus status;
-  final String loginErrorMessage;
+  final String? loginErrorMessage;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         email,
         password,
         status,
@@ -28,12 +28,12 @@ class LoginState extends Equatable {
       ];
 
   LoginState copyWith({
-    Email email,
-    String emailValue,
-    Password password,
-    String passwordValue,
-    FormzStatus status,
-    String loginErrorMessage,
+    Email? email,
+    String? emailValue,
+    Password? password,
+    String? passwordValue,
+    FormzStatus? status,
+    String? loginErrorMessage,
   }) {
     return LoginState(
       emailValue: emailValue ?? this.emailValue,

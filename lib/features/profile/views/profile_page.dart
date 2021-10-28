@@ -14,11 +14,11 @@ import '../cubit/profile_cubit.dart';
 import '../widgets/avatar/profile_avatar.dart';
 
 class Profile extends StatefulWidget {
-  Profile._({Key key, @required this.currentUserId}) : super(key: key);
+  const Profile._({Key? key, required this.currentUserId}) : super(key: key);
 
-  final String currentUserId;
+  final String? currentUserId;
 
-  static Route route({@required String currentUserId}) {
+  static Route route({required String? currentUserId}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'Profile'),
       builder: (context) => BlocProvider<ProfileCubit>(
@@ -101,7 +101,7 @@ class _AvatarInput extends StatelessWidget {
 }
 
 class _UsernameInput extends StatelessWidget {
-  _UsernameInput({Key key}) : super(key: key);
+  const _UsernameInput({Key? key}) : super(key: key);
 
   final usernameFieldKey = const Key('UsernameField');
 
@@ -112,7 +112,7 @@ class _UsernameInput extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userData.username != current.userData.username,
+          previous.userData!.username != current.userData!.username,
       builder: (context, state) {
         return Row(
           children: [
@@ -169,7 +169,7 @@ class _UsernameInput extends StatelessWidget {
 }
 
 class _EmailInput extends StatelessWidget {
-  const _EmailInput({Key key}) : super(key: key);
+  const _EmailInput({Key? key}) : super(key: key);
 
   final emailFieldKey = const Key('EmailField');
 
@@ -180,7 +180,7 @@ class _EmailInput extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userData.email != current.userData.email,
+          previous.userData!.email != current.userData!.email,
       builder: (context, state) {
         return Row(
           children: [
@@ -298,7 +298,7 @@ class _StateInput extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       buildWhen: (previous, current) =>
           previous.status != current.status ||
-          previous.userData.location != current.userData.location,
+          previous.userData!.location != current.userData!.location,
       builder: (context, state) {
         return Row(
           children: [
@@ -318,7 +318,7 @@ class _StateInput extends StatelessWidget {
                   : Column(
                       children: [
                         DropDown(
-                          initialValue: state.userData.location,
+                          initialValue: state.userData!.location,
                           isExpanded: true,
                           showUnderline: true,
                           items: stateList,
@@ -356,7 +356,7 @@ class _StateInput extends StatelessWidget {
 }
 
 class _EditButton extends StatelessWidget {
-  _EditButton({@required this.currentUserId});
+  const _EditButton({required this.currentUserId});
   final String currentUserId;
   @override
   Widget build(BuildContext context) {
@@ -365,12 +365,40 @@ class _EditButton extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(top: 30),
-          child: DefaultButton(
-            action: () {
-              context.read<ProfileCubit>().updateProfile(
-                  currentUserId: currentUserId, user: state.userData);
-            },
-            text: 'Update Profile',
+          child: SizedBox(
+            width: 174,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                  ),
+                  elevation: MaterialStateProperty.all(Styles.normalElevation),
+                  shape: MaterialStateProperty.all(Styles.smallRadius),
+                  textStyle: MaterialStateProperty.all(
+                    const TextStyle(color: Palette.cream),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(Palette.green),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: Text(
+                  'Update Profile',
+                  style: GoogleFonts.nunito(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  context.read<ProfileCubit>().updateProfile(
+                        currentUserId: currentUserId,
+                        user: state.userData!,
+                      );
+                },
+              ),
+            ),
           ),
         );
       },
@@ -539,8 +567,9 @@ class _EditButton extends StatelessWidget {
 // }
 
 class DropDown<T> extends StatefulWidget {
-  DropDown({
-    @required this.items,
+  const DropDown({
+    Key? key,
+    required this.items,
     this.customWidgets,
     this.initialValue,
     this.hint,
@@ -548,26 +577,27 @@ class DropDown<T> extends StatefulWidget {
     this.isExpanded = false,
     this.isCleared = false,
     this.showUnderline = true,
-  })  : assert(items != null && !(items is Widget)),
+  })  : assert(items != null && items is! Widget),
         assert((customWidgets != null)
             ? items.length == customWidgets.length
-            : (customWidgets == null));
+            : (customWidgets == null)),
+        super(key: key);
 
   final List<T> items;
-  final List<Widget> customWidgets;
-  final T initialValue;
-  final Widget hint;
-  final Function onChanged;
+  final List<Widget>? customWidgets;
+  final T? initialValue;
+  final Widget? hint;
+  final Function? onChanged;
   final bool isExpanded;
   final bool isCleared;
   final bool showUnderline;
 
   @override
-  _DropDownState createState() => _DropDownState();
+  _DropDownState createState() => _DropDownState<T>();
 }
 
 class _DropDownState<T> extends State<DropDown<T>> {
-  T selectedValue;
+  T? selectedValue;
 
   @override
   void initState() {
@@ -579,9 +609,9 @@ class _DropDownState<T> extends State<DropDown<T>> {
   Widget build(BuildContext context) {
     final dropdown = DropdownButton<T>(
       isExpanded: widget.isExpanded,
-      onChanged: (T value) {
+      onChanged: (T? value) {
         setState(() => selectedValue = value);
-        if (widget.onChanged != null) widget.onChanged(value);
+        if (widget.onChanged != null) widget.onChanged!(value);
       },
       value: widget.isCleared ? null : selectedValue,
       items: widget.items.map<DropdownMenuItem<T>>(buildDropDownItem).toList(),
@@ -595,7 +625,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
 
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
         child: (widget.customWidgets != null)
-            ? widget.customWidgets[widget.items.indexOf(item)]
+            ? widget.customWidgets![widget.items.indexOf(item)]
             : Text(
                 item.toString(),
                 style: GoogleFonts.nunito(
@@ -606,60 +636,10 @@ class _DropDownState<T> extends State<DropDown<T>> {
       );
 }
 
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    @required this.text,
-    @required this.action,
-    this.color = Palette.green,
-    this.elevation = Styles.normalElevation,
-  })  : assert(text != null),
-        super(key: key);
-
-  final String text;
-  final Function action;
-  final Color color;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: 174,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-        child: ElevatedButton(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
-              elevation: MaterialStateProperty.all(elevation),
-              shape: MaterialStateProperty.all(Styles.smallRadius),
-              textStyle: MaterialStateProperty.all(
-                const TextStyle(color: Palette.cream),
-              ),
-              backgroundColor: MaterialStateProperty.all(color),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-          child: Text(
-            text,
-            style: GoogleFonts.nunito(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: action,
-        ),
-      ),
-    );
-  }
-}
-
 class AbstractCard extends StatelessWidget {
   const AbstractCard({
-    Key key,
-    @required this.widgets,
+    Key? key,
+    required this.widgets,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,

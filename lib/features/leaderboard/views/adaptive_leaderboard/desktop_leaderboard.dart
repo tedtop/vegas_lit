@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -7,11 +9,10 @@ import '../../../../data/models/wallet.dart';
 import '../../../home/home.dart';
 import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
-import '../../widgets/textbar.dart';
 
 class DesktopLeaderboard extends StatefulWidget {
-  DesktopLeaderboard({this.players});
-  final List<Wallet> players;
+  const DesktopLeaderboard({this.players});
+  final List<Wallet>? players;
   @override
   _DesktopLeaderboardState createState() => _DesktopLeaderboardState();
 }
@@ -20,6 +21,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
   @override
   Widget build(BuildContext context) {
     final leaderboardState = context.watch<LeaderboardCubit>().state;
+    final textList = leaderboardState.days;
     return Column(
       children: [
         Container(
@@ -36,12 +38,78 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
                   ),
                 ),
                 Expanded(child: Container()),
-                TextBar(
-                  text: leaderboardState.day,
-                  textList: leaderboardState.days,
-                  onPress: (String value) {
-                    context.read<LeaderboardCubit>().changeWeek(week: value);
-                  },
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                  ),
+                  height: 40,
+                  width: 220,
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Container(
+                      color: Palette.green,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      width: double.infinity,
+                      child: Center(
+                        child: DropdownButton<String>(
+                          dropdownColor: Palette.green,
+                          isDense: true,
+                          value: leaderboardState.day,
+                          icon: const Icon(
+                            FontAwesome.angle_down,
+                            color: Palette.cream,
+                          ),
+                          isExpanded: true,
+                          underline: Container(
+                            height: 0,
+                          ),
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                          ),
+                          onChanged: (String? value) {
+                            context
+                                .read<LeaderboardCubit>()
+                                .changeWeek(week: value!);
+                          },
+                          items: textList!.isNotEmpty == true
+                              ? textList.map<DropdownMenuItem<String>>(
+                                  (String weekValue) {
+                                    String weekFormat;
+                                    if (weekValue != 'Current Week') {
+                                      final formatValue = weekValue.split('-');
+
+                                      weekFormat =
+                                          'Week ${formatValue[1]}, ${formatValue[0]}';
+
+                                      // final dateTime = DateTime(
+                                      //   int.parse(formatValue[0]),
+                                      //   int.parse(formatValue[1]),
+                                      //   int.parse(formatValue[2]),
+                                      // );
+                                      // dateFormat = DateFormat('MMMM c, y').format(dateTime);
+                                    } else {
+                                      weekFormat = weekValue;
+                                    }
+                                    return DropdownMenuItem<String>(
+                                      value: weekValue,
+                                      child: Text(
+                                        weekFormat,
+                                        textAlign: TextAlign.left,
+                                        style: Styles.leaderboardDropdown,
+                                      ),
+                                    );
+                                  },
+                                ).toList()
+                              : const [],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -85,7 +153,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
                     children: [
                       LeaderboardColumns(),
                       Column(
-                        children: widget.players
+                        children: widget.players!
                             .asMap()
                             .entries
                             .map(
@@ -217,21 +285,22 @@ class LeaderboardColumns extends StatelessWidget {
 }
 
 class WebLeaderboardItem extends StatelessWidget {
-  WebLeaderboardItem({this.player, this.rank});
-  final Wallet player;
-  final int rank;
+  const WebLeaderboardItem({Key? key, this.player, this.rank})
+      : super(key: key);
+  final Wallet? player;
+  final int? rank;
   @override
   Widget build(BuildContext context) {
     final currentUserUid =
-        context.select((HomeCubit cubit) => cubit.state?.userWallet?.uid);
+        context.select((HomeCubit cubit) => cubit.state.userWallet?.uid);
     final week = context.watch<LeaderboardCubit>().state.day;
     return InkWell(
       onTap: () {
-        currentUserUid == player.uid
+        currentUserUid == player!.uid
             ? context.read<HomeCubit>().homeChange(4)
-            : Navigator.of(context).push(
+            : Navigator.of(context).push<void>(
                 LeaderboardProfile.route(
-                  uid: player.uid,
+                  uid: player!.uid,
                   homeCubit: context.read<HomeCubit>(),
                   week: week,
                 ),
@@ -255,42 +324,42 @@ class WebLeaderboardItem extends StatelessWidget {
             SizedBox(
               width: 120,
               child: Text(
-                '${player.username}',
+                '${player!.username}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 120,
               child: Text(
-                '${player.totalProfit}',
+                '${player!.totalProfit}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 150,
               child: Text(
-                '${player.accountBalance}',
+                '${player!.accountBalance}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 95,
               child: Text(
-                '${player.totalBets}',
+                '${player!.totalBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 140,
               child: Text(
-                '${player.totalBetsWon}',
+                '${player!.totalBetsWon}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),
             SizedBox(
               width: 110,
               child: Text(
-                '${player.totalOpenBets}',
+                '${player!.totalOpenBets}',
                 style: Styles.leaderboardDesktopItem,
               ),
             ),

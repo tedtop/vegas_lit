@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
+
 import '../../../../config/extensions.dart';
 import '../../../../data/models/olympics/olympics.dart';
 import '../../../../data/repositories/sports_repository.dart';
@@ -11,7 +11,7 @@ import '../../../../data/repositories/sports_repository.dart';
 part 'olympics_state.dart';
 
 class OlympicsCubit extends Cubit<OlympicsState> {
-  OlympicsCubit({@required SportsRepository sportsRepository})
+  OlympicsCubit({required SportsRepository sportsRepository})
       : assert(sportsRepository != null),
         _sportsRepository = sportsRepository,
         super(
@@ -19,7 +19,7 @@ class OlympicsCubit extends Cubit<OlympicsState> {
         );
 
   final SportsRepository _sportsRepository;
-  StreamSubscription _gamesStream;
+  StreamSubscription? _gamesStream;
 
   Future<void> fetchOlympicsGames() async {
     const league = 'OLYMPICS';
@@ -34,11 +34,11 @@ class OlympicsCubit extends Cubit<OlympicsState> {
           todayGames = games
               .where(
                 (game) =>
-                    game.startTime.isAfter(ESTDateTime.fetchTimeEST()) &&
-                    (ESTDateTime.fetchTimeEST().isSameDate(game.startTime) ||
+                    game.startTime!.isAfter(ESTDateTime.fetchTimeEST()) &&
+                    (ESTDateTime.fetchTimeEST().isSameDate(game.startTime!) ||
                         ESTDateTime.fetchTimeEST()
                             .add(const Duration(days: 1))
-                            .isSameDate(game.startTime)),
+                            .isSameDate(game.startTime!)),
               )
               .toList();
         }
@@ -53,7 +53,7 @@ class OlympicsCubit extends Cubit<OlympicsState> {
     );
   }
 
-  Future<void> updateOlympicsGame({@required OlympicsGame game}) async {
+  Future<void> updateOlympicsGame({required OlympicsGame game}) async {
     await _sportsRepository.updateOlympicGame(game: game);
   }
 
