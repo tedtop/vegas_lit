@@ -12,7 +12,7 @@ abstract class TeamInfoState extends Equatable {
 class TeamInfoInitial extends TeamInfoState {}
 
 class TeamInfoOpened extends TeamInfoState {
-  TeamInfoOpened(this.players, this.teamStats);
+  const TeamInfoOpened(this.players, this.teamStats);
   final List<NcaafPlayer> players;
   final NcaafTeamStats teamStats;
 }

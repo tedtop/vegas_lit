@@ -12,7 +12,7 @@ import '../../../data/repositories/sports_repository.dart';
 import 'cubit/paralympics_add_cubit.dart';
 
 class ParalympicsAddForm extends StatefulWidget {
-  ParalympicsAddForm._({Key? key}) : super(key: key);
+  const ParalympicsAddForm._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route() {
     return MaterialPageRoute<void>(
@@ -265,7 +265,6 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                     onPressed: () {
                       showCountryPicker(
                         context: context,
-                        showPhoneCode: false,
                         onSelect: (Country country) {
                           setState(() {
                             playerCountry = country.countryCode;
@@ -332,7 +331,6 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                     onPressed: () {
                       showCountryPicker(
                         context: context,
-                        showPhoneCode: false,
                         onSelect: (Country country) {
                           setState(() {
                             rivalCountry = country.countryCode;

@@ -26,11 +26,11 @@ class TabletOpenBets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        const _TabletOpenBetsHeading(),
-        const _TabletOpenBetsDescription(),
-        const _TabletOpenBetsContent(),
-        const BottomBar()
+      children: const [
+        _TabletOpenBetsHeading(),
+        _TabletOpenBetsDescription(),
+        _TabletOpenBetsContent(),
+        BottomBar()
       ],
     );
   }
@@ -45,7 +45,7 @@ class _TabletOpenBetsHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             'OPEN BETS',
             style: Styles.pageTitle,
@@ -63,7 +63,7 @@ class _TabletOpenBetsDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 30.0,
+        horizontal: 30,
         vertical: 4,
       ),
       child: Center(

@@ -92,7 +92,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                     child: Card(
                       margin: EdgeInsets.zero,
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+                        
                       ),
                       color: Palette.darkGrey,
                       child: Container(
@@ -109,8 +109,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                               children: [
                                 Column(
                                   children: [
-                                    isPlayerWin
-                                        ? Text(
+                                    if (isPlayerWin) Text(
                                             countryFlagFromCode(
                                                 countryCode:
                                                     openBets.playerCountry!),
@@ -121,8 +120,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             ),
                                             maxLines: 1,
                                             textAlign: TextAlign.center,
-                                          )
-                                        : Text(
+                                          ) else Text(
                                             countryFlagFromCode(
                                                 countryCode:
                                                     openBets.rivalCountry!),
@@ -134,8 +132,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             maxLines: 1,
                                             textAlign: TextAlign.center,
                                           ),
-                                    isPlayerWin
-                                        ? Text(
+                                    if (isPlayerWin) Text(
                                             countryFlagFromCode(
                                                 countryCode:
                                                     openBets.rivalCountry!),
@@ -146,8 +143,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                                             ),
                                             maxLines: 1,
                                             textAlign: TextAlign.center,
-                                          )
-                                        : Text(
+                                          ) else Text(
                                             countryFlagFromCode(
                                                 countryCode:
                                                     openBets.playerCountry!),
@@ -268,12 +264,11 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                               height: 2,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Flexible(
                                   child: Text(
                                     openBets.gameName!
-                                        .replaceAll(RegExp('-'), '\/')
+                                        .replaceAll(RegExp('-'), '/')
                                         .toUpperCase(),
                                     style: GoogleFonts.nunito(
                                       fontSize: 14,
@@ -305,7 +300,6 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Flexible(
                                   child: Text(
@@ -319,7 +313,6 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                             // Last Row
                             Expanded(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     DateFormat('E, MMMM c, y @ hh:mm a').format(

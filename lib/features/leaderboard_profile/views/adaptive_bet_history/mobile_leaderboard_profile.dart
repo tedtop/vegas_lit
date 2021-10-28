@@ -30,7 +30,7 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class MobileLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LeaderboardProfileState state =
+    final state =
         context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
@@ -42,11 +42,11 @@ class MobileLeaderboardProfile extends StatelessWidget {
             ),
           )
         : Column(
-            children: [
-              const _MobileHistoryHeading(),
-              const _MobileHistoryBoard(),
-              const _MobileHistoryContent(),
-              const BottomBar()
+            children: const [
+              _MobileHistoryHeading(),
+              _MobileHistoryBoard(),
+              _MobileHistoryContent(),
+              BottomBar()
             ],
           );
   }
@@ -59,7 +59,7 @@ class _MobileHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final LeaderboardProfileState state =
+        final state =
             context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
@@ -193,14 +193,12 @@ class _MobileHistoryHeading extends StatelessWidget {
         ),
         child: Row(
           children: [
-            betHistoryState.userWallet!.avatarUrl != null
-                ? CircleAvatar(
+            if (betHistoryState.userWallet!.avatarUrl != null) CircleAvatar(
                     radius: 50,
                     backgroundImage: CachedNetworkImageProvider(
                       betHistoryState.userWallet!.avatarUrl!,
                     ), //Image for web configuration.
-                  )
-                : CircleAvatar(
+                  ) else CircleAvatar(
                     radius: 50,
                     child: ClipOval(
                       child: Container(
@@ -226,7 +224,7 @@ class _MobileHistoryHeading extends StatelessWidget {
             Expanded(
               child: betHistoryState.status == LeaderboardProfileStatus.success
                   ? Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Text(

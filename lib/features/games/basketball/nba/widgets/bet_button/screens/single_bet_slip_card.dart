@@ -145,7 +145,6 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -389,7 +388,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,

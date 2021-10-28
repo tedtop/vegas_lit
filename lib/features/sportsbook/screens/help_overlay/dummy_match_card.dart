@@ -68,10 +68,10 @@ class DummyMatchCard extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Column(
-                                children: [
-                                  const DummyMatchCardButton(text: '+144'),
-                                  const DummyMatchCardButton(text: '+4  -110'),
-                                  const DummyMatchCardButton(
+                                children: const [
+                                  DummyMatchCardButton(text: '+144'),
+                                  DummyMatchCardButton(text: '+4  -110'),
+                                  DummyMatchCardButton(
                                       text: 'o22.5  +113'),
                                 ],
                               ),
@@ -122,13 +122,13 @@ class DummyMatchCard extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Column(
-                                children: [
-                                  const DummyMatchCardButton(
+                                children: const [
+                                  DummyMatchCardButton(
                                     text: '-231',
                                     color: Palette.green,
                                   ),
-                                  const DummyMatchCardButton(text: '-4  -110'),
-                                  const DummyMatchCardButton(
+                                  DummyMatchCardButton(text: '-4  -110'),
+                                  DummyMatchCardButton(
                                       text: 'u22.5  +109'),
                                 ],
                               ),
@@ -177,7 +177,7 @@ class DummyMatchCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(3.0),
+        padding: const EdgeInsets.all(3),
         child: Container(
             width: 150,
             padding: const EdgeInsets.symmetric(vertical: 10),

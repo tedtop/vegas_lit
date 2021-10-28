@@ -22,7 +22,7 @@ import 'cubit/group_details_cubit.dart';
 import 'cubit/user_search_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
-  GroupDetails._(
+  const GroupDetails._(
       {Key? key, required this.storageRepository, required this.userId})
       : super(key: key);
 
@@ -59,7 +59,7 @@ class GroupDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GroupDetailsState groupDetailsState =
+    final groupDetailsState =
         context.watch<GroupDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
@@ -86,7 +86,6 @@ class GroupDetails extends StatelessWidget {
                         color: Palette.cream,
                         child: SafeArea(
                           top: true,
-                          bottom: true,
                           child: Column(
                             children: <Widget>[
                               Expanded(
@@ -177,7 +176,7 @@ class GroupDetails extends StatelessWidget {
                     if (state.group!.adminId == userId)
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: SizedBox(
                               width: 150,
                               child: SizedBox(
@@ -326,13 +325,13 @@ class GroupDetailsDescription extends StatelessWidget {
                   ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(12),
                   child: Table(
                     border: TableBorder.all(color: Colors.transparent),
-                    columnWidths: {
-                      0: const FixedColumnWidth(70),
-                      1: const FixedColumnWidth(10),
-                      2: const FlexColumnWidth()
+                    columnWidths: const {
+                      0: FixedColumnWidth(70),
+                      1: FixedColumnWidth(10),
+                      2: FlexColumnWidth()
                     },
                     children: [
                       TableRow(
@@ -626,7 +625,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15),
           child: Text(
             'LEADERBOARD',
             style: Styles.pageTitle.copyWith(fontSize: 18),
@@ -738,8 +737,8 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       color: Palette.darkGrey,
-                      height: 50.0,
-                      width: 50.0,
+                      height: 50,
+                      width: 50,
                       child: Text(
                           player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
@@ -842,8 +841,8 @@ class UserSearch extends SearchDelegate<UserData?> {
                             child: Container(
                               alignment: Alignment.center,
                               color: Palette.darkGrey,
-                              height: 50.0,
-                              width: 50.0,
+                              height: 50,
+                              width: 50,
                               child: Text(
                                   userData.username!
                                       .substring(0, 1)
@@ -914,8 +913,8 @@ class UserSearch extends SearchDelegate<UserData?> {
                             child: Container(
                               alignment: Alignment.center,
                               color: Palette.darkGrey,
-                              height: 50.0,
-                              width: 50.0,
+                              height: 50,
+                              width: 50,
                               child: Text(
                                   userData.username!
                                       .substring(0, 1)

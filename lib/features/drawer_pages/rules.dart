@@ -46,7 +46,6 @@ class RulesState extends State<Rules> with RouteAwareAnalytics {
           ),
           constraints: const BoxConstraints(maxWidth: 1200),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -150,7 +149,7 @@ class _RulesList extends StatelessWidget {
           _OrderedListItem(index: counter, rule: rule),
         )
         ..add(
-          const SizedBox(height: 5.0),
+          const SizedBox(height: 5),
         );
     }
     return Column(children: widgetList);

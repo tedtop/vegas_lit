@@ -19,12 +19,12 @@ class VersionCubit extends Cubit<VersionState> {
 
   Future<void> checkMinimumVersion() async {
     final currentVersion = await _getAppVersion();
-    final currentVersionNumber = int.parse(currentVersion.split('.').join(''));
+    final currentVersionNumber = int.parse(currentVersion.split('.').join());
     final minimumVersion = _userRepository.fetchMinimumVersion();
     await _versionSubscription?.cancel();
     _versionSubscription = minimumVersion.listen(
       (event) {
-        final minimumVersionNumber = int.parse(event!.split('.').join(''));
+        final minimumVersionNumber = int.parse(event!.split('.').join());
         final isUsingMinimumVersion =
             currentVersionNumber >= minimumVersionNumber;
         emit(

@@ -24,7 +24,7 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class TabletLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LeaderboardProfileState state =
+    final state =
         context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
@@ -36,11 +36,11 @@ class TabletLeaderboardProfile extends StatelessWidget {
             ),
           )
         : Column(
-            children: [
-              const _TabletHistoryHeading(),
-              const _TabletHistoryBoard(),
-              const _TabletHistoryContent(),
-              const BottomBar()
+            children: const [
+              _TabletHistoryHeading(),
+              _TabletHistoryBoard(),
+              _TabletHistoryContent(),
+              BottomBar()
             ],
           );
   }
@@ -53,7 +53,7 @@ class _TabletHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final LeaderboardProfileState state =
+        final state =
             context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:

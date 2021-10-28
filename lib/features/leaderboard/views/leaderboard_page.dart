@@ -71,7 +71,7 @@ class _LeaderboardTopHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             'LEADERBOARD',
             style: Styles.pageTitle,

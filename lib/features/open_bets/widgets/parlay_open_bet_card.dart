@@ -40,7 +40,6 @@ class ParlayOpenBetCard extends StatelessWidget {
                 border: Border.all(color: Palette.cream)),
             //crossAxisAlignment: CrossAxisAlignment.start,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DisabledDefaultButton(text: 'wager ${openBets.betAmount}'),
@@ -49,7 +48,7 @@ class ParlayOpenBetCard extends StatelessWidget {
                   width: 100,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 2.0),
+                        horizontal: 6, vertical: 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -163,11 +162,11 @@ class DisabledDefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          onPressed: null,
           child: Text(
             text,
             style: Styles.betSlipSmallText.copyWith(color: Palette.green),
           ),
-          onPressed: null,
         ),
       ),
     );

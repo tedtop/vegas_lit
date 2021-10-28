@@ -5,7 +5,7 @@ import '../../../../../../data/models/ncaab/ncaab_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNcaabScreen extends StatelessWidget {
-  MobileNcaabScreen({
+  const MobileNcaabScreen({
     required this.gameName,
     required this.games,
     required this.parsedTeamData,

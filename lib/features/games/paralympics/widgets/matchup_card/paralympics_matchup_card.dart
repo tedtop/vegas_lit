@@ -86,7 +86,7 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                '${widget.game.gameName!.replaceAll(RegExp('-'), '\/')}',
+                                widget.game.gameName!.replaceAll(RegExp('-'), '/'),
                                 style: Styles.normalTextBold,
                               ),
                             ],
@@ -112,8 +112,8 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                           padding: const EdgeInsets.only(top: 20, bottom: 6.5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const CircularProgressIndicator(
+                            children: const [
+                              CircularProgressIndicator(
                                 color: Palette.cream,
                               ),
                             ],

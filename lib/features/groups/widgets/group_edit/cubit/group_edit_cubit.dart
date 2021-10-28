@@ -21,7 +21,7 @@ class GroupEditCubit extends Cubit<GroupEditState> {
         _groupsRepository = groupsRepository,
         _storageRepository = storageRepository,
         super(
-          GroupEditState(status: GroupEditStatus.initial),
+          GroupEditState(),
         );
 
   final GroupsRepository _groupsRepository;
@@ -34,7 +34,6 @@ class GroupEditCubit extends Cubit<GroupEditState> {
       final avatarImageFile = File(avatarPickedFile.path);
       emit(
         GroupEditState(
-          status: GroupEditStatus.initial,
           avatarFile: avatarImageFile,
         ),
       );

@@ -32,9 +32,9 @@ class TermsOfService extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [
-          const _TermsOfServiceHeading(),
-          const _TermsOfServiceContent(),
+        children: const [
+          _TermsOfServiceHeading(),
+          _TermsOfServiceContent(),
         ],
       ),
     );

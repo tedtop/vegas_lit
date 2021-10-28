@@ -127,9 +127,7 @@ class MatchupCard extends StatelessWidget {
                                     const SizedBox(height: 5),
                                     Column(
                                       children: [
-                                        gameData.awayTeamMoneyLine == null
-                                            ? Container()
-                                            : BetButton.route(
+                                        if (gameData.awayTeamMoneyLine == null) Container() else BetButton.route(
                                                 winTeam: BetButtonWin.away,
                                                 mainOdds: gameData
                                                     .awayTeamMoneyLine
@@ -147,10 +145,8 @@ class MatchupCard extends StatelessWidget {
                                                   gameName: state.league,
                                                 ),
                                               ),
-                                        gameData.pointSpreadAwayTeamMoneyLine ==
-                                                null
-                                            ? Container()
-                                            : BetButton.route(
+                                        if (gameData.pointSpreadAwayTeamMoneyLine ==
+                                                null) Container() else BetButton.route(
                                                 winTeam: BetButtonWin.away,
                                                 mainOdds: gameData
                                                     .pointSpreadAwayTeamMoneyLine
@@ -169,9 +165,7 @@ class MatchupCard extends StatelessWidget {
                                                 text:
                                                     '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine!)}',
                                               ),
-                                        gameData.overPayout == null
-                                            ? Container()
-                                            : BetButton.route(
+                                        if (gameData.overPayout == null) Container() else BetButton.route(
                                                 winTeam: BetButtonWin.away,
                                                 league: whichGame(
                                                   gameName: state.league,
@@ -203,17 +197,11 @@ class MatchupCard extends StatelessWidget {
                                     style: Styles.matchupSeparator,
                                   ),
                                   const SizedBox(height: 16),
-                                  gameData.homeTeamMoneyLine == null
-                                      ? Container()
-                                      : _betButtonSeparator(text: 'ML'),
+                                  if (gameData.homeTeamMoneyLine == null) Container() else _betButtonSeparator(text: 'ML'),
                                   const SizedBox(height: 2),
-                                  gameData.pointSpreadHomeTeamMoneyLine == null
-                                      ? Container()
-                                      : _betButtonSeparator(text: 'PTS'),
+                                  if (gameData.pointSpreadHomeTeamMoneyLine == null) Container() else _betButtonSeparator(text: 'PTS'),
                                   const SizedBox(height: 1),
-                                  gameData.underPayout == null
-                                      ? Container()
-                                      : _betButtonSeparator(text: 'TOT'),
+                                  if (gameData.underPayout == null) Container() else _betButtonSeparator(text: 'TOT'),
                                 ],
                               ),
                               Expanded(
@@ -252,9 +240,7 @@ class MatchupCard extends StatelessWidget {
                                     const SizedBox(height: 5),
                                     Column(
                                       children: [
-                                        gameData.homeTeamMoneyLine == null
-                                            ? Container()
-                                            : BetButton.route(
+                                        if (gameData.homeTeamMoneyLine == null) Container() else BetButton.route(
                                                 winTeam: BetButtonWin.home,
                                                 league: whichGame(
                                                   gameName: state.league,
@@ -272,10 +258,8 @@ class MatchupCard extends StatelessWidget {
                                                 text: positiveNumber(
                                                     gameData.homeTeamMoneyLine!),
                                               ),
-                                        gameData.pointSpreadHomeTeamMoneyLine ==
-                                                null
-                                            ? Container()
-                                            : BetButton.route(
+                                        if (gameData.pointSpreadHomeTeamMoneyLine ==
+                                                null) Container() else BetButton.route(
                                                 winTeam: BetButtonWin.home,
                                                 spread: double.parse(
                                                     homeTeamPointSpread),
@@ -294,9 +278,7 @@ class MatchupCard extends StatelessWidget {
                                                 text:
                                                     '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine!)}',
                                               ),
-                                        gameData.underPayout == null
-                                            ? Container()
-                                            : BetButton.route(
+                                        if (gameData.underPayout == null) Container() else BetButton.route(
                                                 winTeam: BetButtonWin.home,
                                                 league: whichGame(
                                                   gameName: state.league,

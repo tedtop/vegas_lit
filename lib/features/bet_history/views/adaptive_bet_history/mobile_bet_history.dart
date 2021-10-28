@@ -117,7 +117,7 @@ class _MobileHistoryBoard extends StatelessWidget {
           case HistoryStatus.failure:
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20),
                 child: Text(
                   "Couldn't load bet history data",
                   style: GoogleFonts.nunito(),
@@ -233,7 +233,7 @@ class _MobileHistoryHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             'BET HISTORY',
             style: Styles.pageTitle,

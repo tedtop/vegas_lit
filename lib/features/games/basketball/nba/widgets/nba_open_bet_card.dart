@@ -114,7 +114,6 @@ class NbaOpenBetCard extends StatelessWidget {
                     const SizedBox()
                   else
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DisabledDefaultButton(
@@ -124,7 +123,7 @@ class NbaOpenBetCard extends StatelessWidget {
                         SizedBox(
                           width: 80,
                           child: Padding(
-                            padding: const EdgeInsets.all(6.0),
+                            padding: const EdgeInsets.all(6),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -209,11 +208,11 @@ class DisabledDefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          onPressed: null,
           child: Text(
             text,
             style: Styles.betSlipSmallText.copyWith(color: Palette.green),
           ),
-          onPressed: null,
         ),
       ),
     );

@@ -174,19 +174,17 @@ class _AgreementCheck extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Row(
                 children: [
                   const SizedBox(
                     width: 40,
                   ),
-                  state.agreement.invalid
-                      ? Text(
+                  if (state.agreement.invalid) Text(
                           'Required',
                           style: Styles.authFieldError
                               .copyWith(color: Palette.red),
-                        )
-                      : Container(),
+                        ) else Container(),
                 ],
               ),
             ),
@@ -309,7 +307,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -527,7 +525,7 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
@@ -663,13 +661,11 @@ class _StateInput extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      state.americanState.invalid
-                          ? Text(
+                      if (state.americanState.invalid) Text(
                               'Required',
                               style: Styles.authFieldError
                                   .copyWith(color: Palette.red),
-                            )
-                          : Container(),
+                            ) else Container(),
                     ],
                   ),
                 ],
@@ -748,7 +744,7 @@ class _UsernameInput extends StatelessWidget {
 }
 
 class DropDown<T> extends StatefulWidget {
-  DropDown({
+  const DropDown({
     required this.items,
     this.customWidgets,
     this.initialValue,
@@ -757,7 +753,7 @@ class DropDown<T> extends StatefulWidget {
     this.isExpanded = false,
     this.isCleared = false,
     this.showUnderline = true,
-  })  : assert(items != null && !(items is Widget)),
+  })  : assert(items != null && items is! Widget),
         assert((customWidgets != null)
             ? items.length == customWidgets.length
             : (customWidgets == null));
@@ -803,6 +799,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
   }
 
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
+        value: item,
         child: (widget.customWidgets != null)
             ? widget.customWidgets![widget.items.indexOf(item)]
             : Text(
@@ -811,6 +808,5 @@ class _DropDownState<T> extends State<DropDown<T>> {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-        value: item,
       );
 }

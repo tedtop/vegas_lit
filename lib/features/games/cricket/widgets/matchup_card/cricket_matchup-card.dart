@@ -89,7 +89,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   Column(
-                                    children: [
+                                    children: const [
                                       // gameData.sites[0].odds == null
                                       //     ? Container()
                                       //     : BetButton.route(
@@ -155,9 +155,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   style: Styles.matchupSeparator,
                                 ),
                                 const SizedBox(height: 22),
-                                gameData.sites![0].odds == null
-                                    ? Container()
-                                    : _betButtonSeparator(text: 'ML'),
+                                if (gameData.sites![0].odds == null) Container() else _betButtonSeparator(text: 'ML'),
                               ],
                             ),
                             Expanded(
@@ -187,7 +185,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   Column(
-                                    children: [
+                                    children: const [
                                       // gameData.sites[0].odds == null
                                       //     ? Container()
                                       //     : BetButton.route(

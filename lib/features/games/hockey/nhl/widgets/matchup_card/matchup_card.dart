@@ -16,7 +16,7 @@ import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  MatchupCard._({Key? key, this.gameName}) : super(key: key);
+  const MatchupCard._({Key? key, this.gameName}) : super(key: key);
   final String? gameName;
 
   static Builder route({

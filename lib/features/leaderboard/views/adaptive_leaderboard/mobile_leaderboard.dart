@@ -200,7 +200,7 @@ class MobileLeaderboard extends StatelessWidget {
 }
 
 class MobileLeaderboardTile extends StatelessWidget {
-  MobileLeaderboardTile({required this.player, required this.rank});
+  const MobileLeaderboardTile({required this.player, required this.rank});
   final Wallet player;
   final int rank;
 

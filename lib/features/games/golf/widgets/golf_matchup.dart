@@ -8,7 +8,7 @@ import '../cubit/golf_cubit.dart';
 import 'textbar.dart';
 
 class GolfMatchup extends StatefulWidget {
-  GolfMatchup(
+  const GolfMatchup(
       {this.player, this.name, this.venue, this.location, this.tournamentID});
   final int? tournamentID;
   final String? name, venue, location;
@@ -26,7 +26,7 @@ class _GolfMatchupState extends State<GolfMatchup> {
       children: [
         TextBar(
             text: 'PLAYER BETS',
-            textList: ['PLAYER BETS'],
+            textList: const ['PLAYER BETS'],
             onPress: (String value) {}),
         const SizedBox(
           height: 10,
@@ -143,9 +143,7 @@ class _GolfMatchupState extends State<GolfMatchup> {
             ],
           ),
         ),
-        roundNumber == 0
-            ? OverallBetBoxes()
-            : RoundBasedBetBoxes(
+        if (roundNumber == 0) OverallBetBoxes() else RoundBasedBetBoxes(
                 roundNo: roundNumber,
               )
       ],
@@ -212,7 +210,7 @@ class OverallBetBoxes extends StatelessWidget {
 }
 
 class RoundBasedBetBoxes extends StatelessWidget {
-  RoundBasedBetBoxes({this.roundNo});
+  const RoundBasedBetBoxes({this.roundNo});
   final int? roundNo;
   @override
   Widget build(BuildContext context) {
@@ -312,7 +310,7 @@ class RoundBasedBetBoxes extends StatelessWidget {
 }
 
 class OverallBetBox extends StatelessWidget {
-  OverallBetBox({this.text, this.isSelected = false, this.onPressed});
+  const OverallBetBox({this.text, this.isSelected = false, this.onPressed});
   final String? text;
   final bool isSelected;
   final Function? onPressed;
@@ -340,7 +338,7 @@ class OverallBetBox extends StatelessWidget {
 }
 
 class RoundNumberBox extends StatelessWidget {
-  RoundNumberBox({this.text, this.isSelected = false, this.onPressed});
+  const RoundNumberBox({this.text, this.isSelected = false, this.onPressed});
   final String? text;
   final bool isSelected;
   final Function? onPressed;
@@ -365,7 +363,7 @@ class RoundNumberBox extends StatelessWidget {
 }
 
 class RoundBetBox extends StatelessWidget {
-  RoundBetBox({this.text, this.onPressed, this.isSelected = false});
+  const RoundBetBox({this.text, this.onPressed, this.isSelected = false});
   final Widget? text;
   final bool isSelected;
   final Function? onPressed;

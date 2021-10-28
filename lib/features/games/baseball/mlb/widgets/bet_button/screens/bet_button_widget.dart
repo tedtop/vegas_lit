@@ -89,7 +89,7 @@ class BetButton extends StatelessWidget {
         },
         child: Builder(
           builder: (context) {
-            final MlbBetButtonState betButtonState =
+            final betButtonState =
                 context.watch<MlbBetButtonCubit>().state;
             switch (betButtonState.status) {
               case MlbBetButtonStatus.unclicked:
@@ -121,7 +121,7 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MlbBetButtonState betButtonState =
+    final betButtonState =
         context.watch<MlbBetButtonCubit>().state;
 
     final username = context.select(
@@ -129,7 +129,7 @@ class BetButtonUnclicked extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -168,10 +168,10 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MlbBetButtonState betButtonState =
+    final betButtonState =
         context.watch<MlbBetButtonCubit>().state;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),

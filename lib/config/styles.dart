@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/extensions.dart';
 
-import 'palette.dart';
+import 'package:vegas_lit/config/palette.dart';
 
 class Styles {
   static TextStyle emoji({double size = 18}) => VLTextStyle.emoji.size(size);

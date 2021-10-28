@@ -11,7 +11,7 @@ import 'package:vegas_lit/data/repositories/storage_repository.dart';
 import 'cubit/group_edit_cubit.dart';
 
 class GroupEdit extends StatefulWidget {
-  GroupEdit._({Key? key, required this.group}) : super(key: key);
+  const GroupEdit._({Key? key, required this.group}) : super(key: key);
 
   final Group? group;
 
@@ -150,7 +150,7 @@ class _GroupEditState extends State<GroupEdit> {
                   BlocBuilder<GroupEditCubit, GroupEditState>(
                     builder: (context, state) {
                       if (widget.group!.avatarUrl != null ||
-                          state.avatarFile != null)
+                          state.avatarFile != null) {
                         return Stack(
                           children: [
                             SizedBox(
@@ -211,6 +211,7 @@ class _GroupEditState extends State<GroupEdit> {
                             ),
                           ],
                         );
+                      }
                       return InkWell(
                         onTap: () {
                           context.read<GroupEditCubit>().pickAvatar();

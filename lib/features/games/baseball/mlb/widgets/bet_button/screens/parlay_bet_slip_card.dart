@@ -20,7 +20,7 @@ class MlbParlayBetSlipCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final MlbBetButtonState betButtonState =
+        final betButtonState =
             context.watch<MlbBetButtonCubit>().state;
 
         final isMoneyline = betButtonState.betType == Bet.ml;
@@ -33,7 +33,7 @@ class MlbParlayBetSlipCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 4),
                 child: InkWell(
                   onTap: () {
                     context.read<MlbBetButtonCubit>().unclickBetButton();
@@ -78,17 +78,15 @@ class MlbParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'}'
+                                ? betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
-                              isMoneyline
-                                  ? TextSpan(
+                              if (isMoneyline) TextSpan(
                                       text:
                                           ' (${betButtonState.text!.split(' ').last})',
                                       //style: Styles.betSlipHomeTeam,
-                                    )
-                                  : isPointSpread
+                                    ) else isPointSpread
                                       ? TextSpan(
                                           text:
                                               ' (${betButtonState.text!.split(' ').first})'
@@ -112,7 +110,7 @@ class MlbParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
+                                betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase(),
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(

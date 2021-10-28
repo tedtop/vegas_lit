@@ -10,7 +10,7 @@ import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 import '../bet.dart';
 
 class ParlayBets extends BetData {
-  ParlayBets({
+  const ParlayBets({
     required String? id,
     required int? betAmount,
     required int? betProfit,

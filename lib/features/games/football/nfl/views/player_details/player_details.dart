@@ -12,7 +12,7 @@ import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
+  const PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
   final String? playerId;
   final String? gameName;
   final NflPlayer? playerDetails;
@@ -245,13 +245,14 @@ class StatsBox extends StatelessWidget {
   List<Widget> _statMapToList() {
     return statMap.keys.map(
       (key) {
-        if (statMap[key] != null)
+        if (statMap[key] != null) {
           return StatsText(
             leftText: key,
             rightText: statMap[key],
           );
-        else
+        } else {
           return const SizedBox();
+        }
       },
     ).toList();
   }

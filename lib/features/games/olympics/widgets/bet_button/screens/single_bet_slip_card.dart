@@ -25,7 +25,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final OlympicsBetButtonState betButtonState =
+        final betButtonState =
             context.watch<OlympicsBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
@@ -41,7 +41,6 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
 
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-          crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
             Text(
               '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game!.playerCountry!).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game!.rivalCountry!).name.toUpperCase()} TO WIN',
@@ -57,7 +56,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  betButtonState.game!.gameName!.replaceAll(RegExp('-'), '\/'),
+                  betButtonState.game!.gameName!.replaceAll(RegExp('-'), '/'),
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.cream,
@@ -126,7 +125,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                 height: 90,
                                 width: 170,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
+                                  padding: const EdgeInsets.all(6),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -137,7 +136,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                       Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                            bottom: 8.0,
+                                            bottom: 8,
                                           ),
                                           child: Text(
                                             // ignore: lines_longer_than_80_chars
@@ -165,8 +164,8 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 0.75),
                                   ),
                                 ],
                               ),
@@ -199,8 +198,8 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                   const EdgeInsets.only(top: 20, bottom: 6.5),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const CircularProgressIndicator(
+                                children: const [
+                                  CircularProgressIndicator(
                                     color: Palette.cream,
                                   ),
                                 ],
@@ -300,7 +299,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                               height: 90,
                               width: 170,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -311,7 +310,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                     Center(
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                          bottom: 8.0,
+                                          bottom: 8,
                                         ),
                                         child: Text(
                                           '${betButtonState.toWinAmount}',
@@ -337,8 +336,8 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Palette.darkGrey,
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.75),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 0.75),
                                   ),
                                 ],
                               ),
@@ -443,7 +442,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
   }) : super(key: key);
@@ -460,7 +459,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final OlympicsBetButtonState betButtonState =
+    final betButtonState =
         context.watch<OlympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
@@ -525,7 +524,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,
@@ -608,7 +606,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [
@@ -656,12 +654,10 @@ Widget badgeFromEventTypeColumn({String? eventType}) {
       const SizedBox(
         height: 40,
       ),
-      eventType == 'gold'
-          ? const Text(
+      if (eventType == 'gold') const Text(
               '🥇',
               style: TextStyle(fontSize: 20),
-            )
-          : eventType == 'silver'
+            ) else eventType == 'silver'
               ? const Text(
                   '🥈',
                   style: TextStyle(fontSize: 20),
@@ -683,7 +679,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

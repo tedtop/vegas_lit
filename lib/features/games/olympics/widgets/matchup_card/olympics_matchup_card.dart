@@ -73,7 +73,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -86,7 +86,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                '${widget.game.gameName!.replaceAll(RegExp('-'), '\/')}',
+                                widget.game.gameName!.replaceAll(RegExp('-'), '/'),
                                 style: Styles.normalTextBold,
                               ),
                             ],
@@ -112,8 +112,8 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                           padding: const EdgeInsets.only(top: 20, bottom: 6.5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const CircularProgressIndicator(
+                            children: const [
+                              CircularProgressIndicator(
                                 color: Palette.cream,
                               ),
                             ],
@@ -183,7 +183,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 4.0),
+                                        vertical: 4),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
@@ -193,7 +193,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                             ),
                                           ),
                                           elevation:
-                                              MaterialStateProperty.all(4.0),
+                                              MaterialStateProperty.all(4),
                                           shape: MaterialStateProperty.all(
                                               Styles.smallRadius),
                                           textStyle: MaterialStateProperty.all(
@@ -271,7 +271,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                     else
                       Container(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(top: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -289,7 +289,7 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

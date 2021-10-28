@@ -34,6 +34,7 @@ class HelpOverlay extends StatelessWidget {
     final topSafeSpacePadding = MediaQuery.of(context).viewPadding.top;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
+      onTap: HelpOverlayLoader.appLoader.hideLoader,
       child: Stack(
         children: [
           Positioned(
@@ -79,7 +80,6 @@ class HelpOverlay extends StatelessWidget {
           ),
         ],
       ),
-      onTap: HelpOverlayLoader.appLoader.hideLoader,
     );
   }
 }

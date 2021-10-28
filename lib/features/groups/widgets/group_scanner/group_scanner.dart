@@ -35,7 +35,7 @@ class GroupScanner extends StatelessWidget {
           Expanded(
             flex: 9,
             child: QRView(
-              formatsAllowed: [BarcodeFormat.qrcode],
+              formatsAllowed: const [BarcodeFormat.qrcode],
               key: qrKey,
               onQRViewCreated: (QRViewController controller) async {
                 await context

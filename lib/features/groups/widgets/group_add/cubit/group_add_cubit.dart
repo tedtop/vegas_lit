@@ -18,7 +18,7 @@ class GroupAddCubit extends Cubit<GroupAddState> {
       : _groupsRepository = groupsRepository,
         _storageRepository = storageRepository,
         super(
-          GroupAddState(status: GroupAddStatus.initial),
+          GroupAddState(),
         );
 
   final GroupsRepository _groupsRepository;
@@ -31,7 +31,6 @@ class GroupAddCubit extends Cubit<GroupAddState> {
       final avatarImageFile = File(avatarPickedFile.path);
       emit(
         GroupAddState(
-          status: GroupAddStatus.initial,
           avatarFile: avatarImageFile,
         ),
       );

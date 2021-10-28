@@ -32,7 +32,7 @@ class LeaderboardProfileHistoryBoardText extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+            padding: const EdgeInsets.only(left: 5, right: 5),
             child: Text(
               rightText,
               style: GoogleFonts.nunito(
@@ -64,7 +64,7 @@ class DesktopBetHistoryBoardItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: <BoxShadow>[
             BoxShadow(
-                offset: const Offset(0, 4.0),
+                offset: const Offset(0, 4),
                 blurRadius: 0.4,
                 color: Palette.darkGrey.withAlpha(80))
           ]),

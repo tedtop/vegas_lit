@@ -44,6 +44,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Palette.lightGrey,
+            ),
             child: Hero(
               tag: 'drawerHeader',
               child: Image.asset(
@@ -51,9 +54,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 fit: BoxFit.contain,
                 height: 80,
               ),
-            ),
-            decoration: const BoxDecoration(
-              color: Palette.lightGrey,
             ),
           ),
           //..................................................................//
@@ -75,9 +75,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         Navigator.of(context).pop();
                       },
                     ),
-                    width > 1000
-                        ? const SizedBox()
-                        : ListTile(
+                    if (width > 1000) const SizedBox() else ListTile(
                             title:
                                 Text('BET SLIP', style: Styles.normalTextBold),
                             onTap: () {
@@ -120,14 +118,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
               Navigator.of(context).pop();
             },
           ),
-          isAdmin
-              ? ListTile(
+          if (isAdmin) ListTile(
                   title: Text('ADMIN VAULT', style: Styles.normalTextBold),
                   onTap: () {
                     Navigator.of(context).push<void>(AdminVaultScreen.route());
                   },
-                )
-              : Container(),
+                ) else Container(),
           // isAdmin
           //     ? ListTile(
           //         title: Text('OLYMPICS', style: Styles.normalTextBold),

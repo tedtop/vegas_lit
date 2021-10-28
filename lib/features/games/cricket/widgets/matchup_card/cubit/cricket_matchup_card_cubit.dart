@@ -21,8 +21,9 @@ class CricketMatchupCardCubit extends Cubit<CricketMatchupCardState> {
     final awayTeamData = teamData.singleWhere((element) {
       if (homeTeamData.title == gamec.teams![0]) {
         return element.title == gamec.teams![1];
-      } else
+      } else {
         return element.title == gamec.teams![0];
+      }
     });
 
     emit(

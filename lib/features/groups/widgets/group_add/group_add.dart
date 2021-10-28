@@ -13,7 +13,7 @@ import '../../../home/home.dart';
 import 'cubit/group_add_cubit.dart';
 
 class GroupAdd extends StatefulWidget {
-  GroupAdd._({Key? key}) : super(key: key);
+  const GroupAdd._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route(
       {required HomeCubit homeCubit,
@@ -166,7 +166,7 @@ class _GroupAddState extends State<GroupAdd> {
                   const SizedBox(width: 50),
                   BlocBuilder<GroupAddCubit, GroupAddState>(
                     builder: (context, state) {
-                      if (state.avatarFile != null)
+                      if (state.avatarFile != null) {
                         return Stack(
                           children: [
                             SizedBox(
@@ -213,6 +213,7 @@ class _GroupAddState extends State<GroupAdd> {
                             ),
                           ],
                         );
+                      }
                       return InkWell(
                         onTap: () {
                           context.read<GroupAddCubit>().pickAvatar();

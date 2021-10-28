@@ -68,15 +68,13 @@ class NcaabOpenBetCard extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: isMoneyline || isPointSpread
-                          ? '${openBets.betTeam == 'home' ? '${openBets.homeTeamCity ?? ''} ${openBets.homeTeamName}' : '${openBets.awayTeamCity ?? ''} ${openBets.awayTeamName}'}'
+                          ? openBets.betTeam == 'home' ? '${openBets.homeTeamCity ?? ''} ${openBets.homeTeamName}' : '${openBets.awayTeamCity ?? ''} ${openBets.awayTeamName}'
                           : '',
                       style: Styles.betSlipAwayTeam,
                       children: <TextSpan>[
-                        isMoneyline
-                            ? TextSpan(
+                        if (isMoneyline) TextSpan(
                                 text: ' ($odds)',
-                              )
-                            : isPointSpread
+                              ) else isPointSpread
                                 ? TextSpan(text: ' ($pointSpread)')
                                 : TextSpan(
                                     text:
@@ -93,7 +91,7 @@ class NcaabOpenBetCard extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text:
-                          '${openBets.betTeam == 'home' ? openBets.homeTeamName!.toUpperCase() : openBets.awayTeamName!.toUpperCase()}',
+                          openBets.betTeam == 'home' ? openBets.homeTeamName!.toUpperCase() : openBets.awayTeamName!.toUpperCase(),
                       style: Styles.betSlipHomeTeam,
                       children: <TextSpan>[
                         TextSpan(
@@ -108,7 +106,6 @@ class NcaabOpenBetCard extends StatelessWidget {
                   isParlayLeg
                       ? const SizedBox()
                       : Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DisabledDefaultButton(
@@ -118,7 +115,7 @@ class NcaabOpenBetCard extends StatelessWidget {
                             SizedBox(
                               width: 80,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -203,11 +200,11 @@ class DisabledDefaultButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(color),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          onPressed: null,
           child: Text(
             text,
             style: Styles.betSlipSmallText.copyWith(color: Palette.green),
           ),
-          onPressed: null,
         ),
       ),
     );

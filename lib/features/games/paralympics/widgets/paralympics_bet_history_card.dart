@@ -91,7 +91,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                   child: Card(
                     margin: EdgeInsets.zero,
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+                      
                     ),
                     color: Palette.darkGrey,
                     child: Container(
@@ -267,12 +267,11 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                             height: 2,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
                                   betHistoryData.gameName!
-                                      .replaceAll(RegExp('-'), '\/')
+                                      .replaceAll(RegExp('-'), '/')
                                       .toUpperCase(),
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
@@ -303,7 +302,6 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
@@ -317,7 +315,6 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                           // Last Row
                           Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   DateFormat('E, MMM c, y @ hh:mm a').format(

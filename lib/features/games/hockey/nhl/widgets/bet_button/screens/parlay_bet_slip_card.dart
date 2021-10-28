@@ -18,7 +18,7 @@ class NhlParlayBetSlipCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final NhlBetButtonState betButtonState =
+        final betButtonState =
             context.watch<NhlBetButtonCubit>().state;
 
         final isMoneyline = betButtonState.betType == Bet.ml;

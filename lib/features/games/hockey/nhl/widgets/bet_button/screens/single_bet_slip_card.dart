@@ -23,8 +23,7 @@ class NhlSingleBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final NhlBetButtonState betButtonState =
-            context.watch<NhlBetButtonCubit>().state;
+        final betButtonState = context.watch<NhlBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
               authenticationBloc.state.user?.uid,
@@ -99,24 +98,25 @@ class NhlSingleBetSlipCard extends StatelessWidget {
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
-                              isMoneyline
-                                  ? TextSpan(
-                                      text:
-                                          ' (${betButtonState.text!.split(' ').last})',
-                                      //style: Styles.betSlipHomeTeam,
-                                    )
-                                  : isPointSpread
-                                      ? TextSpan(
-                                          text:
-                                              ' (${betButtonState.text!.split(' ').first})'
-                                          //     PTS (${betButtonState.text.split(' ').last})',
-                                          //style: Styles.betSlipHomeTeam,
-                                          )
-                                      : TextSpan(
-                                          text:
-                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}', //     TOT ${betButtonState.text.split(' ').last}',
-                                          style: Styles.betSlipHomeTeam,
-                                        ),
+                              if (isMoneyline)
+                                TextSpan(
+                                  text:
+                                      ' (${betButtonState.text!.split(' ').last})',
+                                  //style: Styles.betSlipHomeTeam,
+                                )
+                              else
+                                isPointSpread
+                                    ? TextSpan(
+                                        text:
+                                            ' (${betButtonState.text!.split(' ').first})'
+                                        //     PTS (${betButtonState.text.split(' ').last})',
+                                        //style: Styles.betSlipHomeTeam,
+                                        )
+                                    : TextSpan(
+                                        text:
+                                            '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}', //     TOT ${betButtonState.text.split(' ').last}',
+                                        style: Styles.betSlipHomeTeam,
+                                      ),
                             ],
                           ),
                         ),
@@ -143,7 +143,6 @@ class NhlSingleBetSlipCard extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -306,7 +305,7 @@ class NhlSingleBetSlipCard extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
   }) : super(key: key);
@@ -323,8 +322,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final NhlBetButtonState betButtonState =
-        context.watch<NhlBetButtonCubit>().state;
+    final betButtonState = context.watch<NhlBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -388,7 +386,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,

@@ -78,7 +78,7 @@ class BetButton extends StatelessWidget {
       },
       child: Builder(
         builder: (context) {
-          final ParalympicsBetButtonState betButtonState =
+          final betButtonState =
               context.watch<ParalympicsBetButtonCubit>().state;
           switch (betButtonState.status) {
             case ParalympicsBetButtonStatus.unclicked:
@@ -112,14 +112,14 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ParalympicsBetButtonState betButtonState =
+    final betButtonState =
         context.watch<ParalympicsBetButtonCubit>().state;
     final username = context.select(
       (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 350,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -135,7 +135,7 @@ class BetButtonUnclicked extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: [
                 Text(
@@ -219,10 +219,10 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ParalympicsBetButtonState betButtonState =
+    final betButtonState =
         context.watch<ParalympicsBetButtonCubit>().state;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 350,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -238,7 +238,7 @@ class BetButtonClicked extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Palette.green),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: [
                 Text(
@@ -281,7 +281,7 @@ class BetButtonDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 350,
         padding: const EdgeInsets.symmetric(horizontal: 2),

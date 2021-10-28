@@ -221,7 +221,6 @@ class _HomePageState extends State<HomePage>
                 );
               },
             ),
-            bottomNavigationBar: kIsWeb ? null : BottomNavigation(),
           ),
           const HelpOverlayView()
         ],

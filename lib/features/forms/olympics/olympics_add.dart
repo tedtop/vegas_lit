@@ -346,7 +346,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     onPressed: () {
                       showCountryPicker(
                         context: context,
-                        showPhoneCode: false,
                         onSelect: (Country country) {
                           setState(() {
                             playerCountry = country.countryCode;
@@ -413,7 +412,6 @@ class _OlympicsAddFormState extends State<OlympicsAddForm> {
                     onPressed: () {
                       showCountryPicker(
                         context: context,
-                        showPhoneCode: false,
                         onSelect: (Country country) {
                           setState(() {
                             rivalCountry = country.countryCode;

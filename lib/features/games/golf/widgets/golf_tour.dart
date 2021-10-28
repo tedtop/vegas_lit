@@ -10,7 +10,7 @@ import '../../../../data/models/golf/golf.dart';
 import '../golf_page.dart';
 
 class GolfTournamentsView extends StatefulWidget {
-  GolfTournamentsView({this.tournaments});
+  const GolfTournamentsView({this.tournaments});
   final List<GolfTournament>? tournaments;
   @override
   _GolfTournamentsViewState createState() => _GolfTournamentsViewState();
@@ -65,7 +65,6 @@ class GolfTournamentCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: Palette.lightGrey),
         child: FittedBox(
-          fit: BoxFit.contain,
           child: Row(
             children: [
               Container(

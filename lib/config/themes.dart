@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'palette.dart';
+
+import 'package:vegas_lit/config/palette.dart';
 
 class Themes {
   static final ThemeData dark = ThemeData(

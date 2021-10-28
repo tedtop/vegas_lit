@@ -8,7 +8,7 @@ import '../../../../../bet_slip/bet_slip.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNcaabScreen extends StatelessWidget {
-  DesktopNcaabScreen({this.gameName, this.games, this.parsedTeamData});
+  const DesktopNcaabScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NcaabGame>? games;
   final String? gameName;
   final List? parsedTeamData;
@@ -189,7 +189,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

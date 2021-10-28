@@ -17,7 +17,7 @@ import '../player_details/player_details.dart';
 import 'cubit/team_info_cubit.dart';
 
 class TeamInfo extends StatelessWidget {
-  TeamInfo._({this.teamData, this.gameName});
+  const TeamInfo._({this.teamData, this.gameName});
   final NhlTeam? teamData;
   final String? gameName;
   @override
@@ -42,7 +42,7 @@ class TeamInfo extends StatelessWidget {
 }
 
 class TeamInfoView extends StatelessWidget {
-  TeamInfoView({this.teamData, this.gameName});
+  const TeamInfoView({this.teamData, this.gameName});
   final NhlTeam? teamData;
   final String? gameName;
   @override
@@ -74,7 +74,7 @@ class TeamInfoView extends StatelessWidget {
                 );
               } else {
                 return const Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(20),
                   child: Center(
                       child: CircularProgressIndicator(
                     color: Palette.cream,

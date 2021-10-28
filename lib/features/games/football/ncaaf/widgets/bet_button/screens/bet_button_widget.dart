@@ -128,7 +128,7 @@ class BetButtonUnclicked extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -169,7 +169,7 @@ class BetButtonClicked extends StatelessWidget {
   Widget build(BuildContext context) {
     final betButtonState = context.watch<NcaafBetButtonCubit>().state;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),

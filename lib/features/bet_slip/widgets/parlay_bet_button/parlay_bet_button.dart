@@ -17,7 +17,7 @@ import 'package:vegas_lit/features/home/home.dart';
 import '../../bet_slip.dart';
 
 class ParlayBetSlipButton extends StatelessWidget {
-  ParlayBetSlipButton._({Key? key, required this.betList}) : super(key: key);
+  const ParlayBetSlipButton._({Key? key, required this.betList}) : super(key: key);
 
   static Builder route({
     required List<BetData>? betDataList,
@@ -82,7 +82,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                     );
 
                   context.read<BetSlipCubit>()
-                    ..openBetSlip(
+                    .openBetSlip(
                       singleBetSlipGames: [],
                       parlayBetSlipGames: [],
                       betDataList: [],
@@ -134,7 +134,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                         height: 38,
                         width: 100,
                         child: Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5),
                           child: Center(
                             child: Text(
                               'wager ${betButtonState.betAmount}',
@@ -151,7 +151,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0, vertical: 2.0),
+                              horizontal: 6, vertical: 2),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -262,7 +262,7 @@ class ParlayBetSlipButton extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
     required this.betList,
@@ -424,7 +424,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [
@@ -486,7 +486,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

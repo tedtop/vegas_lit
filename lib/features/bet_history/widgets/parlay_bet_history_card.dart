@@ -27,10 +27,11 @@ class ParlayBetHistoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     bool? isWin;
     for (final dynamic bet in betHistoryData.bets!) {
-      if (isWin == null)
-        isWin = (bet.winningTeam == bet.betTeam);
-      else
+      if (isWin == null) {
+        isWin = bet.winningTeam == bet.betTeam;
+      } else {
         isWin = isWin && (bet.winningTeam == bet.betTeam);
+      }
     }
 
     return Container(
@@ -56,14 +57,14 @@ class ParlayBetHistoryCard extends StatelessWidget {
                 ),
                 isWin!
                     ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
                           'YOU WON ${betHistoryData.betProfit} with a PAYOUT of ${betHistoryData.betProfit! + betHistoryData.betAmount!}',
                           style: Styles.betHistoryCardBoldGreen,
                         ),
                       )
                     : Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
                           'YOU LOST ${betHistoryData.betAmount}',
                           style: Styles.betHistoryCardBoldRed,

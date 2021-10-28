@@ -18,7 +18,7 @@ import '../../../../../../home/home.dart';
 import '../cubit/bet_button_cubit.dart';
 
 class MlbSingleBetSlipCard extends StatelessWidget {
-  MlbSingleBetSlipCard({Key? key}) : super(key: key);
+  const MlbSingleBetSlipCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final MlbBetButtonState betButtonState =
+        final betButtonState =
             context.watch<MlbBetButtonCubit>().state;
         final currentUserId = context.select(
           (AuthenticationBloc authenticationBloc) =>
@@ -49,7 +49,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 4),
                 child: InkWell(
                   onTap: () {
                     context.read<MlbBetButtonCubit>().unclickBetButton();
@@ -96,17 +96,15 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'}'
+                                ? betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
-                              isMoneyline
-                                  ? TextSpan(
+                              if (isMoneyline) TextSpan(
                                       text:
                                           ' (${betButtonState.text!.split(' ').last})',
                                       //style: Styles.betSlipHomeTeam,
-                                    )
-                                  : isPointSpread
+                                    ) else isPointSpread
                                       ? TextSpan(
                                           text:
                                               ' (${betButtonState.text!.split(' ').first})'
@@ -129,7 +127,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
+                                betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase(),
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(
@@ -141,7 +139,6 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -168,7 +165,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                                 height: 35,
                                 width: 100,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.all(5),
                                   child: Center(
                                     child: Text(
                                       'wager ${betButtonState.betAmount}',
@@ -182,7 +179,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
                             SizedBox(
                               width: 80,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -305,7 +302,7 @@ class MlbSingleBetSlipCard extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
   }) : super(key: key);
@@ -322,7 +319,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MlbBetButtonState betButtonState =
+    final betButtonState =
         context.watch<MlbBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
@@ -387,7 +384,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,
@@ -482,7 +478,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [

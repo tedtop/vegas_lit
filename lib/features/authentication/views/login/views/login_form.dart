@@ -285,12 +285,12 @@ class __ResetPageState extends State<_ResetPage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          top: 8.0,
-          left: 8.0,
-          right: 8.0,
+          top: 8,
+          left: 8,
+          right: 8,
           bottom: MediaQuery.of(context).viewInsets.bottom + 8.0),
       child: Container(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
           color: Palette.lightGrey,
         ),
@@ -329,12 +329,6 @@ class __ResetPageState extends State<_ResetPage> {
             ),
             const SizedBox(height: 20),
             TextButton(
-              child: Text(
-                'Done',
-                style: GoogleFonts.nunito(
-                  color: Palette.cream,
-                ),
-              ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Palette.green),
               ),
@@ -385,6 +379,12 @@ class __ResetPageState extends State<_ResetPage> {
                   });
                 }
               },
+              child: Text(
+                'Done',
+                style: GoogleFonts.nunito(
+                  color: Palette.cream,
+                ),
+              ),
             ),
           ],
         ),

@@ -91,7 +91,7 @@ class BetButton extends StatelessWidget {
         },
         child: Builder(
           builder: (context) {
-            final NcaabBetButtonState betButtonState =
+            final betButtonState =
                 context.watch<NcaabBetButtonCubit>().state;
             switch (betButtonState.status) {
               case NcaabBetButtonStatus.unclicked:
@@ -123,14 +123,14 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final NcaabBetButtonState betButtonState =
+    final betButtonState =
         context.watch<NcaabBetButtonCubit>().state;
     final username = context.select(
       (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -169,10 +169,10 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final NcaabBetButtonState betButtonState =
+    final betButtonState =
         context.watch<NcaabBetButtonCubit>().state;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),

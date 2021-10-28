@@ -7,7 +7,7 @@ import '../../../config/styles.dart';
 typedef OnNumberTap = void Function(int? number);
 
 class PageNumberView extends StatefulWidget {
-  PageNumberView({this.pages});
+  const PageNumberView({this.pages});
 
   final int? pages;
 
@@ -121,14 +121,14 @@ class _PageNumberViewState extends State<PageNumberView> {
 }
 
 class PageNumberWidget extends StatelessWidget {
-  PageNumberWidget({this.number, this.changeNumber, this.selected = false});
+  const PageNumberWidget({this.number, this.changeNumber, this.selected = false});
   final int? number;
   final bool selected;
   final OnNumberTap? changeNumber;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: InkWell(
         onTap: () => changeNumber!(number),
         child: Container(

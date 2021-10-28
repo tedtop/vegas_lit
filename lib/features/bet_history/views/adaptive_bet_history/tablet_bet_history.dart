@@ -22,7 +22,7 @@ import '../../widgets/bet_history_board_content.dart';
 class TabletBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final HistoryState state = context.watch<HistoryCubit>().state;
+    final state = context.watch<HistoryCubit>().state;
     return state.status == HistoryStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -33,11 +33,11 @@ class TabletBetHistory extends StatelessWidget {
             ),
           )
         : Column(
-            children: [
-              const _TabletHistoryHeading(),
-              const _TabletHistoryBoard(),
-              const _TabletHistoryContent(),
-              const BottomBar()
+            children: const [
+              _TabletHistoryHeading(),
+              _TabletHistoryBoard(),
+              _TabletHistoryContent(),
+              BottomBar()
             ],
           );
   }
@@ -50,7 +50,7 @@ class _TabletHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final HistoryState state = context.watch<HistoryCubit>().state;
+        final state = context.watch<HistoryCubit>().state;
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();
@@ -194,7 +194,7 @@ class _TabletHistoryHeading extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   'BET HISTORY',
                   style: Styles.pageTitle,

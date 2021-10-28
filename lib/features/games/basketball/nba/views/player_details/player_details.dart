@@ -12,7 +12,7 @@ import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
+  const PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
   final String? playerId;
   final String? gameName;
   final NbaPlayer? playerDetails;
@@ -61,7 +61,7 @@ class PlayerDetailsPage extends StatelessWidget {
                 return StatsBox(statMap: state.playerStats.toStatOnlyMap());
               } else {
                 return const Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(20),
                   child: Center(
                       child: CircularProgressIndicator(
                     color: Palette.cream,
@@ -111,7 +111,7 @@ class PlayerDetailsPage extends StatelessWidget {
                   style: Styles.largeTextBold.copyWith(fontSize: 20),
                 ),
                 Text(
-                  '${'${playerDetails.birthState ?? 'NA'}'.toUpperCase()} STATE',
+                  '${(playerDetails.birthState ?? 'NA').toUpperCase()} STATE',
                   style: Styles.normalText.copyWith(fontSize: 16),
                 ),
               ],
@@ -134,7 +134,7 @@ class PlayerDetailsPage extends StatelessWidget {
             ),
             Text(
               playerDetails.height != null
-                  ? '${playerDetails.height! ~/ 12}′ ${playerDetails.height! % 12}\′\′'
+                  ? '${playerDetails.height! ~/ 12}′ ${playerDetails.height! % 12}′′'
                   : 'NA',
               style: Styles.teamStatsMain.copyWith(color: Palette.green),
             )
@@ -249,13 +249,14 @@ class StatsBox extends StatelessWidget {
   List<Widget> _statMapToList() {
     return statMap.keys.map(
       (key) {
-        if (statMap[key] != null)
+        if (statMap[key] != null) {
           return StatsText(
             leftText: key,
             rightText: statMap[key],
           );
-        else
+        } else {
           return const SizedBox();
+        }
       },
     ).toList();
   }

@@ -5,7 +5,7 @@ import '../../../../../../data/models/nba/nba_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNbaScreen extends StatelessWidget {
-  MobileNbaScreen({
+  const MobileNbaScreen({
     required this.gameName,
     required this.games,
     required this.parsedTeamData,

@@ -100,14 +100,12 @@ class ProfileAvatar extends StatelessWidget {
           default:
             return Stack(
               children: [
-                avatarUrl != null
-                    ? CircleAvatar(
+                if (avatarUrl != null) CircleAvatar(
                         radius: 50,
                         backgroundImage: CachedNetworkImageProvider(
                           avatarUrl,
                         ), //Image for web configuration.
-                      )
-                    : CircleAvatar(
+                      ) else CircleAvatar(
                         radius: 50,
                         child: ClipOval(
                           child: Container(
