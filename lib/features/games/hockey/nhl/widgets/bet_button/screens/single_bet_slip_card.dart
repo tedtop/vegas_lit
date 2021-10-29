@@ -48,7 +48,7 @@ class NhlSingleBetSlipCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 4),
                 child: InkWell(
                   onTap: () {
                     context.read<NhlBetButtonCubit>().unclickBetButton();
@@ -95,7 +95,9 @@ class NhlSingleBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'}'
+                                ? betButtonState.winTeam == BetButtonWin.home
+                                    ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}'
+                                    : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
@@ -127,8 +129,11 @@ class NhlSingleBetSlipCard extends StatelessWidget {
                         ),
                         RichText(
                           text: TextSpan(
-                            text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
+                            text: betButtonState.winTeam == BetButtonWin.home
+                                ? betButtonState.homeTeamData!.name!
+                                    .toUpperCase()
+                                : betButtonState.awayTeamData!.name!
+                                    .toUpperCase(),
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(
@@ -167,7 +172,7 @@ class NhlSingleBetSlipCard extends StatelessWidget {
                                 height: 35,
                                 width: 100,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.all(5),
                                   child: Center(
                                     child: Text(
                                       'wager ${betButtonState.betAmount}',
@@ -181,7 +186,7 @@ class NhlSingleBetSlipCard extends StatelessWidget {
                             SizedBox(
                               width: 80,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -483,7 +488,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [

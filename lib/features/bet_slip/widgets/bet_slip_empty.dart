@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
@@ -26,10 +24,9 @@ class EmptyBetSlip extends StatelessWidget {
                 '1. Find a game you are interested in',
               ),
               textPoints(
-                '2. Click on the link you\'d like to bet on',
+                "2. Click on the link you'd like to bet on",
               ),
               textPoints(
-                // ignore: lines_longer_than_80_chars
                 '3. Your bet will show up in this area where you can place your bet',
               ),
             ],

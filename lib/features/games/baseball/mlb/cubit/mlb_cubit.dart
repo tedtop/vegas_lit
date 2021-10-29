@@ -14,8 +14,7 @@ part 'mlb_state.dart';
 
 class MlbCubit extends Cubit<MlbState> {
   MlbCubit({required SportsRepository sportsfeedRepository})
-      : assert(sportsfeedRepository != null),
-        _sportsfeedRepository = sportsfeedRepository,
+      : _sportsfeedRepository = sportsfeedRepository,
         super(
           const MlbState.initial(),
         );

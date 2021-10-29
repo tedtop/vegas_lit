@@ -1,14 +1,13 @@
-
-
-part of 'sportsbook_bloc.dart';
+part of 'sportsbook_cubit.dart';
 
 enum SportsbookStatus {
   initial,
   opened,
 }
 
-class SportsbookState extends Equatable {
+class SportsbookState {
   const SportsbookState._({
+    this.dropdown,
     this.league = 'OLYMPICS',
     this.gameNumbers = const <String, String>{
       'NFL': '0',
@@ -38,9 +37,11 @@ class SportsbookState extends Equatable {
     required Map<String, String> gameNumbers,
     required DateTime? estTimeZone,
     required bool isRulesShown,
+    required List<DropdownMenuItem<String>>? dropdown,
   }) : this._(
           league: league,
           gameNumbers: gameNumbers,
+          dropdown: dropdown,
           estTimeZone: estTimeZone,
           status: SportsbookStatus.opened,
           isRulesShown: isRulesShown,
@@ -50,16 +51,36 @@ class SportsbookState extends Equatable {
   final Map<String, String> gameNumbers;
   final DateTime? estTimeZone;
   final bool isRulesShown;
+  final List<DropdownMenuItem<String>>? dropdown;
   final SportsbookStatus status;
 
-  @override
-  List<Object?> get props {
-    return [
-      league,
-      gameNumbers,
-      estTimeZone,
-      status,
-      isRulesShown,
-    ];
+  // @override
+  // List<Object?> get props {
+  //   return [
+  //     league,
+  //     gameNumbers,
+  //     estTimeZone,
+  //     status,
+  //     isRulesShown,
+  //     dropdownList,
+  //   ];
+  // }
+
+  SportsbookState copyWith({
+    String? league,
+    Map<String, String>? gameNumbers,
+    DateTime? estTimeZone,
+    bool? isRulesShown,
+    List<DropdownMenuItem<String>>? dropdown,
+    SportsbookStatus? status,
+  }) {
+    return SportsbookState._(
+      dropdown: dropdown ?? this.dropdown,
+      league: league ?? this.league,
+      gameNumbers: gameNumbers ?? this.gameNumbers,
+      estTimeZone: estTimeZone ?? this.estTimeZone,
+      isRulesShown: isRulesShown ?? this.isRulesShown,
+      status: status ?? this.status,
+    );
   }
 }

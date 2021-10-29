@@ -27,7 +27,7 @@ class MobileBetSlipPage extends StatelessWidget {
             indicatorSize: TabBarIndicatorSize.label,
             tabs: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10),
                 child: Center(
                   child: Text(
                     'SINGLE',
@@ -38,7 +38,7 @@ class MobileBetSlipPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10),
                 child: Center(
                   child: Text(
                     'PARLAY',
@@ -79,11 +79,10 @@ class SingleBetSlip extends StatelessWidget {
               case BetSlipStatus.opened:
                 return Column(
                   children: [
-                    state.singleBetSlipCard!.isEmpty
-                        ? isBetPlaced
-                            ? RewardedBetSlip.route()
-                            : EmptyBetSlip()
-                        : SingleBetSlipList(),
+                    if (state.singleBetSlipCard!.isEmpty)
+                      isBetPlaced ? RewardedBetSlip.route() : EmptyBetSlip()
+                    else
+                      SingleBetSlipList(),
                     const BottomBar()
                   ],
                 );
@@ -122,14 +121,15 @@ class ParlayBetSlip extends StatelessWidget {
                             : EmptyBetSlip()
                         : Column(
                             children: [
-                              state.parlayBetSlipCard!.length < 2
-                                  ? const ParlayBetSlipWarning(isMinimum: true)
-                                  : state.parlayBetSlipCard!.length > 6
-                                      ? const ParlayBetSlipWarning(
-                                          isMinimum: false)
-                                      : ParlayBetSlipButton.route(
-                                          betDataList: parlayBetList,
-                                        ),
+                              if (state.parlayBetSlipCard!.length < 2)
+                                const ParlayBetSlipWarning(isMinimum: true)
+                              else
+                                state.parlayBetSlipCard!.length > 6
+                                    ? const ParlayBetSlipWarning(
+                                        isMinimum: false)
+                                    : ParlayBetSlipButton.route(
+                                        betDataList: parlayBetList,
+                                      ),
                               const ParlayBetSlipList(),
                             ],
                           ),

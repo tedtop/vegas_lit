@@ -48,7 +48,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 4),
                 child: InkWell(
                   onTap: () {
                     context.read<NflBetButtonCubit>().unclickBetButton();
@@ -167,7 +167,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
                                 height: 35,
                                 width: 100,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.all(5),
                                   child: Center(
                                     child: Text(
                                       'wager ${betButtonState.betAmount}',
@@ -181,7 +181,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
                             SizedBox(
                               width: 80,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(6),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -309,7 +309,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
   }) : super(key: key);
@@ -486,7 +486,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [

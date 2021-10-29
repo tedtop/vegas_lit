@@ -34,7 +34,7 @@ class _DesktopOpenBetsHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             'OPEN BETS',
             style: Styles.pageTitle,
@@ -52,7 +52,7 @@ class _DesktopOpenBetsDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
+        horizontal: 10,
         vertical: 4,
       ),
       child: RichText(

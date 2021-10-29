@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -70,7 +68,7 @@ class BottomBar extends StatelessWidget {
                                 },
                               ),
                               const SizedBox(width: 20),
-                              BottomBarColumn(
+                              const BottomBarColumn(
                                 heading: 'SOCIAL',
                                 content: {
                                   'Twitter': _launchTwitter,
@@ -82,37 +80,41 @@ class BottomBar extends StatelessWidget {
                             ],
                           ),
                         ),
-                        sizeInfo.isDesktop
-                            ? const SizedBox(
-                                width: 60,
-                              )
-                            : const SizedBox(),
-                        sizeInfo.isDesktop
-                            ? Container(
-                                color: Palette.cream,
-                                width: 2,
-                                height: 150,
-                              )
-                            : const SizedBox(),
-                        sizeInfo.isDesktop
-                            ? const SizedBox(
-                                width: 30,
-                              )
-                            : const SizedBox(),
+                        if (sizeInfo.isDesktop)
+                          const SizedBox(
+                            width: 60,
+                          )
+                        else
+                          const SizedBox(),
+                        if (sizeInfo.isDesktop)
+                          Container(
+                            color: Palette.cream,
+                            width: 2,
+                            height: 150,
+                          )
+                        else
+                          const SizedBox(),
+                        if (sizeInfo.isDesktop)
+                          const SizedBox(
+                            width: 30,
+                          )
+                        else
+                          const SizedBox(),
                         Column(
                           crossAxisAlignment: sizeInfo.isDesktop
                               ? CrossAxisAlignment.start
                               : CrossAxisAlignment.center,
                           children: [
-                            sizeInfo.isDesktop
-                                ? const SizedBox()
-                                : const Divider(
-                                    color: Palette.cream,
-                                  ),
+                            if (sizeInfo.isDesktop)
+                              const SizedBox()
+                            else
+                              const Divider(
+                                color: Palette.cream,
+                              ),
                             const SizedBox(
                               height: 20,
                             ),
-                            InfoText(
+                            const InfoText(
                               type: 'Email',
                               text: 'support@vegaslit.com',
                             ),
@@ -207,7 +209,7 @@ class InfoText extends StatelessWidget {
 }
 
 const _termsAndConditionsUrl = 'https://vegaslit.web.app/terms.html';
-void _launchTermsAndConditions() async =>
+Future<void> _launchTermsAndConditions() async =>
     await canLaunch(_termsAndConditionsUrl)
         ? await launch(_termsAndConditionsUrl)
         : throw TermsAndConditionsUrlFailure();

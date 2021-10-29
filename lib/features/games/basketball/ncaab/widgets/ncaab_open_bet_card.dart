@@ -8,8 +8,7 @@ import '../../../../../data/models/ncaab/ncaab_bet.dart';
 class NcaabOpenBetCard extends StatelessWidget {
   const NcaabOpenBetCard(
       {Key? key, required this.openBets, this.isParlayLeg = false})
-      : assert(openBets != null),
-        super(key: key);
+      : super(key: key);
 
   final NcaabBetData openBets;
   final bool isParlayLeg;

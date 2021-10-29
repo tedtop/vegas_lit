@@ -108,7 +108,7 @@ AppBar desktopAppBar({int? balanceAmount, int? pageIndex}) {
 }
 
 class DesktopAppBarItem extends StatefulWidget {
-  DesktopAppBarItem({
+  const DesktopAppBarItem({
     Key? key,
     required this.title,
     required this.index,

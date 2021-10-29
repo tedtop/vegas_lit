@@ -31,7 +31,7 @@ class NhlParlayBetSlipCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 4),
                 child: InkWell(
                   onTap: () {
                     context.read<NhlBetButtonCubit>().unclickBetButton();

@@ -23,8 +23,8 @@ class BannerAdCard extends StatelessWidget {
           return Align(
             alignment: Alignment.topCenter,
             child: SizedBox(
-              width: state.bannerAd!.size.width.toDouble() as double,
-              height: state.bannerAd!.size.height.toDouble() as double,
+              width: state.bannerAd!.size.width.toDouble(),
+              height: state.bannerAd!.size.height.toDouble(),
               child: AdWidget(ad: state.bannerAd!),
             ),
           );

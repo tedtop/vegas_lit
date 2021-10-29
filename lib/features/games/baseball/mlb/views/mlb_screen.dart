@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
 
 import '../../../../../config/palette.dart';
 import '../../../../../data/repositories/sports_repository.dart';
@@ -31,7 +30,17 @@ class MlbScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MlbCubit, MlbState>(
+    return BlocConsumer<MlbCubit, MlbState>(
+      listener: (context, state) {
+        if (state.status == MlbStatus.opened) {
+          if (state.games!.length is int) {
+            context.read<SportsbookCubit>().updateLeagueLength(
+                  league: state.league,
+                  length: state.games!.length,
+                );
+          }
+        }
+      },
       builder: (context, state) {
         switch (state.status) {
           case MlbStatus.initial:
@@ -43,7 +52,7 @@ class MlbScreen extends StatelessWidget {
                 ),
               ),
             );
-          default:
+          case MlbStatus.opened:
             if (state.games!.isEmpty) {
               return Column(
                 children: [

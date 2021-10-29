@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -181,8 +179,7 @@ class MatchupCard extends StatelessWidget {
                                             league: whichGame(
                                               gameName: state.league,
                                             ),
-                                            spread: gameData.overUnder!
-                                                .toDouble() as double,
+                                            spread: gameData.overUnder!,
                                             mainOdds:
                                                 gameData.overPayout.toString(),
                                             betType: Bet.tot,
@@ -316,8 +313,7 @@ class MatchupCard extends StatelessWidget {
                                             mainOdds:
                                                 gameData.underPayout.toString(),
                                             betType: Bet.tot,
-                                            spread: gameData.overUnder!
-                                                .toDouble() as double,
+                                            spread: gameData.overUnder!,
                                             awayTeamData: state.awayTeamData,
                                             homeTeamData: state.homeTeamData,
                                             game: state.game,
