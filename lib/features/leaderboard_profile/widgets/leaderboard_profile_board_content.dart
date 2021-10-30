@@ -34,8 +34,9 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
                   children: [
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Rank',
-                      rightText:
-                          '${userWallet.rank == 0 ? 'N/A' : userWallet.rank!.ordinalNumber}',
+                      rightText: userWallet.rank == 0
+                          ? 'N/A'
+                          : userWallet.rank!.ordinalNumber,
                     ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Won',
@@ -47,7 +48,8 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
                     ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Open',
-                      rightText: '${userWallet.totalOpenBets}',
+                      rightText:
+                          '${userWallet.totalOpenBets! < 0 ? 0 : userWallet.totalOpenBets}',
                     ),
                     LeaderboardProfileHistoryBoardText(
                       leftText: 'Cancelled',

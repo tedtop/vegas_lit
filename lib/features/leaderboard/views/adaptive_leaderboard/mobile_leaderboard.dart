@@ -281,7 +281,7 @@ class MobileLeaderboardTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets}/${player.totalBets}/${player.totalBets! - (player.totalBetsWon! + player.totalBetsLost! + player.totalOpenBets!)}',
+                'W/L/O/T/C: ${player.totalBetsWon}/${player.totalBetsLost}/${player.totalOpenBets! < 0 ? 0 : player.totalOpenBets}/${player.totalBets}/${player.totalBets! - (player.totalBetsWon! + player.totalBetsLost! + player.totalOpenBets!)}',
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   color: Palette.cream,

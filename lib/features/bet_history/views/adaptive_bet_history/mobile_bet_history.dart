@@ -30,7 +30,7 @@ import '../../widgets/bet_history_board_content.dart';
 class MobileBetHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final HistoryState state = context.watch<HistoryCubit>().state;
+    final state = context.watch<HistoryCubit>().state;
 
     switch (state.status) {
       case HistoryStatus.loading:
@@ -80,12 +80,12 @@ class MobileBetHistory extends StatelessWidget {
         );
       default:
         return Column(
-          children: [
-            const _MobileHistoryHeading(),
-            const _MobileHistoryDropdown(),
-            const _MobileHistoryBoard(),
-            const _MobileHistoryContent(),
-            const BottomBar()
+          children: const [
+            _MobileHistoryHeading(),
+            _MobileHistoryDropdown(),
+            _MobileHistoryBoard(),
+            _MobileHistoryContent(),
+            BottomBar()
           ],
         );
     }
@@ -99,7 +99,7 @@ class _MobileHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final HistoryState state = context.watch<HistoryCubit>().state;
+        final state = context.watch<HistoryCubit>().state;
         switch (state.status) {
           case HistoryStatus.initial:
             return const SizedBox();

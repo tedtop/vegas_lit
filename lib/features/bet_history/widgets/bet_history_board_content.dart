@@ -21,7 +21,7 @@ class BetHistoryBoardContent extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         color: Palette.lightGrey,
-        margin: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10),
         child: Column(
           children: [
             Container(
@@ -42,7 +42,7 @@ class BetHistoryBoardContent extends StatelessWidget {
                   width: 165,
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 4.0, bottom: 6.0, left: 8.0, right: 2.0),
+                        top: 4, bottom: 6, left: 8, right: 2),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 15,
@@ -60,7 +60,8 @@ class BetHistoryBoardContent extends StatelessWidget {
                           ),
                           BetHistoryBoardText(
                             leftText: 'Open',
-                            rightText: '${userWallet.totalOpenBets}',
+                            rightText:
+                                '${userWallet.totalOpenBets! < 0 ? 0 : userWallet.totalOpenBets}',
                           ),
                           BetHistoryBoardText(
                             leftText: 'Cancelled',
@@ -79,7 +80,7 @@ class BetHistoryBoardContent extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 4.0, bottom: 6.0, left: 2.0, right: 8.0),
+                        top: 4, bottom: 6, left: 2, right: 8),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 15,
