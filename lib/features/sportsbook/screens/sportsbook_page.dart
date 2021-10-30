@@ -22,11 +22,21 @@ import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
 import '../../home/cubit/home_cubit.dart';
 
-class Sportsbook extends StatelessWidget {
+class Sportsbook extends StatefulWidget {
   const Sportsbook({Key? key}) : super(key: key);
 
   @override
+  State<Sportsbook> createState() => _SportsbookState();
+}
+
+class _SportsbookState extends State<Sportsbook>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<SportsbookCubit, SportsbookState>(
       listener: (context, state) {
         if (state.status == SportsbookStatus.initial) {

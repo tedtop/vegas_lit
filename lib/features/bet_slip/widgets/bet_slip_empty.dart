@@ -73,7 +73,7 @@ class ParlayBetSlipWarning extends StatelessWidget {
                       textAlign: TextAlign.center,
                     )
                   : Text(
-                      'You can create a parlay between 2 and 6 picks',
+                      'You can create a parlay between 2 and 10 picks',
                       style: Styles.normalTextBold,
                       textAlign: TextAlign.center,
                     ),
@@ -92,7 +92,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 
