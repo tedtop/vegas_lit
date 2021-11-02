@@ -44,7 +44,7 @@ class AdminVaultScreen extends StatelessWidget {
               );
 
             case AdminVaultStatus.success:
-              return Column(
+              return ListView(
                 children: [
                   Center(
                     child: Text(
@@ -56,6 +56,8 @@ class AdminVaultScreen extends StatelessWidget {
                     vaultItem: state.cumulativeData,
                   ),
                   ListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
                     key: Key('${state.dailyData.length}'),
                     itemCount: state.dailyData.length,
                     itemBuilder: (context, index) {

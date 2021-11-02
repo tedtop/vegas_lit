@@ -1,9 +1,6 @@
-
-
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import '../../../data/models/vault_data.dart';
 import '../../../data/repositories/user_repository.dart';
 
@@ -11,8 +8,7 @@ part 'admin_vault_state.dart';
 
 class AdminVaultCubit extends Cubit<AdminVaultState> {
   AdminVaultCubit({required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
+      : _userRepository = userRepository,
         super(const AdminVaultState());
 
   final UserRepository _userRepository;
@@ -30,9 +26,9 @@ class AdminVaultCubit extends Cubit<AdminVaultState> {
         final reversedList = dailyData.reversed.toList();
         emit(
           AdminVaultState(
+            status: AdminVaultStatus.success,
             cumulativeData: cumulativeData,
             dailyData: reversedList,
-            status: AdminVaultStatus.initial,
           ),
         );
       },
