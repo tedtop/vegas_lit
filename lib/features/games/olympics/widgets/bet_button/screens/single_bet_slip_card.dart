@@ -235,10 +235,7 @@ class OlympicsSingleBetSlipCard extends StatelessWidget {
                                               MaterialTapTargetSize.shrinkWrap),
                                       child: Text(
                                         'PLACE BET',
-                                        style: GoogleFonts.nunito(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        style: Styles.betSlipButtonText,
                                       ),
                                       onPressed: () async {
                                         await context
