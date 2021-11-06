@@ -11,8 +11,13 @@ import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
 
 class DesktopLeaderboard extends StatefulWidget {
-  const DesktopLeaderboard({this.players});
+  const DesktopLeaderboard({
+    Key? key,
+    this.players,
+  }) : super(key: key);
+
   final List<Wallet>? players;
+
   @override
   _DesktopLeaderboardState createState() => _DesktopLeaderboardState();
 }

@@ -145,7 +145,6 @@ class _MobileOpenBetsContentList extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
       itemCount: bets.length,
-      // ignore: missing_return
       itemBuilder: (context, index) {
         final bet = bets[index];
         if (bet is MlbBetData) {
