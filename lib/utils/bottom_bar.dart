@@ -70,7 +70,7 @@ class BottomBar extends StatelessWidget {
                               const SizedBox(width: 20),
                               const BottomBarColumn(
                                 heading: 'SOCIAL',
-                                content: const {
+                                content: {
                                   'Twitter': _launchTwitter,
                                   'Facebook': _launchFacebook,
                                   'Instagram': _launchInstagram,

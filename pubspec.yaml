@@ -15,6 +15,7 @@ dependencies:
   cloud_firestore_web: ^2.4.3
   connectivity: ^3.0.6
   country_picker: ^2.0.8
+  device_preview: ^1.0.0-alpha.10
   dio: ^4.0.0
   equatable: ^2.0.3
   firebase_analytics: ^8.3.3

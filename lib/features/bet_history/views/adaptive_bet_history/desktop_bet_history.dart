@@ -297,7 +297,7 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                width: tableHeadingsWithWidth[entry]!.toDouble() as double,
+                width: tableHeadingsWithWidth[entry]!.toDouble(),
                 child: Text(entry, style: Styles.betHistoryDesktopField),
               ),
             )

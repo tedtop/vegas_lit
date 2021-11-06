@@ -13,7 +13,6 @@ import '../../../config/palette.dart';
 import '../../../config/routes.dart';
 import '../../../data/repositories/bets_repository.dart';
 import '../../../data/repositories/device_repository.dart';
-import '../../../data/repositories/sports_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../utils/app_bar.dart';
 import '../../../utils/route_aware_analytics.dart';
@@ -117,7 +116,7 @@ class _HomePageState extends State<HomePage>
   final newVersion = NewVersion();
 
   final PageController _pageController = PageController();
-  var selectedIndex = 0;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +208,7 @@ class _HomePageState extends State<HomePage>
                         physics: const NeverScrollableScrollPhysics(),
                         controller: _pageController,
                         children: [
-                          Sportsbook(),
+                          const Sportsbook(),
                           BetSlip(),
                           Leaderboard.route(),
                           OpenBets.route(uid: widget.currentUserId),
@@ -221,6 +220,8 @@ class _HomePageState extends State<HomePage>
                 );
               },
             ),
+            bottomNavigationBar:
+                !kIsWeb ? BottomNavigation() : const SizedBox.shrink(),
           ),
           const HelpOverlayView()
         ],

@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,13 +39,18 @@ Future<void> main() async {
       watch: 80,
     ),
   );
+  final deviceRepository = await DeviceRepository.create();
   runApp(
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => // Wrap your app
     App(
       userRepository: UserRepository(),
       sportsRepository: SportsRepository(),
       betsRepository: BetsRepository(),
       groupsRepository: GroupsRepository(),
-      deviceRepository: await DeviceRepository.create(),
+      deviceRepository: deviceRepository,
     ),
+    // ),
   );
 }

@@ -91,6 +91,11 @@ class _AppViewState extends State<AppView> {
       ),
       child: OverlaySupport(
         child: MaterialApp(
+          // Device Preview Configs
+          // useInheritedMediaQuery: true,
+          // locale: DevicePreview.locale(context),
+          // builder: DevicePreview.appBuilder,
+
           navigatorKey: _navigatorKey,
           title: 'Vegas Lit',
           theme: Themes.dark,
