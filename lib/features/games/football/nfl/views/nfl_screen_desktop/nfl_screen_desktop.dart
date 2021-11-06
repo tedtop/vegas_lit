@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/nfl/nfl_game.dart';
 import '../../../../../bet_slip/bet_slip.dart';
+import '../../models/nfl_team.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNflScreen extends StatelessWidget {

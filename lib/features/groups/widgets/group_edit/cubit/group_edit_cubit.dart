@@ -1,14 +1,12 @@
-
-
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
+
+import '../../../../../data/models/group.dart';
+import '../../../../../data/repositories/groups_repository.dart';
+import '../../../../../data/repositories/storage_repository.dart';
 
 part 'group_edit_state.dart';
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/features/sportsbook/widgets/banner_ad_card/cubit/banner_ad_cubit.dart';
+
+import '../../../../config/palette.dart';
+import 'cubit/banner_ad_cubit.dart';
 
 class BannerAdCard extends StatelessWidget {
   const BannerAdCard._({Key? key}) : super(key: key);

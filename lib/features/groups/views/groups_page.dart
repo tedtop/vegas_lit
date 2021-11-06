@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
-import 'package:vegas_lit/features/groups/widgets/group_details/group_details.dart';
-import 'package:vegas_lit/features/groups/widgets/group_scanner/cubit/group_scanner_cubit.dart';
-import 'package:vegas_lit/features/groups/widgets/group_scanner/group_scanner.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
+import '../../../data/repositories/groups_repository.dart';
+import '../../../data/repositories/storage_repository.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../widgets/group_add/group_add.dart';
+import '../widgets/group_details/group_details.dart';
 import '../widgets/group_requests/group_requests_page.dart';
+import '../widgets/group_scanner/cubit/group_scanner_cubit.dart';
+import '../widgets/group_scanner/group_scanner.dart';
 import '../widgets/private_groups/private_groups_page.dart';
 import '../widgets/public_groups/public_groups_page.dart';
 

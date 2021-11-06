@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
+
+import '../../../../../data/repositories/groups_repository.dart';
 
 part 'group_scanner_state.dart';
 

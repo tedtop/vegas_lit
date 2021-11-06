@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/group.dart';
+import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import 'cubit/group_edit_cubit.dart';
 
 class GroupEdit extends StatefulWidget {

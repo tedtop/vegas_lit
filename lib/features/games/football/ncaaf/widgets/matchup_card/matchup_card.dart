@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +5,13 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
+import '../../models/ncaaf_team.dart';
 import '../../views/team_info/team_info.dart';
 import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';

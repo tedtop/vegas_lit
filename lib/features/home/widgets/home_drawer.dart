@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/features/groups/views/groups_page.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -11,6 +10,7 @@ import '../../../config/styles.dart';
 import '../../admin_vault/admin_vault_page.dart';
 import '../../authentication/authentication.dart';
 import '../../drawer_pages/rules.dart';
+import '../../groups/views/groups_page.dart';
 import '../../profile/cubit/profile_cubit.dart';
 import '../../profile/views/profile_page.dart';
 import '../cubit/home_cubit.dart';
@@ -65,39 +65,44 @@ class _HomeDrawerState extends State<HomeDrawer> {
               );
             },
           ),
-          if (kIsWeb) Column(
-                  children: [
-                    ListTile(
-                      title: Text('SPORTSBOOK', style: Styles.normalTextBold),
-                      onTap: () {
-                        context.read<HomeCubit>().homeChange(0);
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    if (width > 1000) const SizedBox() else ListTile(
-                            title:
-                                Text('BET SLIP', style: Styles.normalTextBold),
-                            onTap: () {
-                              context.read<HomeCubit>().homeChange(1);
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                    ListTile(
-                      title: Text('OPEN BETS', style: Styles.normalTextBold),
-                      onTap: () {
-                        context.read<HomeCubit>().homeChange(3);
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
-                      title: Text('HISTORY', style: Styles.normalTextBold),
-                      onTap: () {
-                        context.read<HomeCubit>().homeChange(4);
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ) else const SizedBox(),
+          if (kIsWeb)
+            Column(
+              children: [
+                ListTile(
+                  title: Text('SPORTSBOOK', style: Styles.normalTextBold),
+                  onTap: () {
+                    context.read<HomeCubit>().homeChange(0);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                if (width > 1000)
+                  const SizedBox()
+                else
+                  ListTile(
+                    title: Text('BET SLIP', style: Styles.normalTextBold),
+                    onTap: () {
+                      context.read<HomeCubit>().homeChange(1);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ListTile(
+                  title: Text('OPEN BETS', style: Styles.normalTextBold),
+                  onTap: () {
+                    context.read<HomeCubit>().homeChange(3);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text('HISTORY', style: Styles.normalTextBold),
+                  onTap: () {
+                    context.read<HomeCubit>().homeChange(4);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            )
+          else
+            const SizedBox(),
           ListTile(
             leading: Text('GROUPS', style: Styles.normalTextBold),
             onTap: () {
@@ -116,12 +121,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
               Navigator.of(context).pop();
             },
           ),
-          if (isAdmin) ListTile(
-                  title: Text('ADMIN VAULT', style: Styles.normalTextBold),
-                  onTap: () {
-                    Navigator.of(context).push<void>(AdminVaultScreen.route());
-                  },
-                ) else Container(),
+          if (isAdmin)
+            ListTile(
+              title: Text('ADMIN VAULT', style: Styles.normalTextBold),
+              onTap: () {
+                Navigator.of(context).push<void>(AdminVaultScreen.route());
+              },
+            )
+          else
+            Container(),
           // isAdmin
           //     ? ListTile(
           //         title: Text('OLYMPICS', style: Styles.normalTextBold),

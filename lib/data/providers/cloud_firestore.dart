@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
-import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
-
 import '../../config/extensions.dart';
 import '../models/bet.dart';
 import '../models/group.dart';
@@ -16,6 +12,9 @@ import '../models/nfl/nfl_bet.dart';
 import '../models/nhl/nhl_bet.dart';
 import '../models/olympics/olympic_bet.dart';
 import '../models/olympics/olympics.dart';
+import '../models/paralympics/paralympics.dart';
+import '../models/paralympics/paralympics_bet.dart';
+import '../models/parlay/parlay_bet.dart';
 import '../models/user.dart';
 import '../models/vault_data.dart';
 import '../models/wallet.dart';

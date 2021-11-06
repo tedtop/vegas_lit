@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:vegas_lit/config/enum.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
-import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
-import 'package:vegas_lit/features/home/home.dart';
 
+import '../../../../config/enum.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/bet.dart';
+import '../../../authentication/bloc/authentication_bloc.dart';
+import '../../../home/cubit/version_cubit.dart';
+import '../../../home/home.dart';
 import '../../bet_slip.dart';
+import 'cubit/parlay_bet_button_cubit.dart';
 
 class ParlayBetSlipButton extends StatelessWidget {
-  const ParlayBetSlipButton._({Key? key, required this.betList}) : super(key: key);
+  const ParlayBetSlipButton._({Key? key, required this.betList})
+      : super(key: key);
 
   static Builder route({
     required List<BetData>? betDataList,
@@ -81,12 +82,11 @@ class ParlayBetSlipButton extends StatelessWidget {
                       ),
                     );
 
-                  context.read<BetSlipCubit>()
-                    .openBetSlip(
-                      singleBetSlipGames: [],
-                      parlayBetSlipGames: [],
-                      betDataList: [],
-                    );
+                  context.read<BetSlipCubit>().openBetSlip(
+                    singleBetSlipGames: [],
+                    parlayBetSlipGames: [],
+                    betDataList: [],
+                  );
                   break;
                 default:
               }

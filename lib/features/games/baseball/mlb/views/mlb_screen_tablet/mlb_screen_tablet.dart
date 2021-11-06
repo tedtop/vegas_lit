@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
+
 import '../../../../../../data/models/mlb/mlb_game.dart';
+import '../../models/mlb_team.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class TabletMlbScreen extends StatelessWidget {

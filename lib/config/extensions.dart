@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/config/palette.dart';
+
+import 'palette.dart';
 
 extension ESTDateTime on DateTime {
   static DateTime fetchTimeEST() {

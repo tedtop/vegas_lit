@@ -5,14 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/features/authentication/authentication.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/games/olympics/widgets/bet_button/cubit/olympics_bet_button_cubit.dart';
-import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
-import 'package:vegas_lit/features/home/home.dart';
+
+import '../../../../../../config/assets.dart';
+import '../../../../../../config/palette.dart';
+import '../../../../../../config/styles.dart';
+import '../../../../../authentication/authentication.dart';
+import '../../../../../bet_slip/bet_slip.dart';
+import '../../../../../home/cubit/version_cubit.dart';
+import '../../../../../home/home.dart';
+import '../cubit/olympics_bet_button_cubit.dart';
 
 class OlympicsParlayBetSlipCard extends StatelessWidget {
   OlympicsParlayBetSlipCard({Key? key}) : super(key: key);

@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -19,6 +18,7 @@ import '../../../utils/route_aware_analytics.dart';
 import '../../bet_history/cubit/history_cubit.dart';
 import '../../bet_history/views/bet_history_page.dart';
 import '../../bet_slip/bet_slip.dart';
+import '../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import '../../leaderboard/leaderboard.dart';
 import '../../open_bets/cubit/open_bets_cubit.dart';
 import '../../open_bets/views/open_bets_page.dart';

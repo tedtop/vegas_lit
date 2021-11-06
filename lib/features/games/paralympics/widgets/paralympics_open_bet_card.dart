@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
 
 import '../../../../config/assets.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/paralympics/paralympics_bet.dart';
 
 class ParalympicsOpenBetCard extends StatelessWidget {
   const ParalympicsOpenBetCard({
@@ -91,9 +91,7 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                   Expanded(
                     child: Card(
                       margin: EdgeInsets.zero,
-                      shape: const RoundedRectangleBorder(
-                        
-                      ),
+                      shape: const RoundedRectangleBorder(),
                       color: Palette.darkGrey,
                       child: Container(
                         padding: const EdgeInsets.only(
@@ -109,52 +107,58 @@ class ParalympicsOpenBetCard extends StatelessWidget {
                               children: [
                                 Column(
                                   children: [
-                                    if (isPlayerWin) Text(
-                                            countryFlagFromCode(
-                                                countryCode:
-                                                    openBets.playerCountry!),
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 20,
-                                              color: Palette.cream,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                          ) else Text(
-                                            countryFlagFromCode(
-                                                countryCode:
-                                                    openBets.rivalCountry!),
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 20,
-                                              color: Palette.green,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                    if (isPlayerWin) Text(
-                                            countryFlagFromCode(
-                                                countryCode:
-                                                    openBets.rivalCountry!),
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 20,
-                                              color: Palette.green,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                          ) else Text(
-                                            countryFlagFromCode(
-                                                countryCode:
-                                                    openBets.playerCountry!),
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 20,
-                                              color: Palette.cream,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                          ),
+                                    if (isPlayerWin)
+                                      Text(
+                                        countryFlagFromCode(
+                                            countryCode:
+                                                openBets.playerCountry!),
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 20,
+                                          color: Palette.cream,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 1,
+                                        textAlign: TextAlign.center,
+                                      )
+                                    else
+                                      Text(
+                                        countryFlagFromCode(
+                                            countryCode:
+                                                openBets.rivalCountry!),
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 20,
+                                          color: Palette.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 1,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    if (isPlayerWin)
+                                      Text(
+                                        countryFlagFromCode(
+                                            countryCode:
+                                                openBets.rivalCountry!),
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 20,
+                                          color: Palette.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 1,
+                                        textAlign: TextAlign.center,
+                                      )
+                                    else
+                                      Text(
+                                        countryFlagFromCode(
+                                            countryCode:
+                                                openBets.playerCountry!),
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 20,
+                                          color: Palette.cream,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 1,
+                                        textAlign: TextAlign.center,
+                                      ),
                                   ],
                                 ),
                                 const SizedBox(width: 8),

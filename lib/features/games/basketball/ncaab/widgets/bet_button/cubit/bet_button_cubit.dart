@@ -3,11 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_button/screens/parlay_bet_slip_card.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/bet_button/screens/single_bet_slip_card.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/extensions.dart';
@@ -15,7 +11,10 @@ import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/ncaab/ncaab_bet.dart';
 import '../../../../../../../data/models/ncaab/ncaab_game.dart';
 import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../bet_slip/bet_slip.dart';
 import '../../../models/ncaab_team.dart';
+import '../screens/parlay_bet_slip_card.dart';
+import '../screens/single_bet_slip_card.dart';
 
 part 'bet_button_state.dart';
 

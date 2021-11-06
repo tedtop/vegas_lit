@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
-import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
-import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
-import 'package:vegas_lit/features/bet_history/widgets/parlay_bet_history_card.dart';
-import 'package:vegas_lit/features/games/paralympics/widgets/paralympics_bet_history_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/mlb/mlb_bet.dart';
+import '../../../../data/models/nba/nba_bet.dart';
+import '../../../../data/models/ncaab/ncaab_bet.dart';
+import '../../../../data/models/ncaaf/ncaaf_bet.dart';
+import '../../../../data/models/nfl/nfl_bet.dart';
+import '../../../../data/models/nhl/nhl_bet.dart';
+import '../../../../data/models/olympics/olympic_bet.dart';
+import '../../../../data/models/paralympics/paralympics_bet.dart';
+import '../../../../data/models/parlay/parlay_bet.dart';
 import '../../../../utils/bottom_bar.dart';
 import '../../../games/baseball/mlb/widgets/mlb_bet_history_card.dart';
 import '../../../games/basketball/nba/widgets/nba_bet_history_card.dart';
@@ -24,8 +22,10 @@ import '../../../games/football/ncaaf/widgets/ncaaf_bet_history_card.dart';
 import '../../../games/football/nfl/widgets/nfl_bet_history_card.dart';
 import '../../../games/hockey/nhl/widgets/nhl_bet_history_card.dart';
 import '../../../games/olympics/widgets/olympic_bet_history_card.dart';
+import '../../../games/paralympics/widgets/paralympics_bet_history_card.dart';
 import '../../cubit/history_cubit.dart';
 import '../../widgets/bet_history_board_content.dart';
+import '../../widgets/parlay_bet_history_card.dart';
 
 class MobileBetHistory extends StatelessWidget {
   @override

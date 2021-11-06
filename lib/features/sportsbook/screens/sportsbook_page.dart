@@ -5,9 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/features/games/olympics/olympics.dart';
-import 'package:vegas_lit/features/games/paralympics/paralympics.dart';
-import 'package:vegas_lit/features/sportsbook/cubit/sportsbook_cubit.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
@@ -20,7 +17,10 @@ import '../../games/football/ncaaf/views/ncaaf_screen.dart';
 import '../../games/football/nfl/views/nfl_screen.dart';
 import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
+import '../../games/olympics/olympics.dart';
+import '../../games/paralympics/paralympics.dart';
 import '../../home/cubit/home_cubit.dart';
+import '../cubit/sportsbook_cubit.dart';
 
 class Sportsbook extends StatefulWidget {
   const Sportsbook({Key? key}) : super(key: key);

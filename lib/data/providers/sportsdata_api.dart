@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/nba/nba_game.dart';
 
 import '../../config/api.dart';
 import '../models/golf/golf.dart';
@@ -10,6 +9,7 @@ import '../models/mlb/mlb_game.dart';
 import '../models/mlb/mlb_player.dart';
 import '../models/mlb/mlb_player_stats.dart';
 import '../models/mlb/mlb_team_stats.dart';
+import '../models/nba/nba_game.dart';
 import '../models/nba/nba_player.dart';
 import '../models/nba/nba_player_stats.dart';
 import '../models/nba/nba_team_stats.dart';

@@ -3,13 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
 
 import '../../../../../../config/extensions.dart';
 import '../../../../../../data/models/bet.dart';
+import '../../../../../../data/models/paralympics/paralympics.dart';
+import '../../../../../../data/models/paralympics/paralympics_bet.dart';
 import '../../../../../../data/repositories/bets_repository.dart';
 
 part 'paralympics_bet_button_state.dart';

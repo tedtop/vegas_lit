@@ -1,21 +1,20 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
-import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
-import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
-import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import '../../../data/models/mlb/mlb_bet.dart';
+import '../../../data/models/nba/nba_bet.dart';
+import '../../../data/models/ncaab/ncaab_bet.dart';
+import '../../../data/models/ncaaf/ncaaf_bet.dart';
+import '../../../data/models/nfl/nfl_bet.dart';
+import '../../../data/models/nhl/nhl_bet.dart';
+import '../../../data/models/parlay/parlay_bet.dart';
+import '../../games/baseball/mlb/widgets/mlb_open_bet_card.dart';
+import '../../games/basketball/nba/widgets/nba_open_bet_card.dart';
+import '../../games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
+import '../../games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
+import '../../games/football/nfl/widgets/nfl_open_bet_card.dart';
+import '../../games/hockey/nhl/widgets/nhl_open_bet_card.dart';
 
 class ParlayOpenBetCard extends StatelessWidget {
   const ParlayOpenBetCard({Key? key, required this.openBets}) : super(key: key);
@@ -47,8 +46,8 @@ class ParlayOpenBetCard extends StatelessWidget {
                 SizedBox(
                   width: 100,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

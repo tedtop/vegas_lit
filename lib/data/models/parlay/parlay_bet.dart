@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
-
 import '../bet.dart';
+import '../mlb/mlb_bet.dart';
+import '../nba/nba_bet.dart';
+import '../ncaab/ncaab_bet.dart';
+import '../ncaaf/ncaaf_bet.dart';
+import '../nfl/nfl_bet.dart';
+import '../nhl/nhl_bet.dart';
 
 class ParlayBets extends BetData {
   const ParlayBets({

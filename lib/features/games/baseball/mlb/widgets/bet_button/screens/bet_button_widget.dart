@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
-import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
@@ -10,6 +8,8 @@ import '../../../../../../../data/models/mlb/mlb_game.dart';
 import '../../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../../authentication/bloc/authentication_bloc.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
+import '../../../../../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
+import '../../../../../../home/home.dart';
 import '../../../models/mlb_team.dart';
 import '../cubit/bet_button_cubit.dart';
 
@@ -89,8 +89,7 @@ class BetButton extends StatelessWidget {
         },
         child: Builder(
           builder: (context) {
-            final betButtonState =
-                context.watch<MlbBetButtonCubit>().state;
+            final betButtonState = context.watch<MlbBetButtonCubit>().state;
             switch (betButtonState.status) {
               case MlbBetButtonStatus.unclicked:
                 return BetButtonUnclicked();
@@ -121,8 +120,7 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState =
-        context.watch<MlbBetButtonCubit>().state;
+    final betButtonState = context.watch<MlbBetButtonCubit>().state;
 
     final username = context.select(
       (HomeCubit homeBloc) => homeBloc.state.userData?.username,
@@ -168,8 +166,7 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState =
-        context.watch<MlbBetButtonCubit>().state;
+    final betButtonState = context.watch<MlbBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3),
       child: Container(

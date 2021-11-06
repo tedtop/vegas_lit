@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
-import 'package:vegas_lit/config/assets.dart';
+
+import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
 import '../../../../../data/models/nba/nba_bet.dart';

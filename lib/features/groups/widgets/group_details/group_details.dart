@@ -8,16 +8,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
-import 'package:vegas_lit/features/groups/widgets/group_edit/group_edit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/user.dart';
 import '../../../../data/models/wallet.dart';
 import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import '../../../../data/repositories/user_repository.dart';
 import '../../../authentication/authentication.dart';
+import '../group_edit/group_edit.dart';
 import 'cubit/group_details_cubit.dart';
 import 'cubit/user_search_cubit.dart';
 
@@ -59,8 +59,7 @@ class GroupDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groupDetailsState =
-        context.watch<GroupDetailsCubit>().state;
+    final groupDetailsState = context.watch<GroupDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
         actions: [

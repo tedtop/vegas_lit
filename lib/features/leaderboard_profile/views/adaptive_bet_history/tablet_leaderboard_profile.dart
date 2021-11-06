@@ -2,15 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/mlb/mlb_bet.dart';
+import '../../../../data/models/nba/nba_bet.dart';
+import '../../../../data/models/ncaab/ncaab_bet.dart';
+import '../../../../data/models/ncaaf/ncaaf_bet.dart';
+import '../../../../data/models/nfl/nfl_bet.dart';
+import '../../../../data/models/nhl/nhl_bet.dart';
 import '../../../../utils/bottom_bar.dart';
 import '../../../games/baseball/mlb/widgets/mlb_bet_history_card.dart';
 import '../../../games/basketball/nba/widgets/nba_bet_history_card.dart';
@@ -24,8 +24,7 @@ import '../../widgets/leaderboard_profile_board_content.dart';
 class TabletLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final state =
-        context.watch<LeaderboardProfileCubit>().state;
+    final state = context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
             padding: EdgeInsets.only(top: 160),
@@ -53,8 +52,7 @@ class _TabletHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final state =
-            context.watch<LeaderboardProfileCubit>().state;
+        final state = context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
             return const SizedBox();

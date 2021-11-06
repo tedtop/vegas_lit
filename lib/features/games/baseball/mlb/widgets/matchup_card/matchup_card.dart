@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +5,13 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/mlb/mlb_game.dart';
+import '../../models/mlb_team.dart';
 import '../../views/team_info/team_info.dart';
 import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
@@ -127,62 +125,65 @@ class MatchupCard extends StatelessWidget {
                                     const SizedBox(height: 5),
                                     Column(
                                       children: [
-                                        if (gameData.awayTeamMoneyLine == null) Container() else BetButton.route(
-                                                winTeam: BetButtonWin.away,
-                                                mainOdds: gameData
-                                                    .awayTeamMoneyLine
-                                                    .toString(),
-                                                spread: 0,
-                                                betType: Bet.ml,
-                                                awayTeamData:
-                                                    state.awayTeamData,
-                                                homeTeamData:
-                                                    state.homeTeamData,
-                                                text: positiveNumber(
-                                                    gameData.awayTeamMoneyLine!),
-                                                game: state.game,
-                                                league: whichGame(
-                                                  gameName: state.league,
-                                                ),
-                                              ),
-                                        if (gameData.pointSpreadAwayTeamMoneyLine ==
-                                                null) Container() else BetButton.route(
-                                                winTeam: BetButtonWin.away,
-                                                mainOdds: gameData
-                                                    .pointSpreadAwayTeamMoneyLine
-                                                    .toString(),
-                                                spread: double.parse(
-                                                    awayTeamPointSpread),
-                                                betType: Bet.pts,
-                                                league: whichGame(
-                                                  gameName: state.league,
-                                                ),
-                                                awayTeamData:
-                                                    state.awayTeamData,
-                                                homeTeamData:
-                                                    state.homeTeamData,
-                                                game: state.game,
-                                                text:
-                                                    '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine!)}',
-                                              ),
-                                        if (gameData.overPayout == null) Container() else BetButton.route(
-                                                winTeam: BetButtonWin.away,
-                                                league: whichGame(
-                                                  gameName: state.league,
-                                                ),
-                                                spread: gameData.overUnder!
-                                                    .toDouble() as double,
-                                                mainOdds: gameData.overPayout
-                                                    .toString(),
-                                                betType: Bet.tot,
-                                                awayTeamData:
-                                                    state.awayTeamData,
-                                                homeTeamData:
-                                                    state.homeTeamData,
-                                                game: state.game,
-                                                text:
-                                                    'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout!)}',
-                                              ),
+                                        if (gameData.awayTeamMoneyLine == null)
+                                          Container()
+                                        else
+                                          BetButton.route(
+                                            winTeam: BetButtonWin.away,
+                                            mainOdds: gameData.awayTeamMoneyLine
+                                                .toString(),
+                                            spread: 0,
+                                            betType: Bet.ml,
+                                            awayTeamData: state.awayTeamData,
+                                            homeTeamData: state.homeTeamData,
+                                            text: positiveNumber(
+                                                gameData.awayTeamMoneyLine!),
+                                            game: state.game,
+                                            league: whichGame(
+                                              gameName: state.league,
+                                            ),
+                                          ),
+                                        if (gameData
+                                                .pointSpreadAwayTeamMoneyLine ==
+                                            null)
+                                          Container()
+                                        else
+                                          BetButton.route(
+                                            winTeam: BetButtonWin.away,
+                                            mainOdds: gameData
+                                                .pointSpreadAwayTeamMoneyLine
+                                                .toString(),
+                                            spread: double.parse(
+                                                awayTeamPointSpread),
+                                            betType: Bet.pts,
+                                            league: whichGame(
+                                              gameName: state.league,
+                                            ),
+                                            awayTeamData: state.awayTeamData,
+                                            homeTeamData: state.homeTeamData,
+                                            game: state.game,
+                                            text:
+                                                '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine!)}',
+                                          ),
+                                        if (gameData.overPayout == null)
+                                          Container()
+                                        else
+                                          BetButton.route(
+                                            winTeam: BetButtonWin.away,
+                                            league: whichGame(
+                                              gameName: state.league,
+                                            ),
+                                            spread: gameData.overUnder!
+                                                .toDouble() as double,
+                                            mainOdds:
+                                                gameData.overPayout.toString(),
+                                            betType: Bet.tot,
+                                            awayTeamData: state.awayTeamData,
+                                            homeTeamData: state.homeTeamData,
+                                            game: state.game,
+                                            text:
+                                                'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout!)}',
+                                          ),
                                       ],
                                     ),
                                   ],
@@ -197,11 +198,21 @@ class MatchupCard extends StatelessWidget {
                                     style: Styles.matchupSeparator,
                                   ),
                                   const SizedBox(height: 16),
-                                  if (gameData.homeTeamMoneyLine == null) Container() else _betButtonSeparator(text: 'ML'),
+                                  if (gameData.homeTeamMoneyLine == null)
+                                    Container()
+                                  else
+                                    _betButtonSeparator(text: 'ML'),
                                   const SizedBox(height: 2),
-                                  if (gameData.pointSpreadHomeTeamMoneyLine == null) Container() else _betButtonSeparator(text: 'PTS'),
+                                  if (gameData.pointSpreadHomeTeamMoneyLine ==
+                                      null)
+                                    Container()
+                                  else
+                                    _betButtonSeparator(text: 'PTS'),
                                   const SizedBox(height: 1),
-                                  if (gameData.underPayout == null) Container() else _betButtonSeparator(text: 'TOT'),
+                                  if (gameData.underPayout == null)
+                                    Container()
+                                  else
+                                    _betButtonSeparator(text: 'TOT'),
                                 ],
                               ),
                               Expanded(
@@ -240,62 +251,65 @@ class MatchupCard extends StatelessWidget {
                                     const SizedBox(height: 5),
                                     Column(
                                       children: [
-                                        if (gameData.homeTeamMoneyLine == null) Container() else BetButton.route(
-                                                winTeam: BetButtonWin.home,
-                                                league: whichGame(
-                                                  gameName: state.league,
-                                                ),
-                                                mainOdds: gameData
-                                                    .homeTeamMoneyLine
-                                                    .toString(),
-                                                betType: Bet.ml,
-                                                game: state.game,
-                                                spread: 0,
-                                                awayTeamData:
-                                                    state.awayTeamData,
-                                                homeTeamData:
-                                                    state.homeTeamData,
-                                                text: positiveNumber(
-                                                    gameData.homeTeamMoneyLine!),
-                                              ),
-                                        if (gameData.pointSpreadHomeTeamMoneyLine ==
-                                                null) Container() else BetButton.route(
-                                                winTeam: BetButtonWin.home,
-                                                spread: double.parse(
-                                                    homeTeamPointSpread),
-                                                league: whichGame(
-                                                  gameName: state.league,
-                                                ),
-                                                mainOdds: gameData
-                                                    .pointSpreadHomeTeamMoneyLine
-                                                    .toString(),
-                                                betType: Bet.pts,
-                                                awayTeamData:
-                                                    state.awayTeamData,
-                                                homeTeamData:
-                                                    state.homeTeamData,
-                                                game: state.game,
-                                                text:
-                                                    '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine!)}',
-                                              ),
-                                        if (gameData.underPayout == null) Container() else BetButton.route(
-                                                winTeam: BetButtonWin.home,
-                                                league: whichGame(
-                                                  gameName: state.league,
-                                                ),
-                                                mainOdds: gameData.underPayout
-                                                    .toString(),
-                                                betType: Bet.tot,
-                                                spread: gameData.overUnder!
-                                                    .toDouble() as double,
-                                                awayTeamData:
-                                                    state.awayTeamData,
-                                                homeTeamData:
-                                                    state.homeTeamData,
-                                                game: state.game,
-                                                text:
-                                                    'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout!)}',
-                                              ),
+                                        if (gameData.homeTeamMoneyLine == null)
+                                          Container()
+                                        else
+                                          BetButton.route(
+                                            winTeam: BetButtonWin.home,
+                                            league: whichGame(
+                                              gameName: state.league,
+                                            ),
+                                            mainOdds: gameData.homeTeamMoneyLine
+                                                .toString(),
+                                            betType: Bet.ml,
+                                            game: state.game,
+                                            spread: 0,
+                                            awayTeamData: state.awayTeamData,
+                                            homeTeamData: state.homeTeamData,
+                                            text: positiveNumber(
+                                                gameData.homeTeamMoneyLine!),
+                                          ),
+                                        if (gameData
+                                                .pointSpreadHomeTeamMoneyLine ==
+                                            null)
+                                          Container()
+                                        else
+                                          BetButton.route(
+                                            winTeam: BetButtonWin.home,
+                                            spread: double.parse(
+                                                homeTeamPointSpread),
+                                            league: whichGame(
+                                              gameName: state.league,
+                                            ),
+                                            mainOdds: gameData
+                                                .pointSpreadHomeTeamMoneyLine
+                                                .toString(),
+                                            betType: Bet.pts,
+                                            awayTeamData: state.awayTeamData,
+                                            homeTeamData: state.homeTeamData,
+                                            game: state.game,
+                                            text:
+                                                '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine!)}',
+                                          ),
+                                        if (gameData.underPayout == null)
+                                          Container()
+                                        else
+                                          BetButton.route(
+                                            winTeam: BetButtonWin.home,
+                                            league: whichGame(
+                                              gameName: state.league,
+                                            ),
+                                            mainOdds:
+                                                gameData.underPayout.toString(),
+                                            betType: Bet.tot,
+                                            spread: gameData.overUnder!
+                                                .toDouble() as double,
+                                            awayTeamData: state.awayTeamData,
+                                            homeTeamData: state.homeTeamData,
+                                            game: state.game,
+                                            text:
+                                                'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout!)}',
+                                          ),
                                       ],
                                     ),
                                   ],

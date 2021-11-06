@@ -4,9 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-
 import '../../../../config/extensions.dart';
+import '../../../../data/models/paralympics/paralympics.dart';
 import '../../../../data/repositories/sports_repository.dart';
 
 part 'paralympics_state.dart';

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
+import '../../../../../data/models/paralympics/paralympics.dart';
 import '../../../../profile/profile.dart';
 import '../../cubit/paralympics_cubit.dart';
 import '../bet_button/cubit/paralympics_bet_button_cubit.dart';
@@ -86,7 +86,8 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                widget.game.gameName!.replaceAll(RegExp('-'), '/'),
+                                widget.game.gameName!
+                                    .replaceAll(RegExp('-'), '/'),
                                 style: Styles.normalTextBold,
                               ),
                             ],

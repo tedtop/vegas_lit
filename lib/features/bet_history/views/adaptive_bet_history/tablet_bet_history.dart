@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/mlb/mlb_bet.dart';
+import '../../../../data/models/nba/nba_bet.dart';
+import '../../../../data/models/ncaab/ncaab_bet.dart';
+import '../../../../data/models/ncaaf/ncaaf_bet.dart';
+import '../../../../data/models/nfl/nfl_bet.dart';
+import '../../../../data/models/nhl/nhl_bet.dart';
 import '../../../../utils/bottom_bar.dart';
 import '../../../games/baseball/mlb/widgets/mlb_bet_history_card.dart';
 import '../../../games/basketball/nba/widgets/nba_bet_history_card.dart';

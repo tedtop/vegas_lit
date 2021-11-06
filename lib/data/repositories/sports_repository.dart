@@ -1,5 +1,3 @@
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-
 import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
 import '../models/mlb/mlb_player.dart';
@@ -26,6 +24,7 @@ import '../models/nhl/nhl_game.dart';
 import '../models/nhl/nhl_player.dart';
 import '../models/nhl/nhl_team_stats.dart';
 import '../models/olympics/olympics.dart';
+import '../models/paralympics/paralympics.dart';
 import '../providers/cloud_firestore.dart';
 import '../providers/sportsdata_api.dart';
 

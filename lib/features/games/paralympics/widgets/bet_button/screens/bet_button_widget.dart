@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
-import 'package:vegas_lit/features/home/home.dart';
 
+import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
+import '../../../../../../data/models/paralympics/paralympics.dart';
+import '../../../../../../data/models/paralympics/paralympics_bet.dart';
 import '../../../../../../data/repositories/bets_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
+import '../../../../../home/home.dart';
 import '../cubit/paralympics_bet_button_cubit.dart';
 import 'parlay_bet_slip_card.dart';
 import 'single_bet_slip_card.dart';
@@ -112,8 +112,7 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState =
-        context.watch<ParalympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     final username = context.select(
       (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
@@ -219,8 +218,7 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final betButtonState =
-        context.watch<ParalympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     return Padding(
       padding: const EdgeInsets.all(3),
       child: Container(

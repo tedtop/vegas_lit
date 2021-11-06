@@ -3,10 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'package:vegas_lit/config/assets.dart';
-
+import '../../../../../../../config/assets.dart';
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
@@ -18,8 +16,7 @@ class NcaafParlayBetSlipCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final betButtonState =
-            context.watch<NcaafBetButtonCubit>().state;
+        final betButtonState = context.watch<NcaafBetButtonCubit>().state;
 
         final isMoneyline = betButtonState.betType == Bet.ml;
         final isPointSpread = betButtonState.betType == Bet.pts;
@@ -76,27 +73,32 @@ class NcaafParlayBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.school ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.school ?? ''} ${betButtonState.awayTeamData!.name}'
+                                ? betButtonState.winTeam == BetButtonWin.home
+                                    ? '${betButtonState.homeTeamData!.school ?? ''} ${betButtonState.homeTeamData!.name}'
+                                    : '${betButtonState.awayTeamData!.school ?? ''} ${betButtonState.awayTeamData!.name}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
-                              if (isMoneyline) TextSpan(
-                                      text:
-                                          ' (${betButtonState.text!.split(' ').last})',
-                                      //style: Styles.betSlipHomeTeam,
-                                    ) else isPointSpread
-                                      ? TextSpan(
-                                          text:
-                                              ' (${betButtonState.text!.split(' ').first})'
-                                          //     PTS (${betButtonState.text.split(' ').last})',
-                                          //style: Styles.betSlipHomeTeam,
-                                          )
-                                      : TextSpan(
-                                          text:
-                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}',
-                                          //     TOT ${betButtonState.text.split(' ').last}',
-                                          style: Styles.betSlipHomeTeam,
-                                        ),
+                              if (isMoneyline)
+                                TextSpan(
+                                  text:
+                                      ' (${betButtonState.text!.split(' ').last})',
+                                  //style: Styles.betSlipHomeTeam,
+                                )
+                              else
+                                isPointSpread
+                                    ? TextSpan(
+                                        text:
+                                            ' (${betButtonState.text!.split(' ').first})'
+                                        //     PTS (${betButtonState.text.split(' ').last})',
+                                        //style: Styles.betSlipHomeTeam,
+                                        )
+                                    : TextSpan(
+                                        text:
+                                            '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}',
+                                        //     TOT ${betButtonState.text.split(' ').last}',
+                                        style: Styles.betSlipHomeTeam,
+                                      ),
                             ],
                           ),
                         ),
@@ -107,8 +109,11 @@ class NcaafParlayBetSlipCard extends StatelessWidget {
                         ),
                         RichText(
                           text: TextSpan(
-                            text:
-                                betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase(),
+                            text: betButtonState.winTeam == BetButtonWin.home
+                                ? betButtonState.homeTeamData!.name!
+                                    .toUpperCase()
+                                : betButtonState.awayTeamData!.name!
+                                    .toUpperCase(),
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(
