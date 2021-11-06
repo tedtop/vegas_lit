@@ -62,7 +62,7 @@ class _SportsbookState extends State<Sportsbook>
               ),
             );
           case SportsbookStatus.opened:
-            return const SportsBookView();
+            return SportsBookView();
         }
       },
     );
@@ -70,7 +70,7 @@ class _SportsbookState extends State<Sportsbook>
 }
 
 class SportsBookView extends StatelessWidget {
-  const SportsBookView({Key? key}) : super(key: key);
+  SportsBookView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +362,7 @@ class SportsBookView extends StatelessWidget {
 }
 
 class DropdownWidgetHome extends StatefulWidget {
-  const DropdownWidgetHome({
+  DropdownWidgetHome({
     Key? key,
   }) : super(key: key);
 
