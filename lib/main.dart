@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,16 +42,16 @@ Future<void> main() async {
   );
   final deviceRepository = await DeviceRepository.create();
   runApp(
-    // DevicePreview(
-    //   enabled: !kReleaseMode,
-    //   builder: (context) => // Wrap your app
-    App(
-      userRepository: UserRepository(),
-      sportsRepository: SportsRepository(),
-      betsRepository: BetsRepository(),
-      groupsRepository: GroupsRepository(),
-      deviceRepository: deviceRepository,
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => // Wrap your app
+          App(
+        userRepository: UserRepository(),
+        sportsRepository: SportsRepository(),
+        betsRepository: BetsRepository(),
+        groupsRepository: GroupsRepository(),
+        deviceRepository: deviceRepository,
+      ),
     ),
-    // ),
   );
 }
