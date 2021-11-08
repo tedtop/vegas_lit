@@ -7,7 +7,7 @@ import '../../../../config/extensions.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
 import '../../../home/home.dart';
 import 'cubit/group_add_cubit.dart';
@@ -24,7 +24,7 @@ class GroupAdd extends StatefulWidget {
           value: homeCubit,
           child: BlocProvider(
             create: (context) => GroupAddCubit(
-              groupsRepository: context.read<GroupsRepository>(),
+              groupsRepository: context.read<GroupRepository>(),
               storageRepository: storageRepository,
             ),
             child: GroupAdd._(),

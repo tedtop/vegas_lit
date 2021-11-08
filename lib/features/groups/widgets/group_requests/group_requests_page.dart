@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
 import '../../../authentication/bloc/authentication_bloc.dart';
 import '../../../home/home.dart';
@@ -21,7 +21,7 @@ class GroupRequests extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (_) => GroupRequestsCubit(
-            groupsRepository: context.read<GroupsRepository>(),
+            groupsRepository: context.read<GroupRepository>(),
           )..openGroupRequests(uid: uid),
           child: const GroupRequests._(),
         );

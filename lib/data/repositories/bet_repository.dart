@@ -1,8 +1,12 @@
 import '../models/bet.dart';
 import '../providers/cloud_firestore.dart';
 
-class BetsRepository {
-  final _databaseProvider = CloudFirestoreClient();
+class BetRepository {
+  BetRepository({
+    CloudFirestoreClient? databaseProvider,
+  }) : _databaseProvider = databaseProvider ?? CloudFirestoreClient();
+
+  final CloudFirestoreClient _databaseProvider;
 
   Stream<List<BetData>> fetchOpenBets({required String uid}) =>
       _databaseProvider.fetchOpenBets(uid: uid);

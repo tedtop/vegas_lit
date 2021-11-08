@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
 import 'cubit/group_edit_cubit.dart';
 
@@ -21,7 +21,7 @@ class GroupEdit extends StatefulWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => GroupEditCubit(
-            groupsRepository: context.read<GroupsRepository>(),
+            groupsRepository: context.read<GroupRepository>(),
             storageRepository: storageRepository,
           ),
           child: GroupEdit._(group: group),

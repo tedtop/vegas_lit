@@ -10,7 +10,7 @@ import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/nhl/nhl_bet.dart';
 import '../../../../../../../data/models/nhl/nhl_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../models/nhl_team.dart';
 import '../screens/parlay_bet_slip_card.dart';
@@ -19,13 +19,13 @@ import '../screens/single_bet_slip_card.dart';
 part 'bet_button_state.dart';
 
 class NhlBetButtonCubit extends Cubit<NhlBetButtonState> {
-  NhlBetButtonCubit({required BetsRepository betsRepository})
+  NhlBetButtonCubit({required BetRepository betsRepository})
       : _betsRepository = betsRepository,
         super(
           const NhlBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   void openBetButton({
     required String text,

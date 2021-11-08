@@ -8,7 +8,7 @@ import '../../../config/extensions.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/models/olympics/olympics.dart';
-import '../../../data/repositories/sports_repository.dart';
+import '../../../data/repositories/sport_repository.dart';
 import 'cubit/olympics_add_cubit.dart';
 
 class OlympicsAddForm extends StatefulWidget {
@@ -19,7 +19,7 @@ class OlympicsAddForm extends StatefulWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => OlympicsAddCubit(
-            sportsRepository: context.read<SportsRepository>(),
+            sportsRepository: context.read<SportRepository>(),
           ),
           child: const OlympicsAddForm._(),
         );

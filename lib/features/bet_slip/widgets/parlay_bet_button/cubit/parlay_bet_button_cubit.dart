@@ -15,18 +15,18 @@ import '../../../../../data/models/ncaaf/ncaaf_bet.dart';
 import '../../../../../data/models/nfl/nfl_bet.dart';
 import '../../../../../data/models/nhl/nhl_bet.dart';
 import '../../../../../data/models/parlay/parlay_bet.dart';
-import '../../../../../data/repositories/bets_repository.dart';
+import '../../../../../data/repositories/bet_repository.dart';
 
 part 'parlay_bet_button_state.dart';
 
 class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
-  ParlayBetButtonCubit({required BetsRepository betsRepository})
+  ParlayBetButtonCubit({required BetRepository betsRepository})
       : _betsRepository = betsRepository,
         super(
           const ParlayBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   Future<void> openParlay({
     required List<BetData> betDataList,

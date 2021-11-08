@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bloc/bloc.dart';
 
 class SimpleBlocObserver extends BlocObserver {
@@ -13,23 +15,29 @@ class SimpleBlocObserver extends BlocObserver {
     super.onTransition(bloc, transition);
   }
 
-  // @override
-  // void onClose(Cubit cubit) {
-  //   print('Closed: $cubit');
-  //   super.onClose(cubit);
-  // }
+  @override
+  void onCreate(BlocBase bloc) {
+    print('${bloc.runtimeType} ${bloc.state}');
+    super.onCreate(bloc);
+  }
 
-  // @override
-  // void onChange(Cubit cubit, Change change) {
-  //   if (cubit is! Bloc) {
-  //     print('${cubit.runtimeType} $change');
-  //   }
-  //   super.onChange(cubit, change);
-  // }
+  @override
+  void onClose(BlocBase bloc) {
+    print('${bloc.runtimeType} ${bloc.state}');
+    super.onClose(bloc);
+  }
 
-  // @override
-  // void onError(Cubit cubit, Object error, StackTrace stackTrace) {
-  //   print('${cubit.runtimeType} $error $stackTrace');
-  //   super.onError(cubit, error, stackTrace);
-  // }
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    if (bloc is! Bloc) {
+      print('${bloc.runtimeType} $change');
+    }
+    super.onChange(bloc, change);
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print('${bloc.runtimeType} $error $stackTrace');
+    super.onError(bloc, error, stackTrace);
+  }
 }

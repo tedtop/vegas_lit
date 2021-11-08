@@ -10,7 +10,7 @@ import 'package:overlay_support/overlay_support.dart';
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
 import '../../../config/routes.dart';
-import '../../../data/repositories/bets_repository.dart';
+import '../../../data/repositories/bet_repository.dart';
 import '../../../data/repositories/device_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../utils/app_bar.dart';
@@ -68,12 +68,12 @@ class HomePage extends StatefulWidget {
             ),
             BlocProvider<OpenBetsCubit>(
               create: (context) => OpenBetsCubit(
-                betsRepository: context.read<BetsRepository>(),
+                betsRepository: context.read<BetRepository>(),
               )..fetchAllBets(uid: uid),
             ),
             BlocProvider(
               create: (context) => ParlayBetButtonCubit(
-                betsRepository: context.read<BetsRepository>(),
+                betsRepository: context.read<BetRepository>(),
               ),
             ),
             BlocProvider<HistoryCubit>(

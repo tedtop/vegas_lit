@@ -6,7 +6,7 @@ import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/nfl/nfl_player.dart';
-import '../../../../../../data/repositories/sports_repository.dart';
+import '../../../../../../data/repositories/sport_repository.dart';
 import '../../../../../../utils/app_bar.dart';
 import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
@@ -25,7 +25,7 @@ class PlayerDetailsPage extends StatelessWidget {
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
         create: (_) => PlayerDetailsCubit(
-            sportsRepository: context.read<SportsRepository>()),
+            sportsRepository: context.read<SportRepository>()),
         // ..getPlayerDetails(playerId: playerId)
         child: PlayerDetailsPage(
             playerId: playerId,

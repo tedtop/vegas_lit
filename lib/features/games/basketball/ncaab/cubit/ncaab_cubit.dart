@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -9,18 +7,18 @@ import 'package:flutter/services.dart';
 import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/ncaab/ncaab_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 
 part 'ncaab_state.dart';
 
 class NcaabCubit extends Cubit<NcaabState> {
-  NcaabCubit({required SportsRepository sportsfeedRepository})
+  NcaabCubit({required SportRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           const NcaabState.initial(),
         );
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNcaabGames() async {
     const league = 'NCAAB';

@@ -8,20 +8,20 @@ import 'package:flutter/services.dart';
 
 import '../../../../../config/extensions.dart';
 import '../../../../../data/models/nfl/nfl_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../models/nfl_team.dart';
 
 part 'nfl_state.dart';
 
 class NflCubit extends Cubit<NflState> {
-  NflCubit({required SportsRepository sportsfeedRepository})
+  NflCubit({required SportRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           const NflState.initial(),
         );
 
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNflGames() async {
     const league = 'NFL';

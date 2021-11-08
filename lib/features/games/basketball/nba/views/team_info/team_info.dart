@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +7,7 @@ import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/nba/nba_player.dart';
 import '../../../../../../data/models/nba/nba_team_stats.dart';
-import '../../../../../../data/repositories/sports_repository.dart';
+import '../../../../../../data/repositories/sport_repository.dart';
 import '../../../../../../utils/app_bar.dart';
 import '../../../../../../utils/vl_image.dart';
 import '../../models/nba_team.dart';
@@ -33,7 +31,7 @@ class TeamInfo extends StatelessWidget {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'TeamInfo'),
       builder: (context) => BlocProvider<TeamInfoCubit>(
-        create: (_) => TeamInfoCubit(SportsRepository())
+        create: (_) => TeamInfoCubit(SportRepository())
           ..getTeamDetails(teamData.key, gameName),
         child: TeamInfo._(teamData: teamData, gameName: gameName),
       ),

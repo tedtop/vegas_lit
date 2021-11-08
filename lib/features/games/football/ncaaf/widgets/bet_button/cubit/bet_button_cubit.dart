@@ -10,7 +10,7 @@ import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/ncaaf/ncaaf_bet.dart';
 import '../../../../../../../data/models/ncaaf/ncaaf_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../../bet_slip/bet_slip.dart';
 import '../../../models/ncaaf_team.dart';
 import '../screens/parlay_bet_slip_card.dart';
@@ -19,13 +19,13 @@ import '../screens/single_bet_slip_card.dart';
 part 'bet_button_state.dart';
 
 class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
-  NcaafBetButtonCubit({required BetsRepository betsRepository})
+  NcaafBetButtonCubit({required BetRepository betsRepository})
       : _betsRepository = betsRepository,
         super(
           const NcaafBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   void openBetButton({
     required String text,

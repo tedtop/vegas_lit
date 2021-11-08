@@ -9,19 +9,19 @@ import '../../../../../../config/extensions.dart';
 import '../../../../../../data/models/bet.dart';
 import '../../../../../../data/models/paralympics/paralympics.dart';
 import '../../../../../../data/models/paralympics/paralympics_bet.dart';
-import '../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../data/repositories/bet_repository.dart';
 
 part 'paralympics_bet_button_state.dart';
 
 class ParalympicsBetButtonCubit extends Cubit<ParalympicsBetButtonState> {
-  ParalympicsBetButtonCubit({required BetsRepository betsRepository})
+  ParalympicsBetButtonCubit({required BetRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
           const ParalympicsBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   void openBetButton({
     required ParalympicsGame game,

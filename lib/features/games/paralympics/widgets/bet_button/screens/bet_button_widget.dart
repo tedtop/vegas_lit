@@ -7,7 +7,7 @@ import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/paralympics/paralympics.dart';
 import '../../../../../../data/models/paralympics/paralympics_bet.dart';
-import '../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
 import '../../../../../home/home.dart';
@@ -31,7 +31,7 @@ class BetButton extends StatelessWidget {
         );
         return BlocProvider(
           create: (_) => ParalympicsBetButtonCubit(
-            betsRepository: context.read<BetsRepository>(),
+            betsRepository: context.read<BetRepository>(),
           )..openBetButton(
               uid: currentUserId,
               game: game,

@@ -6,19 +6,19 @@ import 'package:flutter/foundation.dart';
 
 import '../../../../config/extensions.dart';
 import '../../../../data/models/olympics/olympics.dart';
-import '../../../../data/repositories/sports_repository.dart';
+import '../../../../data/repositories/sport_repository.dart';
 
 part 'olympics_state.dart';
 
 class OlympicsCubit extends Cubit<OlympicsState> {
-  OlympicsCubit({required SportsRepository sportsRepository})
+  OlympicsCubit({required SportRepository sportsRepository})
       : assert(sportsRepository != null),
         _sportsRepository = sportsRepository,
         super(
           const OlympicsState.initial(),
         );
 
-  final SportsRepository _sportsRepository;
+  final SportRepository _sportsRepository;
   StreamSubscription? _gamesStream;
 
   Future<void> fetchOlympicsGames() async {

@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -9,18 +7,18 @@ import 'package:flutter/services.dart';
 import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/nhl/nhl_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 
 part 'nhl_state.dart';
 
 class NhlCubit extends Cubit<NhlState> {
-  NhlCubit({required SportsRepository sportsfeedRepository})
+  NhlCubit({required SportRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           const NhlState.initial(),
         );
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNhlGames() async {
     const league = 'NHL';

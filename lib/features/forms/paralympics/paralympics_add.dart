@@ -8,7 +8,7 @@ import '../../../config/extensions.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../../data/models/paralympics/paralympics.dart';
-import '../../../data/repositories/sports_repository.dart';
+import '../../../data/repositories/sport_repository.dart';
 import 'cubit/paralympics_add_cubit.dart';
 
 class ParalympicsAddForm extends StatefulWidget {
@@ -19,7 +19,7 @@ class ParalympicsAddForm extends StatefulWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => ParalympicsAddCubit(
-            sportsRepository: context.read<SportsRepository>(),
+            sportsRepository: context.read<SportRepository>(),
           ),
           child: ParalympicsAddForm._(),
         );

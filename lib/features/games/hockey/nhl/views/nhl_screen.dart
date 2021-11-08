@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../config/palette.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../../../../../utils/bottom_bar.dart';
 import '../../../../sportsbook/sportsbook.dart';
 import '../cubit/nhl_cubit.dart';
@@ -20,7 +20,7 @@ class NhlScreen extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => NhlCubit(
-            sportsfeedRepository: context.read<SportsRepository>(),
+            sportsfeedRepository: context.read<SportRepository>(),
           )..fetchNhlGames(),
           child: const NhlScreen._(),
         );

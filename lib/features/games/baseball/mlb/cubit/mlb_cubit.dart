@@ -7,19 +7,19 @@ import 'package:flutter/services.dart';
 
 import '../../../../../config/extensions.dart';
 import '../../../../../data/models/mlb/mlb_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../models/mlb_team.dart';
 
 part 'mlb_state.dart';
 
 class MlbCubit extends Cubit<MlbState> {
-  MlbCubit({required SportsRepository sportsfeedRepository})
+  MlbCubit({required SportRepository sportsfeedRepository})
       : _sportsfeedRepository = sportsfeedRepository,
         super(
           const MlbState.initial(),
         );
 
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchMlbGames() async {
     const league = 'MLB';

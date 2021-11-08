@@ -4,18 +4,18 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../data/models/group.dart';
-import '../../../../../data/repositories/groups_repository.dart';
+import '../../../../../data/repositories/group_repository.dart';
 
 part 'public_groups_state.dart';
 
 class PublicGroupsCubit extends Cubit<PublicGroupsState> {
-  PublicGroupsCubit({required GroupsRepository groupsRepository})
+  PublicGroupsCubit({required GroupRepository groupsRepository})
       : assert(groupsRepository != null),
         _groupsRepository = groupsRepository,
         super(
           const PublicGroupsState(),
         );
-  final GroupsRepository _groupsRepository;
+  final GroupRepository _groupsRepository;
   StreamSubscription? _publicGroupsSubscription;
 
   Future<void> openPublicGroups() async {

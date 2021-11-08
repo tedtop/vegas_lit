@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
-import '../../../data/repositories/groups_repository.dart';
+import '../../../data/repositories/group_repository.dart';
 import '../../../data/repositories/storage_repository.dart';
 import '../../home/cubit/home_cubit.dart';
 import '../widgets/group_add/group_add.dart';
@@ -23,7 +23,7 @@ class GroupsPage extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (_) => GroupScannerCubit(
-            groupsRepository: context.read<GroupsRepository>(),
+            groupsRepository: context.read<GroupRepository>(),
           ),
           child: RepositoryProvider(
             create: (context) => StorageRepository(),

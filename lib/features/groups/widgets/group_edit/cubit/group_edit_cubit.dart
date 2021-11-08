@@ -5,14 +5,14 @@ import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../data/models/group.dart';
-import '../../../../../data/repositories/groups_repository.dart';
+import '../../../../../data/repositories/group_repository.dart';
 import '../../../../../data/repositories/storage_repository.dart';
 
 part 'group_edit_state.dart';
 
 class GroupEditCubit extends Cubit<GroupEditState> {
   GroupEditCubit(
-      {required GroupsRepository groupsRepository,
+      {required GroupRepository groupsRepository,
       required StorageRepository storageRepository})
       : assert(groupsRepository != null),
         assert(storageRepository != null),
@@ -22,7 +22,7 @@ class GroupEditCubit extends Cubit<GroupEditState> {
           GroupEditState(),
         );
 
-  final GroupsRepository _groupsRepository;
+  final GroupRepository _groupsRepository;
   final StorageRepository _storageRepository;
 
   Future<void> pickAvatar() async {

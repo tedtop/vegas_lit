@@ -28,9 +28,15 @@ import '../models/paralympics/paralympics.dart';
 import '../providers/cloud_firestore.dart';
 import '../providers/sportsdata_api.dart';
 
-class SportsRepository {
-  final _sportsProvider = SportsdataApiClient();
-  final _databaseProvider = CloudFirestoreClient();
+class SportRepository {
+  SportRepository({
+    SportsdataApiClient? sportsProvider,
+    CloudFirestoreClient? databaseProvider,
+  })  : _sportsProvider = sportsProvider ?? SportsdataApiClient(),
+        _databaseProvider = databaseProvider ?? CloudFirestoreClient();
+
+  final SportsdataApiClient _sportsProvider;
+  final CloudFirestoreClient _databaseProvider;
 
   // MLB
   Future<List<MlbGame>> fetchMLB({required DateTime dateTime, int days = 1}) =>

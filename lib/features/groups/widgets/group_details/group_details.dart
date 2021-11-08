@@ -13,7 +13,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/user.dart';
 import '../../../../data/models/wallet.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
 import '../../../../data/repositories/user_repository.dart';
 import '../../../authentication/authentication.dart';
@@ -36,7 +36,7 @@ class GroupDetails extends StatelessWidget {
           providers: [
             BlocProvider(
               create: (context) => GroupDetailsCubit(
-                groupsRepository: context.read<GroupsRepository>(),
+                groupsRepository: context.read<GroupRepository>(),
               )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
             ),
             BlocProvider(

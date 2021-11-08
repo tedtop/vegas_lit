@@ -10,7 +10,7 @@ import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/nba/nba_bet.dart';
 import '../../../../../../../data/models/nba/nba_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../../bet_slip/bet_slip.dart';
 import '../../../models/nba_team.dart';
 import '../screens/parlay_bet_slip_card.dart';
@@ -19,14 +19,14 @@ import '../screens/single_bet_slip_card.dart';
 part 'bet_button_state.dart';
 
 class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
-  NbaBetButtonCubit({required BetsRepository betsRepository})
+  NbaBetButtonCubit({required BetRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
           const NbaBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
   void openBetButton({
     required String text,
     required NbaGame game,

@@ -9,23 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'data/repositories/bets_repository.dart';
+import 'data/repositories/bet_repository.dart';
 import 'data/repositories/device_repository.dart';
-import 'data/repositories/groups_repository.dart';
-import 'data/repositories/sports_repository.dart';
+import 'data/repositories/group_repository.dart';
+import 'data/repositories/sport_repository.dart';
 import 'data/repositories/user_repository.dart';
 import 'features/app.dart';
 import 'observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (!kIsWeb) await MobileAds.instance.initialize();
   await Firebase.initializeApp();
 
   if (!kIsWeb) {
+    await MobileAds.instance.initialize();
+    EquatableConfig.stringify = kDebugMode;
     if (kDebugMode) {
       Bloc.observer = SimpleBlocObserver();
-      EquatableConfig.stringify = kDebugMode;
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
       await FirebaseAnalytics().setAnalyticsCollectionEnabled(false);
     } else {
@@ -33,6 +33,7 @@ Future<void> main() async {
       await FirebaseAnalytics().setAnalyticsCollectionEnabled(true);
     }
   }
+
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     const ScreenBreakpoints(
       desktop: 1000,
@@ -40,17 +41,18 @@ Future<void> main() async {
       watch: 80,
     ),
   );
-  final deviceRepository = await DeviceRepository.create();
+
+  final _deviceRepository = await DeviceRepository.create();
+
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
-      builder: (context) => // Wrap your app
-          App(
+      builder: (context) => App(
         userRepository: UserRepository(),
-        sportsRepository: SportsRepository(),
-        betsRepository: BetsRepository(),
-        groupsRepository: GroupsRepository(),
-        deviceRepository: deviceRepository,
+        sportRepository: SportRepository(),
+        betRepository: BetRepository(),
+        groupRepository: GroupRepository(),
+        deviceRepository: _deviceRepository,
       ),
     ),
   );

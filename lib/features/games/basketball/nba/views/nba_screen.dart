@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../config/palette.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../../../../../utils/bottom_bar.dart';
 import '../../../../sportsbook/sportsbook.dart';
 import '../nba_page.dart';
@@ -20,7 +20,7 @@ class NbaScreen extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => NbaCubit(
-            sportsfeedRepository: context.read<SportsRepository>(),
+            sportsfeedRepository: context.read<SportRepository>(),
           )..fetchNbaGames(),
           child: const NbaScreen._(),
         );

@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../data/models/nba/nba_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../../authentication/bloc/authentication_bloc.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../../../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
@@ -37,7 +37,7 @@ class BetButton extends StatelessWidget {
         );
         return BlocProvider(
           create: (_) => NbaBetButtonCubit(
-            betsRepository: context.read<BetsRepository>(),
+            betsRepository: context.read<BetRepository>(),
           )..openBetButton(
               uid: currentUserId,
               text: text,

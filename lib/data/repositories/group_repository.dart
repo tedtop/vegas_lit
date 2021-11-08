@@ -2,8 +2,12 @@ import '../models/group.dart';
 import '../models/wallet.dart';
 import '../providers/cloud_firestore.dart';
 
-class GroupsRepository {
-  final _databaseProvider = CloudFirestoreClient();
+class GroupRepository {
+  GroupRepository({
+    CloudFirestoreClient? databaseProvider,
+  }) : _databaseProvider = databaseProvider ?? CloudFirestoreClient();
+
+  final CloudFirestoreClient _databaseProvider;
 
   Stream<List<Group>> fetchPublicGroups() =>
       _databaseProvider.fetchPublicGroups();

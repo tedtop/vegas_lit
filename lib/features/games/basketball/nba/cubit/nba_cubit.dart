@@ -7,18 +7,18 @@ import 'package:flutter/services.dart';
 import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/nba/nba_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 
 part 'nba_state.dart';
 
 class NbaCubit extends Cubit<NbaState> {
-  NbaCubit({required SportsRepository sportsfeedRepository})
+  NbaCubit({required SportRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           const NbaState.initial(),
         );
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNbaGames() async {
     const league = 'NBA';

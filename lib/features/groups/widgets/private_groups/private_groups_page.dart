@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
 import '../../../authentication/authentication.dart';
 import '../../../home/home.dart';
@@ -23,7 +23,7 @@ class PrivateGroups extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (_) => PrivateGroupsCubit(
-            groupsRepository: context.read<GroupsRepository>(),
+            groupsRepository: context.read<GroupRepository>(),
           )..openPrivateGroups(uid: uid),
           child: const PrivateGroups._(),
         );
