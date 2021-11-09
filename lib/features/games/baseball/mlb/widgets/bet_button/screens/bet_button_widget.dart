@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../data/models/mlb/mlb_game.dart';
 import '../../../../../../../data/repositories/bet_repository.dart';
-import '../../../../../../authentication/bloc/authentication_bloc.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../../../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
 import '../../../../../../home/home.dart';
@@ -30,7 +30,7 @@ class BetButton extends StatelessWidget {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         return BlocProvider(

@@ -17,6 +17,8 @@ import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 class ParalympicsSingleBetSlipCard extends StatelessWidget {
+  ParalympicsSingleBetSlipCard({Key? key}) : super(key: key);
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,10 +27,9 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState =
-            context.watch<ParalympicsBetButtonCubit>().state;
+        final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
@@ -459,8 +460,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState =
-        context.watch<ParalympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(

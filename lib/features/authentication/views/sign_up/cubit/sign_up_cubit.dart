@@ -12,7 +12,7 @@ part 'sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit({
     required UserRepository userRepository,
-    required AuthenticationBloc authenticationBloc,
+    required AuthenticationCubit authenticationBloc,
   })  : _authenticationBloc = authenticationBloc,
         _userRepository = userRepository,
         super(
@@ -20,7 +20,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         );
 
   final UserRepository _userRepository;
-  final AuthenticationBloc _authenticationBloc;
+  final AuthenticationCubit _authenticationBloc;
 
   void agreementClicked(bool? value) {
     final agreement = Agreement.dirty(value);
@@ -168,7 +168,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           username: state.username.value,
         ),
       );
-      _authenticationBloc.add(CheckProfileComplete(currentUser));
+      await _authenticationBloc.checkProfileComplete(user: currentUser);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on SignUpFailure catch (e) {
       emit(

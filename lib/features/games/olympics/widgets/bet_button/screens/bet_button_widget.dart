@@ -27,7 +27,7 @@ class BetButton extends StatelessWidget {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         return BlocProvider(

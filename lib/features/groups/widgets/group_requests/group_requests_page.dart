@@ -2,13 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
 import '../../../../data/repositories/group_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
-import '../../../authentication/bloc/authentication_bloc.dart';
 import '../../../home/home.dart';
 import '../group_add/group_add.dart';
 import 'cubit/group_requests_cubit.dart';
@@ -142,7 +142,7 @@ class GroupRequestsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final groupUsersLength =
         _group.users!.values.where((element) => element == true).length;
-    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
+    final userId = context.watch<AuthenticationCubit>().state.user!.uid;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(

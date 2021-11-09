@@ -45,15 +45,17 @@ Future<void> main() async {
   final _deviceRepository = await DeviceRepository.create();
 
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => App(
-        userRepository: UserRepository(),
-        sportRepository: SportRepository(),
-        betRepository: BetRepository(),
-        groupRepository: GroupRepository(),
-        deviceRepository: _deviceRepository,
-      ),
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) =>
+
+    App(
+      userRepository: UserRepository(),
+      sportRepository: SportRepository(),
+      betRepository: BetRepository(),
+      groupRepository: GroupRepository(),
+      deviceRepository: _deviceRepository,
     ),
+    // ),
   );
 }

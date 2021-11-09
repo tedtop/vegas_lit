@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../authentication.dart';
+import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 class VerifyPage extends StatelessWidget {
   static Route route() {
@@ -24,9 +23,7 @@ class VerifyPage extends StatelessWidget {
               ElevatedButton(
                 child: const Text('Go Back'),
                 onPressed: () {
-                  context.read<AuthenticationBloc>().add(
-                        AuthenticationLogoutRequested(),
-                      );
+                  context.read<AuthenticationCubit>().authenticationLogOut();
                 },
               )
             ],

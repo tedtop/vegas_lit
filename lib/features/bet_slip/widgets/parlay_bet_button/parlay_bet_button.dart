@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 
 import '../../../../config/enum.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/bet.dart';
-import '../../../authentication/bloc/authentication_bloc.dart';
 import '../../../home/cubit/version_cubit.dart';
 import '../../../home/home.dart';
 import '../../bet_slip.dart';
@@ -48,7 +48,7 @@ class ParlayBetSlipButton extends StatelessWidget {
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
         final betButtonState = context.watch<ParlayBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(

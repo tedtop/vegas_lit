@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -34,7 +35,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final currentUserId = context.select(
-      (AuthenticationBloc authenticationBloc) =>
+      (AuthenticationCubit authenticationBloc) =>
           authenticationBloc.state.user?.uid,
     );
     final isAdmin = context.select((ProfileCubit profileCubit) =>
@@ -142,9 +143,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             leading: Text('LOGOUT', style: Styles.normalTextBold),
             onTap: () {
-              context
-                  .read<AuthenticationBloc>()
-                  .add(AuthenticationLogoutRequested());
+              context.read<AuthenticationCubit>().authenticationLogOut();
             },
           ),
 

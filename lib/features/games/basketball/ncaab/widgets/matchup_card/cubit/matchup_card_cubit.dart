@@ -32,7 +32,7 @@ class NcaabMatchupCardCubit extends Cubit<NcaabMatchupCardState> {
   List<NcaabTeam> getData({required List parsedTeamData}) {
     final teamData = parsedTeamData
         .map<NcaabTeam>(
-          (dynamic json) => NcaabTeam.fromMap(json as Map<String, Object>),
+          (dynamic json) => NcaabTeam.fromMap(json as Map<String, dynamic>),
         )
         .toList();
 

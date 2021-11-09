@@ -1,7 +1,9 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 import '../config/themes.dart';
 import '../data/repositories/bet_repository.dart';
@@ -10,11 +12,8 @@ import '../data/repositories/group_repository.dart';
 import '../data/repositories/sport_repository.dart';
 import '../data/repositories/user_repository.dart';
 import '../utils/route_aware_analytics.dart';
-import 'authentication/bloc/authentication_bloc.dart';
 import 'authentication/views/login/login.dart';
-import 'authentication/views/sign_up/sign_up.dart';
 import 'authentication/views/splash/splash.dart';
-import 'authentication/views/verify/views/verify_page.dart';
 import 'home/cubit/internet_cubit.dart';
 import 'home/views/home_page.dart';
 
@@ -57,9 +56,8 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => AuthenticationBloc(
+            create: (_) => AuthenticationCubit(
               userRepository: userRepository,
-              deviceRepository: deviceRepository,
             ),
           ),
           BlocProvider(
@@ -87,11 +85,9 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return OverlaySupport(
       child: MaterialApp(
-        // Device Preview Configs
-        // useInheritedMediaQuery: true,
-        // locale: DevicePreview.locale(context),
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
         // builder: DevicePreview.appBuilder,
-
         navigatorKey: _navigatorKey,
         title: 'Vegas Lit',
         theme: Themes.dark,
@@ -101,10 +97,10 @@ class AppView extends StatelessWidget {
         builder: (context, child) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-            child: BlocListener<AuthenticationBloc, AuthenticationState>(
+            child: BlocListener<AuthenticationCubit, AuthenticationState>(
               listener: (context, state) {
                 switch (state.status) {
-                  case AuthenticationStatus.authenticated:
+                  case AuthenticationStatus.success:
                     _navigator!.pushAndRemoveUntil<void>(
                       HomePage.route(
                         connectivity: Connectivity(),
@@ -113,25 +109,24 @@ class AppView extends StatelessWidget {
                       (route) => false,
                     );
                     break;
-                  case AuthenticationStatus.unauthenticated:
+                  case AuthenticationStatus.failure:
                     _navigator!.pushAndRemoveUntil<void>(
                       LoginPage.route(),
                       (route) => false,
                     );
                     break;
-                  case AuthenticationStatus.firstTime:
+                  case AuthenticationStatus.initial:
                     _navigator!.pushAndRemoveUntil<void>(
-                      SignUpPage.route(),
+                      LoginPage.route(),
                       (route) => false,
                     );
                     break;
-                  case AuthenticationStatus.notverified:
+                  case AuthenticationStatus.loading:
                     _navigator!.pushAndRemoveUntil<void>(
-                      VerifyPage.route(),
+                      SplashPage.route(),
                       (route) => false,
                     );
                     break;
-                  default:
                 }
               },
               child: child,

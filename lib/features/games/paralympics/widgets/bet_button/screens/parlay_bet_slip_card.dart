@@ -25,10 +25,9 @@ class ParalympicsParlayBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final betButtonState =
-            context.watch<ParalympicsBetButtonCubit>().state;
+        final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
@@ -456,8 +455,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final betButtonState =
-        context.watch<ParalympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -651,20 +649,23 @@ Widget badgeFromEventTypeColumn({String? eventType}) {
       const SizedBox(
         height: 40,
       ),
-      if (eventType == 'gold') const Text(
-              '🥇',
-              style: TextStyle(fontSize: 20),
-            ) else eventType == 'silver'
-              ? const Text(
-                  '🥈',
-                  style: TextStyle(fontSize: 20),
-                )
-              : eventType == 'bronze'
-                  ? const Text(
-                      '🥉',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  : const SizedBox.shrink(),
+      if (eventType == 'gold')
+        const Text(
+          '🥇',
+          style: TextStyle(fontSize: 20),
+        )
+      else
+        eventType == 'silver'
+            ? const Text(
+                '🥈',
+                style: TextStyle(fontSize: 20),
+              )
+            : eventType == 'bronze'
+                ? const Text(
+                    '🥉',
+                    style: TextStyle(fontSize: 20),
+                  )
+                : const SizedBox.shrink(),
     ],
   );
 }

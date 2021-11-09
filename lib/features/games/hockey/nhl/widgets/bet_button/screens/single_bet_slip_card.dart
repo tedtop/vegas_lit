@@ -25,7 +25,7 @@ class NhlSingleBetSlipCard extends StatelessWidget {
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
         final betButtonState = context.watch<NhlBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
