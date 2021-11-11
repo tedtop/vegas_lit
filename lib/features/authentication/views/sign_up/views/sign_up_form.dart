@@ -180,11 +180,13 @@ class _AgreementCheck extends StatelessWidget {
                   const SizedBox(
                     width: 40,
                   ),
-                  if (state.agreement.invalid) Text(
-                          'Required',
-                          style: Styles.authFieldError
-                              .copyWith(color: Palette.red),
-                        ) else Container(),
+                  if (state.agreement.invalid)
+                    Text(
+                      'Required',
+                      style: Styles.authFieldError.copyWith(color: Palette.red),
+                    )
+                  else
+                    Container(),
                 ],
               ),
             ),
@@ -317,9 +319,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
           ),
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
-            onPressed: () => Navigator.of(context).pushReplacement<void, void>(
-              LoginPage.route(),
-            ),
+            onPressed: () => Navigator.of(context).pop(),
             child: Text(
               'Log In',
               style: Styles.authButtonText,
@@ -661,11 +661,14 @@ class _StateInput extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      if (state.americanState.invalid) Text(
-                              'Required',
-                              style: Styles.authFieldError
-                                  .copyWith(color: Palette.red),
-                            ) else Container(),
+                      if (state.americanState.invalid)
+                        Text(
+                          'Required',
+                          style: Styles.authFieldError
+                              .copyWith(color: Palette.red),
+                        )
+                      else
+                        Container(),
                     ],
                   ),
                 ],

@@ -168,7 +168,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           username: state.username.value,
         ),
       );
-      await _authenticationBloc.checkProfileComplete(user: currentUser);
+      await _authenticationBloc.onUserChanged(user: currentUser);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on SignUpFailure catch (e) {
       emit(

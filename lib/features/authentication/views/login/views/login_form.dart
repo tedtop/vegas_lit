@@ -256,8 +256,7 @@ class _LinkToSignup extends StatelessWidget {
         ),
         TextButton(
           key: const Key('loginForm_createAccount_flatButton'),
-          onPressed: () => Navigator.of(context)
-              .pushReplacement<void, void>(SignUpPage.route()),
+          onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
           child: Text(
             'Sign Up',
             style: Styles.authButtonText,

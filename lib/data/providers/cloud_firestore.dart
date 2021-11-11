@@ -72,9 +72,8 @@ class CloudFirestoreClient {
     final snapshot =
         await _firebaseFirestore.collection('users').doc(uid).get();
 
-    final isProfileComplete = snapshot != null &&
-        snapshot.exists &&
-        snapshot.data()!.containsKey('uid');
+    final isProfileComplete =
+        snapshot.exists && snapshot.data()!.containsKey('uid');
     return isProfileComplete;
   }
 

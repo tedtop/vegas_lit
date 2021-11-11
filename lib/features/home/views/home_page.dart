@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -34,25 +35,22 @@ import '../widgets/bottom_navigation.dart';
 import '../widgets/home_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage._({this.currentUserId, Key? key}) : super(key: key);
+  const HomePage._({Key? key}) : super(key: key);
 
-  final String? currentUserId;
-
-  static Route route({
-    required Connectivity connectivity,
-    required String uid,
-  }) {
-    return MaterialPageRoute<void>(
-      settings: const RouteSettings(name: 'HomePage'),
-      builder: (context) {
+  static Page page() => MaterialPage<void>(
+      name: 'HomePage',
+      child: Builder(builder: (context) {
+        final uid = context
+            .select((AuthenticationCubit cubit) => cubit.state.user?.uid);
         return MultiBlocProvider(
           providers: [
             BlocProvider<ProfileCubit>(
-                create: (context) =>
-                    ProfileCubit(userRepository: context.read<UserRepository>())
-                      ..openProfile(currentUserId: uid)),
+              create: (context) => ProfileCubit(
+                userRepository: context.read<UserRepository>(),
+              )..openProfile(currentUserId: uid),
+            ),
             BlocProvider<SportsbookCubit>(
-              create: (_) => SportsbookCubit(
+              create: (context) => SportsbookCubit(
                 deviceRepository: context.read<DeviceRepository>(),
               )..sportsbookOpen(league: 'MLB'),
             ),
@@ -69,9 +67,9 @@ class HomePage extends StatefulWidget {
             BlocProvider<OpenBetsCubit>(
               create: (context) => OpenBetsCubit(
                 betsRepository: context.read<BetRepository>(),
-              )..fetchAllBets(uid: uid),
+              )..fetchAllBets(uid: uid!),
             ),
-            BlocProvider(
+            BlocProvider<ParlayBetButtonCubit>(
               create: (context) => ParlayBetButtonCubit(
                 betsRepository: context.read<BetRepository>(),
               ),
@@ -87,7 +85,7 @@ class HomePage extends StatefulWidget {
               )..initializePushNotification(),
             ),
             BlocProvider<BetSlipCubit>(
-              create: (_) => BetSlipCubit()
+              create: (context) => BetSlipCubit()
                 ..openBetSlip(
                   singleBetSlipGames: [],
                   parlayBetSlipGames: [],
@@ -95,17 +93,15 @@ class HomePage extends StatefulWidget {
                 ),
             ),
             BlocProvider<HomeCubit>(
-              create: (_) => HomeCubit(
+              create: (context) => HomeCubit(
                 deviceRepository: context.read<DeviceRepository>(),
                 userRepository: context.read<UserRepository>(),
-              )..openHome(uid: uid),
+              )..openHome(uid: uid!),
             ),
           ],
           child: const HomePage._(),
         );
-      },
-    );
-  }
+      }));
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -120,6 +116,8 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final uid =
+        context.select((AuthenticationCubit cubit) => cubit.state.user?.uid);
     final pageIndex =
         context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
     final balanceAmount = context.select(
@@ -211,8 +209,8 @@ class _HomePageState extends State<HomePage>
                           const Sportsbook(),
                           BetSlip(),
                           Leaderboard.route(),
-                          OpenBets.route(uid: widget.currentUserId),
-                          History.route(uid: widget.currentUserId),
+                          OpenBets.route(uid: uid),
+                          History.route(uid: uid),
                         ],
                       );
                     }

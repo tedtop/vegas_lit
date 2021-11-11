@@ -16,7 +16,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         ) {
     _userSubscription = _userRepository.getUser.listen(
       (user) async {
-        await checkProfileComplete(user: user);
+        await onUserChanged(user: user);
       },
     );
   }
@@ -24,7 +24,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   final UserRepository _userRepository;
   StreamSubscription<User?>? _userSubscription;
 
-  Future<void> checkProfileComplete({required User? user}) async {
+  Future<void> onUserChanged({required User? user}) async {
     if (user != null) {
       emit(
         const AuthenticationState.loading(),
@@ -42,9 +42,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   Future<void> authenticationLogOut() async {
-    unawaited(
-      _userRepository.signOutUser(),
-    );
+    unawaited(_userRepository.signOutUser());
   }
 
   @override

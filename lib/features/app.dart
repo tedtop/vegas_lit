@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -87,54 +88,31 @@ class AppView extends StatelessWidget {
       child: MaterialApp(
         useInheritedMediaQuery: true,
         locale: DevicePreview.locale(context),
-        // builder: DevicePreview.appBuilder,
+        builder: DevicePreview.appBuilder,
         navigatorKey: _navigatorKey,
         title: 'Vegas Lit',
         theme: Themes.dark,
         navigatorObservers: [
           routeObserver,
         ],
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-            child: BlocListener<AuthenticationCubit, AuthenticationState>(
-              listener: (context, state) {
-                switch (state.status) {
-                  case AuthenticationStatus.success:
-                    _navigator!.pushAndRemoveUntil<void>(
-                      HomePage.route(
-                        connectivity: Connectivity(),
-                        uid: state.user!.uid,
-                      ),
-                      (route) => false,
-                    );
-                    break;
-                  case AuthenticationStatus.failure:
-                    _navigator!.pushAndRemoveUntil<void>(
-                      LoginPage.route(),
-                      (route) => false,
-                    );
-                    break;
-                  case AuthenticationStatus.initial:
-                    _navigator!.pushAndRemoveUntil<void>(
-                      LoginPage.route(),
-                      (route) => false,
-                    );
-                    break;
-                  case AuthenticationStatus.loading:
-                    _navigator!.pushAndRemoveUntil<void>(
-                      SplashPage.route(),
-                      (route) => false,
-                    );
-                    break;
-                }
-              },
-              child: child,
-            ),
-          );
-        },
-        onGenerateRoute: (_) => SplashPage.route(),
+        home: FlowBuilder<AuthenticationStatus>(
+          state:
+              context.select((AuthenticationCubit cubit) => cubit.state.status),
+          onGeneratePages: onGenerateAppViewPages,
+        ),
       ),
     );
+  }
+}
+
+List<Page> onGenerateAppViewPages(
+    AuthenticationStatus state, List<Page<dynamic>> pages) {
+  switch (state) {
+    case AuthenticationStatus.success:
+      return [HomePage.page()];
+    case AuthenticationStatus.loading:
+      return [SplashPage.page()];
+    default:
+      return [LoginPage.page()];
   }
 }

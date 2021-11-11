@@ -60,7 +60,7 @@ class LoginCubit extends Cubit<LoginState> {
         password: state.password.value,
       );
       final currentUser = await _userRepository.getCurrentUser();
-      await _authenticationBloc.checkProfileComplete(user: currentUser);
+      await _authenticationBloc.onUserChanged(user: currentUser);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(
