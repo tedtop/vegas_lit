@@ -6,7 +6,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/config/styles.dart';
+import 'package:vegas_lit/features/admin_vault/admin_vault_page.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
+import 'package:vegas_lit/features/drawer_pages/rules.dart';
+import 'package:vegas_lit/features/groups/views/groups_page.dart';
+import 'package:vegas_lit/features/profile/widgets/avatar/profile_avatar.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -23,7 +30,6 @@ import '../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.d
 import '../../leaderboard/leaderboard.dart';
 import '../../open_bets/cubit/open_bets_cubit.dart';
 import '../../open_bets/views/open_bets_page.dart';
-import '../../profile/cubit/profile_cubit.dart';
 import '../../sportsbook/screens/help_overlay/help_overlay.dart';
 import '../../sportsbook/screens/sportsbook_page.dart';
 import '../../sportsbook/sportsbook.dart';
@@ -32,7 +38,6 @@ import '../cubit/notification_cubit.dart';
 import '../cubit/version_cubit.dart';
 import '../home.dart';
 import '../widgets/bottom_navigation.dart';
-import '../widgets/home_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage._({Key? key}) : super(key: key);
@@ -44,11 +49,6 @@ class HomePage extends StatefulWidget {
             .select((AuthenticationCubit cubit) => cubit.state.user?.uid);
         return MultiBlocProvider(
           providers: [
-            BlocProvider<ProfileCubit>(
-              create: (context) => ProfileCubit(
-                userRepository: context.read<UserRepository>(),
-              )..openProfile(currentUserId: uid),
-            ),
             BlocProvider<SportsbookCubit>(
               create: (context) => SportsbookCubit(
                 deviceRepository: context.read<DeviceRepository>(),
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage>
                 width: width,
                 balanceAmount: balanceAmount,
                 pageIndex: pageIndex),
-            drawer: HomeDrawer(),
+
             body: BlocConsumer<NotificationCubit, NotificationState>(
               listener: (context, state) {
                 switch (state.status) {
@@ -209,8 +209,8 @@ class _HomePageState extends State<HomePage>
                           const Sportsbook(),
                           BetSlip(),
                           Leaderboard.route(),
-                          OpenBets.route(uid: uid),
-                          History.route(uid: uid),
+                          const Orders(),
+                          const Account(),
                         ],
                       );
                     }
@@ -247,3 +247,240 @@ class _HomePageState extends State<HomePage>
     }
   }
 }
+
+class Orders extends StatelessWidget {
+  const Orders({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final uid =
+        context.select((AuthenticationCubit cubit) => cubit.state.user?.uid);
+
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: TabBar(
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorColor: Palette.green,
+            tabs: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'OPEN BETS',
+                      style: Styles.pageTitle.copyWith(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'BET HISTORY',
+                      style: Styles.pageTitle.copyWith(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            OpenBets.route(uid: uid),
+            History.route(uid: uid),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Account extends StatefulWidget {
+  const Account({Key? key}) : super(key: key);
+
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+  String? versionString;
+  String? buildNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    _getAppVersion();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final username = context
+        .select((HomeCubit cubit) => cubit.state.userData?.username ?? '');
+    final email =
+        context.select((HomeCubit cubit) => cubit.state.userData?.email ?? '');
+    final location = context
+        .select((HomeCubit cubit) => cubit.state.userData?.location ?? '');
+    final isAdmin = context
+        .select((HomeCubit cubit) => cubit.state.userData?.isAdmin ?? false);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: ListView(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ProfileAvatar.route(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      username,
+                      style: Styles.signUpFieldText,
+                    ),
+                    Text(
+                      email,
+                      style: Styles.signUpFieldText,
+                    ),
+                    Text(
+                      location,
+                      style: Styles.signUpFieldText,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const Divider(
+            color: Palette.cream,
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.groups,
+              color: Palette.cream,
+            ),
+            title: Text('GROUPS', style: Styles.normalTextBold),
+            onTap: () {
+              Navigator.push<void>(
+                context,
+                GroupsPage.route(
+                  cubit: context.read<HomeCubit>(),
+                ),
+              );
+            },
+          ),
+          if (isAdmin)
+            ListTile(
+              leading: const Icon(
+                Icons.admin_panel_settings,
+                color: Palette.cream,
+              ),
+              title: Text('ADMIN VAULT', style: Styles.normalTextBold),
+              onTap: () {
+                Navigator.of(context).push<void>(AdminVaultScreen.route());
+              },
+            )
+          else
+            Container(),
+          ListTile(
+            leading: const Icon(
+              Icons.logout,
+              color: Palette.cream,
+            ),
+            title: Text('LOGOUT', style: Styles.normalTextBold),
+            onTap: () {
+              context.read<AuthenticationCubit>().authenticationLogOut();
+            },
+          ),
+          const Divider(
+            color: Palette.cream,
+          ),
+          ListTile(
+            title: Text('TUTORIAL', style: Styles.normalText),
+            onTap: _launchTutorialVideo,
+          ),
+          ListTile(
+            title: Text('RULES', style: Styles.normalText),
+            onTap: () {
+              Navigator.of(context).push<void>(
+                Rules.route(),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('TERMS OF SERVICE', style: Styles.normalText),
+            onTap: _launchTermsAndConditions,
+          ),
+          ListTile(
+            title: Text('PRIVACY POLICY', style: Styles.normalText),
+            onTap: _launchPrivacyPolicy,
+          ),
+          ListTile(
+            title: Text('CONTACT US', style: Styles.normalText),
+            onTap: () {
+              launch(
+                _emailLaunchUri.toString(),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Version: $versionString ($buildNumber)',
+              style: Styles.versionText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  final _tutorialVideoUrl = 'https://www.youtube.com/watch?v=LX2sJuqDWn0';
+
+  Future<void> _launchTutorialVideo() async =>
+      await canLaunch(_tutorialVideoUrl)
+          ? await launch(_tutorialVideoUrl)
+          : throw TutorialVideoUrlFailure();
+
+  final _termsAndConditionsUrl = 'https://vegaslit.web.app/terms.html';
+
+  Future<void> _launchTermsAndConditions() async =>
+      await canLaunch(_termsAndConditionsUrl)
+          ? await launch(_termsAndConditionsUrl)
+          : throw TermsAndConditionsUrlFailure();
+
+  final _privacyPolicyUrl = 'https://vegaslit.web.app/privacy.html';
+
+  Future<void> _launchPrivacyPolicy() async =>
+      await canLaunch(_privacyPolicyUrl)
+          ? await launch(_privacyPolicyUrl)
+          : throw PrivacyPolicyUrlFailure();
+
+  Future<void> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      versionString = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
+  }
+
+  final Uri _emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'support@vegaslit.com',
+    queryParameters: <String, String>{
+      'subject': 'Question about Vegas Lit app'
+    },
+  );
+}
+
+class TutorialVideoUrlFailure implements Exception {}
+
+class TermsAndConditionsUrlFailure implements Exception {}
+
+class PrivacyPolicyUrlFailure implements Exception {}

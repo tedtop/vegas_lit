@@ -20,10 +20,10 @@ import 'observer.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  EquatableConfig.stringify = kDebugMode;
 
   if (!kIsWeb) {
     await MobileAds.instance.initialize();
-    EquatableConfig.stringify = kDebugMode;
     if (kDebugMode) {
       Bloc.observer = SimpleBlocObserver();
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);

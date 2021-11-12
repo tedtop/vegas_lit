@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -27,7 +25,7 @@ class OpenBets extends StatelessWidget {
           ScreenTypeLayout(
             mobile: MobileOpenBets(),
             tablet: TabletOpenBets(),
-            desktop: DesktopOpenBets(),
+            desktop: const DesktopOpenBets(),
           ),
         ],
       ),

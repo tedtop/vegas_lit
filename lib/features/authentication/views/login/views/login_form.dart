@@ -407,7 +407,7 @@ class _VersionNumberState extends State<VersionNumber> {
     _getAppVersion();
   }
 
-  void _getAppVersion() async {
+  Future<void> _getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       versionString = packageInfo.version;

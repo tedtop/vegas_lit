@@ -31,30 +31,9 @@ class MobileOpenBets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        _MobileOpenBetsHeading(),
         _MobileOpenBetsDescription(),
         _MobileOpenBetsContent(),
         BottomBar()
-      ],
-    );
-  }
-}
-
-class _MobileOpenBetsHeading extends StatelessWidget {
-  const _MobileOpenBetsHeading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            'OPEN BETS',
-            style: Styles.pageTitle,
-          ),
-        ),
       ],
     );
   }

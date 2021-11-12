@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/groups/views/groups_page.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
@@ -16,6 +17,7 @@ AppBar mobileAppBar({int? balanceAmount}) {
       fit: BoxFit.contain,
       height: 80,
     ),
+    centerTitle: true,
     actions: balanceAmount != null
         ? [
             BlocBuilder<HomeCubit, HomeState>(

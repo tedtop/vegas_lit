@@ -103,7 +103,7 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   label: 'Open Bets'),
               const BottomNavigationBarItem(
-                  icon: Icon(Feather.calendar), label: 'History'),
+                  icon: Icon(Feather.user), label: 'Account'),
             ],
           );
         } else {

@@ -22,7 +22,9 @@ class TeamInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: adaptiveAppBar(width: width),
+      appBar: adaptiveAppBar(
+        width: width,
+      ),
       body: TeamInfoView(teamData: teamData, gameName: gameName),
     );
   }

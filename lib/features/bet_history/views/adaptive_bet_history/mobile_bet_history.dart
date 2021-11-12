@@ -46,7 +46,6 @@ class MobileBetHistory extends StatelessWidget {
       case HistoryStatus.failure:
         return Column(
           children: [
-            const _MobileHistoryHeading(),
             const _MobileHistoryDropdown(),
             Padding(
               padding: const EdgeInsets.only(top: 160),
@@ -64,7 +63,6 @@ class MobileBetHistory extends StatelessWidget {
       case HistoryStatus.empty:
         return Column(
           children: [
-            const _MobileHistoryHeading(),
             const _MobileHistoryDropdown(),
             Padding(
               padding: const EdgeInsets.only(top: 160),
@@ -81,7 +79,6 @@ class MobileBetHistory extends StatelessWidget {
       default:
         return Column(
           children: const [
-            _MobileHistoryHeading(),
             _MobileHistoryDropdown(),
             _MobileHistoryBoard(),
             _MobileHistoryContent(),
@@ -220,26 +217,6 @@ class _MobileHistoryEmpty extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Styles.betHistoryNormal,
       ),
-    );
-  }
-}
-
-class _MobileHistoryHeading extends StatelessWidget {
-  const _MobileHistoryHeading({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            'BET HISTORY',
-            style: Styles.pageTitle,
-          ),
-        ),
-      ],
     );
   }
 }

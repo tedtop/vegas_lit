@@ -1,4 +1,3 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
@@ -62,25 +61,19 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (_) => InternetCubit(
-              connectivity: Connectivity(),
-            ),
+            create: (_) => InternetCubit(),
           ),
         ],
-        child: AppView(),
+        child: const AppView(),
       ),
     );
   }
 }
 
 class AppView extends StatelessWidget {
-  AppView({
+  const AppView({
     Key? key,
   }) : super(key: key);
-
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  NavigatorState? get _navigator => _navigatorKey.currentState;
 
   @override
   Widget build(BuildContext context) {
@@ -89,30 +82,30 @@ class AppView extends StatelessWidget {
         useInheritedMediaQuery: true,
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
-        navigatorKey: _navigatorKey,
         title: 'Vegas Lit',
         theme: Themes.dark,
         navigatorObservers: [
           routeObserver,
         ],
         home: FlowBuilder<AuthenticationStatus>(
-          state:
-              context.select((AuthenticationCubit cubit) => cubit.state.status),
-          onGeneratePages: onGenerateAppViewPages,
+          state: context.select(
+            (AuthenticationCubit cubit) => cubit.state.status,
+          ),
+          onGeneratePages: (
+            AuthenticationStatus state,
+            List<Page<dynamic>> pages,
+          ) {
+            switch (state) {
+              case AuthenticationStatus.success:
+                return [HomePage.page()];
+              case AuthenticationStatus.failure:
+                return [LoginPage.page()];
+              default:
+                return [SplashPage.page()];
+            }
+          },
         ),
       ),
     );
-  }
-}
-
-List<Page> onGenerateAppViewPages(
-    AuthenticationStatus state, List<Page<dynamic>> pages) {
-  switch (state) {
-    case AuthenticationStatus.success:
-      return [HomePage.page()];
-    case AuthenticationStatus.loading:
-      return [SplashPage.page()];
-    default:
-      return [LoginPage.page()];
   }
 }

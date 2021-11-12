@@ -29,7 +29,9 @@ class AdminVaultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: adaptiveAppBar(width: width),
+      appBar: adaptiveAppBar(
+        width: width,
+      ),
       body: BlocBuilder<AdminVaultCubit, AdminVaultState>(
         builder: (context, state) {
           switch (state.status) {

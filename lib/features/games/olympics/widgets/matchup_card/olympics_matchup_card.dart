@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/features/home/home.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
 import '../../../../../data/models/olympics/olympics.dart';
-import '../../../../profile/profile.dart';
 import '../../cubit/olympics_cubit.dart';
 import '../bet_button/cubit/olympics_bet_button_cubit.dart';
 import '../bet_button/screens/bet_button_widget.dart';
@@ -43,8 +43,8 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isAdmin = context.select((ProfileCubit profileCubit) =>
-        profileCubit.state.userData?.isAdmin ?? false);
+    final isAdmin = context
+        .select((HomeCubit cubit) => cubit.state.userData?.isAdmin ?? false);
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 8,
@@ -86,7 +86,8 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                widget.game.gameName!.replaceAll(RegExp('-'), '/'),
+                                widget.game.gameName!
+                                    .replaceAll(RegExp('-'), '/'),
                                 style: Styles.normalTextBold,
                               ),
                             ],
@@ -182,8 +183,8 @@ class _OlympicsMatchupCardState extends State<OlympicsMatchupCard> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 4),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 4),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                           padding: MaterialStateProperty.all(
