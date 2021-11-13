@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/palette.dart';
 import 'package:vegas_lit/config/styles.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
-import 'package:vegas_lit/features/bet_history/views/bet_history_view.dart';
+import 'package:vegas_lit/features/bet_history/view/bet_history_view.dart';
 import 'package:vegas_lit/features/open_bets/views/open_bets_page.dart';
 
 class BetHistory extends StatelessWidget {
