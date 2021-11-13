@@ -12,15 +12,7 @@ import 'adaptive_leaderboard/mobile_leaderboard.dart';
 import 'adaptive_leaderboard/tablet_leaderboard.dart';
 
 class Leaderboard extends StatelessWidget {
-  const Leaderboard._({Key? key}) : super(key: key);
-
-  static Builder route() {
-    return Builder(
-      builder: (context) {
-        return const Leaderboard._();
-      },
-    );
-  }
+  const Leaderboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

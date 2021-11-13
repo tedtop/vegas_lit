@@ -16,9 +16,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(
       {required UserRepository userRepository,
       required DeviceRepository deviceRepository})
-      : assert(userRepository != null),
-        assert(deviceRepository != null),
-        _deviceRepository = deviceRepository,
+      : _deviceRepository = deviceRepository,
         _userRepository = userRepository,
         super(
           const HomeState.initial(),

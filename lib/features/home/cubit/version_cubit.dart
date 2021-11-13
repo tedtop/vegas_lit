@@ -10,8 +10,7 @@ part 'version_state.dart';
 
 class VersionCubit extends Cubit<VersionState> {
   VersionCubit({required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
+      : _userRepository = userRepository,
         super(const VersionState.initial());
 
   final UserRepository _userRepository;
