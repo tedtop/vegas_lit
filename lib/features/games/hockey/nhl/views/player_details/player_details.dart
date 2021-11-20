@@ -265,7 +265,7 @@ class StatsBox extends StatelessWidget {
     final statsOffset = (statsList.length ~/ 2) + 8;
     return Container(
       width: 380,
-      margin: const EdgeInsets.only(top: 20, bottom: 40),
+      margin: const EdgeInsets.only(top: 20, bottom: 8),
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
       decoration: BoxDecoration(
           color: Palette.lightGrey,

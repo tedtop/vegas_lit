@@ -146,7 +146,7 @@ class TeamInfoView extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      separatorBuilder: (context, index) => const Divider(),
+      separatorBuilder: (context, index) => const Divider(height: 4),
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
