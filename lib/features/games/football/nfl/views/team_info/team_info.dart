@@ -163,7 +163,7 @@ class TeamInfoView extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 12,
+                horizontal: 8,
               ),
               child: Stack(
                 alignment: Alignment.centerLeft,
@@ -178,9 +178,12 @@ class TeamInfoView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${players[index].number != null ? '#${players[index].number}' : ''} ${players[index].firstName} ${players[index].lastName}',
-                          style: Styles.normalText,
+                        Expanded(
+                          child: Text(
+                            '${players[index].number != null ? '#${players[index].number}' : ''} ${players[index].firstName} ${players[index].lastName}',
+                            style: Styles.normalText,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
