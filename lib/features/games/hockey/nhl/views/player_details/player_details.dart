@@ -179,23 +179,30 @@ class PlayerDetailsPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         children: [
-          Column(
+          Row(
             children: [
-              Column(
-                children: [
-                  Text(
-                    'INJURY STATUS',
-                    style: Styles.greenText.copyWith(fontSize: 16),
-                  ),
-                  Text(
-                    playerDetails.injuryStatus?.toUpperCase() ?? 'NONE',
-                    style: Styles.normalText.copyWith(fontSize: 16),
-                  )
-                ],
+              Text(
+                'INJURY STATUS:',
+                style: Styles.greenText
+                    .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    playerDetails.injuryStatus?.toString().toUpperCase() ??
+                        'NONE',
+                    style: Styles.normalText
+                        .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
               Column(
                 children: [
                   Text(
@@ -203,7 +210,8 @@ class PlayerDetailsPage extends StatelessWidget {
                     style: Styles.greenText.copyWith(fontSize: 16),
                   ),
                   Text(
-                    playerDetails.injuryBodyPart?.toUpperCase() ?? 'NONE',
+                    playerDetails.injuryBodyPart?.toString().toUpperCase() ??
+                        'NONE',
                     style: Styles.normalText.copyWith(
                       fontSize: 16,
                       color: playerDetails.injuryBodyPart == null
@@ -212,28 +220,27 @@ class PlayerDetailsPage extends StatelessWidget {
                     ),
                   )
                 ],
-              )
+              ),
+              Expanded(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'INJURY NOTES',
+                        style: Styles.normalText
+                            .copyWith(color: Palette.red, fontSize: 16),
+                      ),
+                      Text(
+                        playerDetails.injuryNotes?.toString() ?? 'NONE',
+                        style: Styles.normalText.copyWith(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
-          ),
-          const SizedBox(
-            width: 25,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'INJURY NOTES',
-                  style: Styles.normalText
-                      .copyWith(color: Palette.red, fontSize: 16),
-                ),
-                Text(
-                  playerDetails.injuryNotes ?? 'NONE',
-                  style: Styles.normalText.copyWith(fontSize: 12),
-                ),
-              ],
-            ),
-          ),
+          )
         ],
       ),
     );
