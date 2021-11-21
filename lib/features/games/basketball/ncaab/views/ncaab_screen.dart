@@ -33,10 +33,10 @@ class NcaabScreen extends StatelessWidget {
     return BlocConsumer<NcaabCubit, NcaabState>(
       listener: (context, state) {
         if (state.status == NcaabStatus.opened) {
-          if (state.games!.length is int) {
+          if (state.games.length is int) {
             context.read<SportsbookCubit>().updateLeagueLength(
                   league: state.league,
-                  length: state.games!.length,
+                  length: state.games.length,
                 );
           }
         }
@@ -53,7 +53,7 @@ class NcaabScreen extends StatelessWidget {
               ),
             );
           default:
-            if (state.games!.isEmpty) {
+            if (state.games.isEmpty) {
               return Column(
                 children: [
                   Padding(
@@ -76,7 +76,6 @@ class NcaabScreen extends StatelessWidget {
               return Column(
                 children: [
                   ScreenTypeLayout(
-                    //key: cardKey,
                     breakpoints: const ScreenBreakpoints(
                       desktop: 1000,
                       tablet: 600,
@@ -85,15 +84,15 @@ class NcaabScreen extends StatelessWidget {
                     mobile: MobileNcaabScreen(
                       games: state.games,
                       gameName: state.league,
-                      parsedTeamData: state.parsedTeamData,
+                      teamData: state.teamData,
                     ),
                     tablet: TabletNcaabScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      teamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),
                     desktop: DesktopNcaabScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      teamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),

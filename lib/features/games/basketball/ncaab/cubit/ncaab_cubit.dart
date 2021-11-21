@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
 import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/ncaab/ncaab_game.dart';
@@ -13,8 +10,7 @@ part 'ncaab_state.dart';
 
 class NcaabCubit extends Cubit<NcaabState> {
   NcaabCubit({required SportRepository sportsfeedRepository})
-      : assert(sportsfeedRepository != null),
-        _sportsfeedRepository = sportsfeedRepository,
+      : _sportsfeedRepository = sportsfeedRepository,
         super(
           const NcaabState.initial(),
         );
@@ -49,19 +45,16 @@ class NcaabCubit extends Cubit<NcaabState> {
         );
 
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNCAABTeams();
 
-    emit(NcaabState.opened(
-      localTimeZone: localTimeZone,
-      estTimeZone: estTimeZone,
-      games: totalGames,
-      league: league,
-      parsedTeamData: await getNcaabParsedTeamData(),
-    ));
+    emit(
+      NcaabState.opened(
+        localTimeZone: localTimeZone,
+        estTimeZone: estTimeZone,
+        games: totalGames,
+        league: league,
+        teamData: teamData,
+      ),
+    );
   }
-}
-
-Future<List?> getNcaabParsedTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/cbb.json');
-  final parsedTeamData = await json.decode(jsonData) as List?;
-  return parsedTeamData;
 }

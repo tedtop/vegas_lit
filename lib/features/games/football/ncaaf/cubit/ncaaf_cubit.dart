@@ -49,31 +49,15 @@ class NcaafCubit extends Cubit<NcaafState> {
           }).toList(),
         );
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNCAAFTeams();
 
     emit(
       NcaafState.opened(
         estTimeZone: estTimeZone,
         games: totalGames,
         league: league,
-        parsedTeamData: await getNCAAFTeamData(),
+        parsedTeamData: teamData,
       ),
     );
   }
-}
-
-Future<List<NcaafTeam>> getNCAAFTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/cfb.json');
-
-  return compute(parseTeamData, jsonData);
-}
-
-List<NcaafTeam> parseTeamData(String jsonData) {
-  final parsedTeamData = json.decode(jsonData) as List;
-  final teamData = parsedTeamData
-      .map<NcaafTeam>(
-        (dynamic json) => NcaafTeam.fromMap(json as Map<String, dynamic>),
-      )
-      .toList();
-
-  return teamData;
 }

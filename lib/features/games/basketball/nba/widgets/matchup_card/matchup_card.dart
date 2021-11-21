@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
@@ -22,7 +23,7 @@ class MatchupCard extends StatelessWidget {
   static Builder route({
     required NbaGame game,
     required String? gameName,
-    required List? parsedTeamData,
+    required List<NbaTeam>? teamData,
   }) {
     return Builder(
       builder: (_) {
@@ -31,7 +32,7 @@ class MatchupCard extends StatelessWidget {
             ..openMatchupCard(
               game: game,
               gameName: gameName,
-              parsedTeamData: parsedTeamData!,
+              teamData: teamData!,
             ),
           child: MatchupCard._(gameName: gameName),
         );

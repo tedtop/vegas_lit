@@ -78,15 +78,15 @@ class MlbScreen extends StatelessWidget {
                     mobile: MobileMlbScreen(
                       games: state.games,
                       gameName: state.league,
-                      parsedTeamData: state.parsedTeamData,
+                      parsedTeamData: state.teamData,
                     ),
                     tablet: TabletMlbScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      parsedTeamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),
                     desktop: DesktopMlbScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      parsedTeamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),

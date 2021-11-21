@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 
 import '../../../../../config/extensions.dart';
 
@@ -13,8 +14,7 @@ part 'nba_state.dart';
 
 class NbaCubit extends Cubit<NbaState> {
   NbaCubit({required SportRepository sportsfeedRepository})
-      : assert(sportsfeedRepository != null),
-        _sportsfeedRepository = sportsfeedRepository,
+      : _sportsfeedRepository = sportsfeedRepository,
         super(
           const NbaState.initial(),
         );
@@ -47,18 +47,15 @@ class NbaCubit extends Cubit<NbaState> {
         );
 
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNBATeams();
 
-    emit(NbaState.opened(
-      estTimeZone: estTimeZone,
-      games: totalGames,
-      league: league,
-      parsedTeamData: await getNBAParsedTeamData(),
-    ));
+    emit(
+      NbaState.opened(
+        estTimeZone: estTimeZone,
+        games: totalGames,
+        league: league,
+        parsedTeamData: teamData,
+      ),
+    );
   }
-}
-
-Future<List?> getNBAParsedTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/nba.json');
-  final parsedTeamData = await json.decode(jsonData) as List?;
-  return parsedTeamData;
 }

@@ -8,7 +8,7 @@ part 'matchup_card_state.dart';
 class NcaafMatchupCardCubit extends Cubit<NcaafMatchupCardState> {
   NcaafMatchupCardCubit() : super(MatchupCardInitial());
 
-  void openMatchupCard({
+  Future<void> openMatchupCard({
     required NcaafGame game,
     required List<NcaafTeam> parsedTeamData,
     required String? gameName,

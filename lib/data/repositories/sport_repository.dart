@@ -1,3 +1,10 @@
+import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
+import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/models/nhl_team.dart';
+
 import '../models/golf/golf.dart';
 import '../models/mlb/mlb_game.dart';
 import '../models/mlb/mlb_player.dart';
@@ -38,7 +45,7 @@ class SportRepository {
   final SportsdataApiClient _sportsProvider;
   final CloudFirestoreClient _databaseProvider;
 
-  // MLB
+  /// MLB
   Future<List<MlbGame>> fetchMLB({required DateTime dateTime, int days = 1}) =>
       _sportsProvider.fetchMLB(dateTime: dateTime, days: days);
 
@@ -53,7 +60,9 @@ class SportRepository {
       _sportsProvider.fetchMLBPlayerStats(
           playerId: playerId, dateTime: dateTime);
 
-  // NBA
+  Future<List<MlbTeam>> fetchMLBTeams() => _sportsProvider.fetchMLBTeams();
+
+  /// NBA
   Future<List<NbaGame>> fetchNBA({required DateTime dateTime, int days = 1}) =>
       _sportsProvider.fetchNBA(dateTime: dateTime, days: days);
 
@@ -68,7 +77,9 @@ class SportRepository {
       _sportsProvider.fetchNBAPlayerStats(
           playerId: playerId, dateTime: dateTime);
 
-  // NCAAB
+  Future<List<NbaTeam>> fetchNBATeams() => _sportsProvider.fetchNBATeams();
+
+  /// NCAAB
   Future<List<NcaabGame>> fetchNCAAB(
           {required DateTime dateTime, int days = 1}) =>
       _sportsProvider.fetchNCAAB(dateTime: dateTime, days: days);
@@ -85,7 +96,10 @@ class SportRepository {
       _sportsProvider.fetchNCAABPlayerStats(
           playerId: playerId, dateTime: dateTime);
 
-  // NCAAF
+  Future<List<NcaabTeam>> fetchNCAABTeams() =>
+      _sportsProvider.fetchNCAABTeams();
+
+  /// NCAAF
   Future<List<NcaafGame>> fetchNCAAF(
           {required DateTime dateTime, int days = 1}) =>
       _sportsProvider.fetchNCAAF(dateTime: dateTime, days: days);
@@ -102,7 +116,10 @@ class SportRepository {
       _sportsProvider.fetchNCAAFPlayerStats(
           playerId: playerId, dateTime: dateTime);
 
-  // NFL
+  Future<List<NcaafTeam>> fetchNCAAFTeams() =>
+      _sportsProvider.fetchNCAAFTeams();
+
+  /// NFL
   Future<List<NflGame>> fetchNFL({required DateTime dateTime, int days = 1}) =>
       _sportsProvider.fetchNFL(dateTime: dateTime, days: days);
 
@@ -117,7 +134,9 @@ class SportRepository {
       _sportsProvider.fetchNFLPlayerStats(
           playerId: playerId, dateTime: dateTime);
 
-  // NHL
+  Future<List<NflTeam>> fetchNFLTeams() => _sportsProvider.fetchNFLTeams();
+
+  /// NHL
   Future<List<NhlGame>> fetchNHL({required DateTime dateTime, int days = 1}) =>
       _sportsProvider.fetchNHL(dateTime: dateTime, days: days);
 
@@ -132,11 +151,13 @@ class SportRepository {
       _sportsProvider.fetchNHLPlayerStats(
           playerId: playerId, dateTime: dateTime);
 
+  Future<List<NhlTeam>> fetchNHLTeams() => _sportsProvider.fetchNHLTeams();
+
   // Future<List<CricketDatum>> fetchCricketGames(
   //         {String gameName, DateTime dateTime}) =>
   //     _sportsProvider.fetchCricketGame(dateTimeEastern: dateTime);
 
-  // GOLF
+  /// GOLF
   Future<List<GolfTournament>> fetchGolfTournaments({
     required DateTime dateTimeEastern,
   }) =>

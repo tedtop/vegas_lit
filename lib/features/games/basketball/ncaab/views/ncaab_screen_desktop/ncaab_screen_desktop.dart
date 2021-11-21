@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/ncaab/ncaab_game.dart';
@@ -8,10 +9,17 @@ import '../../../../../bet_slip/bet_slip.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNcaabScreen extends StatelessWidget {
-  const DesktopNcaabScreen({this.gameName, this.games, this.parsedTeamData});
-  final List<NcaabGame>? games;
-  final String? gameName;
-  final List? parsedTeamData;
+  const DesktopNcaabScreen({
+    Key? key,
+    required this.games,
+    required this.gameName,
+    required this.teamData,
+  }) : super(key: key);
+
+  final List<NcaabGame> games;
+  final String gameName;
+  final List<NcaabTeam> teamData;
+
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -34,14 +42,22 @@ class DesktopNcaabScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                children: games!
-                    .map(
-                      (game) => MatchupCard.route(
-                          game: game,
-                          gameName: gameName,
-                          parsedTeamData: parsedTeamData),
-                    )
-                    .toList()),
+                children: games.map(
+                  (game) {
+                    final awayTeamData = teamData.singleWhere(
+                      (element) => element.key == game.awayTeam,
+                    );
+                    final homeTeamData = teamData.singleWhere(
+                      (element) => element.key == game.homeTeam,
+                    );
+                    return MatchupCard.route(
+                      game: game,
+                      gameName: gameName,
+                      homeTeamData: awayTeamData,
+                      awayTeamData: homeTeamData,
+                    );
+                  },
+                ).toList()),
           ),
           Container(
             constraints: const BoxConstraints(maxWidth: 400, minWidth: 300),

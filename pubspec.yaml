@@ -79,7 +79,6 @@ flutter:
     - assets/images/olympics_icons/
     - assets/images/paralympics_icons/
     - assets/images/bet_game_bg/
-    - assets/json/
     - assets/overlays/
     - assets/svg/
 

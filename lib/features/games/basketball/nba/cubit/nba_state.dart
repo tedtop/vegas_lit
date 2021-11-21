@@ -1,5 +1,3 @@
-
-
 part of 'nba_cubit.dart';
 
 enum NbaStatus {
@@ -21,7 +19,7 @@ class NbaState extends Equatable {
   const NbaState.opened({
     required List<NbaGame> games,
     required String league,
-    required List? parsedTeamData,
+    required List<NbaTeam>? parsedTeamData,
     required DateTime estTimeZone,
   }) : this._(
           games: games,
@@ -33,7 +31,7 @@ class NbaState extends Equatable {
 
   final List<NbaGame>? games;
   final String league;
-  final List? parsedTeamData;
+  final List<NbaTeam>? parsedTeamData;
   final DateTime? estTimeZone;
   final NbaStatus status;
 

@@ -15,8 +15,7 @@ part 'nfl_state.dart';
 
 class NflCubit extends Cubit<NflState> {
   NflCubit({required SportRepository sportsfeedRepository})
-      : assert(sportsfeedRepository != null),
-        _sportsfeedRepository = sportsfeedRepository,
+      : _sportsfeedRepository = sportsfeedRepository,
         super(
           const NflState.initial(),
         );
@@ -48,33 +47,15 @@ class NflCubit extends Cubit<NflState> {
           }).toList(),
         );
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNFLTeams();
 
     emit(
       NflState.opened(
         estTimeZone: estTimeZone,
         games: totalGames,
         league: league,
-        parsedTeamData: await getNFLTeamData(),
+        parsedTeamData: teamData,
       ),
     );
   }
-}
-
-Future<List<NflTeam>> getNFLTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/nfl.json');
-
-  return compute(parseTeamData, jsonData);
-}
-
-List<NflTeam> parseTeamData(String jsonData) {
-  final parsedTeamData = json.decode(jsonData) as List;
-  final teamData = parsedTeamData
-      .map<NflTeam>(
-        (dynamic json) => NflTeam.fromMap(
-          json as Map<String, dynamic>,
-        ),
-      )
-      .toList();
-
-  return teamData;
 }

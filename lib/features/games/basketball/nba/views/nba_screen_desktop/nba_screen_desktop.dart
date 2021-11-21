@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/nba/nba_game.dart';
@@ -11,7 +12,7 @@ class DesktopNbaScreen extends StatelessWidget {
   const DesktopNbaScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NbaGame>? games;
   final String? gameName;
-  final List? parsedTeamData;
+  final List<NbaTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -37,9 +38,10 @@ class DesktopNbaScreen extends StatelessWidget {
                 children: games!
                     .map(
                       (game) => MatchupCard.route(
-                          game: game,
-                          gameName: gameName,
-                          parsedTeamData: parsedTeamData),
+                        game: game,
+                        gameName: gameName,
+                        teamData: parsedTeamData,
+                      ),
                     )
                     .toList()),
           ),
