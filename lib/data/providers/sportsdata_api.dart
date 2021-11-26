@@ -117,7 +117,6 @@ class SportsdataApiClient {
   Future<MlbPlayerStats> fetchMLBPlayerStats(
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
-    print('player id: $playerId');
     final response = await _dio.get<Object>(
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
