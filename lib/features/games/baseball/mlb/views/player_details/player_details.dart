@@ -12,7 +12,9 @@ import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  const PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
+  const PlayerDetailsPage(
+      {Key? key, this.playerId, this.gameName, this.playerDetails})
+      : super(key: key);
   final String? playerId;
   final String? gameName;
   final MlbPlayer? playerDetails;
@@ -40,48 +42,100 @@ class PlayerDetailsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: adaptiveAppBar(width: size.width),
-      body: ListView(
-        children: [
-          Center(
-            child: Text(
-              'PLAYER STATS',
-              style: GoogleFonts.nunito(
-                fontSize: 24,
-                color: Palette.green,
-                fontWeight: FontWeight.bold,
+      body: Center(
+        child: SizedBox(
+          width: 380,
+          child: ListView(
+            children: [
+              Center(
+                child: Text(
+                  'PLAYER STATS',
+                  style: GoogleFonts.nunito(
+                    fontSize: 24,
+                    color: Palette.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 12),
+              _playerBadge(size, playerDetails!),
+              _playerDescription(playerDetails!),
+              BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
+                builder: (context, state) {
+                  if (state is PlayerDetailsOpened) {
+                    return MlbPlayerStatsBox(
+                      hitting1: <String, dynamic>{
+                        'G': state.playerStats.games,
+                        'AB': state.playerStats.atBats,
+                      },
+                      hitting2: <String, dynamic>{
+                        'R': state.playerStats.runs,
+                        'H': state.playerStats.hits,
+                        '2B': state.playerStats.doubles,
+                        '3B': state.playerStats.triples,
+                        'HR': state.playerStats.homeRuns,
+                        'RBI': state.playerStats.runsBattedIn,
+                      },
+                      hitting3: <String, dynamic>{
+                        'BB': state.playerStats.walks,
+                        'SO': state.playerStats.strikeouts,
+                        'SB': state.playerStats.stolenBases,
+                        'CS': state.playerStats.caughtStealing,
+                      },
+                      hitting4: <String, dynamic>{
+                        'AVG': state.playerStats.battingAverage,
+                        'OBP': state.playerStats.onBasePercentage,
+                        'SLG': state.playerStats.sluggingPercentage,
+                        'OPS': state.playerStats.onBasePlusSlugging,
+                      },
+                      pitching1: <String, dynamic>{
+                        'W': state.playerStats.wins,
+                        'L': state.playerStats.losses,
+                        'ERA': state.playerStats.earnedRunAverage,
+                        'G': '--',
+                        'GS': '--',
+                        'CG': state.playerStats.pitchingCompleteGames,
+                        'SHO': state.playerStats.pitchingShutOuts,
+                        'SV': '--',
+                        'SVO': '--',
+                      },
+                      pitching2: <String, dynamic>{
+                        'IP': state.playerStats.inningsPitchedFull,
+                        'H': state.playerStats.pitchingHits,
+                        'R': state.playerStats.pitchingRuns,
+                        'ER': state.playerStats.pitchingEarnedRuns,
+                        'HR': state.playerStats.pitchingHomeRuns,
+                        'HB': '--',
+                        'BB': state.playerStats.pitchingWalks,
+                        'SO': state.playerStats.pitchingStrikeouts,
+                      },
+                      pitching3: <String, dynamic>{
+                        'WHIP': state.playerStats.walksHitsPerInningsPitched,
+                        'AVG': state.playerStats.pitchingBattingAverageAgainst,
+                      },
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Palette.cream,
+                      )),
+                    );
+                  }
+                },
+              ),
+              _playerInjury(playerDetails!),
+              //_buildProfileWidget(size),
+            ],
           ),
-          const SizedBox(height: 12),
-          _playerBadge(size, playerDetails!),
-          _playerDescription(playerDetails!),
-          const SizedBox(height: 12),
-          _playerInjury(playerDetails!),
-          BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
-            builder: (context, state) {
-              if (state is PlayerDetailsOpened) {
-                return SizedBox.shrink();
-                //StatsBox(statMap: state.playerStats.toStatOnlyMap());
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-          ),
-          //_buildProfileWidget(size),
-        ],
+        ),
       ),
     );
   }
 
   Widget _playerBadge(Size size, MlbPlayer playerDetails) {
     return SizedBox(
-      width: size.width,
       height: 150,
       child: Row(
         children: [
@@ -172,6 +226,8 @@ class PlayerDetailsPage extends StatelessWidget {
 
   Widget _playerInjury(MlbPlayer playerDetails) {
     return Container(
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
       width: 380,
       decoration: BoxDecoration(
         color: Palette.lightGrey,
@@ -180,7 +236,6 @@ class PlayerDetailsPage extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(8),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Column(
         children: [
           Row(
@@ -249,19 +304,70 @@ class PlayerDetailsPage extends StatelessWidget {
   }
 }
 
-class StatsBox extends StatelessWidget {
-  const StatsBox(
-      {Key? key, required this.hittingMap, required this.pitchingMap})
-      : super(key: key);
-  final Map<String, dynamic> hittingMap, pitchingMap;
+class MlbPlayerStatsBox extends StatelessWidget {
+  const MlbPlayerStatsBox({
+    Key? key,
+    required this.hitting1,
+    required this.hitting2,
+    required this.hitting3,
+    required this.hitting4,
+    required this.pitching1,
+    required this.pitching2,
+    required this.pitching3,
+  }) : super(key: key);
+  final Map<String, dynamic> hitting1, hitting2, hitting3, hitting4;
+  final Map<String, dynamic> pitching1, pitching2, pitching3;
+
+  Widget _statsText(String t1, dynamic t2) {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            t1,
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+          Text(
+            t2.toString(),
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _statsVDivider() {
+    return const SizedBox(
+      height: 40,
+      child: VerticalDivider(
+        color: Palette.cream,
+        thickness: 1,
+        width: 10,
+      ),
+    );
+  }
+
+  Widget _statsHDivider() {
+    return const SizedBox(
+        width: 350,
+        child: Divider(
+          color: Palette.cream,
+          thickness: 1,
+          height: 10,
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
         width: 380,
-        margin: const EdgeInsets.only(top: 20, bottom: 8),
+        height: 180,
+        margin: const EdgeInsets.only(top: 20, bottom: 18),
         padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
         decoration: BoxDecoration(
+            color: Palette.lightGrey,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             border: Border.all(
               color: Palette.cream,
@@ -271,6 +377,9 @@ class StatsBox extends StatelessWidget {
           child: Scaffold(
             backgroundColor: Palette.lightGrey,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
+              toolbarHeight: 0,
+              backgroundColor: Palette.lightGrey,
               bottom: TabBar(
                 indicatorColor: Palette.green,
                 tabs: [
@@ -290,61 +399,64 @@ class StatsBox extends StatelessWidget {
               ),
             ),
             body: TabBarView(children: [
-              Builder(
-                builder: (context) {
-                  List<Widget> statPieces = [];
-                  hittingMap.entries.toList().asMap().forEach((index, map) {
-                    if (index == 2 || index == 12)
-                      statPieces.add(VerticalDivider(
-                        color: Palette.cream,
-                      ));
-                    statPieces.add(StatsText(
-                        abbrText: map.key, valText: map.value.toString()));
-                  });
-                  return Column(children: [
-                    Row(children: statPieces.sublist(0, 9)),
-                    Divider(
-                      color: Palette.cream,
-                    ),
-                    Row(children: statPieces.sublist(9)),
-                  ]);
-                },
+              // For Hitting
+              Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ...hitting1.entries
+                          .map((stat) => _statsText(stat.key, stat.value))
+                          .toList(),
+                      _statsVDivider(),
+                      ...hitting2.entries
+                          .map((stat) => _statsText(stat.key, stat.value))
+                          .toList(),
+                    ],
+                  ),
+                  _statsHDivider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ...hitting3.entries
+                          .map((stat) => _statsText(stat.key, stat.value))
+                          .toList(),
+                      _statsVDivider(),
+                      ...hitting4.entries
+                          .map((stat) => _statsText(stat.key, stat.value))
+                          .toList(),
+                    ],
+                  ),
+                ],
               ),
-              // change it for pitching
-              Builder(
-                builder: (context) {
-                  List<Widget> statPieces = [];
-                  hittingMap.entries.toList().asMap().forEach((index, map) {
-                    if (index == 2 || index == 12)
-                      statPieces.add(VerticalDivider(
-                        color: Palette.cream,
-                      ));
-                    statPieces.add(StatsText(
-                        abbrText: map.key, valText: map.value.toString()));
-                  });
-                  return Column(children: [
-                    Row(children: statPieces.sublist(0, 9)),
-                    Divider(
-                      color: Palette.cream,
-                    ),
-                    Row(children: statPieces.sublist(9)),
-                  ]);
-                },
+              // For Pitching
+              Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: pitching1.entries
+                        .map((stat) => _statsText(stat.key, stat.value))
+                        .toList(),
+                  ),
+                  _statsHDivider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ...pitching2.entries
+                          .map((stat) => _statsText(stat.key, stat.value))
+                          .toList(),
+                      _statsVDivider(),
+                      ...pitching3.entries
+                          .map((stat) => _statsText(stat.key, stat.value))
+                          .toList(),
+                    ],
+                  ),
+                ],
               ),
             ]),
           ),
         ));
-  }
-}
-
-class StatsText extends StatelessWidget {
-  const StatsText({Key? key, required this.abbrText, required this.valText})
-      : super(key: key);
-  final String abbrText, valText;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [Text(abbrText), Text(valText)],
-    );
   }
 }
