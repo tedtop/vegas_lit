@@ -120,7 +120,7 @@ class Styles {
   /// --> GAMES
 
   /// // --> TEAM INFO
-  static final teamStatsMain = VLTextStyle.nunito.creamColored.size(28);
+  static final teamStatsMain = VLTextStyle.nunito.creamColored.size(26);
 
   static final teamStatsText = VLTextStyle.nunito.creamColored.size(11).bold;
 
