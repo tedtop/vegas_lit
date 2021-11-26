@@ -100,7 +100,7 @@ class TeamInfoView extends StatelessWidget {
 
   Widget _buildPlayersList(List<MlbPlayer> players) {
     final teamColor = teamData!.primaryColor != null
-        ? int.parse('0xA6${teamData!.primaryColor}'.toString())
+        ? int.parse('0xA6${teamData!.primaryColor}')
         : Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
@@ -235,84 +235,85 @@ class TeamInfoView extends StatelessWidget {
         ),
         _teamBadge(size),
         const SizedBox(height: 12),
-        BlocConsumer<TeamInfoCubit, TeamInfoState>(
-            builder: (context, state) {
-              if (state is TeamInfoOpened) {
-                return Column(
-                  children: [
-                    _teamStats(state.teamStats),
-                    TeamStatsBox(
-                      hitting1: <String, dynamic>{
-                        'G': state.teamStats.games,
-                        'AB': state.teamStats.atBats,
-                      },
-                      hitting2: <String, dynamic>{
-                        'R': state.teamStats.runs,
-                        'H': state.teamStats.hits,
-                        '2B': state.teamStats.doubles,
-                        '3B': state.teamStats.triples,
-                        'HR': state.teamStats.homeRuns,
-                        'RBI': state.teamStats.runsBattedIn,
-                      },
-                      hitting3: <String, dynamic>{
-                        'BB': state.teamStats.walks,
-                        'SO': state.teamStats.strikeouts,
-                        'SB': state.teamStats.stolenBases,
-                        'CS': state.teamStats.caughtStealing,
-                      },
-                      hitting4: <String, dynamic>{
-                        'AVG': state.teamStats.battingAverage,
-                        'OBP': state.teamStats.onBasePercentage,
-                        'SLG': state.teamStats.sluggingPercentage,
-                        'OPS': state.teamStats.onBasePlusSlugging,
-                      },
-                      pitching1: <String, dynamic>{
-                        'W': state.teamStats.wins,
-                        'L': state.teamStats.losses,
-                        'ERA': state.teamStats.earnedRunAverage,
-                        'G': '--',
-                        'GS': '--',
-                        'CG': state.teamStats.pitchingCompleteGames,
-                        'SHO': state.teamStats.pitchingShutOuts,
-                        'SV': '--',
-                        'SVO': '--',
-                      },
-                      pitching2: <String, dynamic>{
-                        'IP': state.teamStats.inningsPitchedFull,
-                        'H': state.teamStats.pitchingHits,
-                        'R': state.teamStats.pitchingRuns,
-                        'ER': state.teamStats.pitchingEarnedRuns,
-                        'HR': state.teamStats.pitchingHomeRuns,
-                        'HB': '--',
-                        'BB': state.teamStats.pitchingWalks,
-                        'SO': state.teamStats.pitchingStrikeouts,
-                      },
-                      pitching3: <String, dynamic>{
-                        'WHIP': state.teamStats.walksHitsPerInningsPitched,
-                        'AVG': state.teamStats.pitchingBattingAverageAgainst,
-                      },
-                    ),
-                    _buildPlayersList(state.players),
-                  ],
-                );
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-            listener: (context, state) {})
+        BlocBuilder<TeamInfoCubit, TeamInfoState>(
+          builder: (context, state) {
+            if (state is TeamInfoOpened) {
+              return Column(
+                children: [
+                  _teamStats(state.teamStats),
+                  MlbTeamStatsBox(
+                    hitting1: <String, dynamic>{
+                      'G': state.teamStats.games,
+                      'AB': state.teamStats.atBats,
+                    },
+                    hitting2: <String, dynamic>{
+                      'R': state.teamStats.runs,
+                      'H': state.teamStats.hits,
+                      '2B': state.teamStats.doubles,
+                      '3B': state.teamStats.triples,
+                      'HR': state.teamStats.homeRuns,
+                      'RBI': state.teamStats.runsBattedIn,
+                    },
+                    hitting3: <String, dynamic>{
+                      'BB': state.teamStats.walks,
+                      'SO': state.teamStats.strikeouts,
+                      'SB': state.teamStats.stolenBases,
+                      'CS': state.teamStats.caughtStealing,
+                    },
+                    hitting4: <String, dynamic>{
+                      'AVG': state.teamStats.battingAverage,
+                      'OBP': state.teamStats.onBasePercentage,
+                      'SLG': state.teamStats.sluggingPercentage,
+                      'OPS': state.teamStats.onBasePlusSlugging,
+                    },
+                    pitching1: <String, dynamic>{
+                      'W': state.teamStats.wins,
+                      'L': state.teamStats.losses,
+                      'ERA': state.teamStats.earnedRunAverage,
+                      'G': '--',
+                      'GS': '--',
+                      'CG': state.teamStats.pitchingCompleteGames,
+                      'SHO': state.teamStats.pitchingShutOuts,
+                      'SV': '--',
+                      'SVO': '--',
+                    },
+                    pitching2: <String, dynamic>{
+                      'IP': state.teamStats.inningsPitchedFull,
+                      'H': state.teamStats.pitchingHits,
+                      'R': state.teamStats.pitchingRuns,
+                      'ER': state.teamStats.pitchingEarnedRuns,
+                      'HR': state.teamStats.pitchingHomeRuns,
+                      'HB': '--',
+                      'BB': state.teamStats.pitchingWalks,
+                      'SO': state.teamStats.pitchingStrikeouts,
+                    },
+                    pitching3: <String, dynamic>{
+                      'WHIP': state.teamStats.walksHitsPerInningsPitched,
+                      'AVG': state.teamStats.pitchingBattingAverageAgainst,
+                    },
+                  ),
+                  _buildPlayersList(state.players),
+                ],
+              );
+            } else {
+              return const Padding(
+                padding: EdgeInsets.all(20),
+                child: Center(
+                    child: CircularProgressIndicator(
+                  color: Palette.cream,
+                )),
+              );
+            }
+          },
+        ),
+        const SizedBox(height: 20),
       ],
     );
   }
 }
 
-class TeamStatsBox extends StatelessWidget {
-  const TeamStatsBox({
+class MlbTeamStatsBox extends StatelessWidget {
+  const MlbTeamStatsBox({
     Key? key,
     required this.hitting1,
     required this.hitting2,
@@ -465,6 +466,5 @@ class TeamStatsBox extends StatelessWidget {
             ]),
           ),
         ));
-    ;
   }
 }
