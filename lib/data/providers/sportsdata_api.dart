@@ -117,12 +117,14 @@ class SportsdataApiClient {
   Future<MlbPlayerStats> fetchMLBPlayerStats(
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
+    print('player id: $playerId');
     final response = await _dio.get<Object>(
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data)) as List;
-      return MlbPlayerStats.fromMap(parsed as Map<String, dynamic>);
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return MlbPlayerStats.fromMap(parsed);
     } else {
       throw FetchFailurePlayerStats();
     }
@@ -220,8 +222,9 @@ class SportsdataApiClient {
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data)) as List;
-      return NbaPlayerStats.fromMap(parsed as Map<String, dynamic>);
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return NbaPlayerStats.fromMap(parsed);
     } else {
       throw FetchFailurePlayerStats();
     }
@@ -320,8 +323,9 @@ class SportsdataApiClient {
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data)) as List;
-      return NcaabPlayerStats.fromMap(parsed as Map<String, dynamic>);
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return NcaabPlayerStats.fromMap(parsed);
     } else {
       throw FetchFailurePlayerStats();
     }
@@ -426,8 +430,9 @@ class SportsdataApiClient {
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data)) as List;
-      return NcaafPlayerStats.fromMap(parsed as Map<String, dynamic>);
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return NcaafPlayerStats.fromMap(parsed);
     } else {
       throw FetchFailurePlayerStats();
     }
@@ -526,8 +531,9 @@ class SportsdataApiClient {
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayerID/${dateTime.year}PRE/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data)) as List;
-      return NflPlayerStats.fromMap(parsed as Map<String, dynamic>);
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return NflPlayerStats.fromMap(parsed);
     } else {
       throw FetchFailurePlayerStats();
     }
@@ -625,8 +631,9 @@ class SportsdataApiClient {
       'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
-      final parsed = json.decode(json.encode(response.data)) as List;
-      return NhlPlayerStats.fromMap(parsed as Map<String, dynamic>);
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return NhlPlayerStats.fromMap(parsed);
     } else {
       throw FetchFailurePlayerStats();
     }
