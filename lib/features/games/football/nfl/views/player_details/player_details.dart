@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,8 +91,12 @@ class PlayerDetailsPage extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(100)),
-            child: Center(
-              child: VLImage.network(playerDetails.photoUrl!),
+            child: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.white,
+              foregroundImage: CachedNetworkImageProvider(
+                playerDetails.photoUrl!,
+              ),
             ),
           ),
           const SizedBox(width: 24),
