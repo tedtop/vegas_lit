@@ -42,8 +42,11 @@ class TeamInfo extends StatelessWidget {
 }
 
 class TeamInfoView extends StatelessWidget {
-  const TeamInfoView({Key? key, this.teamData, this.gameName})
-      : super(key: key);
+  const TeamInfoView({
+    Key? key,
+    this.teamData,
+    this.gameName,
+  }) : super(key: key);
   final NbaTeam? teamData;
   final String? gameName;
 

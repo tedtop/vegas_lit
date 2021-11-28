@@ -40,50 +40,13 @@ class TeamInfo extends StatelessWidget {
 }
 
 class TeamInfoView extends StatelessWidget {
-  const TeamInfoView({this.teamData, this.gameName});
+  const TeamInfoView({
+    Key? key,
+    this.teamData,
+    this.gameName,
+  }) : super(key: key);
   final NcaabTeam? teamData;
   final String? gameName;
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return ListView(
-      children: [
-        Center(
-          child: Text(
-            'TEAM STATS',
-            style: GoogleFonts.nunito(
-                fontSize: 24,
-                color: Palette.green,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        _teamBadge(size),
-        const SizedBox(height: 12),
-        //_teamStats(),
-        //const SizedBox(height: 12),
-        BlocConsumer<TeamInfoCubit, TeamInfoState>(
-            builder: (context, state) {
-              if (state is TeamInfoOpened) {
-                return Column(
-                  children: [
-                    _teamStats(state.teamStats),
-                    _buildPlayersList(state.players),
-                  ],
-                );
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-            listener: (context, state) {})
-      ],
-    );
-  }
 
   Widget _teamStats(NcaabTeamStats stats) {
     return Container(
@@ -259,6 +222,48 @@ class TeamInfoView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return ListView(
+      children: [
+        Center(
+          child: Text(
+            'TEAM STATS',
+            style: GoogleFonts.nunito(
+                fontSize: 24,
+                color: Palette.green,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        _teamBadge(size),
+        const SizedBox(height: 12),
+        //_teamStats(),
+        //const SizedBox(height: 12),
+        BlocConsumer<TeamInfoCubit, TeamInfoState>(
+            builder: (context, state) {
+              if (state is TeamInfoOpened) {
+                return Column(
+                  children: [
+                    _teamStats(state.teamStats),
+                    _buildPlayersList(state.players),
+                  ],
+                );
+              } else {
+                return const Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: Palette.cream,
+                  )),
+                );
+              }
+            },
+            listener: (context, state) {})
+      ],
     );
   }
 }
