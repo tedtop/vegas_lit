@@ -179,7 +179,7 @@ class TeamInfoView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${players[index].firstName} ${players[index].lastName}',
+                          '${players[index].number != null ? '#${players[index].number}' : ''} ${players[index].firstName} ${players[index].lastName}',
                           style: Styles.normalText,
                         ),
                         Padding(
