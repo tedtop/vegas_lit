@@ -247,7 +247,35 @@ class PlayerDetailsPage extends StatelessWidget {
               BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
                 builder: (context, state) {
                   if (state is PlayerDetailsOpened) {
-                    return StatsBox(statMap: state.playerStats.toStatOnlyMap());
+                    return NhlPlayerStatsBox(
+                      statset1: <String, dynamic>{
+                        'GP': state.playerStats.games,
+                        'G': state.playerStats.goals,
+                        'A': state.playerStats.assists,
+                        'S': state.playerStats.shotsOnGoal,
+                        'TA': state.playerStats.takeaways,
+                      },
+                      statset2: <String, dynamic>{
+                        'PPG': state.playerStats.powerPlayGoals,
+                        'SHG': state.playerStats.shortHandedGoals,
+                        'ENG': state.playerStats.emptyNetGoals,
+                        'SO G': state.playerStats.shootoutGoals,
+                      },
+                      statset3: <String, dynamic>{
+                        'PPA': state.playerStats.powerPlayAssists,
+                        'SHA': state.playerStats.shortHandedAssists,
+                        '+/-': state.playerStats.plusMinus,
+                      },
+                      statset4: <String, dynamic>{
+                        'PIM': state.playerStats.penaltyMinutes,
+                        'FOW': state.playerStats.faceoffsWon,
+                        'FOL': state.playerStats.faceoffsLost,
+                        'SA': state.playerStats.goaltendingShotsAgainst,
+                        'GA': state.playerStats.goaltendingGoalsAgainst,
+                        'Svs': state.playerStats.goaltendingSaves,
+                        'SO': state.playerStats.goaltendingShutouts,
+                      },
+                    );
                   } else {
                     return const Padding(
                       padding: EdgeInsets.all(20),
@@ -268,32 +296,63 @@ class PlayerDetailsPage extends StatelessWidget {
   }
 }
 
-class StatsBox extends StatelessWidget {
-  const StatsBox({Key? key, required this.statMap}) : super(key: key);
-  final Map<String, dynamic> statMap;
+class NhlPlayerStatsBox extends StatelessWidget {
+  const NhlPlayerStatsBox({
+    Key? key,
+    required this.statset1,
+    required this.statset2,
+    required this.statset3,
+    required this.statset4,
+  }) : super(key: key);
+  final Map<String, dynamic> statset1, statset2, statset3, statset4;
 
-  List<Widget> _statMapToList() {
-    return statMap.keys.map(
-      (key) {
-        if (statMap[key] != null) {
-          return StatsText(
-            leftText: key,
-            rightText: statMap[key],
-          );
-        } else {
-          return const SizedBox();
-        }
-      },
-    ).toList();
+  Widget _statsText(String t1, dynamic t2) {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            t1,
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+          Text(
+            t2?.toString() ?? 'N/A',
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _statsVDivider() {
+    return const SizedBox(
+      height: 40,
+      child: VerticalDivider(
+        color: Palette.cream,
+        thickness: 1,
+        width: 10,
+      ),
+    );
+  }
+
+  Widget _statsHDivider() {
+    return const SizedBox(
+        width: 350,
+        child: Divider(
+          color: Palette.cream,
+          thickness: 1,
+          height: 10,
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
-    final statsList = _statMapToList();
-    final statsOffset = (statsList.length ~/ 2) + 8;
     return Container(
       width: 380,
-      margin: const EdgeInsets.only(top: 20, bottom: 8),
+      height: 135,
+      margin: const EdgeInsets.only(top: 20, bottom: 18),
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
       decoration: BoxDecoration(
           color: Palette.lightGrey,
@@ -301,42 +360,36 @@ class StatsBox extends StatelessWidget {
           border: Border.all(
             color: Palette.cream,
           )),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         children: [
-          SizedBox(
-            width: 170,
-            child: Column(
-              children: statsList.sublist(0, statsOffset),
-            ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset1.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset2.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
           ),
-          const SizedBox(width: 15),
-          Expanded(
-              child: Column(
-            children: statsList.sublist(statsOffset),
-          ))
+          _statsHDivider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset3.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset4.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
+          ),
         ],
       ),
-    );
-  }
-}
-
-class StatsText extends StatelessWidget {
-  const StatsText({Key? key, this.leftText, this.rightText}) : super(key: key);
-  final String? leftText;
-  final dynamic rightText;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-            width: 110, child: Text(leftText!, style: Styles.teamStatsText)),
-        Expanded(
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: Text('$rightText', style: Styles.teamStatsText))),
-      ],
     );
   }
 }

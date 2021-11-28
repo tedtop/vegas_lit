@@ -49,8 +49,7 @@ class TeamInfoView extends StatelessWidget {
   final String? gameName;
 
   Widget _teamStats(NhlTeamStats stats) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 20),
+    return SizedBox(
       width: 380,
       child: Column(
         children: [
@@ -94,10 +93,6 @@ class TeamInfoView extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-          const SizedBox(height: 10),
-          StatsBox(
-            statMap: stats.toStatOnlyMap(),
           ),
         ],
       ),
@@ -241,29 +236,155 @@ class TeamInfoView extends StatelessWidget {
         ),
         _teamBadge(size),
         const SizedBox(height: 12),
-        //_teamStats(),
-        //const SizedBox(height: 12),
-        BlocConsumer<TeamInfoCubit, TeamInfoState>(
-            builder: (context, state) {
-              if (state is TeamInfoOpened) {
-                return Column(
-                  children: [
-                    _teamStats(state.teamStats),
-                    _buildPlayersList(state.players),
-                  ],
-                );
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-            listener: (context, state) {})
+        BlocBuilder<TeamInfoCubit, TeamInfoState>(
+          builder: (context, state) {
+            if (state is TeamInfoOpened) {
+              return Column(
+                children: [
+                  _teamStats(state.teamStats),
+                  NhlTeamStatsBox(
+                    statset1: <String, dynamic>{
+                      'W': state.teamStats.wins,
+                      'L': state.teamStats.losses,
+                      'OT': state.teamStats.overtimeLosses,
+                      'G': state.teamStats.goals,
+                      'A': state.teamStats.assists,
+                      'S': state.teamStats.shotsOnGoal,
+                    },
+                    statset2: <String, dynamic>{
+                      'PPG': state.teamStats.powerPlayGoals,
+                      'SHG': state.teamStats.shortHandedGoals,
+                      'ENG': state.teamStats.emptyNetGoals,
+                      'SO G': state.teamStats.shootoutGoals,
+                    },
+                    statset3: <String, dynamic>{
+                      'PPA': state.teamStats.powerPlayAssists,
+                      'SHA': state.teamStats.shortHandedAssists,
+                      '+/-': state.teamStats.plusMinus,
+                    },
+                    statset4: <String, dynamic>{
+                      'PIM': state.teamStats.penaltyMinutes,
+                      'FOW': state.teamStats.faceoffsWon,
+                      'FOL': state.teamStats.faceoffsLost,
+                      'SA': state.teamStats.goaltendingShotsAgainst,
+                      'GA': state.teamStats.goaltendingGoalsAgainst,
+                      'Svs': state.teamStats.goaltendingSaves,
+                      'SO': state.teamStats.goaltendingShutouts,
+                    },
+                  ),
+                  _buildPlayersList(state.players),
+                ],
+              );
+            } else {
+              return const Padding(
+                padding: EdgeInsets.all(20),
+                child: Center(
+                    child: CircularProgressIndicator(
+                  color: Palette.cream,
+                )),
+              );
+            }
+          },
+        ),
       ],
+    );
+  }
+}
+
+class NhlTeamStatsBox extends StatelessWidget {
+  const NhlTeamStatsBox({
+    Key? key,
+    required this.statset1,
+    required this.statset2,
+    required this.statset3,
+    required this.statset4,
+  }) : super(key: key);
+  final Map<String, dynamic> statset1, statset2, statset3, statset4;
+
+  Widget _statsText(String t1, dynamic t2) {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            t1,
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+          Text(
+            t2?.toString() ?? 'N/A',
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _statsVDivider() {
+    return const SizedBox(
+      height: 40,
+      child: VerticalDivider(
+        color: Palette.cream,
+        thickness: 1,
+        width: 10,
+      ),
+    );
+  }
+
+  Widget _statsHDivider() {
+    return const SizedBox(
+        width: 350,
+        child: Divider(
+          color: Palette.cream,
+          thickness: 1,
+          height: 10,
+        ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 380,
+      height: 135,
+      margin: const EdgeInsets.only(top: 20, bottom: 18),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
+      decoration: BoxDecoration(
+          color: Palette.lightGrey,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(
+            color: Palette.cream,
+          )),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset1.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset2.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
+          ),
+          _statsHDivider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset3.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset4.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
