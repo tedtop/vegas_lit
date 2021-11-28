@@ -9,19 +9,24 @@ import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/nhl/nhl_player.dart';
 import '../../../../../../data/repositories/sport_repository.dart';
 import '../../../../../../utils/app_bar.dart';
-import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  const PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
+  const PlayerDetailsPage({
+    Key? key,
+    this.playerId,
+    this.gameName,
+    this.playerDetails,
+  }) : super(key: key);
   final String? playerId;
   final String? gameName;
   final NhlPlayer? playerDetails;
 
-  static Route route(
-      {required String playerId,
-      required String? gameName,
-      required NhlPlayer playerDetails}) {
+  static Route route({
+    required String playerId,
+    required String? gameName,
+    required NhlPlayer playerDetails,
+  }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
@@ -29,51 +34,10 @@ class PlayerDetailsPage extends StatelessWidget {
             sportsRepository: context.read<SportRepository>())
           ..getPlayerDetails(playerId: playerId),
         child: PlayerDetailsPage(
-            playerId: playerId,
-            gameName: gameName,
-            playerDetails: playerDetails),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: adaptiveAppBar(width: size.width),
-      body: ListView(
-        children: [
-          Center(
-            child: Text(
-              'PLAYER STATS',
-              style: GoogleFonts.nunito(
-                fontSize: 24,
-                color: Palette.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          _playerBadge(size, playerDetails!),
-          _playerDescription(playerDetails!),
-          BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
-            builder: (context, state) {
-              if (state is PlayerDetailsOpened) {
-                return StatsBox(statMap: state.playerStats.toStatOnlyMap());
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-          ),
-          _playerInjury(playerDetails!)
-          //_buildProfileWidget(size),
-        ],
+          playerId: playerId,
+          gameName: gameName,
+          playerDetails: playerDetails,
+        ),
       ),
     );
   }
@@ -253,6 +217,52 @@ class PlayerDetailsPage extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: adaptiveAppBar(width: size.width),
+      body: Center(
+        child: SizedBox(
+          width: 380,
+          child: ListView(
+            children: [
+              Center(
+                child: Text(
+                  'PLAYER STATS',
+                  style: GoogleFonts.nunito(
+                    fontSize: 24,
+                    color: Palette.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              _playerBadge(size, playerDetails!),
+              _playerDescription(playerDetails!),
+              BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
+                builder: (context, state) {
+                  if (state is PlayerDetailsOpened) {
+                    return StatsBox(statMap: state.playerStats.toStatOnlyMap());
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Palette.cream,
+                      )),
+                    );
+                  }
+                },
+              ),
+              _playerInjury(playerDetails!)
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -9,19 +9,24 @@ import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/nba/nba_player.dart';
 import '../../../../../../data/repositories/sport_repository.dart';
 import '../../../../../../utils/app_bar.dart';
-import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  const PlayerDetailsPage({this.playerId, this.gameName, this.playerDetails});
+  const PlayerDetailsPage({
+    Key? key,
+    this.playerId,
+    this.gameName,
+    this.playerDetails,
+  }) : super(key: key);
   final String? playerId;
   final String? gameName;
   final NbaPlayer? playerDetails;
 
-  static Route route(
-      {required String playerId,
-      required String? gameName,
-      required NbaPlayer playerDetails}) {
+  static Route route({
+    required String playerId,
+    required String? gameName,
+    required NbaPlayer playerDetails,
+  }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
@@ -29,81 +34,10 @@ class PlayerDetailsPage extends StatelessWidget {
             sportsRepository: context.read<SportRepository>())
           ..getPlayerDetails(playerId: playerId),
         child: PlayerDetailsPage(
-            playerId: playerId,
-            gameName: gameName,
-            playerDetails: playerDetails),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: adaptiveAppBar(width: size.width),
-      body: ListView(
-        children: [
-          Center(
-            child: Text(
-              'PLAYER STATS',
-              style: GoogleFonts.nunito(
-                fontSize: 24,
-                color: Palette.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          _playerBadge(size, playerDetails!),
-          _playerDescription(playerDetails!),
-          BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
-            builder: (context, state) {
-              if (state is PlayerDetailsOpened) {
-                return NbaPlayerStatsBox(
-                  statset1: <String, dynamic>{
-                    'G': state.playerStats.games,
-                    'MIN': state.playerStats.minutes,
-                  },
-                  statset2: <String, dynamic>{
-                    'FGM': state.playerStats.fieldGoalsMade,
-                    'FGA': state.playerStats.fieldGoalsAttempted,
-                    'FG%': state.playerStats.fieldGoalsPercentage,
-                    '3PM': state.playerStats.threePointersMade,
-                    '3PA': state.playerStats.threePointersAttempted,
-                    '3P%': state.playerStats.threePointersPercentage,
-                    'FTM': state.playerStats.freeThrowsMade,
-                    'FTA': state.playerStats.freeThrowsAttempted,
-                    'FT%': state.playerStats.freeThrowsPercentage,
-                  },
-                  statset3: <String, dynamic>{
-                    'OREB': state.playerStats.offensiveRebounds,
-                    'DREB': state.playerStats.defensiveRebounds,
-                    'REB': state.playerStats.rebounds,
-                    '+/-': state.playerStats.plusMinus,
-                  },
-                  statset4: <String, dynamic>{
-                    'AST': state.playerStats.assists,
-                    'STL': state.playerStats.steals,
-                    'BLK': state.playerStats.blockedShots,
-                    'TO': state.playerStats.turnovers,
-                    'PF': state.playerStats.personalFouls,
-                    'PTS': state.playerStats.points,
-                  },
-                );
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    color: Palette.cream,
-                  )),
-                );
-              }
-            },
-          ),
-          _playerInjury(playerDetails!)
-          //_buildProfileWidget(size),
-        ],
+          playerId: playerId,
+          gameName: gameName,
+          playerDetails: playerDetails,
+        ),
       ),
     );
   }
@@ -283,6 +217,82 @@ class PlayerDetailsPage extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: adaptiveAppBar(width: size.width),
+      body: Center(
+        child: SizedBox(
+          width: 380,
+          child: ListView(
+            children: [
+              Center(
+                child: Text(
+                  'PLAYER STATS',
+                  style: GoogleFonts.nunito(
+                    fontSize: 24,
+                    color: Palette.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              _playerBadge(size, playerDetails!),
+              _playerDescription(playerDetails!),
+              BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
+                builder: (context, state) {
+                  if (state is PlayerDetailsOpened) {
+                    return NbaPlayerStatsBox(
+                      statset1: <String, dynamic>{
+                        'G': state.playerStats.games,
+                        'MIN': state.playerStats.minutes,
+                      },
+                      statset2: <String, dynamic>{
+                        'FGM': state.playerStats.fieldGoalsMade,
+                        'FGA': state.playerStats.fieldGoalsAttempted,
+                        'FG%': state.playerStats.fieldGoalsPercentage,
+                        '3PM': state.playerStats.threePointersMade,
+                        '3PA': state.playerStats.threePointersAttempted,
+                        '3P%': state.playerStats.threePointersPercentage,
+                        'FTM': state.playerStats.freeThrowsMade,
+                        'FTA': state.playerStats.freeThrowsAttempted,
+                        'FT%': state.playerStats.freeThrowsPercentage,
+                      },
+                      statset3: <String, dynamic>{
+                        'OREB': state.playerStats.offensiveRebounds,
+                        'DREB': state.playerStats.defensiveRebounds,
+                        'REB': state.playerStats.rebounds,
+                        '+/-': state.playerStats.plusMinus,
+                      },
+                      statset4: <String, dynamic>{
+                        'AST': state.playerStats.assists,
+                        'STL': state.playerStats.steals,
+                        'BLK': state.playerStats.blockedShots,
+                        'TO': state.playerStats.turnovers,
+                        'PF': state.playerStats.personalFouls,
+                        'PTS': state.playerStats.points,
+                      },
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Palette.cream,
+                      )),
+                    );
+                  }
+                },
+              ),
+              _playerInjury(playerDetails!)
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -9,21 +9,24 @@ import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/mlb/mlb_player.dart';
 import '../../../../../../data/repositories/sport_repository.dart';
 import '../../../../../../utils/app_bar.dart';
-import '../../../../../../utils/vl_image.dart';
 import 'cubit/player_details_cubit.dart';
 
 class PlayerDetailsPage extends StatelessWidget {
-  const PlayerDetailsPage(
-      {Key? key, this.playerId, this.gameName, this.playerDetails})
-      : super(key: key);
+  const PlayerDetailsPage({
+    Key? key,
+    this.playerId,
+    this.gameName,
+    this.playerDetails,
+  }) : super(key: key);
   final String? playerId;
   final String? gameName;
   final MlbPlayer? playerDetails;
 
-  static Route route(
-      {required String playerId,
-      required String? gameName,
-      required MlbPlayer playerDetails}) {
+  static Route route({
+    required String playerId,
+    required String? gameName,
+    required MlbPlayer playerDetails,
+  }) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
@@ -31,105 +34,9 @@ class PlayerDetailsPage extends StatelessWidget {
             sportsRepository: context.read<SportRepository>())
           ..getPlayerDetails(playerId: playerId),
         child: PlayerDetailsPage(
-            playerId: playerId,
-            gameName: gameName,
-            playerDetails: playerDetails),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: adaptiveAppBar(width: size.width),
-      body: Center(
-        child: SizedBox(
-          width: 380,
-          child: ListView(
-            children: [
-              Center(
-                child: Text(
-                  'PLAYER STATS',
-                  style: GoogleFonts.nunito(
-                    fontSize: 24,
-                    color: Palette.green,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              _playerBadge(size, playerDetails!),
-              _playerDescription(playerDetails!),
-              BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
-                builder: (context, state) {
-                  if (state is PlayerDetailsOpened) {
-                    return MlbPlayerStatsBox(
-                      hitting1: <String, dynamic>{
-                        'G': state.playerStats.games,
-                        'AB': state.playerStats.atBats,
-                      },
-                      hitting2: <String, dynamic>{
-                        'R': state.playerStats.runs,
-                        'H': state.playerStats.hits,
-                        '2B': state.playerStats.doubles,
-                        '3B': state.playerStats.triples,
-                        'HR': state.playerStats.homeRuns,
-                        'RBI': state.playerStats.runsBattedIn,
-                      },
-                      hitting3: <String, dynamic>{
-                        'BB': state.playerStats.walks,
-                        'SO': state.playerStats.strikeouts,
-                        'SB': state.playerStats.stolenBases,
-                        'CS': state.playerStats.caughtStealing,
-                      },
-                      hitting4: <String, dynamic>{
-                        'AVG': state.playerStats.battingAverage,
-                        'OBP': state.playerStats.onBasePercentage,
-                        'SLG': state.playerStats.sluggingPercentage,
-                        'OPS': state.playerStats.onBasePlusSlugging,
-                      },
-                      pitching1: <String, dynamic>{
-                        'W': state.playerStats.wins,
-                        'L': state.playerStats.losses,
-                        'ERA': state.playerStats.earnedRunAverage,
-                        'G': '--',
-                        'GS': '--',
-                        'CG': state.playerStats.pitchingCompleteGames,
-                        'SHO': state.playerStats.pitchingShutOuts,
-                        'SV': '--',
-                        'SVO': '--',
-                      },
-                      pitching2: <String, dynamic>{
-                        'IP': state.playerStats.inningsPitchedFull,
-                        'H': state.playerStats.pitchingHits,
-                        'R': state.playerStats.pitchingRuns,
-                        'ER': state.playerStats.pitchingEarnedRuns,
-                        'HR': state.playerStats.pitchingHomeRuns,
-                        'HB': '--',
-                        'BB': state.playerStats.pitchingWalks,
-                        'SO': state.playerStats.pitchingStrikeouts,
-                      },
-                      pitching3: <String, dynamic>{
-                        'WHIP': state.playerStats.walksHitsPerInningsPitched,
-                        'AVG': state.playerStats.pitchingBattingAverageAgainst,
-                      },
-                    );
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                          child: CircularProgressIndicator(
-                        color: Palette.cream,
-                      )),
-                    );
-                  }
-                },
-              ),
-              _playerInjury(playerDetails!),
-              //_buildProfileWidget(size),
-            ],
-          ),
+          playerId: playerId,
+          gameName: gameName,
+          playerDetails: playerDetails,
         ),
       ),
     );
@@ -310,6 +217,102 @@ class PlayerDetailsPage extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: adaptiveAppBar(width: size.width),
+      body: Center(
+        child: SizedBox(
+          width: 380,
+          child: ListView(
+            children: [
+              Center(
+                child: Text(
+                  'PLAYER STATS',
+                  style: GoogleFonts.nunito(
+                    fontSize: 24,
+                    color: Palette.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              _playerBadge(size, playerDetails!),
+              _playerDescription(playerDetails!),
+              BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
+                builder: (context, state) {
+                  if (state is PlayerDetailsOpened) {
+                    return MlbPlayerStatsBox(
+                      hitting1: <String, dynamic>{
+                        'G': state.playerStats.games,
+                        'AB': state.playerStats.atBats,
+                      },
+                      hitting2: <String, dynamic>{
+                        'R': state.playerStats.runs,
+                        'H': state.playerStats.hits,
+                        '2B': state.playerStats.doubles,
+                        '3B': state.playerStats.triples,
+                        'HR': state.playerStats.homeRuns,
+                        'RBI': state.playerStats.runsBattedIn,
+                      },
+                      hitting3: <String, dynamic>{
+                        'BB': state.playerStats.walks,
+                        'SO': state.playerStats.strikeouts,
+                        'SB': state.playerStats.stolenBases,
+                        'CS': state.playerStats.caughtStealing,
+                      },
+                      hitting4: <String, dynamic>{
+                        'AVG': state.playerStats.battingAverage,
+                        'OBP': state.playerStats.onBasePercentage,
+                        'SLG': state.playerStats.sluggingPercentage,
+                        'OPS': state.playerStats.onBasePlusSlugging,
+                      },
+                      pitching1: <String, dynamic>{
+                        'W': state.playerStats.wins,
+                        'L': state.playerStats.losses,
+                        'ERA': state.playerStats.earnedRunAverage,
+                        'G': '--',
+                        'GS': '--',
+                        'CG': state.playerStats.pitchingCompleteGames,
+                        'SHO': state.playerStats.pitchingShutOuts,
+                        'SV': '--',
+                        'SVO': '--',
+                      },
+                      pitching2: <String, dynamic>{
+                        'IP': state.playerStats.inningsPitchedFull,
+                        'H': state.playerStats.pitchingHits,
+                        'R': state.playerStats.pitchingRuns,
+                        'ER': state.playerStats.pitchingEarnedRuns,
+                        'HR': state.playerStats.pitchingHomeRuns,
+                        'HB': '--',
+                        'BB': state.playerStats.pitchingWalks,
+                        'SO': state.playerStats.pitchingStrikeouts,
+                      },
+                      pitching3: <String, dynamic>{
+                        'WHIP': state.playerStats.walksHitsPerInningsPitched,
+                        'AVG': state.playerStats.pitchingBattingAverageAgainst,
+                      },
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Palette.cream,
+                      )),
+                    );
+                  }
+                },
+              ),
+              _playerInjury(playerDetails!),
+            ],
+          ),
+        ),
       ),
     );
   }
