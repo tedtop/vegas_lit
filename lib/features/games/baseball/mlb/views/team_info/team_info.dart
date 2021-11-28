@@ -341,7 +341,7 @@ class MlbTeamStatsBox extends StatelessWidget {
             style: Styles.normalText.copyWith(fontSize: 11),
           ),
           Text(
-            t2.toString(),
+            t2?.toString() ?? 'N/A',
             style: Styles.normalText.copyWith(fontSize: 11),
           ),
         ],

@@ -52,7 +52,6 @@ class TeamInfoView extends StatelessWidget {
 
   Widget _teamStats(NbaTeamStats stats) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20),
       width: 380,
       child: Column(
         children: [
@@ -317,7 +316,7 @@ class NbaTeamStatsBox extends StatelessWidget {
             style: Styles.normalText.copyWith(fontSize: 11),
           ),
           Text(
-            t2.toString(),
+            t2?.toString() ?? 'N/A',
             style: Styles.normalText.copyWith(fontSize: 11),
           ),
         ],

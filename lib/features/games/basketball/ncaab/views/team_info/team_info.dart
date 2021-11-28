@@ -50,7 +50,6 @@ class TeamInfoView extends StatelessWidget {
 
   Widget _teamStats(NcaabTeamStats stats) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20),
       width: 380,
       child: Column(
         children: [
@@ -94,10 +93,6 @@ class TeamInfoView extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-          const SizedBox(height: 10),
-          StatsBox(
-            statMap: stats.toStatOnlyMap(),
           ),
         ],
       ),
