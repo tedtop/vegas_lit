@@ -74,8 +74,8 @@ class NcaabParlayBetSlipCard extends StatelessWidget {
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
                                 ? betButtonState.winTeam == BetButtonWin.home
-                                    ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}'
-                                    : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'
+                                    ? '${betButtonState.homeTeamData!.school ?? ''} ${betButtonState.homeTeamData!.name}'
+                                    : '${betButtonState.awayTeamData!.school ?? ''} ${betButtonState.awayTeamData!.name}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[

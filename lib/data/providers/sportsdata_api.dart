@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/data/models/nascar/nascar_driver.dart';
+import 'package:vegas_lit/data/models/nascar/nascar_race.dart';
+import 'package:vegas_lit/data/models/nascar/nascar_race_results.dart';
 import 'package:vegas_lit/features/games/baseball/mlb/models/mlb_team.dart';
 import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
@@ -722,6 +725,67 @@ class SportsdataApiClient {
       throw FetchFailureGolf();
     }
   }
+
+  /// NASCAR
+  ///
+  /// All functions related to NASCAR.
+  Future<Driver> fetchDriverDetails({required String driverId}) async {
+    final response = await _dio.get<Object>(
+      'https://api.sportsdata.io/nascar/v2/json/driver/$driverId?key=2567df976b82403592b9c12b3832a950',
+    );
+    if (response.statusCode == 200) {
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return Driver.fromMap(parsed);
+    } else {
+      throw FetchFailureNascarDriverDetails();
+    }
+  }
+
+  Future<List<Driver>> fetchAllDrivers() async {
+    final response = await _dio.get<Object>(
+      'https://api.sportsdata.io/nascar/v2/json/drivers?key=2567df976b82403592b9c12b3832a950',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data)) as List;
+      return parsed
+          .map<Driver>(
+            (dynamic json) => Driver.fromMap(json as Map<String, dynamic>),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNascarAllDriverDetails();
+    }
+  }
+
+  Future<List<Race>> fetchAllRaces() async {
+    final response = await _dio.get<Object>(
+      'https://api.sportsdata.io/nascar/v2/json/drivers?key=2567df976b82403592b9c12b3832a950',
+    );
+    if (response.statusCode == 200) {
+      final parsed = json.decode(json.encode(response.data)) as List;
+      return parsed
+          .map<Race>(
+            (dynamic json) => Race.fromMap(json as Map<String, dynamic>),
+          )
+          .toList();
+    } else {
+      throw FetchFailureNascarAllRaces();
+    }
+  }
+
+  Future<RaceResults> fetchRaceResults({required String raceId}) async {
+    final response = await _dio.get<Object>(
+      'https://api.sportsdata.io/nascar/v2/json/driver/$raceId?key=2567df976b82403592b9c12b3832a950',
+    );
+    if (response.statusCode == 200) {
+      final parsed =
+          json.decode(json.encode(response.data)) as Map<String, dynamic>;
+      return RaceResults.fromMap(parsed);
+    } else {
+      throw FetchFailureNascarRaceResults();
+    }
+  }
 }
 
 class FetchFailureTeamStats implements Exception {}
@@ -747,3 +811,12 @@ class FetchFailureNCAAB implements Exception {}
 class FetchFailureCricket implements Exception {}
 
 class FetchFailureGolf implements Exception {}
+
+/// NASCAR
+class FetchFailureNascarDriverDetails implements Exception {}
+
+class FetchFailureNascarAllDriverDetails implements Exception {}
+
+class FetchFailureNascarAllRaces implements Exception {}
+
+class FetchFailureNascarRaceResults implements Exception {}

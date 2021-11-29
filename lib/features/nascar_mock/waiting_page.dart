@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vegas_lit/config/assets.dart';
-import 'package:vegas_lit/features/nascar_mock/nascar_button.dart';
+import 'package:vegas_lit/features/nascar/constants/nascar_button.dart';
 
-import 'constants.dart';
+import '../nascar/constants/constants.dart';
 import 'end_page.dart';
 
 class WaitingPage extends StatelessWidget {

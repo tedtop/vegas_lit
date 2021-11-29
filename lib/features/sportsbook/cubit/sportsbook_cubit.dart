@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +108,6 @@ class SportsbookCubit extends Cubit<SportsbookState> {
 
   List<DropdownMenuItem<String>> fetchDropdownList(
       {required Map<String, String> gameNumbers, required String? league}) {
-    log('$gameNumbers');
     return <String>[
       'NFL',
       'NBA',

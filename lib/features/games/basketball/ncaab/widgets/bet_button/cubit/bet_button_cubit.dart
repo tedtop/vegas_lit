@@ -31,7 +31,7 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
     required String text,
     required NcaabGame game,
     required Bet betType,
-    required String? uid,
+    required String uid,
     required String mainOdds,
     required BetButtonWin winTeam,
     required double spread,
@@ -86,8 +86,8 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
         betData: NcaabBetData(
           stillOpen: false,
           username: username,
-          homeTeamCity: state.homeTeamData!.city,
-          awayTeamCity: state.awayTeamData!.city,
+          homeTeamCity: state.homeTeamData!.school,
+          awayTeamCity: state.awayTeamData!.school,
           betAmount: state.betAmount,
           gameId: state.game!.gameId,
           isClosed: state.game!.isClosed,
@@ -97,8 +97,12 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
           winningTeamName: null,
           status: state.game!.status,
           league: state.league,
-          betOverUnder: state.game!.overUnder,
-          betPointSpread: state.game!.pointSpread,
+          betOverUnder: state.game!.overUnder != null
+              ? state.game!.overUnder!.toDouble()
+              : null,
+          betPointSpread: state.game!.pointSpread != null
+              ? state.game!.pointSpread!.toDouble()
+              : null,
           awayTeamName: state.awayTeamData!.name,
           homeTeamName: state.homeTeamData!.name,
           totalGameScore: null,
@@ -107,8 +111,8 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
           odds: int.parse(state.mainOdds!),
           betProfit: state.toWinAmount,
           gameStartDateTime: state.game!.dateTime.toString(),
-          awayTeamScore: state.game!.awayTeamScore as int?,
-          homeTeamScore: state.game!.homeTeamScore as int?,
+          awayTeamScore: 0,
+          homeTeamScore: 0,
           uid: state.uid,
           betTeam: state.winTeam == BetButtonWin.home ? 'home' : 'away',
           dateTime: ESTDateTime.fetchTimeEST().toString(),
@@ -226,8 +230,8 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
                 betsData: NcaabBetData(
                   stillOpen: false,
                   username: username,
-                  homeTeamCity: betButtonState.homeTeamData!.city,
-                  awayTeamCity: betButtonState.awayTeamData!.city,
+                  homeTeamCity: betButtonState.homeTeamData!.school,
+                  awayTeamCity: betButtonState.awayTeamData!.school,
                   betAmount: betButtonState.betAmount,
                   gameId: betButtonState.game!.gameId,
                   isClosed: betButtonState.game!.isClosed,
@@ -237,8 +241,8 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
                   winningTeamName: null,
                   status: betButtonState.game!.status,
                   league: betButtonState.league,
-                  betOverUnder: betButtonState.game!.overUnder,
-                  betPointSpread: betButtonState.game!.pointSpread,
+                  betOverUnder: betButtonState.game!.overUnder as double,
+                  betPointSpread: betButtonState.game!.pointSpread as double,
                   awayTeamName: betButtonState.awayTeamData!.name,
                   homeTeamName: betButtonState.homeTeamData!.name,
                   totalGameScore: null,
@@ -248,8 +252,8 @@ class NcaabBetButtonCubit extends Cubit<NcaabBetButtonState> {
                   odds: int.parse(betButtonState.mainOdds!),
                   betProfit: betButtonState.toWinAmount,
                   gameStartDateTime: betButtonState.game!.dateTime.toString(),
-                  awayTeamScore: betButtonState.game!.awayTeamScore as int?,
-                  homeTeamScore: betButtonState.game!.homeTeamScore as int?,
+                  awayTeamScore: 0,
+                  homeTeamScore: 0,
                   uid: currentUserId,
                   betTeam: betButtonState.winTeam == BetButtonWin.home
                       ? 'home'

@@ -9,6 +9,7 @@ import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/drawer_pages/rules.dart';
 import 'package:vegas_lit/features/groups/views/groups_page.dart';
 import 'package:vegas_lit/features/home/home.dart';
+import 'package:vegas_lit/features/nascar/race_page/race_page.dart';
 import 'package:vegas_lit/features/profile/widgets/avatar/profile_avatar.dart';
 
 class Account extends StatefulWidget {
@@ -94,6 +95,19 @@ class _AccountState extends State<Account> {
               title: Text('ADMIN VAULT', style: Styles.normalTextBold),
               onTap: () {
                 Navigator.of(context).push<void>(AdminVaultScreen.route());
+              },
+            )
+          else
+            Container(),
+          if (isAdmin)
+            ListTile(
+              leading: const Icon(
+                Icons.car_repair,
+                color: Palette.cream,
+              ),
+              title: Text('NASCAR', style: Styles.normalTextBold),
+              onTap: () {
+                Navigator.of(context).push<void>(NascarPage.route());
               },
             )
           else

@@ -48,7 +48,6 @@ class MatchupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gameData = game;
     final isPointSpreadNegative =
         game.pointSpread == null ? true : game.pointSpread!.isNegative;
     late String awayTeamPointSpread;
@@ -106,7 +105,7 @@ class MatchupCard extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Text(
-                                        awayTeamData.city!,
+                                        awayTeamData.school!,
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.nunito(
                                           fontSize: 12,
@@ -126,35 +125,30 @@ class MatchupCard extends StatelessWidget {
                               const SizedBox(height: 5),
                               Column(
                                 children: [
-                                  if (gameData.awayTeamMoneyLine == null)
+                                  if (game.awayTeamMoneyLine == null)
                                     Container()
                                   else
                                     BetButton.route(
                                       winTeam: BetButtonWin.away,
-                                      gameId: gameData.gameId,
-                                      isClosed: gameData.isClosed,
                                       mainOdds:
-                                          gameData.awayTeamMoneyLine.toString(),
+                                          game.awayTeamMoneyLine.toString(),
                                       spread: 0,
                                       betType: Bet.ml,
                                       awayTeamData: awayTeamData,
                                       homeTeamData: homeTeamData,
                                       text: positiveNumber(
-                                          gameData.awayTeamMoneyLine!),
+                                          game.awayTeamMoneyLine),
                                       game: game,
                                       league: whichGame(
                                         gameName: gameName,
                                       ),
                                     ),
-                                  if (gameData.pointSpreadAwayTeamMoneyLine ==
-                                      null)
+                                  if (game.pointSpreadAwayTeamMoneyLine == null)
                                     Container()
                                   else
                                     BetButton.route(
                                       winTeam: BetButtonWin.away,
-                                      gameId: gameData.gameId,
-                                      isClosed: gameData.isClosed,
-                                      mainOdds: gameData
+                                      mainOdds: game
                                           .pointSpreadAwayTeamMoneyLine
                                           .toString(),
                                       spread: double.parse(awayTeamPointSpread),
@@ -166,26 +160,24 @@ class MatchupCard extends StatelessWidget {
                                       homeTeamData: homeTeamData,
                                       game: game,
                                       text:
-                                          '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine!)}',
+                                          '$awayTeamPointSpread     ${positiveNumber(game.pointSpreadAwayTeamMoneyLine)}',
                                     ),
-                                  if (gameData.overPayout == null)
+                                  if (game.overPayout == null)
                                     Container()
                                   else
                                     BetButton.route(
                                       winTeam: BetButtonWin.away,
-                                      gameId: gameData.gameId,
-                                      isClosed: gameData.isClosed,
                                       league: whichGame(
                                         gameName: gameName,
                                       ),
-                                      spread: gameData.overUnder!,
-                                      mainOdds: gameData.overPayout.toString(),
+                                      spread: game.overUnder!,
+                                      mainOdds: game.overPayout.toString(),
                                       betType: Bet.tot,
                                       awayTeamData: awayTeamData,
                                       homeTeamData: homeTeamData,
                                       game: game,
                                       text:
-                                          'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout!)}',
+                                          'o${game.overUnder}     ${positiveNumber(game.overPayout)}',
                                     ),
                                 ],
                               ),
@@ -201,17 +193,17 @@ class MatchupCard extends StatelessWidget {
                               style: Styles.matchupSeparator,
                             ),
                             const SizedBox(height: 16),
-                            if (gameData.homeTeamMoneyLine == null)
+                            if (game.homeTeamMoneyLine == null)
                               Container()
                             else
                               _betButtonSeparator(text: 'ML'),
                             const SizedBox(height: 2),
-                            if (gameData.pointSpreadHomeTeamMoneyLine == null)
+                            if (game.pointSpreadHomeTeamMoneyLine == null)
                               Container()
                             else
                               _betButtonSeparator(text: 'PTS'),
                             const SizedBox(height: 1),
-                            if (gameData.underPayout == null)
+                            if (game.underPayout == null)
                               Container()
                             else
                               _betButtonSeparator(text: 'TOT'),
@@ -222,15 +214,14 @@ class MatchupCard extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () => Navigator.push<void>(
-                                  context,
-                                  TeamInfo.route(
-                                      teamData: homeTeamData,
-                                      gameName: gameName),
-                                ),
+                                    context,
+                                    TeamInfo.route(
+                                        teamData: homeTeamData,
+                                        gameName: gameName)),
                                 child: Column(
                                   children: [
                                     Text(
-                                      homeTeamData.city!,
+                                      homeTeamData.school!,
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.nunito(
                                         fontSize: 12,
@@ -253,39 +244,34 @@ class MatchupCard extends StatelessWidget {
                               const SizedBox(height: 5),
                               Column(
                                 children: [
-                                  if (gameData.homeTeamMoneyLine == null)
+                                  if (game.homeTeamMoneyLine == null)
                                     Container()
                                   else
                                     BetButton.route(
                                       winTeam: BetButtonWin.home,
-                                      gameId: gameData.gameId,
-                                      isClosed: gameData.isClosed,
                                       league: whichGame(
                                         gameName: gameName,
                                       ),
                                       mainOdds:
-                                          gameData.homeTeamMoneyLine.toString(),
+                                          game.homeTeamMoneyLine.toString(),
                                       betType: Bet.ml,
                                       game: game,
                                       spread: 0,
                                       awayTeamData: awayTeamData,
                                       homeTeamData: homeTeamData,
                                       text: positiveNumber(
-                                          gameData.homeTeamMoneyLine!),
+                                          game.homeTeamMoneyLine),
                                     ),
-                                  if (gameData.pointSpreadHomeTeamMoneyLine ==
-                                      null)
+                                  if (game.pointSpreadHomeTeamMoneyLine == null)
                                     Container()
                                   else
                                     BetButton.route(
-                                      gameId: gameData.gameId,
                                       winTeam: BetButtonWin.home,
                                       spread: double.parse(homeTeamPointSpread),
-                                      isClosed: gameData.isClosed,
                                       league: whichGame(
                                         gameName: gameName,
                                       ),
-                                      mainOdds: gameData
+                                      mainOdds: game
                                           .pointSpreadHomeTeamMoneyLine
                                           .toString(),
                                       betType: Bet.pts,
@@ -293,26 +279,24 @@ class MatchupCard extends StatelessWidget {
                                       homeTeamData: homeTeamData,
                                       game: game,
                                       text:
-                                          '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine!)}',
+                                          '$homeTeamPointSpread     ${positiveNumber(game.pointSpreadHomeTeamMoneyLine)}',
                                     ),
-                                  if (gameData.underPayout == null)
+                                  if (game.underPayout == null)
                                     Container()
                                   else
                                     BetButton.route(
-                                      gameId: gameData.gameId,
                                       winTeam: BetButtonWin.home,
-                                      isClosed: gameData.isClosed,
                                       league: whichGame(
                                         gameName: gameName,
                                       ),
-                                      mainOdds: gameData.underPayout.toString(),
+                                      mainOdds: game.underPayout.toString(),
                                       betType: Bet.tot,
-                                      spread: gameData.overUnder!,
+                                      spread: game.overUnder!,
                                       awayTeamData: awayTeamData,
                                       homeTeamData: homeTeamData,
                                       game: game,
                                       text:
-                                          'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout!)}',
+                                          'u${game.overUnder}     ${positiveNumber(game.underPayout)}',
                                     ),
                                 ],
                               ),
@@ -337,12 +321,11 @@ class MatchupCard extends StatelessWidget {
                     ),
                     CountdownTimer(
                       endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                        game.dateTime!,
-                      ),
+                          game.dateTime!),
                       widgetBuilder: (_, CurrentRemainingTime? time) {
                         if (time == null) {
                           return Text(
-                            gameData.status!,
+                            game.status!,
                             style: GoogleFonts.nunito(
                               color: Palette.red,
                               fontSize: 15,
@@ -359,6 +342,31 @@ class MatchupCard extends StatelessWidget {
                         );
                       },
                     ),
+                    // CountdownTimer(
+                    //   endDateTime: state.game.dateTime,
+                    // ),
+                    // kDebugMode
+                    //     ? Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //          Text(
+                    //             'Status: ${gameData.status}',
+                    //             style: Styles.matchupTime,
+                    //           ),
+                    //         ],
+                    //       )
+                    //     : Container(),
+                    // kDebugMode
+                    //     ? Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //          Text(
+                    //             'IsClosed: ${gameData.isClosed}',
+                    //             style: Styles.matchupTime,
+                    //           ),
+                    //         ],
+                    //       )
+                    //     : Container(),
                   ],
                 ),
               ),
@@ -369,9 +377,9 @@ class MatchupCard extends StatelessWidget {
     );
   }
 
-  String positiveNumber(int number) {
+  String positiveNumber(int? number) {
     final value =
-        number.isNegative ? number.toString() : '+${number.toString()}';
+        number!.isNegative ? number.toString() : '+${number.toString()}';
     return value;
   }
 

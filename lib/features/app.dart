@@ -3,6 +3,7 @@ import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:vegas_lit/data/repositories/nascar_repository.dart';
 import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 import '../config/themes.dart';
@@ -25,8 +26,10 @@ class App extends StatelessWidget {
     required this.betRepository,
     required this.deviceRepository,
     required this.groupRepository,
+    required this.nascarRepository,
   }) : super(key: key);
 
+  final NascarRepository nascarRepository;
   final SportRepository sportRepository;
   final UserRepository userRepository;
   final BetRepository betRepository;
@@ -51,6 +54,9 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider.value(
           value: deviceRepository,
+        ),
+        RepositoryProvider.value(
+          value: nascarRepository,
         ),
       ],
       child: MultiBlocProvider(

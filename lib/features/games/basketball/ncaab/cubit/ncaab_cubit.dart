@@ -36,10 +36,10 @@ class NcaabCubit extends Cubit<NcaabState> {
               .where((element) => element.isClosed == false)
               .where((element) {
             return element.awayTeamMoneyLine != null ||
-                element.pointSpreadAwayTeamMoneyLine != null ||
+                element.awayTeamMoneyLine != null ||
                 element.overPayout != null ||
                 element.homeTeamMoneyLine != null ||
-                element.pointSpreadHomeTeamMoneyLine != null ||
+                element.homeTeamMoneyLine != null ||
                 element.underPayout != null;
           }).toList(),
         );

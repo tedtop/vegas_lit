@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/groups/views/groups_page.dart';
-import 'package:vegas_lit/features/nascar_mock/race_list_page.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
@@ -27,11 +25,7 @@ AppBar mobileAppBar({int? balanceAmount}) {
                     padding: const EdgeInsets.fromLTRB(0, 9, 10, 11),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<Widget>(
-                                builder: (context) => RaceList()));
-                        //context.read<HomeCubit>().homeChange(4);
+                        context.read<HomeCubit>().homeChange(4);
                       },
                       child: Container(
                         width: 60,

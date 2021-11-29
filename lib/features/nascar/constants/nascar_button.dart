@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/features/nascar_mock/constants.dart';
+import 'package:vegas_lit/features/nascar/constants/constants.dart';
 
 class NascarButton extends StatelessWidget {
   const NascarButton(

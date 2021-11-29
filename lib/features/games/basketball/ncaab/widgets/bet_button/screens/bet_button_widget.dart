@@ -24,10 +24,8 @@ class BetButton extends StatelessWidget {
     required NcaabTeam awayTeamData,
     required String league,
     required NcaabTeam homeTeamData,
-    required int? gameId,
     required double spread,
     required BetButtonWin winTeam,
-    required bool? isClosed,
   }) {
     return Builder(
       builder: (context) {
@@ -39,7 +37,7 @@ class BetButton extends StatelessWidget {
           create: (_) => NcaabBetButtonCubit(
             betsRepository: context.read<BetRepository>(),
           )..openBetButton(
-              uid: currentUserId,
+              uid: currentUserId!,
               text: text,
               spread: spread,
               winTeam: winTeam,
