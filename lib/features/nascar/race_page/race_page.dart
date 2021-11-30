@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vegas_lit/config/assets.dart';
@@ -109,9 +111,17 @@ class RaceCard extends StatelessWidget {
             'NASCAR',
             style: NascarStyles.largeText,
           ),
-          Text(
-            race.name!,
-            style: NascarStyles.mediumText,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  race.name!,
+                  style: NascarStyles.mediumText,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Container(

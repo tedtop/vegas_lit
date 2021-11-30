@@ -74,7 +74,7 @@ class ParlayBetSlipWarning extends StatelessWidget {
                 )
               else
                 Text(
-                  'You can create a parlay between 2 and 6 picks',
+                  'You can create a parlay between 2 and 10 picks',
                   style: Styles.normalTextBold,
                   textAlign: TextAlign.center,
                 ),

@@ -2,7 +2,7 @@ part of 'race_play_cubit.dart';
 
 enum RacePlayStatus { initial, loading, success, failure }
 
-class RacePlayState extends Equatable {
+class RacePlayState {
   const RacePlayState({
     this.status = RacePlayStatus.initial,
     this.raceDetails,
@@ -10,7 +10,4 @@ class RacePlayState extends Equatable {
 
   final RacePlayStatus status;
   final RaceResults? raceDetails;
-
-  @override
-  List<Object> get props => [status, raceDetails!];
 }

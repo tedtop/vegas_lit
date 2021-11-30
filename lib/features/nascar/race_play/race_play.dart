@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,26 +21,6 @@ class RacePlay extends StatelessWidget {
         )..openRacePlayPage(race: race),
         child: const RacePlay._(),
       ),
-    );
-  }
-
-  Widget _textWithStroke({required String text, required Color textColor}) {
-    return Stack(
-      children: <Widget>[
-        Text(
-          text,
-          style: NascarStyles.largeText.copyWith(
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 1.5
-              ..color = NascarPalette.darkBlack,
-          ),
-        ),
-        Text(
-          text,
-          style: NascarStyles.largeText.copyWith(color: textColor),
-        ),
-      ],
     );
   }
 
@@ -65,6 +47,7 @@ class RacePlay extends StatelessWidget {
         backgroundColor: NascarPalette.darkBlack,
         body: BlocBuilder<RacePlayCubit, RacePlayState>(
           builder: (context, state) {
+            print(state.status.toString());
             switch (state.status) {
               case RacePlayStatus.initial:
                 return const SizedBox();
@@ -75,115 +58,139 @@ class RacePlay extends StatelessWidget {
                   ),
                 );
               case RacePlayStatus.success:
-                return Center(
-                  child: SizedBox(
-                    width: 380,
-                    child: ListView(
-                      children: [
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: 'Race starts in',
-                            style: NascarStyles.normalBoldText,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: ' 9 ',
-                                style: NascarStyles.mediumText
-                                    .copyWith(color: NascarPalette.red),
-                              ),
-                              const TextSpan(text: 'minutes')
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'The race is about to start...',
-                          textAlign: TextAlign.center,
-                          style: NascarStyles.normalLightText,
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          'Which driver will help you through the traffic?',
-                          textAlign: TextAlign.center,
-                          style: NascarStyles.normalLightText,
-                        ),
-                        const SizedBox(height: 20),
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            FittedBox(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 180,
-                                    child: InkWell(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute<Widget>(
-                                              builder: (context) =>
-                                                  const WaitingPage())),
-                                      child: Stack(
-                                        alignment: Alignment.bottomCenter,
-                                        children: [
-                                          Image.asset(
-                                              '${Images.nascarAssetsPath}nascar-car1.png'),
-                                          _textWithStroke(
-                                            text: '18',
-                                            textColor: NascarPalette.cream,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 180,
-                                    child: InkWell(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute<Widget>(
-                                              builder: (context) =>
-                                                  const WaitingPage())),
-                                      child: Stack(
-                                        alignment: Alignment.bottomCenter,
-                                        children: [
-                                          Image.asset(
-                                              '${Images.nascarAssetsPath}nascar-car2.png'),
-                                          _textWithStroke(
-                                            text: '24',
-                                            textColor: NascarPalette.yellow,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            CircleAvatar(
-                              radius: 40,
-                              backgroundColor:
-                                  NascarPalette.cream.withOpacity(0.7),
-                              child: Text(
-                                'or',
-                                style: NascarStyles.largeText.copyWith(
-                                    color: NascarPalette.blue,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-                break;
+                return const RacePlayPlayersList();
               case RacePlayStatus.failure:
                 return const Center(
                   child: Text("Couldn't load the page"),
                 );
             }
           },
+        ),
+      ),
+    );
+  }
+}
+
+class RacePlayPlayersList extends StatelessWidget {
+  const RacePlayPlayersList({Key? key}) : super(key: key);
+
+  Widget _textWithStroke({required String text, required Color textColor}) {
+    return Stack(
+      children: <Widget>[
+        Text(
+          text,
+          style: NascarStyles.largeText.copyWith(
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1.5
+              ..color = NascarPalette.darkBlack,
+          ),
+        ),
+        Text(
+          text,
+          style: NascarStyles.largeText.copyWith(color: textColor),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: 380,
+        child: ListView(
+          children: [
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: 'Race starts in',
+                style: NascarStyles.normalBoldText,
+                children: <TextSpan>[
+                  TextSpan(
+                    text: ' 9 ',
+                    style: NascarStyles.mediumText
+                        .copyWith(color: NascarPalette.red),
+                  ),
+                  const TextSpan(text: 'minutes')
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'The race is about to start...',
+              textAlign: TextAlign.center,
+              style: NascarStyles.normalLightText,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              'Which driver will help you through the traffic?',
+              textAlign: TextAlign.center,
+              style: NascarStyles.normalLightText,
+            ),
+            const SizedBox(height: 20),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 180,
+                        child: InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute<Widget>(
+                                  builder: (context) => const WaitingPage())),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Image.asset(
+                                  '${Images.nascarAssetsPath}nascar-car1.png'),
+                              _textWithStroke(
+                                text: '18',
+                                textColor: NascarPalette.cream,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute<Widget>(
+                                  builder: (context) => const WaitingPage())),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Image.asset(
+                                  '${Images.nascarAssetsPath}nascar-car2.png'),
+                              _textWithStroke(
+                                text: '24',
+                                textColor: NascarPalette.yellow,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                CircleAvatar(
+                  radius: 40,
+                  backgroundColor: NascarPalette.cream.withOpacity(0.7),
+                  child: Text(
+                    'or',
+                    style: NascarStyles.largeText.copyWith(
+                        color: NascarPalette.blue, fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

@@ -4,18 +4,17 @@
 
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
-import 'nascar_race.dart';
-
 class RaceResults {
   RaceResults({
     this.race,
     this.driverRaces,
   });
 
+  final RaceList? race;
+  final List<DriverRace>? driverRaces;
+
   RaceResults copyWith({
-    Race? race,
+    RaceList? race,
     List<DriverRace>? driverRaces,
   }) =>
       RaceResults(
@@ -29,27 +28,22 @@ class RaceResults {
   String toJson() => json.encode(toMap());
 
   factory RaceResults.fromMap(Map<String, dynamic> json) => RaceResults(
-        race: json['Race'] == null
-            ? null
-            : Race.fromMap(json['Race'] as Map<String, dynamic>),
-        driverRaces: json['DriverRaces'] == null
-            ? null
-            : List<DriverRace>.from(
-                json['DriverRaces'].map(
-                  (Map<String, dynamic> x) => DriverRace.fromMap(x),
-                ) as Iterable,
-              ),
+        race: RaceList.fromMap(json['Race'] as Map<String, dynamic>),
+        driverRaces: List<DriverRace>.from(
+          // ignore: unnecessary_cast
+          (json['DriverRaces'] as List).map(
+                  (dynamic x) => DriverRace.fromMap(x as Map<String, dynamic>))
+              as Iterable<dynamic>,
+        ),
       );
 
-  final Race? race;
-  final List<DriverRace?>? driverRaces;
-
-  Map<String, Object?> toMap() => {
-        'Race': race == null ? null : race!.toMap(),
-        'DriverRaces': driverRaces == null
-            ? null
-            : List<DriverRace>.from(
-                driverRaces!.map((x) => x!.toMap()) as Iterable<DriverRace>),
+  Map<String, Object> toMap() => {
+        'Race': race!.toMap(),
+        'DriverRaces': List<dynamic>.from(
+          driverRaces!.map(
+            (x) => x.toMap(),
+          ) as Iterable<dynamic>,
+        ),
       };
 }
 
@@ -85,6 +79,35 @@ class DriverRace {
     this.poles,
   });
 
+  final int? statId;
+  final int? driverId;
+  final int? season;
+  final String? name;
+  final int? number;
+  final String? numberDisplay;
+  final String? manufacturer;
+  final int? draftKingsSalary;
+  final int? raceId;
+  final DateTime? day;
+  final DateTime? dateTime;
+  final DateTime? updated;
+  final DateTime? created;
+  final double? fantasyPoints;
+  final double? fantasyPointsDraftKings;
+  final dynamic qualifyingSpeed;
+  final double? poleFinalPosition;
+  final double? startPosition;
+  final double? finalPosition;
+  final double? positionDifferential;
+  final double? laps;
+  final double? lapsLed;
+  final double? fastestLaps;
+  final double? points;
+  final double? bonus;
+  final double? penalty;
+  final double? wins;
+  final double? poles;
+
   DriverRace copyWith({
     int? statId,
     int? driverId,
@@ -101,19 +124,19 @@ class DriverRace {
     DateTime? created,
     double? fantasyPoints,
     double? fantasyPointsDraftKings,
-    double? qualifyingSpeed,
-    int? poleFinalPosition,
-    int? startPosition,
-    int? finalPosition,
-    int? positionDifferential,
-    int? laps,
-    int? lapsLed,
-    int? fastestLaps,
-    int? points,
-    int? bonus,
-    int? penalty,
-    int? wins,
-    int? poles,
+    dynamic qualifyingSpeed,
+    double? poleFinalPosition,
+    double? startPosition,
+    double? finalPosition,
+    double? positionDifferential,
+    double? laps,
+    double? lapsLed,
+    double? fastestLaps,
+    double? points,
+    double? bonus,
+    double? penalty,
+    double? wins,
+    double? poles,
   }) =>
       DriverRace(
         statId: statId ?? this.statId,
@@ -147,9 +170,8 @@ class DriverRace {
         poles: poles ?? this.poles,
       );
 
-  factory DriverRace.fromJson(String str) => DriverRace.fromMap(
-        json.decode(str) as Map<String, dynamic>,
-      );
+  factory DriverRace.fromJson(String str) =>
+      DriverRace.fromMap(json.decode(str) as Map<String, dynamic>);
 
   String toJson() => json.encode(toMap());
 
@@ -163,61 +185,26 @@ class DriverRace {
         manufacturer: json['Manufacturer'] as String?,
         draftKingsSalary: json['DraftKingsSalary'] as int?,
         raceId: json['RaceID'] as int?,
-        day: json['Day'] == null ? null : DateTime.parse(json['Day'] as String),
-        dateTime: json['DateTime'] == null
-            ? null
-            : DateTime.parse(json['DateTime'] as String),
-        updated: json['Updated'] == null
-            ? null
-            : DateTime.parse(json['Updated'] as String),
-        created: json['Created'] == null
-            ? null
-            : DateTime.parse(json['Created'] as String),
+        day: DateTime.parse(json['Day'] as String),
+        dateTime: DateTime.parse(json['DateTime'] as String),
+        updated: DateTime.parse(json['Updated'] as String),
+        created: DateTime.parse(json['Created'] as String),
         fantasyPoints: json['FantasyPoints'] as double?,
         fantasyPointsDraftKings: json['FantasyPointsDraftKings'] as double?,
-        qualifyingSpeed: json['QualifyingSpeed'] as double?,
-        poleFinalPosition: json['PoleFinalPosition'] as int?,
-        startPosition: json['StartPosition'] as int?,
-        finalPosition: json['FinalPosition'] as int?,
-        positionDifferential: json['PositionDifferential'] as int?,
-        laps: json['Laps'] as int?,
-        lapsLed: json['LapsLed'] as int?,
-        fastestLaps: json['FastestLaps'] as int?,
-        points: json['Points'] as int?,
-        bonus: json['Bonus'] as int?,
-        penalty: json['Penalty'] as int?,
-        wins: json['Wins'] as int?,
-        poles: json['Poles'] as int?,
+        qualifyingSpeed: json['QualifyingSpeed'],
+        poleFinalPosition: json['PoleFinalPosition'] as double?,
+        startPosition: json['StartPosition'] as double?,
+        finalPosition: json['FinalPosition'] as double?,
+        positionDifferential: json['PositionDifferential'] as double?,
+        laps: json['Laps'] as double?,
+        lapsLed: json['LapsLed'] as double?,
+        fastestLaps: json['FastestLaps'] as double?,
+        points: json['Points'] as double?,
+        bonus: json['Bonus'] as double?,
+        penalty: json['Penalty'] as double?,
+        wins: json['Wins'] as double?,
+        poles: json['Poles'] as double?,
       );
-
-  final int? statId;
-  final int? driverId;
-  final int? season;
-  final String? name;
-  final int? number;
-  final String? numberDisplay;
-  final String? manufacturer;
-  final int? draftKingsSalary;
-  final int? raceId;
-  final DateTime? day;
-  final DateTime? dateTime;
-  final DateTime? updated;
-  final DateTime? created;
-  final double? fantasyPoints;
-  final double? fantasyPointsDraftKings;
-  final double? qualifyingSpeed;
-  final int? poleFinalPosition;
-  final int? startPosition;
-  final int? finalPosition;
-  final int? positionDifferential;
-  final int? laps;
-  final int? lapsLed;
-  final int? fastestLaps;
-  final int? points;
-  final int? bonus;
-  final int? penalty;
-  final int? wins;
-  final int? poles;
 
   Map<String, Object?> toMap() => {
         'StatID': statId,
@@ -229,10 +216,10 @@ class DriverRace {
         'Manufacturer': manufacturer,
         'DraftKingsSalary': draftKingsSalary,
         'RaceID': raceId,
-        'Day': day == null ? null : day!.toIso8601String(),
-        'DateTime': dateTime == null ? null : dateTime!.toIso8601String(),
-        'Updated': updated == null ? null : updated!.toIso8601String(),
-        'Created': created == null ? null : created!.toIso8601String(),
+        'Day': day!.toIso8601String(),
+        'DateTime': dateTime!.toIso8601String(),
+        'Updated': updated!.toIso8601String(),
+        'Created': created!.toIso8601String(),
         'FantasyPoints': fantasyPoints,
         'FantasyPointsDraftKings': fantasyPointsDraftKings,
         'QualifyingSpeed': qualifyingSpeed,
@@ -248,5 +235,135 @@ class DriverRace {
         'Penalty': penalty,
         'Wins': wins,
         'Poles': poles,
+      };
+}
+
+class RaceList {
+  RaceList({
+    this.raceId,
+    this.seriesId,
+    this.seriesName,
+    this.season,
+    this.name,
+    this.day,
+    this.dateTime,
+    this.track,
+    this.broadcast,
+    this.winnerId,
+    this.poleWinnerId,
+    this.isInProgress,
+    this.isOver,
+    this.updated,
+    this.created,
+    this.rescheduledDay,
+    this.rescheduledDateTime,
+    this.canceled,
+  });
+
+  final int? raceId;
+  final int? seriesId;
+  final String? seriesName;
+  final int? season;
+  final String? name;
+  final DateTime? day;
+  final DateTime? dateTime;
+  final String? track;
+  final String? broadcast;
+  final int? winnerId;
+  final int? poleWinnerId;
+  final bool? isInProgress;
+  final bool? isOver;
+  final DateTime? updated;
+  final DateTime? created;
+  final dynamic rescheduledDay;
+  final dynamic rescheduledDateTime;
+  final bool? canceled;
+
+  RaceList copyWith({
+    int? raceId,
+    int? seriesId,
+    String? seriesName,
+    int? season,
+    String? name,
+    DateTime? day,
+    DateTime? dateTime,
+    String? track,
+    String? broadcast,
+    int? winnerId,
+    int? poleWinnerId,
+    bool? isInProgress,
+    bool? isOver,
+    DateTime? updated,
+    DateTime? created,
+    dynamic rescheduledDay,
+    dynamic rescheduledDateTime,
+    bool? canceled,
+  }) =>
+      RaceList(
+        raceId: raceId ?? this.raceId,
+        seriesId: seriesId ?? this.seriesId,
+        seriesName: seriesName ?? this.seriesName,
+        season: season ?? this.season,
+        name: name ?? this.name,
+        day: day ?? this.day,
+        dateTime: dateTime ?? this.dateTime,
+        track: track ?? this.track,
+        broadcast: broadcast ?? this.broadcast,
+        winnerId: winnerId ?? this.winnerId,
+        poleWinnerId: poleWinnerId ?? this.poleWinnerId,
+        isInProgress: isInProgress ?? this.isInProgress,
+        isOver: isOver ?? this.isOver,
+        updated: updated ?? this.updated,
+        created: created ?? this.created,
+        rescheduledDay: rescheduledDay ?? this.rescheduledDay,
+        rescheduledDateTime: rescheduledDateTime ?? this.rescheduledDateTime,
+        canceled: canceled ?? this.canceled,
+      );
+
+  factory RaceList.fromJson(String str) =>
+      RaceList.fromMap(json.decode(str) as Map<String, dynamic>);
+
+  String toJson() => json.encode(toMap());
+
+  factory RaceList.fromMap(Map<String, dynamic> json) => RaceList(
+        raceId: json['RaceID'] as int?,
+        seriesId: json['SeriesID'] as int?,
+        seriesName: json['SeriesName'] as String?,
+        season: json['Season'] as int?,
+        name: json['Name'] as String?,
+        day: DateTime.parse(json['Day'] as String),
+        dateTime: DateTime.parse(json['DateTime'] as String),
+        track: json['Track'] as String?,
+        broadcast: json['Broadcast'] as String?,
+        winnerId: json['WinnerID'] as int?,
+        poleWinnerId: json['PoleWinnerID'] as int?,
+        isInProgress: json['IsInProgress'] as bool?,
+        isOver: json['IsOver'] as bool?,
+        updated: DateTime.parse(json['Updated'] as String),
+        created: DateTime.parse(json['Created'] as String),
+        rescheduledDay: json['RescheduledDay'],
+        rescheduledDateTime: json['RescheduledDateTime'],
+        canceled: json['Canceled'] as bool?,
+      );
+
+  Map<String, Object?> toMap() => {
+        'RaceID': raceId,
+        'SeriesID': seriesId,
+        'SeriesName': seriesName,
+        'Season': season,
+        'Name': name,
+        'Day': day!.toIso8601String(),
+        'DateTime': dateTime!.toIso8601String(),
+        'Track': track,
+        'Broadcast': broadcast,
+        'WinnerID': winnerId,
+        'PoleWinnerID': poleWinnerId,
+        'IsInProgress': isInProgress,
+        'IsOver': isOver,
+        'Updated': updated!.toIso8601String(),
+        'Created': created!.toIso8601String(),
+        'RescheduledDay': rescheduledDay,
+        'RescheduledDateTime': rescheduledDateTime,
+        'Canceled': canceled,
       };
 }

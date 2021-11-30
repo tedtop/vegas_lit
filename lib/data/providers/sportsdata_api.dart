@@ -760,7 +760,7 @@ class SportsdataApiClient {
 
   Future<List<Race>> fetchAllRaces() async {
     final response = await _dio.get<Object>(
-      'https://api.sportsdata.io/nascar/v2/json/drivers?key=2567df976b82403592b9c12b3832a950',
+      'https://api.sportsdata.io/nascar/v2/json/races/2021?key=2567df976b82403592b9c12b3832a950',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
@@ -776,7 +776,7 @@ class SportsdataApiClient {
 
   Future<RaceResults> fetchRaceResults({required String raceId}) async {
     final response = await _dio.get<Object>(
-      'https://api.sportsdata.io/nascar/v2/json/driver/$raceId?key=2567df976b82403592b9c12b3832a950',
+      'https://api.sportsdata.io/nascar/v2/json/raceresult/$raceId?key=2567df976b82403592b9c12b3832a950',
     );
     if (response.statusCode == 200) {
       final parsed =

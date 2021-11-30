@@ -8,3 +8,4 @@ linter:
     no_default_cases: false
     always_use_package_imports: false
     require_trailing_commas: false
+    implicit_dynamic_parameter: false
