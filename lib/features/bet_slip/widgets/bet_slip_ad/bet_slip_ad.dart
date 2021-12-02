@@ -17,12 +17,7 @@ class RewardedBetSlip extends StatelessWidget {
 
   static Builder route() {
     return Builder(builder: (context) {
-      return BlocProvider<AdsCubit>(
-        create: (_) => AdsCubit(
-          userRepository: context.read<UserRepository>(),
-        ),
-        child: const RewardedBetSlip._(),
-      );
+      return const RewardedBetSlip._();
     });
   }
 

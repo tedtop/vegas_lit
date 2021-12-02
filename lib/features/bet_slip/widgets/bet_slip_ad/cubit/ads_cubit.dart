@@ -22,16 +22,23 @@ class AdsCubit extends Cubit<AdsState> {
       const AdsState.loading(),
     );
     await InterstitialAd.load(
-      adUnitId: InterstitialAd.testAdUnitId,
+      adUnitId:
+          kDebugMode ? RewardedAd.testAdUnitId : AdsConfig.interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd interstitialAd) async {
           interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
             onAdShowedFullScreenContent: (InterstitialAd ad) {
               print('$ad onAdShowedFullScreenContent.');
+              emit(
+                const AdsState.initial(),
+              );
             },
             onAdDismissedFullScreenContent: (InterstitialAd ad) {
               print('$ad onAdDismissedFullScreenContent.');
+              emit(
+                const AdsState.initial(),
+              );
               ad.dispose();
             },
             onAdWillDismissFullScreenContent: (InterstitialAd ad) {

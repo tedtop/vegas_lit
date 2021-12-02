@@ -9,6 +9,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_ad/cubit/ads_cubit.dart';
 import 'package:vegas_lit/features/drawer_pages/game_entry/cubit/game_entry_cubit.dart';
 
 import '../../../config/palette.dart';
@@ -43,18 +44,17 @@ class _SportsbookState extends State<Sportsbook>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocConsumer<SportsbookCubit, SportsbookState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == SportsbookStatus.initial) {
-          // if (!state.isRulesShown) {
-
-          Navigator.push<void>(
-            context,
-            RulesDialog.route(
-              cubit: context.read<GameEntryCubit>(),
-            ),
-          );
-
-          // }
+          await context.read<AdsCubit>().openInterstitialAd();
+          if (!state.isRulesShown) {
+            await Navigator.push<void>(
+              context,
+              RulesDialog.route(
+                cubit: context.read<GameEntryCubit>(),
+              ),
+            );
+          }
         }
       },
       builder: (context, state) {
