@@ -9,7 +9,7 @@ part 'player_details_state.dart';
 class PlayerDetailsCubit extends Cubit<PlayerDetailsState> {
   PlayerDetailsCubit({this.sportsRepository}) : super(PlayerDetailsInitial());
   final SportRepository? sportsRepository;
-  void getPlayerDetails({String? playerId}) async {
+  Future<void> getPlayerDetails({String? playerId}) async {
     final playerStats = await sportsRepository!.fetchNFLPlayerStats(
         playerId: playerId, dateTime: ESTDateTime.fetchTimeEST());
     emit(PlayerDetailsOpened(playerStats));
