@@ -31,8 +31,8 @@ class PlayerDetailsPage extends StatelessWidget {
       settings: const RouteSettings(name: 'PlayerDetails'),
       builder: (context) => BlocProvider<PlayerDetailsCubit>(
         create: (_) => PlayerDetailsCubit(
-            sportsRepository: context.read<SportRepository>()),
-        // ..getPlayerDetails(playerId: playerId)
+            sportsRepository: context.read<SportRepository>())
+          ..getPlayerDetails(playerId: playerId),
         child: PlayerDetailsPage(
           playerId: playerId,
           gameName: gameName,
@@ -75,14 +75,14 @@ class PlayerDetailsPage extends StatelessWidget {
                   softWrap: true,
                   style: Styles.largeTextBold.copyWith(fontSize: 30),
                 ),
-                //Text(
-                //   '${playerDetails.jersey != null ? '#${playerDetails.jersey}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
-                //   style: Styles.largeTextBold.copyWith(fontSize: 20),
-                // ),
-                //Text(
-                //   '${'${playerDetails.birthState ?? 'NA'}'.toUpperCase()} STATE',
-                //   style: Styles.normalText.copyWith(fontSize: 16),
-                // ),
+                Text(
+                  '${playerDetails.number != null ? '#${playerDetails.number}' : ''} ${playerDetails.position ?? ''} ${playerDetails.team ?? ''}',
+                  style: Styles.largeTextBold.copyWith(fontSize: 20),
+                ),
+                Text(
+                  (playerDetails.college ?? 'NA').toUpperCase(),
+                  style: Styles.normalText.copyWith(fontSize: 16),
+                ),
               ],
             ),
           ),
@@ -158,7 +158,10 @@ class PlayerDetailsPage extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: Text(
-                    playerDetails.injuryStatus?.toString().toUpperCase() ??
+                    playerDetails.injuryStatus
+                            ?.toString()
+                            .substring(7)
+                            .toUpperCase() ??
                         'NONE',
                     style: Styles.normalText
                         .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
@@ -242,21 +245,48 @@ class PlayerDetailsPage extends StatelessWidget {
               const SizedBox(height: 12),
               _playerBadge(size, playerDetails!),
               _playerDescription(playerDetails!),
-              // BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
-              //   builder: (context, state) {
-              //     if (state is PlayerDetailsOpened) {
-              //       return StatsBox(statMap: state.playerStats.toStatOnlyMap());
-              //     } else {
-              //       return const Padding(
-              //         padding: EdgeInsets.all(20.0),
-              //         child: Center(
-              //             child: CircularProgressIndicator(
-              //           color: Palette.cream,
-              //         )),
-              //       );
-              //     }
-              //   },
-              // ),
+              BlocBuilder<PlayerDetailsCubit, PlayerDetailsState>(
+                builder: (context, state) {
+                  if (state is PlayerDetailsOpened) {
+                    return NflPlayerStatsBox(
+                      statset1: <String, dynamic>{
+                        'TD': state.playerStats.touchdowns,
+                        'FGA': state.playerStats.fieldGoalsAttempted,
+                        'FGM': state.playerStats.fieldGoalsMade,
+                      },
+                      statset2: <String, dynamic>{
+                        'R Att': state.playerStats.rushingAttempts,
+                        'R Yds': state.playerStats.rushingYards,
+                        'R Y/A': state.playerStats.rushingYardsPerAttempt,
+                        'R TD': state.playerStats.rushingTouchdowns,
+                        'Pnt': state.playerStats.punts,
+                        'Lng': state.playerStats.puntLong,
+                      },
+                      statset3: <String, dynamic>{
+                        'P TD': state.playerStats.passingTouchdowns,
+                        'P Int': state.playerStats.passingInterceptions,
+                        'P Y/A': state.playerStats.passingYardsPerAttempt,
+                        'P Y/C': state.playerStats.passingYardsPerCompletion
+                      },
+                      statset4: <String, dynamic>{
+                        'Solo': state.playerStats.soloTackles,
+                        'Fmb': state.playerStats.fumbles,
+                        'Ast': state.playerStats.assistedTackles,
+                        'QBHits': state.playerStats.quarterbackHits,
+                        'TFL': state.playerStats.tacklesForLoss,
+                      },
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: Palette.cream,
+                      )),
+                    );
+                  }
+                },
+              ),
               _playerInjury(playerDetails!)
             ],
           ),
@@ -266,32 +296,63 @@ class PlayerDetailsPage extends StatelessWidget {
   }
 }
 
-class StatsBox extends StatelessWidget {
-  const StatsBox({Key? key, required this.statMap}) : super(key: key);
-  final Map<String, dynamic> statMap;
+class NflPlayerStatsBox extends StatelessWidget {
+  const NflPlayerStatsBox({
+    Key? key,
+    required this.statset1,
+    required this.statset2,
+    required this.statset3,
+    required this.statset4,
+  }) : super(key: key);
+  final Map<String, dynamic> statset1, statset2, statset3, statset4;
 
-  List<Widget> _statMapToList() {
-    return statMap.keys.map(
-      (key) {
-        if (statMap[key] != null) {
-          return StatsText(
-            leftText: key,
-            rightText: statMap[key],
-          );
-        } else {
-          return const SizedBox();
-        }
-      },
-    ).toList();
+  Widget _statsText(String t1, dynamic t2) {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            t1,
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+          Text(
+            t2?.toString() ?? 'N/A',
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _statsVDivider() {
+    return const SizedBox(
+      height: 40,
+      child: VerticalDivider(
+        color: Palette.cream,
+        thickness: 1,
+        width: 10,
+      ),
+    );
+  }
+
+  Widget _statsHDivider() {
+    return const SizedBox(
+        width: 350,
+        child: Divider(
+          color: Palette.cream,
+          thickness: 1,
+          height: 10,
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
-    final statsList = _statMapToList();
-    final statsOffset = (statsList.length ~/ 2) + 8;
     return Container(
       width: 380,
-      margin: const EdgeInsets.only(top: 20, bottom: 8),
+      height: 135,
+      margin: const EdgeInsets.only(top: 20, bottom: 18),
       padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
       decoration: BoxDecoration(
           color: Palette.lightGrey,
@@ -299,42 +360,36 @@ class StatsBox extends StatelessWidget {
           border: Border.all(
             color: Palette.cream,
           )),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         children: [
-          SizedBox(
-            width: 170,
-            child: Column(
-              children: statsList.sublist(0, statsOffset),
-            ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset1.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset2.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
           ),
-          const SizedBox(width: 15),
-          Expanded(
-              child: Column(
-            children: statsList.sublist(statsOffset),
-          ))
+          _statsHDivider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset3.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset4.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
+          ),
         ],
       ),
-    );
-  }
-}
-
-class StatsText extends StatelessWidget {
-  const StatsText({Key? key, this.leftText, this.rightText}) : super(key: key);
-  final String? leftText;
-  final dynamic rightText;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-            width: 110, child: Text(leftText!, style: Styles.teamStatsText)),
-        Expanded(
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: Text('$rightText', style: Styles.teamStatsText))),
-      ],
     );
   }
 }

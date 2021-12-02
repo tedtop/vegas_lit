@@ -49,7 +49,7 @@ class TeamInfoView extends StatelessWidget {
   final String? gameName;
 
   Widget _teamStats(NflTeamStats stats) {
-    return Container(
+    return SizedBox(
       width: 380,
       child: Column(
         children: [
@@ -101,7 +101,7 @@ class TeamInfoView extends StatelessWidget {
 
   Widget _buildPlayersList(List<NflPlayer> players) {
     final teamColor = teamData!.primaryColor != null
-        ? int.parse('0xA6${teamData!.primaryColor}'.toString())
+        ? int.parse('0xA6${teamData!.primaryColor}')
         : Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
@@ -153,7 +153,7 @@ class TeamInfoView extends StatelessWidget {
                                 style: Styles.greenText.copyWith(fontSize: 10),
                               ),
                               Text(
-                                players[index].position.toString(),
+                                players[index].position?.toString() ?? 'N/A',
                                 style:
                                     Styles.greenTextBold.copyWith(fontSize: 20),
                               ),
@@ -238,14 +238,40 @@ class TeamInfoView extends StatelessWidget {
         ),
         _teamBadge(size),
         const SizedBox(height: 12),
-        //_teamStats(),
-        //const SizedBox(height: 12),
         BlocConsumer<TeamInfoCubit, TeamInfoState>(
             builder: (context, state) {
               if (state is TeamInfoOpened) {
                 return Column(
                   children: [
                     _teamStats(state.teamStats),
+                    NflTeamStatsBox(
+                      statset1: <String, dynamic>{
+                        'G': state.teamStats.games,
+                        '1D': state.teamStats.firstDowns,
+                        'Ply': state.teamStats.offensivePlays,
+                      },
+                      statset2: <String, dynamic>{
+                        'R Att': state.teamStats.rushingAttempts,
+                        'R Yds': state.teamStats.rushingYards,
+                        'R Y/A': state.teamStats.rushingYardsPerAttempt,
+                        'R TD': state.teamStats.rushingTouchdowns,
+                        'Pnt': state.teamStats.punts,
+                        'Cmp%': state.teamStats.completionPercentage,
+                      },
+                      statset3: <String, dynamic>{
+                        'P TD': state.teamStats.passingTouchdowns,
+                        'P Int': state.teamStats.passingInterceptions,
+                        'P Y/A': state.teamStats.passingYardsPerAttempt,
+                        'P Y/C': state.teamStats.passingYardsPerCompletion
+                      },
+                      statset4: <String, dynamic>{
+                        'Pen': state.teamStats.penalties,
+                        'Fmb': state.teamStats.fumbles,
+                        'SK': state.teamStats.timesSacked,
+                        'QBHits': state.teamStats.quarterbackHits,
+                        'TFL': state.teamStats.tacklesForLoss,
+                      },
+                    ),
                     _buildPlayersList(state.players),
                   ],
                 );
@@ -261,6 +287,104 @@ class TeamInfoView extends StatelessWidget {
             },
             listener: (context, state) {})
       ],
+    );
+  }
+}
+
+class NflTeamStatsBox extends StatelessWidget {
+  const NflTeamStatsBox({
+    Key? key,
+    required this.statset1,
+    required this.statset2,
+    required this.statset3,
+    required this.statset4,
+  }) : super(key: key);
+  final Map<String, dynamic> statset1, statset2, statset3, statset4;
+
+  Widget _statsText(String t1, dynamic t2) {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            t1,
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+          Text(
+            t2?.toString() ?? 'N/A',
+            style: Styles.normalText.copyWith(fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _statsVDivider() {
+    return const SizedBox(
+      height: 40,
+      child: VerticalDivider(
+        color: Palette.cream,
+        thickness: 1,
+        width: 10,
+      ),
+    );
+  }
+
+  Widget _statsHDivider() {
+    return const SizedBox(
+        width: 350,
+        child: Divider(
+          color: Palette.cream,
+          thickness: 1,
+          height: 10,
+        ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 380,
+      height: 135,
+      margin: const EdgeInsets.only(top: 20, bottom: 18),
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 22),
+      decoration: BoxDecoration(
+          color: Palette.lightGrey,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(
+            color: Palette.cream,
+          )),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset1.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset2.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
+          ),
+          _statsHDivider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...statset3.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+              _statsVDivider(),
+              ...statset4.entries
+                  .map((stat) => _statsText(stat.key, stat.value))
+                  .toList(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

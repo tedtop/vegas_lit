@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 class NflPlayerStats {
@@ -311,7 +309,7 @@ class NflPlayerStats {
         averageDraftPositionDynasty: json['AverageDraftPositionDynasty'],
         averageDraftPosition2Qb: json['AverageDraftPosition2QB'],
         scoringDetails: List<dynamic>.from(
-          json['ScoringDetails'].map((dynamic x) => x) as List,
+          json['ScoringDetails'] as List,
         ),
       );
 
