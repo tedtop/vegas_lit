@@ -71,7 +71,8 @@ class _SportsbookState extends State<Sportsbook>
               ),
             );
           case SportsbookStatus.opened:
-            return const SportsBookView();
+            // ignore: prefer_const_constructors
+            return SportsBookView();
         }
       },
     );
@@ -125,7 +126,7 @@ class SportsBookView extends StatelessWidget {
                           color: Palette.green,
                           padding: const EdgeInsets.all(8),
                           height: 40,
-                          child: DropdownWidgetHome(),
+                          child: const DropdownWidgetHome(),
                         ),
                       ),
                     ),
@@ -187,7 +188,7 @@ class SportsBookView extends StatelessWidget {
                     color: Palette.green,
                     padding: const EdgeInsets.all(8),
                     height: 40,
-                    child: DropdownWidgetHome(),
+                    child: const DropdownWidgetHome(),
                   ),
                 ),
               ),
@@ -207,7 +208,7 @@ class SportsBookView extends StatelessWidget {
                     color: Palette.green,
                     padding: const EdgeInsets.all(8),
                     height: 40,
-                    child: DropdownWidgetHome(),
+                    child: const DropdownWidgetHome(),
                   ),
                 ),
               ),
