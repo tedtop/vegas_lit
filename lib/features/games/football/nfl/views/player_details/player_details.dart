@@ -170,53 +170,58 @@ class PlayerDetailsPage extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(8),
-                width: 140,
-                child: Column(
-                  children: [
-                    Text(
-                      'BODY PART',
-                      textAlign: TextAlign.center,
-                      style: Styles.greenText.copyWith(fontSize: 16),
-                    ),
-                    Text(
-                      playerDetails.injuryBodyPart?.toString().toUpperCase() ??
-                          'NONE',
-                      textAlign: TextAlign.center,
-                      style: Styles.normalText.copyWith(
-                        fontSize: 16,
-                        color: playerDetails.injuryBodyPart == null
-                            ? Palette.cream
-                            : Palette.red,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Center(
+          SizedBox(height: playerDetails.injuryStatus != null ? 20 : 5),
+          if (playerDetails.injuryStatus != null)
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(8),
+                  width: 140,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'INJURY NOTES',
-                        style: Styles.normalText
-                            .copyWith(color: Palette.red, fontSize: 16),
+                        'BODY PART',
+                        textAlign: TextAlign.center,
+                        style: Styles.greenText.copyWith(fontSize: 16),
                       ),
                       Text(
-                        playerDetails.injuryNotes?.toString() ?? 'NONE',
-                        style: Styles.normalText.copyWith(fontSize: 12),
-                      ),
+                        playerDetails.injuryBodyPart
+                                ?.toString()
+                                .toUpperCase() ??
+                            'NONE',
+                        textAlign: TextAlign.center,
+                        style: Styles.normalText.copyWith(
+                          fontSize: 16,
+                          color: playerDetails.injuryBodyPart == null
+                              ? Palette.cream
+                              : Palette.red,
+                        ),
+                      )
                     ],
                   ),
                 ),
-              ),
-            ],
-          )
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'INJURY NOTES',
+                          style: Styles.normalText
+                              .copyWith(color: Palette.red, fontSize: 16),
+                        ),
+                        Text(
+                          playerDetails.injuryNotes?.toString() ?? 'NONE',
+                          style: Styles.normalText.copyWith(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
+          else
+            const SizedBox.shrink(),
         ],
       ),
     );
