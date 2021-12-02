@@ -51,7 +51,7 @@ class TeamInfoView extends StatelessWidget {
   final String? gameName;
 
   Widget _teamStats(NbaTeamStats stats) {
-    return Container(
+    return SizedBox(
       width: 380,
       child: Column(
         children: [
@@ -73,11 +73,11 @@ class TeamInfoView extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    'FG%',
+                    'TOV',
                     style: Styles.teamStatsMain.copyWith(color: Palette.cream),
                   ),
                   Text(
-                    stats.fieldGoalsPercentage.toString(),
+                    stats.turnovers.toString(),
                     style: Styles.teamStatsMain.copyWith(color: Palette.cream),
                   )
                 ],
@@ -103,7 +103,7 @@ class TeamInfoView extends StatelessWidget {
 
   Widget _buildPlayersList(List<NbaPlayer> players) {
     final teamColor = teamData!.primaryColor != null
-        ? int.parse('0xA6${teamData!.primaryColor}'.toString())
+        ? int.parse('0xA6${teamData!.primaryColor}')
         : Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
@@ -153,7 +153,7 @@ class TeamInfoView extends StatelessWidget {
                                 style: Styles.greenText.copyWith(fontSize: 10),
                               ),
                               Text(
-                                players[index].position.toString(),
+                                players[index].position?.toString() ?? 'N/A',
                                 style:
                                     Styles.greenTextBold.copyWith(fontSize: 20),
                               ),
@@ -238,8 +238,6 @@ class TeamInfoView extends StatelessWidget {
         ),
         _teamBadge(size),
         const SizedBox(height: 12),
-        //_teamStats(),
-        //const SizedBox(height: 12),
         BlocBuilder<TeamInfoCubit, TeamInfoState>(
           builder: (context, state) {
             if (state is TeamInfoOpened) {
