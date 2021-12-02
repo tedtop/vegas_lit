@@ -1,43 +1,37 @@
-
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/data/repositories/user_repository.dart';
 
-import '../../config/assets.dart';
-import '../../config/palette.dart';
-import '../../config/routes.dart';
-import '../../config/styles.dart';
-import '../../utils/route_aware_analytics.dart';
+import '../../../config/assets.dart';
+import '../../../config/palette.dart';
+import '../../../config/styles.dart';
+import 'cubit/game_entry_cubit.dart';
 
-class RulesDialog extends StatefulWidget {
+class RulesDialog extends StatelessWidget {
   const RulesDialog._({Key? key}) : super(key: key);
 
-  static Route route() {
+  static Route route({required GameEntryCubit cubit}) {
     return MaterialPageRoute<void>(
       fullscreenDialog: true,
-      builder: (_) => const RulesDialog._(),
-      settings: const RouteSettings(name: 'Rules'),
+      builder: (_) => BlocProvider.value(
+        value: cubit,
+        child: const RulesDialog._(),
+      ),
     );
   }
 
-  @override
-  _RulesDialogState createState() => _RulesDialogState();
-}
-
-class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Hero(
-          tag: 'drawerHeader',
-          child: Image.asset(
-            Images.topLogo,
-            fit: BoxFit.fitWidth,
-            height: 50,
-          ),
+        title: Image.asset(
+          Images.topLogo,
+          fit: BoxFit.fitWidth,
+          height: 50,
         ),
         centerTitle: true,
       ),
@@ -50,6 +44,73 @@ class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              BlocBuilder<GameEntryCubit, GameEntryState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case GameEntryStatus.initial:
+                      return const SizedBox();
+                    case GameEntryStatus.loading:
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Palette.green,
+                        ),
+                      );
+                    case GameEntryStatus.success:
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 12,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Container(
+                            width: 390,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Palette.cream,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Card(
+                              margin: EdgeInsets.zero,
+                              color: Palette.lightGrey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        state.previousWeekWallet!.rank == 0
+                                            ? 'Better Luck Next Time'
+                                            : 'Congratulations,\n You came ${state.previousWeekWallet!.rank}!',
+                                        style: GoogleFonts.nunito(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 30,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+
+                    case GameEntryStatus.failure:
+                      return Center(
+                        child: Text(
+                          "Couldn't load your previous data.",
+                          style: GoogleFonts.nunito(),
+                        ),
+                      );
+                  }
+                },
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -130,14 +191,11 @@ class _RulesDialogState extends State<RulesDialog> with RouteAwareAnalytics {
     );
   }
 
-  final _rulesURL = 'https://vegaslit.web.app/rules.html';
+  static const _rulesURL = 'https://vegaslit.web.app/rules.html';
 
-  void _launchRules() async => await canLaunch(_rulesURL)
+  Future<void> _launchRules() async => await canLaunch(_rulesURL)
       ? await launch(_rulesURL)
       : throw LaunchWebsiteFailure();
-
-  @override
-  Routes get route => Routes.rules;
 }
 
 class _RulesDialogList extends StatelessWidget {

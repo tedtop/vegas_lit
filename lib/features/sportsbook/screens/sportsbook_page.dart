@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,11 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
+import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
+import 'package:vegas_lit/features/drawer_pages/game_entry/cubit/game_entry_cubit.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
-import '../../drawer_pages/rules_dialog.dart';
+import '../../drawer_pages/game_entry/rules_dialog.dart';
 import '../../games/baseball/mlb/mlb_page.dart';
 import '../../games/basketball/nba/nba_page.dart';
 import '../../games/basketball/ncaab/views/ncaab_screen.dart';
@@ -40,12 +45,16 @@ class _SportsbookState extends State<Sportsbook>
     return BlocConsumer<SportsbookCubit, SportsbookState>(
       listener: (context, state) {
         if (state.status == SportsbookStatus.initial) {
-          if (!state.isRulesShown) {
-            Navigator.push<void>(
-              context,
-              RulesDialog.route(),
-            );
-          }
+          // if (!state.isRulesShown) {
+
+          Navigator.push<void>(
+            context,
+            RulesDialog.route(
+              cubit: context.read<GameEntryCubit>(),
+            ),
+          );
+
+          // }
         }
       },
       builder: (context, state) {
@@ -62,7 +71,7 @@ class _SportsbookState extends State<Sportsbook>
               ),
             );
           case SportsbookStatus.opened:
-            return SportsBookView();
+            return const SportsBookView();
         }
       },
     );
@@ -70,7 +79,7 @@ class _SportsbookState extends State<Sportsbook>
 }
 
 class SportsBookView extends StatelessWidget {
-  SportsBookView({Key? key}) : super(key: key);
+  const SportsBookView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +371,7 @@ class SportsBookView extends StatelessWidget {
 }
 
 class DropdownWidgetHome extends StatefulWidget {
-  DropdownWidgetHome({
+  const DropdownWidgetHome({
     Key? key,
   }) : super(key: key);
 

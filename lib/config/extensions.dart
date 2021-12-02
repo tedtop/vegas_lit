@@ -76,6 +76,23 @@ extension ESTDateTime on DateTime {
     }
   }
 
+  String get previousWeekStringVL {
+    final weekNumber = ESTDateTime.weekNumberVL;
+    switch (weekday) {
+      case DateTime.sunday:
+      case DateTime.monday:
+      case DateTime.tuesday:
+      case DateTime.wednesday:
+        return '$year-${weekNumber - 1 - 1}-${weekNumber - 1}';
+      case DateTime.thursday:
+      case DateTime.friday:
+      case DateTime.saturday:
+        return '$year-${weekNumber - 1}-${weekNumber + 1 - 1}';
+      default:
+        return '$year-${weekNumber - 1 - 1}-${weekNumber - 1}';
+    }
+  }
+
   bool isSameDate(DateTime other) {
     return year == other.year && month == other.month && day == other.day;
   }
