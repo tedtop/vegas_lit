@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/utils/vl_image.dart';
 
 import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
@@ -276,12 +277,12 @@ class PlayerDetailsPage extends StatelessWidget {
                         'W': state.playerStats.wins,
                         'L': state.playerStats.losses,
                         'ERA': state.playerStats.earnedRunAverage,
-                        'G': '--',
-                        'GS': '--',
+                        'G': 'N/A',
+                        'GS': 'N/A',
                         'CG': state.playerStats.pitchingCompleteGames,
                         'SHO': state.playerStats.pitchingShutOuts,
-                        'SV': '--',
-                        'SVO': '--',
+                        'SV': 'N/A',
+                        'SVO': 'N/A',
                       },
                       pitching2: <String, dynamic>{
                         'IP': state.playerStats.inningsPitchedFull,
@@ -289,7 +290,7 @@ class PlayerDetailsPage extends StatelessWidget {
                         'R': state.playerStats.pitchingRuns,
                         'ER': state.playerStats.pitchingEarnedRuns,
                         'HR': state.playerStats.pitchingHomeRuns,
-                        'HB': '--',
+                        'HB': 'N/A',
                         'BB': state.playerStats.pitchingWalks,
                         'SO': state.playerStats.pitchingStrikeouts,
                       },

@@ -101,7 +101,7 @@ class TeamInfoView extends StatelessWidget {
 
   Widget _buildPlayersList(List<NhlPlayer> players) {
     final teamColor = teamData!.primaryColor != null
-        ? int.parse('0xA6${teamData!.primaryColor}'.toString())
+        ? int.parse('0xA6${teamData!.primaryColor}')
         : Palette.lightGrey.value;
     return ListView.separated(
       shrinkWrap: true,
@@ -151,7 +151,7 @@ class TeamInfoView extends StatelessWidget {
                                 style: Styles.greenText.copyWith(fontSize: 10),
                               ),
                               Text(
-                                players[index].position.toString(),
+                                players[index].position?.toString() ?? 'N/A',
                                 style:
                                     Styles.greenTextBold.copyWith(fontSize: 20),
                               ),
