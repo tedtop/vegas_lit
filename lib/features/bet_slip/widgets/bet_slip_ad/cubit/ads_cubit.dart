@@ -110,12 +110,12 @@ class AdsCubit extends Cubit<AdsState> {
               await _userRepository
                   .rewardForVideoAd(
                 uid: currentUser!.uid,
-                rewardValue: 100,
+                rewardValue: 200,
               )
                   .then(
                 (value) async {
                   emit(
-                    const AdsState.success(rewardAmount: 100),
+                    const AdsState.success(rewardAmount: 200),
                   );
                 },
               );

@@ -46,12 +46,12 @@ class _SportsbookState extends State<Sportsbook>
     return BlocConsumer<SportsbookCubit, SportsbookState>(
       listener: (context, state) async {
         if (state.status == SportsbookStatus.initial) {
-          await context.read<AdsCubit>().openInterstitialAd();
           if (!state.isRulesShown) {
             await Navigator.push<void>(
               context,
               RulesDialog.route(
                 cubit: context.read<GameEntryCubit>(),
+                cubit2: context.read<AdsCubit>(),
               ),
             );
           }

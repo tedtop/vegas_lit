@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/data/repositories/user_repository.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_ad/cubit/ads_cubit.dart';
 
 import '../../../config/assets.dart';
 import '../../../config/palette.dart';
@@ -13,12 +13,16 @@ import 'cubit/game_entry_cubit.dart';
 class RulesDialog extends StatelessWidget {
   const RulesDialog._({Key? key}) : super(key: key);
 
-  static Route route({required GameEntryCubit cubit}) {
+  static Route route(
+      {required GameEntryCubit cubit, required AdsCubit cubit2}) {
     return MaterialPageRoute<void>(
       fullscreenDialog: true,
       builder: (_) => BlocProvider.value(
-        value: cubit,
-        child: const RulesDialog._(),
+        value: cubit2,
+        child: BlocProvider.value(
+          value: cubit,
+          child: const RulesDialog._(),
+        ),
       ),
     );
   }
@@ -56,6 +60,17 @@ class RulesDialog extends StatelessWidget {
                         ),
                       );
                     case GameEntryStatus.success:
+                      late String cool;
+                      if (state.previousWeekWallet!.rank == 0) {
+                        cool = 'Welcome back!\nWe missed you!';
+                      } else if (state.previousWeekWallet!.rank! > 10) {
+                        cool =
+                            '${state.previousWeekWallet!.rank} Rank,\nBetter Luck Next Time!';
+                      } else {
+                        cool =
+                            'Congratulations,\nYou came in ${state.previousWeekWallet!.rank} place!';
+                      }
+
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 8,
@@ -84,9 +99,8 @@ class RulesDialog extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Text(
-                                        state.previousWeekWallet!.rank == 0
-                                            ? 'Better Luck Next Time'
-                                            : 'Congratulations,\n You came ${state.previousWeekWallet!.rank}!',
+                                        cool,
+                                        textAlign: TextAlign.left,
                                         style: GoogleFonts.nunito(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 30,
@@ -182,8 +196,9 @@ class RulesDialog extends StatelessWidget {
           ),
           backgroundColor: MaterialStateProperty.all(Palette.green),
         ),
-        onPressed: () {
+        onPressed: () async {
           Navigator.of(context).pop();
+          await context.read<AdsCubit>().openInterstitialAd();
         },
         child: Text('Let\'s Play!', style: Styles.normalTextBold),
       ),

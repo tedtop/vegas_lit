@@ -26,7 +26,7 @@ class RewardedBetSlip extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final buttonWidthHeight = size.width * .30;
     final todayRewards = context
-        .select((HomeCubit cubit) => cubit.state.userWallet?.todayRewards!);
+        .select((HomeCubit cubit) => cubit.state.userWallet?.todayRewards);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -39,16 +39,16 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              if (todayRewards! >= 300)
+              if (todayRewards! >= 1000)
                 Builder(builder: (context) {
                   final timeNow = ESTDateTime.fetchTimeEST();
                   // To find the reward hour {Ex: 3 AM, 6 AM,...}
                   final nThRewardHour =
                       Duration(hours: timeNow.hour, minutes: timeNow.minute)
                               .inHours ~/
-                          3;
+                          24;
                   final nextRewardTime = DateTime(timeNow.year, timeNow.month,
-                      timeNow.day, 3 * (nThRewardHour + 1));
+                      timeNow.day, 24 * (nThRewardHour + 1));
                   return CountdownTimer(
                     endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
                         nextRewardTime),
