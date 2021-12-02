@@ -11,7 +11,7 @@ class TeamInfoCubit extends Cubit<TeamInfoState> {
   TeamInfoCubit(this.sportsRepository) : super(TeamInfoInitial());
   final SportRepository sportsRepository;
 
-  void getTeamDetails(String? teamKey, String? gameName) async {
+  Future<void> getTeamDetails(String? teamKey, String? gameName) async {
     final players = await sportsRepository.fetchNFLPlayers(
       teamKey: teamKey,
     );
