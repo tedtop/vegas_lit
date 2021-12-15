@@ -4,18 +4,18 @@ import 'package:equatable/equatable.dart';
 import '../../../../config/extensions.dart';
 
 import '../../../../data/models/golf/golf.dart';
-import '../../../../data/repositories/sports_repository.dart';
+import '../../../../data/repositories/sport_repository.dart';
 
 part 'golf_state.dart';
 
 class GolfCubit extends Cubit<GolfState> {
-  GolfCubit({required SportsRepository sportsfeedRepository})
+  GolfCubit({required SportRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           GolfInitial(),
         );
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchTournaments() async {
     emit(GolfInitial());

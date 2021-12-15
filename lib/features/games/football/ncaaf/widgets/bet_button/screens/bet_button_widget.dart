@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
-import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../data/models/ncaaf/ncaaf_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
-import '../../../../../../authentication/bloc/authentication_bloc.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
+import '../../../../../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
+import '../../../../../../home/cubit/home_cubit.dart';
 import '../../../models/ncaaf_team.dart';
 import '../cubit/bet_button_cubit.dart';
 
@@ -32,12 +32,12 @@ class BetButton extends StatelessWidget {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         return BlocProvider(
           create: (_) => NcaafBetButtonCubit(
-            betsRepository: context.read<BetsRepository>(),
+            betsRepository: context.read<BetRepository>(),
           )..openBetButton(
               uid: currentUserId,
               text: text,
@@ -128,7 +128,7 @@ class BetButtonUnclicked extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -169,7 +169,7 @@ class BetButtonClicked extends StatelessWidget {
   Widget build(BuildContext context) {
     final betButtonState = context.watch<NcaafBetButtonCubit>().state;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 150,
         padding: const EdgeInsets.symmetric(horizontal: 2),

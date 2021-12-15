@@ -3,30 +3,29 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/features/bet_slip/cubit/bet_slip_cubit.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/bet_button/screens/parlay_bet_slip_card.dart';
-import 'package:vegas_lit/features/games/hockey/nhl/widgets/bet_button/screens/single_bet_slip_card.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/nhl/nhl_bet.dart';
 import '../../../../../../../data/models/nhl/nhl_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
+import '../../../../../../bet_slip/cubit/bet_slip_cubit.dart';
 import '../../../models/nhl_team.dart';
+import '../screens/parlay_bet_slip_card.dart';
+import '../screens/single_bet_slip_card.dart';
 
 part 'bet_button_state.dart';
 
 class NhlBetButtonCubit extends Cubit<NhlBetButtonState> {
-  NhlBetButtonCubit({required BetsRepository betsRepository})
+  NhlBetButtonCubit({required BetRepository betsRepository})
       : _betsRepository = betsRepository,
         super(
           const NhlBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   void openBetButton({
     required String text,

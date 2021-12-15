@@ -104,7 +104,7 @@ export function whichKey(league: string): string {
     case "nhl":
       return "d02fe5a19d1249daa5879948da06f627";
 
-    case "ccb":
+    case "cbb":
       return "c4ddc8ca2fcd4c659c0910eabc75a4c6";
 
     case "nfl":

@@ -10,7 +10,7 @@ enum GroupEditStatus {
 }
 
 class GroupEditState extends Equatable {
-  GroupEditState({
+  const GroupEditState({
     this.status = GroupEditStatus.initial,
     this.avatarFile,
   });

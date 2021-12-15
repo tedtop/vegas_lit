@@ -6,15 +6,23 @@ import '../providers/remote_config.dart';
 import '../providers/shared_prefs.dart';
 
 class DeviceRepository {
+  DeviceRepository({
+    CloudMessagingClient? messagingProvider,
+    AppReviewClient? appReviewProvider,
+    RemoteConfigClient? remoteConfigProvider,
+  })  : _messagingProvider = messagingProvider ?? CloudMessagingClient(),
+        _appReviewProvider = appReviewProvider ?? AppReviewClient(),
+        _remoteConfigProvider = remoteConfigProvider ?? RemoteConfigClient();
+
   static Future<DeviceRepository> create() async {
     final component = DeviceRepository();
     await component.initSharedPrefs();
     return component;
   }
 
-  final _messagingProvider = CloudMessagingClient();
-  final _appReviewProvider = AppReviewClient();
-  final _remoteConfigProvider = RemoteConfigClient();
+  final CloudMessagingClient _messagingProvider;
+  final AppReviewClient _appReviewProvider;
+  final RemoteConfigClient _remoteConfigProvider;
   late SharedPreferencesClient _sharedPreferencesProvider;
 
   Future<void> initSharedPrefs() async =>

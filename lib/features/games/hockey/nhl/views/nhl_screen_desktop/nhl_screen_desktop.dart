@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/models/nhl_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/nhl/nhl_game.dart';
@@ -8,10 +9,10 @@ import '../../../../../bet_slip/bet_slip.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNhlScreen extends StatelessWidget {
-  DesktopNhlScreen({this.gameName, this.games, this.parsedTeamData});
+  const DesktopNhlScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NhlGame>? games;
   final String? gameName;
-  final List? parsedTeamData;
+  final List<NhlTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -189,7 +190,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

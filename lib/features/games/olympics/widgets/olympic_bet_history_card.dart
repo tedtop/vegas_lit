@@ -94,7 +94,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                   child: Card(
                     margin: EdgeInsets.zero,
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
+                      
                     ),
                     color: Palette.darkGrey,
                     child: Container(
@@ -111,9 +111,8 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             children: [
                               Column(
                                 children: [
-                                  isPlayerWin
-                                      ? Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry!)}',
+                                  if (isPlayerWin) Text(
+                                          countryFlagFromCode(countryCode: betHistoryData.playerCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.cream,
@@ -121,9 +120,8 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry!)}',
+                                        ) else Text(
+                                          countryFlagFromCode(countryCode: betHistoryData.rivalCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.green,
@@ -132,9 +130,8 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
                                         ),
-                                  isPlayerWin
-                                      ? Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.rivalCountry!)}',
+                                  if (isPlayerWin) Text(
+                                          countryFlagFromCode(countryCode: betHistoryData.rivalCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.green,
@@ -142,9 +139,8 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           maxLines: 1,
                                           textAlign: TextAlign.center,
-                                        )
-                                      : Text(
-                                          '${countryFlagFromCode(countryCode: betHistoryData.playerCountry!)}',
+                                        ) else Text(
+                                          countryFlagFromCode(countryCode: betHistoryData.playerCountry!),
                                           style: GoogleFonts.nunito(
                                             fontSize: 20,
                                             color: Palette.cream,
@@ -166,7 +162,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                             children: [
                                               Flexible(
                                                 child: Text(
-                                                  '${betHistoryData.playerName!.toUpperCase()}',
+                                                  betHistoryData.playerName!.toUpperCase(),
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     color: Palette.cream,
@@ -191,7 +187,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             child: Text(
-                                              '${betHistoryData.rivalName!.toUpperCase()}',
+                                              betHistoryData.rivalName!.toUpperCase(),
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
                                                 color: Palette.green,
@@ -212,7 +208,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                             children: [
                                               Flexible(
                                                 child: Text(
-                                                  '${betHistoryData.rivalName!.toUpperCase()}',
+                                                  betHistoryData.rivalName!.toUpperCase(),
                                                   style: GoogleFonts.nunito(
                                                     fontSize: 15,
                                                     color: Palette.green,
@@ -237,7 +233,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                                           ),
                                           SizedBox(
                                             child: Text(
-                                              '${betHistoryData.playerName!.toUpperCase()}',
+                                              betHistoryData.playerName!.toUpperCase(),
                                               style: GoogleFonts.nunito(
                                                 fontSize: 15,
                                                 color: Palette.cream,
@@ -256,11 +252,10 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             height: 2,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
-                                  '${betHistoryData.gameName!.replaceAll(RegExp('-'), '\/').toUpperCase()}',
+                                  betHistoryData.gameName!.replaceAll(RegExp('-'), '/').toUpperCase(),
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
                                     color: Palette.cream,
@@ -290,7 +285,6 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
@@ -304,7 +298,6 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                           // Last Row
                           Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   DateFormat('E, MMM c, y @ hh:mm a').format(
@@ -368,7 +361,7 @@ class OlympicsBetHistoryCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '${isWin ? 'you won' : 'you lost'}',
+                              isWin ? 'you won' : 'you lost',
                               style: Styles.betHistoryDescription.copyWith(
                                   color: isWin ? Palette.green : Palette.red),
                             ),

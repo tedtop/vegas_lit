@@ -2,16 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/group.dart';
-import 'package:vegas_lit/data/repositories/groups_repository.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/group.dart';
+import '../../../../data/repositories/group_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import 'cubit/group_edit_cubit.dart';
 
 class GroupEdit extends StatefulWidget {
-  GroupEdit._({Key? key, required this.group}) : super(key: key);
+  const GroupEdit._({Key? key, required this.group}) : super(key: key);
 
   final Group? group;
 
@@ -21,7 +21,7 @@ class GroupEdit extends StatefulWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => GroupEditCubit(
-            groupsRepository: context.read<GroupsRepository>(),
+            groupsRepository: context.read<GroupRepository>(),
             storageRepository: storageRepository,
           ),
           child: GroupEdit._(group: group),
@@ -150,7 +150,7 @@ class _GroupEditState extends State<GroupEdit> {
                   BlocBuilder<GroupEditCubit, GroupEditState>(
                     builder: (context, state) {
                       if (widget.group!.avatarUrl != null ||
-                          state.avatarFile != null)
+                          state.avatarFile != null) {
                         return Stack(
                           children: [
                             SizedBox(
@@ -211,6 +211,7 @@ class _GroupEditState extends State<GroupEdit> {
                             ),
                           ],
                         );
+                      }
                       return InkWell(
                         onTap: () {
                           context.read<GroupEditCubit>().pickAvatar();

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,14 +7,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vegas_lit/features/games/olympics/olympics.dart';
-import 'package:vegas_lit/features/games/paralympics/paralympics.dart';
-import 'package:vegas_lit/features/sportsbook/cubit/sportsbook_cubit.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
+import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
+import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_ad/cubit/ads_cubit.dart';
+import 'package:vegas_lit/features/drawer_pages/game_entry/cubit/game_entry_cubit.dart';
 
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
 import '../../bet_slip/cubit/bet_slip_cubit.dart';
-import '../../drawer_pages/rules_dialog.dart';
+import '../../drawer_pages/game_entry/rules_dialog.dart';
 import '../../games/baseball/mlb/mlb_page.dart';
 import '../../games/basketball/nba/nba_page.dart';
 import '../../games/basketball/ncaab/views/ncaab_screen.dart';
@@ -20,7 +23,10 @@ import '../../games/football/ncaaf/views/ncaaf_screen.dart';
 import '../../games/football/nfl/views/nfl_screen.dart';
 import '../../games/golf/golf_page.dart';
 import '../../games/hockey/nhl/views/nhl_screen.dart';
+import '../../games/olympics/olympics.dart';
+import '../../games/paralympics/paralympics.dart';
 import '../../home/cubit/home_cubit.dart';
+import '../cubit/sportsbook_cubit.dart';
 
 class Sportsbook extends StatefulWidget {
   const Sportsbook({Key? key}) : super(key: key);
@@ -38,12 +44,15 @@ class _SportsbookState extends State<Sportsbook>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocConsumer<SportsbookCubit, SportsbookState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == SportsbookStatus.initial) {
           if (!state.isRulesShown) {
-            Navigator.push<void>(
+            await Navigator.push<void>(
               context,
-              RulesDialog.route(),
+              RulesDialog.route(
+                cubit: context.read<GameEntryCubit>(),
+                cubit2: context.read<AdsCubit>(),
+              ),
             );
           }
         }
@@ -62,6 +71,7 @@ class _SportsbookState extends State<Sportsbook>
               ),
             );
           case SportsbookStatus.opened:
+            // ignore: prefer_const_constructors
             return SportsBookView();
         }
       },
@@ -70,6 +80,8 @@ class _SportsbookState extends State<Sportsbook>
 }
 
 class SportsBookView extends StatelessWidget {
+  const SportsBookView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final sportsbookState = context.read<SportsbookCubit>().state;
@@ -114,7 +126,7 @@ class SportsBookView extends StatelessWidget {
                           color: Palette.green,
                           padding: const EdgeInsets.all(8),
                           height: 40,
-                          child: DropdownWidgetHome(),
+                          child: const DropdownWidgetHome(),
                         ),
                       ),
                     ),
@@ -176,7 +188,7 @@ class SportsBookView extends StatelessWidget {
                     color: Palette.green,
                     padding: const EdgeInsets.all(8),
                     height: 40,
-                    child: DropdownWidgetHome(),
+                    child: const DropdownWidgetHome(),
                   ),
                 ),
               ),
@@ -196,7 +208,7 @@ class SportsBookView extends StatelessWidget {
                     color: Palette.green,
                     padding: const EdgeInsets.all(8),
                     height: 40,
-                    child: DropdownWidgetHome(),
+                    child: const DropdownWidgetHome(),
                   ),
                 ),
               ),
@@ -360,7 +372,7 @@ class SportsBookView extends StatelessWidget {
 }
 
 class DropdownWidgetHome extends StatefulWidget {
-  DropdownWidgetHome({
+  const DropdownWidgetHome({
     Key? key,
   }) : super(key: key);
 

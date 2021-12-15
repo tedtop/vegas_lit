@@ -1,18 +1,17 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 import '../../../../../../data/models/nba/nba_game.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNbaScreen extends StatelessWidget {
-  MobileNbaScreen({
+  const MobileNbaScreen({
     required this.gameName,
     required this.games,
     required this.parsedTeamData,
   });
   final List<NbaGame>? games;
   final String gameName;
-  final List? parsedTeamData;
+  final List<NbaTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -23,7 +22,7 @@ class MobileNbaScreen extends StatelessWidget {
         return MatchupCard.route(
           game: games![index],
           gameName: gameName,
-          parsedTeamData: parsedTeamData,
+          teamData: parsedTeamData,
         );
       },
     );

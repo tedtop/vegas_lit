@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
+
 import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
+import '../../models/ncaaf_team.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class MobileNcaafScreen extends StatelessWidget {

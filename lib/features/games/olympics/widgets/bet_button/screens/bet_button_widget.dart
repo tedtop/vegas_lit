@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
-import 'package:vegas_lit/features/home/home.dart';
 
+import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
+import '../../../../../../config/styles.dart';
+import '../../../../../../data/models/olympics/olympic_bet.dart';
 import '../../../../../../data/models/olympics/olympics.dart';
-import '../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../data/repositories/bet_repository.dart';
 import '../../../../../authentication/authentication.dart';
 import '../../../../../bet_slip/bet_slip.dart';
+import '../../../../../home/home.dart';
 import '../cubit/olympics_bet_button_cubit.dart';
 import 'parlay_bet_slip_card.dart';
 import 'single_bet_slip_card.dart';
@@ -27,12 +27,12 @@ class BetButton extends StatelessWidget {
     return Builder(
       builder: (context) {
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         return BlocProvider(
           create: (_) => OlympicsBetButtonCubit(
-            betsRepository: context.read<BetsRepository>(),
+            betsRepository: context.read<BetRepository>(),
           )..openBetButton(
               uid: currentUserId,
               game: game,
@@ -79,8 +79,7 @@ class BetButton extends StatelessWidget {
       },
       child: Builder(
         builder: (context) {
-          final OlympicsBetButtonState betButtonState =
-              context.watch<OlympicsBetButtonCubit>().state;
+          final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
           switch (betButtonState.status) {
             case OlympicsBetButtonStatus.unclicked:
               return BetButtonUnclicked();
@@ -113,14 +112,13 @@ class BetButton extends StatelessWidget {
 class BetButtonUnclicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final OlympicsBetButtonState betButtonState =
-        context.watch<OlympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
     final username = context.select(
       (HomeCubit homeBloc) => homeBloc.state.userData?.username,
     );
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 350,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -136,7 +134,7 @@ class BetButtonUnclicked extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Palette.darkGrey),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: [
                 Text(
@@ -221,10 +219,9 @@ class BetButtonUnclicked extends StatelessWidget {
 class BetButtonClicked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final OlympicsBetButtonState betButtonState =
-        context.watch<OlympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<OlympicsBetButtonCubit>().state;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 350,
         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -240,7 +237,7 @@ class BetButtonClicked extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Palette.green),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: [
                 Text(
@@ -283,7 +280,7 @@ class BetButtonDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(3),
       child: Container(
         width: 350,
         padding: const EdgeInsets.symmetric(horizontal: 2),

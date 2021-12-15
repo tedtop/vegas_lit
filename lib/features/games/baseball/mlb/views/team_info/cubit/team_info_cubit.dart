@@ -1,20 +1,18 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/mlb/mlb_player.dart';
 import '../../../../../../../data/models/mlb/mlb_team_stats.dart';
-import '../../../../../../../data/repositories/sports_repository.dart';
+import '../../../../../../../data/repositories/sport_repository.dart';
 
 part 'team_info_state.dart';
 
 class TeamInfoCubit extends Cubit<TeamInfoState> {
   TeamInfoCubit(this.sportsRepository) : super(TeamInfoInitial());
-  final SportsRepository sportsRepository;
+  final SportRepository sportsRepository;
 
-  void getTeamDetails(String? teamKey, String? gameName) async {
+  Future<void> getTeamDetails(String? teamKey, String? gameName) async {
     final players = await sportsRepository.fetchMLBPlayers(
       teamKey: teamKey,
     );

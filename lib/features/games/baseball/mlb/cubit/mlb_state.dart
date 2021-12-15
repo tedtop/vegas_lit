@@ -1,5 +1,3 @@
-
-
 part of 'mlb_cubit.dart';
 
 enum MlbStatus {
@@ -11,7 +9,7 @@ class MlbState extends Equatable {
   const MlbState._({
     this.games,
     this.league = 'MLB',
-    this.parsedTeamData,
+    this.teamData,
     this.estTimeZone,
     this.status = MlbStatus.initial,
   });
@@ -21,19 +19,19 @@ class MlbState extends Equatable {
   const MlbState.opened({
     required List<MlbGame> games,
     required String league,
-    required List<MlbTeam> parsedTeamData,
+    required List<MlbTeam> teamData,
     required DateTime estTimeZone,
   }) : this._(
           games: games,
           league: league,
-          parsedTeamData: parsedTeamData,
+          teamData: teamData,
           estTimeZone: estTimeZone,
           status: MlbStatus.opened,
         );
 
   final List<MlbGame>? games;
   final String league;
-  final List<MlbTeam>? parsedTeamData;
+  final List<MlbTeam>? teamData;
   final DateTime? estTimeZone;
   final MlbStatus status;
 
@@ -42,7 +40,7 @@ class MlbState extends Equatable {
     return [
       games,
       league,
-      parsedTeamData,
+      teamData,
       estTimeZone,
       status,
     ];

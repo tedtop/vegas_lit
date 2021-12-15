@@ -89,61 +89,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   Column(
-                                    children: [
-                                      // gameData.sites[0].odds == null
-                                      //     ? Container()
-                                      //     : BetButton.route(
-                                      //         mainOdds: (state.homeTeamData.title
-                                      //                     .compareTo(state
-                                      //                         .awayTeamData
-                                      //                         .title) ==
-                                      //                 -1)
-                                      //             ? gameData.sites[0].odds['h2h'][1]
-                                      //                 .toString()
-                                      //             : gameData
-                                      //                 .sites[0].odds['h2h'][0]
-                                      //                 .toString(),
-                                      //         betType: Bet.ml,
-                                      //         awayTeamData: state.awayTeamData,
-                                      //         homeTeamData: state.homeTeamData,
-                                      //         text: (state.homeTeamData.title.compareTo(state.awayTeamData.title) == -1)
-                                      //             ? gameData
-                                      //                 .sites[0].odds['h2h'][1]
-                                      //                 .toString()
-                                      //             : gameData
-                                      //                 .sites[0].odds['h2h'][0]
-                                      //                 .toString(),
-                                      //         game: state.game,
-                                      // league: state.league),
-                                      //     gameData.pointSpreadAwayTeamMoneyLine ==
-                                      //             null
-                                      //         ? Container()
-                                      //         : BetButton.route(
-                                      //             mainOdds: gameData
-                                      //                 .pointSpreadAwayTeamMoneyLine
-                                      //                 .toString(),
-                                      //             betType: Bet.pts,
-                                      //             league: state.league,
-                                      //             awayTeamData: state.awayTeamData,
-                                      //             homeTeamData: state.homeTeamData,
-                                      //             game: state.game,
-                                      //             text:
-                                      //                 '${gameData.pointSpread}     ${gameData.pointSpreadAwayTeamMoneyLine}',
-                                      //           ),
-                                      //     gameData.overPayout == null
-                                      //         ? Container()
-                                      //         : BetButton.route(
-                                      //             league: state.league,
-                                      //             mainOdds: gameData.overPayout
-                                      //                 .toString(),
-                                      //             betType: Bet.tot,
-                                      //             awayTeamData: state.awayTeamData,
-                                      //             homeTeamData: state.homeTeamData,
-                                      //             game: state.game,
-                                      //             text:
-                                      //                 'o${gameData.overUnder}     ${gameData.overPayout}',
-                                      //           ),
-                                    ],
+                                    
                                   ),
                                 ],
                               ),
@@ -155,9 +101,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   style: Styles.matchupSeparator,
                                 ),
                                 const SizedBox(height: 22),
-                                gameData.sites![0].odds == null
-                                    ? Container()
-                                    : _betButtonSeparator(text: 'ML'),
+                                if (gameData.sites![0].odds == null) Container() else _betButtonSeparator(text: 'ML'),
                               ],
                             ),
                             Expanded(
@@ -187,82 +131,7 @@ class CricketMatchupCard extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   Column(
-                                    children: [
-                                      // gameData.sites[0].odds == null
-                                      //     ? Container()
-                                      //     : BetButton.route(
-                                      //         mainOdds: (state
-                                      //                     .homeTeamData.title
-                                      //                     .compareTo(state
-                                      //                         .awayTeamData
-                                      //                         .title) ==
-                                      //                 -1)
-                                      //             ? gameData
-                                      //                 .sites[0].odds['h2h'][0]
-                                      //                 .toString()
-                                      //             : gameData
-                                      //                 .sites[0].odds['h2h'][1]
-                                      //                 .toString(),
-                                      //         betType: Bet.ml,
-                                      //         awayTeamData: state.awayTeamData,
-                                      //         homeTeamData: state.homeTeamData,
-                                      //         text: (state.homeTeamData.title
-                                      //                     .compareTo(state
-                                      //                         .awayTeamData
-                                      //                         .title) ==
-                                      //                 -1)
-                                      //             ? gameData
-                                      //                 .sites[0].odds['h2h'][0]
-                                      //                 .toString()
-                                      //             : gameData
-                                      //                 .sites[0].odds['h2h'][1]
-                                      //                 .toString(),
-                                      //         game: state.game,
-                                      //         league: state.league,
-                                      //       ),
-                                      //     gameData.homeTeamMoneyLine == null
-                                      //         ? Container()
-                                      //         : BetButton.route(
-                                      //             league: state.league,
-                                      //             mainOdds: gameData
-                                      //                 .homeTeamMoneyLine
-                                      //                 .toString(),
-                                      //             betType: Bet.ml,
-                                      //             game: state.game,
-                                      //             awayTeamData: state.awayTeamData,
-                                      //             homeTeamData: state.homeTeamData,
-                                      //             text: gameData.homeTeamMoneyLine
-                                      //                 .toString(),
-                                      //           ),
-                                      //     gameData.pointSpreadHomeTeamMoneyLine ==
-                                      //             null
-                                      //         ? Container()
-                                      //         : BetButton.route(
-                                      //             league: state.league,
-                                      //             mainOdds: gameData
-                                      //                 .pointSpreadHomeTeamMoneyLine
-                                      //                 .toString(),
-                                      //             betType: Bet.pts,
-                                      //             awayTeamData: state.awayTeamData,
-                                      //             homeTeamData: state.homeTeamData,
-                                      //             game: state.game,
-                                      //             text:
-                                      //                 '${gameData.pointSpread}     ${gameData.pointSpreadHomeTeamMoneyLine}',
-                                      //           ),
-                                      //     gameData.underPayout == null
-                                      //         ? Container()
-                                      //         : BetButton.route(
-                                      //             league: state.league,
-                                      //             mainOdds: gameData.underPayout
-                                      //                 .toString(),
-                                      //             betType: Bet.tot,
-                                      //             awayTeamData: state.awayTeamData,
-                                      //             homeTeamData: state.homeTeamData,
-                                      //             game: state.game,
-                                      //             text:
-                                      //                 'u${gameData.overUnder}     ${gameData.underPayout}',
-                                      //           ),
-                                    ],
+                                    
                                   ),
                                 ],
                               ),

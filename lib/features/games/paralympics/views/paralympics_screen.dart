@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/palette.dart';
-import '../../../../data/repositories/sports_repository.dart';
+import '../../../../data/repositories/sport_repository.dart';
 import '../../../../utils/bottom_bar.dart';
 import '../paralympics.dart';
 import '../widgets/matchup_card/paralympics_matchup_card.dart';
@@ -16,7 +16,7 @@ class ParalympicsScreen extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => ParalympicsCubit(
-            sportsRepository: context.read<SportsRepository>(),
+            sportsRepository: context.read<SportRepository>(),
           )..fetchParalympicsGames(),
           child: const ParalympicsScreen._(),
         );

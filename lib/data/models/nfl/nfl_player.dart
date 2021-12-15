@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 class NflPlayer {
@@ -180,7 +178,7 @@ class NflPlayer {
                   ),
         playerSeason: json['PlayerSeason'],
         latestNews: List<dynamic>.from(
-          json['LatestNews'].map((dynamic x) => x) as List,
+          json['LatestNews'] as List,
         ),
       );
 

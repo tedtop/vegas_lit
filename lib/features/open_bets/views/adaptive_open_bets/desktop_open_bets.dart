@@ -2,6 +2,24 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/index.dart';
+import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
+import 'package:vegas_lit/data/models/nba/nba_bet.dart';
+import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
+import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
+import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
+import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
+import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
+import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
+import 'package:vegas_lit/features/games/baseball/mlb/widgets/mlb_open_bet_card.dart';
+import 'package:vegas_lit/features/games/basketball/nba/widgets/nba_open_bet_card.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/widgets/ncaab_open_bet_card.dart';
+import 'package:vegas_lit/features/games/football/ncaaf/widgets/ncaaf_open_bet_card.dart';
+import 'package:vegas_lit/features/games/football/nfl/widgets/nfl_open_bet_card.dart';
+import 'package:vegas_lit/features/games/hockey/nhl/widgets/nhl_open_bet_card.dart';
+import 'package:vegas_lit/features/games/olympics/widgets/open_bets/olympic_open_bet_card.dart';
+import 'package:vegas_lit/features/games/paralympics/widgets/paralympics_open_bet_card.dart';
+import 'package:vegas_lit/features/open_bets/widgets/parlay_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
@@ -180,37 +198,33 @@ class _DesktopOpenBetsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bets = context.select((OpenBetsCubit cubit) => cubit.state.bets);
-    // final bets = context.select((OpenBetsCubit cubit) => cubit.state.bets);
     return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       key: Key('${bets.length}'),
       itemCount: bets.length,
       itemBuilder: (context, index) {
-        switch (bets[index].league) {
-          // case 'mlb':
-          //   return MlbOpenBetCard(openBets: bets[index]);
-          //
-          // case 'nba':
-          //   return NbaOpenBetCard(openBets: bets[index]);
-          //
-          // case 'cbb':
-          //   return NcaabOpenBetCard(openBets: bets[index]);
-          //
-          // case 'cfb':
-          //   return NcaafOpenBetCard(openBets: bets[index]);
-          //
-          // case 'nfl':
-          //   return NflOpenBetCard(openBets: bets[index]);
-          //
-          // case 'nhl':
-          //   return NhlOpenBetCard(openBets: bets[index]);
-          //
-          // case 'olympics':
-          //   return OlympicsOpenBetTile(openBets: bets[index]);
-          //
-          default:
-            return const SizedBox();
+        final bet = bets[index];
+        if (bet is MlbBetData) {
+          return MlbOpenBetCard(openBets: bet);
+        } else if (bet is NbaBetData) {
+          return NbaOpenBetCard(openBets: bet);
+        } else if (bet is NcaabBetData) {
+          return NcaabOpenBetCard(openBets: bet);
+        } else if (bet is NcaafBetData) {
+          return NcaafOpenBetCard(openBets: bet);
+        } else if (bet is NflBetData) {
+          return NflOpenBetCard(openBets: bet);
+        } else if (bet is NhlBetData) {
+          return NhlOpenBetCard(openBets: bet);
+        } else if (bet is OlympicsBetData) {
+          return OlympicsOpenBetCard(openBets: bet);
+        } else if (bet is ParalympicsBetData) {
+          return ParalympicsOpenBetCard(openBets: bet);
+        } else if (bet is ParlayBets) {
+          return ParlayOpenBetCard(openBets: bet);
+        } else {
+          return const SizedBox();
         }
       },
     );

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../bet.dart';
 
 class NflBetData extends BetData {
-  NflBetData({
+  const NflBetData({
     required String? id,
     required int? betAmount,
     required int? betProfit,

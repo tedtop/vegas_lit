@@ -3,30 +3,29 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/bet_button/screens/parlay_bet_slip_card.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/widgets/bet_button/screens/single_bet_slip_card.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/ncaaf/ncaaf_bet.dart';
 import '../../../../../../../data/models/ncaaf/ncaaf_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
+import '../../../../../../bet_slip/bet_slip.dart';
 import '../../../models/ncaaf_team.dart';
+import '../screens/parlay_bet_slip_card.dart';
+import '../screens/single_bet_slip_card.dart';
 
 part 'bet_button_state.dart';
 
 class NcaafBetButtonCubit extends Cubit<NcaafBetButtonState> {
-  NcaafBetButtonCubit({required BetsRepository betsRepository})
+  NcaafBetButtonCubit({required BetRepository betsRepository})
       : _betsRepository = betsRepository,
         super(
           const NcaafBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   void openBetButton({
     required String text,

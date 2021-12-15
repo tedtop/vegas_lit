@@ -92,7 +92,7 @@ class OlympicsOpenBetCard extends StatelessWidget {
                     child: Card(
                       margin: EdgeInsets.zero,
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+                        
                       ),
                       color: Palette.darkGrey,
                       child: Container(
@@ -270,12 +270,11 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               height: 2,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Flexible(
                                   child: Text(
                                     openBets.gameName!
-                                        .replaceAll(RegExp('-'), '\/')
+                                        .replaceAll(RegExp('-'), '/')
                                         .toUpperCase(),
                                     style: GoogleFonts.nunito(
                                       fontSize: 14,
@@ -306,7 +305,6 @@ class OlympicsOpenBetCard extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Flexible(
                                   child: Text(
@@ -320,7 +318,6 @@ class OlympicsOpenBetCard extends StatelessWidget {
                             // Last Row
                             Expanded(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     DateFormat('E, MMMM c, y @ hh:mm a').format(

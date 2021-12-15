@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:vegas_lit/config/enum.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/config/styles.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/features/authentication/bloc/authentication_bloc.dart';
-import 'package:vegas_lit/features/bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.dart';
-import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
-import 'package:vegas_lit/features/home/home.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 
+import '../../../../config/enum.dart';
+import '../../../../config/palette.dart';
+import '../../../../config/styles.dart';
+import '../../../../data/models/bet.dart';
+import '../../../home/cubit/version_cubit.dart';
+import '../../../home/home.dart';
 import '../../bet_slip.dart';
+import 'cubit/parlay_bet_button_cubit.dart';
 
 class ParlayBetSlipButton extends StatelessWidget {
-  ParlayBetSlipButton._({Key? key, required this.betList}) : super(key: key);
+  const ParlayBetSlipButton._({Key? key, required this.betList})
+      : super(key: key);
 
   static Builder route({
     required List<BetData>? betDataList,
@@ -47,7 +48,7 @@ class ParlayBetSlipButton extends StatelessWidget {
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
         final betButtonState = context.watch<ParlayBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
@@ -81,12 +82,11 @@ class ParlayBetSlipButton extends StatelessWidget {
                       ),
                     );
 
-                  context.read<BetSlipCubit>()
-                    ..openBetSlip(
-                      singleBetSlipGames: [],
-                      parlayBetSlipGames: [],
-                      betDataList: [],
-                    );
+                  context.read<BetSlipCubit>().openBetSlip(
+                    singleBetSlipGames: [],
+                    parlayBetSlipGames: [],
+                    betDataList: [],
+                  );
                   break;
                 default:
               }
@@ -134,7 +134,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                         height: 38,
                         width: 100,
                         child: Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5),
                           child: Center(
                             child: Text(
                               'wager ${betButtonState.betAmount}',
@@ -151,7 +151,7 @@ class ParlayBetSlipButton extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0, vertical: 2.0),
+                              horizontal: 6, vertical: 2),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -262,7 +262,7 @@ class ParlayBetSlipButton extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
     required this.betList,
@@ -424,7 +424,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: Column(
                       children: [
@@ -486,7 +486,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

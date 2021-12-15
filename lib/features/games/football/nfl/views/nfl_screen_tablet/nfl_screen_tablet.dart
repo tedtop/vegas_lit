@@ -1,12 +1,11 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
+
 import '../../../../../../data/models/nfl/nfl_game.dart';
+import '../../models/nfl_team.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class TabletNflScreen extends StatelessWidget {
-  TabletNflScreen({this.gameName, this.games, this.parsedTeamData});
+  const TabletNflScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NflGame>? games;
   final String? gameName;
   final List<NflTeam>? parsedTeamData;

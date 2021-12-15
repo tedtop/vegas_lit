@@ -66,17 +66,18 @@ class ParlayBetSlipWarning extends StatelessWidget {
           AbstractCard(
             crossAxisAlignment: CrossAxisAlignment.start,
             widgets: [
-              isMinimum
-                  ? Text(
-                      'A minimum of 2 picks are required to create a parlay',
-                      style: Styles.normalTextBold,
-                      textAlign: TextAlign.center,
-                    )
-                  : Text(
-                      'You can create a parlay between 2 and 10 picks',
-                      style: Styles.normalTextBold,
-                      textAlign: TextAlign.center,
-                    ),
+              if (isMinimum)
+                Text(
+                  'A minimum of 2 picks are required to create a parlay',
+                  style: Styles.normalTextBold,
+                  textAlign: TextAlign.center,
+                )
+              else
+                Text(
+                  'You can create a parlay between 2 and 10 picks',
+                  style: Styles.normalTextBold,
+                  textAlign: TextAlign.center,
+                ),
             ],
           ),
         ],

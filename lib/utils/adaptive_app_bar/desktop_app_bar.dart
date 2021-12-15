@@ -18,8 +18,7 @@ AppBar desktopAppBar({int? balanceAmount, int? pageIndex}) {
           fit: BoxFit.contain,
           height: 80,
         ),
-        pageIndex != null
-            ? Row(
+        if (pageIndex != null) Row(
                 children: [
                   DesktopAppBarItem(
                     title: 'Sportsbook',
@@ -51,8 +50,7 @@ AppBar desktopAppBar({int? balanceAmount, int? pageIndex}) {
                     isSelected: pageIndex == 4,
                   )
                 ],
-              )
-            : const SizedBox(),
+              ) else const SizedBox(),
       ],
     ),
     actions: balanceAmount != null

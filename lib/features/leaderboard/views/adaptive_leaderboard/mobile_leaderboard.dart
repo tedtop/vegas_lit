@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/features/bet_history/cubit/history_cubit.dart';
 
 import '../../../../config/extensions.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/wallet.dart';
-import '../../../bet_history/bet_history.dart';
 import '../../../home/home.dart';
 import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
@@ -200,7 +200,7 @@ class MobileLeaderboard extends StatelessWidget {
 }
 
 class MobileLeaderboardTile extends StatelessWidget {
-  MobileLeaderboardTile({required this.player, required this.rank});
+  const MobileLeaderboardTile({required this.player, required this.rank});
   final Wallet player;
   final int rank;
 

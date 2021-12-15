@@ -1,4 +1,6 @@
-
+// To parse this JSON data, do
+//
+//     final ncaabTeam = ncaabTeamFromMap(jsonString);
 
 import 'dart:convert';
 
@@ -7,141 +9,208 @@ class NcaabTeam {
     this.teamId,
     this.key,
     this.active,
-    this.city,
+    this.school,
     this.name,
-    this.stadiumId,
-    this.conference,
-    this.division,
-    this.primaryColor,
-    this.secondaryColor,
-    this.tertiaryColor,
-    this.quaternaryColor,
-    this.wikipediaLogoUrl,
-    this.wikipediaWordMarkUrl,
+    this.apRank,
+    this.wins,
+    this.losses,
+    this.conferenceWins,
+    this.conferenceLosses,
     this.globalTeamId,
+    this.conferenceId,
+    this.conference,
+    this.teamLogoUrl,
+    this.shortDisplayName,
+    this.stadium,
   });
-
-  factory NcaabTeam.fromJson(String str) =>
-      NcaabTeam.fromMap(json.decode(str) as Map<String, dynamic>);
-
-  factory NcaabTeam.fromMap(Map<String, dynamic> json) => NcaabTeam(
-        teamId: json['TeamID'] as int?,
-        key: json['Key'] as String?,
-        active: json['Active'] as bool?,
-        city: json['City'] as String?,
-        name: json['Name'] as String?,
-        stadiumId: json['StadiumID'] as int?,
-        conference: json['Conference'] == null
-            ? null
-            : conferenceValues.map[json['Conference']],
-        division: json['Division'] == null
-            ? null
-            : divisionValues.map[json['Division']],
-        primaryColor: json['PrimaryColor'] as String?,
-        secondaryColor: json['SecondaryColor'] as String?,
-        tertiaryColor: json['TertiaryColor'] as String?,
-        quaternaryColor: json['QuaternaryColor'] as String?,
-        wikipediaLogoUrl: json['WikipediaLogoUrl'] as String?,
-        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] as String?,
-        globalTeamId: json['GlobalTeamID'] as int?,
-      );
 
   final int? teamId;
   final String? key;
   final bool? active;
-  final String? city;
+  final String? school;
   final String? name;
-  final int? stadiumId;
-  final Conference? conference;
-  final Division? division;
-  final String? primaryColor;
-  final String? secondaryColor;
-  final String? tertiaryColor;
-  final String? quaternaryColor;
-  final String? wikipediaLogoUrl;
-  final String? wikipediaWordMarkUrl;
+  final int? apRank;
+  final int? wins;
+  final int? losses;
+  final int? conferenceWins;
+  final int? conferenceLosses;
   final int? globalTeamId;
+  final int? conferenceId;
+  final String? conference;
+  final String? teamLogoUrl;
+  final String? shortDisplayName;
+  final Stadium? stadium;
 
   NcaabTeam copyWith({
     int? teamId,
     String? key,
     bool? active,
-    String? city,
+    String? school,
     String? name,
-    int? stadiumId,
-    Conference? conference,
-    Division? division,
-    String? primaryColor,
-    String? secondaryColor,
-    String? tertiaryColor,
-    String? quaternaryColor,
-    String? wikipediaLogoUrl,
-    String? wikipediaWordMarkUrl,
+    int? apRank,
+    int? wins,
+    int? losses,
+    int? conferenceWins,
+    int? conferenceLosses,
     int? globalTeamId,
+    int? conferenceId,
+    String? conference,
+    String? teamLogoUrl,
+    String? shortDisplayName,
+    Stadium? stadium,
   }) =>
       NcaabTeam(
         teamId: teamId ?? this.teamId,
         key: key ?? this.key,
         active: active ?? this.active,
-        city: city ?? this.city,
+        school: school ?? this.school,
         name: name ?? this.name,
-        stadiumId: stadiumId ?? this.stadiumId,
-        conference: conference ?? this.conference,
-        division: division ?? this.division,
-        primaryColor: primaryColor ?? this.primaryColor,
-        secondaryColor: secondaryColor ?? this.secondaryColor,
-        tertiaryColor: tertiaryColor ?? this.tertiaryColor,
-        quaternaryColor: quaternaryColor ?? this.quaternaryColor,
-        wikipediaLogoUrl: wikipediaLogoUrl ?? this.wikipediaLogoUrl,
-        wikipediaWordMarkUrl: wikipediaWordMarkUrl ?? this.wikipediaWordMarkUrl,
+        apRank: apRank ?? this.apRank,
+        wins: wins ?? this.wins,
+        losses: losses ?? this.losses,
+        conferenceWins: conferenceWins ?? this.conferenceWins,
+        conferenceLosses: conferenceLosses ?? this.conferenceLosses,
         globalTeamId: globalTeamId ?? this.globalTeamId,
+        conferenceId: conferenceId ?? this.conferenceId,
+        conference: conference ?? this.conference,
+        teamLogoUrl: teamLogoUrl ?? this.teamLogoUrl,
+        shortDisplayName: shortDisplayName ?? this.shortDisplayName,
+        stadium: stadium ?? this.stadium,
       );
 
+  factory NcaabTeam.fromJson(String str) =>
+      NcaabTeam.fromMap(json.decode(str) as Map<String, dynamic>);
+
   String toJson() => json.encode(toMap());
+
+  factory NcaabTeam.fromMap(Map<String, dynamic> json) => NcaabTeam(
+        teamId: json['TeamID'] as int?,
+        key: json['Key'] as String?,
+        active: json['Active'] as bool?,
+        school: json['School'] as String?,
+        name: json['Name'] as String?,
+        apRank: json['ApRank'] as int?,
+        wins: json['Wins'] as int?,
+        losses: json['Losses'] as int?,
+        conferenceWins: json['ConferenceWins'] as int?,
+        conferenceLosses: json['ConferenceLosses'] as int?,
+        globalTeamId: json['GlobalTeamID'] as int?,
+        conferenceId: json['ConferenceID'] as int?,
+        conference: json['Conference'] as String?,
+        teamLogoUrl: json['TeamLogoUrl'] as String?,
+        shortDisplayName: json['ShortDisplayName'] as String?,
+        stadium: json['Stadium'] == null
+            ? null
+            : Stadium.fromMap(json['Stadium'] as Map<String, dynamic>),
+      );
 
   Map<String, Object?> toMap() => {
         'TeamID': teamId,
         'Key': key,
         'Active': active,
-        'City': city,
+        'School': school,
         'Name': name,
-        'StadiumID': stadiumId,
-        'Conference':
-            conference == null ? null : conferenceValues.reverse![conference!],
-        'Division': division == null ? null : divisionValues.reverse![division!],
-        'PrimaryColor': primaryColor,
-        'SecondaryColor': secondaryColor,
-        'TertiaryColor': tertiaryColor,
-        'QuaternaryColor': quaternaryColor,
-        'WikipediaLogoUrl': wikipediaLogoUrl,
-        'WikipediaWordMarkUrl': wikipediaWordMarkUrl,
+        'ApRank': apRank,
+        'Wins': wins,
+        'Losses': losses,
+        'ConferenceWins': conferenceWins,
+        'ConferenceLosses': conferenceLosses,
         'GlobalTeamID': globalTeamId,
+        'ConferenceID': conferenceId,
+        'Conference': conference,
+        'TeamLogoUrl': teamLogoUrl,
+        'ShortDisplayName': shortDisplayName,
+        'Stadium': stadium == null ? null : stadium!.toMap(),
       };
 }
 
-enum Conference { eastern, western }
+class Stadium {
+  Stadium({
+    this.stadiumId,
+    this.active,
+    this.name,
+    this.address,
+    this.city,
+    this.state,
+    this.zip,
+    this.country,
+    this.capacity,
+    this.geoLat,
+    this.geoLong,
+  });
 
-final conferenceValues =
-    EnumValues({'Eastern': Conference.eastern, 'Western': Conference.western});
+  final int? stadiumId;
+  final bool? active;
+  final String? name;
+  final String? address;
+  final String? city;
+  final String? state;
+  final String? zip;
+  final String? country;
+  final int? capacity;
+  final double? geoLat;
+  final double? geoLong;
 
-enum Division { east, central, north, west }
+  Stadium copyWith({
+    int? stadiumId,
+    bool? active,
+    String? name,
+    String? address,
+    String? city,
+    String? state,
+    String? zip,
+    String? country,
+    int? capacity,
+    double? geoLat,
+    double? geoLong,
+  }) =>
+      Stadium(
+        stadiumId: stadiumId ?? this.stadiumId,
+        active: active ?? this.active,
+        name: name ?? this.name,
+        address: address ?? this.address,
+        city: city ?? this.city,
+        state: state ?? this.state,
+        zip: zip ?? this.zip,
+        country: country ?? this.country,
+        capacity: capacity ?? this.capacity,
+        geoLat: geoLat ?? this.geoLat,
+        geoLong: geoLong ?? this.geoLong,
+      );
 
-final divisionValues = EnumValues({
-  'Central': Division.central,
-  'East': Division.east,
-  'North': Division.north,
-  'West': Division.west
-});
+  factory Stadium.fromJson(String str) =>
+      Stadium.fromMap(json.decode(str) as Map<String, dynamic>);
 
-class EnumValues<T> {
-  EnumValues(this.map);
+  String toJson() => json.encode(toMap());
 
-  Map<String, T> map;
-  Map<T, String>? reverseMap;
+  factory Stadium.fromMap(Map<String, dynamic> json) => Stadium(
+        stadiumId: json['StadiumID'] as int?,
+        active: json['Active'] as bool?,
+        name: json['Name'] as String?,
+        address: json['Address'] as String?,
+        city: json['City'] as String?,
+        state: json['State'] as String?,
+        zip: json['Zip'] as String?,
+        country: json['Country'] as String?,
+        capacity: json['Capacity'] as int?,
+        geoLat:
+            json['GeoLat'] == null ? null : json['GeoLat'].toDouble() as double,
+        geoLong: json['GeoLong'] == null
+            ? null
+            : json['GeoLong'].toDouble() as double,
+      );
 
-  Map<T, String>? get reverse {
-    // ignore: join_return_with_assignment
-    reverseMap ??= map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
+  Map<String, Object?> toMap() => {
+        'StadiumID': stadiumId,
+        'Active': active,
+        'Name': name,
+        'Address': address,
+        'City': city,
+        'State': state,
+        'Zip': zip,
+        'Country': country,
+        'Capacity': capacity,
+        'GeoLat': geoLat,
+        'GeoLong': geoLong,
+      };
 }

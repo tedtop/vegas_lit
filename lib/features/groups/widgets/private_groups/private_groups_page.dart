@@ -3,12 +3,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
+import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import '../../../authentication/authentication.dart';
 import '../../../home/home.dart';
 import '../group_add/group_add.dart';
@@ -23,7 +24,7 @@ class PrivateGroups extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (_) => PrivateGroupsCubit(
-            groupsRepository: context.read<GroupsRepository>(),
+            groupsRepository: context.read<GroupRepository>(),
           )..openPrivateGroups(uid: uid),
           child: const PrivateGroups._(),
         );
@@ -143,7 +144,7 @@ class PrivateGroupListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
+    final userId = context.watch<AuthenticationCubit>().state.user!.uid;
     final groupUsersLength =
         _group.users!.values.where((element) => element == true).length;
     return Container(
@@ -151,9 +152,9 @@ class PrivateGroupListTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Palette.lightGrey,
         borderRadius: const BorderRadius.all(Radius.circular(12)),
-        border: Border.all(color: Palette.cream, width: 1.0),
-        boxShadow: <BoxShadow>[
-          const BoxShadow(
+        border: Border.all(color: Palette.cream),
+        boxShadow: const <BoxShadow>[
+          BoxShadow(
               color: Palette.lightGrey,
               blurRadius: 1.2,
               offset: Offset(0.4, 0.6))

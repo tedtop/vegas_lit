@@ -1,5 +1,4 @@
-
-
+// ignore_for_file: constant_identifier_names
 import 'dart:convert';
 
 class MlbTeam {
@@ -10,7 +9,7 @@ class MlbTeam {
     this.city,
     this.name,
     this.stadiumId,
-    this.conference,
+    this.league,
     this.division,
     this.primaryColor,
     this.secondaryColor,
@@ -20,31 +19,39 @@ class MlbTeam {
     this.wikipediaWordMarkUrl,
     this.globalTeamId,
   });
-
-  factory MlbTeam.fromJson(String str) => MlbTeam.fromMap(
-        json.decode(str) as Map<String, dynamic>,
-      );
+  factory MlbTeam.fromJson(String str) =>
+      MlbTeam.fromMap(json.decode(str) as Map<String, dynamic>);
 
   factory MlbTeam.fromMap(Map<String, dynamic> json) => MlbTeam(
-        teamId: json['TeamID'] as int?,
-        key: json['Key'] as String?,
-        active: json['Active'] as bool?,
-        city: json['City'] as String?,
-        name: json['Name'] as String?,
-        stadiumId: json['StadiumID'] as int?,
-        conference: json['Conference'] == null
+        teamId: json['TeamID'] == null ? null : json['TeamID'] as int,
+        key: json['Key'] == null ? null : json['Key'] as String,
+        active: json['Active'] == null ? null : json['Active'] as bool,
+        city: json['City'] == null ? null : json['City'] as String,
+        name: json['Name'] == null ? null : json['Name'] as String,
+        stadiumId: json['StadiumID'] == null ? null : json['StadiumID'] as int,
+        league:
+            json['League'] == null ? null : leagueValues.map[json['League']],
+        division: json['Division'] == null ? null : json['Division'] as String,
+        primaryColor: json['PrimaryColor'] == null
             ? null
-            : conferenceValues.map[json['Conference']],
-        division: json['Division'] == null
+            : json['PrimaryColor'] as String,
+        secondaryColor: json['SecondaryColor'] == null
             ? null
-            : divisionValues.map[json['Division']],
-        primaryColor: json['PrimaryColor'] as String?,
-        secondaryColor: json['SecondaryColor'] as String?,
-        tertiaryColor: json['TertiaryColor'] as String?,
-        quaternaryColor: json['QuaternaryColor'] as String?,
-        wikipediaLogoUrl: json['WikipediaLogoUrl'] as String?,
-        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] as String?,
-        globalTeamId: json['GlobalTeamID'] as int?,
+            : json['SecondaryColor'] as String,
+        tertiaryColor: json['TertiaryColor'] == null
+            ? null
+            : json['TertiaryColor'] as String,
+        quaternaryColor: json['QuaternaryColor'] == null
+            ? null
+            : json['QuaternaryColor'] as String,
+        wikipediaLogoUrl: json['WikipediaLogoUrl'] == null
+            ? null
+            : json['WikipediaLogoUrl'] as String,
+        wikipediaWordMarkUrl: json['WikipediaWordMarkUrl'] == null
+            ? null
+            : json['WikipediaWordMarkUrl'] as String,
+        globalTeamId:
+            json['GlobalTeamID'] == null ? null : json['GlobalTeamID'] as int,
       );
 
   final int? teamId;
@@ -53,8 +60,8 @@ class MlbTeam {
   final String? city;
   final String? name;
   final int? stadiumId;
-  final Conference? conference;
-  final Division? division;
+  final League? league;
+  final String? division;
   final String? primaryColor;
   final String? secondaryColor;
   final String? tertiaryColor;
@@ -70,8 +77,8 @@ class MlbTeam {
     String? city,
     String? name,
     int? stadiumId,
-    Conference? conference,
-    Division? division,
+    League? league,
+    String? division,
     String? primaryColor,
     String? secondaryColor,
     String? tertiaryColor,
@@ -87,7 +94,7 @@ class MlbTeam {
         city: city ?? this.city,
         name: name ?? this.name,
         stadiumId: stadiumId ?? this.stadiumId,
-        conference: conference ?? this.conference,
+        league: league ?? this.league,
         division: division ?? this.division,
         primaryColor: primaryColor ?? this.primaryColor,
         secondaryColor: secondaryColor ?? this.secondaryColor,
@@ -100,16 +107,15 @@ class MlbTeam {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, Object?> toMap() => {
+  Map<String, dynamic> toMap() => <String, dynamic>{
         'TeamID': teamId,
         'Key': key,
         'Active': active,
         'City': city,
         'Name': name,
         'StadiumID': stadiumId,
-        'Conference':
-            conference == null ? null : conferenceValues.reverse![conference!],
-        'Division': division == null ? null : divisionValues.reverse![division!],
+        'League': league == null ? null : leagueValues.reverse[league],
+        'Division': division,
         'PrimaryColor': primaryColor,
         'SecondaryColor': secondaryColor,
         'TertiaryColor': tertiaryColor,
@@ -120,19 +126,10 @@ class MlbTeam {
       };
 }
 
-enum Conference { eastern, western }
+enum League { NL, AL, EMPTY }
 
-final conferenceValues =
-    EnumValues({'Eastern': Conference.eastern, 'Western': Conference.western});
-
-enum Division { east, central, north, west }
-
-final divisionValues = EnumValues({
-  'Central': Division.central,
-  'East': Division.east,
-  'North': Division.north,
-  'West': Division.west
-});
+final leagueValues =
+    EnumValues({'AL': League.AL, '': League.EMPTY, 'NL': League.NL});
 
 class EnumValues<T> {
   EnumValues(this.map);
@@ -140,9 +137,9 @@ class EnumValues<T> {
   Map<String, T> map;
   Map<T, String>? reverseMap;
 
-  Map<T, String>? get reverse {
-    // ignore: join_return_with_assignment
+  Map<T, String> get reverse {
     reverseMap ??= map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
+
+    return reverseMap!;
   }
 }

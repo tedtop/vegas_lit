@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../config/palette.dart';
 
+import '../../../config/palette.dart';
 import '../leaderboard_profile.dart';
 import 'leaderboard_profile_board_items.dart';
 
@@ -17,8 +17,8 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
         SizedBox(
           width: 165,
           child: Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0, bottom: 10.0, left: 8.0, right: 2.0),
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 2),
             child: Card(
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
@@ -68,8 +68,8 @@ class LeaderboardProfileBoardContent extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0, bottom: 10.0, left: 2.0, right: 8.0),
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 2, right: 8),
             child: Card(
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(

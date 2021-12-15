@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
@@ -13,27 +13,34 @@ import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/ncaab/ncaab_game.dart';
 import '../../views/team_info/team_info.dart';
 import '../bet_button/bet_button.dart';
-import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  const MatchupCard._({Key? key, this.gameName}) : super(key: key);
-  final String? gameName;
+  const MatchupCard._({
+    Key? key,
+    required this.gameName,
+    required this.game,
+    required this.homeTeamData,
+    required this.awayTeamData,
+  }) : super(key: key);
+
+  final String gameName;
+  final NcaabGame game;
+  final NcaabTeam homeTeamData;
+  final NcaabTeam awayTeamData;
 
   static Builder route({
     required NcaabGame game,
-    required String? gameName,
-    required List? parsedTeamData,
+    required String gameName,
+    required NcaabTeam homeTeamData,
+    required NcaabTeam awayTeamData,
   }) {
     return Builder(
       builder: (_) {
-        return BlocProvider(
-          create: (context) => NcaabMatchupCardCubit()
-            ..openMatchupCard(
-              game: game,
-              gameName: gameName,
-              parsedTeamData: parsedTeamData!,
-            ),
-          child: MatchupCard._(gameName: gameName),
+        return MatchupCard._(
+          gameName: gameName,
+          game: game,
+          awayTeamData: awayTeamData,
+          homeTeamData: homeTeamData,
         );
       },
     );
@@ -41,373 +48,338 @@ class MatchupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NcaabMatchupCardCubit, NcaabMatchupCardState>(
-      builder: (context, state) {
-        if (state is MatchupCardOpened) {
-          final gameData = state.game;
-          final isPointSpreadNegative = state.game.pointSpread == null
-              ? true
-              : state.game.pointSpread!.isNegative;
-          late String awayTeamPointSpread;
-          late String homeTeamPointSpread;
-          if (state.game.pointSpread != null) {
-            awayTeamPointSpread = isPointSpreadNegative
-                ? '+${state.game.pointSpread!.abs()}'
-                : '-${state.game.pointSpread!.abs()}';
-            homeTeamPointSpread = isPointSpreadNegative
-                ? '-${state.game.pointSpread!.abs()}'
-                : '+${state.game.pointSpread!.abs()}';
-          }
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 12,
+    final isPointSpreadNegative =
+        game.pointSpread == null ? true : game.pointSpread!.isNegative;
+    late String awayTeamPointSpread;
+    late String homeTeamPointSpread;
+    if (game.pointSpread != null) {
+      awayTeamPointSpread = isPointSpreadNegative
+          ? '+${game.pointSpread!.abs()}'
+          : '-${game.pointSpread!.abs()}';
+      homeTeamPointSpread = isPointSpreadNegative
+          ? '-${game.pointSpread!.abs()}'
+          : '+${game.pointSpread!.abs()}';
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 12,
+      ),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Container(
+          width: 390,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.cream,
             ),
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Card(
+            margin: EdgeInsets.zero,
+            color: Palette.lightGrey,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
               child: Container(
-                width: 390,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Palette.cream,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Card(
-                  margin: EdgeInsets.zero,
-                  color: Palette.lightGrey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          Row(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
                             children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 150,
-                                      // height: 25,
+                              SizedBox(
+                                width: 150,
+                                // height: 25,
 
-                                      child: GestureDetector(
-                                        onTap: () => Navigator.push<void>(
-                                            context,
-                                            TeamInfo.route(
-                                                teamData: state.awayTeamData,
-                                                gameName: gameName)),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              state.awayTeamData.city!,
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.nunito(
-                                                fontSize: 12,
-                                                color: Palette.cream,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              state.awayTeamData.name!
-                                                  .toUpperCase(),
-                                              textAlign: TextAlign.center,
-                                              style: Styles.awayTeam,
-                                            ),
-                                          ],
+                                child: GestureDetector(
+                                  onTap: () => Navigator.push<void>(
+                                      context,
+                                      TeamInfo.route(
+                                          teamData: awayTeamData,
+                                          gameName: gameName)),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        awayTeamData.school!,
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.nunito(
+                                          fontSize: 12,
+                                          color: Palette.cream,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Column(
-                                      children: [
-                                        if (gameData.awayTeamMoneyLine == null)
-                                          Container()
-                                        else
-                                          BetButton.route(
-                                            winTeam: BetButtonWin.away,
-                                            gameId: gameData.gameId,
-                                            isClosed: gameData.isClosed,
-                                            mainOdds: gameData.awayTeamMoneyLine
-                                                .toString(),
-                                            spread: 0,
-                                            betType: Bet.ml,
-                                            awayTeamData: state.awayTeamData,
-                                            homeTeamData: state.homeTeamData,
-                                            text: positiveNumber(
-                                                gameData.awayTeamMoneyLine!),
-                                            game: state.game,
-                                            league: whichGame(
-                                              gameName: state.league,
-                                            ),
-                                          ),
-                                        if (gameData
-                                                .pointSpreadAwayTeamMoneyLine ==
-                                            null)
-                                          Container()
-                                        else
-                                          BetButton.route(
-                                            winTeam: BetButtonWin.away,
-                                            gameId: gameData.gameId,
-                                            isClosed: gameData.isClosed,
-                                            mainOdds: gameData
-                                                .pointSpreadAwayTeamMoneyLine
-                                                .toString(),
-                                            spread: double.parse(
-                                                awayTeamPointSpread),
-                                            betType: Bet.pts,
-                                            league: whichGame(
-                                              gameName: state.league,
-                                            ),
-                                            awayTeamData: state.awayTeamData,
-                                            homeTeamData: state.homeTeamData,
-                                            game: state.game,
-                                            text:
-                                                '$awayTeamPointSpread     ${positiveNumber(gameData.pointSpreadAwayTeamMoneyLine!)}',
-                                          ),
-                                        if (gameData.overPayout == null)
-                                          Container()
-                                        else
-                                          BetButton.route(
-                                            winTeam: BetButtonWin.away,
-                                            gameId: gameData.gameId,
-                                            isClosed: gameData.isClosed,
-                                            league: whichGame(
-                                              gameName: state.league,
-                                            ),
-                                            spread: gameData.overUnder!
-                                                .toDouble() as double,
-                                            mainOdds:
-                                                gameData.overPayout.toString(),
-                                            betType: Bet.tot,
-                                            awayTeamData: state.awayTeamData,
-                                            homeTeamData: state.homeTeamData,
-                                            game: state.game,
-                                            text:
-                                                'o${gameData.overUnder}     ${positiveNumber(gameData.overPayout!)}',
-                                          ),
-                                      ],
-                                    ),
-                                  ],
+                                      Text(
+                                        awayTeamData.name!.toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        style: Styles.awayTeam,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
+                              const SizedBox(height: 5),
                               Column(
-                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    '@',
-                                    style: Styles.matchupSeparator,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  if (gameData.homeTeamMoneyLine == null)
+                                  if (game.awayTeamMoneyLine == null)
                                     Container()
                                   else
-                                    _betButtonSeparator(text: 'ML'),
-                                  const SizedBox(height: 2),
-                                  if (gameData.pointSpreadHomeTeamMoneyLine ==
-                                      null)
-                                    Container()
-                                  else
-                                    _betButtonSeparator(text: 'PTS'),
-                                  const SizedBox(height: 1),
-                                  if (gameData.underPayout == null)
-                                    Container()
-                                  else
-                                    _betButtonSeparator(text: 'TOT'),
-                                ],
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () => Navigator.push<void>(
-                                          context,
-                                          TeamInfo.route(
-                                              teamData: state.homeTeamData,
-                                              gameName: state.league)),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            state.homeTeamData.city!,
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Palette.green,
-                                            ),
-                                          ),
-                                          Text(
-                                            state.homeTeamData.name!
-                                                .toUpperCase(),
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.nunito(
-                                              fontSize: 16,
-                                              // fontWeight: FontWeight.bold,
-                                              color: Palette.green,
-                                            ),
-                                          ),
-                                        ],
+                                    BetButton.route(
+                                      winTeam: BetButtonWin.away,
+                                      mainOdds:
+                                          game.awayTeamMoneyLine.toString(),
+                                      spread: 0,
+                                      betType: Bet.ml,
+                                      awayTeamData: awayTeamData,
+                                      homeTeamData: homeTeamData,
+                                      text: positiveNumber(
+                                          game.awayTeamMoneyLine),
+                                      game: game,
+                                      league: whichGame(
+                                        gameName: gameName,
                                       ),
                                     ),
-                                    const SizedBox(height: 5),
-                                    Column(
-                                      children: [
-                                        if (gameData.homeTeamMoneyLine == null)
-                                          Container()
-                                        else
-                                          BetButton.route(
-                                            winTeam: BetButtonWin.home,
-                                            gameId: gameData.gameId,
-                                            isClosed: gameData.isClosed,
-                                            league: whichGame(
-                                              gameName: state.league,
-                                            ),
-                                            mainOdds: gameData.homeTeamMoneyLine
-                                                .toString(),
-                                            betType: Bet.ml,
-                                            game: state.game,
-                                            spread: 0,
-                                            awayTeamData: state.awayTeamData,
-                                            homeTeamData: state.homeTeamData,
-                                            text: positiveNumber(
-                                                gameData.homeTeamMoneyLine!),
-                                          ),
-                                        if (gameData
-                                                .pointSpreadHomeTeamMoneyLine ==
-                                            null)
-                                          Container()
-                                        else
-                                          BetButton.route(
-                                            gameId: gameData.gameId,
-                                            winTeam: BetButtonWin.home,
-                                            spread: double.parse(
-                                                homeTeamPointSpread),
-                                            isClosed: gameData.isClosed,
-                                            league: whichGame(
-                                              gameName: state.league,
-                                            ),
-                                            mainOdds: gameData
-                                                .pointSpreadHomeTeamMoneyLine
-                                                .toString(),
-                                            betType: Bet.pts,
-                                            awayTeamData: state.awayTeamData,
-                                            homeTeamData: state.homeTeamData,
-                                            game: state.game,
-                                            text:
-                                                '$homeTeamPointSpread     ${positiveNumber(gameData.pointSpreadHomeTeamMoneyLine!)}',
-                                          ),
-                                        if (gameData.underPayout == null)
-                                          Container()
-                                        else
-                                          BetButton.route(
-                                            gameId: gameData.gameId,
-                                            winTeam: BetButtonWin.home,
-                                            isClosed: gameData.isClosed,
-                                            league: whichGame(
-                                              gameName: state.league,
-                                            ),
-                                            mainOdds:
-                                                gameData.underPayout.toString(),
-                                            betType: Bet.tot,
-                                            spread: gameData.overUnder!
-                                                .toDouble() as double,
-                                            awayTeamData: state.awayTeamData,
-                                            homeTeamData: state.homeTeamData,
-                                            game: state.game,
-                                            text:
-                                                'u${gameData.overUnder}     ${positiveNumber(gameData.underPayout!)}',
-                                          ),
-                                      ],
+                                  if (game.pointSpreadAwayTeamMoneyLine == null)
+                                    Container()
+                                  else
+                                    BetButton.route(
+                                      winTeam: BetButtonWin.away,
+                                      mainOdds: game
+                                          .pointSpreadAwayTeamMoneyLine
+                                          .toString(),
+                                      spread: double.parse(awayTeamPointSpread),
+                                      betType: Bet.pts,
+                                      league: whichGame(
+                                        gameName: gameName,
+                                      ),
+                                      awayTeamData: awayTeamData,
+                                      homeTeamData: homeTeamData,
+                                      game: game,
+                                      text:
+                                          '$awayTeamPointSpread     ${positiveNumber(game.pointSpreadAwayTeamMoneyLine)}',
+                                    ),
+                                  if (game.overPayout == null)
+                                    Container()
+                                  else
+                                    BetButton.route(
+                                      winTeam: BetButtonWin.away,
+                                      league: whichGame(
+                                        gameName: gameName,
+                                      ),
+                                      spread: game.overUnder!,
+                                      mainOdds: game.overPayout.toString(),
+                                      betType: Bet.tot,
+                                      awayTeamData: awayTeamData,
+                                      homeTeamData: homeTeamData,
+                                      game: game,
+                                      text:
+                                          'o${game.overUnder}     ${positiveNumber(game.overPayout)}',
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 2),
+                            Text(
+                              '@',
+                              style: Styles.matchupSeparator,
+                            ),
+                            const SizedBox(height: 16),
+                            if (game.homeTeamMoneyLine == null)
+                              Container()
+                            else
+                              _betButtonSeparator(text: 'ML'),
+                            const SizedBox(height: 2),
+                            if (game.pointSpreadHomeTeamMoneyLine == null)
+                              Container()
+                            else
+                              _betButtonSeparator(text: 'PTS'),
+                            const SizedBox(height: 1),
+                            if (game.underPayout == null)
+                              Container()
+                            else
+                              _betButtonSeparator(text: 'TOT'),
+                          ],
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () => Navigator.push<void>(
+                                    context,
+                                    TeamInfo.route(
+                                        teamData: homeTeamData,
+                                        gameName: gameName)),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      homeTeamData.school!,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.green,
+                                      ),
+                                    ),
+                                    Text(
+                                      homeTeamData.name!.toUpperCase(),
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.nunito(
+                                        fontSize: 16,
+                                        // fontWeight: FontWeight.bold,
+                                        color: Palette.green,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+                              const SizedBox(height: 5),
+                              Column(
+                                children: [
+                                  if (game.homeTeamMoneyLine == null)
+                                    Container()
+                                  else
+                                    BetButton.route(
+                                      winTeam: BetButtonWin.home,
+                                      league: whichGame(
+                                        gameName: gameName,
+                                      ),
+                                      mainOdds:
+                                          game.homeTeamMoneyLine.toString(),
+                                      betType: Bet.ml,
+                                      game: game,
+                                      spread: 0,
+                                      awayTeamData: awayTeamData,
+                                      homeTeamData: homeTeamData,
+                                      text: positiveNumber(
+                                          game.homeTeamMoneyLine),
+                                    ),
+                                  if (game.pointSpreadHomeTeamMoneyLine == null)
+                                    Container()
+                                  else
+                                    BetButton.route(
+                                      winTeam: BetButtonWin.home,
+                                      spread: double.parse(homeTeamPointSpread),
+                                      league: whichGame(
+                                        gameName: gameName,
+                                      ),
+                                      mainOdds: game
+                                          .pointSpreadHomeTeamMoneyLine
+                                          .toString(),
+                                      betType: Bet.pts,
+                                      awayTeamData: awayTeamData,
+                                      homeTeamData: homeTeamData,
+                                      game: game,
+                                      text:
+                                          '$homeTeamPointSpread     ${positiveNumber(game.pointSpreadHomeTeamMoneyLine)}',
+                                    ),
+                                  if (game.underPayout == null)
+                                    Container()
+                                  else
+                                    BetButton.route(
+                                      winTeam: BetButtonWin.home,
+                                      league: whichGame(
+                                        gameName: gameName,
+                                      ),
+                                      mainOdds: game.underPayout.toString(),
+                                      betType: Bet.tot,
+                                      spread: game.overUnder!,
+                                      awayTeamData: awayTeamData,
+                                      homeTeamData: homeTeamData,
+                                      game: game,
+                                      text:
+                                          'u${game.overUnder}     ${positiveNumber(game.underPayout)}',
+                                    ),
+                                ],
+                              ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  DateFormat('E, MMMM, c, y @ hh:mm a').format(
-                                    state.game.dateTime!.toLocal(),
-                                  ),
-                                  style: Styles.matchupTime,
-                                ),
-                              ],
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            DateFormat('E, MMMM, c, y @ hh:mm a').format(
+                              game.dateTime!.toLocal(),
                             ),
+                            style: Styles.matchupTime,
                           ),
-                          CountdownTimer(
-                            endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
-                                state.game.dateTime!),
-                            widgetBuilder: (_, CurrentRemainingTime? time) {
-                              if (time == null) {
-                                return Text(
-                                  gameData.status!,
-                                  style: GoogleFonts.nunito(
-                                    color: Palette.red,
-                                    fontSize: 15,
-                                  ),
-                                );
-                              }
-
-                              return Text(
-                                'Starting in ${getRemainingTimeText(time: time)}',
-                                style: GoogleFonts.nunito(
-                                  fontSize: 15,
-                                  color: Palette.red,
-                                ),
-                              );
-                            },
-                          ),
-                          // CountdownTimer(
-                          //   endDateTime: state.game.dateTime,
-                          // ),
-                          // kDebugMode
-                          //     ? Row(
-                          //         mainAxisAlignment: MainAxisAlignment.center,
-                          //         children: [
-                          //          Text(
-                          //             'Status: ${gameData.status}',
-                          //             style: Styles.matchupTime,
-                          //           ),
-                          //         ],
-                          //       )
-                          //     : Container(),
-                          // kDebugMode
-                          //     ? Row(
-                          //         mainAxisAlignment: MainAxisAlignment.center,
-                          //         children: [
-                          //          Text(
-                          //             'IsClosed: ${gameData.isClosed}',
-                          //             style: Styles.matchupTime,
-                          //           ),
-                          //         ],
-                          //       )
-                          //     : Container(),
                         ],
                       ),
                     ),
-                  ),
+                    CountdownTimer(
+                      endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
+                          game.dateTime!),
+                      widgetBuilder: (_, CurrentRemainingTime? time) {
+                        if (time == null) {
+                          return Text(
+                            game.status!,
+                            style: GoogleFonts.nunito(
+                              color: Palette.red,
+                              fontSize: 15,
+                            ),
+                          );
+                        }
+
+                        return Text(
+                          'Starting in ${getRemainingTimeText(time: time)}',
+                          style: GoogleFonts.nunito(
+                            fontSize: 15,
+                            color: Palette.red,
+                          ),
+                        );
+                      },
+                    ),
+                    // CountdownTimer(
+                    //   endDateTime: state.game.dateTime,
+                    // ),
+                    // kDebugMode
+                    //     ? Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //          Text(
+                    //             'Status: ${gameData.status}',
+                    //             style: Styles.matchupTime,
+                    //           ),
+                    //         ],
+                    //       )
+                    //     : Container(),
+                    // kDebugMode
+                    //     ? Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //          Text(
+                    //             'IsClosed: ${gameData.isClosed}',
+                    //             style: Styles.matchupTime,
+                    //           ),
+                    //         ],
+                    //       )
+                    //     : Container(),
+                  ],
                 ),
               ),
             ),
-          );
-        } else {
-          return Container();
-        }
-      },
+          ),
+        ),
+      ),
     );
   }
 
-  String positiveNumber(int number) {
+  String positiveNumber(int? number) {
     final value =
-        number.isNegative ? number.toString() : '+${number.toString()}';
+        number!.isNegative ? number.toString() : '+${number.toString()}';
     return value;
   }
 

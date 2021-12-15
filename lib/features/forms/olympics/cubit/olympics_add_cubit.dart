@@ -2,19 +2,19 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../data/models/olympics/olympics.dart';
-import '../../../../data/repositories/sports_repository.dart';
+import '../../../../data/repositories/sport_repository.dart';
 
 part 'olympics_add_state.dart';
 
 class OlympicsAddCubit extends Cubit<OlympicsAddState> {
-  OlympicsAddCubit({required SportsRepository sportsRepository})
+  OlympicsAddCubit({required SportRepository sportsRepository})
       : assert(sportsRepository != null),
         _sportsRepository = sportsRepository,
         super(
           const OlympicsAddState(),
         );
 
-  final SportsRepository _sportsRepository;
+  final SportRepository _sportsRepository;
 
   void addOlympicsGame({required OlympicsGame game}) async {
     emit(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/nba/nba_game.dart';
@@ -8,10 +9,10 @@ import '../../../../../bet_slip/bet_slip.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNbaScreen extends StatelessWidget {
-  DesktopNbaScreen({this.gameName, this.games, this.parsedTeamData});
+  const DesktopNbaScreen({this.gameName, this.games, this.parsedTeamData});
   final List<NbaGame>? games;
   final String? gameName;
-  final List? parsedTeamData;
+  final List<NbaTeam>? parsedTeamData;
   @override
   Widget build(BuildContext context) {
     //final width = MediaQuery.of(context).size.width;
@@ -37,9 +38,10 @@ class DesktopNbaScreen extends StatelessWidget {
                 children: games!
                     .map(
                       (game) => MatchupCard.route(
-                          game: game,
-                          gameName: gameName,
-                          parsedTeamData: parsedTeamData),
+                        game: game,
+                        gameName: gameName,
+                        teamData: parsedTeamData,
+                      ),
                     )
                     .toList()),
           ),
@@ -187,7 +189,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

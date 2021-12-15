@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
 
 import '../../../../../config/palette.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../../../../../utils/bottom_bar.dart';
+import '../../../../sportsbook/sportsbook.dart';
 import '../cubit/mlb_cubit.dart';
 import 'mlb_screen_desktop/mlb_screen_desktop.dart';
 import 'mlb_screen_mobile/mlb_screen_mobile.dart';
@@ -20,7 +20,7 @@ class MlbScreen extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => MlbCubit(
-            sportsfeedRepository: context.read<SportsRepository>(),
+            sportsfeedRepository: context.read<SportRepository>(),
           )..fetchMlbGames(),
           child: const MlbScreen._(),
         );
@@ -78,15 +78,15 @@ class MlbScreen extends StatelessWidget {
                     mobile: MobileMlbScreen(
                       games: state.games,
                       gameName: state.league,
-                      parsedTeamData: state.parsedTeamData,
+                      parsedTeamData: state.teamData,
                     ),
                     tablet: TabletMlbScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      parsedTeamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),
                     desktop: DesktopMlbScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      parsedTeamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),

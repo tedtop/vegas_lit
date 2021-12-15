@@ -32,9 +32,9 @@ class PrivacyPolicy extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [
-          const _PrivacyPolicyHeader(),
-          const _PrivacyPolicyContent(),
+        children: const [
+          _PrivacyPolicyHeader(),
+          _PrivacyPolicyContent(),
         ],
       ),
     );

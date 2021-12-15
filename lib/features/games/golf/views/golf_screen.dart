@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/palette.dart';
-import '../../../../data/repositories/sports_repository.dart';
+import '../../../../data/repositories/sport_repository.dart';
 import '../cubit/golf_cubit.dart';
 import '../widgets/golf_matchup.dart';
 import '../widgets/golf_tour.dart';
@@ -17,7 +15,7 @@ class GolfScreen extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => GolfCubit(
-            sportsfeedRepository: context.read<SportsRepository>(),
+            sportsfeedRepository: context.read<SportRepository>(),
           )..fetchTournaments(),
           child: const GolfScreen._(),
         );

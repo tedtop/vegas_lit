@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../../config/extensions.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/group.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import '../../../home/home.dart';
 import 'cubit/group_add_cubit.dart';
 
 class GroupAdd extends StatefulWidget {
-  GroupAdd._({Key? key}) : super(key: key);
+  const GroupAdd._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route(
       {required HomeCubit homeCubit,
@@ -24,7 +24,7 @@ class GroupAdd extends StatefulWidget {
           value: homeCubit,
           child: BlocProvider(
             create: (context) => GroupAddCubit(
-              groupsRepository: context.read<GroupsRepository>(),
+              groupsRepository: context.read<GroupRepository>(),
               storageRepository: storageRepository,
             ),
             child: GroupAdd._(),
@@ -166,7 +166,7 @@ class _GroupAddState extends State<GroupAdd> {
                   const SizedBox(width: 50),
                   BlocBuilder<GroupAddCubit, GroupAddState>(
                     builder: (context, state) {
-                      if (state.avatarFile != null)
+                      if (state.avatarFile != null) {
                         return Stack(
                           children: [
                             SizedBox(
@@ -213,6 +213,7 @@ class _GroupAddState extends State<GroupAdd> {
                             ),
                           ],
                         );
+                      }
                       return InkWell(
                         onTap: () {
                           context.read<GroupAddCubit>().pickAvatar();

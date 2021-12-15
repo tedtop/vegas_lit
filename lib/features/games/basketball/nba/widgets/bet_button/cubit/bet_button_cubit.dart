@@ -3,31 +3,30 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/features/bet_slip/bet_slip.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/bet_button/screens/parlay_bet_slip_card.dart';
-import 'package:vegas_lit/features/games/basketball/nba/widgets/bet_button/screens/single_bet_slip_card.dart';
 
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/extensions.dart';
 import '../../../../../../../data/models/bet.dart';
 import '../../../../../../../data/models/nba/nba_bet.dart';
 import '../../../../../../../data/models/nba/nba_game.dart';
-import '../../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../../data/repositories/bet_repository.dart';
+import '../../../../../../bet_slip/bet_slip.dart';
 import '../../../models/nba_team.dart';
+import '../screens/parlay_bet_slip_card.dart';
+import '../screens/single_bet_slip_card.dart';
 
 part 'bet_button_state.dart';
 
 class NbaBetButtonCubit extends Cubit<NbaBetButtonState> {
-  NbaBetButtonCubit({required BetsRepository betsRepository})
+  NbaBetButtonCubit({required BetRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
           const NbaBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
   void openBetButton({
     required String text,
     required NbaGame game,

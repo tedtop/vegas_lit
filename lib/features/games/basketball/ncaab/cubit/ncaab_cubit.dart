@@ -1,26 +1,20 @@
-
-
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:vegas_lit/features/games/basketball/ncaab/models/ncaab_team.dart';
 import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/ncaab/ncaab_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 
 part 'ncaab_state.dart';
 
 class NcaabCubit extends Cubit<NcaabState> {
-  NcaabCubit({required SportsRepository sportsfeedRepository})
-      : assert(sportsfeedRepository != null),
-        _sportsfeedRepository = sportsfeedRepository,
+  NcaabCubit({required SportRepository sportsfeedRepository})
+      : _sportsfeedRepository = sportsfeedRepository,
         super(
           const NcaabState.initial(),
         );
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNcaabGames() async {
     const league = 'NCAAB';
@@ -42,28 +36,25 @@ class NcaabCubit extends Cubit<NcaabState> {
               .where((element) => element.isClosed == false)
               .where((element) {
             return element.awayTeamMoneyLine != null ||
-                element.pointSpreadAwayTeamMoneyLine != null ||
+                element.awayTeamMoneyLine != null ||
                 element.overPayout != null ||
                 element.homeTeamMoneyLine != null ||
-                element.pointSpreadHomeTeamMoneyLine != null ||
+                element.homeTeamMoneyLine != null ||
                 element.underPayout != null;
           }).toList(),
         );
 
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNCAABTeams();
 
-    emit(NcaabState.opened(
-      localTimeZone: localTimeZone,
-      estTimeZone: estTimeZone,
-      games: totalGames,
-      league: league,
-      parsedTeamData: await getNcaabParsedTeamData(),
-    ));
+    emit(
+      NcaabState.opened(
+        localTimeZone: localTimeZone,
+        estTimeZone: estTimeZone,
+        games: totalGames,
+        league: league,
+        teamData: teamData,
+      ),
+    );
   }
-}
-
-Future<List?> getNcaabParsedTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/cbb.json');
-  final parsedTeamData = await json.decode(jsonData) as List?;
-  return parsedTeamData;
 }

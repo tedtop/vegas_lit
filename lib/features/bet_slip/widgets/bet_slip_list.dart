@@ -10,7 +10,7 @@ class SingleBetSlipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width / 10;
-    final BetSlipState betSlipState = context.watch<BetSlipCubit>().state;
+    final betSlipState = context.watch<BetSlipCubit>().state;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -42,7 +42,7 @@ class ParlayBetSlipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width / 10;
-    final BetSlipState betSlipState = context.watch<BetSlipCubit>().state;
+    final betSlipState = context.watch<BetSlipCubit>().state;
 
     return GestureDetector(
       onTap: () {

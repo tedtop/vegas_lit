@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/models/olympics/olympic_bet.dart';
+
+import '../../../../../config/palette.dart';
+import '../../../../../data/models/olympics/olympic_bet.dart';
 
 class OlympicsOpenBetTile extends StatelessWidget {
   const OlympicsOpenBetTile({

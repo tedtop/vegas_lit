@@ -8,21 +8,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
-import 'package:vegas_lit/features/groups/widgets/group_edit/group_edit.dart';
+import 'package:vegas_lit/features/authentication/cubit/authentication_cubit.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
 import '../../../../data/models/user.dart';
 import '../../../../data/models/wallet.dart';
-import '../../../../data/repositories/groups_repository.dart';
+import '../../../../data/repositories/group_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import '../../../../data/repositories/user_repository.dart';
-import '../../../authentication/authentication.dart';
+import '../group_edit/group_edit.dart';
 import 'cubit/group_details_cubit.dart';
 import 'cubit/user_search_cubit.dart';
 
 class GroupDetails extends StatelessWidget {
-  GroupDetails._(
+  const GroupDetails._(
       {Key? key, required this.storageRepository, required this.userId})
       : super(key: key);
 
@@ -36,7 +36,7 @@ class GroupDetails extends StatelessWidget {
           providers: [
             BlocProvider(
               create: (context) => GroupDetailsCubit(
-                groupsRepository: context.read<GroupsRepository>(),
+                groupsRepository: context.read<GroupRepository>(),
               )..fetchGroupDetailsLeaderboard(groupId: groupId, userId: userId),
             ),
             BlocProvider(
@@ -59,8 +59,7 @@ class GroupDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GroupDetailsState groupDetailsState =
-        context.watch<GroupDetailsCubit>().state;
+    final groupDetailsState = context.watch<GroupDetailsCubit>().state;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -85,8 +84,6 @@ class GroupDetails extends StatelessWidget {
                       return Material(
                         color: Palette.cream,
                         child: SafeArea(
-                          top: true,
-                          bottom: true,
                           child: Column(
                             children: <Widget>[
                               Expanded(
@@ -177,7 +174,7 @@ class GroupDetails extends StatelessWidget {
                     if (state.group!.adminId == userId)
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: SizedBox(
                               width: 150,
                               child: SizedBox(
@@ -326,13 +323,13 @@ class GroupDetailsDescription extends StatelessWidget {
                   ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(12),
                   child: Table(
                     border: TableBorder.all(color: Colors.transparent),
-                    columnWidths: {
-                      0: const FixedColumnWidth(70),
-                      1: const FixedColumnWidth(10),
-                      2: const FlexColumnWidth()
+                    columnWidths: const {
+                      0: FixedColumnWidth(70),
+                      1: FixedColumnWidth(10),
+                      2: FlexColumnWidth()
                     },
                     children: [
                       TableRow(
@@ -433,7 +430,7 @@ class GroupDetailsJoinButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.watch<AuthenticationBloc>().state.user!.uid;
+    final userId = context.watch<AuthenticationCubit>().state.user!.uid;
     return BlocBuilder<GroupDetailsCubit, GroupDetailsState>(
       builder: (context, state) {
         switch (state.status) {
@@ -626,7 +623,7 @@ class GroupDetailsLeaderboard extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15),
           child: Text(
             'LEADERBOARD',
             style: Styles.pageTitle.copyWith(fontSize: 18),
@@ -738,8 +735,8 @@ class GroupDetailsLeaderboardTile extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       color: Palette.darkGrey,
-                      height: 50.0,
-                      width: 50.0,
+                      height: 50,
+                      width: 50,
                       child: Text(
                           player.username!.substring(0, 1).toUpperCase(),
                           style: Styles.leaderboardUsername),
@@ -842,8 +839,8 @@ class UserSearch extends SearchDelegate<UserData?> {
                             child: Container(
                               alignment: Alignment.center,
                               color: Palette.darkGrey,
-                              height: 50.0,
-                              width: 50.0,
+                              height: 50,
+                              width: 50,
                               child: Text(
                                   userData.username!
                                       .substring(0, 1)
@@ -914,8 +911,8 @@ class UserSearch extends SearchDelegate<UserData?> {
                             child: Container(
                               alignment: Alignment.center,
                               color: Palette.darkGrey,
-                              height: 50.0,
-                              width: 50.0,
+                              height: 50,
+                              width: 50,
                               child: Text(
                                   userData.username!
                                       .substring(0, 1)

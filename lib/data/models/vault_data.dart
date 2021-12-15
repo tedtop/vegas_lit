@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class VaultItem extends Equatable {
-  VaultItem({
+  const VaultItem({
     this.moneyIn,
     this.moneyOut,
     this.totalBets,

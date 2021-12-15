@@ -8,20 +8,20 @@ import 'package:flutter/services.dart';
 
 import '../../../../../config/extensions.dart';
 import '../../../../../data/models/ncaaf/ncaaf_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../models/ncaaf_team.dart';
 
 part 'ncaaf_state.dart';
 
 class NcaafCubit extends Cubit<NcaafState> {
-  NcaafCubit({required SportsRepository sportsfeedRepository})
+  NcaafCubit({required SportRepository sportsfeedRepository})
       : assert(sportsfeedRepository != null),
         _sportsfeedRepository = sportsfeedRepository,
         super(
           const NcaafState.initial(),
         );
 
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNcaafGames() async {
     const league = 'NCAAF';
@@ -49,31 +49,15 @@ class NcaafCubit extends Cubit<NcaafState> {
           }).toList(),
         );
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNCAAFTeams();
 
     emit(
       NcaafState.opened(
         estTimeZone: estTimeZone,
         games: totalGames,
         league: league,
-        parsedTeamData: await getNCAAFTeamData(),
+        parsedTeamData: teamData,
       ),
     );
   }
-}
-
-Future<List<NcaafTeam>> getNCAAFTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/cfb.json');
-
-  return compute(parseTeamData, jsonData);
-}
-
-List<NcaafTeam> parseTeamData(String jsonData) {
-  final parsedTeamData = json.decode(jsonData) as List;
-  final teamData = parsedTeamData
-      .map<NcaafTeam>(
-        (dynamic json) => NcaafTeam.fromMap(json as Map<String, dynamic>),
-      )
-      .toList();
-
-  return teamData;
 }

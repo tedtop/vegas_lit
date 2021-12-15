@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
 
 import '../../../../config/assets.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/paralympics/paralympics_bet.dart';
 
 class ParalympicsBetHistoryCard extends StatelessWidget {
   const ParalympicsBetHistoryCard({
@@ -90,9 +90,7 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                 Expanded(
                   child: Card(
                     margin: EdgeInsets.zero,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
+                    shape: const RoundedRectangleBorder(),
                     color: Palette.darkGrey,
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -267,12 +265,11 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                             height: 2,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
                                   betHistoryData.gameName!
-                                      .replaceAll(RegExp('-'), '\/')
+                                      .replaceAll(RegExp('-'), '/')
                                       .toUpperCase(),
                                   style: GoogleFonts.nunito(
                                     fontSize: 14,
@@ -303,7 +300,6 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
@@ -317,7 +313,6 @@ class ParalympicsBetHistoryCard extends StatelessWidget {
                           // Last Row
                           Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   DateFormat('E, MMM c, y @ hh:mm a').format(

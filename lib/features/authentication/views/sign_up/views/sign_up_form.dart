@@ -174,19 +174,19 @@ class _AgreementCheck extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Row(
                 children: [
                   const SizedBox(
                     width: 40,
                   ),
-                  state.agreement.invalid
-                      ? Text(
-                          'Required',
-                          style: Styles.authFieldError
-                              .copyWith(color: Palette.red),
-                        )
-                      : Container(),
+                  if (state.agreement.invalid)
+                    Text(
+                      'Required',
+                      style: Styles.authFieldError.copyWith(color: Palette.red),
+                    )
+                  else
+                    Container(),
                 ],
               ),
             ),
@@ -309,7 +309,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -319,9 +319,7 @@ class _ExistingAccountSignIn extends StatelessWidget {
           ),
           TextButton(
             key: const Key('loginForm_createAccount_flatButton'),
-            onPressed: () => Navigator.of(context).pushReplacement<void, void>(
-              LoginPage.route(),
-            ),
+            onPressed: () => Navigator.of(context).pop(),
             child: Text(
               'Log In',
               style: Styles.authButtonText,
@@ -527,7 +525,7 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
@@ -663,13 +661,14 @@ class _StateInput extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      state.americanState.invalid
-                          ? Text(
-                              'Required',
-                              style: Styles.authFieldError
-                                  .copyWith(color: Palette.red),
-                            )
-                          : Container(),
+                      if (state.americanState.invalid)
+                        Text(
+                          'Required',
+                          style: Styles.authFieldError
+                              .copyWith(color: Palette.red),
+                        )
+                      else
+                        Container(),
                     ],
                   ),
                 ],
@@ -748,7 +747,7 @@ class _UsernameInput extends StatelessWidget {
 }
 
 class DropDown<T> extends StatefulWidget {
-  DropDown({
+  const DropDown({
     required this.items,
     this.customWidgets,
     this.initialValue,
@@ -757,7 +756,7 @@ class DropDown<T> extends StatefulWidget {
     this.isExpanded = false,
     this.isCleared = false,
     this.showUnderline = true,
-  })  : assert(items != null && !(items is Widget)),
+  })  : assert(items != null && items is! Widget),
         assert((customWidgets != null)
             ? items.length == customWidgets.length
             : (customWidgets == null));
@@ -803,6 +802,7 @@ class _DropDownState<T> extends State<DropDown<T>> {
   }
 
   DropdownMenuItem<T> buildDropDownItem(T item) => DropdownMenuItem<T>(
+        value: item,
         child: (widget.customWidgets != null)
             ? widget.customWidgets![widget.items.indexOf(item)]
             : Text(
@@ -811,6 +811,5 @@ class _DropDownState<T> extends State<DropDown<T>> {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-        value: item,
       );
 }

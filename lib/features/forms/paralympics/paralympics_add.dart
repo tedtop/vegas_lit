@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
 
 import '../../../config/extensions.dart';
 import '../../../config/palette.dart';
 import '../../../config/styles.dart';
-import '../../../data/repositories/sports_repository.dart';
+import '../../../data/models/paralympics/paralympics.dart';
+import '../../../data/repositories/sport_repository.dart';
 import 'cubit/paralympics_add_cubit.dart';
 
 class ParalympicsAddForm extends StatefulWidget {
-  ParalympicsAddForm._({Key? key}) : super(key: key);
+  const ParalympicsAddForm._({Key? key}) : super(key: key);
 
   static MaterialPageRoute route() {
     return MaterialPageRoute<void>(
       builder: (context) {
         return BlocProvider(
           create: (context) => ParalympicsAddCubit(
-            sportsRepository: context.read<SportsRepository>(),
+            sportsRepository: context.read<SportRepository>(),
           ),
           child: ParalympicsAddForm._(),
         );
@@ -265,7 +265,6 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                     onPressed: () {
                       showCountryPicker(
                         context: context,
-                        showPhoneCode: false,
                         onSelect: (Country country) {
                           setState(() {
                             playerCountry = country.countryCode;
@@ -332,7 +331,6 @@ class _ParalympicsAddFormState extends State<ParalympicsAddForm> {
                     onPressed: () {
                       showCountryPicker(
                         context: context,
-                        showPhoneCode: false,
                         onSelect: (Country country) {
                           setState(() {
                             rivalCountry = country.countryCode;

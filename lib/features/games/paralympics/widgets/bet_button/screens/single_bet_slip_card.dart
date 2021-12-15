@@ -17,6 +17,8 @@ import 'package:vegas_lit/features/home/cubit/version_cubit.dart';
 import 'package:vegas_lit/features/home/home.dart';
 
 class ParalympicsSingleBetSlipCard extends StatelessWidget {
+  ParalympicsSingleBetSlipCard({Key? key}) : super(key: key);
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,10 +27,9 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final ParalympicsBetButtonState betButtonState =
-            context.watch<ParalympicsBetButtonCubit>().state;
+        final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
@@ -41,7 +42,6 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
 
         return AbstractCard(
           padding: const EdgeInsets.fromLTRB(12.5, 12, 12.5, 0),
-          crossAxisAlignment: CrossAxisAlignment.center,
           widgets: [
             Text(
               '${betButtonState.winTeam == BetButtonWin.player ? CountryParser.parseCountryCode(betButtonState.game!.playerCountry!).name.toUpperCase() : CountryParser.parseCountryCode(betButtonState.game!.rivalCountry!).name.toUpperCase()} TO WIN',
@@ -57,7 +57,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  betButtonState.game!.gameName!.replaceAll(RegExp('-'), '\/'),
+                  betButtonState.game!.gameName!.replaceAll(RegExp('-'), '/'),
                   style: GoogleFonts.nunito(
                     fontSize: 18,
                     color: Palette.cream,
@@ -199,8 +199,8 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                   const EdgeInsets.only(top: 20, bottom: 6.5),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const CircularProgressIndicator(
+                                children: const [
+                                  CircularProgressIndicator(
                                     color: Palette.cream,
                                   ),
                                 ],
@@ -234,10 +234,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
                                             MaterialTapTargetSize.shrinkWrap),
                                     child: Text(
                                       'PLACE BET',
-                                      style: GoogleFonts.nunito(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: Styles.betSlipButtonText,
                                     ),
                                     onPressed: () async {
                                       await context
@@ -446,7 +443,7 @@ class ParalympicsSingleBetSlipCard extends StatelessWidget {
 
 // ignore: must_be_immutable
 class BetAmountPage extends StatefulWidget {
-  BetAmountPage({
+  const BetAmountPage({
     Key? key,
     required this.betAmount,
   }) : super(key: key);
@@ -463,8 +460,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ParalympicsBetButtonState betButtonState =
-        context.watch<ParalympicsBetButtonCubit>().state;
+    final betButtonState = context.watch<ParalympicsBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -528,7 +524,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,

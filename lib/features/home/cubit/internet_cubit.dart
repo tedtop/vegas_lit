@@ -6,16 +6,20 @@ import 'package:connectivity/connectivity.dart';
 part 'internet_state.dart';
 
 class InternetCubit extends Cubit<InternetState> {
-  InternetCubit({required this.connectivity}) : super(InternetLoading()) {
+  InternetCubit({Connectivity? connectivity})
+      : _connectivity = connectivity ?? Connectivity(),
+        super(
+          InternetLoading(),
+        ) {
     monitorInternetConnection();
   }
 
-  final Connectivity? connectivity;
+  final Connectivity _connectivity;
   StreamSubscription? connectivityStreamSubscription;
 
   Future<StreamSubscription<ConnectivityResult>>
       monitorInternetConnection() async {
-    final currentStatus = await connectivity!.checkConnectivity();
+    final currentStatus = await _connectivity.checkConnectivity();
     if (currentStatus == ConnectivityResult.wifi) {
       emitInternetConnected(ConnectionType.wifi);
     } else if (currentStatus == ConnectivityResult.mobile) {
@@ -25,7 +29,7 @@ class InternetCubit extends Cubit<InternetState> {
     }
     await connectivityStreamSubscription?.cancel();
     return connectivityStreamSubscription =
-        connectivity!.onConnectivityChanged.listen(
+        _connectivity.onConnectivityChanged.listen(
       (connectivityResult) {
         if (connectivityResult == ConnectivityResult.wifi) {
           emitInternetConnected(ConnectionType.wifi);
@@ -39,7 +43,7 @@ class InternetCubit extends Cubit<InternetState> {
   }
 
   Future<void> checkInternetConnection() async {
-    final currentStatus = await connectivity!.checkConnectivity();
+    final currentStatus = await _connectivity.checkConnectivity();
     if (currentStatus == ConnectivityResult.wifi) {
       emitInternetConnected(ConnectionType.wifi);
     } else if (currentStatus == ConnectivityResult.mobile) {

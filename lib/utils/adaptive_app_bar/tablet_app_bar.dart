@@ -8,7 +8,7 @@ import '../../../../../config/palette.dart';
 AppBar tabletAppBar() {
   return AppBar(
     iconTheme: const IconThemeData(color: Palette.cream),
-    toolbarHeight: 80.0,
+    toolbarHeight: 80,
     centerTitle: true,
     title: Image.asset(
       Images.topLogo,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vegas_lit/config/extensions.dart';
 
+import 'extensions.dart';
 import 'palette.dart';
 
 class Styles {
@@ -120,7 +120,7 @@ class Styles {
   /// --> GAMES
 
   /// // --> TEAM INFO
-  static final teamStatsMain = VLTextStyle.nunito.creamColored.size(28);
+  static final teamStatsMain = VLTextStyle.nunito.creamColored.size(26);
 
   static final teamStatsText = VLTextStyle.nunito.creamColored.size(11).bold;
 

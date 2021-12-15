@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics_bet.dart';
-import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
-
 import '../../config/extensions.dart';
 import '../models/bet.dart';
 import '../models/group.dart';
@@ -16,6 +12,9 @@ import '../models/nfl/nfl_bet.dart';
 import '../models/nhl/nhl_bet.dart';
 import '../models/olympics/olympic_bet.dart';
 import '../models/olympics/olympics.dart';
+import '../models/paralympics/paralympics.dart';
+import '../models/paralympics/paralympics_bet.dart';
+import '../models/parlay/parlay_bet.dart';
 import '../models/user.dart';
 import '../models/vault_data.dart';
 import '../models/wallet.dart';
@@ -57,25 +56,14 @@ class CloudFirestoreClient {
     await userDetailsWriteBatch.commit();
   }
 
-  Future<void> updateUserDetails(
-      {required UserData user, required String uid}) async {
-    final userDetailsUpdateBatch = _firebaseFirestore.batch();
-    final userReference = _firebaseFirestore.collection('users').doc(uid);
-    final walletReference = _firebaseFirestore.collection('wallets').doc(uid);
-    final walletData = {'username': user.username};
-    userDetailsUpdateBatch
-      ..set(userReference, user.toMap(), SetOptions(merge: true))
-      ..set(walletReference, walletData, SetOptions(merge: true));
-    await userDetailsUpdateBatch.commit();
-  }
+  
 
   Future<bool> isProfileComplete({required String uid}) async {
     final snapshot =
         await _firebaseFirestore.collection('users').doc(uid).get();
 
-    final isProfileComplete = snapshot != null &&
-        snapshot.exists &&
-        snapshot.data()!.containsKey('uid');
+    final isProfileComplete =
+        snapshot.exists && snapshot.data()!.containsKey('uid');
     return isProfileComplete;
   }
 

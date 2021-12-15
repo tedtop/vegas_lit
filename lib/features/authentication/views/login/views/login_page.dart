@@ -10,10 +10,13 @@ import 'login_form.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage._({Key? key}) : super(key: key);
 
+  static Page page() =>
+      const MaterialPage<void>(name: 'LoginPage', child: LoginPage._());
+
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const LoginPage._(),
       settings: const RouteSettings(name: 'LoginPage'),
+      builder: (_) => const LoginPage._(),
     );
   }
 
@@ -25,7 +28,7 @@ class LoginPage extends StatelessWidget {
         child: BlocProvider<LoginCubit>(
           create: (_) => LoginCubit(
             userRepository: context.read<UserRepository>(),
-            authenticationBloc: context.watch<AuthenticationBloc>(),
+            authenticationBloc: context.watch<AuthenticationCubit>(),
           ),
           child: LoginForm(),
         ),

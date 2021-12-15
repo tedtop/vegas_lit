@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/features/games/football/ncaaf/models/ncaaf_team.dart';
 
 import '../../../../../../config/palette.dart';
 import '../../../../../../data/models/ncaaf/ncaaf_game.dart';
 import '../../../../../bet_slip/bet_slip.dart';
+import '../../models/ncaaf_team.dart';
 import '../../widgets/matchup_card/matchup_card.dart';
 
 class DesktopNcaafScreen extends StatelessWidget {
@@ -192,7 +192,7 @@ class AbstractCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 12.5,
-      vertical: 12.0,
+      vertical: 12,
     ),
   }) : super(key: key);
 

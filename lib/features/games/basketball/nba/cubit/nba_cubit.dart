@@ -3,22 +3,22 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
+import 'package:vegas_lit/features/games/basketball/nba/models/nba_team.dart';
 
 import '../../../../../config/extensions.dart';
 
 import '../../../../../data/models/nba/nba_game.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 
 part 'nba_state.dart';
 
 class NbaCubit extends Cubit<NbaState> {
-  NbaCubit({required SportsRepository sportsfeedRepository})
-      : assert(sportsfeedRepository != null),
-        _sportsfeedRepository = sportsfeedRepository,
+  NbaCubit({required SportRepository sportsfeedRepository})
+      : _sportsfeedRepository = sportsfeedRepository,
         super(
           const NbaState.initial(),
         );
-  final SportsRepository _sportsfeedRepository;
+  final SportRepository _sportsfeedRepository;
 
   Future<void> fetchNbaGames() async {
     const league = 'NBA';
@@ -47,18 +47,15 @@ class NbaCubit extends Cubit<NbaState> {
         );
 
     totalGames = todayGames;
+    final teamData = await _sportsfeedRepository.fetchNBATeams();
 
-    emit(NbaState.opened(
-      estTimeZone: estTimeZone,
-      games: totalGames,
-      league: league,
-      parsedTeamData: await getNBAParsedTeamData(),
-    ));
+    emit(
+      NbaState.opened(
+        estTimeZone: estTimeZone,
+        games: totalGames,
+        league: league,
+        parsedTeamData: teamData,
+      ),
+    );
   }
-}
-
-Future<List?> getNBAParsedTeamData() async {
-  final jsonData = await rootBundle.loadString('assets/json/nba.json');
-  final parsedTeamData = await json.decode(jsonData) as List?;
-  return parsedTeamData;
 }

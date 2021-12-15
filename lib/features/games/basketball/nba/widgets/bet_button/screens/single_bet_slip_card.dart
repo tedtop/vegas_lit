@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/assets.dart';
 
+import '../../../../../../../config/assets.dart';
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
@@ -28,7 +27,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
         final betButtonState = context.watch<NbaBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
@@ -146,7 +145,6 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -204,7 +202,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 45),
+                            const Expanded(child: SizedBox()),
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
@@ -264,10 +262,7 @@ class NbaSingleBetSlipCard extends StatelessWidget {
                                                         .shrinkWrap),
                                             child: Text(
                                               'PLACE BET',
-                                              style: GoogleFonts.nunito(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: Styles.betSlipButtonText,
                                             ),
                                             onPressed: () async {
                                               await context
@@ -393,7 +388,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,

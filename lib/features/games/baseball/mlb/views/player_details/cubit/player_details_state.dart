@@ -12,6 +12,6 @@ abstract class PlayerDetailsState extends Equatable {
 class PlayerDetailsInitial extends PlayerDetailsState {}
 
 class PlayerDetailsOpened extends PlayerDetailsState {
-  PlayerDetailsOpened(this.playerStats);
+  const PlayerDetailsOpened(this.playerStats);
   final MlbPlayerStats playerStats;
 }

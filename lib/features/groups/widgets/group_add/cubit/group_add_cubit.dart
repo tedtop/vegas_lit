@@ -2,26 +2,25 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:vegas_lit/data/repositories/storage_repository.dart';
 
 import '../../../../../data/models/group.dart';
-import '../../../../../data/repositories/groups_repository.dart';
+import '../../../../../data/repositories/group_repository.dart';
+import '../../../../../data/repositories/storage_repository.dart';
 
 part 'group_add_state.dart';
 
 class GroupAddCubit extends Cubit<GroupAddState> {
   GroupAddCubit(
-      {required GroupsRepository groupsRepository,
+      {required GroupRepository groupsRepository,
       required StorageRepository storageRepository})
       : _groupsRepository = groupsRepository,
         _storageRepository = storageRepository,
         super(
-          GroupAddState(status: GroupAddStatus.initial),
+          GroupAddState(),
         );
 
-  final GroupsRepository _groupsRepository;
+  final GroupRepository _groupsRepository;
   final StorageRepository _storageRepository;
 
   Future<void> pickAvatar() async {
@@ -31,7 +30,6 @@ class GroupAddCubit extends Cubit<GroupAddState> {
       final avatarImageFile = File(avatarPickedFile.path);
       emit(
         GroupAddState(
-          status: GroupAddStatus.initial,
           avatarFile: avatarImageFile,
         ),
       );

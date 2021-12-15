@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:vegas_lit/config/palette.dart';
+
+import 'palette.dart';
 
 extension ESTDateTime on DateTime {
   static DateTime fetchTimeEST() {
@@ -72,6 +73,23 @@ extension ESTDateTime on DateTime {
         return '$year-$weekNumber-${weekNumber + 1}';
       default:
         return '$year-${weekNumber - 1}-$weekNumber';
+    }
+  }
+
+  String get previousWeekStringVL {
+    final weekNumber = ESTDateTime.weekNumberVL;
+    switch (weekday) {
+      case DateTime.sunday:
+      case DateTime.monday:
+      case DateTime.tuesday:
+      case DateTime.wednesday:
+        return '$year-${weekNumber - 1 - 1}-${weekNumber - 1}';
+      case DateTime.thursday:
+      case DateTime.friday:
+      case DateTime.saturday:
+        return '$year-${weekNumber - 1}-${weekNumber + 1 - 1}';
+      default:
+        return '$year-${weekNumber - 1 - 1}-${weekNumber - 1}';
     }
   }
 

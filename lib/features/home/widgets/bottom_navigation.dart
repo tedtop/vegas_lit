@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -16,7 +14,7 @@ class BottomNavigation extends StatelessWidget {
     return Builder(
       builder: (context) {
         final betSlipStatus = context.watch<BetSlipCubit>().state;
-        final OpenBetsState openBetsStatus = context.watch<OpenBetsCubit>().state;
+        final openBetsStatus = context.watch<OpenBetsCubit>().state;
         final pageIndex =
             context.select((HomeCubit homeCubit) => homeCubit.state.pageIndex);
         if (betSlipStatus.status == BetSlipStatus.opened &&
@@ -27,8 +25,6 @@ class BottomNavigation extends StatelessWidget {
           final openBetsBadgeCount = openBetsStatus.bets.length;
           return BottomNavigationBar(
             selectedLabelStyle: GoogleFonts.nunito(),
-            selectedFontSize: 14,
-            unselectedFontSize: 12,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
@@ -107,7 +103,7 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   label: 'Open Bets'),
               const BottomNavigationBarItem(
-                  icon: Icon(Feather.calendar), label: 'History'),
+                  icon: Icon(Feather.user), label: 'Account'),
             ],
           );
         } else {

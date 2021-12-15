@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/config/palette.dart';
-import 'package:vegas_lit/data/repositories/device_repository.dart';
+
+import '../../../config/extensions.dart';
+import '../../../config/palette.dart';
+import '../../../data/repositories/device_repository.dart';
 
 part 'sportsbook_state.dart';
 
@@ -109,7 +108,6 @@ class SportsbookCubit extends Cubit<SportsbookState> {
 
   List<DropdownMenuItem<String>> fetchDropdownList(
       {required Map<String, String> gameNumbers, required String? league}) {
-    log('$gameNumbers');
     return <String>[
       'NFL',
       'NBA',

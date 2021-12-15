@@ -1,14 +1,12 @@
-
-
 part of 'bet_slip_cubit.dart';
 
 enum BetSlipStatus { loading, opened }
 
 class BetSlipState extends Equatable {
   const BetSlipState._({
-    this.singleBetSlipCard,
-    this.parlayBetSlipCard,
-    this.betDataList,
+    this.singleBetSlipCard = const [],
+    this.parlayBetSlipCard = const [],
+    this.betDataList = const [],
     this.status = BetSlipStatus.loading,
   });
 

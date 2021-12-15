@@ -3,8 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import 'package:vegas_lit/config/ads.dart';
-
+import '../../../../../config/ads.dart';
 import '../../../../../data/repositories/user_repository.dart';
 
 part 'ads_state.dart';
@@ -23,16 +22,23 @@ class AdsCubit extends Cubit<AdsState> {
       const AdsState.loading(),
     );
     await InterstitialAd.load(
-      adUnitId: InterstitialAd.testAdUnitId,
+      adUnitId:
+          kDebugMode ? RewardedAd.testAdUnitId : AdsConfig.interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd interstitialAd) async {
           interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
             onAdShowedFullScreenContent: (InterstitialAd ad) {
               print('$ad onAdShowedFullScreenContent.');
+              emit(
+                const AdsState.initial(),
+              );
             },
             onAdDismissedFullScreenContent: (InterstitialAd ad) {
               print('$ad onAdDismissedFullScreenContent.');
+              emit(
+                const AdsState.initial(),
+              );
               ad.dispose();
             },
             onAdWillDismissFullScreenContent: (InterstitialAd ad) {
@@ -104,12 +110,12 @@ class AdsCubit extends Cubit<AdsState> {
               await _userRepository
                   .rewardForVideoAd(
                 uid: currentUser!.uid,
-                rewardValue: 100,
+                rewardValue: 200,
               )
                   .then(
                 (value) async {
                   emit(
-                    const AdsState.success(rewardAmount: 100),
+                    const AdsState.success(rewardAmount: 200),
                   );
                 },
               );

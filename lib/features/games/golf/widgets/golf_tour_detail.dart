@@ -10,7 +10,7 @@ import '../../../../data/models/golf/golf.dart';
 import '../golf_page.dart';
 
 class GolfDetailView extends StatefulWidget {
-  GolfDetailView({this.players, this.tournament});
+  const GolfDetailView({this.players, this.tournament});
   final GolfTournament? tournament;
   final List<GolfPlayer>? players;
   @override
@@ -50,7 +50,7 @@ class _GolfDetailViewState extends State<GolfDetailView> {
 }
 
 class GolfTournamentDetailCard extends StatelessWidget {
-  GolfTournamentDetailCard({this.tournament, this.players});
+  const GolfTournamentDetailCard({this.tournament, this.players});
   final GolfTournament? tournament;
   final List<GolfPlayer>? players;
   @override
@@ -94,11 +94,11 @@ class GolfTournamentDetailCard extends StatelessWidget {
                   style: Styles.greenTextBold,
                 ),
                 Text(
-                  '${tournament!.venue ?? 'NA'}',
+                  tournament!.venue ?? 'NA',
                   style: Styles.awayTeam,
                 ),
                 Text(
-                  '${tournament!.location ?? 'NA'}',
+                  tournament!.location ?? 'NA',
                   style: Styles.awayTeam,
                 ),
                 const SizedBox(
@@ -130,13 +130,11 @@ class GolfTournamentDetailCard extends StatelessWidget {
                     )
                   ],
                 ),
-                tournament!.isInProgress!
-                    ? Text(
+                if (tournament!.isInProgress!) Text(
                         'This tournament is in progress!',
                         style: Styles.largeTextBold,
                         textAlign: TextAlign.center,
-                      )
-                    : (tournament!.isOver!
+                      ) else tournament!.isOver!
                         ? Text(
                             'This tournament is over!',
                             style: Styles.largeTextBold,
@@ -146,20 +144,18 @@ class GolfTournamentDetailCard extends StatelessWidget {
                             'This tournament has not started yet!',
                             style: Styles.largeTextBold,
                             textAlign: TextAlign.center,
-                          ))
+                          )
               ],
             ),
           ),
-          players!.isNotEmpty
-              ? Padding(
+          if (players!.isNotEmpty) Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                   child: Text(
                     'Players',
                     style: Styles.pageTitle,
                   ),
-                )
-              : const SizedBox(),
+                ) else const SizedBox(),
           ...players!
               .map((player) => InkWell(
                     onTap: () {
@@ -209,7 +205,7 @@ class GolfTournamentDetailCard extends StatelessWidget {
 }
 
 class GolfStyledBox extends StatelessWidget {
-  GolfStyledBox({this.child});
+  const GolfStyledBox({this.child});
   final Widget? child;
   @override
   Widget build(BuildContext context) {

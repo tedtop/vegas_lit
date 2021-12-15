@@ -2,32 +2,31 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:vegas_lit/config/enum.dart';
-import 'package:vegas_lit/config/extensions.dart';
-import 'package:vegas_lit/data/models/bet.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
-import 'package:vegas_lit/data/models/parlay/parlay_bet.dart';
-import 'package:vegas_lit/data/repositories/bets_repository.dart';
 
 import '../../../../../../../config/extensions.dart';
+import '../../../../../config/enum.dart';
+import '../../../../../config/extensions.dart';
+import '../../../../../data/models/bet.dart';
+import '../../../../../data/models/mlb/mlb_bet.dart';
+import '../../../../../data/models/nba/nba_bet.dart';
+import '../../../../../data/models/ncaab/ncaab_bet.dart';
+import '../../../../../data/models/ncaaf/ncaaf_bet.dart';
+import '../../../../../data/models/nfl/nfl_bet.dart';
+import '../../../../../data/models/nhl/nhl_bet.dart';
+import '../../../../../data/models/parlay/parlay_bet.dart';
+import '../../../../../data/repositories/bet_repository.dart';
 
 part 'parlay_bet_button_state.dart';
 
 class ParlayBetButtonCubit extends Cubit<ParlayBetButtonState> {
-  ParlayBetButtonCubit({required BetsRepository betsRepository})
+  ParlayBetButtonCubit({required BetRepository betsRepository})
       : _betsRepository = betsRepository,
         super(
           const ParlayBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   Future<void> openParlay({
     required List<BetData> betDataList,

@@ -1,17 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vegas_lit/data/models/mlb/mlb_bet.dart';
-import 'package:vegas_lit/data/models/nba/nba_bet.dart';
-import 'package:vegas_lit/data/models/ncaab/ncaab_bet.dart';
-import 'package:vegas_lit/data/models/ncaaf/ncaaf_bet.dart';
-import 'package:vegas_lit/data/models/nfl/nfl_bet.dart';
-import 'package:vegas_lit/data/models/nhl/nhl_bet.dart';
 
 // import 'package:vegas_lit/features/games/olympics/widgets/olympic_open_bet_card.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/styles.dart';
+import '../../../../data/models/mlb/mlb_bet.dart';
+import '../../../../data/models/nba/nba_bet.dart';
+import '../../../../data/models/ncaab/ncaab_bet.dart';
+import '../../../../data/models/ncaaf/ncaaf_bet.dart';
+import '../../../../data/models/nfl/nfl_bet.dart';
+import '../../../../data/models/nhl/nhl_bet.dart';
 import '../../../../utils/bottom_bar.dart';
 import '../../../games/baseball/mlb/widgets/mlb_open_bet_card.dart';
 import '../../../games/basketball/nba/widgets/nba_open_bet_card.dart';
@@ -26,11 +26,11 @@ class TabletOpenBets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        const _TabletOpenBetsHeading(),
-        const _TabletOpenBetsDescription(),
-        const _TabletOpenBetsContent(),
-        const BottomBar()
+      children: const [
+        _TabletOpenBetsHeading(),
+        _TabletOpenBetsDescription(),
+        _TabletOpenBetsContent(),
+        BottomBar()
       ],
     );
   }
@@ -45,7 +45,7 @@ class _TabletOpenBetsHeading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             'OPEN BETS',
             style: Styles.pageTitle,
@@ -63,7 +63,7 @@ class _TabletOpenBetsDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 30.0,
+        horizontal: 30,
         vertical: 4,
       ),
       child: Center(

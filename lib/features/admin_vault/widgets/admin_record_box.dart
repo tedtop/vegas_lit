@@ -43,8 +43,8 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Bets', style: Styles.greenText),
                       width: 120,
+                      child: Text('Bets', style: Styles.greenText),
                     ),
                     Expanded(
                       child: Text(
@@ -57,12 +57,12 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
+                      width: 120,
                       child: Text('Money In', style: Styles.greenText),
-                      width: 120,
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem.moneyIn.toString()}',
+                        vaultItem.moneyIn.toString(),
                         style: Styles.normalText,
                       ),
                     )
@@ -71,12 +71,12 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
+                      width: 120,
                       child: Text('Money Out', style: Styles.greenText),
-                      width: 120,
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem.moneyOut.toString()}',
+                        vaultItem.moneyOut.toString(),
                         style: Styles.normalText,
                       ),
                     )
@@ -85,12 +85,12 @@ class AdminVaultDailyList extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Profit', style: Styles.greenText),
                       width: 120,
+                      child: Text('Profit', style: Styles.greenText),
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem.totalProfit.toString()}',
+                        vaultItem.totalProfit.toString(),
                         style: Styles.normalText,
                       ),
                     )
@@ -142,8 +142,8 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Bets', style: Styles.greenText),
                       width: 120,
+                      child: Text('Bets', style: Styles.greenText),
                     ),
                     Expanded(
                       child: Text(
@@ -156,12 +156,12 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
+                      width: 120,
                       child: Text('Money In', style: Styles.greenText),
-                      width: 120,
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem!.moneyIn.toString()}',
+                        vaultItem!.moneyIn.toString(),
                         style: Styles.normalText,
                       ),
                     )
@@ -170,12 +170,12 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
+                      width: 120,
                       child: Text('Money Out', style: Styles.greenText),
-                      width: 120,
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem!.moneyOut.toString()}',
+                        vaultItem!.moneyOut.toString(),
                         style: Styles.normalText,
                       ),
                     )
@@ -184,12 +184,12 @@ class AdminVaultCumulativeTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      child: Text('Profit', style: Styles.greenText),
                       width: 120,
+                      child: Text('Profit', style: Styles.greenText),
                     ),
                     Expanded(
                       child: Text(
-                        '${vaultItem!.totalProfit.toString()}',
+                        vaultItem!.totalProfit.toString(),
                         style: Styles.normalText,
                       ),
                     )

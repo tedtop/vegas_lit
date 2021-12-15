@@ -11,15 +11,13 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
     required UserRepository userRepository,
-    required AuthenticationBloc authenticationBloc,
-  })  : assert(userRepository != null),
-        assert(authenticationBloc != null),
-        _authenticationBloc = authenticationBloc,
+    required AuthenticationCubit authenticationBloc,
+  })  : _authenticationBloc = authenticationBloc,
         _userRepository = userRepository,
         super(const LoginState());
 
   final UserRepository _userRepository;
-  final AuthenticationBloc _authenticationBloc;
+  final AuthenticationCubit _authenticationBloc;
 
   void emailChanged(String value) {
     final email = Email.dirty(value);
@@ -62,7 +60,7 @@ class LoginCubit extends Cubit<LoginState> {
         password: state.password.value,
       );
       final currentUser = await _userRepository.getCurrentUser();
-      _authenticationBloc.add(CheckProfileComplete(currentUser));
+      await _authenticationBloc.onUserChanged(user: currentUser);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(

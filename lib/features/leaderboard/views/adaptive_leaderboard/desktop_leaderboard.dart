@@ -11,8 +11,13 @@ import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
 
 class DesktopLeaderboard extends StatefulWidget {
-  const DesktopLeaderboard({this.players});
+  const DesktopLeaderboard({
+    Key? key,
+    this.players,
+  }) : super(key: key);
+
   final List<Wallet>? players;
+
   @override
   _DesktopLeaderboardState createState() => _DesktopLeaderboardState();
 }
@@ -27,7 +32,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
         Container(
           constraints: const BoxConstraints(maxWidth: 1200),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: Row(
               children: [
                 Padding(
@@ -116,7 +121,7 @@ class _DesktopLeaderboardState extends State<DesktopLeaderboard> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 20.0),
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
           decoration: BoxDecoration(
               border: Border.all(
                 color: Palette.cream,

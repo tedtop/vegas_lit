@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'package:vegas_lit/config/assets.dart';
-
+import '../../../../../../../config/assets.dart';
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
@@ -25,10 +23,9 @@ class NflSingleBetSlipCard extends StatelessWidget {
       builder: (context) {
         final isMinimumVersion = context
             .select((VersionCubit cubit) => cubit.state.isMinimumVersion);
-        final NflBetButtonState betButtonState =
-            context.watch<NflBetButtonCubit>().state;
+        final betButtonState = context.watch<NflBetButtonCubit>().state;
         final currentUserId = context.select(
-          (AuthenticationBloc authenticationBloc) =>
+          (AuthenticationCubit authenticationBloc) =>
               authenticationBloc.state.user?.uid,
         );
         final username = context.select(
@@ -95,28 +92,31 @@ class NflSingleBetSlipCard extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: isMoneyline || isPointSpread
-                                ? '${betButtonState.winTeam == BetButtonWin.home ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}' : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'}'
+                                ? betButtonState.winTeam == BetButtonWin.home
+                                    ? '${betButtonState.homeTeamData!.city ?? ''} ${betButtonState.homeTeamData!.name}'
+                                    : '${betButtonState.awayTeamData!.city ?? ''} ${betButtonState.awayTeamData!.name}'
                                 : '',
                             style: Styles.betSlipAwayTeam,
                             children: <TextSpan>[
-                              isMoneyline
-                                  ? TextSpan(
-                                      text:
-                                          ' (${betButtonState.text!.split(' ').last})',
-                                      //style: Styles.betSlipHomeTeam,
-                                    )
-                                  : isPointSpread
-                                      ? TextSpan(
-                                          text:
-                                              ' (${betButtonState.text!.split(' ').first})'
-                                          //     PTS (${betButtonState.text.split(' ').last})',
-                                          //style: Styles.betSlipHomeTeam,
-                                          )
-                                      : TextSpan(
-                                          text:
-                                              '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}', //     TOT ${betButtonState.text.split(' ').last}',
-                                          style: Styles.betSlipHomeTeam,
-                                        ),
+                              if (isMoneyline)
+                                TextSpan(
+                                  text:
+                                      ' (${betButtonState.text!.split(' ').last})',
+                                  //style: Styles.betSlipHomeTeam,
+                                )
+                              else
+                                isPointSpread
+                                    ? TextSpan(
+                                        text:
+                                            ' (${betButtonState.text!.split(' ').first})'
+                                        //     PTS (${betButtonState.text.split(' ').last})',
+                                        //style: Styles.betSlipHomeTeam,
+                                        )
+                                    : TextSpan(
+                                        text:
+                                            '${betButtonState.winTeam == BetButtonWin.away ? 'OVER' : 'UNDER'} ${betButtonState.text!.split(' ').first.substring(1)}', //     TOT ${betButtonState.text.split(' ').last}',
+                                        style: Styles.betSlipHomeTeam,
+                                      ),
                             ],
                           ),
                         ),
@@ -127,8 +127,11 @@ class NflSingleBetSlipCard extends StatelessWidget {
                         ),
                         RichText(
                           text: TextSpan(
-                            text:
-                                '${betButtonState.winTeam == BetButtonWin.home ? betButtonState.homeTeamData!.name!.toUpperCase() : betButtonState.awayTeamData!.name!.toUpperCase()}',
+                            text: betButtonState.winTeam == BetButtonWin.home
+                                ? betButtonState.homeTeamData!.name!
+                                    .toUpperCase()
+                                : betButtonState.awayTeamData!.name!
+                                    .toUpperCase(),
                             style: Styles.betSlipHomeTeam,
                             children: <TextSpan>[
                               TextSpan(
@@ -140,7 +143,6 @@ class NflSingleBetSlipCard extends StatelessWidget {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -198,7 +200,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 45),
+                            const Expanded(child: SizedBox()),
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
@@ -258,10 +260,7 @@ class NflSingleBetSlipCard extends StatelessWidget {
                                                         .shrinkWrap),
                                             child: Text(
                                               'PLACE BET',
-                                              style: GoogleFonts.nunito(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: Styles.betSlipButtonText,
                                             ),
                                             onPressed: () async {
                                               await context
@@ -326,8 +325,7 @@ class _BetAmountPageState extends State<BetAmountPage> {
 
   @override
   Widget build(BuildContext context) {
-    final NflBetButtonState betButtonState =
-        context.watch<NflBetButtonCubit>().state;
+    final betButtonState = context.watch<NflBetButtonCubit>().state;
     final betValues = List.generate(11, (index) => index * 10);
 
     return Center(
@@ -391,7 +389,6 @@ class _BetAmountPageState extends State<BetAmountPage> {
                                 ),
                                 child: Center(
                                   child: FittedBox(
-                                    fit: BoxFit.contain,
                                     child: Text(
                                       '$betValue',
                                       style: Styles.normalText,

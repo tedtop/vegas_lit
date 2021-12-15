@@ -10,19 +10,19 @@ import '../../../../../../config/extensions.dart';
 import '../../../../../../data/models/bet.dart';
 import '../../../../../../data/models/olympics/olympic_bet.dart';
 import '../../../../../../data/models/olympics/olympics.dart';
-import '../../../../../../data/repositories/bets_repository.dart';
+import '../../../../../../data/repositories/bet_repository.dart';
 
 part 'olympics_bet_button_state.dart';
 
 class OlympicsBetButtonCubit extends Cubit<OlympicsBetButtonState> {
-  OlympicsBetButtonCubit({required BetsRepository betsRepository})
+  OlympicsBetButtonCubit({required BetRepository betsRepository})
       : assert(betsRepository != null),
         _betsRepository = betsRepository,
         super(
           const OlympicsBetButtonState(),
         );
 
-  final BetsRepository _betsRepository;
+  final BetRepository _betsRepository;
 
   void openBetButton({
     required OlympicsGame game,

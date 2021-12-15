@@ -12,7 +12,7 @@ import '../../widgets/leaderboard_profile_board_items.dart';
 class DesktopLeaderboardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LeaderboardProfileState state =
+    final state =
         context.watch<LeaderboardProfileCubit>().state;
     return state.status == LeaderboardProfileStatus.loading
         ? const Padding(
@@ -26,11 +26,11 @@ class DesktopLeaderboardProfile extends StatelessWidget {
         : Container(
             constraints: const BoxConstraints(maxWidth: 1220),
             child: Column(
-              children: [
-                const _DesktopHistoryHeading(),
-                const _DesktopHistoryBoard(),
-                const _DesktopHistoryContent(),
-                const BottomBar()
+              children: const [
+                _DesktopHistoryHeading(),
+                _DesktopHistoryBoard(),
+                _DesktopHistoryContent(),
+                BottomBar()
               ],
             ),
           );
@@ -44,7 +44,7 @@ class _DesktopHistoryBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final LeaderboardProfileState state =
+        final state =
             context.watch<LeaderboardProfileCubit>().state;
         switch (state.status) {
           case LeaderboardProfileStatus.initial:
@@ -87,7 +87,7 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
           boxShadow: <BoxShadow>[
             BoxShadow(
                 blurRadius: 0.4,
-                offset: const Offset(0, 4.0),
+                offset: const Offset(0, 4),
                 color: Palette.lightGrey.withAlpha(80))
           ]),
       child: Column(
@@ -98,7 +98,7 @@ class _DesktopHistoryBoardContent extends StatelessWidget {
               DesktopBetHistoryBoardItem(
                 bottomText: 'Player Rank',
                 topText:
-                    '${wallet!.rank == 0 ? 'N/A' : wallet!.rank!.ordinalNumber}',
+                    wallet!.rank == 0 ? 'N/A' : wallet!.rank!.ordinalNumber,
               ),
               DesktopBetHistoryBoardItem(
                 bottomText: 'Total Bets',
@@ -271,7 +271,7 @@ class _DesktopHistoryHeading extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   '${betHistoryState.userWallet!.username}',
                   style: Styles.pageTitle,
@@ -299,8 +299,8 @@ class _DesktopBetHistoryTableHeading extends StatelessWidget {
         children: tableHeadingsWithWidth.keys
             .map(
               (entry) => SizedBox(
-                child: Text(entry, style: Styles.betHistoryDesktopField),
                 width: tableHeadingsWithWidth[entry]!.toDouble() as double,
+                child: Text(entry, style: Styles.betHistoryDesktopField),
               ),
             )
             .toList(),

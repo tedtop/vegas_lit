@@ -9,8 +9,15 @@ import '../providers/cloud_firestore.dart';
 import '../providers/firebase_auth.dart';
 
 class UserRepository {
-  final _authenticationProvider = FirebaseAuthentication();
-  final _databaseProvider = CloudFirestoreClient();
+  UserRepository(
+      {FirebaseAuthentication? authenticationProvider,
+      CloudFirestoreClient? databaseProvider})
+      : _authenticationProvider =
+            authenticationProvider ?? FirebaseAuthentication(),
+        _databaseProvider = databaseProvider ?? CloudFirestoreClient();
+
+  final FirebaseAuthentication _authenticationProvider;
+  final CloudFirestoreClient _databaseProvider;
 
   Future<void> signUp({
     required String email,
@@ -45,15 +52,6 @@ class UserRepository {
   }) =>
       _databaseProvider.saveUserDetails(
         user: userData,
-        uid: uid,
-      );
-
-  Future<void> updateUserDetails({
-    required UserData user,
-    required String uid,
-  }) =>
-      _databaseProvider.updateUserDetails(
-        user: user,
         uid: uid,
       );
 

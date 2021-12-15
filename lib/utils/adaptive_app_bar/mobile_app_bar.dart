@@ -16,6 +16,7 @@ AppBar mobileAppBar({int? balanceAmount}) {
       fit: BoxFit.contain,
       height: 80,
     ),
+    centerTitle: true,
     actions: balanceAmount != null
         ? [
             BlocBuilder<HomeCubit, HomeState>(

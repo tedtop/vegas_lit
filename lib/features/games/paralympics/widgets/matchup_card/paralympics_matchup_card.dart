@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/data/models/paralympics/paralympics.dart';
+import 'package:vegas_lit/features/home/cubit/home_cubit.dart';
 
 import '../../../../../config/assets.dart';
 import '../../../../../config/palette.dart';
 import '../../../../../config/styles.dart';
-import '../../../../profile/profile.dart';
+import '../../../../../data/models/paralympics/paralympics.dart';
 import '../../cubit/paralympics_cubit.dart';
 import '../bet_button/cubit/paralympics_bet_button_cubit.dart';
 import '../bet_button/screens/bet_button_widget.dart';
@@ -43,8 +43,8 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isAdmin = context.select((ProfileCubit profileCubit) =>
-        profileCubit.state.userData?.isAdmin ?? false);
+    final isAdmin = context
+        .select((HomeCubit cubit) => cubit.state.userData?.isAdmin ?? false);
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 8,
@@ -86,7 +86,8 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                '${widget.game.gameName!.replaceAll(RegExp('-'), '\/')}',
+                                widget.game.gameName!
+                                    .replaceAll(RegExp('-'), '/'),
                                 style: Styles.normalTextBold,
                               ),
                             ],
@@ -112,8 +113,8 @@ class _ParalympicsMatchupCardState extends State<ParalympicsMatchupCard> {
                           padding: const EdgeInsets.only(top: 20, bottom: 6.5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const CircularProgressIndicator(
+                            children: const [
+                              CircularProgressIndicator(
                                 color: Palette.cream,
                               ),
                             ],

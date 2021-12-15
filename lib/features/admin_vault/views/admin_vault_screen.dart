@@ -29,7 +29,9 @@ class AdminVaultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: adaptiveAppBar(width: width),
+      appBar: adaptiveAppBar(
+        width: width,
+      ),
       body: BlocBuilder<AdminVaultCubit, AdminVaultState>(
         builder: (context, state) {
           switch (state.status) {
@@ -44,7 +46,7 @@ class AdminVaultScreen extends StatelessWidget {
               );
 
             case AdminVaultStatus.success:
-              return Column(
+              return ListView(
                 children: [
                   Center(
                     child: Text(
@@ -56,6 +58,8 @@ class AdminVaultScreen extends StatelessWidget {
                     vaultItem: state.cumulativeData,
                   ),
                   ListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
                     key: Key('${state.dailyData.length}'),
                     itemCount: state.dailyData.length,
                     itemBuilder: (context, index) {

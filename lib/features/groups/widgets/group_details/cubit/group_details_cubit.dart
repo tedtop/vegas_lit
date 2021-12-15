@@ -5,19 +5,19 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../../data/models/group.dart';
 import '../../../../../data/models/wallet.dart';
-import '../../../../../data/repositories/groups_repository.dart';
+import '../../../../../data/repositories/group_repository.dart';
 
 part 'group_details_state.dart';
 
 class GroupDetailsCubit extends Cubit<GroupDetailsState> {
   GroupDetailsCubit({
-    required GroupsRepository groupsRepository,
+    required GroupRepository groupsRepository,
   })  : _groupsRepository = groupsRepository,
         super(
           GroupDetailsState(),
         );
 
-  final GroupsRepository _groupsRepository;
+  final GroupRepository _groupsRepository;
   StreamSubscription? _groupDetailsSubscription;
 
   Future<void> fetchGroupDetailsLeaderboard(

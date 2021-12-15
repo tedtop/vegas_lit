@@ -13,7 +13,7 @@ import '../../../leaderboard_profile/leaderboard_profile.dart';
 import '../../cubit/leaderboard_cubit.dart';
 
 class TabletLeaderboard extends StatefulWidget {
-  TabletLeaderboard({this.players});
+  const TabletLeaderboard({this.players});
   final List<Wallet>? players;
   @override
   _TabletLeaderboardState createState() => _TabletLeaderboardState();
@@ -122,7 +122,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
           height: 20,
         ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20),
           child: GridView.count(
             crossAxisCount: 2,
             crossAxisSpacing: 20,
@@ -154,7 +154,7 @@ class _TabletLeaderboardState extends State<TabletLeaderboard> {
 }
 
 class TabletLeaderboardTile extends StatelessWidget {
-  TabletLeaderboardTile({required this.player, required this.rank});
+  const TabletLeaderboardTile({required this.player, required this.rank});
   final Wallet player;
   final int rank;
 
@@ -203,8 +203,8 @@ class TabletLeaderboardTile extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         color: Palette.darkGrey,
-                        height: 50.0,
-                        width: 50.0,
+                        height: 50,
+                        width: 50,
                         child: Text(
                             player.username!.substring(0, 1).toUpperCase(),
                             style: Styles.leaderboardUsername),

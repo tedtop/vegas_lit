@@ -3,10 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'package:vegas_lit/config/assets.dart';
-
+import '../../../../../../../config/assets.dart';
 import '../../../../../../../config/enum.dart';
 import '../../../../../../../config/palette.dart';
 import '../../../../../../../config/styles.dart';
@@ -18,8 +16,7 @@ class NhlParlayBetSlipCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final NhlBetButtonState betButtonState =
-            context.watch<NhlBetButtonCubit>().state;
+        final betButtonState = context.watch<NhlBetButtonCubit>().state;
 
         final isMoneyline = betButtonState.betType == Bet.ml;
         final isPointSpread = betButtonState.betType == Bet.pts;

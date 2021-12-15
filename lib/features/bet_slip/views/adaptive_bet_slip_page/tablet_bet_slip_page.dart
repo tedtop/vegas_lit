@@ -26,11 +26,9 @@ class TabletBetSlipPage extends StatelessWidget {
               case BetSlipStatus.opened:
                 return Column(
                   children: [
-                    state.singleBetSlipCard!.isEmpty
-                        ? (isBetPlaced && !kIsWeb)
+                    if (state.singleBetSlipCard!.isEmpty) (isBetPlaced && !kIsWeb)
                             ? RewardedBetSlip.route()
-                            : EmptyBetSlip()
-                        : SingleBetSlipList(),
+                            : EmptyBetSlip() else SingleBetSlipList(),
                     const BottomBar()
                   ],
                 );

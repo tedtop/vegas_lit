@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:vegas_lit/features/sportsbook/sportsbook.dart';
 
 import '../../../../../config/palette.dart';
-import '../../../../../data/repositories/sports_repository.dart';
+import '../../../../../data/repositories/sport_repository.dart';
 import '../../../../../utils/bottom_bar.dart';
+import '../../../../sportsbook/sportsbook.dart';
 import '../cubit/ncaab_cubit.dart';
 import 'ncaab_screen_desktop/ncaab_screen_desktop.dart';
 import 'ncaab_screen_mobile/ncaab_screen_mobile.dart';
@@ -20,7 +20,7 @@ class NcaabScreen extends StatelessWidget {
       builder: (context) {
         return BlocProvider(
           create: (context) => NcaabCubit(
-            sportsfeedRepository: context.read<SportsRepository>(),
+            sportsfeedRepository: context.read<SportRepository>(),
           )..fetchNcaabGames(),
           child: const NcaabScreen._(),
         );
@@ -33,10 +33,10 @@ class NcaabScreen extends StatelessWidget {
     return BlocConsumer<NcaabCubit, NcaabState>(
       listener: (context, state) {
         if (state.status == NcaabStatus.opened) {
-          if (state.games!.length is int) {
+          if (state.games.length is int) {
             context.read<SportsbookCubit>().updateLeagueLength(
                   league: state.league,
-                  length: state.games!.length,
+                  length: state.games.length,
                 );
           }
         }
@@ -53,7 +53,7 @@ class NcaabScreen extends StatelessWidget {
               ),
             );
           default:
-            if (state.games!.isEmpty) {
+            if (state.games.isEmpty) {
               return Column(
                 children: [
                   Padding(
@@ -76,7 +76,6 @@ class NcaabScreen extends StatelessWidget {
               return Column(
                 children: [
                   ScreenTypeLayout(
-                    //key: cardKey,
                     breakpoints: const ScreenBreakpoints(
                       desktop: 1000,
                       tablet: 600,
@@ -85,15 +84,15 @@ class NcaabScreen extends StatelessWidget {
                     mobile: MobileNcaabScreen(
                       games: state.games,
                       gameName: state.league,
-                      parsedTeamData: state.parsedTeamData,
+                      teamData: state.teamData,
                     ),
                     tablet: TabletNcaabScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      teamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),
                     desktop: DesktopNcaabScreen(
-                      parsedTeamData: state.parsedTeamData,
+                      teamData: state.teamData,
                       games: state.games,
                       gameName: state.league,
                     ),

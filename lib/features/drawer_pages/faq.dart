@@ -32,9 +32,9 @@ class FAQ extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [
-          const _FaqHeading(),
-          const _FaqContent(),
+        children: const [
+          _FaqHeading(),
+          _FaqContent(),
         ],
       ),
     );

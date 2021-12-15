@@ -33,7 +33,7 @@ class ProfileAvatarCubit extends Cubit<ProfileAvatarState> {
         .pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if (avatarPickedFile == null) {
       emit(
-        const ProfileAvatarState(status: ProfileAvatarStatus.initial),
+        const ProfileAvatarState(),
       );
     } else {
       final avatarImageFile = File(avatarPickedFile.path);

@@ -5,19 +5,19 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vegas_lit/features/games/football/nfl/models/nfl_team.dart';
 
 import '../../../../../../config/enum.dart';
 import '../../../../../../config/extensions.dart';
 import '../../../../../../config/palette.dart';
 import '../../../../../../config/styles.dart';
 import '../../../../../../data/models/nfl/nfl_game.dart';
+import '../../models/nfl_team.dart';
 import '../../views/team_info/team_info.dart';
 import '../bet_button/bet_button.dart';
 import 'cubit/matchup_card_cubit.dart';
 
 class MatchupCard extends StatelessWidget {
-  MatchupCard._({Key? key, this.gameName}) : super(key: key);
+  const MatchupCard._({Key? key, this.gameName}) : super(key: key);
   final String? gameName;
 
   static Builder route({
