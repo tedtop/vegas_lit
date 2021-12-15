@@ -47,7 +47,7 @@ class HomePage extends StatefulWidget {
                 BlocProvider<SportsbookCubit>(
                   create: (context) => SportsbookCubit(
                     deviceRepository: context.read<DeviceRepository>(),
-                  )..sportsbookOpen(league: 'MLB'),
+                  )..sportsbookOpen(league: null),
                 ),
                 BlocProvider<VersionCubit>(
                   create: (context) => VersionCubit(

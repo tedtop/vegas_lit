@@ -126,7 +126,7 @@ class SportsBookView extends StatelessWidget {
                           color: Palette.green,
                           padding: const EdgeInsets.all(8),
                           height: 40,
-                          child: const DropdownWidgetHome(),
+                          child: DropdownWidgetHome(),
                         ),
                       ),
                     ),
@@ -188,7 +188,7 @@ class SportsBookView extends StatelessWidget {
                     color: Palette.green,
                     padding: const EdgeInsets.all(8),
                     height: 40,
-                    child: const DropdownWidgetHome(),
+                    child: DropdownWidgetHome(),
                   ),
                 ),
               ),
@@ -208,7 +208,7 @@ class SportsBookView extends StatelessWidget {
                     color: Palette.green,
                     padding: const EdgeInsets.all(8),
                     height: 40,
-                    child: const DropdownWidgetHome(),
+                    child: DropdownWidgetHome(),
                   ),
                 ),
               ),
@@ -372,7 +372,7 @@ class SportsBookView extends StatelessWidget {
 }
 
 class DropdownWidgetHome extends StatefulWidget {
-  const DropdownWidgetHome({
+  DropdownWidgetHome({
     Key? key,
   }) : super(key: key);
 
