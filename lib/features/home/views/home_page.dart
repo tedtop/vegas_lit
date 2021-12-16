@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_version/new_version.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/bet_slip/widgets/bet_slip_ad/cubit/ads_cubit.dart';
 import 'package:vegas_lit/features/drawer_pages/game_entry/cubit/game_entry_cubit.dart';
 import 'package:vegas_lit/features/home/views/account_view.dart';
-import 'package:vegas_lit/features/authentication/authentication.dart';
 import 'package:vegas_lit/features/home/views/history_view.dart';
 
 import '../../../config/assets.dart';
@@ -25,7 +25,6 @@ import '../../bet_slip/widgets/parlay_bet_button/cubit/parlay_bet_button_cubit.d
 import '../../leaderboard/leaderboard.dart';
 import '../../open_bets/cubit/open_bets_cubit.dart';
 import '../../sportsbook/screens/help_overlay/help_overlay.dart';
-import '../../sportsbook/screens/sportsbook_page.dart';
 import '../../sportsbook/sportsbook.dart';
 import '../cubit/internet_cubit.dart';
 import '../cubit/notification_cubit.dart';

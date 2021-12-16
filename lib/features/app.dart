@@ -85,32 +85,39 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return OverlaySupport(
       child: MaterialApp(
-        useInheritedMediaQuery: true,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
-        title: 'Vegas Lit',
-        theme: Themes.dark,
-        navigatorObservers: [
-          routeObserver,
-        ],
-        home: FlowBuilder<AuthenticationStatus>(
-          state: context.select(
-            (AuthenticationCubit cubit) => cubit.state.status,
-          ),
-          onGeneratePages: (
-            AuthenticationStatus state,
-            List<Page<dynamic>> pages,
-          ) {
-            switch (state) {
-              case AuthenticationStatus.success:
-                return [HomePage.page()];
-              case AuthenticationStatus.failure:
-                return [LoginPage.page()];
-              default:
-                return [SplashPage.page()];
-            }
-          },
-        ),
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: MaterialApp(
+              useInheritedMediaQuery: true,
+              locale: DevicePreview.locale(context),
+              builder: DevicePreview.appBuilder,
+              title: 'Vegas Lit',
+              theme: Themes.dark,
+              navigatorObservers: [
+                routeObserver,
+              ],
+              home: FlowBuilder<AuthenticationStatus>(
+                state: context.select(
+                  (AuthenticationCubit cubit) => cubit.state.status,
+                ),
+                onGeneratePages: (
+                  AuthenticationStatus state,
+                  List<Page<dynamic>> pages,
+                ) {
+                  switch (state) {
+                    case AuthenticationStatus.success:
+                      return [HomePage.page()];
+                    case AuthenticationStatus.failure:
+                      return [LoginPage.page()];
+                    default:
+                      return [SplashPage.page()];
+                  }
+                },
+              ),
+            ),
+          );
+        },
       ),
     );
   }
