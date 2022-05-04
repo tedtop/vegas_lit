@@ -65,7 +65,7 @@ class RulesDialog extends StatelessWidget {
                         cool = 'Welcome back!\nWe missed you!';
                       } else if (state.previousWeekWallet!.rank! > 10) {
                         cool =
-                            '${state.previousWeekWallet!.rank} Rank,\nBetter Luck Next Time!';
+                            'Rank: ${state.previousWeekWallet!.rank}\nBetter Luck Next Time!';
                       } else {
                         cool =
                             'Congratulations,\nYou came in ${state.previousWeekWallet!.rank} place!';
@@ -100,7 +100,7 @@ class RulesDialog extends StatelessWidget {
                                     children: [
                                       Text(
                                         cool,
-                                        textAlign: TextAlign.left,
+                                        textAlign: TextAlign.center,
                                         style: GoogleFonts.nunito(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 30,
@@ -116,10 +116,47 @@ class RulesDialog extends StatelessWidget {
                       );
 
                     case GameEntryStatus.failure:
-                      return Center(
-                        child: Text(
-                          "Couldn't load your previous data.",
-                          style: GoogleFonts.nunito(),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 12,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Container(
+                            width: 390,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Palette.cream,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Card(
+                              margin: EdgeInsets.zero,
+                              color: Palette.lightGrey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Welcome back!\nWe missed you!',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.nunito(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 30,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       );
                   }

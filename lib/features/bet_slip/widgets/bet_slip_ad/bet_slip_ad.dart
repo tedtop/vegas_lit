@@ -39,16 +39,16 @@ class RewardedBetSlip extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              if (todayRewards! >= 1000)
+              if (todayRewards! >= 600)
                 Builder(builder: (context) {
                   final timeNow = ESTDateTime.fetchTimeEST();
                   // To find the reward hour {Ex: 3 AM, 6 AM,...}
                   final nThRewardHour =
                       Duration(hours: timeNow.hour, minutes: timeNow.minute)
                               .inHours ~/
-                          24;
+                          1;
                   final nextRewardTime = DateTime(timeNow.year, timeNow.month,
-                      timeNow.day, 24 * (nThRewardHour + 1));
+                      timeNow.day, 1 * (nThRewardHour + 1));
                   return CountdownTimer(
                     endTime: ESTDateTime.getESTmillisecondsSinceEpoch(
                         nextRewardTime),

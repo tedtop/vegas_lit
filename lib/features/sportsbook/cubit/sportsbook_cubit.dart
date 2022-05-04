@@ -42,7 +42,7 @@ class SportsbookCubit extends Cubit<SportsbookState> {
       await _deviceRepository.fetchAndActivateRemote();
     }
 
-    final league = _deviceRepository.fetchRemoteLeague();
+    final remoteLeague = _deviceRepository.fetchRemoteLeague();
 
     final gameNumberMap = <String, String>{};
 
@@ -62,10 +62,10 @@ class SportsbookCubit extends Cubit<SportsbookState> {
 
     emit(
       SportsbookState.opened(
-        league: league,
+        league: league ?? remoteLeague,
         dropdown: fetchDropdownList(
           gameNumbers: gameNumberMap,
-          league: league,
+          league: league ?? remoteLeague,
         ),
         gameNumbers: gameNumberMap,
         isRulesShown: state.isRulesShown,
