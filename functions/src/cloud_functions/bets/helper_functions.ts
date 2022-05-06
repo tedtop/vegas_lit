@@ -96,22 +96,22 @@ export function formatTime(dateTime: string): string {
 export function whichKey(league: string): string {
   switch (league) {
     case "nba":
-      return "4d77c75bcd884680ba8493da19f1aece";
+      return "8bedaebfff814d68ac3f0e0df79b1515";
 
     case "mlb":
-      return "d569ee15932e4266bf5e0fc8330dbb90";
+      return "8bedaebfff814d68ac3f0e0df79b1515";
 
     case "nhl":
-      return "d02fe5a19d1249daa5879948da06f627";
+      return "8bedaebfff814d68ac3f0e0df79b1515";
 
     case "cbb":
-      return "c4ddc8ca2fcd4c659c0910eabc75a4c6";
+      return "8bedaebfff814d68ac3f0e0df79b1515";
 
     case "nfl":
-      return "f45a65cc1d7642f7950644d49ec749fc";
+      return "8bedaebfff814d68ac3f0e0df79b1515";
 
     case "cfb":
-      return "bb98e463c5e34a86bb246ff4574a598f";
+      return "8bedaebfff814d68ac3f0e0df79b1515";
 
     default:
       return "";

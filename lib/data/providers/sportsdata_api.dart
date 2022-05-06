@@ -58,7 +58,7 @@ class SportsdataApiClient {
     final responses = await Future.wait(
       formattedDates.map(
         (formattedDate) => _dio.get<Object>(
-          'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+          'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
         ),
       ),
     );
@@ -86,7 +86,7 @@ class SportsdataApiClient {
   }) async {
     const leagueData = ConstantSportsDataAPI.mlb;
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -104,7 +104,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.mlb;
 
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -121,7 +121,7 @@ class SportsdataApiClient {
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.mlb;
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed =
@@ -163,7 +163,7 @@ class SportsdataApiClient {
     }
     final responses = await Future.wait(
         formattedDates.map((formattedDate) => _dio.get<Object>(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+              'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NbaGame>[];
     for (final response in responses) {
@@ -186,7 +186,7 @@ class SportsdataApiClient {
       {required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nba;
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -204,7 +204,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.nba;
 
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/Players/$teamKey?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/Players/$teamKey?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -221,7 +221,7 @@ class SportsdataApiClient {
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nba;
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed =
@@ -263,7 +263,7 @@ class SportsdataApiClient {
     }
     final responses = await Future.wait(
         formattedDates.map((formattedDate) => _dio.get<Object>(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+              'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NcaabGame>[];
     for (final response in responses) {
@@ -286,7 +286,7 @@ class SportsdataApiClient {
       {required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -305,7 +305,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.ncaab;
 
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -322,7 +322,7 @@ class SportsdataApiClient {
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaab;
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed =
@@ -365,7 +365,7 @@ class SportsdataApiClient {
     final responses = await Future.wait(
       formattedDates.map(
         (formattedDate) => _dio.get<Object>(
-          'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+          'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
         ),
       ),
     );
@@ -393,7 +393,7 @@ class SportsdataApiClient {
       {required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -412,7 +412,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.ncaaf;
 
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -429,7 +429,7 @@ class SportsdataApiClient {
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.ncaaf;
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = (json.decode(json.encode(response.data)) as List<dynamic>)
@@ -471,7 +471,7 @@ class SportsdataApiClient {
     }
     final responses = await Future.wait(
         formattedDates.map((formattedDate) => _dio.get<Object>(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/ScoresByDate/$formattedDate?key=${leagueData['key']}',
+              'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/ScoresByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NflGame>[];
     for (final response in responses) {
@@ -495,7 +495,7 @@ class SportsdataApiClient {
       {required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}PRE?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}PRE?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -513,7 +513,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.nfl;
 
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -530,7 +530,7 @@ class SportsdataApiClient {
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nfl;
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayerID/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayerID/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = (json.decode(json.encode(response.data)) as List<dynamic>)
@@ -572,7 +572,7 @@ class SportsdataApiClient {
     }
     final responses = await Future.wait(
         formattedDates.map((formattedDate) => _dio.get<Object>(
-              'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
+              'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/GamesByDate/$formattedDate?key=${leagueData['key']}',
             )));
     final games = <NhlGame>[];
     for (final response in responses) {
@@ -595,7 +595,7 @@ class SportsdataApiClient {
       {required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/TeamSeasonStats/${dateTime.year}?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -613,7 +613,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.nhl;
 
     final response = await _dio.get<Object>(
-        'https://fly.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
+        'https://api.sportsdata.io/v3/${leagueData['league']}/scores/json/Players/$teamKey?key=${leagueData['key']}');
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
       return parsed
@@ -630,7 +630,7 @@ class SportsdataApiClient {
       {required String? playerId, required DateTime dateTime}) async {
     const leagueData = ConstantSportsDataAPI.nhl;
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
+      'https://api.sportsdata.io/v3/${leagueData['league']}/stats/json/PlayerSeasonStatsByPlayer/${dateTime.year}/$playerId?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed =
@@ -690,7 +690,7 @@ class SportsdataApiClient {
     final formattedYear = DateFormat('yyyy').format(dateTimeEastern);
 
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/golf/v2/json/Tournaments/$formattedYear?key=${leagueData['key']}',
+      'https://api.sportsdata.io/golf/v2/json/Tournaments/$formattedYear?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final dynamic parsed = json.decode(json.encode(response.data)) as List;
@@ -720,7 +720,7 @@ class SportsdataApiClient {
     const leagueData = ConstantSportsDataAPI.golf;
 
     final response = await _dio.get<Object>(
-      'https://fly.sportsdata.io/golf/v2/json/Leaderboard/$tournamentID?key=${leagueData['key']}',
+      'https://api.sportsdata.io/golf/v2/json/Leaderboard/$tournamentID?key=${leagueData['key']}',
     );
     if (response.statusCode == 200) {
       final parsed = json.decode(json.encode(response.data)) as List;
