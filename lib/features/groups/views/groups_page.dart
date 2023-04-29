@@ -46,7 +46,7 @@ class GroupsPage extends StatelessWidget {
         if (state.status == GroupScannerStatus.remove) {
           final isExist = await context
               .read<GroupScannerCubit>()
-              .isGroupExists(groupId: state.result!.code);
+              .isGroupExists(groupId: state.result!.code!);
           if (isExist) {
             await Navigator.pushReplacement<void, void>(
               context,

@@ -23,15 +23,16 @@ Future<void> main() async {
   await Firebase.initializeApp();
   EquatableConfig.stringify = kDebugMode;
 
+
   if (!kIsWeb) {
     await MobileAds.instance.initialize();
     if (kDebugMode) {
       Bloc.observer = SimpleBlocObserver();
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-      await FirebaseAnalytics().setAnalyticsCollectionEnabled(false);
+      await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
     } else {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-      await FirebaseAnalytics().setAnalyticsCollectionEnabled(true);
+      await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
     }
   }
 

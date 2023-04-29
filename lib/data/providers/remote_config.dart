@@ -1,11 +1,12 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+
 import 'package:flutter/foundation.dart';
 
 class RemoteConfigClient {
-  RemoteConfigClient({RemoteConfig? remoteConfig})
-      : _remoteConfig = remoteConfig ?? RemoteConfig.instance;
+  RemoteConfigClient({FirebaseRemoteConfig? remoteConfig})
+      : _remoteConfig = remoteConfig ?? FirebaseRemoteConfig.instance;
 
-  final RemoteConfig _remoteConfig;
+  final FirebaseRemoteConfig _remoteConfig;
 
   Future<void> setDefaultLeague({required String league}) async {
     await _remoteConfig.setDefaults(

@@ -23,7 +23,7 @@ class AdsCubit extends Cubit<AdsState> {
     );
     await InterstitialAd.load(
       adUnitId:
-          kDebugMode ? RewardedAd.testAdUnitId : AdsConfig.interstitialAdUnitId,
+          kDebugMode ? "ca-app-pub-3940256099942544/5224354917" : AdsConfig.interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd interstitialAd) async {
@@ -71,7 +71,7 @@ class AdsCubit extends Cubit<AdsState> {
     final currentUser = await _userRepository.getCurrentUser();
     await RewardedAd.loadWithAdManagerAdRequest(
       adUnitId:
-          kDebugMode ? RewardedAd.testAdUnitId : AdsConfig.interstitialAdUnitId,
+          kDebugMode ? "ca-app-pub-3940256099942544/5224354917" : AdsConfig.interstitialAdUnitId,
       // adUnitId: RewardedAd.testAdUnitId,
       adManagerRequest: const AdManagerAdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
@@ -102,25 +102,25 @@ class AdsCubit extends Cubit<AdsState> {
             onAdImpression: (RewardedAd ad) =>
                 print('$ad impression occurred.'),
           );
-          await rewardedAd.show(
-            onUserEarnedReward:
-                (RewardedAd rewardedAd, RewardItem rewardItem) async {
-              print(
-                  'Reward Amount ${rewardItem.amount}\n Reward Type ${rewardItem.type}');
-              await _userRepository
-                  .rewardForVideoAd(
-                uid: currentUser!.uid,
-                rewardValue: 200,
-              )
-                  .then(
-                (value) async {
-                  emit(
-                    const AdsState.success(rewardAmount: 200),
-                  );
-                },
-              );
-            },
-          );
+          // await rewardedAd.show(
+          //   onUserEarnedReward:
+          //       (RewardedAd rewardedAd, RewardItem rewardItem) async {
+          //     print(
+          //         'Reward Amount ${rewardItem.amount}\n Reward Type ${rewardItem.type}');
+          //     await _userRepository
+          //         .rewardForVideoAd(
+          //       uid: currentUser!.uid,
+          //       rewardValue: 200,
+          //     )
+          //         .then(
+          //       (value) async {
+          //         emit(
+          //           const AdsState.success(rewardAmount: 200),
+          //         );
+          //       },
+          //     );
+          //   },
+          // );
         },
         onAdFailedToLoad: (LoadAdError error) {
           print('RewardedAd failed to load: ${error.message}');

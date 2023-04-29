@@ -18,10 +18,10 @@ class BannerAdCubit extends Cubit<BannerAdState> {
     _bannerAd = BannerAd(
       // TODO: change to real ad unit id
       adUnitId: kDebugMode
-          ? BannerAd.testAdUnitId
+          ? "ca-app-pub-3940256099942544/6300978111"
           :
           // AdsConfig.bannerAdUnitId
-          BannerAd.testAdUnitId,
+          "ca-app-pub-3940256099942544/6300978111",
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
