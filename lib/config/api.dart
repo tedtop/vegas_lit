@@ -1,30 +1,30 @@
 class ConstantSportsDataAPI {
   static const golf = {
     'league': 'golf',
-    'key': 'GOLF_KEY',
+    'key': '1f752fee092c45b9b7a125ffb33c73fd',
   };
   static const mlb = {
     'league': 'mlb',
-    'key': 'MLB_KEY',
+    'key': 'c5d06562f6984b24bdfc33db66da4a51',
   };
   static const nba = {
     'league': 'nba',
-    'key': 'NBA_KEY',
+    'key': '868f696805d549f38798cd692e540e2b',
   };
   static const ncaab = {
     'league': 'cbb',
-    'key': 'NCAAB_KEY',
+    'key': '0fe7a7de21ae42d8978114bb1fb9be09',
   };
   static const ncaaf = {
     'league': 'cfb',
-    'key': 'NCAAF_KEY',
+    'key': '540166e6d4f9471c8a8a199a042d4d52',
   };
   static const nfl = {
     'league': 'nfl',
-    'key': 'NFL_KEY',
+    'key': '829f081380494cc4970eec6d08ed797c',
   };
   static const nhl = {
     'league': 'nhl',
-    'key': 'NHL_KEY',
+    'key': 'aa582e3cb7e2415dab8c0f31d863a0be',
   };
 }
