@@ -23,7 +23,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
   EquatableConfig.stringify = kDebugMode;
 
-
   if (!kIsWeb) {
     await MobileAds.instance.initialize();
     if (kDebugMode) {
